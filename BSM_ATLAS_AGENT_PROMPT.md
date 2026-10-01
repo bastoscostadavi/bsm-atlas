@@ -28,6 +28,8 @@ For reviews and classifications, extract the initial scope specified in the seed
 
 Treat **papers** and **theories** as independently queryable entities. The central relationship is many-to-many: one paper can discuss multiple theory specifications, and a specification can be described or investigated by multiple papers. Build both the paper catalogue and the structural theory catalogue, connected by explicit relationships.
 
+Use **model** for the main catalogue, table headings, entry labels and cards presented to readers: for example, “Models,” “Model specification” and “Paper–model relationships.” The word **theory** may remain in broader prose and internal schema names. These labels refer to the same structural records, not two different entity types.
+
 Use the following conceptual organization; table names may evolve if the meanings and relationships remain explicit:
 
 | Entity | Required meaning |
@@ -139,8 +141,8 @@ Focus effort on faithful structural records and useful queries. Do not build a w
 Produce a populated result, not only a proposed schema:
 
 - **`atlas/atlas.sqlite` and `atlas/atlas.sql`:** a populated relational database and a reproducible SQL export containing paper/version records, paper profiles, theory specifications, typed many-to-many links and their evidence. Use stable IDs, foreign keys and an explicit schema version. Keep it local; a database server is unnecessary.
-- **`atlas/ATLAS.md`:** a readable theory table and concise theory cards, linked to supporting paper profiles. Show field content, symmetry actions, interactions/defining restrictions, breaking/regime and important unresolved information.
-- **`atlas/PAPERS.md`:** a readable paper table and paper profiles, showing versions, summaries, contribution types, related theories with their relationship roles, and extraction/review status. Support navigation from papers to theories and back. Generate both views from the database where practical so they stay consistent.
+- **`atlas/ATLAS.md`:** a readable model table and concise model cards, linked to supporting paper profiles. Show field content, symmetry actions, interactions/defining restrictions, breaking/regime and important unresolved information.
+- **`atlas/PAPERS.md`:** a readable paper table and paper profiles, showing versions, summaries, contribution types, related models with their relationship roles, and extraction/review status. Support navigation from papers to models and back. Generate both views from the database where practical so they stay consistent.
 - **`atlas/SCHEMA.md`:** the data dictionary, identity rules, conventions and schema decision log, including provisional extensions.
 - **`atlas/REVIEW.md`:** source and section coverage, reconciliation decisions, unresolved physics/schema issues, validation results, and at most five suggested next papers with the concrete gap each would address.
 

@@ -6,19 +6,19 @@ BSM Atlas is a **relational database of scientific papers and theories beyond th
 
 Theories are organized by gauge structure, fields and representations, symmetry actions, defining interactions, and symmetry breaking. Papers have bibliographic records, readable summaries and descriptions of their contributions.
 
-The encyclopedia is an independently and potentially useful scientific resource. It also provides a foundation for a [separate AI search project](https://github.com/bastoscostadavi/ai-search-for-physics-bsm), whose long-term aim is to propose unfamiliar, potentially complex theories and investigate whether they address several outstanding problems simultaneously.
+The encyclopedia is an independently and potentially useful scientific resource. It also provides a foundation for a [separate AI search project](https://github.com/bastoscostadavi/ai-search-for-physics-bsm), whose long-term aim is to propose unfamiliar, potentially complex extensions to the Standard Model and investigate whether they address several outstanding particle physics problems simultaneously.
 
 The atlas welcomes complex constructions. Model structure determines how entries are organized; their motivations and reported phenomenological results are recorded with evidence and assumptions.
 
-## Papers, theories and their relationships
+## Papers, models and their relationships
 
-The core relationship is **many-to-many**: one paper can describe several theories, and one theory can appear in several papers.
+One paper can describe several models, and one model can appear in several papers. The main catalogue uses **model** for its entries, table headings and cards; **theory** remains appropriate in broader prose.
 
 | Record | What it describes |
 |---|---|
 | **Paper and paper version** | Publication metadata, the source version, author abstract, an agent-written summary, contribution types, key results and assumptions, and extraction/review status. |
-| **Theory specification** | A defined physical construction: its fields, symmetries, interactions, structural restrictions, breaking and description regime. “Model specification” refers to this same concept. |
-| **Paper–theory relationship** | What that paper does with that theory: introduces, modifies, reviews, calculates consequences or constrains it, with supporting passage references. A pair can have multiple roles. |
+| **Model specification** | A defined physical construction: its fields, symmetries, interactions, structural restrictions, breaking and description regime. |
+| **Paper–model relationship** | What that paper does with that model: introduces, modifies, reviews, calculates consequences or constrains it, with supporting passage references. A pair can have multiple roles. |
 
 Paper summaries explain the question, approach and contribution of the inspected content. They are stored separately from the authors' abstracts and retain source-version, coverage and generation/review information. Detailed physics claims retain their own evidence links.
 
@@ -54,8 +54,8 @@ The initial extraction is intended to produce:
 |---|---|
 | `atlas/atlas.sqlite` | Populated paper and theory records, their many-to-many relationships and evidence. |
 | `atlas/atlas.sql` | Reproducible export of the schema and data. |
-| `atlas/ATLAS.md` | Readable theory table and concise theory cards linked to supporting papers. |
-| `atlas/PAPERS.md` | Paper table and profiles with summaries, contributions and links to theories. |
+| `atlas/ATLAS.md` | Readable model table and concise model cards linked to supporting papers. |
+| `atlas/PAPERS.md` | Paper table and profiles with summaries, contributions and links to models. |
 | `atlas/SCHEMA.md` | Data dictionary, identity rules and schema decision log. |
 | `atlas/REVIEW.md` | Coverage, validation results, unresolved issues and proposed next papers. |
 
