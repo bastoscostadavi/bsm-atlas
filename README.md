@@ -4,7 +4,7 @@
 
 BSM Atlas is a project to build a structured, source-backed encyclopedia of BSM theories. It organizes models by their gauge structure, fields and representations, symmetry actions, defining interactions, and symmetry breaking, with links to the papers and passages that support each description.
 
-The encyclopedia is an independently useful scientific resource. It also provides a foundation for a [separate AI search project](https://github.com/bastoscostadavi/ai-search-for-physics-bsm), whose long-term aim is to propose unfamiliar, potentially complex theories and investigate whether they address several outstanding problems simultaneously.
+The encyclopedia is an independently and potentially useful scientific resource. It also provides a foundation for a [separate AI search project](https://github.com/bastoscostadavi/ai-search-for-physics-bsm), whose long-term aim is to propose unfamiliar, potentially complex theories and investigate whether they address several outstanding problems simultaneously.
 
 The atlas welcomes complex constructions. Model structure determines how entries are organized; their motivations and reported phenomenological results are recorded with evidence and assumptions.
 
