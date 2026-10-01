@@ -10,17 +10,17 @@ The atlas welcomes complex constructions. Model structure determines how entries
 
 ## Current status
 
-This repository contains the first six-paper seed and the instructions for building an initial atlas. Paper extraction has not yet been run, and no populated database is included.
+This repository contains the initial 50-paper seed and the instructions for building an initial atlas. Paper extraction has not yet been run, and no populated database is included.
 
-The seed spans scalar extensions, two-Higgs-doublet models, left-right symmetry, supersymmetry, and composite Higgs physics. Two papers provide a comparison of potentially overlapping scalar-singlet specifications. The long reviews have a limited initial extraction scope.
+The seed spans scalar and matter extensions, enlarged gauge sectors and grand unification, supersymmetry, axion and flavor symmetries, radiative structures, strong dynamics, extra dimensions, hidden sectors, and effective theories. It includes paired descriptions for reconciliation, scoped reviews and classifications, and two software references. The original six papers retain their IDs within the 50-paper corpus.
 
 ## Getting started
 
 1. Open the [seed list](BSM_ATLAS_SEED.md) and download the specified paper versions into `atlas/papers/`.
-2. Give the [agent prompt](BSM_ATLAS_AGENT_PROMPT.md) to an AI research agent with access to this repository and the papers.
+2. Give the [agent prompt](BSM_ATLAS_AGENT_PROMPT.md) and [seed manifest](BSM_ATLAS_SEED.md) to an AI research agent with access to this repository and the papers.
 3. Review the resulting model records, evidence, schema decisions and unresolved questions before expanding the corpus.
 
-The prompt asks the agent to populate a small relational database while refining the schema in response to the papers. It includes extraction boundaries, provenance requirements, reconciliation rules and completion checks.
+The prompt asks the agent to populate a relational database in batches while refining the schema in response to the papers. All 50 papers belong to the initial corpus; the first six provide an initial comparison set. It includes extraction boundaries, provenance requirements, reconciliation rules and completion checks.
 
 ## How the atlas is organized
 

@@ -1,10 +1,10 @@
 # Prompt: build the first BSM Atlas seed
 
-The text below can be given directly to an AI research agent with access to the project directory and the papers.
+Give the text below to an AI research agent together with `BSM_ATLAS_SEED.md`, or provide access to both files in this repository. The seed file is the authoritative 50-paper manifest.
 
 ---
 
-You are building the first populated version of a **BSM encyclopedia**. Work in the supplied project directory. Produce a small, inspectable relational dataset from the six papers listed below, and use the exercise to develop a provisional schema that faithfully represents their theories.
+You are building the first populated version of a **BSM encyclopedia**. Work in the supplied project directory. Produce an inspectable relational dataset from all 50 papers in the companion seed manifest, and use the exercise to develop a provisional schema that faithfully represents their theories.
 
 ## Scientific purpose
 
@@ -12,24 +12,17 @@ The encyclopedia is a worthwhile research output in its own right. Its eventual 
 
 Organize the atlas by theory structure. Do not select or reject models according to whether they address a predetermined problem. Complexity is permitted. A model's name, motivation or claimed phenomenological success is not its identity.
 
-The six papers are a small corpus for learning how to represent theories; they do not define the allowed theory space. Preserve existing repository documents and put the new atlas artifacts under `atlas/`.
+The 50 papers form the initial corpus for learning how to represent theories; they do not define the allowed theory space. Preserve existing repository documents and put the new atlas artifacts under `atlas/`.
 
 ## Input corpus and boundaries
 
-Use these pinned versions. The companion `BSM_ATLAS_SEED.md`, if available, gives PDF links and suggested filenames. This manifest is sufficient if the prompt is used on its own.
+Read [BSM_ATLAS_SEED.md](BSM_ATLAS_SEED.md) before extraction. It defines all 50 source IDs P01–P50, pinned versions, download links, source kinds and initial extraction scopes. P01–P06 retain their original IDs and are included in the total; P07–P50 are also required initial sources. Keep this manifest as the single source of truth instead of maintaining a second bibliography in the prompt. If using this prompt outside the repository, obtain the companion manifest before identifying the corpus.
 
-| ID | Paper | Initial scope |
-|---|---|---|
-| P01 | Burgess, Pospelov and ter Veldhuis, [The Minimal Model of Nonbaryonic Dark Matter: A Singlet Scalar, hep-ph/0011335v3](https://arxiv.org/abs/hep-ph/0011335v3) | Structural model definition, potential, symmetry and conventions. |
-| P02 | Cline et al., [Update on scalar singlet dark matter, 1306.4710v5](https://arxiv.org/abs/1306.4710v5) | Structural definition and reconciliation with P01. |
-| P03 | Branco et al., [Theory and phenomenology of two-Higgs-doublet models, 1106.0034v3](https://arxiv.org/abs/1106.0034v3) | Type-I and Type-II descriptions, relevant scalar-sector assumptions and symmetry realization. |
-| P04 | Maiezza et al., [Left-Right Symmetry at LHC, 1005.5160v1](https://arxiv.org/abs/1005.5160v1) | Gauge/matter content, breaking, parity and charge-conjugation implementations. |
-| P05 | Ellwanger, Hugonie and Teixeira, [The Next-to-Minimal Supersymmetric Standard Model, 0910.1785v5](https://arxiv.org/abs/0910.1785v5) | General and Z3-invariant model definitions, superpotential, soft terms and symmetry assumptions. |
-| P06 | Agashe, Contino and Pomarol, [The Minimal Composite Higgs Model, hep-ph/0412089v2](https://arxiv.org/abs/hep-ph/0412089v2) | Symmetry structure, breaking, embeddings, and the composite/5D descriptions and their relationship. |
+Register each source's kind. Reviews and classifications require scoped examples, not an exhaustive inventory of every theory they mention. Tool papers contribute representation requirements and evidence, not physical-model rows. A framework, operator basis or charge assignment can remain a partial specification or reference object; do not invent missing sectors to turn it into a complete theory.
 
 Use local files when available. Obtain missing full texts through legitimate available access, preserving arXiv versions and recording source URLs and local filenames. Read the actual definitions, equations and tables; abstracts alone are insufficient. Supplement PDF reading with same-version source text when helpful. If access or mathematical extraction fails, record the limitation and continue with accessible material; do not manufacture a completed record.
 
-For reviews, extract only the initial scope above. Read enough surrounding context to interpret it correctly, and list important unprocessed variants in the coverage report. If a cited definition is essential and missing, consult the specific supporting reference as needed and register it as auxiliary evidence. Do not turn this task into an unrestricted literature crawl or silently add auxiliary papers to the main seed.
+For reviews and classifications, extract the initial scope specified in the seed manifest. Read enough surrounding context to interpret it correctly, and list important unprocessed variants in the coverage report. If a cited definition is essential and missing, consult the specific supporting reference as needed and register it as auxiliary evidence. Do not turn this task into an unrestricted literature crawl or silently add auxiliary papers to the main seed.
 
 ## What counts as a record
 
@@ -57,7 +50,7 @@ Begin with the following concepts, and decide their appropriate relational organ
 
 Make repeated structures relational: for example, multiple fields and their charges should not be packed into an opaque paragraph as the only machine-readable representation. Mathematical expressions and unresolved source-specific structures can use text or documented structured payloads when full symbolic encoding is premature.
 
-If a paper defines an extension relative to the SM or MSSM, make the inherited baseline explicit and versioned or mark its details unresolved. Do not silently drop inherited fields or global charges. For supersymmetry, distinguish superfields from component fields to avoid double counting. For P06, attach statements to the correct description and retain necessary geometry or boundary information instead of forcing it into an ordinary four-dimensional renormalizable model.
+If a paper defines an extension relative to the SM or MSSM, make the inherited baseline explicit and versioned or mark its details unresolved. Do not silently drop inherited fields or global charges. For supersymmetry, distinguish superfields from component fields to avoid double counting. For P06 and the other composite or extra-dimensional sources, attach statements to the correct description and retain necessary geometry or boundary information instead of forcing it into an ordinary four-dimensional renormalizable model.
 
 Do not require a complete Lagrangian when the paper provides only a partial specification. State which sectors are covered and whether the source claims completeness. Do not fill missing interactions with a guessed “most general” Lagrangian. Any separate derivation must be labelled as such, with assumptions and method.
 
@@ -97,11 +90,11 @@ If several agents work in parallel, assign one curator to maintain the canonical
 
 ## Workflow
 
-1. Register the six sources and their versions, availability and intended extraction scope.
-2. Extract P01 and P02 into a provisional schema. Compare the descriptions and document any proposed common specification or unresolved difference.
-3. Process P03–P06. Distinguish source-supported variants, preserve partial specifications, and revise the schema when needed.
-4. Reconcile identities, relations, conventions and earlier records after the revisions. Preserve the evidence behind each decision.
-5. Validate the resulting data and produce the deliverables below. Report unresolved choices instead of hiding them or stopping all work to ask about routine decisions.
+1. Register all 50 sources, their pinned versions, kind, availability and intended extraction scope. Reuse existing records if resuming work.
+2. Extract P01 and P02 into a provisional schema, reconcile their descriptions, and use P03–P06 to test variants and different description regimes. This is the first iteration, not the full deliverable.
+3. Continue through P07–P50 in batches of roughly five to ten papers, following their stated scopes. Parallelize independent source extraction when useful while keeping one canonical schema and curator. Checkpoint the populated database and coverage report after each batch.
+4. Reconcile identities, relations, conventions and earlier records after each schema revision. Preserve the evidence behind every decision and backfill only what sources support.
+5. Validate the resulting data and produce the deliverables below. Report processed, partial, deferred-within-scope and unavailable material with reasons. Continue through the full accessible corpus rather than stopping after P01–P06 or after one batch. Report unresolved choices instead of hiding them or stopping all work to ask about routine decisions.
 
 Focus effort on faithful structural records and useful queries. Do not build a website, deploy a service, launch a new model search, or undertake a large numerical scan for this task.
 
@@ -114,7 +107,7 @@ Produce a populated result, not only a proposed schema:
 - **`atlas/SCHEMA.md`:** the data dictionary, identity rules, conventions and schema decision log, including provisional extensions.
 - **`atlas/REVIEW.md`:** source and section coverage, reconciliation decisions, unresolved physics/schema issues, validation results, and at most five suggested next papers with the concrete gap each would address.
 
-For each paper, report inspected scope, extracted specifications, deferred variants and access limitations. The long reviews need not be fully catalogued. Preserve local source files under `atlas/papers/` if downloaded.
+Account for all 50 paper IDs in the coverage report, including inspected scope, extracted specifications or reference objects, deferred variants and access limitations. Distinguish bibliography verification from completed scientific extraction. The long reviews need not be fully catalogued. Preserve local source files under `atlas/papers/` if downloaded.
 
 ## Completion checks
 
@@ -126,9 +119,10 @@ Demonstrate that the data can answer:
 - Which specifications have matching recorded gauge/matter content but different interaction or symmetry assumptions, within a comparable description regime?
 - How do the parity and charge-conjugation left-right descriptions differ according to P04?
 - What distinguishes the general and Z3-invariant NMSSM descriptions recorded from P05?
-- Which information from the composite/5D construction required extending the initial schema, if any?
+- Which information from composite/extra-dimensional, flavor, supersymmetric or unified constructions required extending the initial schema, if any?
+- How are EFT matching relations, partial constructions and software references kept distinct from complete physical models?
 - Which model properties remain unspecified, ambiguous or provisional?
 
 Use explicit SQL queries where supported, accompanied by an honest explanation of limitations or incomplete results. Do not force records to manufacture an expected answer.
 
-Finish with a concise account of what the six-paper exercise taught us about model identity and the schema. Identify the human decisions that would most improve a next iteration. Completion means an auditable first atlas with declared coverage and gaps, not a claim that these papers exhaust BSM theory space.
+Finish with a concise account of what the 50-paper exercise taught us about model identity and the schema. Identify the human decisions that would most improve a next iteration. Completion means an auditable first atlas with declared coverage and gaps, not a claim that these papers exhaust BSM theory space.
