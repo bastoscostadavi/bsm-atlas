@@ -22,6 +22,13 @@ for (const name of names) {
   for (const related of data.schema.info[name][3]) if (!names.includes(related)) throw new Error('Unknown related table: ' + related);
 }
 const html = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
+const favicon = fs.readFileSync(path.join(directory, 'favicon.svg'), 'utf8');
+const photonPath = source => source.match(/data-propagator="photon" d="([^"]+)"/)?.[1];
+for (const [name, source] of [['header', html], ['favicon', favicon]]) {
+  if (!source.includes('data-diagram="s-channel"') || !photonPath(source)) throw new Error(`Missing photon-exchange logo in ${name}`);
+  if ([...source.matchAll(/data-fermion-arrow=/g)].length !== 4) throw new Error(`Expected four fermion-flow arrows in ${name}`);
+}
+if (photonPath(html) !== photonPath(favicon)) throw new Error('Header and favicon photon paths differ');
 for (const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
   if (!/^(https?:|mailto:)/.test(match[1]) && !fs.existsSync(path.join(directory, match[1]))) throw new Error('Missing asset: ' + match[1]);
 }

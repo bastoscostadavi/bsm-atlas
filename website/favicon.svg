@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#143e3b"/><text x="32" y="46" text-anchor="middle" font-family="Georgia,serif" font-size="48" fill="#f6f4ed">A</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" color="#fffef9">
+  <title>BSM Atlas — s-channel photon exchange</title>
+  <desc>A fermion and antifermion annihilate into a virtual photon, producing an outgoing fermion–antifermion pair. Time runs left to right.</desc>
+  <rect width="64" height="64" rx="14" fill="#143e3b"/>
+  <g data-diagram="s-channel" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 12 22 32 9 52 M55 12 42 32 55 52"/>
+    <path data-propagator="photon" d="M22 32 C23.25 27 25.75 27 27 32 S30.75 37 32 32 S35.75 27 37 32 S40.75 37 42 32"/>
+    <g fill="currentColor" stroke="none">
+      <path data-fermion-arrow="incoming" d="M3.5 0 -2.5 -3 -2.5 3Z" transform="translate(15.5 22) rotate(57)"/>
+      <path data-fermion-arrow="incoming-antifermion" d="M3.5 0 -2.5 -3 -2.5 3Z" transform="translate(15.5 42) rotate(123)"/>
+      <path data-fermion-arrow="outgoing" d="M3.5 0 -2.5 -3 -2.5 3Z" transform="translate(48.5 22) rotate(-57)"/>
+      <path data-fermion-arrow="outgoing-antifermion" d="M3.5 0 -2.5 -3 -2.5 3Z" transform="translate(48.5 42) rotate(-123)"/>
+      <circle cx="22" cy="32" r="1.8"/>
+      <circle cx="42" cy="32" r="1.8"/>
+    </g>
+  </g>
+</svg>
