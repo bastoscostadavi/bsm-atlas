@@ -3,7 +3,7 @@ name: Publish BSM Atlas
 on:
   push:
     branches: [main]
-    paths: ['website/**', '.github/workflows/atlas-pages.yml']
+    paths: ['website/**', 'BSM_ATLAS_SEED.md', '.github/workflows/atlas-pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -29,8 +29,12 @@ jobs:
           node --check website/app.js
           node --check website/data.js
           node --check website/search.js
+          node --check website/catalog.js
+          python3 website/build_manifest.py --check
           node website/check.mjs
           node website/search.test.mjs
+          node website/catalog.test.mjs
+          PYTHONDONTWRITEBYTECODE=1 python3 website/test_export_atlas.py
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload website

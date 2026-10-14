@@ -9,9 +9,10 @@ import datetime
 import json
 from pathlib import Path
 import sqlite3
+from export_relational import publish
 
 
-def export(database, destination):
+def export(database, destination, downloads=True):
     prefix = "window.ATLAS_DATA = "
     previous = destination.read_text(encoding="utf-8").strip()
     if not previous.startswith(prefix):
@@ -19,6 +20,7 @@ def export(database, destination):
     document = json.loads(previous[len(prefix):].removesuffix(";"))
     con = sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)
     con.row_factory = sqlite3.Row
+    con.execute("BEGIN")  # One consistent, read-only view even during extraction.
 
     def rows(table, key):
         return [dict(r) for r in con.execute(
@@ -53,6 +55,9 @@ def export(database, destination):
             WHERE g.model_id=? AND g.model_revision=? GROUP BY g.group_id ORDER BY g.group_id
         """, key)]
         m["g"] = pack(group_rows, ["group_label", "global_form_status", "global_form_expression", "normalization_note", "factors"])
+        # Exact-factor search must not depend on splitting a display string.
+        for packed, group in zip(m["g"], group_rows):
+            packed.append([r[0] for r in con.execute("SELECT factor_label FROM theory_gauge_factors WHERE group_id=? ORDER BY factor_order,factor_id", (group["group_id"],))])
         field_rows = [dict(r) for r in con.execute("""
             SELECT f.*, r.representation_label, r.exact_charge,
                    coalesce(gf.factor_label,gg.group_label) AS factor_label
@@ -64,7 +69,7 @@ def export(database, destination):
         m["f"] = pack(field_rows, ["field_label", "field_kind", "spin", "chirality", "multiplicity", "representation_label", "exact_charge", "factor_label", "field_reality_condition", "inherited_baseline_label"])
         # Preserve SQL NULL for the three logical flags; NULL is not false.
         interaction_cols = ["operator_label", "interaction_kind", "expression", "coefficient_restriction", "assumptions", "allowed_by_symmetry", "included_in_specification", "set_to_zero_by_assumption"]
-        m["x"] = [[r.get(c) if index >= 5 else r.get(c) or "" for index,c in enumerate(interaction_cols)] for r in rows("theory_interactions", key)]
+        m["x"] = [[r.get(c) if index >= 5 or r.get(c) is not None else "" for index,c in enumerate(interaction_cols)] for r in rows("theory_interactions", key)]
         actions = [dict(r) for r in con.execute("""
             SELECT s.symmetry_label, f.field_label, a.transformation_rule, a.exact_charge,a.conditions
             FROM theory_symmetry_actions a JOIN theory_symmetries s ON s.symmetry_id=a.symmetry_id
@@ -88,6 +93,7 @@ def export(database, destination):
             document["schema"]["cols"][name] = " ".join(c["name"] for c in columns)
     document["snapshot"] = datetime.date.today().isoformat()
     document["paperCount"] = con.execute("SELECT count(*) FROM papers").fetchone()[0]
+    publish(con, document, database, destination.parent, downloads=downloads)
     con.close()
     destination.write_text(prefix + json.dumps(document, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     print(f"Exported {len(models)} model records to {destination}")
@@ -98,5 +104,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("database", type=Path)
     parser.add_argument("--output", type=Path, default=Path(__file__).with_name("data.js"))
+    parser.add_argument("--no-database-downloads", action="store_true", help="Export rows and reports without downloadable SQLite/SQL copies")
     args = parser.parse_args()
-    export(args.database, args.output)
+    export(args.database, args.output, downloads=not args.no_database_downloads)

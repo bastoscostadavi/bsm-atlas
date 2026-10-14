@@ -9,11 +9,11 @@
   const schema = data.schema;
   const tableNames = schema.groups.flatMap(group => group[2]);
   const snapshotDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(data.snapshot + 'T12:00:00Z'));
-  const corpusSize = data.paperCount || 50;
+  const corpusSize = window.ATLAS_MANIFEST?.papers.length || data.paperCount || 50;
   const snapshotTime = document.querySelector('.snapshot-line time');
   snapshotTime.dateTime = data.snapshot;
   snapshotTime.textContent = snapshotDate;
-  document.querySelector('.snapshot-numbers').textContent = models.length + ' theory records · ' + corpusSize + ' source papers · ' + tableNames.length + ' tables';
+  document.querySelector('.snapshot-numbers').textContent = models.length + ' model records · ' + corpusSize + ' seed papers · ' + tableNames.length + ' table descriptions';
   const content = document.getElementById('view-content');
   const escape = value => String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
   const human = value => String(value || 'Not recorded').replaceAll('_', ' ');
@@ -21,16 +21,11 @@
   const statuses = { defined_for_stated_scope: 'Defined for stated scope', partial_structural_specification: 'Partial specification', framework_or_template: 'Framework / template' };
   const sections = ['structure', 'operators', 'phases', 'evidence'];
   const sectionLabels = ['Gauge & matter', 'Operators & parameters', 'Symmetry & phases', 'Sources'];
-  const state = { view: 'models', model: 'u1-smnur-all-sm-yukawas', section: 'structure', search: '', status: '', table: 'theory_specifications', paperSearch: '', paperGauge: '', paperGaugeMode: 'contains', paperRole: '' };
+  const state = { view: 'models', model: 'u1-smnur-all-sm-yukawas', section: 'structure', search: '', status: '', table: 'theory_specifications', tableQuery:'',tablePage:0,tableKey:'', paperId:'P01', left:'lr-triplet-parity',right:'lr-triplet-charge-conjugation', paperSearch: '', paperGauge: '', paperGaugeMode: 'contains', paperRole: '' };
   const searchEngine = window.AtlasSearch;
+  const atlas = window.AtlasCatalog.create(data,window.ATLAS_MANIFEST,searchEngine);
   const contributionTypes = { review: 'Review / survey', formulation: 'Formulation / construction', analysis: 'Analysis / phenomenology', classification: 'Classification', other: 'Other recorded roles' };
   const recordedRoles = [...new Set(models.flatMap(m => m.z.map(z => z[3])).filter(Boolean))].sort();
-  const papers = new Map();
-  models.forEach(model => model.z.forEach(source => {
-    if (!papers.has(source[0])) papers.set(source[0], { id: source[0], arxiv: source[1], title: source[2], models: [] });
-    const paper = papers.get(source[0]);
-    if (!paper.models.includes(model.i)) paper.models.push(model.i);
-  }));
   const modelLink = (id, section = 'structure') => '#model/' + encodeURIComponent(id) + '/' + section;
   const empty = text => '<p class="empty">' + escape(text) + '</p>';
   const fact = (label, value, fallback = 'Not recorded') => '<div class="fact"><div class="label">' + escape(label) + '</div><div class="value">' + escape(has(value) ? value : fallback) + '</div></div>';
@@ -49,9 +44,15 @@
       state.view = 'models';
       if (models.some(m => m.i === parts[1])) state.model = parts[1];
       state.section = sections.includes(parts[2]) ? parts[2] : 'structure';
-    } else if (['models', 'schema', 'papers', 'about'].includes(parts[0])) {
+    } else if(parts[0]==='paper') {
+      state.view='paper';state.paperId=parts[1] || 'P01';
+    } else if (['models', 'schema', 'papers', 'about','review','compare'].includes(parts[0])) {
       state.view = parts[0];
-      if (state.view === 'schema' && tableNames.includes(parts[1])) state.table = parts[1];
+      if (state.view === 'schema') {
+        if(tableNames.includes(parts[1]))state.table=parts[1];
+        state.tableQuery=parameters.get('q') || '';state.tablePage=Math.max(0,parseInt(parameters.get('page'),10)||0);state.tableKey=parameters.get('key')||'';
+      }
+      if(state.view==='compare') {state.left=parameters.get('left')||state.left;state.right=parameters.get('right')||state.right;}
       if (state.view === 'papers') {
         state.paperSearch = parameters.get('q') || '';
         state.paperGauge = parameters.get('gauge') || '';
@@ -64,22 +65,31 @@
   function renderPage() {
     const copy = {
       models: ['Beyond the Standard Model', 'Explore the structure of a theory.', 'Gauge groups, matter representations, defining constraints, and the papers behind them.'],
-      schema: ['Database architecture', 'From source evidence to theory structure.', 'Explore the 34 tables and follow the connections between papers, assertions, model identities, and physics components.'],
-      papers: ['Source literature', 'Find the papers behind a gauge group.', 'Search the recorded gauge structure and distinguish reviews, constructions, and analyses through each paper’s contribution roles.'],
+      schema: ['Database architecture', 'From source evidence to model structure.', 'Inspect table definitions and, when exported, their original rows, primary keys and declared foreign-key relationships.'],
+      papers: ['Source literature', 'Papers, contributions, and their models.', 'Browse the complete seed inventory or filter recorded model associations by gauge group and contribution role.'],
+      paper: ['Paper catalogue', 'A paper’s scope, contributions, and evidence.', 'Bibliography and planned scope are distinguished from exported extraction results and scientific review.'],
+      review: ['Publication & scientific coverage', 'An atlas with its gaps visible.', 'Separate source registration, extraction, model completeness, evidence, and independent review.'],
+      compare: ['Compare recorded definitions', 'Same family does not mean same model.', 'Inspect the structural restrictions and conventions that distinguish selected model records.'],
       about: ['Scope & conventions', 'An atlas with its assumptions visible.', 'How to read the records, what this snapshot includes, and where its limits are.']
     }[state.view];
     document.getElementById('page-eyebrow').textContent = copy[0];
     document.getElementById('page-title').textContent = copy[1];
     document.getElementById('page-description').textContent = copy[2];
-    document.querySelectorAll('[data-view]').forEach(a => { if (a.dataset.view === state.view) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.querySelectorAll('[data-view]').forEach(a => { if (a.dataset.view === (state.view==='paper'?'papers':state.view)) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (state.view === 'models') renderCatalog();
     if (state.view === 'schema') renderSchema();
     if (state.view === 'papers') renderPapers();
+    if (state.view === 'paper') content.innerHTML=atlas.renderPaper(state.paperId);
+    if (state.view === 'review') content.innerHTML=atlas.review();
+    if (state.view === 'compare') {
+      content.innerHTML=atlas.comparison(state.left,state.right);
+      for(const key of ['left','right']) document.getElementById('compare-'+key).addEventListener('change',e=>{state[key]=e.target.value;location.hash='compare?left='+encodeURIComponent(state.left)+'&right='+encodeURIComponent(state.right);});
+    }
     if (state.view === 'about') renderAbout();
     document.title = (state.view === 'models' ? (models.find(m => m.i === state.model)?.n || 'Models') : copy[1]) + ' — BSM Atlas';
   }
   function renderCatalog() {
-    content.innerHTML = '<div class="catalog-layout"><aside class="catalog" aria-label="Model catalog"><div class="catalog-controls"><label>Find a theory<input id="model-search" type="search" placeholder="Name, gauge group, sector…" value="' + escape(state.search) + '"></label><label>Record scope<select id="model-status"><option value="">All records</option>' + Object.entries(statuses).map(([key,label]) => '<option value="' + key + '"' + (state.status === key ? ' selected' : '') + '>' + label + '</option>').join('') + '</select></label></div><div class="list-meta"><span id="model-match-count"></span><span>125 total</span></div><div class="model-list" id="model-list" role="listbox" aria-label="Theory specifications"></div></aside><article class="record" id="model-record"></article></div>';
+    content.innerHTML = '<div class="catalog-layout"><aside class="catalog" aria-label="Model catalog"><div class="catalog-controls"><label>Find a model<input id="model-search" type="search" placeholder="Name, gauge group, sector…" value="' + escape(state.search) + '"></label><label>Record scope<select id="model-status"><option value="">All records</option>' + Object.entries(statuses).map(([key,label]) => '<option value="' + key + '"' + (state.status === key ? ' selected' : '') + '>' + label + '</option>').join('') + '</select></label></div><div class="list-meta"><span id="model-match-count"></span><span>'+models.length+' total</span></div><div class="model-list" id="model-list" role="listbox" aria-label="Model specifications"></div></aside><article class="record" id="model-record"></article></div>';
     renderModelList(); renderRecord();
     document.getElementById('model-search').addEventListener('input', event => { state.search = event.target.value; renderModelList(); });
     document.getElementById('model-status').addEventListener('change', event => { state.status = event.target.value; renderModelList(); });
@@ -96,10 +106,14 @@
     document.getElementById('model-record').innerHTML = '<div class="record-heading"><div class="record-tools"><span class="badge' + (m.s === 'partial_structural_specification' ? ' provisional' : '') + '">' + escape(statuses[m.s] || human(m.s)) + '</span><button class="quiet-button" id="copy-model-link" type="button">Copy model link</button></div><h2>' + escape(m.n || m.i) + '</h2><div class="record-identifiers"><span class="record-id">' + escape(m.i) + '</span><span>· revision ' + m.r + '</span></div>' + (gauge ? '<div class="gauge-expression">' + escape(gauge) + '</div>' : '') + '<p class="scope">' + escape(m.c || 'Scope not recorded') + '</p></div><div class="tabs" role="tablist" aria-label="Model sections">' + sections.map((key,i)=>'<button class="tab" id="tab-' + key + '" role="tab" aria-selected="' + (state.section === key) + '" aria-controls="record-panel" data-section="' + key + '">' + sectionLabels[i] + '</button>').join('') + '</div><div class="record-body" id="record-panel" role="tabpanel" aria-labelledby="tab-' + state.section + '">' + renderModelSection(m) + '</div>';
   }
   function renderModelSection(m) {
+    const regimeWarning=data.relational&&m.rg.length>1?'<p class="note">Several description regimes are recorded. The overview is a compact projection, not one combined Lagrangian. Complete rows below retain the regime IDs needed to interpret each component.</p>':'';
+    return regimeWarning+(!data.relational?atlas.modelSupplement(m,state.section):'')+renderCompactSection(m)+(data.relational?atlas.modelSupplement(m,state.section):'');
+  }
+  function renderCompactSection(m) {
     if (state.section === 'structure') return '<section class="section"><h3>Gauge convention</h3>' + (m.g.length ? m.g.map(g => fact('Group',g[0]) + fact('Global form',g[2] || human(g[1])) + (g[3] ? fact('Normalization',g[3]) : '') + (g[4] ? fact('Separate factors',g[4]) : '')).join('') : empty('No gauge-group record is stored.')) + '</section><section class="section"><h3>Matter representations & charges</h3>' + table(['Field','Kind / chirality','Gauge group or factor','Representation / exact charge'],m.f.map(f=>[mathCell(f[0]),textCell([f[1],f[3],f[2] ? 'spin '+f[2] : ''].filter(Boolean).join(' · ')) + (f[4] ? '<small>Multiplicity: '+escape(f[4])+'</small>' : ''),mathCell(f[7]),mathCell(f[5])+(has(f[6])?'<small>Exact charge: <span class="math-text">'+escape(f[6])+'</span></small>':'')]),'No field records are stored.') + '<p class="annotation">Representations and charges retain the source convention. An empty exact-charge value does not imply zero charge; it may be encoded inside the representation tuple.</p></section><section class="section"><h3>Baseline & description regime</h3>' + fact('Baseline',m.b) + m.rg.map(r=>fact('Description',r[0])+(r[1]?fact('Dimensions',r[1]):'')+(r[2]?fact('EFT / truncation',r[2]):'')+(r[3]?fact('Validity',r[3]):'')+(r[4]?fact('Geometry',r[4]):'')).join('') + '</section>' + scopeNote(m);
     if (state.section === 'operators') return '<section class="section"><h3>Operator expressions & coefficient restrictions</h3>' + table(['Operator / kind','Expression','Restrictions & assumptions','Recorded status'],m.x.map(x=>[textCell(x[0])+'<small>'+escape(human(x[1]))+'</small>',mathCell(x[2]),textCell([x[3],x[4]].filter(Boolean).join(' · ')), '<small>Allowed by symmetry: '+yesNo(x[5])+'<br>Included: '+yesNo(x[6])+'<br>Set to zero: '+yesNo(x[7])+'</small>']),'No interactions are stored for this record.') + '<p class="annotation">An allowed operator, an included operator, and an operator set to zero are recorded separately.</p></section><section class="section"><h3>Parameters & conventions</h3>' + table(['Symbol','Definition','Normalization','Restriction'],m.p.map(p=>[mathCell(p[0]),textCell(p[1]),mathCell(p[2]),textCell(p[3])+(p[4]?'<small>'+escape(human(p[4]))+'</small>':'')]),'No parameter records are stored.') + '</section>' + renderAssumptions(m) + scopeNote(m);
     if (state.section === 'phases') return '<section class="section"><h3>Symmetries</h3>' + table(['Symmetry','Classification','Breaking status','Anomaly statement'],m.y.map(y=>[mathCell(y[0]),textCell([y[1],y[2],y[3]].filter(Boolean).map(human).join(' · ')),textCell(y[4]),textCell(y[5])]),'No separate symmetry rows are stored. Gauge groups may still be recorded in Gauge & matter.') + '</section><section class="section"><h3>Actions on fields</h3>' + table(['Symmetry','Field','Transformation / charge','Conditions'],m.ya.map(a=>[mathCell(a[0]),mathCell(a[1]),mathCell([a[2],a[3]].filter(Boolean).join(' · ')),textCell(a[4])]),'No symmetry-action records are stored.') + '</section>' + renderAssumptions(m) + '<section class="section"><h3>Vacuum realization</h3>' + table(['Vacuum','Phase assumptions','Parameter assumptions','Status'],m.v.map(v=>v.map(textCell)),'No vacuum realization is recorded in this snapshot.') + '</section><section class="section"><h3>Symmetry-breaking chain</h3>' + table(['Step','Order parameter','From','Residual','Status'],m.k.map(k=>k.map(mathCell)),'No breaking steps are stored for this record.') + '</section>' + scopeNote(m);
-    return '<section class="section"><h3>Source evidence for this theory identity</h3>' + (m.z.length ? m.z.map(z=>'<div class="paper-link"><div class="paper-tag">'+escape(z[0])+' · <a href="https://arxiv.org/abs/'+encodeURIComponent(z[1])+'" target="_blank" rel="noopener noreferrer">arXiv:'+escape(z[1])+' ↗</a></div><h3>'+escape(z[2]||z[0])+'</h3>'+fact('Source location',z[4])+fact('Role',human(z[3]))+fact('Contribution',z[5])+fact('Reconciliation',human(z[6]))+'</div>').join('') : empty('No paper–theory link is stored.')) + '</section>' + scopeNote(m);
+    return '<section class="section"><h3>Paper–model contributions</h3>' + (m.z.length ? m.z.map(z=>'<div class="paper-link"><div class="paper-tag"><a href="#paper/'+encodeURIComponent(z[0])+'">'+escape(z[0])+' · Open paper profile</a> · <a href="https://arxiv.org/abs/'+encodeURIComponent(z[1])+'" target="_blank" rel="noopener noreferrer">arXiv:'+escape(z[1])+' ↗</a></div><h3>'+escape(z[2]||z[0])+'</h3>'+fact('Source model label / scope',z[4])+fact('Role',human(z[3]))+fact('Contribution',z[5])+fact('Reconciliation',human(z[6]))+'</div>').join('') : empty('No paper–model link is stored.')) + '</section>' + scopeNote(m);
   }
   function scopeNote(m) { return m.o ? '<section class="section"><h3>Scope & unresolved sectors</h3><div class="note">'+escape(m.o)+'</div></section>' : ''; }
   function renderAssumptions(m) { return '<section class="section"><h3>Defining assumptions & constraints</h3>' + (m.a.length ? m.a.map(a=>'<div class="constraint"><small>'+escape(human(a[1]))+' · '+escape(human(a[2]))+'</small><p>'+escape(a[0])+'</p></div>').join('') : empty('No explicit assumption records are stored.')) + '</section>'; }
@@ -112,11 +126,15 @@
     const connections=new Set(d[3]);
     tableNames.forEach(name=>{if(schema.info[name][3].includes(state.table))connections.add(name);});
     document.getElementById('schema-details').innerHTML='<div class="eyebrow">Selected table</div><h2>'+escape(state.table)+'</h2>'+fact('One row',d[0])+fact('Purpose',d[1])+fact('Example',d[2])+'<h3>Connected concepts</h3><div class="related">'+[...connections].map(name=>'<button class="link-button" data-table="'+name+'">'+name+'</button>').join('')+'</div><h3>Recorded columns</h3>'+(schema.cols[state.table]?'<div class="columns">'+schema.cols[state.table].split(' ').map(c=>'<code>'+c+'</code>').join('')+'</div>':empty('The complete column list was not retained for this table.'))+'<p class="annotation">These connections explain the structure of the data. They are conceptual links, not a verified diagram of SQL foreign-key constraints.</p>';
+    document.getElementById('schema-details').insertAdjacentHTML('beforeend',atlas.tablePanel(state.table,{q:state.tableQuery,page:state.tablePage,key:state.tableKey}));
+    document.getElementById('table-search')?.addEventListener('input',e=>{const cursor=e.target.selectionStart;state.tableQuery=e.target.value;state.tablePage=0;updateTableRoute();renderSchemaDetails();const input=document.getElementById('table-search');input.focus();input.setSelectionRange(cursor,cursor);});
   }
+  function updateTableRoute(){const p=new URLSearchParams();if(state.tableQuery)p.set('q',state.tableQuery);if(state.tablePage)p.set('page',state.tablePage);if(state.tableKey)p.set('key',state.tableKey);history.replaceState(null,'','#schema/'+encodeURIComponent(state.table)+(p.size?'?'+p:''));}
   function renderPapers() {
     content.innerHTML = `
+      <p class="note">All ${corpusSize} seed papers are listed independently of model links. Seed bibliography and planned scope are not extraction results. Open a paper to inspect what was actually exported.</p>
       <div class="paper-filters">
-        <label>Find a source paper<input id="paper-search" aria-label="Find a source paper" type="search" placeholder="Title, paper ID, or arXiv ID" value="${escape(state.paperSearch)}"></label>
+        <label>Find a source paper<input id="paper-search" aria-label="Find a source paper" type="search" placeholder="Title, authors, paper ID, or arXiv ID" value="${escape(state.paperSearch)}"></label>
         <label>Gauge-group notation<input id="paper-gauge" aria-label="Gauge-group notation" type="search" list="gauge-suggestions" placeholder="e.g. SU(5)" value="${escape(state.paperGauge)}" autocomplete="off"><datalist id="gauge-suggestions"></datalist></label>
         <label>Matching rule<select id="paper-gauge-mode" aria-label="Matching rule">
           <option value="contains" ${state.paperGaugeMode === 'contains' ? 'selected' : ''}>Group label contains text</option>
@@ -166,36 +184,33 @@
     document.getElementById('gauge-suggestions').innerHTML=labels.map(label=>'<option value="'+escape(label)+'"></option>').join('');
   }
   function renderPaperCards() {
-    const shown=searchEngine.findPapers(models,{text:state.paperSearch,gauge:state.paperGauge,mode:state.paperGaugeMode,role:state.paperRole});
+    const shown=atlas.findPapers({text:state.paperSearch,gauge:state.paperGauge,mode:state.paperGaugeMode,role:state.paperRole});
     const modelCount=new Set(shown.flatMap(p=>p.matches.map(match=>match.modelId))).size;
     const groupCount=models.filter(m=>m.g.length).length;
     const factorCount=models.filter(m=>searchEngine.factorsFor(m).length).length;
-    const filtered=Boolean(state.paperSearch||state.paperGauge||state.paperRole);
     document.getElementById('paper-result-count').textContent=shown.length+' distinct '+(shown.length===1?'paper':'papers')+' · '+modelCount+' linked theory '+(modelCount===1?'record':'records');
     document.getElementById('gauge-search-note').textContent=(state.paperGaugeMode==='factor'
       ? 'Separate factors are recorded for '+factorCount+' of '+models.length+' theories. Missing factor rows can hide otherwise relevant papers. Exact factor matching preserves the stored suffix and case.'
       : 'Gauge groups are recorded for '+groupCount+' of '+models.length+' theories. Searches match stored labels, including inherited or regime-specific groups. Exact label matching is not mathematical group equivalence.')
       +' Role categories group the recorded labels and can overlap; exact roles and source scope are shown with each result.';
-    document.getElementById('source-grid').innerHTML=shown.length?shown.map(p=>{
-      const theoryCount=new Set(p.matches.map(match=>match.modelId)).size;
-      const roles=[...new Set(p.matches.map(match=>human(match.role)))];
-      const groups=[...new Set(p.matches.flatMap(match=>match.groups.map(g=>g.factor?g.factor+' in '+g.label:g.label)))];
-      return '<article class="source-card"><div class="eyebrow">'+escape(p.id)+'</div><h2>'+escape(p.title||p.id)+'</h2><p><a href="https://arxiv.org/abs/'+encodeURIComponent(p.arxiv)+'" target="_blank" rel="noopener noreferrer">arXiv:'+escape(p.arxiv)+' ↗</a></p>'
-        +(state.paperGauge?'<div class="matched-gauge">'+groups.map(escape).join(' · ')+'</div>':'')
-        +'<p class="role-label">Recorded roles: '+roles.map(escape).join('; ')+'</p><details'+(filtered?' open':'')+'><summary>'+p.matches.length+' matching '+(p.matches.length===1?'contribution':'contributions')+' · '+theoryCount+' theory '+(theoryCount===1?'record':'records')+'</summary>'
-        +p.matches.map(match=>'<div class="matched-contribution"><a href="'+modelLink(match.modelId,'evidence')+'">'+escape(match.modelName||match.modelId)+'</a><div class="role-label">'+escape(human(match.role))+' · '+escape(human(match.reconciliation))+'</div>'+(match.sourceLocation?'<p>Source scope: '+escape(match.sourceLocation)+'</p>':'')+(match.contribution?'<p>'+escape(match.contribution)+'</p>':'')+'</div>').join('')+'</details></article>';
-    }).join(''):empty('No recorded matches. This does not establish that no relevant papers exist; label conventions and extraction coverage affect the results.');
+    document.getElementById('source-grid').innerHTML=shown.length?shown.map(atlas.paperCard).join(''):empty('No recorded matches. This does not establish that no relevant papers exist; label conventions and extraction coverage affect the results.');
   }
   function renderAbout() {
-    content.innerHTML='<div class="about"><section><h2>What is a “model” here?</h2><p>A theory record identifies a construction at a stated revision and scope. It may describe a specific theory, a partially specified family, or a framework. The 125 records are therefore not necessarily 125 fully independent, complete Lagrangians.</p><p>The central table, <code>theory_specifications</code>, stores the identity and scope. Related tables store gauge groups, regimes, fields, representations, interactions, parameters, symmetries, vacua, and source support.</p></section><section><h2>Read the scope before drawing conclusions</h2><ul><li><strong>Defined for stated scope:</strong> the recorded construction is defined within its stated sectors and assumptions.</li><li><strong>Partial specification:</strong> some defining structure remains unspecified or deferred.</li><li><strong>Framework / template:</strong> the entry describes a class of constructions rather than one completely fixed theory.</li></ul><p>“Allowed by symmetry” does not mean an interaction was included. A missing charge does not mean the charge is zero. “No stored vacuum” does not establish that a theory has no vacuum.</p></section><section><h2>Notation belongs to the source</h2><p>This explorer displays the stored group labels, representation tuples, charge formulas, and operator expressions. Signs, right-handed versus charge-conjugated fields, Higgs hypercharge conventions, and normalization can differ across sources. Read each model’s convention and scope notes before comparing records.</p><p>Some charges are stored inside a combined representation label instead of the dedicated <code>exact_charge</code> column. Gauge-group factorization is not uniformly populated across the atlas.</p></section><section><h2>Snapshot and provenance</h2><p>This site uses the database material recovered on 7 October 2026: 125 theory records from a 50-paper corpus. Provenance links for 49 papers were retained in the website snapshot. Records and mappings may be provisional and have not all received scientific review.</p><p>The database map includes all 34 table names. Detailed column lists are available for the 19 tables retained in the local schema snapshot. Its displayed connections describe conceptual relationships; they are not verified foreign-key constraints.</p><p>The site is a static research snapshot. Updating the cluster database does not automatically update this publication. The repository includes an exporter to refresh its model dataset from a SQLite database.</p></section><section><h2>Reuse and contribute</h2><p><a href="https://github.com/bastoscostadavi/bsm-atlas">Browse the source repository</a> to inspect the website and data export workflow. Source papers retain their original rights; this site links to them on arXiv.</p></section></div>';
+    content.innerHTML=`<div class="about">
+      <section><h2>Papers and models are different records</h2><p>A paper can discuss several models; several papers can support one model revision, with different contribution roles. Tool papers may have no physical-model link. The ${models.length} model records include partial specifications and frameworks, not necessarily independent, complete Lagrangians.</p><p>Paper versions and atlas model revisions are tracked separately. Paper profiles distinguish the authors’ abstract, an agent-written summary, inspected scope, source claims and review status when those records have been exported.</p></section>
+      <section><h2>Read scope, convention and regime first</h2><p>“Defined for stated scope” is not independent scientific validation. “Partial” may faithfully describe the source’s limited construction. Exact charge signs, representation notation, inherited baselines and normalizations belong to the source.</p><p>Allowed by symmetry, included in the specification, and set to zero by assumption are distinct facts. A NULL or missing charge is not zero. Value status, source/agent basis and scientific review status must not be collapsed into one confidence flag.</p><p>Where the legacy snapshot dropped component-to-regime IDs, multi-regime records carry a warning. A fresh full export retains those IDs and all original rows.</p></section>
+      <section><h2>Publication coverage</h2><p>The scientific snapshot is dated ${escape(snapshotDate)}. The seed manifest supplies all ${corpusSize} corpus entries and their planned scope; planned work is not presented as completed extraction. The <a href="#review">Coverage page</a> distinguishes exported content from missing publication material and reports stored validation results without claiming a physics audit.</p><p>The <a href="#schema">Database view</a> distinguishes conceptual reading aids from declared SQL foreign keys. With a refreshed export it provides searchable table rows, primary-key links, full column definitions, NULL values and original CREATE TABLE statements.</p></section>
+      <section><h2>Static, reproducible and source-backed</h2><p>Visitors read a published snapshot, not the live DSI database. The read-only exporter preserves original rows and can publish SQLite/SQL/JSON downloads and the ATLAS, PAPERS, SCHEMA and REVIEW reports. Missing reports or summaries are marked unavailable, never generated from row counts.</p><p>See the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/BSM_ATLAS_AGENT_PROMPT.md">atlas requirements</a> and <a href="https://github.com/bastoscostadavi/bsm-atlas">source repository</a>. Source papers retain their original rights; the site links to their pinned arXiv versions.</p></section></div>`;
   }
   content.addEventListener('click',async e=>{
+    if(e.target.closest('[data-download-snapshot]')){atlas.download();return;}
+    const page=e.target.closest('[data-data-page]');if(page){state.tablePage=Math.max(0,Number(page.dataset.dataPage)||0);updateTableRoute();renderSchemaDetails();return;}
     const model=e.target.closest('[data-model]');
     if(model){state.model=model.dataset.model;history.replaceState(null,'',modelLink(state.model,state.section));renderModelList();renderRecord();document.querySelector('[data-model="'+CSS.escape(state.model)+'"]')?.focus({preventScroll:true});document.title=(models.find(m=>m.i===state.model)?.n||state.model)+' — BSM Atlas';return;}
     const section=e.target.closest('[data-section]');
     if(section){state.section=section.dataset.section;history.replaceState(null,'',modelLink(state.model,state.section));renderRecord();document.getElementById('tab-'+state.section).focus();return;}
     const t=e.target.closest('[data-table]');
-    if(t){state.table=t.dataset.table;history.replaceState(null,'','#schema/'+state.table);renderSchemaDetails();document.querySelectorAll('.schema-choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.table===state.table)));return;}
+    if(t){state.table=t.dataset.table;state.tableQuery='';state.tablePage=0;state.tableKey='';history.replaceState(null,'','#schema/'+state.table);renderSchemaDetails();document.querySelectorAll('.schema-choice').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.table===state.table)));return;}
     const copy=e.target.closest('#copy-model-link');
     if(copy){const url=new URL(location.href);url.hash=modelLink(state.model,state.section);try{await navigator.clipboard.writeText(url.href);copy.textContent='Link copied';}catch{location.hash=modelLink(state.model,state.section);copy.textContent='Link is in address bar';}}
   });

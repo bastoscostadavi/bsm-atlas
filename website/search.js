@@ -3,13 +3,14 @@
   // Text matching preserves case-sensitive charge and factor suffixes.
   // Whitespace normalization is not mathematical group equivalence.
   const normalized = value => String(value || '').trim().replace(/\s+/g, ' ');
-  const factorsFor = model => model.g.flatMap(group => group[4] ? group[4].split(' × ').map(normalized) : []);
+  const groupFactors = group => Array.isArray(group[5]) ? group[5].filter(v=>v!==null && v!=='') : group[4] ? group[4].split(' × ') : [];
+  const factorsFor = model => model.g.flatMap(group => groupFactors(group).map(normalized));
   function matchedGroups(model, query, mode = 'contains') {
     const wanted = normalized(query);
     if (!wanted) return model.g.map(group => ({ label: group[0], factor: '' }));
     return model.g.flatMap(group => {
       if (mode === 'factor') {
-        return (group[4] ? group[4].split(' × ') : []).filter(factor => normalized(factor) === wanted)
+        return groupFactors(group).filter(factor => normalized(factor) === wanted)
           .map(factor => ({ label: group[0], factor }));
       }
       const label = normalized(group[0]);

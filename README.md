@@ -32,6 +32,8 @@ The October 7, 2026 snapshot contains 125 theory records from the initial 50-pap
 
 The [website](website/README.md) supports browsing models and searching source papers by stored gauge-group labels, explicitly recorded factors and paper contribution roles. Search coverage follows the recorded extraction; no matches does not establish that the literature contains no relevant papers.
 
+The public interface now accounts for all 50 seed papers independently of their model links, labels manifest metadata and planned scope separately from completed extraction, and provides paper-detail, comparison and coverage views. The original snapshot still lacks full paper profiles, detailed evidence rows, component-to-regime IDs and revision history. These omissions are visible, not filled with inferred data. A tested read-only exporter now preserves every stored table/column, declared foreign key and revision, and can publish database/report downloads; populating those features requires a fresh export from DSI.
+
 The seed spans scalar and matter extensions, enlarged gauge sectors and grand unification, supersymmetry, axion and flavor symmetries, radiative structures, strong dynamics, extra dimensions, hidden sectors, and effective theories. It includes paired descriptions for reconciliation, scoped reviews and classifications, and two software references. The original six papers retain their IDs within the 50-paper corpus.
 
 ## Getting started
