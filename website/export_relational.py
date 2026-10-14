@@ -40,6 +40,12 @@ def publish(con, document, database, directory, downloads=True):
     document["exportVersion"] = 2
     document["reports"] = {}
     document["downloads"] = []
+    latest_keys = {(m["i"], m["r"]) for m in document["modelData"]["models"]}
+    document["modelData"]["coverage"] = {}
+    for label in ["gauge_groups", "gauge_factors", "field_representations", "interactions", "symmetries", "breaking_steps", "vacua"]:
+        records = [r for r in relational["tables"].get("theory_" + label, {}).get("rows", [])
+                   if (r.get("model_id"), r.get("model_revision")) in latest_keys]
+        document["modelData"]["coverage"][label] = {"models": len({r["model_id"] for r in records}), "rows": len(records)}
     names = set(document["schema"]["info"])
     additional = []
     for name, table in relational["tables"].items():

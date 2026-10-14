@@ -127,7 +127,7 @@
       return html+'</section>';
     }
     function tablePanel(name,{q='',page=0,key=''}={}) {
-      if(!available(name)) return note('Rows and SQL constraints for this table were not included in the October 7 export. The column list above is schema metadata, not the table’s contents. A fresh export will enable this browser.')+'<button class="quiet-button" data-download-snapshot>Download the available model snapshot (JSON)</button>';
+      if(!available(name)) return note(data.relational?'This name is retained in the conceptual dictionary but is not among the exported SQLite tables. It has no row/schema payload in this publication.':'Rows and SQL constraints for this table were not included in the October 7 export. The column list above is schema metadata, not the table’s contents. A fresh export will enable this browser.')+'<button class="quiet-button" data-download-snapshot>Download the available model snapshot (JSON)</button>';
       const definition=tables[name], needle=q.toLowerCase();
       const filtered=rows(name).filter(r=>!needle || Object.values(r).some(v=>value(v).toLowerCase().includes(needle)));
       const pages=Math.max(1,Math.ceil(filtered.length/20)); page=Math.max(0,Math.min(page,pages-1));

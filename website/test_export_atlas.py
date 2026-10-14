@@ -60,6 +60,7 @@ class ExportTest(unittest.TestCase):
             self.assertEqual(source_hash,hashlib.sha256(database.read_bytes()).hexdigest())
             self.assertEqual(len(tables["theory_specifications"]["rows"]),2)
             self.assertEqual(result["modelData"]["models"][0]["r"],2)
+            self.assertEqual(result["modelData"]["coverage"]["interactions"],{"models":1,"rows":1})
             self.assertEqual(result["modelData"]["models"][0]["x"][0][5:],[0,None,1])
             interaction=tables["theory_interactions"]["rows"][0]
             self.assertEqual(interaction["regime_id"],"R2");self.assertIsNone(interaction["included_in_specification"])
