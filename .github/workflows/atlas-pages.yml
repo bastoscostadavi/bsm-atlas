@@ -1,0 +1,42 @@
+name: Publish BSM Atlas
+
+on:
+  push:
+    branches: [main]
+    paths: ['website/**', '.github/workflows/atlas-pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: atlas-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Check static source
+        run: |
+          node --check website/app.js
+          node --check website/data.js
+          node --check website/search.js
+          node website/check.mjs
+          node website/search.test.mjs
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: website
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

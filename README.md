@@ -26,7 +26,11 @@ The database should support browsing in both directions: from a paper to its the
 
 ## Current status
 
-This repository contains the initial 50-paper seed and the instructions for building an initial atlas. Paper extraction has not yet been run, and no populated database is included.
+The public explorer is available at **[davibc.com/bsm-atlas](https://davibc.com/bsm-atlas/)**. Its source, dataset snapshot, SQLite exporter and GitHub Pages workflow live in this repository.
+
+The October 7, 2026 snapshot contains 125 theory records from the initial 50-paper corpus, provenance links for 49 papers, and metadata for 34 database tables. The populated SQLite database and extraction runners remain on DSI; this repository contains the exported website snapshot rather than the full database or PDF collection. Scientific reconciliation may be provisional.
+
+The [website](website/README.md) supports browsing models and searching source papers by stored gauge-group labels, explicitly recorded factors and paper contribution roles. Search coverage follows the recorded extraction; no matches does not establish that the literature contains no relevant papers.
 
 The seed spans scalar and matter extensions, enlarged gauge sectors and grand unification, supersymmetry, axion and flavor symmetries, radiative structures, strong dynamics, extra dimensions, hidden sectors, and effective theories. It includes paired descriptions for reconciliation, scoped reviews and classifications, and two software references. The original six papers retain their IDs within the 50-paper corpus.
 
