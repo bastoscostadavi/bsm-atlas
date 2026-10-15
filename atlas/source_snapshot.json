@@ -1,0 +1,12 @@
+{
+  "retrieved_on": "2026-10-15",
+  "source_host": "indigo.cs.uchicago.edu",
+  "source_database": "/data/bsm-atlas/atlas/atlas.sqlite",
+  "method": "SQLite online backup with a read-only source connection; transferred over SSH",
+  "database_sha256": "d4dbf023b667fe810296c43c8f72e0d0b3f6559e66b344a2920c9e2e520e6c4c",
+  "schema_user_version": 10,
+  "integrity_check": "ok",
+  "foreign_key_violation_count": 0,
+  "scientific_review": "Paper assertions remain unchecked; paper-model links remain provisional",
+  "missing_requested_reports": ["ATLAS.md", "PAPERS.md"]
+}

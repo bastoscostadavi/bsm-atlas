@@ -36,6 +36,8 @@ def collect(con):
 
 def publish(con, document, database, directory, downloads=True):
     relational = collect(con)
+    if relational["validation"]["integrityCheck"] != ["ok"] or relational["validation"]["foreignKeyViolations"]:
+        raise ValueError("Refusing publication: database integrity or foreign-key checks failed")
     document["relational"] = relational
     document["exportVersion"] = 2
     document["reports"] = {}
@@ -84,7 +86,14 @@ def publish(con, document, database, directory, downloads=True):
         relational["validation"]["sqlReconstruction"] = "passed: every exported row value matches"
         register(backup_path, "SQLite database snapshot")
         register(sql_path, "Reproducible SQL export")
-    for name in ["ATLAS.md", "PAPERS.md", "SCHEMA.md", "REVIEW.md"]:
+    provenance = database.parent / "source_snapshot.json"
+    document.pop("sourceSnapshot", None)
+    if provenance.is_file():
+        document["sourceSnapshot"] = json.loads(provenance.read_text(encoding="utf-8"))
+        path = output / provenance.name
+        path.write_text(provenance.read_text(encoding="utf-8"), encoding="utf-8")
+        register(path, "Source snapshot provenance")
+    for name in ["ATLAS.md", "PAPERS.md", "SCHEMA.md", "REVIEW.md", "DATA_DICTIONARY.md", "DATABASE_DESIGN.md"]:
         source = database.parent / name
         if source.is_file():
             content = source.read_text(encoding="utf-8")

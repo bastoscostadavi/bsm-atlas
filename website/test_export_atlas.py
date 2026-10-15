@@ -20,6 +20,8 @@ class ExportTest(unittest.TestCase):
             con = sqlite3.connect(database)
             primary = {"papers":"paper_id", "paper_versions":"paper_version_id", "paper_profiles":"paper_version_id", "paper_theory_links":"link_id", "theory_regimes":"regime_id", "theory_fields":"field_id", "theory_gauge_groups":"group_id", "theory_gauge_factors":"factor_id"}
             for name, columns in document["schema"]["cols"].items():
+                if name in {"paper_assertions", "evidence_refs", "paper_assertion_evidence", "paper_summary_revisions"}:
+                    continue  # Explicit test schemas below; independent of publication coverage.
                 fields=[]
                 for column in columns.split():
                     kind="INTEGER" if column in ["revision","model_revision","baseline_model_revision","allowed_by_symmetry","included_in_specification","set_to_zero_by_assumption"] else "TEXT"

@@ -26,7 +26,7 @@
   const atlas = window.AtlasCatalog.create(data,window.ATLAS_MANIFEST,searchEngine);
   const contributionTypes = { review: 'Review / survey', formulation: 'Formulation / construction', analysis: 'Analysis / phenomenology', classification: 'Classification', other: 'Other recorded roles' };
   const recordedRoles = [...new Set(models.flatMap(m => m.z.map(z => z[3])).filter(Boolean))].sort();
-  const modelLink = (id, section = 'structure') => '#model/' + encodeURIComponent(id) + '/' + section;
+  const modelLink = (id, section = 'structure') => '#model/' + encodeURIComponent(id) + '/' + section+(state.regime?'?regime='+encodeURIComponent(state.regime):'');
   const empty = text => '<p class="empty">' + escape(text) + '</p>';
   const fact = (label, value, fallback = 'Not recorded') => '<div class="fact"><div class="label">' + escape(label) + '</div><div class="value">' + escape(has(value) ? value : fallback) + '</div></div>';
   const table = (headers, rows, fallback) => rows.length ? '<div class="table-wrap"><table><thead><tr>' + headers.map(h => '<th scope="col">' + escape(h) + '</th>').join('') + '</tr></thead><tbody>' + rows.map(row => '<tr>' + row.map(cell => '<td>' + cell + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>' : empty(fallback);
@@ -44,6 +44,7 @@
       state.view = 'models';
       if (models.some(m => m.i === parts[1])) state.model = parts[1];
       state.section = sections.includes(parts[2]) ? parts[2] : 'structure';
+      state.regime=parameters.get('regime') || '';
     } else if(parts[0]==='paper') {
       state.view='paper';state.paperId=parts[1] || 'P01';
     } else if (['models', 'schema', 'papers', 'about','review','compare'].includes(parts[0])) {
@@ -102,12 +103,15 @@
   }
   function renderRecord() {
     const m = models.find(model => model.i === state.model) || models[0];
-    const gauge = m.g.map(g=>g[0]).filter(Boolean).join(' · ');
+    const regimes=atlas.rows('theory_regimes').filter(r=>r.model_id===m.i && r.model_revision===m.r);
+    if(!regimes.some(r=>String(r.regime_id)===String(state.regime))) state.regime=regimes[0]?.regime_id || '';
+    const gauge = (regimes.length?atlas.projectRegime(m,state.regime):m).g.map(g=>g[0]).filter(Boolean).join(' · ');
     document.getElementById('model-record').innerHTML = '<div class="record-heading"><div class="record-tools"><span class="badge' + (m.s === 'partial_structural_specification' ? ' provisional' : '') + '">' + escape(statuses[m.s] || human(m.s)) + '</span><button class="quiet-button" id="copy-model-link" type="button">Copy model link</button></div><h2>' + escape(m.n || m.i) + '</h2><div class="record-identifiers"><span class="record-id">' + escape(m.i) + '</span><span>· revision ' + m.r + '</span></div>' + (gauge ? '<div class="gauge-expression">' + escape(gauge) + '</div>' : '') + '<p class="scope">' + escape(m.c || 'Scope not recorded') + '</p></div><div class="tabs" role="tablist" aria-label="Model sections">' + sections.map((key,i)=>'<button class="tab" id="tab-' + key + '" role="tab" aria-selected="' + (state.section === key) + '" aria-controls="record-panel" data-section="' + key + '">' + sectionLabels[i] + '</button>').join('') + '</div><div class="record-body" id="record-panel" role="tabpanel" aria-labelledby="tab-' + state.section + '">' + renderModelSection(m) + '</div>';
   }
   function renderModelSection(m) {
-    const regimeWarning=data.relational&&m.rg.length>1?'<p class="note">Several description regimes are recorded. The overview is a compact projection, not one combined Lagrangian. Complete rows below retain the regime IDs needed to interpret each component.</p>':'';
-    return regimeWarning+(!data.relational?atlas.modelSupplement(m,state.section):'')+renderCompactSection(m)+(data.relational?atlas.modelSupplement(m,state.section):'');
+    const regime=state.regime || undefined;
+    const scoped=regime===undefined?m:atlas.projectRegime(m,regime);
+    return atlas.regimeControls(m,regime)+(!data.relational?atlas.modelSupplement(m,state.section):'')+renderCompactSection(scoped)+(data.relational?atlas.modelSupplement(m,state.section,regime):'');
   }
   function renderCompactSection(m) {
     if (state.section === 'structure') return '<section class="section"><h3>Gauge convention</h3>' + (m.g.length ? m.g.map(g => fact('Group',g[0]) + fact('Global form',g[2] || human(g[1])) + (g[3] ? fact('Normalization',g[3]) : '') + (g[4] ? fact('Separate factors',g[4]) : '')).join('') : empty('No gauge-group record is stored.')) + '</section><section class="section"><h3>Matter representations & charges</h3>' + table(['Field','Kind / chirality','Gauge group or factor','Representation / exact charge'],m.f.map(f=>[mathCell(f[0]),textCell([f[1],f[3],f[2] ? 'spin '+f[2] : ''].filter(Boolean).join(' · ')) + (f[4] ? '<small>Multiplicity: '+escape(f[4])+'</small>' : ''),mathCell(f[7]),mathCell(f[5])+(has(f[6])?'<small>Exact charge: <span class="math-text">'+escape(f[6])+'</span></small>':'')]),'No field records are stored.') + '<p class="annotation">Representations and charges retain the source convention. An empty exact-charge value does not imply zero charge; it may be encoded inside the representation tuple.</p></section><section class="section"><h3>Baseline & description regime</h3>' + fact('Baseline',m.b) + m.rg.map(r=>fact('Description',r[0])+(r[1]?fact('Dimensions',r[1]):'')+(r[2]?fact('EFT / truncation',r[2]):'')+(r[3]?fact('Validity',r[3]):'')+(r[4]?fact('Geometry',r[4]):'')).join('') + '</section>' + scopeNote(m);
@@ -198,15 +202,15 @@
   function renderAbout() {
     content.innerHTML=`<div class="about">
       <section><h2>Papers and models are different records</h2><p>A paper can discuss several models; several papers can support one model revision, with different contribution roles. Tool papers may have no physical-model link. The ${models.length} model records include partial specifications and frameworks, not necessarily independent, complete Lagrangians.</p><p>Paper versions and atlas model revisions are tracked separately. Paper profiles distinguish the authors’ abstract, an agent-written summary, inspected scope, source claims and review status when those records have been exported.</p></section>
-      <section><h2>Read scope, convention and regime first</h2><p>“Defined for stated scope” is not independent scientific validation. “Partial” may faithfully describe the source’s limited construction. Exact charge signs, representation notation, inherited baselines and normalizations belong to the source.</p><p>Allowed by symmetry, included in the specification, and set to zero by assumption are distinct facts. A NULL or missing charge is not zero. Value status, source/agent basis and scientific review status must not be collapsed into one confidence flag.</p><p>Where the legacy snapshot dropped component-to-regime IDs, multi-regime records carry a warning. A fresh full export retains those IDs and all original rows.</p></section>
-      <section><h2>Publication coverage</h2><p>The scientific snapshot is dated ${escape(snapshotDate)}. The seed manifest supplies all ${corpusSize} corpus entries and their planned scope; planned work is not presented as completed extraction. The <a href="#review">Coverage page</a> distinguishes exported content from missing publication material and reports stored validation results without claiming a physics audit.</p><p>The <a href="#schema">Database view</a> distinguishes conceptual reading aids from declared SQL foreign keys. With a refreshed export it provides searchable table rows, primary-key links, full column definitions, NULL values and original CREATE TABLE statements.</p></section>
+      <section><h2>Read scope, convention and regime first</h2><p>“Defined for stated scope” is not independent scientific validation. “Partial” may faithfully describe the source’s limited construction. Exact charge signs, representation notation, inherited baselines and normalizations belong to the source.</p><p>Allowed by symmetry, included in the specification, and set to zero by assumption are distinct facts. A NULL or missing charge is not zero. Value status, source/agent basis and scientific review status must not be collapsed into one confidence flag.</p><p>Select a description regime to inspect its components without combining different effective descriptions into one Lagrangian. All stored rows, component-to-regime IDs and model revisions remain available in Database.</p></section>
+      <section><h2>Publication coverage</h2><p>This snapshot was exported on ${escape(snapshotDate)}; this is a retrieval/publication date, not a new extraction or scientific review. The seed manifest supplies all ${corpusSize} corpus entries and their planned scope; planned work is not presented as completed extraction. The <a href="#review">Coverage page</a> distinguishes exported content from missing publication material and reports stored validation results without claiming a physics audit.</p><p>The <a href="#schema">Database view</a> distinguishes conceptual reading aids from declared SQL foreign keys. It provides searchable table rows, primary-key links, full column definitions, NULL values and original CREATE TABLE statements.</p></section>
       <section><h2>Static, reproducible and source-backed</h2><p>Visitors read a published snapshot, not the live DSI database. The read-only exporter preserves original rows and can publish SQLite/SQL/JSON downloads and the ATLAS, PAPERS, SCHEMA and REVIEW reports. Missing reports or summaries are marked unavailable, never generated from row counts.</p><p>See the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/BSM_ATLAS_AGENT_PROMPT.md">atlas requirements</a> and <a href="https://github.com/bastoscostadavi/bsm-atlas">source repository</a>. Source papers retain their original rights; the site links to their pinned arXiv versions.</p></section></div>`;
   }
   content.addEventListener('click',async e=>{
     if(e.target.closest('[data-download-snapshot]')){atlas.download();return;}
     const page=e.target.closest('[data-data-page]');if(page){state.tablePage=Math.max(0,Number(page.dataset.dataPage)||0);updateTableRoute();renderSchemaDetails();return;}
     const model=e.target.closest('[data-model]');
-    if(model){state.model=model.dataset.model;history.replaceState(null,'',modelLink(state.model,state.section));renderModelList();renderRecord();document.querySelector('[data-model="'+CSS.escape(state.model)+'"]')?.focus({preventScroll:true});document.title=(models.find(m=>m.i===state.model)?.n||state.model)+' — BSM Atlas';return;}
+    if(model){state.model=model.dataset.model;state.regime='';renderModelList();renderRecord();history.replaceState(null,'',modelLink(state.model,state.section));document.querySelector('[data-model="'+CSS.escape(state.model)+'"]')?.focus({preventScroll:true});document.title=(models.find(m=>m.i===state.model)?.n||state.model)+' — BSM Atlas';return;}
     const section=e.target.closest('[data-section]');
     if(section){state.section=section.dataset.section;history.replaceState(null,'',modelLink(state.model,state.section));renderRecord();document.getElementById('tab-'+state.section).focus();return;}
     const t=e.target.closest('[data-table]');
@@ -214,6 +218,7 @@
     const copy=e.target.closest('#copy-model-link');
     if(copy){const url=new URL(location.href);url.hash=modelLink(state.model,state.section);try{await navigator.clipboard.writeText(url.href);copy.textContent='Link copied';}catch{location.hash=modelLink(state.model,state.section);copy.textContent='Link is in address bar';}}
   });
+  content.addEventListener('change',e=>{if(e.target.id==='model-regime'){state.regime=e.target.value;history.replaceState(null,'',modelLink(state.model,state.section));renderRecord();document.getElementById('model-regime')?.focus();}});
   content.addEventListener('keydown',e=>{
     const option=e.target.closest('.model-choice');
     if(option&&['ArrowDown','ArrowUp','Home','End'].includes(e.key)){const buttons=[...document.querySelectorAll('.model-choice')];let index=buttons.indexOf(option);index=e.key==='Home'?0:e.key==='End'?buttons.length-1:(index+(e.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length;e.preventDefault();buttons[index].focus();buttons[index].click();}
@@ -225,6 +230,6 @@
   function setTheme(value){document.documentElement.dataset.theme=value;themeButton.textContent=value==='dark'?'Light theme':'Dark theme';themeButton.setAttribute('aria-label','Switch to '+(value==='dark'?'light':'dark')+' theme');}
   setTheme(theme==='dark'?'dark':'light');
   themeButton.addEventListener('click',()=>{const value=document.documentElement.dataset.theme==='dark'?'light':'dark';setTheme(value);try{localStorage.setItem('atlas-theme',value);}catch{}});
-  window.addEventListener('hashchange',()=>{parseRoute();renderPage();});
+  window.addEventListener('hashchange',()=>{parseRoute();renderPage();window.scrollTo(0,0);});
   parseRoute();renderPage();
 })();

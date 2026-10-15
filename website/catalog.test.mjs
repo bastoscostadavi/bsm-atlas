@@ -11,15 +11,46 @@ const factorModel={g:[['TEST GROUP','','','','misleading display',['Exact × rec
 assert.equal(search.matchedGroups(factorModel,'Exact × recorded factor','factor').length,1);
 assert.equal(search.matchedGroups(factorModel,'Exact','factor').length,0);
 assert.equal(app.findPapers().length,50);
-assert.equal(app.findPapers({text:'F. Staub'})[0].id,'P47');
+assert.equal(app.findPapers({text:'Staub'})[0].id,'P47');
 assert.equal(app.findPapers({gauge:'SU(5)'}).length,3);
 assert.equal(app.findPapers({gauge:'SU(5)',role:'category:formulation'})[0].id,'P18');
 assert.equal(app.papers.find(p=>p.id==='P47').matches.length,0);
-assert.match(app.renderPaper('P47'),/not a completed paper profile/);
 assert.match(app.renderPaper('P47'),/not an extraction result/);
-assert.match(app.renderPaper('P47'),/No agent-written summary/);
-assert.match(app.tablePanel('evidence_refs'),/not included/);
-assert.match(app.review(),/Not exported/);
+const legacy=JSON.parse(JSON.stringify(data));
+delete legacy.relational;delete legacy.reports;delete legacy.downloads;
+const old=catalog.create(legacy,manifest,search);
+assert.match(old.renderPaper('P47'),/not a completed paper profile/);
+assert.match(old.renderPaper('P47'),/No agent-written summary/);
+assert.match(old.tablePanel('evidence_refs'),/not included/);
+assert.match(old.review(),/Not exported/);
+if(data.relational) {
+  assert.equal(app.rows('paper_profiles').length,50);
+  assert.equal(app.rows('paper_assertions').length,1812);
+  assert.equal(app.rows('evidence_refs').length,2378);
+  assert.match(app.renderPaper('P47'),/Tool and representation reference/);
+  assert.match(app.renderPaper('P21'),/Tables 1.1 and 1.2/);
+  assert.match(app.renderPaper('P01'),/unchecked/);
+  assert.ok(!app.renderPaper('P47').includes('No agent-written summary'));
+  for(const link of app.rows('theory_assertion_links')) {
+    const target=app.targetRow(link);
+    assert.ok(target,'Unresolved logical target: '+link.support_id);
+    assert.ok(app.supportRows(target.name,target.row).includes(link));
+    assert.equal(app.targetRow({...link,model_revision:-1}),null);
+  }
+  const singlet=data.modelData.models.find(m=>m.i==='real-singlet-z2');
+  const regimes=app.rows('theory_regimes').filter(r=>r.model_id===singlet.i);
+  assert.ok(regimes.length>1);
+  for(const regime of regimes) {
+    const projected=app.projectRegime(singlet,regime.regime_id);
+    assert.equal(projected.rg.length,1);
+    assert.equal(projected.rg[0][0],regime.description_kind);
+    const expectedSteps=app.rows('theory_breaking_steps').filter(s=>s.model_id===singlet.i && app.rows('theory_vacua').some(v=>v.vacuum_id===s.vacuum_id && v.regime_id===regime.regime_id));
+    assert.equal(projected.k.length,expectedSteps.length);
+  }
+  const first=app.rows('paper_assertions')[0];
+  assert.ok(app.evidence('paper_assertions',first,'paper_assertion_evidence').length);
+  assert.match(app.renderPaper('P01'),/https:\/\/arxiv.org\/pdf\/hep-ph\/0011335v3#page=/);
+}
 assert.match(app.comparison('nmssm-general-rpc-cpc','nmssm-z3-rpc-cpc'),/not an equivalence/);
 const full=JSON.parse(JSON.stringify(data));
 const definition=(cols,rows,foreignKeys=[])=>({columns:cols.map((name,i)=>({name,type:'TEXT',pk:i===0?1:0})),rows,foreignKeys,sql:'CREATE TABLE test;'});
