@@ -65,8 +65,12 @@
    }
    const merged=[];
    for(const row of result){
-     const safe=row.copies!==null&&row.lorentz.status==='resolved'&&row.components.length&&row.components.every(c=>c.value!==null&&!String(c.value).includes('?'));
-     const key=safe?JSON.stringify([row.lorentz.spacetime.dimension,row.lorentz.scheme,row.lorentz.irreps,row.lorentz.reality,row.components.map(c=>[c.factor,c.role,c.value])]):null;
+     const safe=row.copies!==null&&row.lorentz.status==='resolved'&&row.components.length&&row.components.every((c,i)=>{
+       const a=regime.factors[i];
+       return a.type==='U1'?/^[+-]?\d+(?:\/[1-9]\d*)?$/.test(String(c.value??'')):Array.isArray(c.dynkin)&&c.dynkin.length===a.rank&&c.dynkin.every(n=>Number.isInteger(n)&&n>=0);
+     });
+     // Dimensions and source names are not irrep identity: e.g. su(3) has two 15s.
+     const key=safe?JSON.stringify([row.lorentz.spacetime.dimension,row.lorentz.scheme,row.lorentz.irreps,row.lorentz.reality,row.components.map((c,i)=>[regime.factors[i].key,regime.factors[i].type==='U1'?['q',c.value]:['dynkin',c.dynkin]])]):null;
      const same=key&&merged.find(r=>r.key===key);
      if(same){same.copies+=row.copies;same.template=same.template&&row.template;same.labels.push(...row.labels);same.sourceFieldIds.push(...row.sourceFieldIds);}
      else merged.push({...row,key});

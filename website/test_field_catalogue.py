@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import sqlite3
 import unittest
-from field_conventions import factor, rational, primitive_scale, dynkin, dimension_a, young_rows
+from field_conventions import factor, rational, primitive_scale, dynkin, dimension_a, young_rows, dynkin_representation
 from build_field_catalogue import field_type, excluded
 
 SITE=Path(__file__).resolve().parent
@@ -35,6 +35,8 @@ class Conventions(unittest.TestCase):
         self.assertEqual(young_rows(a,[0,1]),[1,1])
         self.assertIsNone(dynkin(factor('SO(10)'),'16'))
         self.assertEqual(factor('Spin(6)')['id'],factor('SU(4)')['id'])
+        self.assertEqual(dynkin_representation([{'factor':'so(10)','value':'16','dynkin':None}]),'(?)')
+        self.assertEqual(dynkin_representation([]),'?')
 
     def test_particle_types(self):
         self.assertEqual(field_type({'field_kind':'vector leptoquark'}),['V'])
@@ -45,6 +47,19 @@ class Conventions(unittest.TestCase):
         self.assertTrue(excluded({'field_kind':'vector leptoquark gauge component'}))
 
 class Catalogue(unittest.TestCase):
+    def test_dynkin_notation_and_metadata(self):
+        self.assertEqual(DATA['representationConvention']['id'],'dynkin-gauge-1')
+        self.assertIn('Bourbaki',DATA['representationConvention']['nodeNumbering'])
+        self.assertEqual(DATA['templates']['R_SM']['fields'][0]['dynkinRepresentation'],'([1,0], [1]; 1)')
+        self.assertEqual(ENTRIES['two-higgs-doublets']['summaryFields'][0]['dynkinRepresentation'],'([0,0], [1]; 3)')
+        for e in DATA['entries']+DATA['referenceRecords']:
+            for v in e['variants']:
+                for r in v['regimes']:
+                    for f in r['fields']:
+                        self.assertEqual(f['dynkinRepresentation'],dynkin_representation(f['components']))
+                        for l in f['lorentz']:
+                            self.assertEqual(l['dynkinRepresentation'],dynkin_representation(l['gaugeComponents']))
+
     def test_papers_independent_from_models(self):
         self.assertEqual(DATA['counts']['seedPapers'],50)
         self.assertEqual(len(DATA['papers']),51)
@@ -102,6 +117,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))
             self.assertEqual(c.execute('select count(*) from papers').fetchone()[0],51)
             self.assertEqual(c.execute("select count(*) from entry_papers where paper_id='R01'").fetchone()[0],0)
+            self.assertEqual(json.loads(c.execute("select value from metadata where key='representation_convention_json'").fetchone()[0]),DATA['representationConvention'])
             for e in DATA['entries']:
                 self.assertEqual(set(r[0] for r in c.execute('select paper_id from entry_papers where entry_id=?',(e['id'],))),set(e['paperIds']))
                 for v in e['variants']:
@@ -111,6 +127,9 @@ class Catalogue(unittest.TestCase):
                             row=c.execute('select source_rows_json from multiplets where source_field_id=?',(f['sourceFieldId'],)).fetchone()
                             self.assertEqual(json.loads(row[0]),f)
         with (SITE/'downloads/field-catalogue.csv').open(newline='') as stream:
-            self.assertEqual(len(list(csv.DictReader(stream))),len(DATA['entries']))
+            rows=list(csv.DictReader(stream))
+            self.assertEqual(len(rows),len(DATA['entries']))
+            thdm=next(r for r in rows if r['entry_id']=='two-higgs-doublets')
+            self.assertIn('([0,0], [1]; 3)',thdm['additional_recorded_multiplets'])
 
 if __name__=='__main__': unittest.main()

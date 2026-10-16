@@ -2,15 +2,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const context={};
+vm.runInNewContext(fs.readFileSync(new URL('representation-diagrams.js',import.meta.url),'utf8'),context);
 vm.runInNewContext(fs.readFileSync(new URL('field-matrix.js',import.meta.url),'utf8'),context);
 vm.runInNewContext(fs.readFileSync(new URL('field-catalogue.js',import.meta.url),'utf8'),context);
-const {findEntries,esc,weight,create}=context.FieldCatalogue;
+const {findEntries,esc,weight,create,dynkinTuple}=context.FieldCatalogue;
 const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',import.meta.url)));
 assert.equal(findEntries(data,{paper:'R01'}).length,0);
 assert.equal(findEntries(data,{paper:'P47'}).length,0);
 assert(findEntries(data,{q:'singlet'}).length>0);
 assert(findEntries(data,{q:'1905.13729'}).length===0);
 assert(findEntries(data,{q:'vector-like'}).length>0);
+assert(findEntries(data,{q:'([0,0], [1]; 3)'}).some(e=>e.id==='two-higgs-doublets'));
 assert.equal(esc('<img onerror="x">'),'&lt;img onerror=&quot;x&quot;&gt;');
 const nodes=new Map();
 const document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
@@ -21,6 +23,26 @@ assert(!nodes.get('model-entries').innerHTML.includes('general-gauge-mediation')
 const app=create(data,document);app.state.view='sources';app.render();
 assert(nodes.get('view-content').innerHTML.includes('General solution to the U(1) anomaly equations'));
 assert(nodes.get('view-content').innerHTML.includes('Deliberately has no association'));
+assert.equal(app.state.mode,'dimensions');
+app.state.view='catalogue';app.state.q='two-higgs-doublets';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('>(1, 2; 3)</span>'));
+assert(nodes.get('view-content').innerHTML.includes('Representation notation'));
+assert(nodes.get('model-entries').innerHTML.includes('data-dynkin-family="A"'));
+app.state.mode='dynkin';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('([0,0], [1]; 3)'));
+assert(!nodes.get('model-entries').innerHTML.includes('>(1, 2; 3)</span>'));
+app.state.mode='compare';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('>(1, 2; 3)</span>'));
+assert(nodes.get('model-entries').innerHTML.includes('([0,0], [1]; 3)'));
+assert(nodes.get('model-entries').innerHTML.includes('data-young-rows="[1]"'));
+app.state.mode='young';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('data-young-rows="[1]"'));
+app.state.mode='dimensions';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('(1, 2; 3)'));
+app.state.view='notation';app.render();
+assert(nodes.get('view-content').innerHTML.includes('Bourbaki'));
+assert(nodes.get('view-content').innerHTML.includes('([0,1], [0]; -4)'));
+assert(nodes.get('view-content').innerHTML.includes('parentheses denote Lorentz spins'));
 const primary=id=>{const e=data.entries.find(e=>e.id===id);return e.variants.flatMap(v=>v.regimes).find(r=>r.id===e.primaryRegime);};
 const nm=context.FieldMatrix.matrixRows(primary('nmssm-matter'),data.templates);
 assert.equal(nm.length,2);
@@ -36,7 +58,27 @@ assert(vlq.every(r=>r.lorentz.label==='(1/2, 0)'));
 assert.equal(vlq[0].components.find(c=>c.role==='hypercharge').value,'4');
 assert.equal(vlq[1].components.find(c=>c.role==='hypercharge').value,'-4');
 assert.equal(vlq[1].components.find(c=>c.role==='colour').value,'bar(3)');
+assert.equal(dynkinTuple(vlq[1].components),'([0,1], [0]; -4)');
+assert.equal(dynkinTuple([]),'?');
+assert.equal(dynkinTuple([{factor:'so(10)',value:'16',dynkin:null}]),'(?)');
+assert(!weight({components:[{factor:'so(10)',value:'16',dynkin:null}]}).includes('16'));
+const incomplete=JSON.parse(JSON.stringify(data.entries.find(e=>e.id==='two-higgs-doublets')));
+for(const v of incomplete.variants)for(const r of v.regimes)for(const f of r.fields){
+  f.components[0].dynkin=null;
+  for(const l of f.lorentz)l.gaugeComponents[0].dynkin=null;
+}
+const ambiguousApp=create({...data,entries:[incomplete]},document);ambiguousApp.state.mode='dynkin';ambiguousApp.render();
+assert(nodes.get('model-entries').innerHTML.includes('(?, [1]; 3)'));
+assert(nodes.get('model-entries').innerHTML.includes('Dynkin labels unresolved'));
+const sameDimension={factors:[{key:'colour',label:'su(3)',type:'A',rank:2,role:'colour'}],fields:[]};
+const scalar={component:'S',status:'resolved',reality:'complex',spacetime:{dimension:'4'},scheme:'jL_jR',irreps:[['0','0']],label:'(0, 0)'};
+for(const [label,value,dynkin] of [['15','15',[2,1]],['15prime','15',[4,0]],['ambiguous','15',null],['same15','different source name',[2,1]]]){
+  sameDimension.fields.push({label,copies:1,lorentz:[scalar],components:[{factor:'su(3)',role:'colour',value,dynkin}]});
+}
+const distinct=context.FieldMatrix.matrixRows(sameDimension,{});
+assert.equal(distinct.length,3); // Equal dimensions do not merge different or unresolved irreps.
+assert.equal(distinct[0].copies,2); // Different source labels do merge when Dynkin labels agree.
 assert.equal(data.entries.length,103); // Component rows do not create model entries.
 const f={components:[{factor:'su(2)',youngRows:[1]},{factor:'u(1)',role:'hypercharge',value:'3'}]};
 assert(weight(f,'young').includes('q [hypercharge] = 3'));
-console.log('Minimal matrix UI, LH conventions, merged copies, preserved model IDs and paper separation passed.');
+console.log('Readable default, exact Dynkin labels, notation comparisons, diagram placeholders and LH conventions passed.');

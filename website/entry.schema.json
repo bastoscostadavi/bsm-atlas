@@ -2,7 +2,7 @@
   "$schema":"https://json-schema.org/draft/2020-12/schema",
   "$id":"https://davibc.com/bsm-atlas/entry.schema.json",
   "title":"BSM field-content candidate",
-  "description":"One fixed description regime with a complete declared inventory. Names and papers do not determine identity. Stored 4D Weyl fields are all left-handed; the checker also converts explicit RH/Dirac inputs before comparison.",
+  "description":"One fixed description regime with a complete declared inventory. Non-Abelian irreps use dynkin-gauge-1: highest-weight Dynkin labels in Bourbaki node numbering as in Sage finite Cartan types. Dimensions and Young shapes are not input identifiers. Names and papers do not determine identity. Stored 4D Weyl fields are all left-handed; the checker also converts explicit RH/Dirac inputs before comparison.",
   "type":"object",
   "required":["schema_version","inventory_complete","gauge_factors","matter"],
   "properties":{

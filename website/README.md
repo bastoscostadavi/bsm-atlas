@@ -6,7 +6,7 @@ Static GitHub Pages catalogue at [davibc.com/bsm-atlas](https://davibc.com/bsm-a
 
 The October 16, 2026 release deliberately narrows the main interface to **BSM gauge algebras, matter multiplets and papers**. It projects the saved extraction of 50 seed papers into 103 source-scoped field-content entries. The paper list additionally contains arXiv:1905.13729 as general theory paper R01, with **zero gauge/matter associations**. Papers are independently retained even if they yield no BSM row.
 
-Search by model, algebra, representation, paper or author; filter by algebra, source and coverage; expand an entry for variants, separate description regimes, copies, scalar reality, fermion chirality, original notation and passage evidence. Representations can be displayed using dimensions, safe Dynkin conversions or A-series Young diagrams. The notation section expands the SM and MSSM baselines.
+Search by model, algebra, representation, paper or author; filter by algebra, source and coverage; expand an entry for variants, separate description regimes, copies, scalar reality, fermion chirality, original notation and passage evidence. **The website defaults to physics dimension shorthand**, e.g. `(3,2;1)`. The database identifiers are `dynkin-gauge-1` Bourbaki/Sage finite-type Dynkin labels and exact charges: Q is `([1,0], [1]; 1)`. A visible selector offers Dimensions, Dynkin labels, Young diagrams and Compare notations. Ambiguous canonical conversions remain `?`. The notation section expands SM/MSSM baselines with both readable and exact labels.
 
 The minimal layout uses one representation matrix per model: spacetime first, actual gauge factors next (bundled as g_SM only for direct factors), and copies last. Repeated known rows combine copies. Chiral supermultiplets become scalar and LH Weyl component rows; 4D Dirac fields become LH conjugate pairs without duplicating model entries. Baselines, filters, downloads and technical provenance expand on demand. Catalogue, Papers, Notation and About are separate views.
 
@@ -21,10 +21,12 @@ See [field-content conventions and schema](../atlas/FIELD_CONTENT_CONVENTIONS.md
 ## Files and regeneration
 
 - `index.html`, `field-catalogue.css`, `field-catalogue.js`: buildless interface.
+- `representation-diagrams.js`: finite-type gauge-algebra Dynkin graphs and safe A-series Young diagrams. `vendor/svgjs/` contains pinned SVG.js 3.2.8 and its MIT license; no CDN is used. The package renders geometry, not representation-theory calculations. Dynkin graphs describe algebras; Young diagrams describe eligible irreps. Unknown/parameterized factors are not guessed.
 - `field_conventions.py`, `build_field_catalogue.py`: exact, conservative, read-only projection.
 - `../atlas/field_content_curations.json`: explicit grouping, baseline, exclusion and reference-paper decisions.
 - `field-catalogue.json`, `field-catalogue-data.js`: generated payload; JSON is also saved in `atlas/FIELD_CONTENT_CATALOGUE.json`.
 - `downloads/field-catalogue.csv`: one summary row per entry.
+- `representationConvention` in JSON/SQLite metadata documents the gauge node numbering. `dynkinRepresentation` is a formatted display; structured Dynkin lists/charges remain the identity data. Legacy `representation` strings retain dimensional shorthand; CSV summaries now use Dynkin tuples. This notation-only release does not change scalar copy counting or fingerprints.
 - `downloads/field-catalogue.sqlite`: entries, all papers, associations, separate regimes and recorded multiplets. It is separate from the authoritative database.
 - `data.js`, `atlas-data.json`, `downloads/atlas.sqlite`, SQL and original reports remain preserved from the full October 15 export. They are not loaded by the simplified home page. Old `app.js`, `catalog.js` and `search.js` are retained supporting source, not the current UI.
 
@@ -36,10 +38,11 @@ python3 website/build_field_catalogue.py --check
 PYTHONDONTWRITEBYTECODE=1 python3 website/test_field_catalogue.py
 PYTHONDONTWRITEBYTECODE=1 python3 website/test_identity.py
 node website/field-catalogue.test.mjs
+node website/representation-diagrams.test.mjs
 python3 -m http.server 8000 --bind 127.0.0.1 --directory website
 ```
 
-Open http://127.0.0.1:8000/. Hash routes work under the GitHub Pages project path: `#entry/real-singlet-z2`, `#catalogue?paper=R01`, `#notation`, `#sources`. Filtering to a reference-only paper returns zero model entries by design; its paper record remains in the paper list.
+Open http://127.0.0.1:8000/. Hash routes work under the GitHub Pages project path: `#entry/real-singlet-z2`, `#catalogue?paper=R01`, `#catalogue?notation=compare`, `#notation`, `#sources`. Nondefault notation choices are included in shareable hash URLs. Filtering to a reference-only paper returns zero model entries by design; its paper record remains in the paper list.
 
 The generator never changes `atlas/atlas.sqlite`. The source checksum is checked by regression tests. Before accepting a new extraction, review the curation file and regenerate both this projection and the original relational export if the authoritative snapshot changes.
 

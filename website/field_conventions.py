@@ -12,6 +12,22 @@ SM = [("su(3)","colour"),("su(2)","weak_L"),("u(1)","hypercharge")]
 EW = SM[1:]
 PATTERN = re.compile(r"(?:SU|SO|Spin|Sp|O|U)\([^()]+\)")
 TRANS = str.maketrans({"−":"-","–":"-","⁄":"/"})
+REPRESENTATION_CONVENTION = {
+    "id":"dynkin-gauge-1",
+    "nonAbelian":"Highest-weight Dynkin labels, one nonnegative integer per node",
+    "nodeNumbering":"Bourbaki numbering, as in Sage finite Cartan types",
+    "nodeNumberingReference":"https://doc.sagemath.org/html/en/reference/combinat/sage/combinat/root_system/cartan_type.html",
+    "abelian":"Exact charges in the recorded factor basis and common normalization",
+    "unresolved":"?; a source dimension is never substituted for a missing Dynkin label",
+}
+
+
+def dynkin_representation(components):
+    """Canonical display only; the structured weights/charges determine identity."""
+    if not components:return "?"
+    nonabelian=["["+",".join(map(str,c["dynkin"]))+"]" if c.get("dynkin") is not None else "?" for c in components if c["factor"]!="u(1)"]
+    charges=[str(c["value"]) if c.get("value") is not None else "?" for c in components if c["factor"]=="u(1)"]
+    return "("+", ".join(nonabelian)+("; "+", ".join(charges) if charges else "")+")"
 
 
 def rational(value):

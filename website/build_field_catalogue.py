@@ -17,14 +17,14 @@ from pathlib import Path
 import re
 import sqlite3
 import sys
-from field_conventions import factor, gauge_factors, rational, primitive_scale, irrep_token, dynkin, dimension_a, young_rows, parse_tuple
+from field_conventions import factor, gauge_factors, rational, primitive_scale, irrep_token, dynkin, dimension_a, young_rows, parse_tuple, dynkin_representation, REPRESENTATION_CONVENTION
 from spacetime_conventions import CONVENTION as LORENTZ_CONVENTION, spacetime, field_reps
 
 SITE=Path(__file__).resolve().parent
 ROOT=SITE.parent
 sys.path.insert(0,str(ROOT/'atlas'))
 from catalogue_identity import canonicalize,from_regime,IncompleteContent,conjugate as conjugate_irrep
-VERSION="gauge-matter-2"
+VERSION="gauge-matter-3"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
@@ -32,7 +32,7 @@ SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hyp
 def multiplet(label,kind,rep,copies=1,reality=None):
     chirality="left-handed Weyl" if kind=="F" else None
     components=[{'factor':a['label'],'role':a['role'],'value':v,'dynkin':dynkin(a,v) if a['type']!='U1' else None,'youngRows':young_rows(a,dynkin(a,v)) if a['type']!='U1' else None} for a,v in zip(SM_FACTORS,rep)]
-    return {"label":label,"kind":kind,"representation":rep,"components":components,"copies":copies,"reality":reality,"chirality":chirality,"lorentz":field_reps([kind],chirality=chirality or '',reality=reality)}
+    return {"label":label,"kind":kind,"representation":rep,"dynkinRepresentation":dynkin_representation(components),"components":components,"copies":copies,"reality":reality,"chirality":chirality,"lorentz":field_reps([kind],chirality=chirality or '',reality=reality)}
 
 
 SM_F=[multiplet(n,"F",r,3) for n,r in [("Q",["3","2","1"]),("uᶜ",["bar(3)","1","-4"]),("dᶜ",["bar(3)","1","2"]),("L",["1","2","-3"]),("eᶜ",["1","1","6"])]]
@@ -249,7 +249,8 @@ def main_data(database,curations):
                         elif c['value'] not in {'1','Adj'}:c['value']='conj('+c['value']+')'
                     c['assignmentStatus']='source_handedness_unresolved' if lorentz['status']=='source_chirality_unresolved' else 'assigned_under_stated_conventions' if c['value'] is not None and (a['type']=='U1' and rational(c['value']) is not None or a['type']!='U1' and c['dynkin'] is not None) else 'unresolved'
                 lorentz['gaugeComponents']=actual
-            f.update(components=components,representation=display_rep(values,complete_factors),dimension=total_dimension,notationComplete=bool(complete_factors) and all(v is not None and (a["type"]=="U1" and rational(v) is not None or a["type"]!="U1" and dynkin(a,v) is not None) for v,a in zip(values,complete_factors)))
+                lorentz['dynkinRepresentation']=dynkin_representation(actual)
+            f.update(components=components,representation=display_rep(values,complete_factors),dynkinRepresentation=dynkin_representation(components),dimension=total_dimension,notationComplete=bool(complete_factors) and all(v is not None and (a["type"]=="U1" and rational(v) is not None or a["type"]!="U1" and dynkin(a,v) is not None) for v,a in zip(values,complete_factors)))
             rendered.append(f)
         if not source_groups and raw_fields: notes.append("Gauge algebra not independently recorded in this regime; no cross-regime assignment invented.")
         factors_label=" ⊕ ".join(f["label"]+("_"+f["role"] if len({p["id"] for p in complete_factors})<len(complete_factors) else "") for f in complete_factors) or "not specified"
@@ -287,7 +288,7 @@ def main_data(database,curations):
         if any(p["id"] in paper_ids and p["inspectionStatus"]=="partial" for p in papers): state="partial"
         if any(f["type"] in {"parameterized","unknown","unresolved_sp_convention"} for f in primary["factors"]): state="parameterized"
         if definition["id"]=="sm-eft-matter": state="reference"
-        entries.append({"id":definition["id"],"name":curations.get("display_names",{}).get(definition["id"],definition["name"]),"paperIds":paper_ids,"algebra":primary["algebra"],"algebraExpanded":primary["algebraExpanded"],"algebraSignature":primary["algebraSignature"],"baseline":primary["baseline"],"primaryRegime":primary["id"],"primaryVariant":next(v["id"] for v in variants if primary in v["regimes"]),"status":state,"groupingBasis":definition["basis"],"variants":variants,"summaryFields":[{"label":f["label"],"kinds":f["kinds"],"copies":f["copies"],"representation":f["representation"],"reality":f["reality"]} for f in additions],"catalogueEligible":not all(mid in curations["excluded_models"] for mid in definition["models"])})
+        entries.append({"id":definition["id"],"name":curations.get("display_names",{}).get(definition["id"],definition["name"]),"paperIds":paper_ids,"algebra":primary["algebra"],"algebraExpanded":primary["algebraExpanded"],"algebraSignature":primary["algebraSignature"],"baseline":primary["baseline"],"primaryRegime":primary["id"],"primaryVariant":next(v["id"] for v in variants if primary in v["regimes"]),"status":state,"groupingBasis":definition["basis"],"variants":variants,"summaryFields":[{"label":f["label"],"kinds":f["kinds"],"copies":f["copies"],"representation":f["representation"],"dynkinRepresentation":f["dynkinRepresentation"],"reality":f["reality"]} for f in additions],"catalogueEligible":not all(mid in curations["excluded_models"] for mid in definition["models"])})
     if seen!=set(spec_index): raise ValueError("Source model coverage mismatch")
     references=[e for e in entries if not e["catalogueEligible"]]
     entries=[e for e in entries if e["catalogueEligible"]]
@@ -313,7 +314,7 @@ def main_data(database,curations):
     source_ids={f["sourceFieldId"] for e in entries+references for v in e["variants"] for r in v["regimes"] for f in r["fields"]}
     if source_ids!=set(field_index): raise ValueError("A source field was omitted")
     if hashlib.sha256(database.read_bytes()).hexdigest()!=original_hash: raise ValueError("Source changed during read-only build")
-    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"lorentzConvention":LORENTZ_CONVENTION,"sourceReview":"All underlying assertions remain unchecked and model links provisional. This catalogue is a notation projection of the scoped extraction, not a new full-text review.","scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
+    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,"sourceReview":"All underlying assertions remain unchecked and model links provisional. This catalogue is a notation projection of the scoped extraction, not a new full-text review.","scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
 
 
 def write_outputs(data,check=False):
@@ -321,7 +322,7 @@ def write_outputs(data,check=False):
     flat=io.StringIO();writer=csv.writer(flat,lineterminator='\n')
     writer.writerow(["entry_id","name","gauge_algebra","baseline","additional_recorded_multiplets","coverage","papers","source_model_ids"])
     for e in data["entries"]:
-        writer.writerow([e["id"],e["name"],e["algebraExpanded"],e["baseline"] or "", " | ".join("/".join(f["kinds"])+" "+str(f["copies"] if f["copies"] is not None else "?")+" × "+f["representation"]+" "+f["label"] for f in e["summaryFields"]),e["status"],";".join(e["paperIds"]),";".join(v["id"] for v in e["variants"])])
+        writer.writerow([e["id"],e["name"],e["algebraExpanded"],e["baseline"] or "", " | ".join("/".join(f["kinds"])+" "+str(f["copies"] if f["copies"] is not None else "?")+" × "+f["dynkinRepresentation"]+" "+f["label"] for f in e["summaryFields"]),e["status"],";".join(e["paperIds"]),";".join(v["id"] for v in e["variants"])])
     files={SITE/"field-catalogue.json":payload+"\n",SITE/"entry.schema.json":(ROOT/"atlas"/"entry.schema.json").read_text(encoding="utf-8"),ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue()}
     for path,content in files.items():
         if check:
@@ -347,6 +348,7 @@ def write_outputs(data,check=False):
             for name in ["entry_identity","content_signatures","entry_papers","component_gauge_representations","spacetime_representations","multiplets","regimes","entries","papers","metadata"]: con.execute("DELETE FROM "+name)
             con.executemany("INSERT INTO metadata VALUES (?,?)",[("convention_version",VERSION),("source_sha256",data["sourceDatabaseSha256"]),("scope",data["scope"]),("templates_json",json.dumps(data["templates"],ensure_ascii=False))])
             con.execute("INSERT INTO metadata VALUES (?,?)",('lorentz_convention_json',json.dumps(LORENTZ_CONVENTION,ensure_ascii=False)))
+            con.execute("INSERT INTO metadata VALUES (?,?)",('representation_convention_json',json.dumps(REPRESENTATION_CONVENTION,ensure_ascii=False)))
             for p in data["papers"]: con.execute("INSERT INTO papers VALUES (?,?,?,?,?)",(p["id"],p["arxiv"],p["title"],p["inspectionStatus"],p["reviewStatus"]))
             for e in data["entries"]:
                 con.execute("INSERT INTO entries VALUES (?,?,?,?,?,?)",(e["id"],e["name"],e["algebraExpanded"],e["baseline"],e["status"],json.dumps([{k:v[k] for k in ["id","revision","scope","baselineSource","baselineParent"]} for v in e["variants"]],ensure_ascii=False)))

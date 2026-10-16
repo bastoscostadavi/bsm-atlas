@@ -1,6 +1,6 @@
 # Gauge-algebra and matter catalogue
 
-Version `gauge-matter-2`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
+Version `gauge-matter-3`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
 
 ## Papers are not model rows
 
@@ -18,9 +18,15 @@ There are 103 provisional field-content entries after the explicitly documented 
 
 ## Representations and charges
 
-`(3, 2; 1)` denotes non-Abelian irreps in factor-slot order followed by Abelian charges in slot order. A question mark is unresolved, **not a singlet or zero**. Original representations, exact charges and normalization notes remain alongside the conversion.
+**Dynkin labels are the canonical database identifiers.** `([1,0], [1]; 1)` denotes the su(3) fundamental, su(2) doublet and Abelian charge +1. Square brackets hold one nonnegative highest-weight coefficient per simple-root node, not a dimension. Tuples list non-Abelian irreps in factor-slot order followed by Abelian charges after the semicolon. A question mark is unresolved, **not a singlet or zero**. For example, an SM singlet is `([0,0], [0]; 0)` and the Higgs is `([0,0], [1]; 3)`.
 
-Dynkin labels are the canonical irrep identifiers where unambiguous. The implemented A-series chain convention has fundamental `[1,0,…,0]` and conjugate `[0,…,0,1]`; SU(2) dimension d has label `[d−1]`. Familiar SU(3) 6/10 and their conjugates are converted conservatively. Dimensions do not uniquely identify all irreps: ambiguous cases, including SO spinor conventions, remain unconverted. A-series Young row lengths are sums of the Dynkin labels to the right; they are a derived display, not an additional identity rule.
+The machine convention is `dynkin-gauge-1`: finite-dimensional complex irreps, with **Bourbaki node numbering as implemented by [Sage finite Cartan types](https://doc.sagemath.org/html/en/reference/combinat/sage/combinat/root_system/cartan_type.html)**. A_r uses the chain 1,…,r; B_r ends with the short-root spinor node; C_r ends with the long-root node; D_r has spinor nodes r−1,r attached to r−2. The referenced numbering also fixes E/F/G. This is a gauge convention, separate from the existing dimension-specific Lorentz B/D convention. Map any differently numbered source labels explicitly before intake; do not silently reverse or exchange nodes. Algebra aliases such as D3=A3 also require an explicit weight map when the source supplies Dynkin labels.
+
+The implemented A-series conversions have fundamental `[1,0,…,0]` and conjugate `[0,…,0,1]`; SU(2) dimension d has label `[d−1]`. Familiar SU(3) 6/10 and their conjugates are converted conservatively. Dimensions do not uniquely identify all irreps: ambiguous cases, including SO spinor conventions, remain null/`?` in the canonical data and Dynkin display, never a bare dimension masquerading as a Dynkin label. Original representations, exact charges and normalization notes remain in provenance. A-series Young row lengths are sums of the Dynkin labels to the right; they are derived displays, not additional identity rules.
+
+The website defaults to readable dimensions/charges such as `(3,2;1)`. A visible notation control switches to Dynkin labels, A-series Young diagrams, or an in-cell comparison of all three. Gauge-column headings show finite-type Dynkin diagrams in the same Bourbaki node convention; these describe the **algebra**, not a particular matter irrep. Abelian factors are explicitly labelled without a Dynkin graph. Parameterized or unknown factors get no invented diagram. SVG.js 3.2.8, vendored with its MIT license, renders the geometry locally; it does not infer representations. Oversized Young diagrams fall back to exact row lengths rather than silently clipping boxes.
+
+The JSON adds `representationConvention` and `dynkinRepresentation` on source containers, Lorentz components and baseline templates. Structured `components[].dynkin`, per-component `gaugeComponents[].dynkin`, charges and factor keys remain the actual machine identifiers; formatted strings are displays, not identity keys. Legacy `representation` fields retain their dimension/source-container shorthand for compatibility. The summary CSV now uses Dynkin tuples. SQLite saves the same convention in `metadata.representation_convention_json`; `dynkin_json` remains the canonical weight column, while `representation_label` retains the prior shorthand. This notation change does not modify scalar counting or existing field-content fingerprints.
 
 For each concrete U(1) assignment, one positive common rescaling makes charges integral with gcd 1. Field labels and the source generator orientation are retained; fields are not sorted into an unlabeled charge set. A declared SM reference supplies its charge unit. Ordinary textbook hypercharge uses **q = 6Y**; sources with Q=T3+Y_source/2 instead use q=3Y_source. The corresponding coupling is g_atlas=g_source/scale.
 
@@ -28,7 +34,7 @@ An incomplete or symbolic assignment is not normalized using an arbitrary numeri
 
 ## Matter and baselines
 
-The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by copies. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
+The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by copies. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts using Dynkin labels and exact charges, not dimensions or source names. Unknown weights never establish a merge; su(3) [2,1] and [4,0], both dimension 15, stay distinct. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
 
 ### Lorentz convention: all 4D Weyl fields are left-handed
 
@@ -67,8 +73,8 @@ All baseline templates are explicit presentation definitions, not claims that a 
 
 | Template | Inventory in left-handed notation; integer q=6Y |
 |---|---|
-| F_SM | 3 copies each of Q=(3,2;1), u^c=(bar(3),1;−4), d^c=(bar(3),1;2), L=(1,2;−3), e^c=(1,1;6) |
-| H_SM | One complex scalar H=(1,2;3) |
+| F_SM | 3 copies each of Q=([1,0],[1];1), u^c=([0,1],[0];−4), d^c=([0,1],[0];2), L=([0,0],[1];−3), e^c=([0,0],[0];6) |
+| H_SM | One complex scalar H=([0,0],[1];3) |
 | R_SM | F_SM ⊕ H_SM; no right-handed neutrino |
 | R_MSSM | Three chiral families Q,u^c,d^c,L,e^c, two Higgs chiral multiplets (1,2;±3), and adjoint gluino/wino/bino Weyl multiplets; replaces R_SM |
 
@@ -100,3 +106,7 @@ Rebuild with `python3 website/build_field_catalogue.py`; use `--check` to detect
 ### Corrections in version 2
 
 The two standard 2HDM Higgs doublets now explicitly have colour representation 1, giving `(1,2;3)` each. This is a field-specific, documented correction supported by P03, not a rule filling every missing colour slot with 1. Source assertions and the original SQLite remain unchanged; the completion is stored separately with its locator. Concise model display names retain full source labels in variants/provenance.
+
+### Notation decision in version 3
+
+Make Dynkin labels the canonical stored identifiers and CSV summary notation, with explicit node numbering. Keep physics dimension shorthand as the website default, with a visible notation switch, in-cell comparisons, derived Young diagrams and gauge-algebra Dynkin diagrams. Preserve original labels in provenance. No new source identifications, model merges or scalar-realification conversions are implied by this display migration. In particular, one complex scalar in a real-type irrep versus two real copies still requires the separate canonical scalar-counting migration discussed with the user; the current identity checker does not yet quotient that equivalence.
