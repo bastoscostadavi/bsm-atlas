@@ -1,0 +1,246 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P07/checkpoint.json",
+  "frozen_checkpoint_sha256": "427147b9407197bdeadec987a0b1e905fb6a071b328924d9c69c4414a416658e",
+  "source": {
+    "paper_id": "P07",
+    "arxiv_version": "1404.2640v3",
+    "started_utc": "2026-10-16T18:26:17Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1404.2640v3",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "wall_seconds": 1.9511732080136426,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:19Z",
+    "bytes": 3753821,
+    "sha256": "d03f5e6541cee80b77ddd3433229fc5717217292930195a310690f62eed71ae1",
+    "local_pdf": "atlas/reextraction/sources/1404.2640v3.pdf",
+    "local_text": "atlas/reextraction/sources/1404.2640v3.txt",
+    "pdf_pages": 40,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Jul 14 21:40:22 2014 -03\nModDate:         Mon Jul 14 21:40:22 2014 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           40\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       3753821 bytes\nOptimized:       no\nPDF version:     1.5\n",
+    "text_bytes": 153388
+  },
+  "inspection": {
+    "scope": "Section II complete gauge-basis scalar definition and adjacent custodial decomposition.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      3
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "scalars",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section II Eqs.(1)-(4), footnote 1",
+        "pdf_pages": [
+          3
+        ],
+        "anchor": "a real triplet"
+      },
+      "value": "Usual complex Higgs doublet source Y=1, one real weak triplet xi with Y=0 and one complex triplet chi with Y=2; Q=T3+Y/2. In textbook Y coordinates xi=0,chi=1; full SM normalization gives q=6 for chi. Custodial multiplets are not additional gauge factors/fields."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "georgi-machacek-general",
+  "paper_id": "P07",
+  "arxiv_version": "1404.2640v3",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        62
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 62,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "SM fermions receiving masses from φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        62
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 62,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "SM fermions receiving masses from φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [
+        62
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 62,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "SM fermions receiving masses from φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        62
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 62,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "SM fermions receiving masses from φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [
+        62
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 62,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "SM fermions receiving masses from φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        57
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 57,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "φ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "xi",
+      "source_field_ids": [
+        58
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 58,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "ξ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "chi",
+      "source_field_ids": [
+        59
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 59,
+          "model_id": "georgi-machacek-general",
+          "regime_id": 15,
+          "field_label": "χ"
+        }
+      ]
+    }
+  ],
+  "limitations": [],
+  "description_regime": {
+    "source_regime_ids": [
+      15
+    ],
+    "frozen_candidate_stem": "gm",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}

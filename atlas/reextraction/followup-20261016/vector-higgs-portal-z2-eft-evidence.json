@@ -1,0 +1,210 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P46/checkpoint.json",
+  "frozen_checkpoint_sha256": "898fc60a77285013aa11888fca937a7a18ccd8a25d8d56e44ef1ef1ca4075776",
+  "source": {
+    "paper_id": "P46",
+    "arxiv_version": "1111.4482v3",
+    "started_utc": "2026-10-16T18:26:23Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1111.4482v3",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 0.16769179198308848,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:23Z",
+    "bytes": 262416,
+    "sha256": "8470273e65676b328c2ecad89a9cf7f1c79deadf4e291eb0992e8194a8906dc7",
+    "local_pdf": "atlas/reextraction/sources/1111.4482v3.pdf",
+    "local_text": "atlas/reextraction/sources/1111.4482v3.txt",
+    "pdf_pages": 8,
+    "pdfinfo": "Title:           arXiv:1111.4482v3  [hep-ph]  10 Jan 2012\nCreator:         dvips(k) 5.991 Copyright 2011 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Oct 29 07:14:30 2018 -03\nModDate:         Mon Oct 29 07:14:30 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           8\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       262416 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 54937
+  },
+  "inspection": {
+    "scope": "All SectionII.A mass-origin examples and explicit SectionIII origin-agnostic EFT.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      2,
+      3
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "higgs",
+      "basis": "source_statement_and_single_charge_generator_unit_derivation",
+      "locator": {
+        "section_equations": "SectionII.A(iii) Eqs.(14)-(15)",
+        "pdf_pages": [
+          3
+        ],
+        "anchor": "charged complex scalar S"
+      },
+      "value": "Pre-breaking Higgs realization is SM plus hidden U1 and one charged complex SM-singlet S; charge conjugation Xprime -> -Xprime,S -> S* stabilizes the vector. No other hidden charged fields in this example. Its single nonzero charge magnitude is removable by the chosen local-algebra generator unit: choose S positive and qS=1. This is an explicit atlas coordinate choice, NOT a printed source numeric charge or global-form assertion."
+    },
+    {
+      "id": "stueck",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "SectionII.A Eqs.(3)-(10)",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "δφ = −µǫ"
+      },
+      "value": "Stueckelberg phi transforms by an affine shift, not a finite-dimensional linear charge irrep. Two examples give field-dependent masses through SM Higgs or hidden real S; S cannot stand in for the eaten shift field. Do not encode the axion as a neutral ordinary scalar and call inventory complete."
+    },
+    {
+      "id": "eft",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "SectionIII Eq.(18) and text below",
+        "pdf_pages": [
+          3
+        ],
+        "anchor": "agnostic attitude to the origin"
+      },
+      "value": "Phenomenological Eq18 takes the massive real vector X, its Z2 and Higgs portal as an EFT, explicitly agnostic to mass origin. Under the SM-only symmetry of this effective description, X is real singlet Lorentz vector; this is separate from the pre-breaking U1 connection in the Higgs realization."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "vector-higgs-portal-z2-eft",
+  "paper_id": "P46",
+  "arxiv_version": "1111.4482v3",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        543
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 543,
+          "model_id": "vector-higgs-portal-z2-eft",
+          "regime_id": 178,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "X",
+      "source_field_ids": [
+        542
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "eft",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 542,
+          "model_id": "vector-higgs-portal-z2-eft",
+          "regime_id": 178,
+          "field_label": "X_mu"
+        }
+      ]
+    }
+  ],
+  "limitations": [],
+  "description_regime": {
+    "source_regime_ids": [
+      178
+    ],
+    "frozen_candidate_stem": "vector-eft",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}

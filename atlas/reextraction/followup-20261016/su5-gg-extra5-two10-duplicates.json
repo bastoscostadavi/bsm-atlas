@@ -1,0 +1,34 @@
+{
+  "status": "no_exact_match_review_required",
+  "fingerprint": "0eee6738f9da1e94b30c77e092a7d02ab1eb104e1df25146f38e8650d1611335",
+  "matches": [],
+  "same_algebra_candidates": [
+    {
+      "entry_id": "su5-gg-scalar15",
+      "name": "GG SU(5) with a scalar 15 and type-II seesaw",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "su5-gg-extra5-two10",
+      "name": "GG SU(5) with an additional scalar 5 and two scalar 10s",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "su5-georgi-glashow-review",
+      "name": "Georgi–Glashow SU(5), reviewed baseline",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "su5-adjoint-renormalizable",
+      "name": "Renormalizable nonsupersymmetric adjoint SU(5)",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "su5-rpv-trilinear-sector",
+      "name": "Renormalizable supersymmetric SU(5) RPV trilinear operator sector",
+      "coverage": "partial"
+    }
+  ],
+  "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

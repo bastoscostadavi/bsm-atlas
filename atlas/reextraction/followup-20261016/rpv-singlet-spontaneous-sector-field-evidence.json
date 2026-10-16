@@ -1,0 +1,2092 @@
+{
+  "target_entry_id": "rpv-singlet-spontaneous-sector",
+  "source_locator_evidence": "atlas/reextraction/followup-20261016/rpv-singlet-spontaneous-sector-evidence.json",
+  "rows": [
+    {
+      "source_row": {
+        "label": "scalar Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/6"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "scalar Q",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "scalar Q",
+        "source_field_ids": [
+          245,
+          258
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 245,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "Q"
+          },
+          {
+            "field_id": 258,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "Q_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/6"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Q",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Q",
+        "source_field_ids": [
+          245,
+          258
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 245,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "Q"
+          },
+          {
+            "field_id": 258,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "Q_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "scalar u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-2/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "scalar u^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "4"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "scalar u^c",
+        "source_field_ids": [
+          247,
+          259
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 247,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar u"
+          },
+          {
+            "field_id": 259,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "U_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-2/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "u^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "-4"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "u^c",
+        "source_field_ids": [
+          247,
+          259
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 247,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar u"
+          },
+          {
+            "field_id": 259,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "U_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "scalar d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "scalar d^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "2"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "scalar d^c",
+        "source_field_ids": [
+          248,
+          260
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 248,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar d"
+          },
+          {
+            "field_id": 260,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "D_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "d^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "2"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "d^c",
+        "source_field_ids": [
+          248,
+          260
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 248,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar d"
+          },
+          {
+            "field_id": 260,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "D_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "scalar L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "scalar L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "scalar L",
+        "source_field_ids": [
+          266
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 266,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "L_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "-3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "L",
+        "source_field_ids": [
+          266
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 266,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "L_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "scalar e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "scalar e^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "6"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "scalar e^c",
+        "source_field_ids": [
+          249,
+          262
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 249,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar e"
+          },
+          {
+            "field_id": 262,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "E_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "e^c",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "6"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "e^c",
+        "source_field_ids": [
+          249,
+          262
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 249,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "\\bar e"
+          },
+          {
+            "field_id": 262,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "E_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "H_u",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "H_u",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "H_u",
+        "source_field_ids": [
+          264
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 264,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "H_u"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "higgsino H_u",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "higgsino H_u",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "higgsino H_u",
+        "source_field_ids": [
+          264
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 264,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "H_u"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "H_d",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "H_d",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "H_d",
+        "source_field_ids": [
+          265
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 265,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "H_d"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "higgsino H_d",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "higgsino H_d",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "-3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "higgsino H_d",
+        "source_field_ids": [
+          265
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 265,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "H_d"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "gluino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "gluino",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "gluino",
+        "source_field_ids": [
+          250,
+          263
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 250,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "V_C, V_L, V_Y"
+          },
+          {
+            "field_id": 263,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "SU(3), SU(2), U(1) gauge superfields"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "wino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              2
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "wino",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                2
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "wino",
+        "source_field_ids": [
+          250,
+          263
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 250,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "V_C, V_L, V_Y"
+          },
+          {
+            "field_id": 263,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "SU(3), SU(2), U(1) gauge superfields"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "bino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "bino",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "bino",
+        "source_field_ids": [
+          250,
+          263
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 250,
+            "model_id": "mssm-rpc-conventional-soft",
+            "regime_id": 67,
+            "field_label": "V_C, V_L, V_Y"
+          },
+          {
+            "field_id": 263,
+            "model_id": "mssm-rpv-general",
+            "regime_id": 74,
+            "field_label": "SU(3), SU(2), U(1) gauge superfields"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Nc scalar",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Nc scalar",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 6,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Nc scalar",
+        "source_field_ids": [
+          267
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 267,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "N_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Nc Weyl",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Nc Weyl",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Nc Weyl",
+        "source_field_ids": [
+          267
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 267,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "N_i^c"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "S scalar",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "S scalar",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 6,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "S scalar",
+        "source_field_ids": [
+          268
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 268,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "S_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "S Weyl",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "S Weyl",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "S Weyl",
+        "source_field_ids": [
+          268
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 268,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "S_i"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Phi scalar",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Phi scalar",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 2,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Phi scalar",
+        "source_field_ids": [
+          269
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 269,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "Phi"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Phi Weyl",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Phi Weyl",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Phi Weyl",
+        "source_field_ids": [
+          269
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "rpv",
+          "singlets"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 269,
+            "model_id": "rpv-singlet-spontaneous-sector",
+            "regime_id": 80,
+            "field_label": "Phi"
+          }
+        ]
+      }
+    }
+  ],
+  "scalar_convention": "scalar-real-modules-1",
+  "fermion_convention": "all identified4D Weyl LH, conjugating all factors",
+  "gauge_convention": "dynkin-gauge-1 Bourbaki/Sage finite Cartan"
+}

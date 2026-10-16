@@ -1,0 +1,486 @@
+{
+  "target_entry_id": "trinification-n3-adjoint-l",
+  "source_locator_evidence": "atlas/reextraction/followup-20261016/trinification-n3-adjoint-l-evidence.json",
+  "rows": [
+    {
+      "source_row": {
+        "label": "QL",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "QL",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "left": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "right": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "QL",
+        "source_field_ids": [
+          235
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "tri",
+          "neutrinos"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 235,
+            "model_id": "trinification-n3-adjoint-l",
+            "regime_id": 65,
+            "field_label": "QLi"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "QR",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "QR",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "left": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "right": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "QR",
+        "source_field_ids": [
+          236
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "tri",
+          "neutrinos"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 236,
+            "model_id": "trinification-n3-adjoint-l",
+            "regime_id": 65,
+            "field_label": "QRi"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "right": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "L",
+        "source_field_ids": [
+          237
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "tri",
+          "neutrinos",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 237,
+            "model_id": "trinification-n3-adjoint-l",
+            "regime_id": 65,
+            "field_label": "Li"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "H",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "right": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "H",
+        "source_field_ids": [
+          238
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "tri",
+          "neutrinos",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 238,
+            "model_id": "trinification-n3-adjoint-l",
+            "regime_id": 65,
+            "field_label": "Hn"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "8L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "8L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "left": {
+              "dynkin": [
+                1,
+                1
+              ]
+            },
+            "right": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "8L",
+        "source_field_ids": [
+          239
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "tri",
+          "neutrinos"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 239,
+            "model_id": "trinification-n3-adjoint-l",
+            "regime_id": 65,
+            "field_label": "8L"
+          }
+        ]
+      }
+    }
+  ],
+  "scalar_convention": "scalar-real-modules-1",
+  "fermion_convention": "all identified4D Weyl LH, conjugating all factors",
+  "gauge_convention": "dynkin-gauge-1 Bourbaki/Sage finite Cartan"
+}

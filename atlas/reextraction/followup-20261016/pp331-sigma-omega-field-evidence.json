@@ -1,0 +1,1002 @@
+{
+  "target_entry_id": "pp331-sigma-omega",
+  "source_locator_evidence": "atlas/reextraction/followup-20261016/pp331-sigma-omega-evidence.json",
+  "rows": [
+    {
+      "source_row": {
+        "label": "lepton triplets",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "lepton triplets",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "n": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "lepton triplets",
+        "source_field_ids": [
+          193
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 193,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "psi_lL=(nu_l,l,l^c)L"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Q1_L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "2/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Q1_L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "n": {
+              "charge": "2"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Q1_L",
+        "source_field_ids": [
+          194
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 194,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "Q1L=(u,d,J1)L"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Q23_L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 2,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "n": {
+            "charge": "-1/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Q23_L",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 2,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "n": {
+              "charge": "-1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Q23_L",
+        "source_field_ids": [
+          195
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 195,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "QaL: Q2L=(J2,c,s)L; Q3L=(J3,t,b)L"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "u_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "1/2"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "n": {
+            "charge": "2/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "u_R",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "n": {
+              "charge": "-2"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "u_R",
+        "source_field_ids": [
+          196
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 196,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "(u,c,t)R"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "d_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "1/2"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "n": {
+            "charge": "-1/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "d_R",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "n": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "d_R",
+        "source_field_ids": [
+          197
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 197,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "(d,s,b)R"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "J1_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "1/2"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "n": {
+            "charge": "5/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "J1_R",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "n": {
+              "charge": "-5"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "J1_R",
+        "source_field_ids": [
+          198
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 198,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "J1R"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "J23_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "1/2"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 2,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "n": {
+            "charge": "-4/3"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "J23_R",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 2,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "n": {
+              "charge": "4"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "J23_R",
+        "source_field_ids": [
+          199
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 199,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "(J2,J3)R"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "eta",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "eta",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "n": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "eta",
+        "source_field_ids": [
+          200,
+          207
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 200,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "eta"
+          },
+          {
+            "field_id": 207,
+            "model_id": "pp331-sigma-omega",
+            "regime_id": 54,
+            "field_label": "eta"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "rho",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "1"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "rho",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "n": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "rho",
+        "source_field_ids": [
+          201
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 201,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "rho"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "chi",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "-1"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "chi",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "n": {
+              "charge": "3"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "chi",
+        "source_field_ids": [
+          202
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 202,
+            "model_id": "pp331-displayed",
+            "regime_id": 53,
+            "field_label": "chi"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "sigma,omega",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 2,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "n": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "sigma,omega",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 2,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "left": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "n": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "sigma,omega",
+        "source_field_ids": [
+          205,
+          206
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "331",
+          "extra"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 205,
+            "model_id": "pp331-sigma-omega",
+            "regime_id": 54,
+            "field_label": "sigma"
+          },
+          {
+            "field_id": 206,
+            "model_id": "pp331-sigma-omega",
+            "regime_id": 54,
+            "field_label": "omega"
+          }
+        ]
+      }
+    }
+  ],
+  "scalar_convention": "scalar-real-modules-1",
+  "fermion_convention": "all identified4D Weyl LH, conjugating all factors",
+  "gauge_convention": "dynkin-gauge-1 Bourbaki/Sage finite Cartan"
+}

@@ -1,0 +1,238 @@
+{
+  "status": "normalized_candidate_requires_source_review",
+  "normalized_entry": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "paper_ids": [
+      "P20"
+    ],
+    "name": "Three-bitriplet trinification plus adjoint",
+    "gauge_factors": [
+      {
+        "id": "left",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "right",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      }
+    ],
+    "matter": [
+      {
+        "label": "QL",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "QR",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "8L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "transformations": [],
+  "scalar_convention": {
+    "id": "scalar-real-modules-1",
+    "unit": "One irreducible real gauge module per scalar copy",
+    "realType": "Real form of the displayed complex highest-weight irrep; an unconstrained complex field contributes two copies",
+    "complexType": "Underlying real module of R; R and its full conjugate specify the same real module",
+    "pseudorealType": "Underlying real module; no half-dimensional ordinary real form is imposed",
+    "orientation": "First nonzero Abelian charge positive; otherwise lexicographically larger weight tuple, in factor order",
+    "missing": "Unestablished scalar counting is pending extraction, not a completed canonical row",
+    "reference": "https://arxiv.org/html/0704.0165v1",
+    "method": "Tits theorem 3.6; exact finite Cartan matrices and dominant dual weights"
+  },
+  "fingerprint": "c8e05fc7d77633919f77515bc48c622db146fc9ce03a69e80f8e6ca9b3d0ae5d",
+  "action": "Verify source evidence for every assignment and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; retain source reality/counts separately. This tool is not a database writer or a source-extraction certificate.",
+  "duplicate_check": {
+    "status": "no_exact_match_review_required",
+    "fingerprint": "c8e05fc7d77633919f77515bc48c622db146fc9ce03a69e80f8e6ca9b3d0ae5d",
+    "matches": [],
+    "same_algebra_candidates": [
+      {
+        "entry_id": "trinification-n3-adjoint-l",
+        "name": "Three-bi-triplet trinification with one Majorana SU(3)L adjoint",
+        "coverage": "recorded_content"
+      },
+      {
+        "entry_id": "trinification-singlet-neutrino-sector",
+        "name": "Trinification singlet-neutrino Majorana mechanism",
+        "coverage": "partial"
+      }
+    ],
+    "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+    "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+  }
+}

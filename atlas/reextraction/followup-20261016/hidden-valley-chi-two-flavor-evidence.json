@@ -1,0 +1,373 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P43/checkpoint.json",
+  "frozen_checkpoint_sha256": "03717e5241270db791550878a069b653d47c939ae4976335c2003182c2dbf651",
+  "source": {
+    "paper_id": "P43",
+    "arxiv_version": "hep-ph/0604261v2",
+    "started_utc": "2026-10-16T18:26:22Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/hep-ph/0604261v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 0.17411949997767806,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:23Z",
+    "bytes": 198430,
+    "sha256": "fc8ed5d4eab551290302126266a5b869d8829e7108ac57340ac60fe9c883541c",
+    "local_pdf": "atlas/reextraction/sources/hep-ph_0604261v2.pdf",
+    "local_text": "atlas/reextraction/sources/hep-ph_0604261v2.txt",
+    "pdf_pages": 6,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript SVN PRE-RELEASE 8.62\nCreationDate:    Sat Feb  2 03:53:11 2008 -02\nModDate:         Sat Feb  2 03:53:11 2008 -02\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           6\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       198430 bytes\nOptimized:       no\nPDF version:     1.2\n",
+    "text_bytes": 47690
+  },
+  "inspection": {
+    "scope": "Complete Simple v-Model table and numerical benchmark plus Other Models coloured-X alternatives.",
+    "whole_paper_scientifically_read": false,
+    "visually_inspected_pdf_pages": [
+      1
+    ],
+    "text_pages_with_claim_anchors": [
+      1,
+      2,
+      4
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "table",
+      "basis": "source_table_and_common_chiral_coordinate_derivation",
+      "locator": {
+        "section_equations": "Simple v-Model, TableI",
+        "pdf_pages": [
+          1
+        ],
+        "anchor": "three right-"
+      },
+      "value": "GSM x SU(nv) x U1chi; two hidden flavours U,Ubar,C,Cbar fundamental/anti-fundamental, three neutrino singlets and complex phi. TableI is in common left-chiral SM q,ubar,dbar,L,eplus convention: chi charges -1/5,-1/5,3/5,3/5,-1/5,N=-1,H=2/5,phi=2. Table neutrino N is the left-chiral charge-conjugate coordinate, despite prose right-handed species naming: Majorana coupling NNphi is neutral. Retain table charges, do not conjugate this already conjugate coordinate twice."
+    },
+    {
+      "id": "benchmark",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "After Eq.(3), benchmark statement",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "simple case nv = 3, k = 0"
+      },
+      "value": "Source explicitly specializes nv=3,k=0,qplus=-2; qminus=0 from qplus+qminus=-2. Uchi charges U=-2,Ubar=0,C=+2,Cbar=0. Joint full spectrum scales chi by5 and ordinary Y by6. One-/two-light-flavour mass regimes share microscopic matter."
+    },
+    {
+      "id": "families",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "TableI, kinetic mixing and Other Models",
+        "pdf_pages": [
+          4
+        ],
+        "anchor": "particles X, X̄ charged under both color"
+      },
+      "value": "Generic nv,qplus and kinetic-basis mixing are explicit families. Coloured X/Xbar alternatives specify colour triplet/octet and valley adjoint/fundamental possibilities, not a full fixed electroweak, Lorentz or multiplicity assignment."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "hidden-valley-chi-two-flavor",
+  "paper_id": "P43",
+  "arxiv_version": "hep-ph/0604261v2",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        517
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 517,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "(qi,ubar_i,e_i+)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        517
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 517,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "(qi,ubar_i,e_i+)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [
+        518
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 518,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "(dbar_i,ℓi)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        518
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 518,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "(dbar_i,ℓi)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [
+        517
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 517,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "(qi,ubar_i,e_i+)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        516
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 516,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "N^c",
+      "source_field_ids": [
+        514
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 514,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "Ni"
+        }
+      ]
+    },
+    {
+      "candidate_label": "U",
+      "source_field_ids": [
+        510
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 510,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "U"
+        }
+      ]
+    },
+    {
+      "candidate_label": "Ubar",
+      "source_field_ids": [
+        511
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 511,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "Ubar"
+        }
+      ]
+    },
+    {
+      "candidate_label": "C",
+      "source_field_ids": [
+        512
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 512,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "C"
+        }
+      ]
+    },
+    {
+      "candidate_label": "Cbar",
+      "source_field_ids": [
+        513
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 513,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "Cbar"
+        }
+      ]
+    },
+    {
+      "candidate_label": "phi",
+      "source_field_ids": [
+        515
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "table",
+        "benchmark",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 515,
+          "model_id": "hidden-valley-chi-two-flavor",
+          "regime_id": 156,
+          "field_label": "φ"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Only explicit nv3,k0,qplus=-2 benchmark is numerical here. Genericcharge/rank family is not collapsed into this member. Table N is interpreted in common left-chiral coordinates, with source prose right-handed-species naming retained."
+  ],
+  "description_regime": {
+    "source_regime_ids": [
+      156
+    ],
+    "frozen_candidate_stem": "valley-benchmark",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}

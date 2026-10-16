@@ -1,0 +1,224 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P44/checkpoint.json",
+  "frozen_checkpoint_sha256": "26fbdfac8ecda7f05f9fe5dceef62e0d0df4486fddffe181e7dd8e6b6254f6ca",
+  "source": {
+    "paper_id": "P44",
+    "arxiv_version": "0711.4866v1",
+    "started_utc": "2026-10-16T18:26:23Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/0711.4866v1",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 0.1651736659987364,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:23Z",
+    "bytes": 256162,
+    "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+    "local_pdf": "atlas/reextraction/sources/0711.4866v1.pdf",
+    "local_text": "atlas/reextraction/sources/0711.4866v1.txt",
+    "pdf_pages": 17,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 19:10:05 2024 -03\nModDate:         Tue Nov 26 19:10:05 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       256162 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 54897
+  },
+  "inspection": {
+    "scope": "Sections2.1-2.3 complete displayed Lagrangians, pre-breaking gauge model and real scalar mediator variant.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      4,
+      8,
+      10
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "vector",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.1 Eqs.(2)-(3)",
+        "pdf_pages": [
+          4
+        ],
+        "anchor": "covariant derivative Dµ ="
+      },
+      "value": "Dirac SM-singlet psi and complex SM-singlet phi share Dmu=partial+i eprime V, hence unit hidden charge in the same explicit source coordinate. SM fields hidden neutral; phi Higgses U1prime. V is its gauge connection, not additional matter. Dirac psi expands into two LH conjugate rows."
+    },
+    {
+      "id": "scalar",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.2 Eqs.(16)-(17)",
+        "pdf_pages": [
+          8
+        ],
+        "anchor": "singlet WIMP"
+      },
+      "value": "Scalar portal adds a singlet fermion psi with ordinary Dirac kinetic/mass bilinear and a real scalar phi: half kinetic and phi^2 mass distinguish one real field. No extra gauge factor."
+    },
+    {
+      "id": "neutrino",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.3 Eq.(19)",
+        "pdf_pages": [
+          10
+        ],
+        "anchor": "one additional"
+      },
+      "value": "Neutrino portal adds one real S, one independent Majorana Nprime and RH-neutrino mediator species; displayed generation indices/copy count of NR not fixed. Alternative complexification is a distinct source option, not automatic doubling of the baseline."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "secluded-dirac-u1-higgsed",
+  "paper_id": "P44",
+  "arxiv_version": "0711.4866v1",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "psi",
+      "source_field_ids": [
+        524
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 524,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "regime_id": 166,
+          "field_label": "ψ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "phi",
+      "source_field_ids": [
+        525
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "vector",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 525,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "regime_id": 166,
+          "field_label": "φ"
+        }
+      ]
+    }
+  ],
+  "limitations": [],
+  "description_regime": {
+    "source_regime_ids": [
+      166
+    ],
+    "frozen_candidate_stem": "secluded-u1",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}

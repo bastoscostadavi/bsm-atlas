@@ -1,0 +1,338 @@
+{
+  "schema_version": "field-content-2",
+  "inventory_complete": true,
+  "name": "Secluded Dirac U1 Higgs model",
+  "paper_ids": [
+    "P44"
+  ],
+  "gauge_factors": [
+    {
+      "id": "colour",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "weak",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "hypercharge",
+      "family": "U1",
+      "rank": 1
+    },
+    {
+      "id": "hidden",
+      "family": "U1",
+      "rank": 1
+    }
+  ],
+  "matter": [
+    {
+      "label": "Q",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "1"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "u^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "-4"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "d^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "2"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "-3"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "e^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "6"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "3"
+        },
+        "hidden": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "psi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        },
+        "hidden": {
+          "charge": "1"
+        }
+      }
+    },
+    {
+      "label": "psi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        },
+        "hidden": {
+          "charge": "-1"
+        }
+      }
+    },
+    {
+      "label": "phi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        },
+        "hidden": {
+          "charge": "1"
+        }
+      }
+    }
+  ]
+}

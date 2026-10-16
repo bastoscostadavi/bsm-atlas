@@ -1,0 +1,177 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P32/checkpoint.json",
+  "frozen_checkpoint_sha256": "aeed9b33e2e4e3a439e262683355566be2323a1e792f643f1aa4a28a0f814415",
+  "source": {
+    "paper_id": "P32",
+    "arxiv_version": "hep-ph/0505013v1",
+    "started_utc": "2026-10-16T18:26:21Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/hep-ph/0505013v1",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "wall_seconds": 0.1727729999984149,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:22Z",
+    "bytes": 212616,
+    "sha256": "fd7fb3853f75782505791a04800c4a1baeef7ce9f88ff0e2c4e10df9d2f7bc14",
+    "local_pdf": "atlas/reextraction/sources/hep-ph_0505013v1.pdf",
+    "local_text": "atlas/reextraction/sources/hep-ph_0505013v1.txt",
+    "pdf_pages": 16,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript SVN PRE-RELEASE 8.62\nCreationDate:    Sat Feb  2 00:49:43 2008 -02\nModDate:         Sat Feb  2 00:49:43 2008 -02\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           16\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       212616 bytes\nOptimized:       no\nPDF version:     1.2\n",
+    "text_bytes": 46804
+  },
+  "inspection": {
+    "scope": "Full displayed model definition and explicit N=3 specialization.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      2
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "numsm",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Introduction Eq.(1), N=3 definition",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "we fix N to be 3"
+      },
+      "value": "SM plus N singlet RH neutrinos is first a family; the nuMSM explicitly fixes N=3. Each independent Majorana singlet corresponds to one LH Weyl, not a Dirac pair. Mass hierarchy/benchmarks do not create more field-content entries."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "numsm",
+  "paper_id": "P32",
+  "arxiv_version": "hep-ph/0505013v1",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "N_R",
+      "source_field_ids": [
+        401
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 401,
+          "model_id": "numsm",
+          "regime_id": 120,
+          "field_label": "N_I"
+        }
+      ]
+    }
+  ],
+  "limitations": [],
+  "description_regime": {
+    "source_regime_ids": [
+      120
+    ],
+    "frozen_candidate_stem": "numsm",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}

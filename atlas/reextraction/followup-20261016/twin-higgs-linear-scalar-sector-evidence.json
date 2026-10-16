@@ -1,0 +1,264 @@
+{
+  "source_review_reused_from_frozen_checkpoint": "atlas/reextraction/P37/checkpoint.json",
+  "frozen_checkpoint_sha256": "97a2932a6783caea12dad1ab9a03742cffe70222a9bf66622e2d93bf2e1b9976",
+  "source": {
+    "paper_id": "P37",
+    "arxiv_version": "hep-ph/0506256v2",
+    "started_utc": "2026-10-16T18:26:22Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/hep-ph/0506256v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "wall_seconds": 0.18897145800292492,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:22Z",
+    "bytes": 111599,
+    "sha256": "ba49d23d8cb61319f7e0a22a59bcabbba3daa0df31aed5926c63f9b35870aa7a",
+    "local_pdf": "atlas/reextraction/sources/hep-ph_0506256v2.pdf",
+    "local_text": "atlas/reextraction/sources/hep-ph_0506256v2.txt",
+    "pdf_pages": 5,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Feb  9 23:33:05 2015 -02\nModDate:         Mon Feb  9 23:33:05 2015 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           5\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       111599 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 34309
+  },
+  "inspection": {
+    "scope": "Whole short definition from linear example through extended-top, nonlinear construction and distinct twin/mirror alternatives.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      2
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "linear",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Eqs.(1)-(3); page2 two-copy construction",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "we gauge two copies of the SM"
+      },
+      "value": "Linear realization uses one complex global-SU4 H=(HA,HB), each a gauge doublet of its own sector. The complete unextended twin construction gauges two copies of SM and interchanges every ordinary particle with its twin. Expand each using the declared RSM baseline; global SU4 and SU6 are not extra gauge factors."
+    },
+    {
+      "id": "regimes",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Eqs.(4)-(7), extended-top discussion",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "hypercharge quantum numbers. One can"
+      },
+      "value": "Extended top adds crossed-colour/weak exotic LH quarks and opposite-charge partners; Eq4 suppresses their hypercharges. Later nonlinear realization integrates out the radial mode; optional massive twin hypercharge has unspecified dynamical origin above cutoff. Do not union these with the linear unextended inventory."
+    }
+  ],
+  "review_scope_note": "Source definitions actually checked in earlier pass are reused; not represented as a fresh independent review or whole-paper reread. This additive follow-up supplies exact legacy container IDs and current real-module normalization.",
+  "target_entry_id": "twin-higgs-linear-scalar-sector",
+  "paper_id": "P37",
+  "arxiv_version": "hep-ph/0506256v2",
+  "review": "agent_source_checked_not_independent_physics_review",
+  "source_field_mapping": [
+    {
+      "candidate_label": "ordinary Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "ordinary u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "ordinary d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "ordinary L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "ordinary e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "ordinary H",
+      "source_field_ids": [
+        450
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 450,
+          "model_id": "twin-higgs-linear-scalar-sector",
+          "regime_id": 133,
+          "field_label": "H=(H_A,H_B)"
+        }
+      ]
+    },
+    {
+      "candidate_label": "twin Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "twin u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "twin d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "twin L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "twin e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "twin H",
+      "source_field_ids": [
+        450
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "linear",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 450,
+          "model_id": "twin-higgs-linear-scalar-sector",
+          "regime_id": 133,
+          "field_label": "H=(H_A,H_B)"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "This full linear unextended twin completion uses the explicit two-SM-copy construction; it is not the nonlinear or extended-top model, and old field450 is only its scalar container."
+  ],
+  "description_regime": {
+    "source_regime_ids": [
+      133
+    ],
+    "frozen_candidate_stem": "twin-linear",
+    "description": "Exactly the source-scoped frozen candidate, not union of all source regimes."
+  },
+  "no_anomaly_or_viability_gate": true
+}
