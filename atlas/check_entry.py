@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 """Read-only canonical duplicate check before adding a model or paper link."""
 import argparse
+from contextlib import closing
 import json
 from pathlib import Path
 import sqlite3
 from catalogue_identity import canonicalize,IncompleteContent
+from parameterized_entry import SCHEMA as PARAMETER_SCHEMA, validation_report, specialize
 
 def check(spec,database):
+    if isinstance(spec,dict) and spec.get('schema_version')==PARAMETER_SCHEMA:
+        report=validation_report(spec)
+        if report['normalized_entry']['parameters']:
+            return {**report,'matches':None,'same_algebra_candidates':None,
+                    'action':'Reconcile this family with existing entries using source evidence. Numerical duplicate checking requires a parameter assignment; an unchecked family is not a proven new theory.'}
+        spec=specialize(report['normalized_entry'],{})
     result=canonicalize(spec)
-    with sqlite3.connect(database.resolve().as_uri()+'?mode=ro',uri=True) as c:
+    with closing(sqlite3.connect(database.resolve().as_uri()+'?mode=ro',uri=True)) as c:
         matches=[{'entry_id':r[0],'name':r[1]} for r in c.execute('SELECT e.entry_id,e.name FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.fingerprint=?',(result['fingerprint'],))]
         algebra=json.loads(result['canonical_json'])['gauge_factors']
         candidates=[{'entry_id':r[0],'name':r[1],'coverage':r[2]} for r in c.execute('SELECT e.entry_id,e.name,e.coverage FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.algebra_signature=?',(json.dumps(algebra,sort_keys=True,separators=(',',':')),))]

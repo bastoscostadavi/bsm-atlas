@@ -11,7 +11,7 @@ import unittest
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'atlas'))
 from catalogue_identity import canonicalize
-from nonabelian_core import restrict_nonabelian
+from nonabelian_core import restrict_nonabelian,algebra_key
 
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
 ENTRIES={e['id']:e for e in DATA['entries']}
@@ -20,6 +20,52 @@ def spec(name):return deepcopy(ENTRIES[name]['identity']['input'])
 def core(value):return restrict_nonabelian(value)['id']
 
 class NonAbelianCore(unittest.TestCase):
+    def test_algebra_projection_forgets_all_matter_but_not_simple_factors(self):
+        a=restrict_nonabelian(spec('two-higgs-doublets'))['canonical']
+        b=restrict_nonabelian(spec('nmssm-matter'))['canonical']
+        self.assertNotEqual(a,b)
+        self.assertEqual(algebra_key(a),algebra_key(b))
+        b=deepcopy(a);b['matter']=[];b['gauge_factors'].reverse()
+        self.assertEqual(algebra_key(a),algebra_key(b))
+        b['gauge_factors'].append({'family':'A','rank':1})
+        self.assertNotEqual(algebra_key(a)['id'],algebra_key(b)['id'])
+        self.assertNotIn('matter',algebra_key(a)['canonical'])
+        self.assertEqual(algebra_key({'gauge_factors':[]})['canonical']['gauge_factors'],[])
+
+    def test_three_layer_memberships_are_a_partition(self):
+        self.assertEqual(DATA['counts']['semisimpleAlgebras'],2)
+        self.assertEqual(len(DATA['semisimpleAlgebras']),2)
+        seen_cores=[];seen_entries=[]
+        for a in DATA['semisimpleAlgebras']:
+            self.assertEqual(a['id'],sha256(json.dumps(a['canonical'],sort_keys=True,separators=(',',':')).encode()).hexdigest())
+            self.assertNotIn('matter',a['canonical'])
+            children=[c for c in DATA['cores'] if c['semisimpleId']==a['id']]
+            self.assertEqual(set(a['coreIds']),{c['id'] for c in children})
+            self.assertEqual(set(a['entryIds']),{e for c in children for e in c['entryIds']})
+            for c in children:self.assertEqual(algebra_key(c['canonical'])['id'],a['id'])
+            for entry_id in a['entryIds']:self.assertEqual(ENTRIES[entry_id]['semisimpleId'],a['id'])
+            seen_cores.extend(a['coreIds']);seen_entries.extend(a['entryIds'])
+        self.assertEqual(len(seen_cores),len(set(seen_cores)))
+        self.assertEqual(len(seen_entries),len(set(seen_entries)))
+        self.assertEqual(set(seen_cores),{c['id'] for c in DATA['cores']})
+        self.assertEqual(len(seen_entries),15)
+        self.assertTrue(all(e['semisimpleId'] is None for e in DATA['entries'] if e['publicationStatus']=='pending'))
+
+    def test_algebra_csv_and_relational_join(self):
+        with (ROOT/'website/downloads/semisimple-algebras.csv').open(newline='') as stream:
+            rows=list(csv.DictReader(stream))
+        self.assertEqual(len(rows),2)
+        for a in DATA['semisimpleAlgebras']:
+            row=next(r for r in rows if r['semisimple_algebra_id']==a['id'])
+            self.assertEqual(json.loads(row['cartan_factors']),a['canonical']['gauge_factors'])
+            self.assertEqual(set(row['core_ids'].split(';')),set(a['coreIds']))
+        with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
+            self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
+            self.assertEqual(con.execute('select count(*) from semisimple_algebras').fetchone()[0],2)
+            self.assertEqual(con.execute('select count(*) from entry_layers').fetchone()[0],103)
+            for e in DATA['entries']:
+                self.assertEqual(con.execute('select semisimple_id,core_id from entry_layers where entry_id=?',(e['id'],)).fetchone(),(e['semisimpleId'],e['coreId']))
+
     def test_charge_assignments_group_without_merging_full_entries(self):
         for names in [('vlq-t-singlet','vlq-b-singlet'),
                       ('vlq-xt-doublet','vlq-tb-doublet','vlq-by-doublet'),

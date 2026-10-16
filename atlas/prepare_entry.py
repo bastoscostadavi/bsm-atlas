@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Read-only pre-ingestion normalization of a complete numerical extraction.
+"""Read-only pre-ingestion validation of numerical or parameterized entries.
 
 The extraction agent must establish source facts and provenance first. This
 command emits the normalized candidate that may be considered for ingestion;
-it never writes the original or generated database. Unknown/symbolic inputs
-remain outside this complete numerical path, not silently guessed or erased.
+it never writes the original or generated database. Declared symbolic charges
+use field-content-3. Unknown assignments are not free parameters or numbers.
 """
 import argparse
 from copy import deepcopy
@@ -14,8 +14,23 @@ from pathlib import Path
 from catalogue_identity import normalize_spec,primitive_charge_scale,canonicalize,IncompleteContent
 from check_entry import check
 from scalar_conventions import CONVENTION as SCALAR_CONVENTION
+from parameterized_entry import SCHEMA as PARAMETER_SCHEMA, specialize, validation_report
 
-def prepare(spec,database=None):
+def prepare(spec,database=None,values=None):
+    if isinstance(spec,dict) and spec.get('schema_version')==PARAMETER_SCHEMA:
+        report=validation_report(spec)
+        if values is None and report['normalized_entry']['parameters']:
+            if database is not None:
+                report['duplicate_check']={'status':'symbolic_family_reconciliation_required','fingerprint':None,
+                    'action':'A numerical registry cannot certify family identity. Use --values to check a particular member.'}
+            return report
+        assignment={} if values is None else values
+        result=prepare(specialize(report['normalized_entry'],assignment),database)
+        result['parameter_assignment']=deepcopy(assignment)
+        result['constraint_check']='passed'
+        return result
+    if values is not None:
+        raise IncompleteContent('--values is only supported for field-content-3 entries')
     original=deepcopy(spec)
     normalized=normalize_spec(spec)
     transformations=[]
@@ -33,14 +48,15 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('candidate',type=Path)
     parser.add_argument('--database',type=Path,help='Also run the read-only duplicate check')
+    parser.add_argument('--values',type=json.loads,help='Specialize declared parameters, e.g. \'{"z1":1,"z2":2}\'')
     parser.add_argument('--require-normalized',action='store_true',help='Reject inputs needing mathematical normalization; usable as a pre-write assertion')
     args=parser.parse_args()
     try:
         candidate=json.loads(args.candidate.read_text())
-        result=prepare(candidate,args.database)
+        result=prepare(candidate,args.database,args.values)
         if args.require_normalized and candidate!=result['normalized_entry']:
             raise IncompleteContent('Candidate needs normalization; use normalized_entry and preserve source notation in provenance before ingestion')
     except (IncompleteContent,KeyError,ValueError,TypeError,AttributeError,IndexError) as error:
-        print(json.dumps({'status':'blocked_before_ingestion','reason':str(error),'action':'Complete or correct the extraction. Explicit source omissions/free parameters require their separate partial/family representation, not invented numeric values.'},ensure_ascii=False,indent=2))
+        print(json.dumps({'status':'blocked_before_ingestion','reason':str(error),'action':'Correct the schema or extraction. Declare source-free charge parameters using field-content-3; source omissions remain partial, not invented parameter values.'},ensure_ascii=False,indent=2))
         raise SystemExit(2)
     print(json.dumps(result,ensure_ascii=False,indent=2))

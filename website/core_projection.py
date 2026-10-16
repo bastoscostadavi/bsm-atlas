@@ -1,6 +1,6 @@
 """Readable projections of exact core keys; full entries remain authoritative."""
 from catalogue_identity import IncompleteContent
-from nonabelian_core import restrict_nonabelian, CONVENTION
+from nonabelian_core import restrict_nonabelian, algebra_key, CONVENTION
 from scalar_conventions import is_scalar
 from field_conventions import dimension_a, young_rows
 
@@ -62,3 +62,22 @@ def attach_cores(entries):
         core['paperIds']=sorted(set(core['paperIds'])|set(entry['paperIds']))
         core['abelianRanks']=sorted(set(core['abelianRanks'])|{entry['abelianRank']})
     return sorted(cores.values(),key=lambda c:(c['algebra'],min(c['paperIds'] or ['Z']),c['id']))
+
+def attach_algebras(entries,cores):
+    """Layer 1 is derived from layer 2; never maintain another model inventory."""
+    algebras={}
+    core_by_id={c['id']:c for c in cores}
+    for core in cores:
+        projected=algebra_key(core['canonical'])
+        core['semisimpleId']=projected['id']
+        if projected['id'] not in algebras:
+            algebras[projected['id']]={**projected,'algebra':core['algebra'],
+                'algebraSignature':core['algebraSignature'],'factors':core['regime']['factors'],
+                'coreIds':[],'entryIds':[],'paperIds':[],'abelianRanks':[]}
+        algebra=algebras[projected['id']]
+        algebra['coreIds'].append(core['id'])
+        for key in ['entryIds','paperIds','abelianRanks']:
+            algebra[key]=sorted(set(algebra[key])|set(core[key]))
+    for entry in entries:
+        entry['semisimpleId']=core_by_id[entry['coreId']]['semisimpleId'] if entry['coreId'] else None
+    return sorted(algebras.values(),key=lambda a:(a['algebra'],a['id']))

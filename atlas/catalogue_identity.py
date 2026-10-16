@@ -19,6 +19,8 @@ SCHEMA = 'field-content-2'
 
 
 def normalize_spec(spec):
+    if isinstance(spec,dict) and spec.get('schema_version')=='field-content-3':
+        raise IncompleteContent('Use prepare_entry for parameterized validation or specialize with --values before numerical identity checking')
     if not isinstance(spec,dict) or spec.get('schema_version') not in {'field-content-1',SCHEMA}:
         raise IncompleteContent('Use field-content-1 source inputs or field-content-2 canonical inputs')
     source = deepcopy(spec)

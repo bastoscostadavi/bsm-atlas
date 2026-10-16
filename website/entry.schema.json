@@ -2,23 +2,49 @@
   "$schema":"https://json-schema.org/draft/2020-12/schema",
   "$id":"https://davibc.com/bsm-atlas/entry.schema.json",
   "title":"BSM field-content candidate",
-  "description":"One fixed description regime with a complete declared inventory. Non-Abelian irreps use dynkin-gauge-1: highest-weight Dynkin labels in Bourbaki node numbering as in Sage finite Cartan types. Dimensions and Young shapes are not input identifiers. Names and papers do not determine identity. Stored 4D Weyl fields are all left-handed; the checker also converts explicit RH/Dirac inputs before comparison.",
+  "description":"One fixed gauge algebra and matter inventory, with numerical charges or field-content-3 integer-polynomial charge parameters. Non-Abelian irreps use dynkin-gauge-1: highest-weight Dynkin labels in Bourbaki node numbering as in Sage finite Cartan types. Dimensions and Young shapes are not input identifiers. The executable validator must also check polynomial grammar, declared variables, factor/weight ranks and Lorentz conventions. This schema does not require or certify anomaly cancellation. Numerical input converts RH/Dirac fields; symbolic input requires explicit LH Weyl rows.",
   "type":"object",
   "required":["schema_version","inventory_complete","gauge_factors","matter"],
   "properties":{
-    "schema_version":{"enum":["field-content-1","field-content-2"]},
+    "schema_version":{"enum":["field-content-1","field-content-2","field-content-3"]},
     "inventory_complete":{"const":true},
     "name":{"type":"string"},
     "paper_ids":{"type":"array","items":{"type":"string"}},
+    "parameters":{"type":"object","maxProperties":16,"description":"Integer charge parameters; {} denotes a concrete entry. Constraints supply ranges and relations.","propertyNames":{"pattern":"^[A-Za-z][A-Za-z0-9_]{0,31}$"},"additionalProperties":{"type":"object","required":["domain"],"properties":{"domain":{"const":"integer"}},"additionalProperties":false}},
+    "constraints":{"type":"array","maxItems":64,"description":"Conjunction of exact polynomial comparisons. Chained comparisons such as 0 < z1 < z2 < 3 are allowed. No arbitrary code/functions.","items":{"type":"string","minLength":1,"maxLength":1024}},
     "gauge_factors":{"type":"array","minItems":1,"items":{"type":"object","required":["id","family","rank"],"properties":{"id":{"type":"string","minLength":1},"family":{"enum":["A","B","C","D","E","F","G","U1"]},"rank":{"type":"integer","minimum":1}},"additionalProperties":false}},
     "matter":{"type":"array","minItems":1,"items":{"type":"object","required":["lorentz","reality","copies","gauge_representations"],"properties":{
       "label":{"type":"string"},
       "lorentz":{"type":"object","required":["dimension","scheme","irreps"],"properties":{"dimension":{"type":"integer","minimum":4},"scheme":{"type":"string"},"irreps":{"type":"array","minItems":1,"items":{"type":"array","minItems":1,"items":{"type":["string","integer"]}}}},"additionalProperties":false},
       "reality":{"enum":["real","complex","real_module","none","majorana"]},
       "copies":{"type":"integer","minimum":1},
-      "gauge_representations":{"type":"object","additionalProperties":{"oneOf":[{"type":"object","required":["dynkin"],"properties":{"dynkin":{"type":"array","items":{"type":"integer","minimum":0}}},"additionalProperties":false},{"type":"object","required":["charge"],"properties":{"charge":{"type":"string","pattern":"^[+-]?[0-9]+(/[1-9][0-9]*)?$"}},"additionalProperties":false}]}}
+      "gauge_representations":{"type":"object","additionalProperties":{"oneOf":[{"type":"object","required":["dynkin"],"properties":{"dynkin":{"type":"array","items":{"type":"integer","minimum":0}}},"additionalProperties":false},{"type":"object","required":["charge"],"properties":{"charge":{"type":"string","minLength":1,"maxLength":1024}},"additionalProperties":false}]}}
     },"additionalProperties":false}}
   },
-  "allOf":[{"if":{"properties":{"schema_version":{"const":"field-content-1"}}},"then":{"properties":{"matter":{"items":{"properties":{"reality":{"not":{"const":"real_module"}}}}}}}}],
+  "allOf":[
+    {"if":{"properties":{"schema_version":{"const":"field-content-1"}}},"then":{"properties":{"matter":{"items":{"properties":{"reality":{"not":{"const":"real_module"}}}}}}}},
+    {
+      "if":{"properties":{"schema_version":{"const":"field-content-3"}}},
+      "then":{"required":["parameters"]},
+      "else":{
+        "properties":{
+          "parameters":false,
+          "constraints":false,
+          "matter":{
+            "items":{
+              "properties":{
+                "gauge_representations":{
+                  "additionalProperties":{
+                    "if":{"required":["charge"]},
+                    "then":{"properties":{"charge":{"pattern":"^[+-]?[0-9]+(/[1-9][0-9]*)?$"}}}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "additionalProperties":false
 }

@@ -14,6 +14,22 @@ CONVENTION = {
     'meaning':'Coarse grouping, not physical-theory equivalence, symmetry breaking, or an SM-embedding certificate',
 }
 
+ALGEBRA_CONVENTION = {
+    'id':'semisimple-algebra-1',
+    'projection':'Forget matter in a resolved non-Abelian core; retain the multiset of canonical simple gauge factors',
+    'meaning':'Derived algebra-only grouping, not a global group, quotient, physical theory or additional source inventory',
+}
+
+def algebra_key(core):
+    """Key only the canonical semisimple algebra, independently of matter."""
+    factors=[{'family':a['family'],'rank':a['rank']} for a in core['gauge_factors']]
+    if any(a['family'] not in {'A','B','C','D','E','F','G'} for a in factors):
+        raise IncompleteContent('Algebra-only keys require a resolved non-Abelian core')
+    factors.sort(key=lambda a:(a['family'],-a['rank']))
+    canonical={'schema_version':ALGEBRA_CONVENTION['id'],'gauge_factors':factors}
+    encoded=json.dumps(canonical,sort_keys=True,separators=(',',':'))
+    return {'id':sha256(encoded.encode()).hexdigest(),'canonical':canonical}
+
 def restrict_nonabelian(spec):
     """Return a canonical core from one complete numerical description regime.
 
