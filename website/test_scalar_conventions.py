@@ -1,4 +1,5 @@
 """Exact scalar counting and identity regressions, not source-physics review."""
+from contextlib import closing
 from copy import deepcopy
 import json
 from hashlib import sha256
@@ -82,7 +83,7 @@ class ScalarModules(unittest.TestCase):
 
     def test_component_counts_and_integer_charge_export(self):
         data=json.loads((ROOT/'website/field-catalogue.json').read_text())
-        with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
+        with closing(sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
             for n,payload in con.execute('select copies,representation_json from spacetime_representations'):
                 self.assertEqual(n,json.loads(payload)['copies'])
             self.assertEqual({s[0] for s in con.execute('select schema_version from content_signatures')},{'field-content-2'})
@@ -92,7 +93,7 @@ class ScalarModules(unittest.TestCase):
             # Clone the schema to test the database-level guard without writing
             # to the published export or the immutable source database.
             ddl=con.execute("select sql from sqlite_master where name='component_gauge_representations'").fetchone()[0]
-        with sqlite3.connect(':memory:') as mem:
+        with closing(sqlite3.connect(':memory:')) as mem:
             mem.execute(ddl)
             for q in ['[0,-3,3]','n','source:2','1/2','--3','']:
                 with self.assertRaises(sqlite3.IntegrityError):

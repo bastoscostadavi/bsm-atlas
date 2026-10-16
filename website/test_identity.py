@@ -1,3 +1,4 @@
+from contextlib import closing
 import copy
 from fractions import Fraction
 import json
@@ -98,7 +99,7 @@ class Identity(unittest.TestCase):
         result=check(spec('nmssm-matter'),database)
         self.assertEqual(result['status'],'exact_field_content_match')
         self.assertIn('nmssm-matter',[e['entry_id'] for e in result['matches']])
-        with sqlite3.connect(database) as c:
+        with closing(sqlite3.connect(database)) as c:
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entry_identity').fetchone()[0],103)
             conjugate_row='vlq-t-singlet:73:1'

@@ -1,4 +1,5 @@
 """Derived core grouping regressions; not a new source-physics review."""
+from contextlib import closing
 from copy import deepcopy
 from hashlib import sha256
 import json
@@ -73,7 +74,7 @@ class NonAbelianCore(unittest.TestCase):
             self.assertEqual(json.loads(row['cartan_factors']),a['canonical']['gauge_factors'])
             self.assertEqual(set(filter(None,row['core_ids'].split(';'))),set(a['coreIds']))
             self.assertEqual(set(filter(None,row['pending_entry_ids'].split(';'))),set(a['pendingEntryIds']))
-        with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
+        with closing(sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
             self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(con.execute('select count(*) from semisimple_algebras').fetchone()[0],14)
             self.assertEqual(con.execute('select count(*) from entry_layers').fetchone()[0],103)
@@ -149,7 +150,7 @@ class NonAbelianCore(unittest.TestCase):
         self.assertTrue(all(e['coreId'] is None for e in DATA['entries'] if e['publicationStatus']=='pending'))
 
     def test_relational_factors_and_core_index(self):
-        with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
+        with closing(sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
             self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(con.execute('select count(*) from nonabelian_cores').fetchone()[0],15)
             self.assertEqual(con.execute('select count(*) from entry_cores where core_id is not null').fetchone()[0],19)

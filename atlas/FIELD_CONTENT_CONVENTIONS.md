@@ -22,6 +22,8 @@ There are 103 provisional field-content entries after the explicitly documented 
 
 ## Algebra conventions
 
+The visible count column is **Multiplicity**: the number of repetitions of a Lorentz × gauge representation, not its dimension. Existing machine fields named `copies` retain this meaning for compatibility with canonical fingerprints and frozen evidence. This label change does not migrate or recount any data.
+
 - Local compact Lie algebras use lowercase `su(n)`, `so(n)`, `u(1)` and direct sums. The SM shorthand is **g_SM = su(3) ⊕ su(2) ⊕ u(1)**. No global group or central quotient is inferred.
 - Simple-factor keys use Cartan type and rank, e.g. A2 and A1. Low-rank B1=A1, D3=A3 and B2=C2 are normalized only at the algebra level. Numeric source Sp(N) conventions remain unresolved unless rank versus fundamental-dimension convention is known.
 - Factor slots are sorted by Cartan family, descending rank, then role. Abelian factors follow non-Abelian factors; identified hypercharge is the first Abelian slot. Repeated factors retain role labels. A permutation is applied to representations together with the algebra; the slot keys are retained.
@@ -115,7 +117,7 @@ Do not enumerate every substitution. A symbolic entry can represent infinitely m
 
 This implements the input schema and preflight, not an enforceable write API or automatic public-family intake. The current generated catalogue still contains numerical accepted candidates and pending source records; no symbolic example is published as a model. Do not put formulas into its existing integer-only SQL charge column. A later source-reviewed symbolic intake must persist the complete version-3 payload (including parameter domains and constraints) on the same entry, with explicitly typed expression storage, before exposing it through the public exporter.
 
-The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by copies. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts using Dynkin labels and exact charges, not dimensions or source names. Unknown weights never establish a merge; su(3) [2,1] and [4,0], both dimension 15, stay distinct. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
+The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by **Multiplicity**. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts using Dynkin labels and exact charges, not dimensions or source names. Unknown weights never establish a merge; su(3) [2,1] and [4,0], both dimension 15, stay distinct. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
 
 ### Lorentz convention: all 4D Weyl fields are left-handed
 

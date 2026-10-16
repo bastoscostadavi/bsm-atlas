@@ -1,4 +1,5 @@
 """Regression checks for the projection, not independent physics validation."""
+from contextlib import closing
 import csv
 from fractions import Fraction
 import hashlib
@@ -135,7 +136,7 @@ class Catalogue(unittest.TestCase):
         self.assertEqual(len(r['factors']),4) # UV, not UV plus diagonal subgroup
 
     def test_sqlite_and_csv_roundtrip(self):
-        with sqlite3.connect((SITE/'downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as c:
+        with closing(sqlite3.connect((SITE/'downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as c:
             self.assertEqual(c.execute('pragma integrity_check').fetchone()[0],'ok')
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))

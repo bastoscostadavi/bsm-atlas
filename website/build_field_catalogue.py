@@ -5,6 +5,7 @@ No original SQLite table or scientific-review state is modified. The output is
 a traceable, scoped projection with separately accepted source re-extractions,
 not a proof of physical-theory equivalence. Regimes are never combined.
 """
+from contextlib import closing
 import argparse
 from collections import defaultdict
 from copy import deepcopy
@@ -88,7 +89,7 @@ def copies(field):
 
 def main_data(database,curations):
     original_hash=hashlib.sha256(database.read_bytes()).hexdigest()
-    with sqlite3.connect(database.resolve().as_uri()+"?mode=ro",uri=True) as con:
+    with closing(sqlite3.connect(database.resolve().as_uri()+"?mode=ro",uri=True)) as con:
         con.row_factory=sqlite3.Row
         def all_rows(table): return [dict(r) for r in con.execute("SELECT * FROM "+table)]
         tables={name:all_rows(name) for name in ["papers","paper_versions","paper_profiles","theory_specifications","theory_regimes","theory_fields","theory_field_representations","theory_gauge_groups","theory_gauge_factors","paper_theory_links","theory_assertion_links","paper_assertions","paper_assertion_evidence","evidence_refs"]}
@@ -377,7 +378,7 @@ def write_outputs(data,check=False):
             path.parent.mkdir(exist_ok=True);path.write_bytes(content.encode("utf-8"))
     if not check:
         database=SITE/"downloads"/"field-catalogue.sqlite"
-        with sqlite3.connect(database) as con:
+        with closing(sqlite3.connect(database)) as con:
             con.execute("PRAGMA foreign_keys=ON")
             for name in ['entry_layers','nonabelian_factors','abelian_factors']:
                 con.execute('DROP VIEW IF EXISTS '+name)
