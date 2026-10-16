@@ -1,0 +1,281 @@
+{
+  "status": "completed_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Introduction colour/vector-like definition; full seven-multiplet list and electric charges in Section 2.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      5
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "vlq",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Introduction; Section 2 Eq.(1) and paragraphs below",
+        "pdf_pages": [
+          5
+        ],
+        "anchor": "only one extra multiplet"
+      },
+      "value": "Seven alternative colour-triplet vector-like quark multiplets, one at a time: T,B singlets; XT,TB,BY doublets; XTB,TBY triplets. Component charges X=5/3,T=2/3,B=-1/3,Y=-4/3 fix Y=Q-T3, yielding 2/3,-1/3,7/6,1/6,-5/6,2/3,-1/3 respectively. Each source Dirac multiplet expands to LH R plus LH conjugate R; do not count dimensions as copies."
+    }
+  ],
+  "source_descriptions": [],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P10",
+  "arxiv_version": "1306.0572v3",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P10",
+    "arxiv_version": "1306.0572v3",
+    "started_utc": "2026-10-16T18:26:18Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1306.0572v3",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "wall_seconds": 0.19159833301091567,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:18Z",
+    "bytes": 479011,
+    "sha256": "ea9a4d4e479c9c3613e0c45a86a53879a93f1b2021869e950299672c88cea277",
+    "local_pdf": "atlas/reextraction/sources/1306.0572v3.pdf",
+    "local_text": "atlas/reextraction/sources/1306.0572v3.txt",
+    "pdf_pages": 36,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Dec  9 23:33:48 2013 -02\nModDate:         Mon Dec  9 23:33:48 2013 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           36\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       479011 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 122336
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "vlq-b-singlet",
+      "vlq-by-doublet",
+      "vlq-t-singlet",
+      "vlq-tb-doublet",
+      "vlq-tby-triplet",
+      "vlq-xt-doublet",
+      "vlq-xtb-triplet"
+    ],
+    "source_field_ids": [
+      75,
+      76,
+      82,
+      83,
+      73,
+      74,
+      79,
+      80,
+      81,
+      87,
+      88,
+      89,
+      77,
+      78,
+      84,
+      85,
+      86
+    ],
+    "public_entry_ids": [
+      "vlq-by-doublet",
+      "vlq-tby-triplet",
+      "vlq-tb-doublet",
+      "vlq-xtb-triplet",
+      "vlq-xt-doublet",
+      "vlq-b-singlet",
+      "vlq-t-singlet"
+    ]
+  },
+  "staged_numerical_candidates": [
+    "t-singlet-normalized-candidate.json",
+    "b-singlet-normalized-candidate.json",
+    "xt-doublet-normalized-candidate.json",
+    "tb-doublet-normalized-candidate.json",
+    "by-doublet-normalized-candidate.json",
+    "xtb-triplet-normalized-candidate.json",
+    "tby-triplet-normalized-candidate.json"
+  ],
+  "preflight_results": [
+    {
+      "stem": "t-singlet",
+      "fingerprint": "ddcb3602ac8856ec9793ccf7b08e492bce215ba9de742756838344c70e1f22a8",
+      "target_existing_entry_id": "vlq-t-singlet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "ddcb3602ac8856ec9793ccf7b08e492bce215ba9de742756838344c70e1f22a8",
+        "matches": [
+          {
+            "entry_id": "vlq-t-singlet",
+            "name": "Standard Model with a vector-like T singlet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "t-singlet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "b-singlet",
+      "fingerprint": "26b539cbb1ec0759381a772760e563411d9ccd32ff379b23a5d34c92daea7440",
+      "target_existing_entry_id": "vlq-b-singlet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "26b539cbb1ec0759381a772760e563411d9ccd32ff379b23a5d34c92daea7440",
+        "matches": [
+          {
+            "entry_id": "vlq-b-singlet",
+            "name": "Standard Model with a vector-like B singlet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "b-singlet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "xt-doublet",
+      "fingerprint": "0154d4a532eb5f04f95945b57be4695d2aed839cb1c243225d7fa5d9087239b7",
+      "target_existing_entry_id": "vlq-xt-doublet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "0154d4a532eb5f04f95945b57be4695d2aed839cb1c243225d7fa5d9087239b7",
+        "matches": [
+          {
+            "entry_id": "vlq-xt-doublet",
+            "name": "Standard Model with a vector-like (X T) doublet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "xt-doublet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "tb-doublet",
+      "fingerprint": "baa08a3551178225b7ed3330ee4fe98eab6fc34b6942957cdc55088c97911290",
+      "target_existing_entry_id": "vlq-tb-doublet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "baa08a3551178225b7ed3330ee4fe98eab6fc34b6942957cdc55088c97911290",
+        "matches": [
+          {
+            "entry_id": "vlq-tb-doublet",
+            "name": "Standard Model with a vector-like (T B) doublet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "tb-doublet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "by-doublet",
+      "fingerprint": "b77caf02e48a84a8009697c3783428d13a658778fe99ebfb7b9478c204aca763",
+      "target_existing_entry_id": "vlq-by-doublet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "b77caf02e48a84a8009697c3783428d13a658778fe99ebfb7b9478c204aca763",
+        "matches": [
+          {
+            "entry_id": "vlq-by-doublet",
+            "name": "Standard Model with a vector-like (B Y) doublet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "by-doublet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "xtb-triplet",
+      "fingerprint": "4e1c4dab0d25a4e380ac1015ad330185ad2fb6aa2aa4e808434750631671765b",
+      "target_existing_entry_id": "vlq-xtb-triplet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "4e1c4dab0d25a4e380ac1015ad330185ad2fb6aa2aa4e808434750631671765b",
+        "matches": [
+          {
+            "entry_id": "vlq-xtb-triplet",
+            "name": "Standard Model with a vector-like (X T B) triplet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "xtb-triplet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    },
+    {
+      "stem": "tby-triplet",
+      "fingerprint": "b265db25446158fcfffdbf5dc502f503f0a79f0d76ecb94776b944d685ed5f7d",
+      "target_existing_entry_id": "vlq-tby-triplet",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "b265db25446158fcfffdbf5dc502f503f0a79f0d76ecb94776b944d685ed5f7d",
+        "matches": [
+          {
+            "entry_id": "vlq-tby-triplet",
+            "name": "Standard Model with a vector-like (T B Y) triplet"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "tby-triplet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    }
+  ],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:29Z",
+    "source_access_started_utc": "2026-10-16T18:26:18Z",
+    "source_access_ended_utc": "2026-10-16T18:26:18Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.19159833301091567,
+    "preflight_and_checkpoint_wall_seconds": 0.5967593330133241,
+    "child_user_cpu_seconds": 0.42855600000000005,
+    "child_system_cpu_seconds": 0.108023,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

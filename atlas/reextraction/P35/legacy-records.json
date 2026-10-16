@@ -1,0 +1,382 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P35",
+  "source_models": [
+    {
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "su4-hypercolor-partial-compositeness",
+      "name": "SU(4) fermionic hypercolor with SU(5)/SO(5) partial compositeness",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "su4-hypercolor-partial-compositeness"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 421,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 129,
+      "field_label": "psi",
+      "field_kind": "two-component hyperfermion collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "5",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "The SU(4) representation is real; no independent real-field condition is imposed on the Weyl fields.",
+      "representations": [
+        {
+          "representation_id": 333,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 129,
+          "field_id": 421,
+          "factor_id": null,
+          "group_id": 92,
+          "representation_label": "6, antisymmetric",
+          "representation_reality": "real",
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 422,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 129,
+      "field_label": "chi",
+      "field_kind": "two-component hyperfermion collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 334,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 129,
+          "field_id": 422,
+          "factor_id": null,
+          "group_id": 92,
+          "representation_label": "4, fundamental",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 423,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 129,
+      "field_label": "chi_tilde",
+      "field_kind": "two-component hyperfermion collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent antifundamental Weyl fields, not merely the conjugate variables of chi.",
+      "representations": [
+        {
+          "representation_id": 335,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 129,
+          "field_id": 423,
+          "factor_id": null,
+          "group_id": 92,
+          "representation_label": "4-bar, antifundamental",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 424,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "H",
+      "field_kind": "composite pNGB Higgs doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "Four real SU(5)/SO(5) coordinates; H-dagger is not a second doublet.",
+      "representations": [
+        {
+          "representation_id": 336,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 424,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(1,2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "SU(5)/SO(5) coordinates are color singlets; X=0 makes Y=TR3. The conjugate doublet is the same field's conjugate."
+        }
+      ]
+    },
+    {
+      "field_id": 425,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "Phi0",
+      "field_kind": "composite pNGB weak triplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "real triplet, with conjugate charged components",
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 337,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 425,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(1,3,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 426,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "Phi+",
+      "field_kind": "composite pNGB weak triplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "Phi- is its conjugate, not another independent complex multiplet.",
+      "representations": [
+        {
+          "representation_id": 338,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 426,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(1,3,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 427,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "eta",
+      "field_kind": "SU(5)/SO(5) singlet pNGB",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "real",
+      "inherited_baseline_label": null,
+      "scope_note": "Identified in the coset inventory, then omitted from the explicit effective analysis.",
+      "representations": [
+        {
+          "representation_id": 339,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 427,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(1,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 428,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "pi",
+      "field_kind": "color-octet pNGB coordinates",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "8 real Goldstone coordinates",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "pi = pi^a lambda^a/2 from SU(3) × SU(3)'/SU(3)c.",
+      "representations": [
+        {
+          "representation_id": 340,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 428,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(8,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Color octet of the separate flavor coset; electroweak singlet in the stated product-coset embedding."
+        }
+      ]
+    },
+    {
+      "field_id": 429,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "eta-prime",
+      "field_kind": "broken-U(1)' Goldstone coordinate",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "SM neutral and massless in the stated approximation; omitted from subsequent analysis, without a cosmological completion.",
+      "representations": [
+        {
+          "representation_id": 341,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 429,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(1,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 430,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "Sigma; U",
+      "field_kind": "nonlinear pNGB matrix organization",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Sigma=exp(iPi/f), U=Sigma Sigma^T=exp(2iPi/f), with Pi=H+H-dagger+Phi0+Phi++Phi+-dagger in the singlet-omitted treatment. These matrices organize fields 424–426 and do not add independent scalar degrees of freedom.",
+      "representations": []
+    },
+    {
+      "field_id": 431,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "Psi",
+      "field_kind": "composite Dirac fermion multiplet",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "One (5,3)2/3 of HF",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Assumed light resonance, not an added microscopic hyperfermion. Components (X,Y), (T,B), R form two weak doublets and one singlet; electric charges are 5/3, three times 2/3, and -1/3.",
+      "representations": [
+        {
+          "representation_id": 342,
+          "model_id": "su4-hypercolor-partial-compositeness",
+          "model_revision": 1,
+          "regime_id": 130,
+          "field_id": 431,
+          "factor_id": null,
+          "group_id": 93,
+          "representation_label": "(3,2,7/6) + (3,2,1/6) + (3,1,2/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "(X,Y), (T,B), R respectively; both Dirac chiralities",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 432,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "qLi",
+      "field_kind": "elementary quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model fermions",
+      "scope_note": "qL without a family index denotes qL3. Its 5 and 24 spurion embeddings contain the same physical third-family fields, not additional fermions.",
+      "representations": []
+    },
+    {
+      "field_id": 433,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "uRi",
+      "field_kind": "elementary up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model fermions",
+      "scope_note": "tR=uR3 participates in linear mixing through a 5-bar embedding; the quadratic prescription uses a 10 embedding. Auxiliary spurion components are not physical additions.",
+      "representations": []
+    },
+    {
+      "field_id": 434,
+      "model_id": "su4-hypercolor-partial-compositeness",
+      "model_revision": 1,
+      "regime_id": 130,
+      "field_label": "dRi",
+      "field_kind": "elementary down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model fermions",
+      "scope_note": "bR=dR3 receives the displayed quadratic mass coupling; no bR partial-compositeness partner is supplied.",
+      "representations": []
+    }
+  ]
+}

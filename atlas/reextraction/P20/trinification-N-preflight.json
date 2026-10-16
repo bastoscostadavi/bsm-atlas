@@ -1,0 +1,227 @@
+{
+  "status": "normalized_candidate_requires_source_review",
+  "normalized_entry": {
+    "schema_version": "field-content-1",
+    "inventory_complete": true,
+    "paper_ids": [
+      "P20"
+    ],
+    "name": "Three-bitriplet trinification with singlet-neutrino mechanism",
+    "gauge_factors": [
+      {
+        "id": "left",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "right",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      }
+    ],
+    "matter": [
+      {
+        "label": "QL",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "QR",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "N",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "left": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "right": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "transformations": [],
+  "fingerprint": "1d380bb567750ae4371bf5ddc78bdbe5c9073742d1dc0e7f37b84820545b367f",
+  "action": "Verify source evidence for every assignment and run duplicate reconciliation before ingestion. This tool is not a database writer or a source-extraction certificate.",
+  "duplicate_check": {
+    "status": "no_exact_match_review_required",
+    "fingerprint": "1d380bb567750ae4371bf5ddc78bdbe5c9073742d1dc0e7f37b84820545b367f",
+    "matches": [],
+    "same_algebra_candidates": [
+      {
+        "entry_id": "trinification-n3-adjoint-l",
+        "name": "Three-bi-triplet trinification with one Majorana SU(3)L adjoint",
+        "coverage": "recorded_content"
+      },
+      {
+        "entry_id": "trinification-singlet-neutrino-sector",
+        "name": "Trinification singlet-neutrino Majorana mechanism",
+        "coverage": "partial"
+      }
+    ],
+    "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+    "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "paper_id": "P25",
+  "arxiv_version": "0801.3278v3",
+  "started_utc": "2026-10-16T18:26:20Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/0801.3278v3",
+      "started_utc": "2026-10-16T18:26:20Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:20Z",
+      "wall_seconds": 0.17351875000167638,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:21Z",
+  "bytes": 239559,
+  "sha256": "39350e8a65893ad9bec70a7dd147a8637f83d78ed840d00c9bfb4c531c611a37",
+  "local_pdf": "atlas/reextraction/sources/0801.3278v3.pdf",
+  "local_text": "atlas/reextraction/sources/0801.3278v3.txt",
+  "pdf_pages": 20,
+  "pdfinfo": "Title:           arXiv:0801.3278v3  [hep-ph]  8 Mar 2008\nCreator:         dvips(k) 5.95a Copyright 2005 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Oct 22 14:54:25 2018 -03\nModDate:         Mon Oct 22 14:54:25 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           20\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       239559 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 52263
+}

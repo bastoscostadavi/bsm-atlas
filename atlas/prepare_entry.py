@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 from catalogue_identity import normalize_spec,primitive_charge_scale,canonicalize,IncompleteContent
 from check_entry import check
+from scalar_conventions import CONVENTION as SCALAR_CONVENTION
 
 def prepare(spec,database=None):
     original=deepcopy(spec)
@@ -23,7 +24,7 @@ def prepare(spec,database=None):
         # Charge conjugation changes signs, never the positive common unit.
         scale=primitive_charge_scale(f['gauge_representations'][a['id']]['charge'] for f in original['matter'])
         transformations.append({'factor_id':a['id'],'normalization':'primitive_integer_full_inventory','positive_source_scale':str(scale) if scale is not None else None,'generator_orientation':'retained','note':'All-zero assignments have no primitive nonzero unit.' if not any(Fraction(f['gauge_representations'][a['id']]['charge']) for f in normalized['matter']) else 'Scale may be combined with charge conjugation when converting source fermions.'})
-    result={'status':'normalized_candidate_requires_source_review','normalized_entry':normalized,'transformations':transformations,'fingerprint':canonicalize(normalized)['fingerprint'],'action':'Verify source evidence for every assignment and run duplicate reconciliation before ingestion. This tool is not a database writer or a source-extraction certificate.'}
+    result={'status':'normalized_candidate_requires_source_review','normalized_entry':normalized,'transformations':transformations,'scalar_convention':SCALAR_CONVENTION,'fingerprint':canonicalize(normalized)['fingerprint'],'action':'Verify source evidence for every assignment and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; retain source reality/counts separately. This tool is not a database writer or a source-extraction certificate.'}
     if database is not None:result['duplicate_check']=check(normalized,database)
     if spec!=original:raise AssertionError('Preparation mutated the extraction input')
     return result

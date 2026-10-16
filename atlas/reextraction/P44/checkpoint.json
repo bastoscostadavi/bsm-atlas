@@ -1,0 +1,488 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Sections2.1-2.3 complete displayed Lagrangians, pre-breaking gauge model and real scalar mediator variant.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      4,
+      8,
+      10
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "vector",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.1 Eqs.(2)-(3)",
+        "pdf_pages": [
+          4
+        ],
+        "anchor": "covariant derivative Dµ ="
+      },
+      "value": "Dirac SM-singlet psi and complex SM-singlet phi share Dmu=partial+i eprime V, hence unit hidden charge in the same explicit source coordinate. SM fields hidden neutral; phi Higgses U1prime. V is its gauge connection, not additional matter. Dirac psi expands into two LH conjugate rows."
+    },
+    {
+      "id": "scalar",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.2 Eqs.(16)-(17)",
+        "pdf_pages": [
+          8
+        ],
+        "anchor": "singlet WIMP"
+      },
+      "value": "Scalar portal adds a singlet fermion psi with ordinary Dirac kinetic/mass bilinear and a real scalar phi: half kinetic and phi^2 mass distinguish one real field. No extra gauge factor."
+    },
+    {
+      "id": "neutrino",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.3 Eq.(19)",
+        "pdf_pages": [
+          10
+        ],
+        "anchor": "one additional"
+      },
+      "value": "Neutrino portal adds one real S, one independent Majorana Nprime and RH-neutrino mediator species; displayed generation indices/copy count of NR not fixed. Alternative complexification is a distinct source option, not automatic doubling of the baseline."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_id": "secluded-neutrino-portal-z2",
+      "status": "partial",
+      "value_status": "not_specified_by_source_in_displayed_generation_scope",
+      "reason": "NR mediator copy count not established from generation-suppressed Eq19; no guessed one/three copies. Nprime one and S real explicitly supported."
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P44",
+  "arxiv_version": "0711.4866v1",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P44",
+    "arxiv_version": "0711.4866v1",
+    "started_utc": "2026-10-16T18:26:23Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/0711.4866v1",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 0.1651736659987364,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:23Z",
+    "bytes": 256162,
+    "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+    "local_pdf": "atlas/reextraction/sources/0711.4866v1.pdf",
+    "local_text": "atlas/reextraction/sources/0711.4866v1.txt",
+    "pdf_pages": 17,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 19:10:05 2024 -03\nModDate:         Tue Nov 26 19:10:05 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       256162 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 54897
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "secluded-dirac-u1-higgsed",
+      "secluded-fermion-scalar-portal",
+      "secluded-neutrino-portal-z2"
+    ],
+    "source_field_ids": [
+      524,
+      525,
+      526,
+      527,
+      528,
+      529,
+      530,
+      531,
+      532,
+      533,
+      534,
+      535
+    ],
+    "public_entry_ids": [
+      "secluded-dirac-u1-higgsed",
+      "secluded-fermion-scalar-portal",
+      "secluded-neutrino-portal-z2"
+    ]
+  },
+  "staged_numerical_candidates": [
+    "secluded-u1-normalized-candidate.json",
+    "secluded-scalar-normalized-candidate.json"
+  ],
+  "preflight_results": [
+    {
+      "stem": "secluded-u1",
+      "fingerprint": "b74408689ef12b6de2ed6fd5c2df1e6ee14ca56c197afe307ff9c4325f1abbef",
+      "target_existing_entry_id": "secluded-dirac-u1-higgsed",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "b74408689ef12b6de2ed6fd5c2df1e6ee14ca56c197afe307ff9c4325f1abbef",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "e6-full27-charge-template",
+            "name": "E6-inspired full-27 fermion-charge template",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-ybl-charge-family",
+            "name": "Family-universal QYBL fermion-charge template",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "umssm-single-s-higgs-sector",
+            "name": "Single-S supersymmetric U(1)′ Higgs sector",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-chi-minimal16-charge",
+            "name": "χ fermion-charge template with the optional 10+1 omitted",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "minimal-bl-pure",
+            "name": "Pure minimal gauged B−L extension of the Standard Model",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "u1-smnur-all-sm-yukawas",
+            "name": "Anomaly-free U(1) charges permitting all SM Yukawas with three RH neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-sm-top-only-charge",
+            "name": "Eq. (4.2) U(1) charge assignment with a top-only renormalizable Yukawa",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-leptonic-opposite-nur",
+            "name": "Opposite-family leptonic U(1) charges with three RH neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-sm-left23-charge",
+            "name": "SM U(1) charge assignment on second- and third-family left doublets",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "u1-smnur-table5-14",
+            "name": "SM plus three RH neutrinos: Table 5 charge solution 14",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "gem-supersoft",
+            "name": "Gauge Extended Model with supersoft D-term breaking",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "secluded-dirac-u1-higgsed",
+            "name": "Dirac WIMP with a Higgsed U(1)' kinetic portal",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vector-portal-abelian-higgs",
+            "name": "Minimal hidden Abelian Higgs vector portal with charge conjugation",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vector-portal-stueckelberg-scalar",
+            "name": "Scalar-mediated Stückelberg vector Higgs portal",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vector-portal-stueckelberg-higgs",
+            "name": "Stückelberg vector portal with a directly Higgs-dependent mass",
+            "coverage": "partial"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "secluded-u1-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    },
+    {
+      "stem": "secluded-scalar",
+      "fingerprint": "9db5e6ed1d9c7ffd580545b9cde6b7b417d122977eaeeb6ce68dfc55bd6e8789",
+      "target_existing_entry_id": "secluded-fermion-scalar-portal",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "9db5e6ed1d9c7ffd580545b9cde6b7b417d122977eaeeb6ce68dfc55bd6e8789",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "real-singlet-z2",
+            "name": "Real singlet extension",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "complex-singlet-portal",
+            "name": "Complex singlet extension",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "two-higgs-doublets",
+            "name": "Two-Higgs-doublet model",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "nmssm-matter",
+            "name": "NMSSM",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "mchm-spinorial",
+            "name": "Minimal composite Higgs with spinorial fermion embedding",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "georgi-machacek-general",
+            "name": "Georgi–Machacek model",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "sm-octet-doublet-mfv-triplets",
+            "name": "MFV octet-doublet model with three real weak triplets",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "sm-octet-doublet-mfv",
+            "name": "Standard Model with an MFV color-octet scalar doublet",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vlq-by-doublet",
+            "name": "Standard Model with a vector-like (B Y) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-tby-triplet",
+            "name": "Standard Model with a vector-like (T B Y) triplet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-tb-doublet",
+            "name": "Standard Model with a vector-like (T B) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-xtb-triplet",
+            "name": "Standard Model with a vector-like (X T B) triplet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-xt-doublet",
+            "name": "Standard Model with a vector-like (X T) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-b-singlet",
+            "name": "Standard Model with a vector-like B singlet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-t-singlet",
+            "name": "Standard Model with a vector-like T singlet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-u1-effective",
+            "name": "Effective vector U1 with SM-fermion currents",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-u3-effective",
+            "name": "Effective vector U3 leptoquark description",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-ubar1-nur-effective",
+            "name": "Effective vector Ubar1 with right-chiral neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lq-utilde1-effective",
+            "name": "Effective vector Utilde1 leptoquark description",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-r2-general",
+            "name": "SM with a general scalar R2 leptoquark",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-rtilde2-nur",
+            "name": "SM with scalar Rtilde2 and three right-chiral neutrinos",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "mdm-majorana-quintuplet",
+            "name": "Minimal dark matter Majorana electroweak quintuplet",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mdm-real-septuplet-displayed",
+            "name": "Minimal dark matter real scalar septuplet, displayed operator specification",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mssm-matter",
+            "name": "MSSM",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mssm-minimal-gauge-messengers",
+            "name": "Minimal gauge-messenger extension of the MSSM",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "split-susy",
+            "name": "Split Supersymmetry with supersymmetric scalar-threshold matching",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "gem-supersoft-su3cubed-bachelors",
+            "name": "Supersoft GEM with SU(3)^3-inspired bachelor completion",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "gem-supersoft-su5-bachelors",
+            "name": "Supersoft GEM with SU(5)-adjoint bachelor completion",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "dfsz-matter",
+            "name": "DFSZ scalar and fermion field content",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ksvz-representation-framework",
+            "name": "Generalized KSVZ heavy-representation framework",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ksvz-neutral-triplet",
+            "name": "KSVZ axion with one hypercharge-neutral color-triplet pair",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "smash-down",
+            "name": "SMASH with a down-type colored fermion",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lns-reduced-quarks",
+            "name": "Leurer–Nir–Seiberg reduced one-U-pair, two-D-pair quark construction",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lns-single-singlet-quarks",
+            "name": "Leurer–Nir–Seiberg single-singlet horizontal quark alternative",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lns-two-singlet-quarks",
+            "name": "Leurer–Nir–Seiberg two-singlet horizontal quark construction",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "sm-singlet-neutrino-framework",
+            "name": "Standard Model with N right-handed singlet neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "numsm",
+            "name": "νMSM: three low-mass right-handed neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ma-radiative-seesaw-z2",
+            "name": "Ma radiative seesaw with an exact Z2 and three singlet fermions",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ued-orbifold-framework",
+            "name": "Universal Standard Model dimensions with the paired-orbifold prescription",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "secluded-fermion-scalar-portal",
+            "name": "Singlet fermion WIMP with a Higgs-mixed scalar mediator",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "secluded-neutrino-portal-z2",
+            "name": "Z2 neutrino portal with an additional fermion and real scalar",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vector-higgs-portal-z2-eft",
+            "name": "Z2-symmetric massive-vector Higgs portal EFT",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "heavy-weak-triplet-proca-current-sector",
+            "name": "Heavy weak-triplet Proca vector with lepton, quark and Higgs currents",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "real-singlet-linear-portal-gluon-sector",
+            "name": "Real singlet scalar with displayed Higgs portals and dimension-five gluonic coupling",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "scalar-zeta-ql-qq-sector",
+            "name": "Scalar ζ weak-triplet leptoquark with leptoquark and diquark couplings",
+            "coverage": "recorded_content"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "secluded-scalar-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    }
+  ],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:33Z",
+    "source_access_started_utc": "2026-10-16T18:26:23Z",
+    "source_access_ended_utc": "2026-10-16T18:26:23Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.1651736659987364,
+    "preflight_and_checkpoint_wall_seconds": 0.18848074998822995,
+    "child_user_cpu_seconds": 0.126185,
+    "child_system_cpu_seconds": 0.03178199999999998,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

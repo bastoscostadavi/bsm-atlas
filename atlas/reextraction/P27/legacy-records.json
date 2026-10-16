@@ -1,0 +1,262 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P27",
+  "source_models": [
+    {
+      "model_id": "smash-down",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "smash-down",
+      "name": "SMASH with a down-type colored fermion",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "smash-down"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 328,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "σ",
+      "field_kind": "scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "Independent added SM singlet. Its radial fluctuation and axion phase are components, not additional ultraviolet multiplets.",
+      "representations": [
+        {
+          "representation_id": 261,
+          "model_id": "smash-down",
+          "model_revision": 1,
+          "regime_id": 102,
+          "field_id": 328,
+          "factor_id": null,
+          "group_id": 74,
+          "representation_label": "(1,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 329,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "Ni",
+      "field_kind": "Weyl neutrino collection",
+      "spin": "1/2",
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Conjugate-RH-neutrino notation in Eq. (1). A Majorana Yukawa does not impose a reality condition on these chiral fields.",
+      "representations": [
+        {
+          "representation_id": 262,
+          "model_id": "smash-down",
+          "model_revision": 1,
+          "regime_id": 102,
+          "field_id": 329,
+          "factor_id": null,
+          "group_id": 74,
+          "representation_label": "(1,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 330,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "Q",
+      "field_kind": "colored Weyl fermion",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Fundamental color representation. Q and Qtilde form one vector-like gauge pair, with an axial PQ action.",
+      "representations": [
+        {
+          "representation_id": 263,
+          "model_id": "smash-down",
+          "model_revision": 1,
+          "regime_id": 102,
+          "field_id": 330,
+          "factor_id": null,
+          "group_id": 74,
+          "representation_label": "(3,1,-1/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 331,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "Qtilde",
+      "field_kind": "colored Weyl fermion",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent antifundamental Weyl partner, not the complex conjugate field of Q.",
+      "representations": [
+        {
+          "representation_id": 264,
+          "model_id": "smash-down",
+          "model_revision": 1,
+          "regime_id": 102,
+          "field_id": 331,
+          "factor_id": null,
+          "group_id": 74,
+          "representation_label": "(bar3,1,+1/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 332,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "H",
+      "field_kind": "scalar Higgs doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Inherited participant in Eqs. (1),(4),(22); one doublet.",
+      "representations": []
+    },
+    {
+      "field_id": 333,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "qi",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 334,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "ui",
+      "field_kind": "conjugate up-quark collection",
+      "spin": null,
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 335,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "di",
+      "field_kind": "conjugate down-quark collection",
+      "spin": null,
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 336,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "Li",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 337,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 102,
+      "field_label": "Ei",
+      "field_kind": "conjugate charged-lepton collection",
+      "spin": null,
+      "chirality": "left-handed Weyl convention",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 338,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 103,
+      "field_label": "A/J",
+      "field_kind": "axion/majoron angular mode",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Surviving phase of σ=(vσ+ρ)exp(iA/vσ)/sqrt(2); not an additional independent ultraviolet scalar.",
+      "representations": []
+    },
+    {
+      "field_id": 339,
+      "model_id": "smash-down",
+      "model_revision": 1,
+      "regime_id": 103,
+      "field_label": "νi",
+      "field_kind": "active neutrino mass eigenstate collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": "Majorana",
+      "inherited_baseline_label": null,
+      "scope_note": "Low-energy seesaw mass eigenstates in Eq. (8), not added ultraviolet singlets.",
+      "representations": []
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P45",
+  "source_models": [
+    {
+      "model_id": "simp-o-pions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "simp-sp-pions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "simp-su-pions",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "simp-o-pions",
+      "name": "Flavor-preserving O(Nc) dark-pion SIMP class",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "simp-o-pions"
+      ]
+    },
+    {
+      "entry_id": "simp-su-pions",
+      "name": "Flavor-preserving SU(Nc) dark-pion SIMP class",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "simp-su-pions"
+      ]
+    },
+    {
+      "entry_id": "simp-sp-pions",
+      "name": "Flavor-preserving Sp(Nc) dark-pion SIMP class",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "simp-sp-pions"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 540,
+      "model_id": "simp-o-pions",
+      "model_revision": 1,
+      "regime_id": 176,
+      "field_label": "q",
+      "field_kind": "Fermion collection with unspecified spinor convention",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "Nf in the source's counting",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Neither Weyl nor Dirac counting, chirality nor a Majorana field condition is fixed.",
+      "representations": [
+        {
+          "representation_id": 420,
+          "model_id": "simp-o-pions",
+          "model_revision": 1,
+          "regime_id": 176,
+          "field_id": 540,
+          "factor_id": null,
+          "group_id": 126,
+          "representation_label": "vector",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 541,
+      "model_id": "simp-o-pions",
+      "model_revision": 1,
+      "regime_id": 177,
+      "field_label": "pi^a; pi",
+      "field_kind": "Composite pseudo-Goldstone pion coordinates",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "(Nf+2)(Nf-1)/2",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Coordinates of SU(Nf)/SO(Nf), conditional on the assumed condensate.",
+      "representations": []
+    },
+    {
+      "field_id": 536,
+      "model_id": "simp-sp-pions",
+      "model_revision": 1,
+      "regime_id": 172,
+      "field_label": "qi",
+      "field_kind": "Weyl fermion collection",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "2Nf",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "i=1,...,2Nf. No Majorana reality condition is imposed on the chiral fields.",
+      "representations": [
+        {
+          "representation_id": 418,
+          "model_id": "simp-sp-pions",
+          "model_revision": 1,
+          "regime_id": 172,
+          "field_id": 536,
+          "factor_id": null,
+          "group_id": 124,
+          "representation_label": "Nc-dimensional fundamental",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 537,
+      "model_id": "simp-sp-pions",
+      "model_revision": 1,
+      "regime_id": 173,
+      "field_label": "pi^a; pi",
+      "field_kind": "Composite pseudo-Goldstone pion coordinates",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "2Nf^2-Nf-1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "pi=pi^a Ta; Sigma=exp(2i pi/fpi)J is an organization of these coordinates, not an independent linear scalar.",
+      "representations": []
+    },
+    {
+      "field_id": 538,
+      "model_id": "simp-su-pions",
+      "model_revision": 1,
+      "regime_id": 174,
+      "field_label": "q",
+      "field_kind": "Dirac fermion collection",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "Nf",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 419,
+          "model_id": "simp-su-pions",
+          "model_revision": 1,
+          "regime_id": 174,
+          "field_id": 538,
+          "factor_id": null,
+          "group_id": 125,
+          "representation_label": "fundamental",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 539,
+      "model_id": "simp-su-pions",
+      "model_revision": 1,
+      "regime_id": 175,
+      "field_label": "pi^a; pi",
+      "field_kind": "Composite pseudo-Goldstone pion coordinates",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "Nf^2-1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Coordinates of [SU(Nf)×SU(Nf)]/SU(Nf); no independent elementary scalar multiplet is added.",
+      "representations": []
+    }
+  ]
+}

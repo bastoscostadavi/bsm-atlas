@@ -45,7 +45,7 @@
  function matrixRows(regime,templates,includeBaseline=false){
    const result=[];
    function add(field,lorentz,components,template=false){
-     result.push({labels:[field.label+(lorentz.conjugateGauge?'ᶜ':'')],sourceFieldIds:field.sourceFieldId?[field.sourceFieldId]:[],lorentz,components:lorentz.gaugeComponents||(lorentz.conjugateGauge?conjugateComponents(components,regime.factors):components),copies:field.copies,template,field});
+     result.push({labels:[field.label+(lorentz.conjugateGauge?'ᶜ':'')],sourceFieldIds:field.sourceFieldId?[field.sourceFieldId]:[],lorentz,components:lorentz.gaugeComponents||(lorentz.conjugateGauge?conjugateComponents(components,regime.factors):components),copies:Object.hasOwn(lorentz,'copies')?lorentz.copies:field.copies,template,field});
    }
    if(includeBaseline&&regime.baseline){
      for(const f of templates[regime.baseline].fields){
@@ -56,7 +56,13 @@
          return {factor:a.label,role:a.role,value:weak<0?null:f.representation[weak],dynkin:weak<0?null:f.components[weak].dynkin,youngRows:weak<0?null:f.components[weak].youngRows};
        });
        // Reference templates do not assign unspecified charges under new factors.
-       for(const l of f.lorentz)add(f,l,components,true);
+       for(const l of f.lorentz){
+         const actual=regime.factors.map((a,i)=>{
+           const j=['colour','weak_L','hypercharge'].findIndex(r=>a.role===r||(r==='weak_L'&&a.role==='left'));
+           return j>=0&&l.gaugeComponents?{...l.gaugeComponents[j],factorKey:a.key}:components[i];
+         });
+         add(f,{...l,gaugeComponents:actual},actual,true);
+       }
      }
    }
    for(const f of regime.fields){

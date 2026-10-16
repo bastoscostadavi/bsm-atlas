@@ -1,0 +1,176 @@
+{
+  "status": "completed_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "All of short Section II definition, including Dirac limit and three-N inverse-seesaw extension.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      1
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "421",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section II Eqs.(2)-(11),(17)",
+        "pdf_pages": [
+          1
+        ],
+        "anchor": "only with left-handed"
+      },
+      "value": "SU(4)C x SU(2)L x U(1)R, three LH families FQL=(4,2,0), Fu=(bar4,1,-1/2),Fd=(bar4,1,+1/2); scalars chi=(4,1,1/2),H=(1,2,1/2),Phi=(15,2,1/2). Adjoint SU4 Dynkin [1,0,1]. Source Dirac-neutrino model can be extended by three singlet LH N for inverse seesaw. Shared primitive R unit has scale 2. No separately appended gSM factor."
+    }
+  ],
+  "source_descriptions": [],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P17",
+  "arxiv_version": "1307.6213v3",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P17",
+    "arxiv_version": "1307.6213v3",
+    "started_utc": "2026-10-16T18:26:19Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1307.6213v3",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "wall_seconds": 0.1660009170009289,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:19Z",
+    "bytes": 125965,
+    "sha256": "74e4656b484a25f587bf829c58acda17acda85c89bb1e77f0452b30edf838c99",
+    "local_pdf": "atlas/reextraction/sources/1307.6213v3.pdf",
+    "local_text": "atlas/reextraction/sources/1307.6213v3.txt",
+    "pdf_pages": 4,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Apr 26 21:55:05 2021 -03\nModDate:         Mon Apr 26 21:55:05 2021 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           4\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       125965 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 27869
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "ql421-dirac",
+      "ql421-inverse-seesaw"
+    ],
+    "source_field_ids": [
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222
+    ],
+    "public_entry_ids": [
+      "ql421-dirac",
+      "ql421-inverse-seesaw"
+    ]
+  },
+  "staged_numerical_candidates": [
+    "421-dirac-normalized-candidate.json",
+    "421-inverse-normalized-candidate.json"
+  ],
+  "preflight_results": [
+    {
+      "stem": "421-dirac",
+      "fingerprint": "f87fbb8e3682562c34201b29cc1241a6befd7a7fc980a3e6740978894290b272",
+      "target_existing_entry_id": "ql421-dirac",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "f87fbb8e3682562c34201b29cc1241a6befd7a7fc980a3e6740978894290b272",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "ql421-dirac",
+            "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with Dirac neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ql421-inverse-seesaw",
+            "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with inverse seesaw",
+            "coverage": "partial"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "421-dirac-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    },
+    {
+      "stem": "421-inverse",
+      "fingerprint": "677054d4c6e60c1d06fb8bdbb64059149e5087dce16aef6954e421efba5c6693",
+      "target_existing_entry_id": "ql421-inverse-seesaw",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "677054d4c6e60c1d06fb8bdbb64059149e5087dce16aef6954e421efba5c6693",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "ql421-dirac",
+            "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with Dirac neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ql421-inverse-seesaw",
+            "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with inverse seesaw",
+            "coverage": "partial"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "421-inverse-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    }
+  ],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:30Z",
+    "source_access_started_utc": "2026-10-16T18:26:19Z",
+    "source_access_ended_utc": "2026-10-16T18:26:19Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.1660009170009289,
+    "preflight_and_checkpoint_wall_seconds": 0.180639665981289,
+    "child_user_cpu_seconds": 0.12076700000000018,
+    "child_system_cpu_seconds": 0.031144999999999978,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

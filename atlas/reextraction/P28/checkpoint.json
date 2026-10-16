@@ -1,0 +1,191 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Explicit Section7 two-singlet, single-singlet/reduced heavy-quark constructions; scalar and fermion representation statements extracted, full-regime choice remains partial. Introduction and explicit SUSY statement following Eq7.8 re-read; high-energy regime SUSY established.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      18,
+      19
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "quarks",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Sections2,7 Eqs.(2.1),(7.1),(7.6)",
+        "pdf_pages": [
+          18
+        ],
+        "anchor": "SU(2) singlet color triplet"
+      },
+      "value": "Explicit quark-sector completion adds three vector-like U pairs of Y=2/3 and five D pairs of Y=-1/3, two SM-singlet scalars S1,S2 and two Higgs doublets. Reduced variant drops U2,U3 and D1,D2,D5, leaving one U and two D pairs. Source horizontal charges are primarily a global/discrete organizing symmetry, not automatically additional continuous gauge factors."
+    },
+    {
+      "id": "scope",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Sections7-8 and Appendix lepton extension",
+        "pdf_pages": [
+          18
+        ],
+        "anchor": "There are many ways"
+      },
+      "value": "High-energy completion is an example of a quark mass-texture framework, with single/two-singlet alternatives and different choices for other sectors; leptons and SUSY realizations must be attached to the chosen regime, not silently inherited wholesale."
+    },
+    {
+      "id": "supersymmetry",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Introduction; Section7 Eqs.(7.4)-(7.8)",
+        "pdf_pages": [
+          19
+        ],
+        "anchor": "the theory is supersymmetric"
+      },
+      "value": "Section7 high-energy example explicitly assumes SUSY (no Si-dagger holomorphic entries), so U/Ubar,D/Dbar and singletS coordinates belong to chiral supermultiplets in that regime, not just Dirac fermions without scalar partners. The text prefers an anomaly-free discrete horizontal subgroup; lepton/R-symmetry assignments are left undecided there. Continuous horizontal U1 labels are not automatically gauged."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_ids": [
+        "lns-two-singlet-quarks",
+        "lns-single-singlet-quarks",
+        "lns-reduced-quarks"
+      ],
+      "status": "partial",
+      "value_status": "source_scoped_SUSY_quark_completion_with_unselected_lepton_extension",
+      "fields": [
+        {
+          "label": "U+Ubar",
+          "source_SM_rep": "(3,1,2/3) plus conjugate",
+          "copies": 3,
+          "evidence": [
+            "quarks"
+          ]
+        },
+        {
+          "label": "D+Dbar",
+          "source_SM_rep": "(3,1,-1/3) plus conjugate",
+          "copies": 5,
+          "evidence": [
+            "quarks"
+          ]
+        },
+        {
+          "label": "reduced U,D pairs",
+          "copies": {
+            "U": 1,
+            "D": 2
+          },
+          "evidence": [
+            "quarks"
+          ]
+        }
+      ],
+      "reason": "High-energy example is explicitly supersymmetric; each heavy pair therefore has chiral scalar/fermion partners. Remaining full lepton/optional completion alignment is not asserted from a quark-sector table. Earlier uncertainty about whether this particular regime is SUSY has been resolved, not converted into a source omission."
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P28",
+  "arxiv_version": "hep-ph/9212278v1",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P28",
+    "arxiv_version": "hep-ph/9212278v1",
+    "started_utc": "2026-10-16T18:26:21Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/hep-ph/9212278v1",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "wall_seconds": 0.16276608299813233,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:21Z",
+    "bytes": 206408,
+    "sha256": "415759affc266dc11c803345033d4a03454eeedd094eb0f6594a29056a29aeb3",
+    "local_pdf": "atlas/reextraction/sources/hep-ph_9212278v1.pdf",
+    "local_text": "atlas/reextraction/sources/hep-ph_9212278v1.txt",
+    "pdf_pages": 31,
+    "pdfinfo": "Title:           arXiv:hep-ph/9212278v1  17 Dec 1992\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Wed Aug 29 05:29:55 2018 -03\nModDate:         Wed Aug 29 05:29:55 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           31\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       206408 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 68001
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "lns-reduced-quarks",
+      "lns-single-singlet-quarks",
+      "lns-two-singlet-quarks"
+    ],
+    "source_field_ids": [
+      355,
+      356,
+      357,
+      358,
+      359,
+      351,
+      352,
+      353,
+      354,
+      340,
+      341,
+      342,
+      343,
+      344,
+      345,
+      346,
+      347,
+      348,
+      349,
+      350
+    ],
+    "public_entry_ids": [
+      "lns-reduced-quarks",
+      "lns-single-singlet-quarks",
+      "lns-two-singlet-quarks"
+    ]
+  },
+  "staged_numerical_candidates": [],
+  "preflight_results": [],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:31Z",
+    "source_access_started_utc": "2026-10-16T18:26:21Z",
+    "source_access_ended_utc": "2026-10-16T18:26:21Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.16276608299813233,
+    "preflight_and_checkpoint_wall_seconds": 0.017160249990411103,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

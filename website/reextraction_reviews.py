@@ -8,6 +8,7 @@ import hashlib
 import json
 
 from catalogue_identity import canonicalize, normalize_spec
+from catalogue_identity_v1 import canonicalize as canonicalize_v1, normalize_spec as normalize_v1
 from field_conventions import factor, dimension_a, young_rows, dynkin_representation
 from spacetime_conventions import field_reps
 
@@ -36,9 +37,9 @@ def load_reviews(root):
         evidence = pinned('field-evidence.json', decision['fields_sha256'])
         filename = stem + '-normalized-candidate.json'
         candidate = json.loads((base / paper / filename).read_text())
-        if candidate != normalize_spec(candidate):
+        if candidate != normalize_v1(candidate):
             raise ValueError('Accepted payload still needs normalization')
-        if canonicalize(candidate)['fingerprint'] != decision['fingerprint']:
+        if canonicalize_v1(candidate)['fingerprint'] != decision['fingerprint']:
             raise ValueError('Accepted fingerprint changed')
         if paper not in candidate.get('paper_ids', []) or checkpoint['paper_id'] != paper:
             raise ValueError('Candidate/source paper mismatch')
@@ -64,7 +65,8 @@ def public_review(review):
     d, c = review['decision'], review['checkpoint']
     return {'paperId': d['paper'], 'arxiv': c['arxiv_version'],
             'candidate': d['stem'] + '-normalized-candidate.json',
-            'fingerprint': d['fingerprint'], 'action': d['action'],
+            'fingerprint': canonicalize(review['candidate'])['fingerprint'],
+            'legacyFingerprint': d['fingerprint'], 'identitySchema':'field-content-2', 'action': d['action'],
             'reviewedOn': review['reviewedOn'], 'reviewStatus': review['reviewStatus'],
             'inspectedScope': c['inspection']['scope'],
             'inspection': c['inspection'], 'wholePaperRead': False,
@@ -182,7 +184,7 @@ def apply_reviews(entries, papers, reviews, display_rep, identity_input):
                 raise ValueError('Replacement regime scope changed')
             for r in regimes:
                 replace_regime(r, review, display_rep)
-                if canonicalize(identity_input(r))['fingerprint'] != d['fingerprint']:
+                if canonicalize_v1(identity_input(r))['fingerprint'] != d['fingerprint']:
                     raise ValueError('Published spectrum differs from accepted normalized candidate')
             primary = next(r for r in regimes if r['id'] == e['primaryRegime'])
             for key in ['algebra', 'algebraExpanded', 'algebraSignature', 'baseline']:
@@ -192,7 +194,7 @@ def apply_reviews(entries, papers, reviews, display_rep, identity_input):
             e['summaryFields'] = [{k: f[k] for k in ['label', 'kinds', 'copies', 'representation', 'dynkinRepresentation', 'reality']} for f in primary['fields']]
         elif d['action'] == 'confirm_existing':
             r = next(r for v in e['variants'] for r in v['regimes'] if r['id'] == e['primaryRegime'])
-            if canonicalize(identity_input(r))['fingerprint'] != d['fingerprint']:
+            if canonicalize_v1(identity_input(r))['fingerprint'] != d['fingerprint']:
                 raise ValueError('Confirmed candidate does not match its existing entry')
         else:
             raise ValueError('Unknown acceptance action')

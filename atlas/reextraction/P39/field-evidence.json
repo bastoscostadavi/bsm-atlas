@@ -1,0 +1,26 @@
+{
+  "paper_id": "P39",
+  "arxiv_version": "hep-ph/9803315v1",
+  "source_sha256": "219610bd4df9fc5e9990066306cf625cfa697a12dba2f14bb59a4805db4eeb60",
+  "candidates": [],
+  "partial_source_descriptions": [
+    {
+      "target_entry_id": "six-dimensional-pati-salam-vortex",
+      "status": "partial",
+      "value_status": "source_unspecified_slots_and_unmapped_6D_chirality",
+      "reason": "Per-field U1V charges, scalar field reality and canonical six-dimensional spinor orientation not established; interactions constrain sums, not all individual assignments. No numeric-subset normalization."
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "large-extra-dimensions-framework",
+      "model_revision": 1
+    },
+    {
+      "model_id": "six-dimensional-pati-salam-vortex",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

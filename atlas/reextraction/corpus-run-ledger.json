@@ -1,0 +1,3033 @@
+{
+  "run_id": "2026-10-16-full-corpus-1",
+  "generated_utc": "2026-10-16T18:56:33Z",
+  "total_papers": 50,
+  "counts": {
+    "completed_scoped_reextraction_staged": 18,
+    "partial_scoped_reextraction_staged": 27,
+    "reference_only_scoped_reextraction": 5
+  },
+  "all_papers_accounted_for": true,
+  "queued": 0,
+  "paper_candidate_occurrences": 48,
+  "distinct_current_schema_fingerprints": 46,
+  "cross_paper_fingerprint_groups": {
+    "9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3": [
+      "atlas/reextraction/P01/singlet-preflight.json",
+      "atlas/reextraction/P02/singlet-preflight.json"
+    ],
+    "adfdc0c442392aacbf2efca2175fb8fc62590c846a24c7cab3187583e2e27c60": [
+      "atlas/reextraction/P21/mssm-preflight.json",
+      "atlas/reextraction/P22/rpv-preflight.json"
+    ]
+  },
+  "remaining45_measurements": {
+    "source_pdf_bytes": 43730225,
+    "retrieval_attempts": 45,
+    "failed_retrieval_attempts": 0,
+    "retrieval_command_wall_seconds_sum_not_parallel_elapsed": 19.904240580071928,
+    "recorded_preflight_run_count": 135,
+    "recorded_preflight_wall_seconds": 15.241955909732496,
+    "recorded_child_cpu_seconds": 11.852931,
+    "scientific_extraction_active_seconds": null,
+    "model_input_tokens": null,
+    "model_output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null
+  },
+  "tokens": null,
+  "api_dollars": null,
+  "gpu_hours": null,
+  "source_db_immutable_sha256": "d4dbf023b667fe810296c43c8f72e0d0b3f6559e66b344a2920c9e2e520e6c4c",
+  "note": "Completed scopes, actual source omissions, symbolic families and unfinished extraction stay distinct. No accepted database writes. UTC observation windows are not inference compute; no fabricated cost telemetry.",
+  "papers": [
+    {
+      "paper_id": "P01",
+      "arxiv_version": "hep-ph/0011335v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P01/checkpoint.json",
+      "source": {
+        "local_path": "atlas/reextraction/sources/hep-ph_0011335v3.pdf",
+        "bytes": 251634,
+        "sha256": "fc9995c704637e7af76bc62ce629b2b8d3af44dd7d3c88d4bc25fc751b03b0f8",
+        "url": "https://arxiv.org/pdf/hep-ph/0011335v3",
+        "version_requested": "hep-ph/0011335v3",
+        "full_pdf_downloaded": true,
+        "whole_paper_scientifically_read": false
+      },
+      "inspection": {
+        "text_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "visual_pages": [
+          5
+        ],
+        "scope": "Introduction/model definition through initial vacuum discussion; full Eq.(2.1) definition visually checked. PDF pages have one-page offset from printed numbering."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T17:57:58Z",
+        "first_checkpoint_utc": "2026-10-16T17:54:15Z",
+        "normalization_preflight_wall_seconds": 0.0859055419859942,
+        "parent_process_user_cpu_seconds": 0.0014879999999999997,
+        "parent_process_system_cpu_seconds": 0.0035919999999999997,
+        "child_preflight_user_cpu_seconds": 0.060185999999999996,
+        "child_preflight_system_cpu_seconds": 0.016004,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_active_seconds": null,
+        "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P02",
+      "arxiv_version": "1306.4710v5",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P02/checkpoint.json",
+      "source": {
+        "local_path": "atlas/reextraction/sources/1306.4710v5.pdf",
+        "bytes": 1638420,
+        "sha256": "a5348d88a8d801d2c2123784d1d3f35e0815a8e674ccd4eee12dfafd6b762035",
+        "url": "https://arxiv.org/pdf/1306.4710v5",
+        "version_requested": "1306.4710v5",
+        "full_pdf_downloaded": true,
+        "whole_paper_scientifically_read": false
+      },
+      "inspection": {
+        "text_pages": [
+          1,
+          2,
+          12,
+          13
+        ],
+        "visual_pages": [
+          1,
+          12
+        ],
+        "scope": "Main singlet model definition in section 1 and bounded complex-singlet generalization in section 6.4. Other extensions are deferred; not a whole-paper reread."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T17:58:41Z",
+        "first_checkpoint_utc": "2026-10-16T17:54:15Z",
+        "normalization_preflight_wall_seconds": 0.18037112499587238,
+        "parent_process_user_cpu_seconds": 0.003353000000000002,
+        "parent_process_system_cpu_seconds": 0.006777999999999999,
+        "child_preflight_user_cpu_seconds": 0.12357599999999999,
+        "child_preflight_system_cpu_seconds": 0.034176,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_active_seconds": null,
+        "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P03",
+      "arxiv_version": "1106.0034v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P03/checkpoint.json",
+      "source": {
+        "local_path": "atlas/reextraction/sources/1106.0034v3.pdf",
+        "bytes": 4358104,
+        "sha256": "cb93d354ae26d76db89fa49e89f133ede9b3d5a2dca7295579810d1000071a0c",
+        "url": "https://arxiv.org/pdf/1106.0034v3",
+        "version_requested": "1106.0034v3",
+        "full_pdf_downloaded": true,
+        "whole_paper_scientifically_read": false
+      },
+      "inspection": {
+        "text_pages": [
+          1,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          98,
+          151
+        ],
+        "visual_pages": [
+          6,
+          9,
+          10,
+          11,
+          98,
+          151
+        ],
+        "scope": "Initial scalar definition, Type-I/II Yukawa restrictions/Table 1; targeted section 5.9 colour and Appendix E gauge/generation checks. Not all 180 pages read."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T17:57:58Z",
+        "first_checkpoint_utc": "2026-10-16T17:54:16Z",
+        "normalization_preflight_wall_seconds": 0.08542350001516752,
+        "parent_process_user_cpu_seconds": 0.0014400000000000003,
+        "parent_process_system_cpu_seconds": 0.0034609999999999997,
+        "child_preflight_user_cpu_seconds": 0.059843,
+        "child_preflight_system_cpu_seconds": 0.01541,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_active_seconds": null,
+        "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P04",
+      "arxiv_version": "1005.5160v1",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P04/checkpoint.json",
+      "source": {
+        "local_path": "atlas/reextraction/sources/1005.5160v1.pdf",
+        "bytes": 1424431,
+        "sha256": "bfd7e7c9e870fa1c104881bc610643d65ff8f8aabd5200d11bb776ce8ca96978",
+        "url": "https://arxiv.org/pdf/1005.5160v1",
+        "version_requested": "1005.5160v1",
+        "full_pdf_downloaded": true,
+        "whole_paper_scientifically_read": false
+      },
+      "inspection": {
+        "text_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          22,
+          24,
+          26,
+          27
+        ],
+        "visual_pages": [
+          4,
+          5,
+          6,
+          7,
+          22
+        ],
+        "scope": "Symmetric-phase minimal triplet LR gauge/matter definition, parity/C implementation; selected surrounding paragraphs only. Not a full phenomenology reread."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T17:57:57Z",
+        "first_checkpoint_utc": "2026-10-16T17:50:42Z",
+        "normalization_preflight_wall_seconds": 0.09148879200802185,
+        "parent_process_user_cpu_seconds": 0.0014829999999999982,
+        "parent_process_system_cpu_seconds": 0.003162,
+        "child_preflight_user_cpu_seconds": 0.061144,
+        "child_preflight_system_cpu_seconds": 0.016423999999999998,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_active_seconds": null,
+        "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P05",
+      "arxiv_version": "0910.1785v5",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P05/checkpoint.json",
+      "source": {
+        "local_path": "atlas/reextraction/sources/0910.1785v5.pdf",
+        "bytes": 2876625,
+        "sha256": "68906d4e4eba3c35ef4b8f7ebc27f2042a61e84d98fe7d760aaa5802d619d481",
+        "url": "https://arxiv.org/pdf/0910.1785v5",
+        "version_requested": "0910.1785v5",
+        "full_pdf_downloaded": true,
+        "whole_paper_scientifically_read": false
+      },
+      "inspection": {
+        "text_pages": [
+          1,
+          4,
+          5,
+          7,
+          8,
+          12,
+          13
+        ],
+        "visual_pages": [
+          7,
+          8,
+          12
+        ],
+        "scope": "Introduction field-content definition and section 2.1 general/Z3 superpotentials, doublets and soft/gaugino terms. Targeted neutralino paragraph. Not full 144-page review."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T17:57:58Z",
+        "first_checkpoint_utc": "2026-10-16T17:54:16Z",
+        "normalization_preflight_wall_seconds": 0.0892691670160275,
+        "parent_process_user_cpu_seconds": 0.0020739999999999995,
+        "parent_process_system_cpu_seconds": 0.0037549999999999997,
+        "child_preflight_user_cpu_seconds": 0.06292199999999999,
+        "child_preflight_system_cpu_seconds": 0.015399999999999999,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_active_seconds": null,
+        "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P06",
+      "arxiv_version": "hep-ph/0412089v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P06/checkpoint.json",
+      "source": {
+        "paper_id": "P06",
+        "arxiv_version": "hep-ph/0412089v2",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0412089v2",
+            "started_utc": "2026-10-16T18:26:17Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.38730475000920705,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 394777,
+        "sha256": "b4b87b6da9f6bdab4b89f4b194b4a66f99187927f5dd41a2c61cad120bd582a2",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0412089v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0412089v2.txt",
+        "pdf_pages": 27,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript SVN PRE-RELEASE 8.62\nCreationDate:    Fri Feb  1 23:37:37 2008 -02\nModDate:         Fri Feb  1 23:37:37 2008 -02\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           27\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       394777 bytes\nOptimized:       no\nPDF version:     1.2\n",
+        "text_bytes": 87824
+      },
+      "inspection": {
+        "scope": "Sections 2 and 3 definitions; Appendix B scalar deformation. Composite, bulk and boundary descriptions remain separate.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          6,
+          10,
+          11,
+          24,
+          25
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:28Z",
+        "source_access_started_utc": "2026-10-16T18:26:17Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.38730475000920705,
+        "preflight_and_checkpoint_wall_seconds": 0.02109441699576564,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P07",
+      "arxiv_version": "1404.2640v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P07/checkpoint.json",
+      "source": {
+        "paper_id": "P07",
+        "arxiv_version": "1404.2640v3",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1404.2640v3",
+            "started_utc": "2026-10-16T18:26:17Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 1.9511732080136426,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 3753821,
+        "sha256": "d03f5e6541cee80b77ddd3433229fc5717217292930195a310690f62eed71ae1",
+        "local_pdf": "atlas/reextraction/sources/1404.2640v3.pdf",
+        "local_text": "atlas/reextraction/sources/1404.2640v3.txt",
+        "pdf_pages": 40,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Jul 14 21:40:22 2014 -03\nModDate:         Mon Jul 14 21:40:22 2014 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           40\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       3753821 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 153388
+      },
+      "inspection": {
+        "scope": "Section II complete gauge-basis scalar definition and adjacent custodial decomposition.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          3
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:28Z",
+        "source_access_started_utc": "2026-10-16T18:26:17Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 1.9511732080136426,
+        "preflight_and_checkpoint_wall_seconds": 0.10796529200160876,
+        "child_user_cpu_seconds": 0.063012,
+        "child_system_cpu_seconds": 0.017192,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P08",
+      "arxiv_version": "1210.6553v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P08/checkpoint.json",
+      "source": {
+        "paper_id": "P08",
+        "arxiv_version": "1210.6553v2",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1210.6553v2",
+            "started_utc": "2026-10-16T18:26:17Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.7360612080083229,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "Internal Error: xref num 472 not found but needed, try to reconstruct\n",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 573584,
+        "sha256": "67f40c63984bfbe727ae3b907eb0df24a84924aa9d240b46784f61518fc3d086",
+        "local_pdf": "atlas/reextraction/sources/1210.6553v2.pdf",
+        "local_text": "atlas/reextraction/sources/1210.6553v2.txt",
+        "pdf_pages": 41,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Wed Nov 27 05:43:53 2024 -03\nModDate:         Wed Nov 27 05:43:53 2024 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           41\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       573584 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 137001
+      },
+      "inspection": {
+        "scope": "Scalar-only definition and explicit D6 and D8 constructions; no claim to a specified complete fermion sector.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          3,
+          18,
+          20
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:28Z",
+        "source_access_started_utc": "2026-10-16T18:26:17Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.7360612080083229,
+        "preflight_and_checkpoint_wall_seconds": 0.015979541989509016,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P09",
+      "arxiv_version": "hep-ph/0606172v3",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P09/checkpoint.json",
+      "source": {
+        "paper_id": "P09",
+        "arxiv_version": "hep-ph/0606172v3",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0606172v3",
+            "started_utc": "2026-10-16T18:26:17Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.3823676670144778,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 209007,
+        "sha256": "9f39bfde5ee295b4917c53eaac25c4e2d6b9574fbd964c2594eb2a3880195810",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0606172v3.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0606172v3.txt",
+        "pdf_pages": 9,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Oct 29 21:27:17 2018 -03\nModDate:         Mon Oct 29 21:27:17 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           9\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       209007 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 66033
+      },
+      "inspection": {
+        "scope": "Main scalar definition and optional Section VIII triplet extension; source notation conflicts explicitly retained.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          4,
+          7
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:28Z",
+        "source_access_started_utc": "2026-10-16T18:26:17Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.3823676670144778,
+        "preflight_and_checkpoint_wall_seconds": 0.096733749989653,
+        "child_user_cpu_seconds": 0.06035399999999999,
+        "child_system_cpu_seconds": 0.015042,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P10",
+      "arxiv_version": "1306.0572v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P10/checkpoint.json",
+      "source": {
+        "paper_id": "P10",
+        "arxiv_version": "1306.0572v3",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1306.0572v3",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.19159833301091567,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 479011,
+        "sha256": "ea9a4d4e479c9c3613e0c45a86a53879a93f1b2021869e950299672c88cea277",
+        "local_pdf": "atlas/reextraction/sources/1306.0572v3.pdf",
+        "local_text": "atlas/reextraction/sources/1306.0572v3.txt",
+        "pdf_pages": 36,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Dec  9 23:33:48 2013 -02\nModDate:         Mon Dec  9 23:33:48 2013 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           36\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       479011 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 122336
+      },
+      "inspection": {
+        "scope": "Introduction colour/vector-like definition; full seven-multiplet list and electric charges in Section 2.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          5
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.19159833301091567,
+        "preflight_and_checkpoint_wall_seconds": 0.5967593330133241,
+        "child_user_cpu_seconds": 0.42855600000000005,
+        "child_system_cpu_seconds": 0.108023,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 7
+    },
+    {
+      "paper_id": "P11",
+      "arxiv_version": "1603.04993v3",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P11/checkpoint.json",
+      "source": {
+        "paper_id": "P11",
+        "arxiv_version": "1603.04993v3",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1603.04993v3",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 2.2583453330153134,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "Internal Error: xref num 1552 not found but needed, try to reconstruct\n",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:20Z",
+        "bytes": 3898323,
+        "sha256": "176dbe45e2d1064b1c057fb375d01419d5042810f12da203122d060cb2b498cb",
+        "local_pdf": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "local_text": "atlas/reextraction/sources/1603.04993v3.txt",
+        "pdf_pages": 136,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Tue Aug  2 21:44:39 2016 -03\nModDate:         Tue Aug  2 21:44:39 2016 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           136\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       3898323 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 433330
+      },
+      "inspection": {
+        "scope": "Representation taxonomy and scalar R2/Rtilde2 model definitions. Vector/UV-completion examples require additional source-specific completion work. Targeted SU5 GG, extra5/two10 and15 completion definitions re-read; source tensor orientations converted explicitly.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          6,
+          10,
+          12,
+          20,
+          23
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:20Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 2.2583453330153134,
+        "preflight_and_checkpoint_wall_seconds": 0.18361154201556928,
+        "child_user_cpu_seconds": 0.12296299999999993,
+        "child_system_cpu_seconds": 0.030814000000000008,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P12",
+      "arxiv_version": "hep-ph/0512090v4",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P12/checkpoint.json",
+      "source": {
+        "paper_id": "P12",
+        "arxiv_version": "hep-ph/0512090v4",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0512090v4",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.30088083300506696,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 284080,
+        "sha256": "b8f340852d02ceb0ca6f9c0715acefe3224e1327f58febf67cf08321f8e802a4",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0512090v4.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0512090v4.txt",
+        "pdf_pages": 18,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:33:01 2024 -03\nModDate:         Tue Nov 26 18:33:01 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           18\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       284080 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 70202
+      },
+      "inspection": {
+        "scope": "Section 2 definition, Table 1 and adjacent stability discussion; quintuplet/septuplet representatives only.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.30088083300506696,
+        "preflight_and_checkpoint_wall_seconds": 0.18304966599680483,
+        "child_user_cpu_seconds": 0.12255700000000003,
+        "child_system_cpu_seconds": 0.03093499999999999,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P13",
+      "arxiv_version": "0801.1345v3",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P13/checkpoint.json",
+      "source": {
+        "paper_id": "P13",
+        "arxiv_version": "0801.1345v3",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/0801.1345v3",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.20478366702445783,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "bytes": 847336,
+        "sha256": "ac4bcc5c973364eb24b73020f7d49cb968db2b61f76e78d2a426efa5752cf005",
+        "local_pdf": "atlas/reextraction/sources/0801.1345v3.pdf",
+        "local_text": "atlas/reextraction/sources/0801.1345v3.txt",
+        "pdf_pages": 31,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:56:14 2024 -03\nModDate:         Tue Nov 26 18:56:14 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           31\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       847336 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 230800
+      },
+      "inspection": {
+        "scope": "Generator families, left-chiral charge Table I, E6 Table II discussion; model-dependent Higgs completion not synthesized. Single-S UMSSM SectionIV.B.2 Higgs potential and source charge constraint inspected.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          8,
+          9,
+          14,
+          22
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:18Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.20478366702445783,
+        "preflight_and_checkpoint_wall_seconds": 0.017009957984555513,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P14",
+      "arxiv_version": "0812.4313v1",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P14/checkpoint.json",
+      "source": {
+        "paper_id": "P14",
+        "arxiv_version": "0812.4313v1",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/0812.4313v1",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 0.47295299998950213,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 344382,
+        "sha256": "84ec450aaae2caeec375048f4676a5745e996c6e0b28ee976b0c6a2fbb15a6ce",
+        "local_pdf": "atlas/reextraction/sources/0812.4313v1.pdf",
+        "local_text": "atlas/reextraction/sources/0812.4313v1.txt",
+        "pdf_pages": 32,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Wed Oct 24 07:21:51 2018 -03\nModDate:         Wed Oct 24 07:21:51 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           32\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       344382 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 79075
+      },
+      "inspection": {
+        "scope": "Section II.A complete tables and Lagrangian definition; no kinetic mixing (“pure” model) is an interaction assumption, not extra matter.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          5
+        ],
+        "text_pages_with_claim_anchors": [
+          5
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.47295299998950213,
+        "preflight_and_checkpoint_wall_seconds": 0.10228662498411722,
+        "child_user_cpu_seconds": 0.06264399999999992,
+        "child_system_cpu_seconds": 0.015618999999999994,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P15",
+      "arxiv_version": "1812.04602v5",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P15/checkpoint.json",
+      "source": {
+        "paper_id": "P15",
+        "arxiv_version": "1812.04602v5",
+        "started_utc": "2026-10-16T18:26:18Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1812.04602v5",
+            "started_utc": "2026-10-16T18:26:18Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:18Z",
+            "wall_seconds": 0.06408250000094995,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 598427,
+        "sha256": "022355da109e4eef72fb0cb314bea3c282fe49136f2aeae133c1ca262c275b96",
+        "local_pdf": "atlas/reextraction/sources/1812.04602v5.pdf",
+        "local_text": "atlas/reextraction/sources/1812.04602v5.txt",
+        "pdf_pages": 30,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        medialab\nCreationDate:    Thu Jan  9 22:35:40 2020 -03\nModDate:         Thu Jan  9 22:35:40 2020 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           30\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       598427 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 97781
+      },
+      "inspection": {
+        "scope": "Fermion-domain definition, explicit Eq.(4.2)/Table 5 solution 14 and Section 5 family conditions; Higgs/breaking completion stays partial. Also re-read two-family leptonic formula and actual-family left23 example.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          3,
+          11,
+          17,
+          20,
+          22,
+          23,
+          25
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:18Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.06408250000094995,
+        "preflight_and_checkpoint_wall_seconds": 0.017666083993390203,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P16",
+      "arxiv_version": "hep-ph/9206242v1",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P16/checkpoint.json",
+      "source": {
+        "paper_id": "P16",
+        "arxiv_version": "hep-ph/9206242v1",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/9206242v1",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 0.3108426660182886,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 165691,
+        "sha256": "3c3c10fdb38656de280f6780044f84b127f6609e15df54c1d4fa96930c3641a4",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_9206242v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_9206242v1.txt",
+        "pdf_pages": 18,
+        "pdfinfo": "Title:           arXiv:hep-ph/9206242v1  22 Jun 1992\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 17:31:43 2024 -03\nModDate:         Tue Nov 26 17:31:43 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           18\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       165691 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 49267
+      },
+      "inspection": {
+        "scope": "Complete displayed fermion/scalar definition and explicitly specified sigma/omega extension.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          4,
+          12
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:29Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.3108426660182886,
+        "preflight_and_checkpoint_wall_seconds": 0.18329620899748988,
+        "child_user_cpu_seconds": 0.123552,
+        "child_system_cpu_seconds": 0.030518000000000017,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P17",
+      "arxiv_version": "1307.6213v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P17/checkpoint.json",
+      "source": {
+        "paper_id": "P17",
+        "arxiv_version": "1307.6213v3",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1307.6213v3",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 0.1660009170009289,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 125965,
+        "sha256": "74e4656b484a25f587bf829c58acda17acda85c89bb1e77f0452b30edf838c99",
+        "local_pdf": "atlas/reextraction/sources/1307.6213v3.pdf",
+        "local_text": "atlas/reextraction/sources/1307.6213v3.txt",
+        "pdf_pages": 4,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Apr 26 21:55:05 2021 -03\nModDate:         Mon Apr 26 21:55:05 2021 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           4\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       125965 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 27869
+      },
+      "inspection": {
+        "scope": "All of short Section II definition, including Dirac limit and three-N inverse-seesaw extension.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          1
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.1660009170009289,
+        "preflight_and_checkpoint_wall_seconds": 0.180639665981289,
+        "child_user_cpu_seconds": 0.12076700000000018,
+        "child_system_cpu_seconds": 0.031144999999999978,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P18",
+      "arxiv_version": "hep-ph/0702287v4",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P18/checkpoint.json",
+      "source": {
+        "paper_id": "P18",
+        "arxiv_version": "hep-ph/0702287v4",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0702287v4",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 0.16875945898937061,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 149530,
+        "sha256": "736ca69732ef67648f0537bc0d09ddac9ed31b25e52fcf360e36748417bb0435",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0702287v4.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0702287v4.txt",
+        "pdf_pages": 6,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Thu Nov 15 12:53:56 2018 -02\nModDate:         Thu Nov 15 12:53:56 2018 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           6\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       149530 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 41270
+      },
+      "inspection": {
+        "scope": "Section II tensor definitions, decompositions and source interactions.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16875945898937061,
+        "preflight_and_checkpoint_wall_seconds": 0.016264208999928087,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P19",
+      "arxiv_version": "1202.0807v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P19/checkpoint.json",
+      "source": {
+        "paper_id": "P19",
+        "arxiv_version": "1202.0807v1",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1202.0807v1",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:19Z",
+            "wall_seconds": 0.190325166011462,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:19Z",
+        "bytes": 853951,
+        "sha256": "a378fefd9dc60a51525ec0f373ccd425092e53277859473fe4c9e857d8ca32f1",
+        "local_pdf": "atlas/reextraction/sources/1202.0807v1.pdf",
+        "local_text": "atlas/reextraction/sources/1202.0807v1.txt",
+        "pdf_pages": 21,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Tue Aug  7 15:08:31 2018 -03\nModDate:         Tue Aug  7 15:08:31 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           21\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       853951 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 164763
+      },
+      "inspection": {
+        "scope": "45/126 scalar potential, breaking-sector scope and accompanying10H discussion.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2,
+          3,
+          11,
+          16,
+          18,
+          19
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:19Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.190325166011462,
+        "preflight_and_checkpoint_wall_seconds": 0.016433791985036805,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P20",
+      "arxiv_version": "1507.06848v2",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P20/checkpoint.json",
+      "source": {
+        "paper_id": "P20",
+        "arxiv_version": "1507.06848v2",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1507.06848v2",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 0.6943552919838112,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:20Z",
+        "bytes": 300644,
+        "sha256": "7d63f143e92791f5fb5883e8e508c81df5dea172351c804407a28f39bc092e4d",
+        "local_pdf": "atlas/reextraction/sources/1507.06848v2.pdf",
+        "local_text": "atlas/reextraction/sources/1507.06848v2.txt",
+        "pdf_pages": 15,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Aug 31 22:22:20 2015 -03\nModDate:         Mon Aug 31 22:22:20 2015 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           15\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       300644 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 51197
+      },
+      "inspection": {
+        "scope": "Full Table1 inventory, three-H choice and adjoint/singlet neutrino alternatives. Tensor orientations are derived explicitly from source contractions.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          3
+        ],
+        "text_pages_with_claim_anchors": [
+          3,
+          8
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:20Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.6943552919838112,
+        "preflight_and_checkpoint_wall_seconds": 0.18070475000422448,
+        "child_user_cpu_seconds": 0.12047299999999983,
+        "child_system_cpu_seconds": 0.03060299999999999,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P21",
+      "arxiv_version": "hep-ph/9709356v7",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P21/checkpoint.json",
+      "source": {
+        "paper_id": "P21",
+        "arxiv_version": "hep-ph/9709356v7",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/9709356v7",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 0.8612104160129093,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:20Z",
+        "bytes": 1723786,
+        "sha256": "b1dba94d82b75cc3120d95360d8b81caad838a0a14edfb36951e456f4246e656",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_9709356v7.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_9709356v7.txt",
+        "pdf_pages": 160,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Wed Jan 27 23:30:55 2016 -02\nModDate:         Wed Jan 27 23:30:55 2016 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           160\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       1723786 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 707085
+      },
+      "inspection": {
+        "scope": "MSSM Tables1.1/1.2 and minimal gauge-messenger example in Section7.7.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          9,
+          88
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:20Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.8612104160129093,
+        "preflight_and_checkpoint_wall_seconds": 0.1026630410051439,
+        "child_user_cpu_seconds": 0.063245,
+        "child_system_cpu_seconds": 0.01568900000000001,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P22",
+      "arxiv_version": "hep-ph/0406039v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P22/checkpoint.json",
+      "source": {
+        "paper_id": "P22",
+        "arxiv_version": "hep-ph/0406039v2",
+        "started_utc": "2026-10-16T18:26:19Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0406039v2",
+            "started_utc": "2026-10-16T18:26:19Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 1.310596124996664,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 3119841,
+        "sha256": "2746f9ec4932833b8de0ef942e107f0acde74e35ef1ecb3f9ff7794073dcbe15",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0406039v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0406039v2.txt",
+        "pdf_pages": 263,
+        "pdfinfo": "Title:           arXiv:hep-ph/0406039v2  13 Jul 2005\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:26:38 2024 -03\nModDate:         Tue Nov 26 18:26:38 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           263\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       3119841 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 981049
+      },
+      "inspection": {
+        "scope": "RPV definition/conventions, explicit spontaneous seven-singlet model, SU5 operator-only regime.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          42,
+          46,
+          65,
+          227,
+          228
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:19Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 1.310596124996664,
+        "preflight_and_checkpoint_wall_seconds": 0.18888720800168812,
+        "child_user_cpu_seconds": 0.12702000000000013,
+        "child_system_cpu_seconds": 0.030833,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P23",
+      "arxiv_version": "hep-ph/0406088v2",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P23/checkpoint.json",
+      "source": {
+        "paper_id": "P23",
+        "arxiv_version": "hep-ph/0406088v2",
+        "started_utc": "2026-10-16T18:26:20Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0406088v2",
+            "started_utc": "2026-10-16T18:26:20Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 0.1784914169984404,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:20Z",
+        "bytes": 365322,
+        "sha256": "de5327eed0aebec17b9db3af81cae65dc88ffc2a4e08e329c441d0658245ece6",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0406088v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0406088v2.txt",
+        "pdf_pages": 29,
+        "pdfinfo": "Title:           arXiv:hep-ph/0406088v2  23 Jul 2004\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:26:39 2024 -03\nModDate:         Tue Nov 26 18:26:39 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           29\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       365322 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 85875
+      },
+      "inspection": {
+        "scope": "Complete low-energy spectrum and Eq20/21 scalar-threshold matching definition.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          10
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:20Z",
+        "source_access_ended_utc": "2026-10-16T18:26:20Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.1784914169984404,
+        "preflight_and_checkpoint_wall_seconds": 0.10176016698824242,
+        "child_user_cpu_seconds": 0.06190300000000004,
+        "child_system_cpu_seconds": 0.015755999999999992,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P24",
+      "arxiv_version": "hep-ph/0206096v3",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P24/checkpoint.json",
+      "source": {
+        "paper_id": "P24",
+        "arxiv_version": "hep-ph/0206096v3",
+        "started_utc": "2026-10-16T18:26:20Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0206096v3",
+            "started_utc": "2026-10-16T18:26:20Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 0.17331904199090786,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:20Z",
+        "bytes": 253655,
+        "sha256": "266bb3eae14aca66f7fde40ca539a9746483a7c46844ac365e588e30950bbb79",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0206096v3.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0206096v3.txt",
+        "pdf_pages": 24,
+        "pdfinfo": "Title:           arXiv:hep-ph/0206096v3  21 Oct 2006\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Sat Oct 27 17:24:15 2018 -03\nModDate:         Sat Oct 27 17:24:15 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           24\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       253655 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 77241
+      },
+      "inspection": {
+        "scope": "Visible adjoints, SU3-cubed/SU5 bachelor and heavy-messenger definitions; hidden D-breaking completion not invented.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          4,
+          9,
+          11
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:20Z",
+        "source_access_ended_utc": "2026-10-16T18:26:20Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.17331904199090786,
+        "preflight_and_checkpoint_wall_seconds": 0.015430291998200119,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P25",
+      "arxiv_version": "0801.3278v3",
+      "status": "reference_only_scoped_reextraction",
+      "checkpoint": "atlas/reextraction/P25/checkpoint.json",
+      "source": {
+        "paper_id": "P25",
+        "arxiv_version": "0801.3278v3",
+        "started_utc": "2026-10-16T18:26:20Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/0801.3278v3",
+            "started_utc": "2026-10-16T18:26:20Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:20Z",
+            "wall_seconds": 0.17351875000167638,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 239559,
+        "sha256": "39350e8a65893ad9bec70a7dd147a8637f83d78ed840d00c9bfb4c531c611a37",
+        "local_pdf": "atlas/reextraction/sources/0801.3278v3.pdf",
+        "local_text": "atlas/reextraction/sources/0801.3278v3.txt",
+        "pdf_pages": 20,
+        "pdfinfo": "Title:           arXiv:0801.3278v3  [hep-ph]  8 Mar 2008\nCreator:         dvips(k) 5.95a Copyright 2005 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Oct 22 14:54:25 2018 -03\nModDate:         Mon Oct 22 14:54:25 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           20\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       239559 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 52263
+      },
+      "inspection": {
+        "scope": "Definition of general mediation, current correlators and scope of Appendix messenger example.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          3,
+          4,
+          9
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:20Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.17351875000167638,
+        "preflight_and_checkpoint_wall_seconds": 0.01630766602465883,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P26",
+      "arxiv_version": "2003.01100v4",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P26/checkpoint.json",
+      "source": {
+        "paper_id": "P26",
+        "arxiv_version": "2003.01100v4",
+        "started_utc": "2026-10-16T18:26:20Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/2003.01100v4",
+            "started_utc": "2026-10-16T18:26:20Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 1.4806548329943325,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 7236252,
+        "sha256": "f2627aab7286e46447d633969b4e943b20fa46201ce727f3005249cfa473ef70",
+        "local_pdf": "atlas/reextraction/sources/2003.01100v4.pdf",
+        "local_text": "atlas/reextraction/sources/2003.01100v4.txt",
+        "pdf_pages": 151,
+        "pdfinfo": "Title:           The landscape of QCD axion models\nSubject:         \nKeywords:        \nAuthor:          Luca Di Luzio; Maurizio Giannotti; Enrico Nardi; Luca Visinelli; \nCreator:         LaTeX with hyperref\nProducer:        pdfTeX-1.40.21\nCreationDate:    Tue Jun  7 21:35:11 2022 -03\nModDate:         Tue Jun  7 21:35:11 2022 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           151\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       7236252 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 759597
+      },
+      "inspection": {
+        "scope": "Benchmark KSVZ and DFSZ definitions with general-KSVZ representation-family boundary.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          21,
+          22
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:30Z",
+        "source_access_started_utc": "2026-10-16T18:26:20Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 1.4806548329943325,
+        "preflight_and_checkpoint_wall_seconds": 0.18214858300052583,
+        "child_user_cpu_seconds": 0.12119299999999988,
+        "child_system_cpu_seconds": 0.031696,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P27",
+      "arxiv_version": "1610.01639v2",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P27/checkpoint.json",
+      "source": {
+        "paper_id": "P27",
+        "arxiv_version": "1610.01639v2",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1610.01639v2",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 1.2127923339721747,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 7989912,
+        "sha256": "c6d7468a5b750e5e3bfef5e0ac9313447dc7a74c80876effd8dc02bbd83035b9",
+        "local_pdf": "atlas/reextraction/sources/1610.01639v2.pdf",
+        "local_text": "atlas/reextraction/sources/1610.01639v2.txt",
+        "pdf_pages": 94,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.17\nCreationDate:    Sun Jul 23 21:26:03 2017 -03\nModDate:         Sun Jul 23 21:26:03 2017 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           94\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       7989912 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 371863
+      },
+      "inspection": {
+        "scope": "Section2 complete gauge/matter definition and source Yukawa conventions.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          7
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:31Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 1.2127923339721747,
+        "preflight_and_checkpoint_wall_seconds": 0.10090241598663852,
+        "child_user_cpu_seconds": 0.06151400000000007,
+        "child_system_cpu_seconds": 0.015666999999999986,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P28",
+      "arxiv_version": "hep-ph/9212278v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P28/checkpoint.json",
+      "source": {
+        "paper_id": "P28",
+        "arxiv_version": "hep-ph/9212278v1",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/9212278v1",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 0.16276608299813233,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 206408,
+        "sha256": "415759affc266dc11c803345033d4a03454eeedd094eb0f6594a29056a29aeb3",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_9212278v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_9212278v1.txt",
+        "pdf_pages": 31,
+        "pdfinfo": "Title:           arXiv:hep-ph/9212278v1  17 Dec 1992\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Wed Aug 29 05:29:55 2018 -03\nModDate:         Wed Aug 29 05:29:55 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           31\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       206408 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 68001
+      },
+      "inspection": {
+        "scope": "Explicit Section7 two-singlet, single-singlet/reduced heavy-quark constructions; scalar and fermion representation statements extracted, full-regime choice remains partial. Introduction and explicit SUSY statement following Eq7.8 re-read; high-energy regime SUSY established.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          18,
+          19
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:31Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16276608299813233,
+        "preflight_and_checkpoint_wall_seconds": 0.017160249990411103,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P29",
+      "arxiv_version": "hep-ph/0512103v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P29/checkpoint.json",
+      "source": {
+        "paper_id": "P29",
+        "arxiv_version": "hep-ph/0512103v2",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0512103v2",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 0.16075837501557544,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 239931,
+        "sha256": "7277dda87bb421e9f5b28b558102ed8f9dc4050c2826c591f671d6f327860322",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0512103v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0512103v2.txt",
+        "pdf_pages": 23,
+        "pdfinfo": "Title:           arXiv:hep-ph/0512103v2  6 Feb 2006\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:33:35 2024 -03\nModDate:         Tue Nov 26 18:33:35 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           23\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       239931 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 78992
+      },
+      "inspection": {
+        "scope": "Full flavon/driving field table and seesaw change; quark/stabilization completion kept explicit.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          7,
+          9,
+          12,
+          20,
+          21
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:31Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16075837501557544,
+        "preflight_and_checkpoint_wall_seconds": 0.01620891600032337,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P30",
+      "arxiv_version": "1706.08749v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P30/checkpoint.json",
+      "source": {
+        "paper_id": "P30",
+        "arxiv_version": "1706.08749v2",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1706.08749v2",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 0.38146162501652725,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 1427335,
+        "sha256": "1f95310024a1a5d1239a4a0bab13b664b36fb13e693cfd3919d5ff236791c1da",
+        "local_pdf": "atlas/reextraction/sources/1706.08749v2.pdf",
+        "local_text": "atlas/reextraction/sources/1706.08749v2.txt",
+        "pdf_pages": 41,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.17\nCreationDate:    Sun Oct  1 21:19:16 2017 -03\nModDate:         Sun Oct  1 21:19:16 2017 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           41\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       1427335 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 126703
+      },
+      "inspection": {
+        "scope": "Generic field Table2 and complete Example3 lepton/Higgs/modulus Table6 and superpotential.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          10
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:31Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.38146162501652725,
+        "preflight_and_checkpoint_wall_seconds": 0.015527957992162555,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P31",
+      "arxiv_version": "1009.2049v3",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P31/checkpoint.json",
+      "source": {
+        "paper_id": "P31",
+        "arxiv_version": "1009.2049v3",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1009.2049v3",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 0.07401379098882899,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "bytes": 601000,
+        "sha256": "1c1d97f9b6cb6c848e3f76963afa2c20a2c413ff7a3605eb3c2829a9b98434a6",
+        "local_pdf": "atlas/reextraction/sources/1009.2049v3.pdf",
+        "local_text": "atlas/reextraction/sources/1009.2049v3.txt",
+        "pdf_pages": 33,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.10\nCreationDate:    Tue Oct 23 23:06:53 2018 -03\nModDate:         Tue Oct 23 23:06:53 2018 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           33\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       601000 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 106295
+      },
+      "inspection": {
+        "scope": "Complete Section2 field table/Yukawa transformations and both Section5 flavour-gauging examples; minimal displayed two-flavon regime, not optional extra-flavon completions.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          4
+        ],
+        "text_pages_with_claim_anchors": [
+          4,
+          21
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:21Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.07401379098882899,
+        "preflight_and_checkpoint_wall_seconds": 0.7799528750183526,
+        "child_user_cpu_seconds": 0.7085299999999999,
+        "child_system_cpu_seconds": 0.03398000000000001,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P32",
+      "arxiv_version": "hep-ph/0505013v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P32/checkpoint.json",
+      "source": {
+        "paper_id": "P32",
+        "arxiv_version": "hep-ph/0505013v1",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0505013v1",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.1727729999984149,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 212616,
+        "sha256": "fd7fb3853f75782505791a04800c4a1baeef7ce9f88ff0e2c4e10df9d2f7bc14",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0505013v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0505013v1.txt",
+        "pdf_pages": 16,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript SVN PRE-RELEASE 8.62\nCreationDate:    Sat Feb  2 00:49:43 2008 -02\nModDate:         Sat Feb  2 00:49:43 2008 -02\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           16\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       212616 bytes\nOptimized:       no\nPDF version:     1.2\n",
+        "text_bytes": 46804
+      },
+      "inspection": {
+        "scope": "Full displayed model definition and explicit N=3 specialization.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.1727729999984149,
+        "preflight_and_checkpoint_wall_seconds": 0.09922141701099463,
+        "child_user_cpu_seconds": 0.06093800000000016,
+        "child_system_cpu_seconds": 0.015153000000000028,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P33",
+      "arxiv_version": "hep-ph/0601225v1",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P33/checkpoint.json",
+      "source": {
+        "paper_id": "P33",
+        "arxiv_version": "hep-ph/0601225v1",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0601225v1",
+            "started_utc": "2026-10-16T18:26:21Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:21Z",
+            "wall_seconds": 0.04186095797922462,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 83206,
+        "sha256": "3505cd2e66f6358c256a039128b4845400d90e17f53a5b473646cf1ca321fe82",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0601225v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0601225v1.txt",
+        "pdf_pages": 8,
+        "pdfinfo": "Title:           arXiv:hep-ph/0601225v1  27 Jan 2006\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 19:05:15 2024 -03\nModDate:         Tue Nov 26 19:05:15 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           8\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       83206 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 14240
+      },
+      "inspection": {
+        "scope": "Complete gauge-basis particle table and scalar/Yukawa definition.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:21Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.04186095797922462,
+        "preflight_and_checkpoint_wall_seconds": 0.10224391700467095,
+        "child_user_cpu_seconds": 0.06168799999999974,
+        "child_system_cpu_seconds": 0.015758999999999967,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P34",
+      "arxiv_version": "1204.5862v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P34/checkpoint.json",
+      "source": {
+        "paper_id": "P34",
+        "arxiv_version": "1204.5862v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1204.5862v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.18615366599988192,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 307573,
+        "sha256": "c8730cafc940caf947339f46b9a4cf99d865f4ec670c76b746f6707a67ef4ffd",
+        "local_pdf": "atlas/reextraction/sources/1204.5862v2.pdf",
+        "local_text": "atlas/reextraction/sources/1204.5862v2.txt",
+        "pdf_pages": 23,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Wed Nov 27 03:13:54 2024 -03\nModDate:         Wed Nov 27 03:13:54 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           23\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       307573 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 78687
+      },
+      "inspection": {
+        "scope": "Appendix representation-family tables and topology distinctions; do not promote operator diagrams to complete unique models.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          14
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.18615366599988192,
+        "preflight_and_checkpoint_wall_seconds": 0.015765541000291705,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P35",
+      "arxiv_version": "1404.7137v1",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P35/checkpoint.json",
+      "source": {
+        "paper_id": "P35",
+        "arxiv_version": "1404.7137v1",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1404.7137v1",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.5403360830096062,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 858043,
+        "sha256": "df71f9bd86b7c279f7b681cecb3320c2f16a78cf8ef7331bb2c6621e83b19356",
+        "local_pdf": "atlas/reextraction/sources/1404.7137v1.pdf",
+        "local_text": "atlas/reextraction/sources/1404.7137v1.txt",
+        "pdf_pages": 24,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Tue Apr 29 21:18:07 2014 -03\nModDate:         Tue Apr 29 21:18:07 2014 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           24\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       858043 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 83065
+      },
+      "inspection": {
+        "scope": "Microscopic hyperfermion Table1 and explicit EW embedding, kept separate from composite IR spectrum.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          5
+        ],
+        "text_pages_with_claim_anchors": [
+          5,
+          10
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.5403360830096062,
+        "preflight_and_checkpoint_wall_seconds": 0.1002984170045238,
+        "child_user_cpu_seconds": 0.061821000000000126,
+        "child_system_cpu_seconds": 0.015178000000000025,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P36",
+      "arxiv_version": "hep-ph/0206021v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P36/checkpoint.json",
+      "source": {
+        "paper_id": "P36",
+        "arxiv_version": "hep-ph/0206021v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0206021v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.05059929200797342,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 160145,
+        "sha256": "a8de4669733031620e8a0283e2abf07d93e12d628c8245380f47cc5833d0e74f",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0206021v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0206021v2.txt",
+        "pdf_pages": 16,
+        "pdfinfo": "Title:           arXiv:hep-ph/0206021v2  17 Jun 2002\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Tue Oct 23 03:28:28 2018 -03\nModDate:         Tue Oct 23 03:28:28 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           16\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       160145 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 51977
+      },
+      "inspection": {
+        "scope": "Nonlinear scalar geometry, full displayed top sector and explicit UV anomaly/completion caveat.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          6,
+          7
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.05059929200797342,
+        "preflight_and_checkpoint_wall_seconds": 0.016181167011382058,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P37",
+      "arxiv_version": "hep-ph/0506256v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P37/checkpoint.json",
+      "source": {
+        "paper_id": "P37",
+        "arxiv_version": "hep-ph/0506256v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0506256v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.18897145800292492,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 111599,
+        "sha256": "ba49d23d8cb61319f7e0a22a59bcabbba3daa0df31aed5926c63f9b35870aa7a",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0506256v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0506256v2.txt",
+        "pdf_pages": 5,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Feb  9 23:33:05 2015 -02\nModDate:         Mon Feb  9 23:33:05 2015 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           5\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       111599 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 34309
+      },
+      "inspection": {
+        "scope": "Whole short definition from linear example through extended-top, nonlinear construction and distinct twin/mirror alternatives.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.18897145800292492,
+        "preflight_and_checkpoint_wall_seconds": 0.11394579100306146,
+        "child_user_cpu_seconds": 0.07572800000000024,
+        "child_system_cpu_seconds": 0.015100000000000002,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P38",
+      "arxiv_version": "1501.05310v2",
+      "status": "completed_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P38/checkpoint.json",
+      "source": {
+        "paper_id": "P38",
+        "arxiv_version": "1501.05310v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1501.05310v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 1.3590866249869578,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:24Z",
+        "bytes": 1335382,
+        "sha256": "f8c7009f615324ff1da1affa23a255720fbd0cd78c62e1c9249b9f9476d73e90",
+        "local_pdf": "atlas/reextraction/sources/1501.05310v2.pdf",
+        "local_text": "atlas/reextraction/sources/1501.05310v2.txt",
+        "pdf_pages": 64,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Mar 23 21:33:14 2015 -03\nModDate:         Mon Mar 23 21:33:14 2015 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           64\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       1335382 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 165275
+      },
+      "inspection": {
+        "scope": "Complete minimal-model SectionII including radial-mode choice, anomaly cancellation, and enumerated summary.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          11,
+          14
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:24Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 1.3590866249869578,
+        "preflight_and_checkpoint_wall_seconds": 0.10449691698886454,
+        "child_user_cpu_seconds": 0.0653459999999999,
+        "child_system_cpu_seconds": 0.01583699999999999,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P39",
+      "arxiv_version": "hep-ph/9803315v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P39/checkpoint.json",
+      "source": {
+        "paper_id": "P39",
+        "arxiv_version": "hep-ph/9803315v1",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/9803315v1",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.16193416601163335,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 170337,
+        "sha256": "219610bd4df9fc5e9990066306cf625cfa697a12dba2f14bb59a4805db4eeb60",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_9803315v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_9803315v1.txt",
+        "pdf_pages": 17,
+        "pdfinfo": "Title:           arXiv:hep-ph/9803315v1  11 Mar 1998\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 17:59:25 2024 -03\nModDate:         Tue Nov 26 17:59:25 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       170337 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 49632
+      },
+      "inspection": {
+        "scope": "Localization construction and complete displayed Section3.4 Pati-Salam prototype; source slots unresolved explicitly.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          14
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16193416601163335,
+        "preflight_and_checkpoint_wall_seconds": 0.017002709006192163,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P40",
+      "arxiv_version": "hep-ph/9905221v1",
+      "status": "reference_only_scoped_reextraction",
+      "checkpoint": "atlas/reextraction/P40/checkpoint.json",
+      "source": {
+        "paper_id": "P40",
+        "arxiv_version": "hep-ph/9905221v1",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/9905221v1",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.04794049999327399,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 123099,
+        "sha256": "f43dc148d9c80fac7fd71f49e07b9b99183245404fecbf90a2b15f0d6e14bba8",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_9905221v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_9905221v1.txt",
+        "pdf_pages": 9,
+        "pdfinfo": "Title:           arXiv:hep-ph/9905221v1  4 May 1999\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:07:06 2024 -03\nModDate:         Tue Nov 26 18:07:06 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           9\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       123099 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 28498
+      },
+      "inspection": {
+        "scope": "Gravitational action, warped solution and explicit visible-brane Higgs normalization, not merely abstract.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          6
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.04794049999327399,
+        "preflight_and_checkpoint_wall_seconds": 0.0161511670157779,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P41",
+      "arxiv_version": "hep-ph/0012100v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P41/checkpoint.json",
+      "source": {
+        "paper_id": "P41",
+        "arxiv_version": "hep-ph/0012100v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0012100v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:22Z",
+            "wall_seconds": 0.16525208301027305,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "bytes": 232400,
+        "sha256": "9d5415c44e728beffb01fbc493b4a45df664e0e07ea4a434717bfaf3410d992f",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0012100v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0012100v2.txt",
+        "pdf_pages": 22,
+        "pdfinfo": "Title:           arXiv:hep-ph/0012100v2  29 Jun 2001\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:08:12 2024 -03\nModDate:         Tue Nov 26 18:08:12 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           22\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       232400 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 66270
+      },
+      "inspection": {
+        "scope": "Full bulk Lagrangian and explicit five-dimensional orbifold specialization, separate from generic dimensional family.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          4,
+          5
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:22Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16525208301027305,
+        "preflight_and_checkpoint_wall_seconds": 0.1049715830013156,
+        "child_user_cpu_seconds": 0.061176999999999815,
+        "child_system_cpu_seconds": 0.017374,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P42",
+      "arxiv_version": "hep-ph/0306259v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P42/checkpoint.json",
+      "source": {
+        "paper_id": "P42",
+        "arxiv_version": "hep-ph/0306259v1",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0306259v1",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.1797833340242505,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 340831,
+        "sha256": "4dd18a60fbdca277beed70259744b49a5bcf23e89dfa21da458b7d4fbb8dedc0",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0306259v1.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0306259v1.txt",
+        "pdf_pages": 32,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Wed May 30 06:03:19 2018 -03\nModDate:         Wed May 30 06:03:19 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           32\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       340831 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 96346
+      },
+      "inspection": {
+        "scope": "5D/boundary source definition, explicit third-generation field list and alternative boundary realizations. Full Section3.2 scalar mediator definition and quartic mechanism inspected.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          5,
+          6,
+          14
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:32Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.1797833340242505,
+        "preflight_and_checkpoint_wall_seconds": 0.016693374986061826,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P43",
+      "arxiv_version": "hep-ph/0604261v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P43/checkpoint.json",
+      "source": {
+        "paper_id": "P43",
+        "arxiv_version": "hep-ph/0604261v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/hep-ph/0604261v2",
+            "started_utc": "2026-10-16T18:26:22Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.17411949997767806,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 198430,
+        "sha256": "fc8ed5d4eab551290302126266a5b869d8829e7108ac57340ac60fe9c883541c",
+        "local_pdf": "atlas/reextraction/sources/hep-ph_0604261v2.pdf",
+        "local_text": "atlas/reextraction/sources/hep-ph_0604261v2.txt",
+        "pdf_pages": 6,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript SVN PRE-RELEASE 8.62\nCreationDate:    Sat Feb  2 03:53:11 2008 -02\nModDate:         Sat Feb  2 03:53:11 2008 -02\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           6\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       198430 bytes\nOptimized:       no\nPDF version:     1.2\n",
+        "text_bytes": 47690
+      },
+      "inspection": {
+        "scope": "Complete Simple v-Model table and numerical benchmark plus Other Models coloured-X alternatives.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          1
+        ],
+        "text_pages_with_claim_anchors": [
+          1,
+          2,
+          4
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:22Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.17411949997767806,
+        "preflight_and_checkpoint_wall_seconds": 0.11002995798480697,
+        "child_user_cpu_seconds": 0.06873200000000024,
+        "child_system_cpu_seconds": 0.016222999999999987,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 1
+    },
+    {
+      "paper_id": "P44",
+      "arxiv_version": "0711.4866v1",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P44/checkpoint.json",
+      "source": {
+        "paper_id": "P44",
+        "arxiv_version": "0711.4866v1",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/0711.4866v1",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.1651736659987364,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 256162,
+        "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+        "local_pdf": "atlas/reextraction/sources/0711.4866v1.pdf",
+        "local_text": "atlas/reextraction/sources/0711.4866v1.txt",
+        "pdf_pages": 17,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 19:10:05 2024 -03\nModDate:         Tue Nov 26 19:10:05 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       256162 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 54897
+      },
+      "inspection": {
+        "scope": "Sections2.1-2.3 complete displayed Lagrangians, pre-breaking gauge model and real scalar mediator variant.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          4,
+          8,
+          10
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.1651736659987364,
+        "preflight_and_checkpoint_wall_seconds": 0.18848074998822995,
+        "child_user_cpu_seconds": 0.126185,
+        "child_system_cpu_seconds": 0.03178199999999998,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P45",
+      "arxiv_version": "1411.3727v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P45/checkpoint.json",
+      "source": {
+        "paper_id": "P45",
+        "arxiv_version": "1411.3727v2",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1411.3727v2",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.5364733340102248,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 748614,
+        "sha256": "05b036197c85f6ce15560d659ffa3be5c8e7b8046c0d2ee1237d3f4082b537a5",
+        "local_pdf": "atlas/reextraction/sources/1411.3727v2.pdf",
+        "local_text": "atlas/reextraction/sources/1411.3727v2.txt",
+        "pdf_pages": 8,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Jul 27 21:34:34 2015 -03\nModDate:         Mon Jul 27 21:34:34 2015 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           8\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       748614 bytes\nOptimized:       no\nPDF version:     1.5\n",
+        "text_bytes": 59540
+      },
+      "inspection": {
+        "scope": "All microscopic gauge/fermion classes, minimal numerical examples, composite EFT and explicit portal-completion boundary.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          1,
+          2
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.5364733340102248,
+        "preflight_and_checkpoint_wall_seconds": 0.016770040994742885,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P46",
+      "arxiv_version": "1111.4482v3",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P46/checkpoint.json",
+      "source": {
+        "paper_id": "P46",
+        "arxiv_version": "1111.4482v3",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1111.4482v3",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.16769179198308848,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 262416,
+        "sha256": "8470273e65676b328c2ecad89a9cf7f1c79deadf4e291eb0992e8194a8906dc7",
+        "local_pdf": "atlas/reextraction/sources/1111.4482v3.pdf",
+        "local_text": "atlas/reextraction/sources/1111.4482v3.txt",
+        "pdf_pages": 8,
+        "pdfinfo": "Title:           arXiv:1111.4482v3  [hep-ph]  10 Jan 2012\nCreator:         dvips(k) 5.991 Copyright 2011 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Mon Oct 29 07:14:30 2018 -03\nModDate:         Mon Oct 29 07:14:30 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           8\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       262416 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 54937
+      },
+      "inspection": {
+        "scope": "All SectionII.A mass-origin examples and explicit SectionIII origin-agnostic EFT.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          2,
+          3
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.16769179198308848,
+        "preflight_and_checkpoint_wall_seconds": 0.18673941600718535,
+        "child_user_cpu_seconds": 0.12449599999999972,
+        "child_system_cpu_seconds": 0.03162600000000004,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    },
+    {
+      "paper_id": "P47",
+      "arxiv_version": "1309.7223v2",
+      "status": "reference_only_scoped_reextraction",
+      "checkpoint": "atlas/reextraction/P47/checkpoint.json",
+      "source": {
+        "paper_id": "P47",
+        "arxiv_version": "1309.7223v2",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1309.7223v2",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.2753844170074444,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 321086,
+        "sha256": "57cf6ec096a7f995b29aecf0cf34558974c2782ab4e5dcd5ad5f82b7cb46fb83",
+        "local_pdf": "atlas/reextraction/sources/1309.7223v2.pdf",
+        "local_text": "atlas/reextraction/sources/1309.7223v2.txt",
+        "pdf_pages": 25,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Sun Feb 16 22:19:29 2014 -03\nModDate:         Sun Feb 16 22:19:29 2014 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           25\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       321086 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 84812
+      },
+      "inspection": {
+        "scope": "Actual gauge/matter declaration sections, real-scalar option and basis distinctions; representative example declarations read.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          5
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.2753844170074444,
+        "preflight_and_checkpoint_wall_seconds": 0.016579207993345335,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P48",
+      "arxiv_version": "1108.2040v2",
+      "status": "reference_only_scoped_reextraction",
+      "checkpoint": "atlas/reextraction/P48/checkpoint.json",
+      "source": {
+        "paper_id": "P48",
+        "arxiv_version": "1108.2040v2",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1108.2040v2",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.0760077910090331,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "bytes": 320193,
+        "sha256": "cf1b4834c9380e57ec38b64881855e640453aa8052e0b25c9cf88d60d6df98c5",
+        "local_pdf": "atlas/reextraction/sources/1108.2040v2.pdf",
+        "local_text": "atlas/reextraction/sources/1108.2040v2.txt",
+        "pdf_pages": 30,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 21:17:28 2024 -03\nModDate:         Tue Nov 26 21:17:28 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           30\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       320193 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 76609
+      },
+      "inspection": {
+        "scope": "UFO objects, full particle declarations and vertex tensor/mass-eigenstate distinction, not abstract alone.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          7
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:23Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.0760077910090331,
+        "preflight_and_checkpoint_wall_seconds": 0.015568082977551967,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P49",
+      "arxiv_version": "1008.4884v3",
+      "status": "reference_only_scoped_reextraction",
+      "checkpoint": "atlas/reextraction/P49/checkpoint.json",
+      "source": {
+        "paper_id": "P49",
+        "arxiv_version": "1008.4884v3",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1008.4884v3",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:24Z",
+            "wall_seconds": 0.5482573749904986,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:24Z",
+        "bytes": 270411,
+        "sha256": "fb391ef575afab9bd13da5e308256ebb4e03f9115c74d93cd9f87cabd2b0c5f6",
+        "local_pdf": "atlas/reextraction/sources/1008.4884v3.pdf",
+        "local_text": "atlas/reextraction/sources/1008.4884v3.txt",
+        "pdf_pages": 17,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Jan 16 23:32:07 2017 -02\nModDate:         Mon Jan 16 23:32:07 2017 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       270411 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 64565
+      },
+      "inspection": {
+        "scope": "SM field Table1, unbroken-basis conventions and representative bosonic/two-/four-fermion operator classes.",
+        "whole_paper_scientifically_read": false,
+        "text_pages_with_claim_anchors": [
+          3
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:24Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.5482573749904986,
+        "preflight_and_checkpoint_wall_seconds": 0.01652370800729841,
+        "child_user_cpu_seconds": 0.0,
+        "child_system_cpu_seconds": 0.0,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 0
+    },
+    {
+      "paper_id": "P50",
+      "arxiv_version": "1711.10391v2",
+      "status": "partial_scoped_reextraction_staged",
+      "checkpoint": "atlas/reextraction/P50/checkpoint.json",
+      "source": {
+        "paper_id": "P50",
+        "arxiv_version": "1711.10391v2",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "attempts": [
+          {
+            "url": "https://arxiv.org/pdf/1711.10391v2",
+            "started_utc": "2026-10-16T18:26:23Z",
+            "method": "bounded_public_curl",
+            "ended_utc": "2026-10-16T18:26:23Z",
+            "wall_seconds": 0.21702474998892285,
+            "returncode": 0,
+            "error": null
+          }
+        ],
+        "text_conversion_stderr": "",
+        "text_conversion_returncode": 0,
+        "status": "source_available_not_yet_reextracted",
+        "ended_utc": "2026-10-16T18:26:24Z",
+        "bytes": 1036152,
+        "sha256": "95a881a7dc37a51a52feacf80a0df7a090d48fd2b6530461ff0f04a6489f2bfa",
+        "local_pdf": "atlas/reextraction/sources/1711.10391v2.pdf",
+        "local_text": "atlas/reextraction/sources/1711.10391v2.txt",
+        "pdf_pages": 73,
+        "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        medialab\nCreationDate:    Wed Aug  8 21:48:27 2018 -03\nModDate:         Wed Aug  8 21:48:27 2018 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           73\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       1036152 bytes\nOptimized:       no\nPDF version:     1.4\n",
+        "text_bytes": 303289
+      },
+      "inspection": {
+        "scope": "Full classification assumptions/tables, explicit single-zeta and single-W examples, generic scalar/fermion-copy boundary.",
+        "whole_paper_scientifically_read": false,
+        "visually_inspected_pdf_pages": [
+          8
+        ],
+        "text_pages_with_claim_anchors": [
+          6,
+          18,
+          19,
+          27,
+          29
+        ],
+        "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+      },
+      "measurement": {
+        "checkpoint_utc": "2026-10-16T18:56:33Z",
+        "source_access_started_utc": "2026-10-16T18:26:23Z",
+        "source_access_ended_utc": "2026-10-16T18:26:24Z",
+        "scientific_read_started_observed_utc": null,
+        "scientific_extraction_active_seconds": null,
+        "source_access_command_wall_seconds": 0.21702474998892285,
+        "preflight_and_checkpoint_wall_seconds": 0.17967716601560824,
+        "child_user_cpu_seconds": 0.12100100000000014,
+        "child_system_cpu_seconds": 0.029749999999999943,
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "api_dollars": null,
+        "gpu_hours": null,
+        "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+      },
+      "candidate_count": 2
+    }
+  ]
+}

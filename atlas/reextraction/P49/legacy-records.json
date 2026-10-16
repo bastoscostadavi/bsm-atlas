@@ -1,0 +1,197 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P49",
+  "source_models": [
+    {
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1
+    },
+    {
+      "model_id": "smeft-d6-b-violating",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [],
+  "source_fields": [
+    {
+      "field_id": 558,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "l_Lp",
+      "field_kind": "lepton doublet fermion collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "3 generations",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 422,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 558,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(1,2,-1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 559,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "e_Rp",
+      "field_kind": "charged-lepton singlet fermion collection",
+      "spin": "1/2",
+      "chirality": "right-handed",
+      "multiplicity": "3 generations",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 423,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 559,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(1,1,-1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 560,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "q_Lp",
+      "field_kind": "quark doublet fermion collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "3 generations",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 424,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 560,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(3,2,1/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 561,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "u_Rp",
+      "field_kind": "up-quark singlet fermion collection",
+      "spin": "1/2",
+      "chirality": "right-handed",
+      "multiplicity": "3 generations",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 425,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 561,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(3,1,2/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 562,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "d_Rp",
+      "field_kind": "down-quark singlet fermion collection",
+      "spin": "1/2",
+      "chirality": "right-handed",
+      "multiplicity": "3 generations",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 426,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 562,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(3,1,-1/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 563,
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1,
+      "regime_id": 184,
+      "field_label": "phi",
+      "field_kind": "Higgs scalar doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "phi_tilde^j=epsilon_jk(phi^k)*, epsilon_12=+1, is a constructed conjugate, not a second scalar. No right-handed neutrino is retained.",
+      "representations": [
+        {
+          "representation_id": 427,
+          "model_id": "smeft-d6-b-conserving",
+          "model_revision": 1,
+          "regime_id": 184,
+          "field_id": 563,
+          "factor_id": null,
+          "group_id": 132,
+          "representation_label": "(1,2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Appendix representation-family tables and topology distinctions; do not promote operator diagrams to complete unique models.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      14
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "loops",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "AppendixA Tables2,4,5; Sections3.1-3.2",
+        "pdf_pages": [
+          14
+        ],
+        "anchor": "hypercharge α (α: integer)"
+      },
+      "value": "Loop-completion representation lists explicitly leave integer hypercharge alpha free. First T1-i row has scalar1_alpha, scalar2_(alpha-1), fermion1_alpha, scalar2_(alpha+1), in source Q=T3+Y/2 units. It is a symbolic family, not four known integer-normalized numerical charges. T4-1-i is divergent correction to typeII; T4-1-ii finite loop sector cannot forbid associated tree contribution by the stated charge relations."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_ids": [
+        "weinberg-t1i-first-row",
+        "weinberg-t41i-doublet-fermions",
+        "weinberg-t41ii-first-row"
+      ],
+      "status": "partial",
+      "value_status": "explicit_symbolic_family_and_operator_completion",
+      "parameters": [
+        {
+          "id": "alpha",
+          "domain": "integer",
+          "definition": "source hypercharge family parameter"
+        }
+      ],
+      "reason": "A fixed alpha, mediator copy counts and complete independent fermion/reality data are not specified by a topology row; no numeric-subset charge normalization is performed."
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P34",
+  "arxiv_version": "1204.5862v2",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P34",
+    "arxiv_version": "1204.5862v2",
+    "started_utc": "2026-10-16T18:26:22Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1204.5862v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "wall_seconds": 0.18615366599988192,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:22Z",
+    "bytes": 307573,
+    "sha256": "c8730cafc940caf947339f46b9a4cf99d865f4ec670c76b746f6707a67ef4ffd",
+    "local_pdf": "atlas/reextraction/sources/1204.5862v2.pdf",
+    "local_text": "atlas/reextraction/sources/1204.5862v2.txt",
+    "pdf_pages": 23,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Wed Nov 27 03:13:54 2024 -03\nModDate:         Wed Nov 27 03:13:54 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           23\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        0\nFile size:       307573 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 78687
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "weinberg-t1i-first-row",
+      "weinberg-t41i-doublet-fermions",
+      "weinberg-t41ii-first-row"
+    ],
+    "source_field_ids": [
+      407,
+      408,
+      409,
+      410,
+      415,
+      416,
+      417,
+      418,
+      419,
+      420,
+      411,
+      412,
+      413,
+      414
+    ],
+    "public_entry_ids": [
+      "weinberg-t1i-first-row",
+      "weinberg-t41i-doublet-fermions",
+      "weinberg-t41ii-first-row"
+    ]
+  },
+  "staged_numerical_candidates": [],
+  "preflight_results": [],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:32Z",
+    "source_access_started_utc": "2026-10-16T18:26:22Z",
+    "source_access_ended_utc": "2026-10-16T18:26:22Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.18615366599988192,
+    "preflight_and_checkpoint_wall_seconds": 0.015765541000291705,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

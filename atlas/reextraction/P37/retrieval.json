@@ -1,0 +1,27 @@
+{
+  "paper_id": "P37",
+  "arxiv_version": "hep-ph/0506256v2",
+  "started_utc": "2026-10-16T18:26:22Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/hep-ph/0506256v2",
+      "started_utc": "2026-10-16T18:26:22Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:22Z",
+      "wall_seconds": 0.18897145800292492,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:22Z",
+  "bytes": 111599,
+  "sha256": "ba49d23d8cb61319f7e0a22a59bcabbba3daa0df31aed5926c63f9b35870aa7a",
+  "local_pdf": "atlas/reextraction/sources/hep-ph_0506256v2.pdf",
+  "local_text": "atlas/reextraction/sources/hep-ph_0506256v2.txt",
+  "pdf_pages": 5,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Feb  9 23:33:05 2015 -02\nModDate:         Mon Feb  9 23:33:05 2015 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           5\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       111599 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 34309
+}

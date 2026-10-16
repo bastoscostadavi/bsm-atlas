@@ -1,0 +1,137 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P12",
+  "source_models": [
+    {
+      "model_id": "mdm-majorana-quintuplet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mdm-real-septuplet-displayed",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "mdm-majorana-quintuplet",
+      "name": "Minimal dark matter Majorana electroweak quintuplet",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "mdm-majorana-quintuplet"
+      ]
+    },
+    {
+      "entry_id": "mdm-real-septuplet-displayed",
+      "name": "Minimal dark matter real scalar septuplet, displayed operator specification",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "mdm-real-septuplet-displayed"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 130,
+      "model_id": "mdm-majorana-quintuplet",
+      "model_revision": 1,
+      "regime_id": 39,
+      "field_label": "X",
+      "field_kind": "fermion multiplet",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "1 quintuplet",
+      "field_reality_condition": "Majorana, inferred under the source's minimal non-chiral prescription",
+      "inherited_baseline_label": null,
+      "scope_note": "Colorless. Charged and neutral states are components of this single multiplet; no supersymmetric partners or additional families are implied.",
+      "representations": [
+        {
+          "representation_id": 81,
+          "model_id": "mdm-majorana-quintuplet",
+          "model_revision": 1,
+          "regime_id": 39,
+          "field_id": 130,
+          "factor_id": 28,
+          "group_id": null,
+          "representation_label": "5, quintuplet",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 82,
+          "model_id": "mdm-majorana-quintuplet",
+          "model_revision": 1,
+          "regime_id": 39,
+          "field_id": 130,
+          "factor_id": 29,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "0",
+          "source_notation": null,
+          "normalization_note": "Y in Q=T3+Y"
+        }
+      ]
+    },
+    {
+      "field_id": 131,
+      "model_id": "mdm-real-septuplet-displayed",
+      "model_revision": 1,
+      "regime_id": 40,
+      "field_label": "X",
+      "field_kind": "scalar multiplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1 septuplet",
+      "field_reality_condition": "real, inferred under the source's minimal non-chiral prescription",
+      "inherited_baseline_label": null,
+      "scope_note": "Colorless. Field reality is distinguished from the gauge representation label. Component states do not add independent multiplets.",
+      "representations": [
+        {
+          "representation_id": 83,
+          "model_id": "mdm-real-septuplet-displayed",
+          "model_revision": 1,
+          "regime_id": 40,
+          "field_id": 131,
+          "factor_id": 30,
+          "group_id": null,
+          "representation_label": "7, septuplet",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 84,
+          "model_id": "mdm-real-septuplet-displayed",
+          "model_revision": 1,
+          "regime_id": 40,
+          "field_id": 131,
+          "factor_id": 31,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "0",
+          "source_notation": null,
+          "normalization_note": "Y in Q=T3+Y"
+        }
+      ]
+    },
+    {
+      "field_id": 132,
+      "model_id": "mdm-real-septuplet-displayed",
+      "model_revision": 1,
+      "regime_id": 40,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Inherited participant in equation (4); no additional Higgs doublet or reconstructed full SM inventory.",
+      "representations": []
+    }
+  ]
+}

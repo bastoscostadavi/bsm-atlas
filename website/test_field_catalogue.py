@@ -105,7 +105,8 @@ class Catalogue(unittest.TestCase):
         self.assertEqual(DATA['reextraction']['acceptedEntries'],5)
         lr=ENTRIES['lr-triplet-matter']
         self.assertEqual(lr['status'],'recorded_content')
-        self.assertEqual(lr['identity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
+        self.assertEqual(lr['legacyIdentity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
+        self.assertEqual(lr['identity']['input']['schema_version'],'field-content-2')
         for v in lr['variants']:
             r=v['regimes'][0]
             self.assertEqual([a['id'] for a in r['factors']],['A2','A1','A1','u1'])

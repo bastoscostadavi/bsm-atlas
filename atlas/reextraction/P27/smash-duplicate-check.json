@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "b65ad2ae05ee7dc6f74e46605787a30bf07912cee43a7754baabda6472c1b112",
+  "matches": [
+    {
+      "entry_id": "smash-down",
+      "name": "SMASH with a down-type colored fermion"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

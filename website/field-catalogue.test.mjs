@@ -49,18 +49,18 @@ assert(!nodes.get('view-content').innerHTML.includes('<th>Multiplet</th>'));
 assert(!nodes.get('view-content').innerHTML.includes('S (complex)'));
 assert(nodes.get('view-content').innerHTML.includes('<th>Spacetime</th>'));
 assert(nodes.get('view-content').innerHTML.includes('<tr title="H"><td class="math">(0, 0)</td>'));
-const scalarCondition={component:'S',reality:'complex'};
-assert.equal(scalarRealityLabel(scalarCondition,[{factor:'u(1)',value:'3'}]),'');
-assert.equal(scalarRealityLabel(scalarCondition,[{factor:'u(1)',value:'-1/3'}]),'');
-assert.equal(scalarRealityLabel(scalarCondition,[{factor:'u(1)',value:'0'}]),'complex');
-assert.equal(scalarRealityLabel(scalarCondition,[{factor:'u(1)',value:null}]),'complex');
-assert.equal(scalarRealityLabel(scalarCondition,[{factor:'u(1)',value:'source:2'}]),'complex');
-assert.equal(scalarRealityLabel({component:'S',reality:'real'},[{factor:'u(1)',value:'3'}]),'real'); // Never hide conflicting source conditions.
+assert.equal(scalarRealityLabel({component:'S',reality:'real_module'}),'');
+assert.equal(scalarRealityLabel({component:'S',reality:null}),'count pending');
+assert.equal(scalarRealityLabel({component:'F',reality:'none'}),'');
+assert.equal(findEntries(data).length,data.entries.filter(e=>e.publicationStatus==='ready').length);
+assert(findEntries(data,{status:'pending'}).every(e=>e.publicationStatus==='pending'));
+assert(!findEntries(data).some(e=>e.publicationStatus==='pending'));
 const primary=id=>{const e=data.entries.find(e=>e.id===id);return e.variants.flatMap(v=>v.regimes).find(r=>r.id===e.primaryRegime);};
 const nm=context.FieldMatrix.matrixRows(primary('nmssm-matter'),data.templates);
 assert.equal(nm.length,2);
 assert.equal(nm[0].lorentz.label,'(0, 0)');
 assert.equal(nm[1].lorentz.label,'(1/2, 0)');
+assert.equal(nm[0].copies,2);assert.equal(nm[1].copies,1);
 assert.equal(context.FieldMatrix.gaugeColumns(primary('nmssm-matter'))[0].label,'g_SM');
 assert(!context.FieldMatrix.gaugeColumns(primary('su5-adjoint-renormalizable')).some(c=>c.sm));
 const thdm=context.FieldMatrix.matrixRows(primary('two-higgs-doublets'),data.templates);
@@ -109,5 +109,15 @@ assert.equal(distinct.length,3); // Equal dimensions do not merge different or u
 assert.equal(distinct[0].copies,2); // Different source labels do merge when Dynkin labels agree.
 assert.equal(data.entries.length,103); // Component rows do not create model entries.
 const f={components:[{factor:'su(2)',youngRows:[1]},{factor:'u(1)',role:'hypercharge',value:'3'}]};
-assert(weight(f,'young').includes('q [hypercharge] = 3'));
+assert(weight(f,'young').includes('hypercharge: 3'));
+app.state.q='vlq-t-singlet';app.state.mode='dimensions';app.state.view='catalogue';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('class="rep-conjugate"'));
+assert(!nodes.get('model-entries').innerHTML.includes('3̅'));
+assert(!nodes.get('model-entries').innerHTML.includes('q = '));
+const phi=lr.find(row=>row.labels.includes('Phi'));
+assert(phi);assert.equal(phi.copies,2);
+app.state.q='';app.state.status='pending';app.state.mode='dimensions';app.render();
+assert(nodes.get('model-entries').innerHTML.includes('count pending'));
+assert(!nodes.get('model-entries').innerHTML.includes('q = source:'));
+assert(!nodes.get('model-entries').innerHTML.includes('reality unresolved'));
 console.log('Readable default, exact Dynkin labels, notation comparisons, diagram placeholders and LH conventions passed.');

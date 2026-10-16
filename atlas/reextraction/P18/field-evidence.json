@@ -1,0 +1,52 @@
+{
+  "paper_id": "P18",
+  "arxiv_version": "hep-ph/0702287v4",
+  "source_sha256": "736ca69732ef67648f0537bc0d09ddac9ed31b25e52fcf360e36748417bb0435",
+  "candidates": [],
+  "partial_source_descriptions": [
+    {
+      "target_entry_id": "su5-adjoint-renormalizable",
+      "status": "partial",
+      "value_status": "not_extracted",
+      "fields": [
+        {
+          "label": "45H",
+          "dynkin": [
+            0,
+            1,
+            0,
+            1
+          ],
+          "reality": "complex",
+          "copies": 1,
+          "evidence": [
+            "su5"
+          ]
+        },
+        {
+          "label": "24H",
+          "dynkin": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "copies": 1,
+          "reality": null,
+          "evidence": [
+            "su5"
+          ]
+        }
+      ],
+      "reason": "24H field reality condition not independently established in inspected definition; real-type irrep alone is insufficient to choose one real versus one complex scalar. Preserve rather than guess."
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "su5-adjoint-renormalizable",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

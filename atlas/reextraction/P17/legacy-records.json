@@ -1,0 +1,439 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P17",
+  "source_models": [
+    {
+      "model_id": "ql421-dirac",
+      "model_revision": 1
+    },
+    {
+      "model_id": "ql421-inverse-seesaw",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "ql421-dirac",
+      "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with Dirac neutrinos",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "ql421-dirac"
+      ]
+    },
+    {
+      "entry_id": "ql421-inverse-seesaw",
+      "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with inverse seesaw",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "ql421-inverse-seesaw"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 208,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "FQL",
+      "field_kind": "fermion multiplet",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Contains QL and ℓL, displayed as rows (u,ν) and (d,e). Family indices are suppressed.",
+      "representations": [
+        {
+          "representation_id": 191,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 208,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(4,2,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 209,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "Fu",
+      "field_kind": "fermion multiplet",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Fu=(u^c,ν^c); includes the conjugate right-handed neutrino. No Majorana condition is imposed on the unified multiplet.",
+      "representations": [
+        {
+          "representation_id": 192,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 209,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(4̄,1,-1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 210,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "Fd",
+      "field_kind": "fermion multiplet",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Fd=(d^c,e^c).",
+      "representations": [
+        {
+          "representation_id": 193,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 210,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(4̄,1,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 211,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "χ",
+      "field_kind": "scalar multiplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "χ=(χu,χ_R^0); its fourth component supplies unified symmetry breaking.",
+      "representations": [
+        {
+          "representation_id": 194,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 211,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(4,1,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 212,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "H",
+      "field_kind": "scalar doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "H^T=(H+,H0).",
+      "representations": [
+        {
+          "representation_id": 195,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 212,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(1,2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 213,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "Φ",
+      "field_kind": "scalar adjoint weak doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Φ=[[Φ8,Φ3],[Φ4,0]]+T4 H2. The adjoint representation does not impose a real-field condition. Source convention: Φ→U*ΦU^T under SU(4)C.",
+      "representations": [
+        {
+          "representation_id": 196,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 213,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(15,2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Source uses Φ→U*ΦU^T; retain its component orientation rather than substituting the gauge-connection matrix convention."
+        }
+      ]
+    },
+    {
+      "field_id": 214,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 55,
+      "field_label": "Aμ",
+      "field_kind": "SU(4)C gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Aμ=[[Gμ,Xμ/√2],[Xμ*/√2,0]]+T4 B′μ. Homogeneous transformation Aμ→UAμU†; the source explicitly suppresses spacetime dependence in that statement.",
+      "representations": [
+        {
+          "representation_id": 197,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 55,
+          "field_id": 214,
+          "factor_id": null,
+          "group_id": 50,
+          "representation_label": "(15,1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 215,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 56,
+      "field_label": "Φ8",
+      "field_kind": "scalar component multiplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Color-octet weak doublet inside Φ; not an extra multiplet beyond Φ. No MFV proportionality assumption is inherited from the cited octet model.",
+      "representations": [
+        {
+          "representation_id": 198,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 56,
+          "field_id": 215,
+          "factor_id": null,
+          "group_id": 51,
+          "representation_label": "(8,2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 216,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 56,
+      "field_label": "Φ3",
+      "field_kind": "scalar leptoquark component multiplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Upper-right block of Φ in the source's conjugate-adjoint convention.",
+      "representations": [
+        {
+          "representation_id": 199,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 56,
+          "field_id": 216,
+          "factor_id": null,
+          "group_id": 51,
+          "representation_label": "(3̄,2,-1/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 217,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 56,
+      "field_label": "Φ4",
+      "field_kind": "scalar leptoquark component multiplet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Lower-left block of Φ; not an independent addition to the unified inventory.",
+      "representations": [
+        {
+          "representation_id": 200,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 56,
+          "field_id": 217,
+          "factor_id": null,
+          "group_id": 51,
+          "representation_label": "(3,2,7/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 218,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 56,
+      "field_label": "H2",
+      "field_kind": "scalar Higgs-doublet component",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Second Higgs doublet in T4 H2 within Φ. Its neutral component has VEV v2/√2.",
+      "representations": []
+    },
+    {
+      "field_id": 219,
+      "model_id": "ql421-dirac",
+      "model_revision": 1,
+      "regime_id": 56,
+      "field_label": "Xμ",
+      "field_kind": "vector leptoquark gauge component",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Massive off-diagonal component of Aμ after unified breaking; not an independently added explicit-mass vector.",
+      "representations": [
+        {
+          "representation_id": 201,
+          "model_id": "ql421-dirac",
+          "model_revision": 1,
+          "regime_id": 56,
+          "field_id": 219,
+          "factor_id": null,
+          "group_id": 51,
+          "representation_label": "(3,1,2/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 220,
+      "model_id": "ql421-inverse-seesaw",
+      "model_revision": 1,
+      "regime_id": 57,
+      "field_label": "N",
+      "field_kind": "singlet fermion collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent added Weyl fields. A Majorana mass term does not impose a Majorana reality condition on this chiral field record.",
+      "representations": [
+        {
+          "representation_id": 202,
+          "model_id": "ql421-inverse-seesaw",
+          "model_revision": 1,
+          "regime_id": 57,
+          "field_id": 220,
+          "factor_id": null,
+          "group_id": 52,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 221,
+      "model_id": "ql421-inverse-seesaw",
+      "model_revision": 1,
+      "regime_id": 57,
+      "field_label": "Fu",
+      "field_kind": "inherited fermion multiplet",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "ql421-dirac revision 1",
+      "scope_note": "Participant in the added Yukawa; not an additional Fu multiplet.",
+      "representations": []
+    },
+    {
+      "field_id": 222,
+      "model_id": "ql421-inverse-seesaw",
+      "model_revision": 1,
+      "regime_id": 57,
+      "field_label": "χ",
+      "field_kind": "inherited scalar multiplet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "ql421-dirac revision 1",
+      "scope_note": "Participant in the added Yukawa; not an additional χ.",
+      "representations": []
+    }
+  ]
+}

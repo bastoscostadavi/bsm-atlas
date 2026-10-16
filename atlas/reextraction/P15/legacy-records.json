@@ -1,0 +1,1162 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P15",
+  "source_models": [
+    {
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "u1-ybl-charge-family",
+      "name": "Family-universal QYBL fermion-charge template",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-ybl-charge-family"
+      ]
+    },
+    {
+      "entry_id": "u1-smnur-all-sm-yukawas",
+      "name": "Anomaly-free U(1) charges permitting all SM Yukawas with three RH neutrinos",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-smnur-all-sm-yukawas"
+      ]
+    },
+    {
+      "entry_id": "u1-sm-top-only-charge",
+      "name": "Eq. (4.2) U(1) charge assignment with a top-only renormalizable Yukawa",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-sm-top-only-charge"
+      ]
+    },
+    {
+      "entry_id": "u1-leptonic-opposite-nur",
+      "name": "Opposite-family leptonic U(1) charges with three RH neutrinos",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-leptonic-opposite-nur"
+      ]
+    },
+    {
+      "entry_id": "u1-sm-left23-charge",
+      "name": "SM U(1) charge assignment on second- and third-family left doublets",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-sm-left23-charge"
+      ]
+    },
+    {
+      "entry_id": "u1-smnur-table5-14",
+      "name": "SM plus three RH neutrinos: Table 5 charge solution 14",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-smnur-table5-14"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 163,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "Q_i",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 137,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 163,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (3,2,1/6; FQi), FQ=(0,0,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 164,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "u_i",
+      "field_kind": "up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 138,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 164,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (3,1,2/3; Fui), Fu=(0,0,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 165,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "d_i",
+      "field_kind": "down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 139,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 165,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (3,1,−1/3; Fdi), Fd=(0,0,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 166,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "L_i",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 140,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 166,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (1,2,−1/2; FLi), FL=(0,a,−a)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 167,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "e_i",
+      "field_kind": "charged-lepton collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 141,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 167,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (1,1,−1; Fei), Fe=(0,a,−a)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 168,
+      "model_id": "u1-leptonic-opposite-nur",
+      "model_revision": 1,
+      "regime_id": 48,
+      "field_label": "ν_i",
+      "field_kind": "chiral neutrino collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Gauge-basis chiral fields; no Majorana reality condition or mass mechanism specified.",
+      "representations": [
+        {
+          "representation_id": 142,
+          "model_id": "u1-leptonic-opposite-nur",
+          "model_revision": 1,
+          "regime_id": 48,
+          "field_id": 168,
+          "factor_id": null,
+          "group_id": 43,
+          "representation_label": "Direct sum over i: (1,1,0; Fνi), Fν=(0,b,−b)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 169,
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1,
+      "regime_id": 49,
+      "field_label": "Q_i",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 143,
+          "model_id": "u1-sm-left23-charge",
+          "model_revision": 1,
+          "regime_id": 49,
+          "field_id": 169,
+          "factor_id": null,
+          "group_id": 44,
+          "representation_label": "Direct sum over physical weak families: (3,2,1/6; FQi), FQ=(0,−1,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 170,
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1,
+      "regime_id": 49,
+      "field_label": "u_i",
+      "field_kind": "up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 144,
+          "model_id": "u1-sm-left23-charge",
+          "model_revision": 1,
+          "regime_id": 49,
+          "field_id": 170,
+          "factor_id": null,
+          "group_id": 44,
+          "representation_label": "Three copies of (3,1,2/3;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 171,
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1,
+      "regime_id": 49,
+      "field_label": "d_i",
+      "field_kind": "down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 145,
+          "model_id": "u1-sm-left23-charge",
+          "model_revision": 1,
+          "regime_id": 49,
+          "field_id": 171,
+          "factor_id": null,
+          "group_id": 44,
+          "representation_label": "Three copies of (3,1,−1/3;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 172,
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1,
+      "regime_id": 49,
+      "field_label": "L_i",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 146,
+          "model_id": "u1-sm-left23-charge",
+          "model_revision": 1,
+          "regime_id": 49,
+          "field_id": 172,
+          "factor_id": null,
+          "group_id": 44,
+          "representation_label": "Direct sum over physical weak families: (1,2,−1/2; FLi), FL=(0,−1,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 173,
+      "model_id": "u1-sm-left23-charge",
+      "model_revision": 1,
+      "regime_id": 49,
+      "field_label": "e_i",
+      "field_kind": "charged-lepton collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 147,
+          "model_id": "u1-sm-left23-charge",
+          "model_revision": 1,
+          "regime_id": 49,
+          "field_id": 173,
+          "factor_id": null,
+          "group_id": 44,
+          "representation_label": "Three copies of (1,1,−1;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 174,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "Q_i",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 148,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 174,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "Direct sum over physical weak families: (3,2,1/6; FQi), FQ=(0,−3,3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 175,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "u_i",
+      "field_kind": "up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 149,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 175,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "Direct sum over physical weak families: (3,1,2/3; Fui), Fu=(0,−1,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 176,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "d_i",
+      "field_kind": "down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 150,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 176,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "Three copies of (3,1,−1/3;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 177,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "L_i",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 151,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 177,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "Direct sum over physical weak families: (1,2,−1/2; FLi), FL=(0,−4,4)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 178,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "e_i",
+      "field_kind": "charged-lepton collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 152,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 178,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "Direct sum over physical weak families: (1,1,−1; Fei), Fe=(0,−3,3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 179,
+      "model_id": "u1-sm-top-only-charge",
+      "model_revision": 1,
+      "regime_id": 50,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "The source uses hypercharge −1/2. Its constructed conjugate is not a second doublet.",
+      "representations": [
+        {
+          "representation_id": 153,
+          "model_id": "u1-sm-top-only-charge",
+          "model_revision": 1,
+          "regime_id": 50,
+          "field_id": 179,
+          "factor_id": null,
+          "group_id": 45,
+          "representation_label": "(1,2,−1/2;2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 186,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "Q_i",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 160,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 186,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Three copies of (3,2,1/6;q)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 187,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "u_i",
+      "field_kind": "up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 161,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 187,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Three copies of (3,1,2/3;4q+r)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 188,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "d_i",
+      "field_kind": "down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 162,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 188,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Three copies of (3,1,−1/3;−2q−r)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 189,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "L_i",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 163,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 189,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Three copies of (1,2,−1/2;−3q)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 190,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "e_i",
+      "field_kind": "charged-lepton collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 164,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 190,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Three copies of (1,1,−1;−6q−r)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 191,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "ν_i",
+      "field_kind": "chiral neutrino collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Charges may be nonuniversal. No mass mechanism or Majorana reality condition imposed.",
+      "representations": [
+        {
+          "representation_id": 165,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 191,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "Direct sum over i=1,2,3 of (1,1,0;ni)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 192,
+      "model_id": "u1-smnur-all-sm-yukawas",
+      "model_revision": 1,
+      "regime_id": 52,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Hypercharge −1/2; constructed conjugates do not add an independent scalar.",
+      "representations": [
+        {
+          "representation_id": 166,
+          "model_id": "u1-smnur-all-sm-yukawas",
+          "model_revision": 1,
+          "regime_id": 52,
+          "field_id": 192,
+          "factor_id": null,
+          "group_id": 47,
+          "representation_label": "(1,2,−1/2;−3q−r)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 180,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "Q_i",
+      "field_kind": "quark doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 154,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 180,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Direct sum over sorted indices: (3,2,1/6; FQi), FQ=(−1,−1,2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 181,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "u_i",
+      "field_kind": "up-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 155,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 181,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Three copies of (3,1,2/3;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 182,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "d_i",
+      "field_kind": "down-quark collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 156,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 182,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Three copies of (3,1,−1/3;0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 183,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "L_i",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": "left-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 157,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 183,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Direct sum over sorted indices: (1,2,−1/2; FLi), FL=(−2,0,2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 184,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "e_i",
+      "field_kind": "charged-lepton collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 158,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 184,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Direct sum over sorted indices: (1,1,−1; Fei), Fe=(−1,0,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 185,
+      "model_id": "u1-smnur-table5-14",
+      "model_revision": 1,
+      "regime_id": 51,
+      "field_label": "ν_i",
+      "field_kind": "chiral neutrino collection",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No neutrino mass or field reality condition specified.",
+      "representations": [
+        {
+          "representation_id": 159,
+          "model_id": "u1-smnur-table5-14",
+          "model_revision": 1,
+          "regime_id": 51,
+          "field_id": 185,
+          "factor_id": null,
+          "group_id": 46,
+          "representation_label": "Direct sum over sorted indices: (1,1,0; Fνi), Fν=(−3,−1,4)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 133,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "Q",
+      "field_kind": "quark doublet",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 85,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 133,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z+1)/6",
+          "source_notation": null,
+          "normalization_note": "Table I rendered using assertion 464; at z=0 this is b/6 as in assertion 442."
+        }
+      ]
+    },
+    {
+      "field_id": 134,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "ucL",
+      "field_kind": "conjugate up-quark fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 86,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 134,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(-2z/3-1/6)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 135,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "dcL",
+      "field_kind": "conjugate down-quark fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 87,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 135,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z/3-1/6)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 136,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "LL",
+      "field_kind": "lepton doublet",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 88,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 136,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-b(z+1)/2",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 137,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "e+L",
+      "field_kind": "conjugate charged-lepton fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 89,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 137,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z+1/2)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 138,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "νcL",
+      "field_kind": "conjugate right-handed neutrino",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No Majorana or Dirac mass assignment is selected.",
+      "representations": [
+        {
+          "representation_id": 90,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 138,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b/2",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

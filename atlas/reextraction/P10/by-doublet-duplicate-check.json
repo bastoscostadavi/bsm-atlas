@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "b77caf02e48a84a8009697c3783428d13a658778fe99ebfb7b9478c204aca763",
+  "matches": [
+    {
+      "entry_id": "vlq-by-doublet",
+      "name": "Standard Model with a vector-like (B Y) doublet"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

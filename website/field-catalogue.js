@@ -1,15 +1,16 @@
 (function(root){
  'use strict';
  const esc=x=>String(x??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
- const math=x=>esc(x).replaceAll('bar(3)','3̅').replaceAll('bar(4)','4̅').replaceAll('bar(5)','5̅').replaceAll('bar(6)','6̅').replaceAll('bar(10)','1̅0̅');
+ const math=x=>esc(x).replace(/bar\(([^()]*)\)/g,(_,label)=>'<span class="rep-conjugate" aria-label="conjugate '+label+'">'+label+'</span>');
  const shorthand=x=>({'g_SM':'𝔤<sub>SM</sub>','R_SM':'R<sub>SM</sub>','F_SM':'F<sub>SM</sub>','H_SM':'H<sub>SM</sub>','R_MSSM':'R<sub>MSSM</sub>'}[x]||math(x));
- const statuses={recorded_content:'Recorded',partial:'Incomplete',parameterized:'Parameterized'};
+ const statuses={recorded_content:'Recorded',partial:'Incomplete',parameterized:'Parameterized',pending:'Pending source records'};
  const notationModes={dimensions:'Dimensions',dynkin:'Dynkin labels',young:'Young diagrams',compare:'Compare notations'};
  const sourceURL=p=>'https://arxiv.org/abs/'+p.arxiv;
  const pdfURL=e=>'https://arxiv.org/pdf/'+e.paper_version_id+(e.pdf_page?'#page='+e.pdf_page:'');
  function findEntries(data,{q='',algebra='',paper='',status=''}={}){
    const needle=q.trim().toLowerCase();
-   return data.entries.filter(e=>(!algebra||e.algebraSignature===algebra)&&(!paper||e.paperIds.includes(paper))&&(!status||e.status===status)&&(!needle||[e.id,e.name,e.algebraExpanded,e.baseline,...e.paperIds,...e.variants.flatMap(v=>[v.name,v.id,...v.regimes.flatMap(r=>r.fields.flatMap(f=>[f.label,f.representation,f.dynkinRepresentation,...(f.lorentz||[]).map(l=>l.dynkinRepresentation),...f.sourceRepresentations.map(s=>s.representation_label)]))]),...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
+   const pending=['pending','partial','parameterized'].includes(status);
+   return data.entries.filter(e=>(pending?e.publicationStatus==='pending':e.publicationStatus!=='pending')&&(!algebra||e.algebraSignature===algebra)&&(!paper||e.paperIds.includes(paper))&&(!status||status==='pending'||e.status===status)&&(!needle||[e.id,e.name,e.algebraExpanded,e.baseline,...e.paperIds,...e.variants.flatMap(v=>[v.name,v.id,...v.regimes.flatMap(r=>r.fields.flatMap(f=>[f.label,f.representation,f.dynkinRepresentation,...(f.lorentz||[]).map(l=>l.dynkinRepresentation),...f.sourceRepresentations.map(s=>s.representation_label)]))]),...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
  }
  const dynkinLabel=c=>c.factor==='u(1)'?String(c.value??'?'):c.dynkin?'['+c.dynkin.join(',')+']':'?';
  function dynkinTuple(components){
@@ -29,38 +30,26 @@
  }
  function representationMarkup(components,mode,bundle=true){
    if(!components.length)return '<span class="unresolved" title="Gauge algebra and representation unresolved">?</span>';
-   const isCharge=components[0].factor==='u(1)',d=bundle?dimensionTuple(components):(isCharge?'q = ':'')+(components[0].value??'?');
-   const exact=bundle?dynkinTuple(components):(isCharge?'q = ':'')+dynkinLabel(components[0]);
+   const isCharge=components[0].factor==='u(1)',d=bundle?dimensionTuple(components):(components[0].value??'?');
+   const exact=bundle?dynkinTuple(components):dynkinLabel(components[0]);
    const weights='<span class="math" title="'+esc(components.some(c=>c.factor!=='u(1)'&&!c.dynkin)?'Dynkin labels unresolved; original notation is retained in provenance':'Highest-weight Dynkin labels')+'">'+esc(exact)+'</span>';
    const readable='<span class="math" title="Dynkin labels: '+esc(exact)+'">'+math(d)+'</span>';
-   const diagrams='<span class="young-block">'+components.map(c=>c.factor==='u(1)'?'<span class="young-charge">q = '+esc(c.value??'?')+'</span>':young(c)).join('')+'</span>';
+   const diagrams='<span class="young-block">'+components.map(c=>c.factor==='u(1)'?'<span class="young-charge">'+esc(c.value??'?')+'</span>':young(c)).join('')+'</span>';
    if(mode==='dynkin')return weights;
    if(mode==='young')return diagrams;
    if(mode==='compare')return '<div class="representation-compare">'+readable+'<span class="dynkin-alternative"><span class="notation-label">Dynkin</span>'+weights+'</span>'+diagrams+'</div>';
    return readable;
  }
  function weight(f,mode='dynkin'){
-   if(mode==='young')return '<span class="young-block">'+f.components.filter(c=>!c.factor.startsWith('u(')).map(young).join('')+'</span>'+f.components.filter(c=>c.factor==='u(1)').map(c=>'<span class="weight-label">q ['+esc(c.role)+'] = '+esc(c.value??'?')+'</span>').join('');
-   if(mode==='dynkin')return f.components.map(c=>'<span class="weight-label">'+esc(c.factor)+(c.role?' ['+esc(c.role)+']':'')+': '+(c.factor==='u(1)'?'q = ':'')+esc(dynkinLabel(c))+'</span>').join('');
+   if(mode==='young')return '<span class="young-block">'+f.components.filter(c=>!c.factor.startsWith('u(')).map(young).join('')+'</span>'+f.components.filter(c=>c.factor==='u(1)').map(c=>'<span class="weight-label">'+esc(c.role)+': '+esc(c.value??'?')+'</span>').join('');
+   if(mode==='dynkin')return f.components.map(c=>'<span class="weight-label">'+esc(c.factor)+(c.role?' ['+esc(c.role)+']':'')+': '+esc(dynkinLabel(c))+'</span>').join('');
    return '<span class="math">'+math(f.representation)+'</span>';
  }
  function evidence(f){
    return '<details class="source-evidence"><summary>Source</summary><p>'+esc(f.sourceKind)+' · source field '+f.sourceFieldId+'</p><p>'+esc(f.conversion)+'</p>'+(f.sourceChirality?'<p>Source chirality: '+esc(f.sourceChirality)+'</p>':'')+'<p>Original multiplicity: '+esc(f.sourceMultiplicity??'not specified')+'</p>'+f.sourceRepresentations.map(r=>'<p><code>'+esc(r.representation_label||'')+(r.exact_charge!==null?' · charge '+esc(r.exact_charge):'')+'</code><br>'+esc(r.normalization_note||r.source_notation||'')+'</p>').join('')+(f.curatedCompletion?'<p>Completed colour assignment: '+esc(f.curatedCompletion.basis)+' <a href="'+esc(f.curatedCompletion.url)+'" target="_blank" rel="noopener noreferrer">'+esc(f.curatedCompletion.paper)+' · '+esc(f.curatedCompletion.locator)+' ↗</a></p>':'')+(f.sourceNote?'<p>'+esc(f.sourceNote)+'</p>':'')+(f.unconverted.length?'<p>Not fully converted: '+f.unconverted.map(esc).join('; ')+'</p>':'')+'<ul>'+f.evidence.map(a=>'<li>'+esc(a.claim)+'<br><span class="muted">'+esc(a.basis)+' · '+esc(a.review)+' · '+esc(a.stance)+' · assertion '+a.assertionId+'</span>'+a.locations.map(l=>'<p><a href="'+esc(pdfURL(l))+'" target="_blank" rel="noopener noreferrer">'+esc(l.paper_version_id)+' · '+esc(l.locator)+(l.pdf_page?' · PDF p. '+l.pdf_page:'')+' ↗</a></p>').join('')+'</li>').join('')+'</ul></details>';
  }
- function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Copies</th></tr></thead><tbody>'+template.fields.flatMap(f=>f.lorentz.map(l=>'<tr title="'+esc(f.label)+'"><td class="math">'+esc(l.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(f.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(f.components))+'</span></td><td>'+f.copies+'</td></tr>')).join('')+'</tbody></table></div>';}
- function scalarRealityLabel(lorentz,components){
-   if(lorentz.component!=='S')return '';
-   const reality=String(lorentz.reality||'').toLowerCase();
-   if(reality.startsWith('complex')){
-     // A nonzero U(1) charge already forbids an ordinary real field condition.
-     const charged=components.some(c=>{
-       const q=c.factor==='u(1)'&&String(c.value??'').match(/^([+-]?\d+)(?:\/[1-9]\d*)?$/);
-       return q&&BigInt(q[1])!==0n;
-     });
-     return charged?'':'complex';
-   }
-   return reality.startsWith('real')?'real':'reality unresolved';
- }
+ function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Copies</th></tr></thead><tbody>'+template.fields.flatMap(f=>f.lorentz.map(l=>'<tr title="'+esc(f.label)+'"><td class="math">'+esc(l.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(l.gaugeComponents||f.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(l.gaugeComponents||f.components))+'</span></td><td>'+(Object.hasOwn(l,'copies')?l.copies:f.copies)+'</td></tr>')).join('')+'</tbody></table></div>';}
+ function scalarRealityLabel(lorentz){return lorentz.component==='S'&&lorentz.reality!=='real_module'?'count pending':'';}
 
  function kindText(kinds){
    if(kinds.includes('S')&&kinds.includes('F'))return 'Scalar + Weyl fermion';
@@ -85,6 +74,7 @@
  function create(data,document){
    const state={q:'',algebra:'',paper:'',status:'',open:'',variant:'',regime:'',mode:'dimensions',inherited:false,view:'catalogue',baselineOpen:{},limit:20};
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
+   const linked=(p,coverage)=>data.entries.filter(e=>p.entryIds.includes(e.id)&&e.publicationStatus===coverage).length;
    function route(){
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
@@ -97,6 +87,7 @@
        state.open=data.entries.find(e=>e.variants.some(v=>v.id===id))?.id||'';
      }
      for(const key of ['q','algebra','paper','status'])state[key]=p.get(key)||'';
+     if(data.entries.find(e=>e.id===state.open)?.publicationStatus==='pending')state.status='pending';
    }
    function url(){
      const p=new URLSearchParams();
@@ -157,7 +148,7 @@
      return '<span class="algebra-diagrams" aria-label="Gauge algebra Dynkin diagrams">'+parts.join('')+'</span>';
    }
    function gaugeCell(row,column,regime){
-     const cs=column.positions.map(i=>row.components[i]);
+     const cs=column.positions.map(i=>{const c=row.components[i];return regime.factors[i].type==='U1'&&!/^-?\d+$/.test(String(c.value??''))?{...c,value:null}:c;});
      return representationMarkup(cs,state.mode,column.sm);
    }
    function matrix(e,r){
@@ -176,11 +167,11 @@
      const entries=findEntries(data,state),openIndex=entries.findIndex(e=>e.id===state.open);
      state.limit=Math.max(state.limit,openIndex+1);
      const visible=entries.slice(0,state.limit);
-     document.getElementById('result-count').textContent=entries.length+(entries.length===1?' model':' models')+(entries.length!==data.entries.length?' / '+data.entries.length:'');
+     document.getElementById('result-count').textContent=entries.length+(['pending','partial','parameterized'].includes(state.status)?' pending source records':entries.length===1?' model':' models');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=chosen(e).r;
        return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="source-buttons">'+e.paperIds.map(id=>'<button class="source-badge" data-paper="'+esc(id)+'" title="'+esc(paperById.get(id).title)+'">'+esc(id)+'</button>').join('')+'</div><button class="text-button" data-open="'+esc(e.id)+'" aria-expanded="'+(state.open===e.id)+'">Details '+(state.open===e.id?'−':'+')+'</button></header>'+(e.status!=='recorded_content'?'<p class="coverage-label">'+esc(statuses[e.status])+'</p>':'')+matrix(e,r)+(state.open===e.id?detail(e):'')+'</article>';
-     }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No linked models match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
+     }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No concrete spectra match these filters. Pending records are available under Filters → Coverage. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
    function notation(){return '<section id="notation"><div class="section-heading"><h2>Notation</h2><span class="eyebrow">Convention '+esc(data.version)+'</span></div><details class="notation-panel" id="notation-guide"><summary>How to read the algebras, representations & baselines</summary><div class="notation-grid"><div>'+
@@ -189,9 +180,9 @@
      '<h3>Dynkin labels</h3><p>Each non-Abelian irrep is specified by its highest-weight Dynkin labels [a₁,…,aᵣ]: one nonnegative integer for each node of its rank-r algebra. The trivial irrep has all-zero labels. Node numbering is Bourbaki, as in <a href="'+esc(data.representationConvention.nodeNumberingReference)+'" target="_blank" rel="noopener noreferrer">Sage finite Cartan types ↗</a>. For su(N), [1,0,…,0] is the fundamental, [0,…,0,1] its conjugate; su(2) spin j has label [2j]. Dimensions are derived quantities, not identifiers.</p>'+
      '<p><span class="math">([1,0], [1]; 1)</span> means the su(3) fundamental, su(2) doublet and integer charge +1. The brackets contain Dynkin labels, not dimensions. In the same order, an SM singlet is <span class="math">([0,0], [0]; 0)</span>, and the Higgs is <span class="math">([0,0], [1]; 3)</span>. Entries before the semicolon follow the non-Abelian factor order; charges after it follow the Abelian factor order. Factors follow Cartan family and descending rank; identified hypercharge is the first Abelian slot. Repeated factors retain role labels.</p>'+
      '<p>? means the Dynkin conversion or assignment is unresolved. A known source dimension is not substituted for a missing label. Original notation is retained in provenance; dimension shorthand and derived A-series Young diagrams remain optional displays. A column of N boxes is removed for su(N).</p>'+
-     '<h3>Lorentz representations</h3><p>For 4D field representations of Spin⁺(1,3), use (j<sub>L</sub>,j<sub>R</sub>): scalar (0,0), LH Weyl (½,0), vector (½,½). These parentheses denote Lorentz spins, not gauge Dynkin labels. Scalar reality is a separate condition. Five- and six-dimensional fields use dimension-appropriate B/D Dynkin labels; brane fields are distinguished from bulk fields. Missing source dimensions have an explicit editorial 4D interpretation in the export, not a newly checked source assertion. These are field representations, not on-shell spin/polarization counts.</p>'+
-     '<h3>Types and copies</h3><p>F: source fermion; S: scalar; a chiral supermultiplet is represented by one complex scalar plus one Weyl fermion in the same gauge representation. V flags additional vector matter, not an implied gauge connection. Source chirality and scalar reality remain explicit. Every identified 4D Weyl fermion is stored left-handed, in Lorentz representation (½,0). A right-handed field is replaced by its left-handed charge conjugate: every U(1) charge is negated, and every non-Abelian irrep is conjugated. A Dirac field is two independent LH rows in R and conjugate(R), not an extra model entry. When source handedness is missing, R versus conjugate(R) remains unresolved.</p><p>Copies count repeated multiplets, not gauge dimension. Three copies of ([1,0], [1]; 1) have gauge dimension 6 each. Composite coordinates and mass eigenstates are retained in the download but not counted as new independent matter.</p>'+
-     '<h3>Integer Abelian charges</h3><p>One positive common rescaling per concrete charge assignment makes its charges integral and coprime. A declared SM baseline supplies its reference charge unit. For the ordinary SM this is q = 6Y, with g<sub>q</sub> = g<sub>Y</sub>/6. Scalars and fermions share the same generator normalization. Source orientation is retained; fields are not permuted into the ordering used for unlabeled charge-set classifications.</p><p>Symbolic families, incomplete assignments and kinetic-mixing-dependent charges are not declared primitive. Their source expressions and normalization scope remain visible. Separate U(1) rescalings do not resolve all changes of basis among multiple Abelian factors.</p></div><div>'+
+     '<h3>Lorentz representations</h3><p>For 4D field representations of Spin⁺(1,3), use (j<sub>L</sub>,j<sub>R</sub>): scalar (0,0), LH Weyl (½,0), vector (½,½). These parentheses denote Lorentz spins, not gauge Dynkin labels. Scalar copies use the real-module convention below; source reality conditions remain in provenance. Five- and six-dimensional fields use dimension-appropriate B/D Dynkin labels; brane fields are distinguished from bulk fields. Missing source dimensions have an explicit editorial 4D interpretation in the export, not a newly checked source assertion. These are field representations, not on-shell spin/polarization counts.</p>'+
+     '<h3>Types and copies</h3><p>F: source fermion; S: scalar; a chiral supermultiplet is represented by one complex scalar plus one Weyl fermion in the same gauge representation. V flags additional vector matter, not an implied gauge connection. Source chirality and scalar reality remain in provenance; canonical scalar counts are described below. Every identified 4D Weyl fermion is stored left-handed, in Lorentz representation (½,0). A right-handed field is replaced by its left-handed charge conjugate: every U(1) charge is negated, and every non-Abelian irrep is conjugated. A Dirac field is two independent LH rows in R and conjugate(R), not an extra model entry. When source handedness is missing, R versus conjugate(R) remains unresolved.</p><p>Copies count repeated modules, not gauge dimension. Scalars use irreducible real gauge modules: a neutral complex singlet is two copies of the real singlet. For a real-type gauge irrep, one unconstrained complex field contributes two copies; for a complex- or pseudoreal-type irrep, it contributes one underlying real module. The displayed Dynkin weight identifies a complex representative; the real module has dimension d for real type and 2d otherwise. Full conjugate scalar representations describe the same real module; Weyl fermions do not use that identification. Thus the NMSSM singlet contributes two scalar copies and one Weyl copy. Counting not established from the source remains pending. Composite coordinates and mass eigenstates are retained in the download but not counted as new independent matter.</p>'+
+     '<h3>Integer Abelian charges</h3><p>One positive common rescaling per concrete charge assignment makes its charges integral and coprime. A declared SM baseline supplies its reference charge unit. For the ordinary SM this is q = 6Y, with g<sub>q</sub> = g<sub>Y</sub>/6. Scalars and fermions share the same generator normalization. Source orientation is retained; fields are not permuted into the ordering used for unlabeled charge-set classifications.</p><p>Symbolic families and incomplete assignments stay outside the concrete-spectrum table. Their source expressions and normalization scope remain in pending records and downloads. A vector such as [0,−3,3] describes different family charges, not one charge or three identical copies. Parameterized-family ingestion is not implemented. Separate U(1) rescalings do not resolve all changes of basis among multiple Abelian factors.</p></div><div>'+
      '<h3>SM shorthand, expanded</h3><p><span class="math">R<sub>SM</sub> = F<sub>SM</sub> ⊕ H<sub>SM</sub></span>. F<sub>SM</sub> contains three generations of left-handed Weyl fermions. H<sub>SM</sub> is one complex scalar doublet. No right-handed neutrino is included. Gauge connections are implied by the algebra and are not additional matter.</p>'+templateTable(data.templates.R_SM)+
      '<h3>Supersymmetric baseline</h3><p>R<sub>MSSM</sub> contains three families of Q, uᶜ, dᶜ, L, eᶜ chiral multiplets; two Higgs chiral multiplets; and the three gauge-adjoint gaugino multiplets. It replaces, rather than supplements, R<sub>SM</sub>. Inherited templates are presentation definitions, not a claim that every source re-enumerates those fields.</p><details><summary>Expand R<sub>MSSM</sub></summary>'+templateTable(data.templates.R_MSSM)+
      '</details><h3>What an entry means</h3><p>Source variants are grouped only through the documented field-content decisions. Different interactions or global symmetries can share an entry; they are not declared equivalent physical theories. Separate description regimes are never combined into one spectrum. Partial and parameterized entries are not silently deduplicated or promoted to complete models.</p><p>This release starts from the saved, source-scoped extraction of all 50 seed papers. '+esc(data.sourceReview)+' P21, P22 and P26 retain partial profiles.</p><p>'+data.references.map(r=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.title)+' ↗</a>').join('<br>')+'</p></div></div></details></section>';}
@@ -199,11 +190,11 @@
    function sources(){
      return '<section id="sources"><p class="section-note">Papers are independent records. Some have no associated model.</p><div class="source-list">'+data.papers.map(p=>
        '<details class="paper-item" id="source-'+esc(p.id)+'"><summary><span class="source-badge">'+esc(p.id)+'</span><span class="paper-title">'+esc(p.title)+'</span><span class="paper-count">'+p.entryIds.length+'</span></summary><div class="paper-body"><p>'+esc(p.authors)+'</p><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">arXiv:'+esc(p.arxiv)+' ↗</a>'+
-       (p.entryIds.length?'<p><button class="text-button" data-paper="'+esc(p.id)+'">View '+p.entryIds.length+' linked models →</button></p>':'<p>'+esc(p.noModelReason||p.referenceNotes?.join(' ')||'No linked BSM model.')+'</p>')+
+       (p.entryIds.length?'<p>'+(linked(p,'ready')?'<button class="text-button" data-paper="'+esc(p.id)+'">'+linked(p,'ready')+' concrete spectra →</button>':'')+(linked(p,'pending')?'<button class="text-button" data-paper="'+esc(p.id)+'" data-coverage="pending">'+linked(p,'pending')+' pending records →</button>':'')+'</p>':'<p>'+esc(p.noModelReason||p.referenceNotes?.join(' ')||'No linked BSM model.')+'</p>')+
        '<details class="provenance"><summary>Inspection details</summary><p>'+esc(p.kind)+' · '+esc(p.inspectionStatus)+' · '+esc(p.reviewStatus)+'</p><h3>Original scope</h3><p>'+esc(p.inspectedScope)+'</p>'+(p.reextractions?.length?'<h3>Accepted gauge/matter re-extraction</h3>'+[...new Map(p.reextractions.map(x=>[x.inspectedScope,x])).values()].map(x=>'<p>'+esc(x.reviewedOn)+' · '+esc(x.inspectedScope)+' <a href="'+esc(x.evidenceURL)+'" target="_blank" rel="noopener noreferrer">Evidence ↗</a></p>').join('')+'<p>Agent source-checked within the stated scope; not a whole-paper or independent physics review.</p>':'')+'<h3>Limitations</h3><p>'+esc(p.limitations||'No limitation text recorded; completeness not established.')+'</p></details></div></details>').join('')+'</div></section>';
    }
    function about(){
-     return '<section class="about-data"><p>A provisional catalogue built from the saved, scoped extraction of 50 seed papers. This is not an independently verified list of complete theories.</p><p>Accepted gauge/matter re-extractions: '+esc(data.reextraction?.acceptedPapers??0)+' / 50 papers. These cover their stated definition sections, not every passage of each paper. Unaccepted work in progress is not published automatically.</p><p>Incomplete and parameterized entries are marked. ? in legacy entries means unresolved in this catalogue, not necessarily unspecified in the paper. '+esc(data.sourceReview)+'</p><p>Field-content entries may share interactions or global symmetries not displayed here; conversely, identical fields do not imply identical physical theories. Separate description regimes are never combined into one spectrum.</p><p>The original database and all provenance are preserved. No underlying records were deleted to simplify the interface.</p><p>Before adding a model, use the <a href="entry.schema.json">entry schema</a> and the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/check_entry.py">duplicate checker</a>. An exact field-content match reuses the existing entry; incomplete data require reconciliation.</p><a href="https://github.com/bastoscostadavi/bsm-atlas/tree/main/atlas">Data & methodology ↗</a></section>';
+     return '<section class="about-data"><p>A provisional catalogue built from the saved, scoped extraction of 50 seed papers. This is not an independently verified list of complete theories.</p><p>Accepted gauge/matter re-extractions: '+esc(data.reextraction?.acceptedPapers??0)+' / 50 papers. These cover their stated definition sections, not every passage of each paper. Unaccepted work in progress is not published automatically.</p><p>The default table shows only complete numerical inventories under the stated conventions; this is not independent source certification. Filters → Coverage → Pending source records opens the preserved incomplete/parameterized extraction. ? there means unresolved in this catalogue, not necessarily unspecified in the paper. '+esc(data.sourceReview)+'</p><p>Field-content entries may share interactions or global symmetries not displayed here; conversely, identical fields do not imply identical physical theories. Separate description regimes are never combined into one spectrum.</p><p>The original database and all provenance are preserved. No underlying records were deleted to simplify the interface.</p><p>Before adding a model, use the <a href="entry.schema.json">entry schema</a> and the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/check_entry.py">duplicate checker</a>. An exact field-content match reuses the existing entry; incomplete data require reconciliation.</p><a href="https://github.com/bastoscostadavi/bsm-atlas/tree/main/atlas">Data & methodology ↗</a></section>';
    }
    function catalogue(){
      const algebras=[...new Map(data.entries.map(e=>[e.algebraSignature,e.algebraExpanded])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
@@ -211,10 +202,10 @@
      const p=paperById.get(state.paper);
      return '<div class="toolbar" role="search" aria-label="Filter models"><label class="search-label"><span class="sr-only">Search models</span><input type="search" id="entry-search" placeholder="Search models, algebras or papers" value="'+esc(state.q)+'"></label>'+
        '<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>'+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Gauge algebra<select id="algebra-filter"><option value="">All algebras</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+data.papers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.id)+' — '+esc(p.title)+'</option>').join('')+'</select></label><label>Coverage<select id="status-filter"><option value="">Any coverage</option>'+Object.entries(statuses).map(([id,label])=>'<option value="'+id+'"'+(state.status===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label></div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Gauge algebra<select id="algebra-filter"><option value="">All algebras</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+data.papers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.id)+' — '+esc(p.title)+'</option>').join('')+'</select></label><label>Coverage<select id="status-filter"><option value="">Concrete spectra</option>'+Object.entries(statuses).map(([id,label])=>'<option value="'+id+'"'+(state.status===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/field-catalogue.csv" download>CSV</a><a href="field-catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
        (p?'<div class="selected-paper"><span>'+esc(p.id)+'</span><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
-       '<div class="results-bar"><span id="result-count"></span><span class="catalogue-disclaimer">Provisional · ? = unresolved</span>'+(['q','algebra','paper','status'].some(k=>state[k])?'<button class="text-button" data-reset>Reset</button>':'')+'</div>'+
+       '<div class="results-bar"><span id="result-count"></span><span class="catalogue-disclaimer">'+(['pending','partial','parameterized'].includes(state.status)?'Not accepted spectra':'Real scalar modules · LH Weyl')+'</span>'+(['q','algebra','paper','status'].some(k=>state[k])?'<button class="text-button" data-reset>Reset</button>':'')+'</div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
@@ -252,7 +243,7 @@
          state.open=same?'':open.dataset.open;state.variant='';state.regime='';state.inherited=false;
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
-       else if(paper){state.view='catalogue';state.paper=paper.dataset.paper;state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
+       else if(paper){state.view='catalogue';state.paper=paper.dataset.paper;state.status=paper.dataset.coverage||'';if(!data.entries.some(x=>x.paperIds.includes(state.paper)&&x.publicationStatus==='ready'))state.status='pending';state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
        else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',status:'',open:''});url();render();}
      });
      window.addEventListener('hashchange',()=>{route();render();});

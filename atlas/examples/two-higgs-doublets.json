@@ -1,5 +1,5 @@
 {
-  "schema_version": "field-content-1",
+  "schema_version": "field-content-2",
   "inventory_complete": true,
   "gauge_factors": [
     {
@@ -186,7 +186,7 @@
           ]
         ]
       },
-      "reality": "complex",
+      "reality": "real_module",
       "copies": 1,
       "gauge_representations": {
         "3:0": {
@@ -217,7 +217,7 @@
           ]
         ]
       },
-      "reality": "complex",
+      "reality": "real_module",
       "copies": 1,
       "gauge_representations": {
         "3:0": {

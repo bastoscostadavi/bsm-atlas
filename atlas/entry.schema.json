@@ -6,7 +6,7 @@
   "type":"object",
   "required":["schema_version","inventory_complete","gauge_factors","matter"],
   "properties":{
-    "schema_version":{"const":"field-content-1"},
+    "schema_version":{"enum":["field-content-1","field-content-2"]},
     "inventory_complete":{"const":true},
     "name":{"type":"string"},
     "paper_ids":{"type":"array","items":{"type":"string"}},
@@ -14,10 +14,11 @@
     "matter":{"type":"array","minItems":1,"items":{"type":"object","required":["lorentz","reality","copies","gauge_representations"],"properties":{
       "label":{"type":"string"},
       "lorentz":{"type":"object","required":["dimension","scheme","irreps"],"properties":{"dimension":{"type":"integer","minimum":4},"scheme":{"type":"string"},"irreps":{"type":"array","minItems":1,"items":{"type":"array","minItems":1,"items":{"type":["string","integer"]}}}},"additionalProperties":false},
-      "reality":{"enum":["real","complex","none","majorana"]},
+      "reality":{"enum":["real","complex","real_module","none","majorana"]},
       "copies":{"type":"integer","minimum":1},
       "gauge_representations":{"type":"object","additionalProperties":{"oneOf":[{"type":"object","required":["dynkin"],"properties":{"dynkin":{"type":"array","items":{"type":"integer","minimum":0}}},"additionalProperties":false},{"type":"object","required":["charge"],"properties":{"charge":{"type":"string","pattern":"^[+-]?[0-9]+(/[1-9][0-9]*)?$"}},"additionalProperties":false}]}}
     },"additionalProperties":false}}
   },
+  "allOf":[{"if":{"properties":{"schema_version":{"const":"field-content-1"}}},"then":{"properties":{"matter":{"items":{"properties":{"reality":{"not":{"const":"real_module"}}}}}}}}],
   "additionalProperties":false
 }

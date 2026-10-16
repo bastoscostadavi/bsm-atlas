@@ -1,0 +1,1147 @@
+{
+  "generated_utc": "2026-10-16T18:57:56Z",
+  "status": "all_fifty_accounted_for_source_scoped_staging_frozen",
+  "total_papers": 50,
+  "counts": {
+    "completed_scoped_reextraction_staged": 18,
+    "partial_scoped_reextraction_staged": 27,
+    "reference_only_scoped_reextraction": 5
+  },
+  "queued": 0,
+  "source_access_blocked": 0,
+  "not_a_claim": "50 complete numerical spectra, 46 novel theories, or independent source review",
+  "source_db_immutable_sha256": "d4dbf023b667fe810296c43c8f72e0d0b3f6559e66b344a2920c9e2e520e6c4c",
+  "paper_candidate_occurrences_historical_v1": 48,
+  "distinct_signatures_historical_v1": 46,
+  "remaining45_candidate_occurrences": 42,
+  "remaining45_distinct_signatures_historical_v1": 41,
+  "remaining45_duplicate_preflight_statuses": {
+    "no_exact_match_review_required": 32,
+    "exact_field_content_match": 10
+  },
+  "measurements": {
+    "source_pdf_bytes": 43730225,
+    "retrieval_attempts": 45,
+    "failed_retrieval_attempts": 0,
+    "retrieval_command_wall_seconds_sum_not_parallel_elapsed": 19.904240580071928,
+    "recorded_preflight_run_count": 135,
+    "recorded_preflight_wall_seconds": 15.241955909732496,
+    "recorded_child_cpu_seconds": 11.852931,
+    "scientific_extraction_active_seconds": null,
+    "model_input_tokens": null,
+    "model_output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null
+  },
+  "frozen_pilot_ownership": "P01-P05, pilot.py,test_pilot.py,run-ledger.json,README.md and accepted.json were not changed by this corpus stage.",
+  "publication_boundary": "No original or generated database, website, git commit/push or deployment performed by this agent. Parent owns review and publication.",
+  "validation_receipt": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s atlas/reextraction -p 'test_*.py' -v",
+    "observed_exit_code": 0,
+    "tests_passed": 20,
+    "unittest_reported_seconds": 0.321,
+    "scope": "Ran before parent scalar-identity migration; mechanical checks are not independent scientific review."
+  },
+  "reproduction_note": "corpus_audit.py saves authored source decisions; corpus.py checkpoint runs historical normalization/preflights and writes staging. Do NOT rerun accepted pilot snapshots or re-normalize frozen corpus files with a changed identity convention. Parent is implementing scalar real-module counting separately.",
+  "limitations": [
+    "Only listed model-definition scopes and selected passages/pages were inspected; full PDF download does not mean whole-paper read.",
+    "27 papers retain at least one partial scope: explicit symbolic families, incomplete/optional sectors, nonlinear/affine representations, boundary/dimension choices or remaining unestablished scalar/spinor data. Some also contain ready numerical representatives.",
+    "Generic family descriptions cannot enter the complete-numerical schema as question marks; unfinished extraction is not a scientific source omission.",
+    "Single-complex versus multiple-real scalar equivalence and conjugate-scalar real-module identity were NOT canonicalized in these historical snapshots.",
+    "No general multi-U1 basis quotient, gauge outer-automorphism quotient, anomaly/SM-embedding proof or physical-theory equivalence is claimed.",
+    "Historical source-field IDs are retained, but aggregate legacy fields do not imply a checked one-to-one map to every newly expanded field row.",
+    "Model token counts, dollar charges, GPU-hours and separate active scientific-reading time were not exposed; all remain null. CPU/wall checks do not measure inference cost."
+  ],
+  "skill_usage": "pdf:pdf used to inspect pinned PDF definitions, extracted text and selected rendered representation tables.",
+  "papers": [
+    {
+      "paper_id": "P06",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0412089v2",
+      "numerical_candidates": 0,
+      "scope": "Sections 2 and 3 definitions; Appendix B scalar deformation. Composite, bulk and boundary descriptions remain separate.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "mchm-spinorial",
+          "regime": "4D CFT / 5D bulk and branes",
+          "status": "partial",
+          "reason": "4D microscopic strong-sector elementary matter not specified; full lepton/brane assignments and scalar reality of 5D deformation not fully enumerated in this extraction. Do not promote source-completion coordinates or all KK modes to new elementary rows.",
+          "value_status": "not_extracted_for_remaining_boundary_slots",
+          "fields": [
+            {
+              "label": "xi_q,xi_u,xi_d",
+              "lorentz": {
+                "dimension": 5,
+                "scheme": "B2_Dynkin",
+                "irreps": [
+                  [
+                    0,
+                    1
+                  ]
+                ]
+              },
+              "gauge_irrep": {
+                "C2": [
+                  1,
+                  0
+                ]
+              },
+              "source_B-L": "1/3",
+              "copies": "one each per quark family",
+              "evidence": [
+                "bulk"
+              ]
+            }
+          ]
+        },
+        {
+          "target_entry_id": "mchm-spinorial-scalar14",
+          "status": "partial",
+          "fields": [
+            {
+              "label": "bulk Phi",
+              "gauge_irrep": {
+                "C2": [
+                  0,
+                  2
+                ]
+              },
+              "source_B-L": "0",
+              "evidence": [
+                "deformation"
+              ]
+            }
+          ],
+          "reason": "Source auxiliary 4D deformation and actual 5D scalar must not be conflated; full cross-regime inventory is not a single numerical schema payload."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P06/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P06/field-evidence.json"
+    },
+    {
+      "paper_id": "P07",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1404.2640v3",
+      "numerical_candidates": 1,
+      "scope": "Section II complete gauge-basis scalar definition and adjacent custodial decomposition.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P07/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P07/field-evidence.json"
+    },
+    {
+      "paper_id": "P08",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1210.6553v2",
+      "numerical_candidates": 0,
+      "scope": "Scalar-only definition and explicit D6 and D8 constructions; no claim to a specified complete fermion sector.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "three-higgs-doublets",
+          "status": "partial",
+          "value_status": "not_specified_by_source_in_scalar_only_scope",
+          "fields": [
+            {
+              "label": "phi_a",
+              "copies": 3,
+              "lorentz": "(0,0)",
+              "reality": "complex",
+              "gauge_irrep": {
+                "A1": [
+                  1
+                ]
+              },
+              "source_Y": "1/2",
+              "evidence": [
+                "doublets"
+              ]
+            }
+          ],
+          "missing": [
+            "fermion/Yukawa completion not specified in classification scope"
+          ],
+          "source_variants": [
+            "D6",
+            "D8"
+          ]
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P08/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P08/field-evidence.json"
+    },
+    {
+      "paper_id": "P09",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0606172v3",
+      "numerical_candidates": 1,
+      "scope": "Main scalar definition and optional Section VIII triplet extension; source notation conflicts explicitly retained.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "sm-octet-doublet-mfv-triplets",
+          "status": "partial",
+          "value_status": "ambiguous_conflicting_source_labels",
+          "fields": [
+            {
+              "label": "T_j",
+              "copies": 3,
+              "lorentz": "(0,0)",
+              "reality": "real",
+              "gauge_irrep": {
+                "A2": [
+                  0,
+                  0
+                ],
+                "A1": [
+                  2
+                ]
+              },
+              "source_Y": "0",
+              "evidence": [
+                "triplets"
+              ]
+            }
+          ],
+          "reason": "Optional extension main octet label inconsistent in Section VIII; retain source conflict for curator review."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P09/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P09/field-evidence.json"
+    },
+    {
+      "paper_id": "P10",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1306.0572v3",
+      "numerical_candidates": 7,
+      "scope": "Introduction colour/vector-like definition; full seven-multiplet list and electric charges in Section 2.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P10/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P10/field-evidence.json"
+    },
+    {
+      "paper_id": "P11",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1603.04993v3",
+      "numerical_candidates": 2,
+      "scope": "Representation taxonomy and scalar R2/Rtilde2 model definitions. Vector/UV-completion examples require additional source-specific completion work. Targeted SU5 GG, extra5/two10 and15 completion definitions re-read; source tensor orientations converted explicitly.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "lq-u1-effective",
+            "lq-u3-effective",
+            "lq-utilde1-effective",
+            "lq-ubar1-nur-effective"
+          ],
+          "status": "partial",
+          "value_status": "not_extracted",
+          "reason": "Vector-current taxonomy read, but each full gauge completion and additional matter not re-established; do not declare complete gauge theories from vector tuples."
+        },
+        {
+          "target_entry_ids": [
+            "su5-georgi-glashow-review",
+            "su5-gg-scalar15",
+            "su5-gg-extra5-two10"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_GUT_inventory_with_unestablished_scalar_reality",
+          "reason": "Targeted review definition now inspected; scalar24 real-versus-complex condition not established in the displayed review definition. Do not infer field reality solely from real-type adjoint irrep.",
+          "fields": [
+            {
+              "label": "LH fermion10+bar5",
+              "copies": 3,
+              "evidence": [
+                "su5-definitions"
+              ]
+            },
+            {
+              "label": "GG scalar5+24",
+              "copies": "one each",
+              "evidence": [
+                "su5-definitions"
+              ]
+            },
+            {
+              "label": "extra scalar5 and two10",
+              "copies": {
+                "5": 1,
+                "10": 2
+              },
+              "evidence": [
+                "su5-definitions"
+              ]
+            },
+            {
+              "label": "alternative extra scalar15",
+              "copies": 1,
+              "evidence": [
+                "su5-definitions"
+              ]
+            }
+          ]
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P11/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P11/field-evidence.json"
+    },
+    {
+      "paper_id": "P12",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0512090v4",
+      "numerical_candidates": 2,
+      "scope": "Section 2 definition, Table 1 and adjacent stability discussion; quintuplet/septuplet representatives only.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P12/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P12/field-evidence.json"
+    },
+    {
+      "paper_id": "P13",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "0801.1345v3",
+      "numerical_candidates": 0,
+      "scope": "Generator families, left-chiral charge Table I, E6 Table II discussion; model-dependent Higgs completion not synthesized. Single-S UMSSM SectionIV.B.2 Higgs potential and source charge constraint inspected.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "u1-ybl-charge-family",
+            "e6-full27-charge-template",
+            "u1-chi-minimal16-charge",
+            "umssm-single-s-higgs-sector"
+          ],
+          "status": "partial",
+          "value_status": "explicit_symbolic_family_or_scoped_charge_template",
+          "parameters": [
+            {
+              "id": "z",
+              "domain": "source free real/rational charge coordinate",
+              "definition": "Q=b(zY+(B-L)/2)"
+            },
+            {
+              "id": "theta_E6",
+              "domain": "0 <= theta < pi",
+              "definition": "Q=cos(theta)Qchi+sin(theta)Qpsi"
+            }
+          ],
+          "reason": "Charge templates and single-S Higgs-sector definitions inspected. Numerical full Higgs/exotic/fermion completion is not selected by these symbolic source families; no automatic NMSSM equivalence."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P13/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P13/field-evidence.json"
+    },
+    {
+      "paper_id": "P14",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "0812.4313v1",
+      "numerical_candidates": 1,
+      "scope": "Section II.A complete tables and Lagrangian definition; no kinetic mixing (“pure” model) is an interaction assumption, not extra matter.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P14/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P14/field-evidence.json"
+    },
+    {
+      "paper_id": "P15",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1812.04602v5",
+      "numerical_candidates": 0,
+      "scope": "Fermion-domain definition, explicit Eq.(4.2)/Table 5 solution 14 and Section 5 family conditions; Higgs/breaking completion stays partial. Also re-read two-family leptonic formula and actual-family left23 example.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "u1-smnur-all-sm-yukawas",
+            "u1-sm-top-only-charge",
+            "u1-leptonic-opposite-nur",
+            "u1-sm-left23-charge",
+            "u1-smnur-table5-14",
+            "u1-ybl-charge-family"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_fermion_assignment_plus_unfinished_scalar_completion",
+          "reason": "All recorded source charge-example scopes now targeted: leptonic two-family, left23, top-only Eq4.2, Table5 row14, and all-SM-Yukawa family. They remain charge assignments/families, not fully specified numerical Higgs/breaking theories."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P15/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P15/field-evidence.json"
+    },
+    {
+      "paper_id": "P16",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/9206242v1",
+      "numerical_candidates": 2,
+      "scope": "Complete displayed fermion/scalar definition and explicitly specified sigma/omega extension.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P16/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P16/field-evidence.json"
+    },
+    {
+      "paper_id": "P17",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1307.6213v3",
+      "numerical_candidates": 2,
+      "scope": "All of short Section II definition, including Dirac limit and three-N inverse-seesaw extension.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P17/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P17/field-evidence.json"
+    },
+    {
+      "paper_id": "P18",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0702287v4",
+      "numerical_candidates": 0,
+      "scope": "Section II tensor definitions, decompositions and source interactions.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "su5-adjoint-renormalizable",
+          "status": "partial",
+          "value_status": "not_extracted",
+          "fields": [
+            {
+              "label": "45H",
+              "dynkin": [
+                0,
+                1,
+                0,
+                1
+              ],
+              "reality": "complex",
+              "copies": 1,
+              "evidence": [
+                "su5"
+              ]
+            },
+            {
+              "label": "24H",
+              "dynkin": [
+                1,
+                0,
+                0,
+                1
+              ],
+              "copies": 1,
+              "reality": null,
+              "evidence": [
+                "su5"
+              ]
+            }
+          ],
+          "reason": "24H field reality condition not independently established in inspected definition; real-type irrep alone is insufficient to choose one real versus one complex scalar. Preserve rather than guess."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P18/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P18/field-evidence.json"
+    },
+    {
+      "paper_id": "P19",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1202.0807v1",
+      "numerical_candidates": 0,
+      "scope": "45/126 scalar potential, breaking-sector scope and accompanying10H discussion.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "so10-45-126-sector",
+            "so10-45-126-complex10"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_sector_plus_unresolved_weight_orientation",
+          "fields": [
+            {
+              "label": "45H",
+              "gauge_irrep": {
+                "D5": [
+                  0,
+                  1,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "evidence": [
+                "so10"
+              ]
+            },
+            {
+              "label": "126H",
+              "gauge_irrep": {
+                "D5": null
+              },
+              "source_tensor": "complex self-dual rank-five antisymmetric tensor",
+              "evidence": [
+                "so10"
+              ]
+            }
+          ],
+          "reason": "Full fermion/Higgs completion lies beyond displayed breaking-sector potential; canonical D5 orientation still requires an explicit tensor-to-node map, not a guessed126 label."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P19/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P19/field-evidence.json"
+    },
+    {
+      "paper_id": "P20",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1507.06848v2",
+      "numerical_candidates": 2,
+      "scope": "Full Table1 inventory, three-H choice and adjoint/singlet neutrino alternatives. Tensor orientations are derived explicitly from source contractions.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P20/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P20/field-evidence.json"
+    },
+    {
+      "paper_id": "P21",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/9709356v7",
+      "numerical_candidates": 1,
+      "scope": "MSSM Tables1.1/1.2 and minimal gauge-messenger example in Section7.7.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "mssm-minimal-gauge-messengers",
+          "status": "partial",
+          "value_status": "not_specified_by_source_in_parametrized_hidden_sector",
+          "reason": "Wbreaking and hidden elementary spectrum deliberately unspecified. Visible messenger fields do not establish the full theory."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P21/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P21/field-evidence.json"
+    },
+    {
+      "paper_id": "P22",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0406039v2",
+      "numerical_candidates": 2,
+      "scope": "RPV definition/conventions, explicit spontaneous seven-singlet model, SU5 operator-only regime.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "su5-rpv-trilinear-sector",
+          "status": "partial",
+          "value_status": "not_specified_by_source_in_operator_scope",
+          "reason": "No unique GUT-breaking inventory follows from displayed RPV operator."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P22/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P22/field-evidence.json"
+    },
+    {
+      "paper_id": "P23",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0406088v2",
+      "numerical_candidates": 1,
+      "scope": "Complete low-energy spectrum and Eq20/21 scalar-threshold matching definition.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P23/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P23/field-evidence.json"
+    },
+    {
+      "paper_id": "P24",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0206096v3",
+      "numerical_candidates": 0,
+      "scope": "Visible adjoints, SU3-cubed/SU5 bachelor and heavy-messenger definitions; hidden D-breaking completion not invented.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "gem-supersoft",
+            "gem-supersoft-su3cubed-bachelors",
+            "gem-supersoft-su5-bachelors",
+            "gem-supersoft-messengers"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_visible_sector_and_unfixed_hidden_completion",
+          "reason": "Visible field content is explicit, but source hidden U1 breaking/messenger realization is not a single fixed full spectrum; cannot assert complete inventory across it."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P24/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P24/field-evidence.json"
+    },
+    {
+      "paper_id": "P25",
+      "status": "reference_only_scoped_reextraction",
+      "arxiv_version": "0801.3278v3",
+      "numerical_candidates": 0,
+      "scope": "Definition of general mediation, current correlators and scope of Appendix messenger example.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Keep the paper queryable with zero new BSM field-content associations for the uninstantiated framework."
+      ],
+      "checkpoint": "atlas/reextraction/P25/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P25/field-evidence.json"
+    },
+    {
+      "paper_id": "P26",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "2003.01100v4",
+      "numerical_candidates": 2,
+      "scope": "Benchmark KSVZ and DFSZ definitions with general-KSVZ representation-family boundary.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "ksvz-representation-framework",
+          "status": "partial",
+          "value_status": "explicit_symbolic_representation_family",
+          "parameters": [
+            {
+              "id": "CQ,IQ,YQ",
+              "domain": "source reducible SM representation subject to nontrivial colour",
+              "definition": "sum_Q(CQ,IQ,YQ)"
+            }
+          ],
+          "reason": "Family not fixed to a selected finite numerical spectrum."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P26/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P26/field-evidence.json"
+    },
+    {
+      "paper_id": "P27",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1610.01639v2",
+      "numerical_candidates": 1,
+      "scope": "Section2 complete gauge/matter definition and source Yukawa conventions.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P27/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P27/field-evidence.json"
+    },
+    {
+      "paper_id": "P28",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/9212278v1",
+      "numerical_candidates": 0,
+      "scope": "Explicit Section7 two-singlet, single-singlet/reduced heavy-quark constructions; scalar and fermion representation statements extracted, full-regime choice remains partial. Introduction and explicit SUSY statement following Eq7.8 re-read; high-energy regime SUSY established.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "lns-two-singlet-quarks",
+            "lns-single-singlet-quarks",
+            "lns-reduced-quarks"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_SUSY_quark_completion_with_unselected_lepton_extension",
+          "fields": [
+            {
+              "label": "U+Ubar",
+              "source_SM_rep": "(3,1,2/3) plus conjugate",
+              "copies": 3,
+              "evidence": [
+                "quarks"
+              ]
+            },
+            {
+              "label": "D+Dbar",
+              "source_SM_rep": "(3,1,-1/3) plus conjugate",
+              "copies": 5,
+              "evidence": [
+                "quarks"
+              ]
+            },
+            {
+              "label": "reduced U,D pairs",
+              "copies": {
+                "U": 1,
+                "D": 2
+              },
+              "evidence": [
+                "quarks"
+              ]
+            }
+          ],
+          "reason": "High-energy example is explicitly supersymmetric; each heavy pair therefore has chiral scalar/fermion partners. Remaining full lepton/optional completion alignment is not asserted from a quark-sector table. Earlier uncertainty about whether this particular regime is SUSY has been resolved, not converted into a source omission."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P28/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P28/field-evidence.json"
+    },
+    {
+      "paper_id": "P29",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0512103v2",
+      "numerical_candidates": 0,
+      "scope": "Full flavon/driving field table and seesaw change; quark/stabilization completion kept explicit.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "af-a4-susy-effective",
+            "af-a4-susy-seesaw"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_lepton_model_with_unfixed_completion",
+          "fields": [
+            {
+              "label": "phiT,phiS,phiT0,phiS0",
+              "kind": "chiral supermultiplets",
+              "gauge_singlet_copies": 12,
+              "evidence": [
+                "af"
+              ]
+            },
+            {
+              "label": "xi,xitilde,xi0",
+              "kind": "chiral supermultiplets",
+              "gauge_singlet_copies": 3,
+              "evidence": [
+                "af"
+              ]
+            },
+            {
+              "label": "nu^c (seesaw only)",
+              "kind": "chiral supermultiplets",
+              "gauge_singlet_copies": 3,
+              "evidence": [
+                "seesaw"
+              ]
+            }
+          ],
+          "reason": "FN theta/stabilization and source quark extension are not fixed to one full accepted spectrum; no matter invented to complete them."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P29/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P29/field-evidence.json"
+    },
+    {
+      "paper_id": "P30",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1706.08749v2",
+      "numerical_candidates": 0,
+      "scope": "Generic field Table2 and complete Example3 lepton/Higgs/modulus Table6 and superpotential.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "modular-a4-flavonfree-seesaw",
+          "status": "partial",
+          "value_status": "source_scoped_lepton_model",
+          "fields": [
+            {
+              "label": "tau",
+              "kind": "chiral supermultiplet",
+              "gauge_singlet_copies": 1,
+              "evidence": [
+                "modular"
+              ]
+            },
+            {
+              "label": "N^c",
+              "kind": "chiral supermultiplet",
+              "gauge_singlet_copies": 3,
+              "evidence": [
+                "modular"
+              ]
+            }
+          ],
+          "reason": "Lepton/Higgs/modulus content is explicit; full coloured superpartner/quark completion is not chosen in this example and is not asserted by stitching a generic MSSM onto a lepton-only table."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P30/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P30/field-evidence.json"
+    },
+    {
+      "paper_id": "P31",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1009.2049v3",
+      "numerical_candidates": 2,
+      "scope": "Complete Section2 field table/Yukawa transformations and both Section5 flavour-gauging examples; minimal displayed two-flavon regime, not optional extra-flavon completions.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P31/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P31/field-evidence.json"
+    },
+    {
+      "paper_id": "P32",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0505013v1",
+      "numerical_candidates": 1,
+      "scope": "Full displayed model definition and explicit N=3 specialization.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "sm-singlet-neutrino-framework",
+          "status": "partial",
+          "value_status": "explicit_symbolic_multiplicity_family",
+          "parameters": [
+            {
+              "id": "N",
+              "domain": "nonnegative integer",
+              "definition": "number of independent singlet neutrinos"
+            }
+          ],
+          "reason": "Generic N is a family, not a fixed count for a numerical fingerprint."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P32/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P32/field-evidence.json"
+    },
+    {
+      "paper_id": "P33",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0601225v1",
+      "numerical_candidates": 1,
+      "scope": "Complete gauge-basis particle table and scalar/Yukawa definition.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P33/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P33/field-evidence.json"
+    },
+    {
+      "paper_id": "P34",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1204.5862v2",
+      "numerical_candidates": 0,
+      "scope": "Appendix representation-family tables and topology distinctions; do not promote operator diagrams to complete unique models.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "weinberg-t1i-first-row",
+            "weinberg-t41i-doublet-fermions",
+            "weinberg-t41ii-first-row"
+          ],
+          "status": "partial",
+          "value_status": "explicit_symbolic_family_and_operator_completion",
+          "parameters": [
+            {
+              "id": "alpha",
+              "domain": "integer",
+              "definition": "source hypercharge family parameter"
+            }
+          ],
+          "reason": "A fixed alpha, mediator copy counts and complete independent fermion/reality data are not specified by a topology row; no numeric-subset charge normalization is performed."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P34/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P34/field-evidence.json"
+    },
+    {
+      "paper_id": "P35",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1404.7137v1",
+      "numerical_candidates": 1,
+      "scope": "Microscopic hyperfermion Table1 and explicit EW embedding, kept separate from composite IR spectrum.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Completeness is for the displayed microscopic HC-plus-elementary-SM-fermion EFT regime, not unknown mediators above its four-fermion cutoff. No elementary Higgs added to a composite-Higgs UV inventory."
+      ],
+      "checkpoint": "atlas/reextraction/P35/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P35/field-evidence.json"
+    },
+    {
+      "paper_id": "P36",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0206021v2",
+      "numerical_candidates": 0,
+      "scope": "Nonlinear scalar geometry, full displayed top sector and explicit UV anomaly/completion caveat.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "littlest-higgs-minimal",
+          "status": "partial",
+          "value_status": "nonlinear_representation_and_source_unspecified_cutoff_completion",
+          "reason": "Numerical finite linear-irrep schema cannot encode the constrained sigma model plus boundary of unknown cutoff fermions. Source electroweak/colour top quantum numbers preserved, product U1 assignment not fabricated."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P36/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P36/field-evidence.json"
+    },
+    {
+      "paper_id": "P37",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0506256v2",
+      "numerical_candidates": 1,
+      "scope": "Whole short definition from linear example through extended-top, nonlinear construction and distinct twin/mirror alternatives.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "mirror-higgs-unextended",
+            "twin-higgs-extended-top",
+            "twin-higgs-unextended"
+          ],
+          "status": "partial",
+          "value_status": "separate_nonlinear_regimes_and_unfinished_chirality_charge_mapping",
+          "reason": "Linear twin inventory is ready, not a certificate for nonlinear/mirror or extended-top regimes. Crossed exotic hypercharges and CP/chirality source map remain to be established explicitly."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P37/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P37/field-evidence.json"
+    },
+    {
+      "paper_id": "P38",
+      "status": "completed_scoped_reextraction_staged",
+      "arxiv_version": "1501.05310v2",
+      "numerical_candidates": 1,
+      "scope": "Complete minimal-model SectionII including radial-mode choice, anomaly cancellation, and enumerated summary.",
+      "partial_descriptions": [],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P38/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P38/field-evidence.json"
+    },
+    {
+      "paper_id": "P39",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/9803315v1",
+      "numerical_candidates": 0,
+      "scope": "Localization construction and complete displayed Section3.4 Pati-Salam prototype; source slots unresolved explicitly.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "six-dimensional-pati-salam-vortex",
+          "status": "partial",
+          "value_status": "source_unspecified_slots_and_unmapped_6D_chirality",
+          "reason": "Per-field U1V charges, scalar field reality and canonical six-dimensional spinor orientation not established; interactions constrain sums, not all individual assignments. No numeric-subset normalization."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P39/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P39/field-evidence.json"
+    },
+    {
+      "paper_id": "P40",
+      "status": "reference_only_scoped_reextraction",
+      "arxiv_version": "hep-ph/9905221v1",
+      "numerical_candidates": 0,
+      "scope": "Gravitational action, warped solution and explicit visible-brane Higgs normalization, not merely abstract.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Retain geometry paper without creating an SM-only duplicate BSM gauge/matter row. Gravitational/radion physics is outside the present internal-gauge/matter catalogue scope."
+      ],
+      "checkpoint": "atlas/reextraction/P40/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P40/field-evidence.json"
+    },
+    {
+      "paper_id": "P41",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0012100v2",
+      "numerical_candidates": 1,
+      "scope": "Full bulk Lagrangian and explicit five-dimensional orbifold specialization, separate from generic dimensional family.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "ued-orbifold-framework",
+          "status": "partial",
+          "value_status": "explicit_symbolic_spacetime_dimension_family",
+          "reason": "Generic delta requires a dimension-specific Lorentz and anomaly-completion choice. Ready candidate covers only explicitly defined five-dimensional specialization."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P41/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P41/field-evidence.json"
+    },
+    {
+      "paper_id": "P42",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0306259v1",
+      "numerical_candidates": 0,
+      "scope": "5D/boundary source definition, explicit third-generation field list and alternative boundary realizations. Full Section3.2 scalar mediator definition and quartic mechanism inspected.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "holographic-su3-brane-scalar-mediator"
+          ],
+          "target_source_model_ids": [
+            "holographic-boundary-pgb-framework"
+          ],
+          "status": "partial",
+          "value_status": "source_scoped_third_generation_and_boundary_alternatives",
+          "reason": "Full three-generation/lepton completion not selected by the displayed third-generation model; bulk and brane alternatives must remain distinct.",
+          "fields": [
+            {
+              "label": "bulk Phi",
+              "lorentz": {
+                "dimension": 5,
+                "scheme": "B2_Dynkin",
+                "irreps": [
+                  [
+                    0,
+                    0
+                  ]
+                ]
+              },
+              "gauge_irrep": {
+                "su3L": [
+                  2,
+                  0
+                ]
+              },
+              "source_X": "2/3",
+              "reality": "complex",
+              "copies": 1,
+              "evidence": [
+                "quartic"
+              ]
+            }
+          ]
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P42/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P42/field-evidence.json"
+    },
+    {
+      "paper_id": "P43",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "hep-ph/0604261v2",
+      "numerical_candidates": 1,
+      "scope": "Complete Simple v-Model table and numerical benchmark plus Other Models coloured-X alternatives.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "hidden-valley-chi-two-flavor",
+            "hidden-valley-colored-x-framework",
+            "hidden-valley-x-adjoint-prompt",
+            "hidden-valley-x-adjoint-stable",
+            "hidden-valley-x-fundamental-stable"
+          ],
+          "status": "partial",
+          "value_status": "explicit_symbolic_family_or_source_unspecified_mediator_representation",
+          "reason": "Generic nv/charges/mixing not replaced by the ready numerical benchmark. Coloured-X source does not fix spin, weak representation, hypercharge or copy count. No invented full spectrum."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P43/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P43/field-evidence.json"
+    },
+    {
+      "paper_id": "P44",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "0711.4866v1",
+      "numerical_candidates": 2,
+      "scope": "Sections2.1-2.3 complete displayed Lagrangians, pre-breaking gauge model and real scalar mediator variant.",
+      "partial_descriptions": [
+        {
+          "target_entry_id": "secluded-neutrino-portal-z2",
+          "status": "partial",
+          "value_status": "not_specified_by_source_in_displayed_generation_scope",
+          "reason": "NR mediator copy count not established from generation-suppressed Eq19; no guessed one/three copies. Nprime one and S real explicitly supported."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P44/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P44/field-evidence.json"
+    },
+    {
+      "paper_id": "P45",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1411.3727v2",
+      "numerical_candidates": 0,
+      "scope": "All microscopic gauge/fermion classes, minimal numerical examples, composite EFT and explicit portal-completion boundary.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "simp-sp-pions",
+            "simp-su-pions",
+            "simp-o-pions"
+          ],
+          "status": "partial",
+          "value_status": "explicit_rank_multiplicity_family_and_unfixed_portal_completion",
+          "parameters": [
+            {
+              "id": "Nc,Nf",
+              "domain": "source rank/fundamental dimension and flavour conditions",
+              "definition": "Sp uses even Nc fundamental dimension, not rank"
+            }
+          ],
+          "reason": "Numeric dark-sector benchmarks supported; full visible-connector spectrum not specified. Current complete numerical schema cannot accept generic rank/Nf or an unclosed connector inventory."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P45/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P45/field-evidence.json"
+    },
+    {
+      "paper_id": "P46",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1111.4482v3",
+      "numerical_candidates": 2,
+      "scope": "All SectionII.A mass-origin examples and explicit SectionIII origin-agnostic EFT.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "vector-portal-stueckelberg-scalar",
+            "vector-portal-stueckelberg-higgs"
+          ],
+          "status": "partial",
+          "value_status": "affine_gauge_shift_not_supported_by_linear_irrep_schema",
+          "reason": "Shift representation must remain source-backed partial; cannot replace it by a neutral scalar irrep. Higher-dimensional operators and validity cutoff are not additional matter."
+        }
+      ],
+      "limitations": [],
+      "checkpoint": "atlas/reextraction/P46/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P46/field-evidence.json"
+    },
+    {
+      "paper_id": "P47",
+      "status": "reference_only_scoped_reextraction",
+      "arxiv_version": "1309.7223v2",
+      "numerical_candidates": 0,
+      "scope": "Actual gauge/matter declaration sections, real-scalar option and basis distinctions; representative example declarations read.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Representation/validation reference retained as a paper with zero new BSM inventory rows. Existing physical models may link separately after their primary source review."
+      ],
+      "checkpoint": "atlas/reextraction/P47/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P47/field-evidence.json"
+    },
+    {
+      "paper_id": "P48",
+      "status": "reference_only_scoped_reextraction",
+      "arxiv_version": "1108.2040v2",
+      "numerical_candidates": 0,
+      "scope": "UFO objects, full particle declarations and vertex tensor/mass-eigenstate distinction, not abstract alone.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Interchange-format reference is not itself a new BSM model and its sample top/antitop objects are not extra independent matter."
+      ],
+      "checkpoint": "atlas/reextraction/P48/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P48/field-evidence.json"
+    },
+    {
+      "paper_id": "P49",
+      "status": "reference_only_scoped_reextraction",
+      "arxiv_version": "1008.4884v3",
+      "numerical_candidates": 0,
+      "scope": "SM field Table1, unbroken-basis conventions and representative bosonic/two-/four-fermion operator classes.",
+      "partial_descriptions": [],
+      "limitations": [
+        "Paper retained without an SM-only BSM row or invented mediator. Minimal field-content catalogue does not identify different EFT interactions as distinct matter entries."
+      ],
+      "checkpoint": "atlas/reextraction/P49/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P49/field-evidence.json"
+    },
+    {
+      "paper_id": "P50",
+      "status": "partial_scoped_reextraction_staged",
+      "arxiv_version": "1711.10391v2",
+      "numerical_candidates": 2,
+      "scope": "Full classification assumptions/tables, explicit single-zeta and single-W examples, generic scalar/fermion-copy boundary.",
+      "partial_descriptions": [
+        {
+          "target_entry_ids": [
+            "real-singlet-linear-portal-gluon-sector",
+            "sm-singlet-neutrino-framework"
+          ],
+          "status": "partial",
+          "value_status": "explicit_symbolic_multiplicity_matching_family",
+          "reason": "Source matching family permits arbitrary copies; no full heavy UV completion selected by Wilson coefficients. Do not automatically link this generic family to the fixed3-N nuMSM."
+        }
+      ],
+      "limitations": [
+        "Ready numerical rows are complete displayed SM-extension EFT field inventories, not claims of unitary UV completion beyond the declared cutoff."
+      ],
+      "checkpoint": "atlas/reextraction/P50/checkpoint.json",
+      "field_evidence": "atlas/reextraction/P50/field-evidence.json"
+    }
+  ]
+}

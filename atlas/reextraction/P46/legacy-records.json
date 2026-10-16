@@ -1,0 +1,283 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P46",
+  "source_models": [
+    {
+      "model_id": "vector-higgs-portal-z2-eft",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vector-portal-abelian-higgs",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vector-portal-stueckelberg-higgs",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "vector-portal-abelian-higgs",
+      "name": "Minimal hidden Abelian Higgs vector portal with charge conjugation",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "vector-portal-abelian-higgs"
+      ]
+    },
+    {
+      "entry_id": "vector-portal-stueckelberg-scalar",
+      "name": "Scalar-mediated Stückelberg vector Higgs portal",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "vector-portal-stueckelberg-scalar"
+      ]
+    },
+    {
+      "entry_id": "vector-portal-stueckelberg-higgs",
+      "name": "Stückelberg vector portal with a directly Higgs-dependent mass",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "vector-portal-stueckelberg-higgs"
+      ]
+    },
+    {
+      "entry_id": "vector-higgs-portal-z2-eft",
+      "name": "Z2-symmetric massive-vector Higgs portal EFT",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "vector-higgs-portal-z2-eft"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 542,
+      "model_id": "vector-higgs-portal-z2-eft",
+      "model_revision": 1,
+      "regime_id": 178,
+      "field_label": "X_mu",
+      "field_kind": "massive hidden vector",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Retained vector degree of freedom; microscopic mass origin unselected.",
+      "representations": []
+    },
+    {
+      "field_id": 543,
+      "model_id": "vector-higgs-portal-z2-eft",
+      "model_revision": 1,
+      "regime_id": 178,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 553,
+      "model_id": "vector-portal-abelian-higgs",
+      "model_revision": 1,
+      "regime_id": 181,
+      "field_label": "X'_mu",
+      "field_kind": "Abelian gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Becomes the massive vector X_mu in the broken phase; the latter is not an added independent gauge field.",
+      "representations": []
+    },
+    {
+      "field_id": 554,
+      "model_id": "vector-portal-abelian-higgs",
+      "model_revision": 1,
+      "regime_id": 181,
+      "field_label": "S",
+      "field_kind": "charged hidden Higgs scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "The eaten phase and physical hidden Higgs excitation are components of this scalar.",
+      "representations": [
+        {
+          "representation_id": 421,
+          "model_id": "vector-portal-abelian-higgs",
+          "model_revision": 1,
+          "regime_id": 181,
+          "field_id": 554,
+          "factor_id": null,
+          "group_id": 130,
+          "representation_label": "charged complex scalar representation",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Nonzero hidden charge is stated; its numerical value and normalization are unspecified."
+        }
+      ]
+    },
+    {
+      "field_id": 555,
+      "model_id": "vector-portal-abelian-higgs",
+      "model_revision": 1,
+      "regime_id": 181,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 544,
+      "model_id": "vector-portal-stueckelberg-higgs",
+      "model_revision": 1,
+      "regime_id": 179,
+      "field_label": "X'_mu",
+      "field_kind": "Abelian gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 545,
+      "model_id": "vector-portal-stueckelberg-higgs",
+      "model_revision": 1,
+      "regime_id": 179,
+      "field_label": "phi",
+      "field_kind": "Stückelberg shifting scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 546,
+      "model_id": "vector-portal-stueckelberg-higgs",
+      "model_revision": 1,
+      "regime_id": 179,
+      "field_label": "X_mu",
+      "field_kind": "gauge-invariant massive-vector combination",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "X_mu=X'_mu+partial_mu phi/mu. This reorganizes fields 544 and 545, without adding an independent vector.",
+      "representations": []
+    },
+    {
+      "field_id": 547,
+      "model_id": "vector-portal-stueckelberg-higgs",
+      "model_revision": 1,
+      "regime_id": 179,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 548,
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1,
+      "regime_id": 180,
+      "field_label": "X'_mu",
+      "field_kind": "Abelian gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 549,
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1,
+      "regime_id": 180,
+      "field_label": "phi",
+      "field_kind": "Stückelberg shifting scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 550,
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1,
+      "regime_id": 180,
+      "field_label": "X_mu",
+      "field_kind": "gauge-invariant massive-vector combination",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "X_mu=X'_mu+partial_mu phi/mu; the same Stückelberg organization as Eq. (4), not an additional independent vector.",
+      "representations": []
+    },
+    {
+      "field_id": 551,
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1,
+      "regime_id": 180,
+      "field_label": "S",
+      "field_kind": "hidden mass-controlling scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent scalar in example (ii), with symbolic V(S). It is distinct from the charged complex S of example (iii); no unprinted potential or charge normalization is supplied.",
+      "representations": []
+    },
+    {
+      "field_id": 552,
+      "model_id": "vector-portal-stueckelberg-scalar",
+      "model_revision": 1,
+      "regime_id": 180,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    }
+  ]
+}

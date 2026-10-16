@@ -1,0 +1,135 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Localization construction and complete displayed Section3.4 Pati-Salam prototype; source slots unresolved explicitly.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      14
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "vortex",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section3.4 Eqs.(23)-(25)",
+        "pdf_pages": [
+          14
+        ],
+        "anchor": "six-dimensional chiral spinors per generation"
+      },
+      "value": "Explicit six-dimensional prototype gauges SU4 x SU2R x SU2L plus U1V. Scalars Phi (PS singlet, V-charged), chi=(15,1,1),chiprime=(4,2,1),H=(1,2,2). Per generation six-dimensional chiral Q=(4,1,2),Qbar=(bar4,1,2),Qc=(bar4,2,1),Qbarc=(4,2,1). Bulk masses via Phi Q Qbar + Phi* Qc Qbarc; localized zero modes are derived, not extra simultaneous bulk fields."
+    },
+    {
+      "id": "dimensions",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Sections3.1-3.3 and3.4",
+        "pdf_pages": [
+          14
+        ],
+        "anchor": "introduce a U(1)V factor"
+      },
+      "value": "Earlier generic vortex U1 can be global or gauged; the realistic Section3.4 explicitly introduces the gauge factor. Source does not tabulate a unique complete set of U1V individual charges, scalar reality conditions or an unambiguous D3 chiral-node assignment. Do not import four-dimensional all-LH SM weights into six-dimensional spinors."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_id": "six-dimensional-pati-salam-vortex",
+      "status": "partial",
+      "value_status": "source_unspecified_slots_and_unmapped_6D_chirality",
+      "reason": "Per-field U1V charges, scalar field reality and canonical six-dimensional spinor orientation not established; interactions constrain sums, not all individual assignments. No numeric-subset normalization."
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P39",
+  "arxiv_version": "hep-ph/9803315v1",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P39",
+    "arxiv_version": "hep-ph/9803315v1",
+    "started_utc": "2026-10-16T18:26:22Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/hep-ph/9803315v1",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:22Z",
+        "wall_seconds": 0.16193416601163335,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:22Z",
+    "bytes": 170337,
+    "sha256": "219610bd4df9fc5e9990066306cf625cfa697a12dba2f14bb59a4805db4eeb60",
+    "local_pdf": "atlas/reextraction/sources/hep-ph_9803315v1.pdf",
+    "local_text": "atlas/reextraction/sources/hep-ph_9803315v1.txt",
+    "pdf_pages": 17,
+    "pdfinfo": "Title:           arXiv:hep-ph/9803315v1  11 Mar 1998\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 17:59:25 2024 -03\nModDate:         Tue Nov 26 17:59:25 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       170337 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 49632
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "large-extra-dimensions-framework",
+      "six-dimensional-pati-salam-vortex"
+    ],
+    "source_field_ids": [
+      471,
+      472,
+      473,
+      474,
+      475,
+      476,
+      477,
+      478,
+      479,
+      480,
+      481,
+      482
+    ],
+    "public_entry_ids": [
+      "six-dimensional-pati-salam-vortex"
+    ]
+  },
+  "staged_numerical_candidates": [],
+  "preflight_results": [],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:32Z",
+    "source_access_started_utc": "2026-10-16T18:26:22Z",
+    "source_access_ended_utc": "2026-10-16T18:26:22Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.16193416601163335,
+    "preflight_and_checkpoint_wall_seconds": 0.017002709006192163,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

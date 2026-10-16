@@ -1,0 +1,569 @@
+{
+  "status": "normalized_candidate_requires_source_review",
+  "normalized_entry": {
+    "schema_version": "field-content-1",
+    "inventory_complete": true,
+    "paper_ids": [
+      "P38"
+    ],
+    "name": "Fraternal twin Higgs linear realization",
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      },
+      {
+        "id": "twin_colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "twin_weak",
+        "family": "A",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "label": "Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "Qhat",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              1
+            ]
+          }
+        }
+      },
+      {
+        "label": "that_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "bhat_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "Lhat",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              1
+            ]
+          }
+        }
+      },
+      {
+        "label": "tauhat_R",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              0
+            ]
+          }
+        }
+      },
+      {
+        "label": "B",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          },
+          "twin_colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "twin_weak": {
+            "dynkin": [
+              1
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "transformations": [
+    {
+      "factor_id": "hypercharge",
+      "normalization": "primitive_integer_full_inventory",
+      "positive_source_scale": "6",
+      "generator_orientation": "retained",
+      "note": "Scale may be combined with charge conjugation when converting source fermions."
+    }
+  ],
+  "fingerprint": "c3d64b16518179d706ec0fbb6e40e0c03c7240b50832426d705aecfea24a82c4",
+  "action": "Verify source evidence for every assignment and run duplicate reconciliation before ingestion. This tool is not a database writer or a source-extraction certificate.",
+  "duplicate_check": {
+    "status": "no_exact_match_review_required",
+    "fingerprint": "c3d64b16518179d706ec0fbb6e40e0c03c7240b50832426d705aecfea24a82c4",
+    "matches": [],
+    "same_algebra_candidates": [
+      {
+        "entry_id": "fraternal-twin-higgs",
+        "name": "Minimal Fraternal Twin Higgs",
+        "coverage": "partial"
+      }
+    ],
+    "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+    "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+  }
+}

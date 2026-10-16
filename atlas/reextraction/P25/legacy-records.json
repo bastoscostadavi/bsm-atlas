@@ -1,0 +1,201 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P25",
+  "source_models": [
+    {
+      "model_id": "general-gauge-mediation",
+      "model_revision": 1
+    },
+    {
+      "model_id": "general-gauge-mediation-higgs-operators",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-minimal-gauge-messenger-toy",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [],
+  "source_fields": [
+    {
+      "field_id": 301,
+      "model_id": "general-gauge-mediation",
+      "model_revision": 1,
+      "regime_id": 94,
+      "field_label": "mathcal J",
+      "field_kind": "hidden current superfield operator",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": "real linear superfield",
+      "inherited_baseline_label": null,
+      "scope_note": "D²J=Dbar²J=0; vector component is conserved. Operator record, not an elementary hidden particle. Section 2 displays one Abelian current; corresponding current correlators are used for each visible factor.",
+      "representations": []
+    },
+    {
+      "field_id": 302,
+      "model_id": "general-gauge-mediation",
+      "model_revision": 1,
+      "regime_id": 94,
+      "field_label": "V",
+      "field_kind": "visible vector superfield participant",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM gauge sector",
+      "scope_note": "Schematic corresponding gauge multiplet in Eq. (3.1); its gauge boson, gaugino and D auxiliary are components, not additional independent superfields.",
+      "representations": []
+    },
+    {
+      "field_id": 307,
+      "model_id": "general-gauge-mediation-higgs-operators",
+      "model_revision": 1,
+      "regime_id": 96,
+      "field_label": "H_u",
+      "field_kind": "Higgs chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs sector",
+      "scope_note": "Inherited participant, not an added Higgs multiplet.",
+      "representations": []
+    },
+    {
+      "field_id": 308,
+      "model_id": "general-gauge-mediation-higgs-operators",
+      "model_revision": 1,
+      "regime_id": 96,
+      "field_label": "H_d",
+      "field_kind": "Higgs chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs sector",
+      "scope_note": "Independent inherited down-type Higgs participant.",
+      "representations": []
+    },
+    {
+      "field_id": 309,
+      "model_id": "general-gauge-mediation-higgs-operators",
+      "model_revision": 1,
+      "regime_id": 96,
+      "field_label": "O_u",
+      "field_kind": "composite hidden chiral superfield operator",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Short-distance dimension two is assumed. Electroweak quantum numbers permit O_u H_u to be a singlet; no constituent inventory is inferred.",
+      "representations": []
+    },
+    {
+      "field_id": 310,
+      "model_id": "general-gauge-mediation-higgs-operators",
+      "model_revision": 1,
+      "regime_id": 96,
+      "field_label": "O_d",
+      "field_kind": "composite hidden chiral superfield operator",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Short-distance dimension two is assumed. Electroweak quantum numbers permit O_d H_d to be a singlet; no elementary messenger interpretation is imposed.",
+      "representations": []
+    },
+    {
+      "field_id": 303,
+      "model_id": "u1-minimal-gauge-messenger-toy",
+      "model_revision": 1,
+      "regime_id": 95,
+      "field_label": "phi",
+      "field_kind": "chiral messenger superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Scalar phi and fermion psi are components. Scalar mass eigenstates phi_plus and phi_minus reorganize the messenger scalars.",
+      "representations": [
+        {
+          "representation_id": 250,
+          "model_id": "u1-minimal-gauge-messenger-toy",
+          "model_revision": 1,
+          "regime_id": 95,
+          "field_id": 303,
+          "factor_id": null,
+          "group_id": 69,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "+1",
+          "source_notation": null,
+          "normalization_note": "From exp(2gV) in Eq. (A.1)."
+        }
+      ]
+    },
+    {
+      "field_id": 304,
+      "model_id": "u1-minimal-gauge-messenger-toy",
+      "model_revision": 1,
+      "regime_id": 95,
+      "field_label": "phi_tilde",
+      "field_kind": "chiral messenger superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent opposite-charge chiral multiplet, not the anti-chiral conjugate of phi.",
+      "representations": [
+        {
+          "representation_id": 251,
+          "model_id": "u1-minimal-gauge-messenger-toy",
+          "model_revision": 1,
+          "regime_id": 95,
+          "field_id": 304,
+          "factor_id": null,
+          "group_id": 69,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-1",
+          "source_notation": null,
+          "normalization_note": "From exp(-2gV) in Eq. (A.1)."
+        }
+      ]
+    },
+    {
+      "field_id": 305,
+      "model_id": "u1-minimal-gauge-messenger-toy",
+      "model_revision": 1,
+      "regime_id": 95,
+      "field_label": "X",
+      "field_kind": "chiral spurion background",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Only <X>=M+theta²F is used. No propagating X spectrum or kinetic term is reconstructed.",
+      "representations": []
+    },
+    {
+      "field_id": 306,
+      "model_id": "u1-minimal-gauge-messenger-toy",
+      "model_revision": 1,
+      "regime_id": 95,
+      "field_label": "V",
+      "field_kind": "U(1) vector superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Gauge multiplet in the messenger kinetic terms; no additional visible charged-matter inventory is specified.",
+      "representations": []
+    }
+  ]
+}

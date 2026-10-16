@@ -1,0 +1,151 @@
+{
+  "status": "completed_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Complete minimal-model SectionII including radial-mode choice, anomaly cancellation, and enumerated summary.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      11,
+      14
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "linear",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "SectionII.A Eq.(1) and radial-mode paragraph",
+        "pdf_pages": [
+          11
+        ],
+        "anchor": "We do not follow this approach here"
+      },
+      "value": "Complex global-SU4 fundamental H decomposes into ordinary H=A and twin B. Source retains the linear radial mode and explicitly does not use the purely nonlinear theory. No extra elementary radial singlet is added on top of these doublets."
+    },
+    {
+      "id": "minimal",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "SectionsII.B-II.C Eqs.(9)-(10)",
+        "pdf_pages": [
+          14
+        ],
+        "anchor": "are therefore absent in our minimal"
+      },
+      "value": "Minimal twin gauge algebra is su3 x su2, no twin hypercharge. One twin quark doublet, RH top/bottom, one LH lepton doublet and RH tau, plus complex B doublet; no first/second twin families. RH quarks conjugate twin colour as well as all charges. Twin neutrino is in Lhat, not an additional RH neutrino. Full ordinary SM inherited."
+    }
+  ],
+  "source_descriptions": [],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P38",
+  "arxiv_version": "1501.05310v2",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P38",
+    "arxiv_version": "1501.05310v2",
+    "started_utc": "2026-10-16T18:26:22Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1501.05310v2",
+        "started_utc": "2026-10-16T18:26:22Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 1.3590866249869578,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:24Z",
+    "bytes": 1335382,
+    "sha256": "f8c7009f615324ff1da1affa23a255720fbd0cd78c62e1c9249b9f9476d73e90",
+    "local_pdf": "atlas/reextraction/sources/1501.05310v2.pdf",
+    "local_text": "atlas/reextraction/sources/1501.05310v2.txt",
+    "pdf_pages": 64,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Mon Mar 23 21:33:14 2015 -03\nModDate:         Mon Mar 23 21:33:14 2015 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           64\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       1335382 bytes\nOptimized:       no\nPDF version:     1.5\n",
+    "text_bytes": 165275
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "fraternal-twin-higgs"
+    ],
+    "source_field_ids": [
+      460,
+      461,
+      462,
+      463,
+      464,
+      465,
+      466,
+      467,
+      468,
+      469,
+      470
+    ],
+    "public_entry_ids": [
+      "fraternal-twin-higgs"
+    ]
+  },
+  "staged_numerical_candidates": [
+    "fraternal-normalized-candidate.json"
+  ],
+  "preflight_results": [
+    {
+      "stem": "fraternal",
+      "fingerprint": "c3d64b16518179d706ec0fbb6e40e0c03c7240b50832426d705aecfea24a82c4",
+      "target_existing_entry_id": "fraternal-twin-higgs",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "c3d64b16518179d706ec0fbb6e40e0c03c7240b50832426d705aecfea24a82c4",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "fraternal-twin-higgs",
+            "name": "Minimal Fraternal Twin Higgs",
+            "coverage": "partial"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "fraternal-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    }
+  ],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:32Z",
+    "source_access_started_utc": "2026-10-16T18:26:22Z",
+    "source_access_ended_utc": "2026-10-16T18:26:24Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 1.3590866249869578,
+    "preflight_and_checkpoint_wall_seconds": 0.10449691698886454,
+    "child_user_cpu_seconds": 0.0653459999999999,
+    "child_system_cpu_seconds": 0.01583699999999999,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

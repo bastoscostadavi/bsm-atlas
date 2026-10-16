@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from build_field_catalogue import ROOT, TEMPLATES, display_rep, dynkin
 from catalogue_identity import canonicalize, normalize_spec, from_regime
+from catalogue_identity_v1 import canonicalize as canonicalize_v1, normalize_spec as normalize_v1, from_regime as from_regime_v1
 from reextraction_reviews import load_reviews, replace_regime, apply_reviews
 
 DATA = json.loads((ROOT / 'website/field-catalogue.json').read_text())
@@ -27,8 +28,9 @@ class Acceptance(unittest.TestCase):
                          {'P01', 'P02', 'P03', 'P04', 'P05'})
         for review in reviews:
             candidate = review['candidate']
-            self.assertEqual(candidate, normalize_spec(candidate))
-            self.assertEqual(canonicalize(candidate)['fingerprint'], review['decision']['fingerprint'])
+            self.assertEqual(candidate, normalize_v1(candidate))
+            self.assertEqual(canonicalize_v1(candidate)['fingerprint'], review['decision']['fingerprint'])
+            self.assertEqual(normalize_spec(candidate)['schema_version'],'field-content-2')
 
     def test_changed_evidence_hash_blocks_build(self):
         original = Path.read_bytes
@@ -66,7 +68,12 @@ class Acceptance(unittest.TestCase):
     def test_wrong_existing_entry_cannot_be_confirmed(self):
         review = deepcopy(load_reviews(ROOT)[0])
         review['decision']['entry'] = 'two-higgs-doublets'
-        identity_input = lambda r: normalize_spec(from_regime(r, TEMPLATES, dynkin))
+        def identity_input(r):
+            original=deepcopy(r)
+            for f in original['fields']:
+                for l in f['lorentz']:
+                    if l.get('sourceScalar'): l['reality']=l['sourceScalar']['reality']
+            return from_regime_v1(original,TEMPLATES,dynkin)
         with self.assertRaisesRegex(ValueError, 'does not match'):
             apply_reviews(deepcopy(DATA['entries']), deepcopy(DATA['papers']),
                           [review], display_rep, identity_input)

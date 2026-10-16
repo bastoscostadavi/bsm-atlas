@@ -1,0 +1,301 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P06",
+  "source_models": [
+    {
+      "model_id": "mchm-spinorial",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mchm-spinorial-scalar14",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "mchm-spinorial-scalar14",
+      "name": "Minimal composite Higgs with a scalar 14 source deformation",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "mchm-spinorial-scalar14"
+      ]
+    },
+    {
+      "entry_id": "mchm-spinorial",
+      "name": "Minimal composite Higgs with spinorial fermion embedding",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "mchm-spinorial"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 46,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 10,
+      "field_label": "h^â",
+      "field_kind": "composite Goldstone scalar coordinates",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "Four Goldstone coordinates",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "SO(5)/SO(4) coordinates transforming as the 4 of unbroken SO(4), described as a real bidoublet. This representation statement is not a separate reality condition on an electroweak complex doublet.",
+      "representations": []
+    },
+    {
+      "field_id": 47,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 10,
+      "field_label": "ψr={qL,uR,dR,lL,eR}",
+      "field_kind": "indexed elementary fermion collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "Family index understood",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model fermions",
+      "scope_note": "Collective participant record for the explicitly indexed linear mixing. Additional components completing Ψq,u,d are nondynamical sources, not additional elementary particles.",
+      "representations": []
+    },
+    {
+      "field_id": 48,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 10,
+      "field_label": "Or",
+      "field_kind": "composite fermionic operator collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Operator participants, not a microscopic elementary-field inventory. Quark operators are assumed to belong to complete spinorial 4 multiplets; leptonic embeddings are only stated to be similar.",
+      "representations": []
+    },
+    {
+      "field_id": 49,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 11,
+      "field_label": "AM",
+      "field_kind": "bulk gauge connection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Boundary-condition rows concern Aμ. In gauge ∂z(A5/z)=0, physical A5 survives only in SO(5)/SO(4), with A5(x,z)=z√[2/(L1²−L0²)]h(x). The Higgs is this component, not an independent added bulk scalar.",
+      "representations": []
+    },
+    {
+      "field_id": 50,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 11,
+      "field_label": "ξq",
+      "field_kind": "bulk Dirac spinor",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "One per quark family",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "q and Q denote SU(2)L and SU(2)R doublets; L and R denote 4D Lorentz chirality.",
+      "representations": [
+        {
+          "representation_id": 35,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 50,
+          "factor_id": 20,
+          "group_id": null,
+          "representation_label": "spinorial 4",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "4_{1/3} of SO(5)×U(1)B−L",
+          "normalization_note": null
+        },
+        {
+          "representation_id": 36,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 50,
+          "factor_id": 21,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "1/3",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 51,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 11,
+      "field_label": "ξu",
+      "field_kind": "bulk Dirac spinor",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "One per quark family",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "The principal holographic matching fixes the right-handed source. Component labels retain the source's c and prime notation.",
+      "representations": [
+        {
+          "representation_id": 37,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 51,
+          "factor_id": 20,
+          "group_id": null,
+          "representation_label": "spinorial 4",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 38,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 51,
+          "factor_id": 21,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "1/3",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 52,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 11,
+      "field_label": "ξd",
+      "field_kind": "bulk Dirac spinor",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "One per quark family",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 39,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 52,
+          "factor_id": 20,
+          "group_id": null,
+          "representation_label": "spinorial 4",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 40,
+          "model_id": "mchm-spinorial",
+          "model_revision": 1,
+          "regime_id": 11,
+          "field_id": 52,
+          "factor_id": 21,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "1/3",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 53,
+      "model_id": "mchm-spinorial",
+      "model_revision": 1,
+      "regime_id": 11,
+      "field_label": "Q̃R",
+      "field_kind": "IR-brane fermion",
+      "spin": null,
+      "chirality": "right-handed",
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Added on the IR boundary to pair with the unwanted dcL′ and ucL″ zero modes through the stated doublet mixing. No independent unsourced charge assignment is inserted.",
+      "representations": []
+    },
+    {
+      "field_id": 54,
+      "model_id": "mchm-spinorial-scalar14",
+      "model_revision": 1,
+      "regime_id": 13,
+      "field_label": "ϕi",
+      "field_kind": "external scalar source collection",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Sources in 14_0 of SO(5)×U(1)B−L; may be dynamical or auxiliary. Under SO(4), 14=9+4+1=(3,3)+(2,2)+(1,1). This is a global/spurion embedding, not a new gauged SO(5) in four dimensions.",
+      "representations": []
+    },
+    {
+      "field_id": 55,
+      "model_id": "mchm-spinorial-scalar14",
+      "model_revision": 1,
+      "regime_id": 13,
+      "field_label": "Oϕi",
+      "field_kind": "composite scalar operator collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Dimension-two strong-sector operators coupled to the indexed external scalar sources; not a microscopic field inventory.",
+      "representations": []
+    },
+    {
+      "field_id": 56,
+      "model_id": "mchm-spinorial-scalar14",
+      "model_revision": 1,
+      "regime_id": 14,
+      "field_label": "Φ",
+      "field_kind": "bulk scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Additional SO(5) 14 field with MΦ²=−4k²; its SO(4)-singlet component has an IR tadpole. Field reality and a full scalar action are not specified.",
+      "representations": [
+        {
+          "representation_id": 41,
+          "model_id": "mchm-spinorial-scalar14",
+          "model_revision": 1,
+          "regime_id": 14,
+          "field_id": 56,
+          "factor_id": 22,
+          "group_id": null,
+          "representation_label": "14",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

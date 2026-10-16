@@ -1,0 +1,41 @@
+{
+  "paper_id": "P34",
+  "arxiv_version": "1204.5862v2",
+  "source_sha256": "c8730cafc940caf947339f46b9a4cf99d865f4ec670c76b746f6707a67ef4ffd",
+  "candidates": [],
+  "partial_source_descriptions": [
+    {
+      "target_entry_ids": [
+        "weinberg-t1i-first-row",
+        "weinberg-t41i-doublet-fermions",
+        "weinberg-t41ii-first-row"
+      ],
+      "status": "partial",
+      "value_status": "explicit_symbolic_family_and_operator_completion",
+      "parameters": [
+        {
+          "id": "alpha",
+          "domain": "integer",
+          "definition": "source hypercharge family parameter"
+        }
+      ],
+      "reason": "A fixed alpha, mediator copy counts and complete independent fermion/reality data are not specified by a topology row; no numeric-subset charge normalization is performed."
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1
+    },
+    {
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

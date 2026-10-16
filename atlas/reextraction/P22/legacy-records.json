@@ -1,0 +1,531 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P22",
+  "source_models": [
+    {
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mssm-rpv-bilinear",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mssm-rpv-dim23",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1
+    },
+    {
+      "model_id": "mssm-rpv-soft-bilinear",
+      "model_revision": 1
+    },
+    {
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1
+    },
+    {
+      "model_id": "su5-rpv-trilinear-sector",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "mssm-matter",
+      "name": "MSSM",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "mssm-rpc-conventional-soft",
+        "mssm-rpv-general",
+        "mssm-rpv-bilinear",
+        "mssm-rpv-dim23",
+        "mssm-rpv-soft-bilinear"
+      ]
+    },
+    {
+      "entry_id": "rpv-singlet-spontaneous-sector",
+      "name": "Displayed singlet extension for spontaneous R-parity breaking",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "rpv-singlet-spontaneous-sector"
+      ]
+    },
+    {
+      "entry_id": "su5-rpv-trilinear-sector",
+      "name": "Renormalizable supersymmetric SU(5) RPV trilinear operator sector",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "su5-rpv-trilinear-sector"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 243,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "H_u",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Scalar components are (H_u^+,H_u^0); higgsinos and auxiliary F belong to this same multiplet. H_u in the component potential denotes its scalar, not another field.",
+      "representations": [
+        {
+          "representation_id": 223,
+          "model_id": "mssm-rpc-conventional-soft",
+          "model_revision": 1,
+          "regime_id": 67,
+          "field_id": 243,
+          "factor_id": null,
+          "group_id": 58,
+          "representation_label": "(1,2,+1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 244,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "H_d",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Scalar components are (H_d^0,H_d^-); higgsinos and auxiliary F belong to this same multiplet. H_d in the component potential denotes its scalar.",
+      "representations": [
+        {
+          "representation_id": 224,
+          "model_id": "mssm-rpc-conventional-soft",
+          "model_revision": 1,
+          "regime_id": 67,
+          "field_id": 244,
+          "factor_id": null,
+          "group_id": 58,
+          "representation_label": "(1,2,-1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 245,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "Q",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Quark-doublet supermultiplets. Tilde Q denotes their scalar components; a complete component and hypercharge inventory is not reconstructed.",
+      "representations": []
+    },
+    {
+      "field_id": 246,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "L",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Lepton-doublet supermultiplets. Tilde L denotes their scalar components.",
+      "representations": []
+    },
+    {
+      "field_id": 247,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "\\bar u",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Bar denotes the source's conjugate-quark multiplet label, not an anti-chiral superfield. Its scalar is tilde bar-u.",
+      "representations": []
+    },
+    {
+      "field_id": 248,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "\\bar d",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Bar denotes the source's conjugate-quark multiplet label. Its scalar is tilde bar-d.",
+      "representations": []
+    },
+    {
+      "field_id": 249,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "\\bar e",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Bar denotes the source's conjugate-charged-lepton multiplet label. Its scalar is tilde bar-e.",
+      "representations": []
+    },
+    {
+      "field_id": 250,
+      "model_id": "mssm-rpc-conventional-soft",
+      "model_revision": 1,
+      "regime_id": 67,
+      "field_label": "V_C, V_L, V_Y",
+      "field_kind": "gauge vector superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": "Real vector superfields",
+      "inherited_baseline_label": null,
+      "scope_note": "One vector superfield per gauge generator. Their gaugino components are gluino, winos and bino; gluino and wino indices are adjoint indices. In Wess-Zumino gauge each contains gauge boson, gaugino and auxiliary D. These component labels do not add independent multiplets.",
+      "representations": []
+    },
+    {
+      "field_id": 256,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "H_u",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Higgs doublet. h_u denotes its scalar component, not another independent multiplet.",
+      "representations": []
+    },
+    {
+      "field_id": 257,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "H_d",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Higgs doublet. h_d denotes its scalar component.",
+      "representations": []
+    },
+    {
+      "field_id": 258,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "Q_i",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 259,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "U_i^c",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 260,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "D_i^c",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 261,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "L_i",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Tilde L_i denotes scalar components; no independent right-handed-neutrino multiplet is added.",
+      "representations": []
+    },
+    {
+      "field_id": 262,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "E_i^c",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": "left-handed superfield convention",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 263,
+      "model_id": "mssm-rpv-general",
+      "model_revision": 1,
+      "regime_id": 74,
+      "field_label": "SU(3), SU(2), U(1) gauge superfields",
+      "field_kind": "gauge superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Inherited MSSM gauge inventory; component gauginos in the soft terms are not additional multiplets.",
+      "representations": []
+    },
+    {
+      "field_id": 264,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "H_u",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs content",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 265,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "H_d",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs content",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 266,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "L_i",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM lepton content",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 267,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "N_i^c",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Added right-handed-neutrino superfields; their sneutrino VEVs refer to scalar components.",
+      "representations": [
+        {
+          "representation_id": 230,
+          "model_id": "rpv-singlet-spontaneous-sector",
+          "model_revision": 1,
+          "regime_id": 80,
+          "field_id": 267,
+          "factor_id": null,
+          "group_id": 61,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Only the explicitly stated SU(2) × U(1) singlet assignment is encoded."
+        }
+      ]
+    },
+    {
+      "field_id": 268,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "S_i",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Added singlets with source-stated lepton number +1; tilde S_i denotes the scalar component.",
+      "representations": [
+        {
+          "representation_id": 231,
+          "model_id": "rpv-singlet-spontaneous-sector",
+          "model_revision": 1,
+          "regime_id": 80,
+          "field_id": 268,
+          "factor_id": null,
+          "group_id": 61,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 269,
+      "model_id": "rpv-singlet-spontaneous-sector",
+      "model_revision": 1,
+      "regime_id": 80,
+      "field_label": "Phi",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Singlet responsible for effective Higgs mu generation; no real-field condition is imposed.",
+      "representations": [
+        {
+          "representation_id": 232,
+          "model_id": "rpv-singlet-spontaneous-sector",
+          "model_revision": 1,
+          "regime_id": 80,
+          "field_id": 269,
+          "factor_id": null,
+          "group_id": 61,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 270,
+      "model_id": "su5-rpv-trilinear-sector",
+      "model_revision": 1,
+      "regime_id": 81,
+      "field_label": "bar5_i",
+      "field_kind": "matter chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Contains L_i and D_i^c.",
+      "representations": [
+        {
+          "representation_id": 233,
+          "model_id": "su5-rpv-trilinear-sector",
+          "model_revision": 1,
+          "regime_id": 81,
+          "field_id": 270,
+          "factor_id": null,
+          "group_id": 62,
+          "representation_label": "bar5, antifundamental",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 271,
+      "model_id": "su5-rpv-trilinear-sector",
+      "model_revision": 1,
+      "regime_id": 81,
+      "field_label": "10_i",
+      "field_kind": "matter chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Contains Q_i, U_i^c and E_i^c.",
+      "representations": [
+        {
+          "representation_id": 234,
+          "model_id": "su5-rpv-trilinear-sector",
+          "model_revision": 1,
+          "regime_id": 81,
+          "field_id": 271,
+          "factor_id": null,
+          "group_id": 62,
+          "representation_label": "10, antisymmetric tensor",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

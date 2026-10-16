@@ -1,0 +1,19 @@
+{
+  "status": "no_exact_match_review_required",
+  "fingerprint": "677054d4c6e60c1d06fb8bdbb64059149e5087dce16aef6954e421efba5c6693",
+  "matches": [],
+  "same_algebra_candidates": [
+    {
+      "entry_id": "ql421-dirac",
+      "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with Dirac neutrinos",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "ql421-inverse-seesaw",
+      "name": "SU(4)C × SU(2)L × U(1)R quark–lepton theory with inverse seesaw",
+      "coverage": "partial"
+    }
+  ],
+  "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

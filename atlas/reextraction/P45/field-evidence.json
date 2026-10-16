@@ -1,0 +1,41 @@
+{
+  "paper_id": "P45",
+  "arxiv_version": "1411.3727v2",
+  "source_sha256": "05b036197c85f6ce15560d659ffa3be5c8e7b8046c0d2ee1237d3f4082b537a5",
+  "candidates": [],
+  "partial_source_descriptions": [
+    {
+      "target_entry_ids": [
+        "simp-sp-pions",
+        "simp-su-pions",
+        "simp-o-pions"
+      ],
+      "status": "partial",
+      "value_status": "explicit_rank_multiplicity_family_and_unfixed_portal_completion",
+      "parameters": [
+        {
+          "id": "Nc,Nf",
+          "domain": "source rank/fundamental dimension and flavour conditions",
+          "definition": "Sp uses even Nc fundamental dimension, not rank"
+        }
+      ],
+      "reason": "Numeric dark-sector benchmarks supported; full visible-connector spectrum not specified. Current complete numerical schema cannot accept generic rank/Nf or an unclosed connector inventory."
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "simp-o-pions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "simp-sp-pions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "simp-su-pions",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

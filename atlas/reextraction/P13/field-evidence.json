@@ -1,0 +1,59 @@
+{
+  "paper_id": "P13",
+  "arxiv_version": "0801.1345v3",
+  "source_sha256": "ac4bcc5c973364eb24b73020f7d49cb968db2b61f76e78d2a426efa5752cf005",
+  "candidates": [],
+  "partial_source_descriptions": [
+    {
+      "target_entry_ids": [
+        "u1-ybl-charge-family",
+        "e6-full27-charge-template",
+        "u1-chi-minimal16-charge",
+        "umssm-single-s-higgs-sector"
+      ],
+      "status": "partial",
+      "value_status": "explicit_symbolic_family_or_scoped_charge_template",
+      "parameters": [
+        {
+          "id": "z",
+          "domain": "source free real/rational charge coordinate",
+          "definition": "Q=b(zY+(B-L)/2)"
+        },
+        {
+          "id": "theta_E6",
+          "domain": "0 <= theta < pi",
+          "definition": "Q=cos(theta)Qchi+sin(theta)Qpsi"
+        }
+      ],
+      "reason": "Charge templates and single-S Higgs-sector definitions inspected. Numerical full Higgs/exotic/fermion completion is not selected by these symbolic source families; no automatic NMSSM equivalence."
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "abelian-stueckelberg-sector",
+      "model_revision": 1
+    },
+    {
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-chi-minimal16-charge",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-two-singlet-flat-sector",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1
+    },
+    {
+      "model_id": "umssm-single-s-higgs-sector",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

@@ -1,0 +1,27 @@
+{
+  "paper_id": "P31",
+  "arxiv_version": "1009.2049v3",
+  "started_utc": "2026-10-16T18:26:21Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1009.2049v3",
+      "started_utc": "2026-10-16T18:26:21Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:21Z",
+      "wall_seconds": 0.07401379098882899,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:21Z",
+  "bytes": 601000,
+  "sha256": "1c1d97f9b6cb6c848e3f76963afa2c20a2c413ff7a3605eb3c2829a9b98434a6",
+  "local_pdf": "atlas/reextraction/sources/1009.2049v3.pdf",
+  "local_text": "atlas/reextraction/sources/1009.2049v3.txt",
+  "pdf_pages": 33,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.10\nCreationDate:    Tue Oct 23 23:06:53 2018 -03\nModDate:         Tue Oct 23 23:06:53 2018 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           33\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       601000 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 106295
+}

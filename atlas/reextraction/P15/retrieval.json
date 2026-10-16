@@ -1,0 +1,27 @@
+{
+  "paper_id": "P15",
+  "arxiv_version": "1812.04602v5",
+  "started_utc": "2026-10-16T18:26:18Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1812.04602v5",
+      "started_utc": "2026-10-16T18:26:18Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:18Z",
+      "wall_seconds": 0.06408250000094995,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:19Z",
+  "bytes": 598427,
+  "sha256": "022355da109e4eef72fb0cb314bea3c282fe49136f2aeae133c1ca262c275b96",
+  "local_pdf": "atlas/reextraction/sources/1812.04602v5.pdf",
+  "local_text": "atlas/reextraction/sources/1812.04602v5.txt",
+  "pdf_pages": 30,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        medialab\nCreationDate:    Thu Jan  9 22:35:40 2020 -03\nModDate:         Thu Jan  9 22:35:40 2020 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           30\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       598427 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 97781
+}

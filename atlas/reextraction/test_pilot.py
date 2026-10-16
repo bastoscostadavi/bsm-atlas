@@ -10,7 +10,7 @@ import unittest
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(ROOT / 'atlas'))
-from catalogue_identity import canonicalize, normalize_spec
+from catalogue_identity_v1 import canonicalize, normalize_spec
 
 class PilotTests(unittest.TestCase):
     def load(self, path):
@@ -68,7 +68,7 @@ class PilotTests(unittest.TestCase):
                                ('P03','thdm','two-higgs-doublets'),('P05','nmssm','nmssm-matter')]:
             self.assertEqual(self.load(f'{pid}/{stem}-duplicate-check.json')['matches'][0]['entry_id'], entry)
 
-    def test_scalar_equivalence_not_misrepresented_as_implemented(self):
+    def test_historical_scalar_equivalence_receipt_is_preserved(self):
         primary = self.load('P02/complex-singlet-normalized-candidate.json')
         alternate = self.load('P02/complex-two-real-description.json')
         eq = self.load('P02/scalar-equivalence.json')

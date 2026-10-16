@@ -1,0 +1,136 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Generic field Table2 and complete Example3 lepton/Higgs/modulus Table6 and superpotential.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      10
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "modular",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section3 Table2; Section3.1.4 Table6 Eqs.(48)-(51)",
+        "pdf_pages": [
+          10
+        ],
+        "anchor": "singlet under gauge transformations"
+      },
+      "value": "Example3 has three E^c, three N^c, three L, Hu,Hd and gauge-singlet chiral modulus tau; no extra flavon multiplets. Modulus is a chiral supermultiplet, not only a coupling symbol. Modular forms Y_i(tau) are functions/couplings, not three new particle fields."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_id": "modular-a4-flavonfree-seesaw",
+      "status": "partial",
+      "value_status": "source_scoped_lepton_model",
+      "fields": [
+        {
+          "label": "tau",
+          "kind": "chiral supermultiplet",
+          "gauge_singlet_copies": 1,
+          "evidence": [
+            "modular"
+          ]
+        },
+        {
+          "label": "N^c",
+          "kind": "chiral supermultiplet",
+          "gauge_singlet_copies": 3,
+          "evidence": [
+            "modular"
+          ]
+        }
+      ],
+      "reason": "Lepton/Higgs/modulus content is explicit; full coloured superpartner/quark completion is not chosen in this example and is not asserted by stitching a generic MSSM onto a lepton-only table."
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P30",
+  "arxiv_version": "1706.08749v2",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P30",
+    "arxiv_version": "1706.08749v2",
+    "started_utc": "2026-10-16T18:26:21Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1706.08749v2",
+        "started_utc": "2026-10-16T18:26:21Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:21Z",
+        "wall_seconds": 0.38146162501652725,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:21Z",
+    "bytes": 1427335,
+    "sha256": "1f95310024a1a5d1239a4a0bab13b664b36fb13e693cfd3919d5ff236791c1da",
+    "local_pdf": "atlas/reextraction/sources/1706.08749v2.pdf",
+    "local_text": "atlas/reextraction/sources/1706.08749v2.txt",
+    "pdf_pages": 41,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.17\nCreationDate:    Sun Oct  1 21:19:16 2017 -03\nModDate:         Sun Oct  1 21:19:16 2017 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           41\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       1427335 bytes\nOptimized:       no\nPDF version:     1.5\n",
+    "text_bytes": 126703
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "modular-a4-flavonfree-seesaw"
+    ],
+    "source_field_ids": [
+      380,
+      381,
+      382,
+      383,
+      384,
+      385,
+      386,
+      387
+    ],
+    "public_entry_ids": [
+      "modular-a4-flavonfree-seesaw"
+    ]
+  },
+  "staged_numerical_candidates": [],
+  "preflight_results": [],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:31Z",
+    "source_access_started_utc": "2026-10-16T18:26:21Z",
+    "source_access_ended_utc": "2026-10-16T18:26:21Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.38146162501652725,
+    "preflight_and_checkpoint_wall_seconds": 0.015527957992162555,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

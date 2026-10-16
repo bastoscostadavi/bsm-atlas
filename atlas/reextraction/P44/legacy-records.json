@@ -1,0 +1,359 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P44",
+  "source_models": [
+    {
+      "model_id": "secluded-dirac-u1-higgsed",
+      "model_revision": 1
+    },
+    {
+      "model_id": "secluded-fermion-scalar-portal",
+      "model_revision": 1
+    },
+    {
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "secluded-dirac-u1-higgsed",
+      "name": "Dirac WIMP with a Higgsed U(1)' kinetic portal",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "secluded-dirac-u1-higgsed"
+      ]
+    },
+    {
+      "entry_id": "secluded-fermion-scalar-portal",
+      "name": "Singlet fermion WIMP with a Higgs-mixed scalar mediator",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "secluded-fermion-scalar-portal"
+      ]
+    },
+    {
+      "entry_id": "secluded-neutrino-portal-z2",
+      "name": "Z2 neutrino portal with an additional fermion and real scalar",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "secluded-neutrino-portal-z2"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 524,
+      "model_id": "secluded-dirac-u1-higgsed",
+      "model_revision": 1,
+      "regime_id": 166,
+      "field_label": "ψ",
+      "field_kind": "Dirac WIMP fermion",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 409,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "model_revision": 1,
+          "regime_id": 166,
+          "field_id": 524,
+          "factor_id": null,
+          "group_id": 120,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 411,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "model_revision": 1,
+          "regime_id": 166,
+          "field_id": 524,
+          "factor_id": null,
+          "group_id": 121,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "1",
+          "source_notation": null,
+          "normalization_note": "Inferred from the common Dμ=∂μ+ie'Vμ convention."
+        }
+      ]
+    },
+    {
+      "field_id": 525,
+      "model_id": "secluded-dirac-u1-higgsed",
+      "model_revision": 1,
+      "regime_id": 166,
+      "field_label": "φ",
+      "field_kind": "charged symmetry-breaking scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "The Higgs' excitation belongs to this scalar sector and is not an additional independent scalar.",
+      "representations": [
+        {
+          "representation_id": 410,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "model_revision": 1,
+          "regime_id": 166,
+          "field_id": 525,
+          "factor_id": null,
+          "group_id": 120,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        },
+        {
+          "representation_id": 412,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "model_revision": 1,
+          "regime_id": 166,
+          "field_id": 525,
+          "factor_id": null,
+          "group_id": 121,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "1",
+          "source_notation": null,
+          "normalization_note": "Inferred from the same displayed derivative as ψ."
+        }
+      ]
+    },
+    {
+      "field_id": 526,
+      "model_id": "secluded-dirac-u1-higgsed",
+      "model_revision": 1,
+      "regime_id": 166,
+      "field_label": "Vμ",
+      "field_kind": "Abelian gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 527,
+      "model_id": "secluded-dirac-u1-higgsed",
+      "model_revision": 1,
+      "regime_id": 166,
+      "field_label": "Bμ",
+      "field_kind": "hypercharge gauge connection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 528,
+      "model_id": "secluded-fermion-scalar-portal",
+      "model_revision": 1,
+      "regime_id": 168,
+      "field_label": "ψ",
+      "field_kind": "singlet WIMP fermion",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No explicit Dirac/Majorana designation is supplied in Section 2.2. Do not impose a Majorana reality condition or a full protective phase symmetry from notation alone.",
+      "representations": [
+        {
+          "representation_id": 413,
+          "model_id": "secluded-fermion-scalar-portal",
+          "model_revision": 1,
+          "regime_id": 168,
+          "field_id": 528,
+          "factor_id": null,
+          "group_id": 122,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 529,
+      "model_id": "secluded-fermion-scalar-portal",
+      "model_revision": 1,
+      "regime_id": 168,
+      "field_label": "φ",
+      "field_kind": "singlet scalar mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": "real scalar as represented by Eq. (16)",
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 414,
+          "model_id": "secluded-fermion-scalar-portal",
+          "model_revision": 1,
+          "regime_id": 168,
+          "field_id": 529,
+          "factor_id": null,
+          "group_id": 122,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 530,
+      "model_id": "secluded-fermion-scalar-portal",
+      "model_revision": 1,
+      "regime_id": 168,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 531,
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1,
+      "regime_id": 169,
+      "field_label": "NR",
+      "field_kind": "neutrino mediator fermion collection",
+      "spin": "1/2",
+      "chirality": "source-labeled right-handed",
+      "multiplicity": "unspecified",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Majorana mass supplied. Spinor contractions are schematic; no additional independent conjugate field is counted.",
+      "representations": [
+        {
+          "representation_id": 415,
+          "model_id": "secluded-neutrino-portal-z2",
+          "model_revision": 1,
+          "regime_id": 169,
+          "field_id": 531,
+          "factor_id": null,
+          "group_id": 123,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Prepared inference from Eq. (19), not an explicit representation table."
+        }
+      ]
+    },
+    {
+      "field_id": 532,
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1,
+      "regime_id": 169,
+      "field_label": "N'",
+      "field_kind": "additional fermion with Majorana-type mass",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Baseline Eq. (19); the proposed complexified alternative is not included.",
+      "representations": [
+        {
+          "representation_id": 416,
+          "model_id": "secluded-neutrino-portal-z2",
+          "model_revision": 1,
+          "regime_id": 169,
+          "field_id": 532,
+          "factor_id": null,
+          "group_id": 123,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Prepared inference from Eq. (19)."
+        }
+      ]
+    },
+    {
+      "field_id": 533,
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1,
+      "regime_id": 169,
+      "field_label": "S",
+      "field_kind": "additional scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "real",
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 417,
+          "model_id": "secluded-neutrino-portal-z2",
+          "model_revision": 1,
+          "regime_id": 169,
+          "field_id": 533,
+          "factor_id": null,
+          "group_id": 123,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Prepared inference from Eq. (19)."
+        }
+      ]
+    },
+    {
+      "field_id": 534,
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1,
+      "regime_id": 169,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 535,
+      "model_id": "secluded-neutrino-portal-z2",
+      "model_revision": 1,
+      "regime_id": 169,
+      "field_label": "L",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    }
+  ]
+}

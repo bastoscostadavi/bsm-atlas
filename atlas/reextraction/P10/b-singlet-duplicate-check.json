@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "26b539cbb1ec0759381a772760e563411d9ccd32ff379b23a5d34c92daea7440",
+  "matches": [
+    {
+      "entry_id": "vlq-b-singlet",
+      "name": "Standard Model with a vector-like B singlet"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

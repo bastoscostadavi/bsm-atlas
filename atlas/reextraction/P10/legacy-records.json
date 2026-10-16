@@ -1,0 +1,454 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P10",
+  "source_models": [
+    {
+      "model_id": "vlq-b-singlet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-by-doublet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-t-singlet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-tb-doublet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-tby-triplet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-xt-doublet",
+      "model_revision": 1
+    },
+    {
+      "model_id": "vlq-xtb-triplet",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "vlq-by-doublet",
+      "name": "Standard Model with a vector-like (B Y) doublet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-by-doublet"
+      ]
+    },
+    {
+      "entry_id": "vlq-tby-triplet",
+      "name": "Standard Model with a vector-like (T B Y) triplet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-tby-triplet"
+      ]
+    },
+    {
+      "entry_id": "vlq-tb-doublet",
+      "name": "Standard Model with a vector-like (T B) doublet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-tb-doublet"
+      ]
+    },
+    {
+      "entry_id": "vlq-xtb-triplet",
+      "name": "Standard Model with a vector-like (X T B) triplet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-xtb-triplet"
+      ]
+    },
+    {
+      "entry_id": "vlq-xt-doublet",
+      "name": "Standard Model with a vector-like (X T) doublet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-xt-doublet"
+      ]
+    },
+    {
+      "entry_id": "vlq-b-singlet",
+      "name": "Standard Model with a vector-like B singlet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-b-singlet"
+      ]
+    },
+    {
+      "entry_id": "vlq-t-singlet",
+      "name": "Standard Model with a vector-like T singlet",
+      "identity_status": "complete_under_stated_conventions",
+      "source_model_ids": [
+        "vlq-t-singlet"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 75,
+      "model_id": "vlq-b-singlet",
+      "model_revision": 1,
+      "regime_id": 23,
+      "field_label": "B^0",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Weak eigenstate; charge -1/3. Physical B follows diagonalisation.",
+      "representations": [
+        {
+          "representation_id": 58,
+          "model_id": "vlq-b-singlet",
+          "model_revision": 1,
+          "regime_id": 23,
+          "field_id": 75,
+          "factor_id": null,
+          "group_id": 18,
+          "representation_label": "(3,1,-1/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared agent inference using Q=T3+Y."
+        }
+      ]
+    },
+    {
+      "field_id": 76,
+      "model_id": "vlq-b-singlet",
+      "model_revision": 1,
+      "regime_id": 23,
+      "field_label": "b^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Inherited third-family participant; chiral components are selected in the interaction records.",
+      "representations": []
+    },
+    {
+      "field_id": 82,
+      "model_id": "vlq-by-doublet",
+      "model_revision": 1,
+      "regime_id": 26,
+      "field_label": "(B^0 Y)",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1 doublet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Component charges (-1/3,-4/3). Y weak and mass eigenstates coincide for the one-multiplet construction.",
+      "representations": [
+        {
+          "representation_id": 61,
+          "model_id": "vlq-by-doublet",
+          "model_revision": 1,
+          "regime_id": 26,
+          "field_id": 82,
+          "factor_id": null,
+          "group_id": 21,
+          "representation_label": "(3,2,-5/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities; hypercharge -5/6 is source-stated."
+        }
+      ]
+    },
+    {
+      "field_id": 83,
+      "model_id": "vlq-by-doublet",
+      "model_revision": 1,
+      "regime_id": 26,
+      "field_label": "b^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 73,
+      "model_id": "vlq-t-singlet",
+      "model_revision": 1,
+      "regime_id": 22,
+      "field_label": "T^0",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Weak eigenstate; charge 2/3. Physical T follows biunitary diagonalisation.",
+      "representations": [
+        {
+          "representation_id": 57,
+          "model_id": "vlq-t-singlet",
+          "model_revision": 1,
+          "regime_id": 22,
+          "field_id": 73,
+          "factor_id": null,
+          "group_id": 17,
+          "representation_label": "(3,1,2/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared agent inference from colour, weak singlet assignment and charge using Q=T3+Y."
+        }
+      ]
+    },
+    {
+      "field_id": 74,
+      "model_id": "vlq-t-singlet",
+      "model_revision": 1,
+      "regime_id": 22,
+      "field_label": "t^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Inherited third-family participant; t_L^0 and t_R^0 are its chiral components. Baseline fields are not exhaustively enumerated.",
+      "representations": []
+    },
+    {
+      "field_id": 79,
+      "model_id": "vlq-tb-doublet",
+      "model_revision": 1,
+      "regime_id": 25,
+      "field_label": "(T^0 B^0)",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1 doublet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Component charges (2/3,-1/3); one common bare mass, not two independent heavy multiplets.",
+      "representations": [
+        {
+          "representation_id": 60,
+          "model_id": "vlq-tb-doublet",
+          "model_revision": 1,
+          "regime_id": 25,
+          "field_id": 79,
+          "factor_id": null,
+          "group_id": 20,
+          "representation_label": "(3,2,1/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared inference from ordered component charges and Q=T3+Y."
+        }
+      ]
+    },
+    {
+      "field_id": 80,
+      "model_id": "vlq-tb-doublet",
+      "model_revision": 1,
+      "regime_id": 25,
+      "field_label": "t^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 81,
+      "model_id": "vlq-tb-doublet",
+      "model_revision": 1,
+      "regime_id": 25,
+      "field_label": "b^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 87,
+      "model_id": "vlq-tby-triplet",
+      "model_revision": 1,
+      "regime_id": 28,
+      "field_label": "(T^0 B^0 Y)",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Spherical basis; component charges (2/3,-1/3,-4/3). Y is unmixed; T and B share M^0.",
+      "representations": [
+        {
+          "representation_id": 63,
+          "model_id": "vlq-tby-triplet",
+          "model_revision": 1,
+          "regime_id": 28,
+          "field_id": 87,
+          "factor_id": null,
+          "group_id": 23,
+          "representation_label": "(3,3,-1/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared inference using ordered triplet T3=(1,0,-1) and Q=T3+Y. No fermion reality condition follows from the weak triplet label."
+        }
+      ]
+    },
+    {
+      "field_id": 88,
+      "model_id": "vlq-tby-triplet",
+      "model_revision": 1,
+      "regime_id": 28,
+      "field_label": "t^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 89,
+      "model_id": "vlq-tby-triplet",
+      "model_revision": 1,
+      "regime_id": 28,
+      "field_label": "b^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 77,
+      "model_id": "vlq-xt-doublet",
+      "model_revision": 1,
+      "regime_id": 24,
+      "field_label": "(X T^0)",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1 doublet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Component charges (5/3,2/3). X weak and mass eigenstates coincide for the one-multiplet construction.",
+      "representations": [
+        {
+          "representation_id": 59,
+          "model_id": "vlq-xt-doublet",
+          "model_revision": 1,
+          "regime_id": 24,
+          "field_id": 77,
+          "factor_id": null,
+          "group_id": 19,
+          "representation_label": "(3,2,7/6)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared inference from ordered component charges and T3=(1/2,-1/2)."
+        }
+      ]
+    },
+    {
+      "field_id": 78,
+      "model_id": "vlq-xt-doublet",
+      "model_revision": 1,
+      "regime_id": 24,
+      "field_label": "t^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Inherited third-family participant.",
+      "representations": []
+    },
+    {
+      "field_id": 84,
+      "model_id": "vlq-xtb-triplet",
+      "model_revision": 1,
+      "regime_id": 27,
+      "field_label": "(X T^0 B^0)",
+      "field_kind": "vector-like quark multiplet",
+      "spin": "1/2",
+      "chirality": "Left and right components with identical gauge assignments",
+      "multiplicity": "1 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Spherical basis; component charges (5/3,2/3,-1/3). X is unmixed; T and B share M^0.",
+      "representations": [
+        {
+          "representation_id": 62,
+          "model_id": "vlq-xtb-triplet",
+          "model_revision": 1,
+          "regime_id": 27,
+          "field_id": 84,
+          "factor_id": null,
+          "group_id": 22,
+          "representation_label": "(3,3,2/3)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": "Both chiralities. Prepared inference using ordered triplet T3=(1,0,-1) and Q=T3+Y. No fermion reality condition follows from the weak triplet label."
+        }
+      ]
+    },
+    {
+      "field_id": 85,
+      "model_id": "vlq-xtb-triplet",
+      "model_revision": 1,
+      "regime_id": 27,
+      "field_label": "t^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 86,
+      "model_id": "vlq-xtb-triplet",
+      "model_revision": 1,
+      "regime_id": 27,
+      "field_label": "b^0",
+      "field_kind": "weak-eigenstate quark",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": []
+    }
+  ]
+}

@@ -1,0 +1,444 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Full classification assumptions/tables, explicit single-zeta and single-W examples, generic scalar/fermion-copy boundary.",
+    "whole_paper_scientifically_read": false,
+    "visually_inspected_pdf_pages": [
+      8
+    ],
+    "text_pages_with_claim_anchors": [
+      6,
+      18,
+      19,
+      27,
+      29
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "scope",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2 assumptions1-4; Tables1-3; AppendixA.2-A.4",
+        "pdf_pages": [
+          6
+        ],
+        "anchor": "general theories with Proca vector"
+      },
+      "value": "Gauge symmetry required only GSM, full RSM included, new fermions vector-like/Majorana. Extra Proca vectors need not be gauge connections of a larger group. Source treats these as EFTs below cutoff, not necessarily complete renormalizable UV theories. Generic tables allow arbitrary copies, not all mediators simultaneously."
+    },
+    {
+      "id": "zeta",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Table1, Section5 scalar-zeta example Eqs.(5.5)-(5.7), AppendixA.7",
+        "pdf_pages": [
+          18
+        ],
+        "anchor": "only one ζ multiplet"
+      },
+      "value": "Explicit single-zeta example adds one complex scalar (3,3,-1/3), colour Dynkin[1,0],weak[2], to RSM. Its ql and qq couplings are interactions of the same multiplet; do not duplicate it or turn QQ contraction into an extra field."
+    },
+    {
+      "id": "triplet",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Table3, Section5 Vector iso-triplet W Eqs.(5.11)-(5.14); A.17",
+        "pdf_pages": [
+          19
+        ],
+        "anchor": "Vector iso-triplet W"
+      },
+      "value": "Displayed single-triplet matching example uses a real massive W=(1,3,0), canonically real prefactor1/2 in Proca kinetic/mass terms. Its charged/neutral components form one real weak triplet, not three copies. Possible extra L1 expressly excluded in this example; no new internal gauge factor is imposed."
+    },
+    {
+      "id": "families",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "AppendixA.2 Eq.(A.5), A.3 Eqs.(A.9)-(A.10)",
+        "pdf_pages": [
+          27,
+          29
+        ],
+        "anchor": "arbitrary number of fields"
+      },
+      "value": "Generic singlet scalar and Majorana-N matching sectors permit arbitrary number of fields. N is one Majorana species per chosen copy, not Dirac by default; no fixed universal multiplicity inferred from table heading. Scalar S interactions with gluons are EFT operators, not evidence for its UV coloured mediators."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_ids": [
+        "real-singlet-linear-portal-gluon-sector",
+        "sm-singlet-neutrino-framework"
+      ],
+      "status": "partial",
+      "value_status": "explicit_symbolic_multiplicity_matching_family",
+      "reason": "Source matching family permits arbitrary copies; no full heavy UV completion selected by Wilson coefficients. Do not automatically link this generic family to the fixed3-N nuMSM."
+    }
+  ],
+  "limitations": [
+    "Ready numerical rows are complete displayed SM-extension EFT field inventories, not claims of unitary UV completion beyond the declared cutoff."
+  ],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P50",
+  "arxiv_version": "1711.10391v2",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P50",
+    "arxiv_version": "1711.10391v2",
+    "started_utc": "2026-10-16T18:26:23Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1711.10391v2",
+        "started_utc": "2026-10-16T18:26:23Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:23Z",
+        "wall_seconds": 0.21702474998892285,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:24Z",
+    "bytes": 1036152,
+    "sha256": "95a881a7dc37a51a52feacf80a0df7a090d48fd2b6530461ff0f04a6489f2bfa",
+    "local_pdf": "atlas/reextraction/sources/1711.10391v2.pdf",
+    "local_text": "atlas/reextraction/sources/1711.10391v2.txt",
+    "pdf_pages": 73,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        medialab\nCreationDate:    Wed Aug  8 21:48:27 2018 -03\nModDate:         Wed Aug  8 21:48:27 2018 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           73\nEncrypted:       no\nPage size:       595.276 x 841.89 pts (A4)\nPage rot:        0\nFile size:       1036152 bytes\nOptimized:       no\nPDF version:     1.4\n",
+    "text_bytes": 303289
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "general-heavy-field-tree-matching",
+      "heavy-weak-triplet-proca-current-sector",
+      "real-singlet-linear-portal-gluon-sector",
+      "scalar-zeta-ql-qq-sector",
+      "sm-singlet-neutrino-framework"
+    ],
+    "source_field_ids": [
+      570,
+      571,
+      572,
+      573,
+      564,
+      565,
+      566,
+      567,
+      568,
+      569,
+      398,
+      399,
+      400
+    ],
+    "public_entry_ids": [
+      "sm-singlet-neutrino-framework",
+      "heavy-weak-triplet-proca-current-sector",
+      "real-singlet-linear-portal-gluon-sector",
+      "scalar-zeta-ql-qq-sector"
+    ]
+  },
+  "staged_numerical_candidates": [
+    "zeta-normalized-candidate.json",
+    "proca-triplet-normalized-candidate.json"
+  ],
+  "preflight_results": [
+    {
+      "stem": "zeta",
+      "fingerprint": "8bc3c66e16d9c3ceff742ad2f97e009935a03e088bbbe8a1633828904970ffdf",
+      "target_existing_entry_id": "scalar-zeta-ql-qq-sector",
+      "duplicate_check": {
+        "status": "no_exact_match_review_required",
+        "fingerprint": "8bc3c66e16d9c3ceff742ad2f97e009935a03e088bbbe8a1633828904970ffdf",
+        "matches": [],
+        "same_algebra_candidates": [
+          {
+            "entry_id": "real-singlet-z2",
+            "name": "Real singlet extension",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "complex-singlet-portal",
+            "name": "Complex singlet extension",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "two-higgs-doublets",
+            "name": "Two-Higgs-doublet model",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "nmssm-matter",
+            "name": "NMSSM",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "mchm-spinorial",
+            "name": "Minimal composite Higgs with spinorial fermion embedding",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "georgi-machacek-general",
+            "name": "Georgi–Machacek model",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "sm-octet-doublet-mfv-triplets",
+            "name": "MFV octet-doublet model with three real weak triplets",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "sm-octet-doublet-mfv",
+            "name": "Standard Model with an MFV color-octet scalar doublet",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vlq-by-doublet",
+            "name": "Standard Model with a vector-like (B Y) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-tby-triplet",
+            "name": "Standard Model with a vector-like (T B Y) triplet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-tb-doublet",
+            "name": "Standard Model with a vector-like (T B) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-xtb-triplet",
+            "name": "Standard Model with a vector-like (X T B) triplet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-xt-doublet",
+            "name": "Standard Model with a vector-like (X T) doublet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-b-singlet",
+            "name": "Standard Model with a vector-like B singlet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "vlq-t-singlet",
+            "name": "Standard Model with a vector-like T singlet",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-u1-effective",
+            "name": "Effective vector U1 with SM-fermion currents",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-u3-effective",
+            "name": "Effective vector U3 leptoquark description",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-ubar1-nur-effective",
+            "name": "Effective vector Ubar1 with right-chiral neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lq-utilde1-effective",
+            "name": "Effective vector Utilde1 leptoquark description",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-r2-general",
+            "name": "SM with a general scalar R2 leptoquark",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lq-rtilde2-nur",
+            "name": "SM with scalar Rtilde2 and three right-chiral neutrinos",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "mdm-majorana-quintuplet",
+            "name": "Minimal dark matter Majorana electroweak quintuplet",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mdm-real-septuplet-displayed",
+            "name": "Minimal dark matter real scalar septuplet, displayed operator specification",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mssm-matter",
+            "name": "MSSM",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "mssm-minimal-gauge-messengers",
+            "name": "Minimal gauge-messenger extension of the MSSM",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "split-susy",
+            "name": "Split Supersymmetry with supersymmetric scalar-threshold matching",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "gem-supersoft-su3cubed-bachelors",
+            "name": "Supersoft GEM with SU(3)^3-inspired bachelor completion",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "gem-supersoft-su5-bachelors",
+            "name": "Supersoft GEM with SU(5)-adjoint bachelor completion",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "dfsz-matter",
+            "name": "DFSZ scalar and fermion field content",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ksvz-representation-framework",
+            "name": "Generalized KSVZ heavy-representation framework",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ksvz-neutral-triplet",
+            "name": "KSVZ axion with one hypercharge-neutral color-triplet pair",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "smash-down",
+            "name": "SMASH with a down-type colored fermion",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "lns-reduced-quarks",
+            "name": "Leurer–Nir–Seiberg reduced one-U-pair, two-D-pair quark construction",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lns-single-singlet-quarks",
+            "name": "Leurer–Nir–Seiberg single-singlet horizontal quark alternative",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "lns-two-singlet-quarks",
+            "name": "Leurer–Nir–Seiberg two-singlet horizontal quark construction",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "sm-singlet-neutrino-framework",
+            "name": "Standard Model with N right-handed singlet neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "numsm",
+            "name": "νMSM: three low-mass right-handed neutrinos",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ma-radiative-seesaw-z2",
+            "name": "Ma radiative seesaw with an exact Z2 and three singlet fermions",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "ued-orbifold-framework",
+            "name": "Universal Standard Model dimensions with the paired-orbifold prescription",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "secluded-fermion-scalar-portal",
+            "name": "Singlet fermion WIMP with a Higgs-mixed scalar mediator",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "secluded-neutrino-portal-z2",
+            "name": "Z2 neutrino portal with an additional fermion and real scalar",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "vector-higgs-portal-z2-eft",
+            "name": "Z2-symmetric massive-vector Higgs portal EFT",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "heavy-weak-triplet-proca-current-sector",
+            "name": "Heavy weak-triplet Proca vector with lepton, quark and Higgs currents",
+            "coverage": "recorded_content"
+          },
+          {
+            "entry_id": "real-singlet-linear-portal-gluon-sector",
+            "name": "Real singlet scalar with displayed Higgs portals and dimension-five gluonic coupling",
+            "coverage": "partial"
+          },
+          {
+            "entry_id": "scalar-zeta-ql-qq-sector",
+            "name": "Scalar ζ weak-triplet leptoquark with leptoquark and diquark couplings",
+            "coverage": "recorded_content"
+          }
+        ],
+        "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "zeta-normalized-candidate.json",
+      "reconciliation_action": "Correct/reuse the known existing target after scientific review; unmatched old incomplete content is not a novelty claim."
+    },
+    {
+      "stem": "proca-triplet",
+      "fingerprint": "d44a155e6525f199329745413b742374fc9ab2c51fc0292c945feff1a73e2175",
+      "target_existing_entry_id": "heavy-weak-triplet-proca-current-sector",
+      "duplicate_check": {
+        "status": "exact_field_content_match",
+        "fingerprint": "d44a155e6525f199329745413b742374fc9ab2c51fc0292c945feff1a73e2175",
+        "matches": [
+          {
+            "entry_id": "heavy-weak-triplet-proca-current-sector",
+            "name": "Heavy weak-triplet Proca vector with lepton, quark and Higgs currents"
+          }
+        ],
+        "same_algebra_candidates": [],
+        "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+        "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+      },
+      "candidate": "proca-triplet-normalized-candidate.json",
+      "reconciliation_action": "Link source to exact-match existing entry; do not add duplicate."
+    }
+  ],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:33Z",
+    "source_access_started_utc": "2026-10-16T18:26:23Z",
+    "source_access_ended_utc": "2026-10-16T18:26:24Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.21702474998892285,
+    "preflight_and_checkpoint_wall_seconds": 0.17967716601560824,
+    "child_user_cpu_seconds": 0.12100100000000014,
+    "child_system_cpu_seconds": 0.029749999999999943,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

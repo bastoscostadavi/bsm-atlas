@@ -1,0 +1,27 @@
+{
+  "paper_id": "P35",
+  "arxiv_version": "1404.7137v1",
+  "started_utc": "2026-10-16T18:26:22Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1404.7137v1",
+      "started_utc": "2026-10-16T18:26:22Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:22Z",
+      "wall_seconds": 0.5403360830096062,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:22Z",
+  "bytes": 858043,
+  "sha256": "df71f9bd86b7c279f7b681cecb3320c2f16a78cf8ef7331bb2c6621e83b19356",
+  "local_pdf": "atlas/reextraction/sources/1404.7137v1.pdf",
+  "local_text": "atlas/reextraction/sources/1404.7137v1.txt",
+  "pdf_pages": 24,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Tue Apr 29 21:18:07 2014 -03\nModDate:         Tue Apr 29 21:18:07 2014 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           24\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       858043 bytes\nOptimized:       no\nPDF version:     1.5\n",
+  "text_bytes": 83065
+}

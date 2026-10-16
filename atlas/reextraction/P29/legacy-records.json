@@ -1,0 +1,439 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P29",
+  "source_models": [
+    {
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1
+    },
+    {
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "af-a4-susy-seesaw",
+      "name": "Four-dimensional supersymmetric A4 lepton model with a triplet seesaw sector",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "af-a4-susy-seesaw"
+      ]
+    },
+    {
+      "entry_id": "af-a4-susy-effective",
+      "name": "Four-dimensional supersymmetric A4 lepton model with effective neutrino operators",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "af-a4-susy-effective"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 360,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "l",
+      "field_kind": "chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet of three lepton doublets",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Superfield interpretation of section 4; neutrinos and charged leptons are components, not additional multiplets.",
+      "representations": [
+        {
+          "representation_id": 282,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 360,
+          "factor_id": 55,
+          "group_id": null,
+          "representation_label": "doublet",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 361,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "(e^c, mu^c, tau^c)",
+      "field_kind": "indexed chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "Three charged-lepton singlets",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent conjugate charged-lepton multiplets, ordered e, mu, tau. Their A4 assignments conflict between the prose/operators and the section 4 table; no unique mu/tau A4 action is canonicalized.",
+      "representations": []
+    },
+    {
+      "field_id": 362,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "h_u",
+      "field_kind": "Higgs chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Its scalar VEV is v_u. No separate scalar or higgsino copy is counted.",
+      "representations": [
+        {
+          "representation_id": 283,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 362,
+          "factor_id": 55,
+          "group_id": null,
+          "representation_label": "doublet",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 363,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "h_d",
+      "field_kind": "Higgs chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent of h_u; its scalar VEV is v_d.",
+      "representations": [
+        {
+          "representation_id": 284,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 363,
+          "factor_id": 55,
+          "group_id": null,
+          "representation_label": "doublet",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 364,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "phiT",
+      "field_kind": "flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Gauge singlet. Triplet representation does not impose a real scalar-component condition.",
+      "representations": [
+        {
+          "representation_id": 285,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 364,
+          "factor_id": null,
+          "group_id": 79,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 365,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "phiS",
+      "field_kind": "flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Gauge singlet, independent of phiT.",
+      "representations": [
+        {
+          "representation_id": 286,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 365,
+          "factor_id": null,
+          "group_id": 79,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 366,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "xi",
+      "field_kind": "flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Gauge and A4 singlet. Scalar VEV u is undetermined at leading supersymmetric order.",
+      "representations": [
+        {
+          "representation_id": 287,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 366,
+          "factor_id": null,
+          "group_id": 79,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 367,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "xi_tilde",
+      "field_kind": "flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent singlet with the same symmetry assignments as xi; chosen as the combination coupling to (phiS0 phiS). A zero leading VEV does not remove this field or its interactions.",
+      "representations": [
+        {
+          "representation_id": 288,
+          "model_id": "af-a4-susy-effective",
+          "model_revision": 1,
+          "regime_id": 113,
+          "field_id": 367,
+          "factor_id": null,
+          "group_id": 79,
+          "representation_label": "trivial",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 368,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "phiT0",
+      "field_kind": "driving chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Superscript zero denotes a driving multiplet, not a neutral component of phiT.",
+      "representations": []
+    },
+    {
+      "field_id": 369,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "phiS0",
+      "field_kind": "driving chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent driving multiplet.",
+      "representations": []
+    },
+    {
+      "field_id": 370,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "xi0",
+      "field_kind": "driving chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "A4-invariant driving multiplet, independent of xi and xi_tilde.",
+      "representations": []
+    },
+    {
+      "field_id": 371,
+      "model_id": "af-a4-susy-effective",
+      "model_revision": 1,
+      "regime_id": 113,
+      "field_label": "theta",
+      "field_kind": "hierarchy flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "U(1)F-breaking field. Its complete auxiliary charge table and radiative stabilization completion are not reconstructed.",
+      "representations": []
+    },
+    {
+      "field_id": 372,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "nu^c",
+      "field_kind": "conjugate-neutrino chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "One A4 triplet",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Three added conjugate right-handed neutrino superfields. A Majorana superpotential interaction does not impose a reality condition on a chiral superfield.",
+      "representations": []
+    },
+    {
+      "field_id": 373,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "l",
+      "field_kind": "inherited chiral superfield collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same three lepton doublets and unchanged actions; local participant record, not added families.",
+      "representations": []
+    },
+    {
+      "field_id": 374,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "h_u",
+      "field_kind": "inherited Higgs chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Unchanged up-Higgs participant; restores the Higgs factor suppressed in equation (45).",
+      "representations": []
+    },
+    {
+      "field_id": 375,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "phiS",
+      "field_kind": "inherited flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same A4 triplet and R charge zero; replaces its Z3 phase by omega².",
+      "representations": []
+    },
+    {
+      "field_id": 376,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "xi",
+      "field_kind": "inherited flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same A4 singlet and R charge zero; replaces its Z3 phase by omega².",
+      "representations": []
+    },
+    {
+      "field_id": 377,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "xi_tilde",
+      "field_kind": "inherited flavon chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same independent A4 singlet and R charge zero; replaces its Z3 phase by omega².",
+      "representations": []
+    },
+    {
+      "field_id": 378,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "phiS0",
+      "field_kind": "inherited driving chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same A4 triplet and R charge two; replaces its Z3 phase by omega².",
+      "representations": []
+    },
+    {
+      "field_id": 379,
+      "model_id": "af-a4-susy-seesaw",
+      "model_revision": 1,
+      "regime_id": 114,
+      "field_label": "xi0",
+      "field_kind": "inherited driving chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "af-a4-susy-effective revision 1",
+      "scope_note": "Same A4 singlet and R charge two; replaces its Z3 phase by omega².",
+      "representations": []
+    }
+  ]
+}

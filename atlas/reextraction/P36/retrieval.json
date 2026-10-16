@@ -1,0 +1,27 @@
+{
+  "paper_id": "P36",
+  "arxiv_version": "hep-ph/0206021v2",
+  "started_utc": "2026-10-16T18:26:22Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/hep-ph/0206021v2",
+      "started_utc": "2026-10-16T18:26:22Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:22Z",
+      "wall_seconds": 0.05059929200797342,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:22Z",
+  "bytes": 160145,
+  "sha256": "a8de4669733031620e8a0283e2abf07d93e12d628c8245380f47cc5833d0e74f",
+  "local_pdf": "atlas/reextraction/sources/hep-ph_0206021v2.pdf",
+  "local_text": "atlas/reextraction/sources/hep-ph_0206021v2.txt",
+  "pdf_pages": 16,
+  "pdfinfo": "Title:           arXiv:hep-ph/0206021v2  17 Jun 2002\nCreator:         dvips(k) 5.86 Copyright 1999 Radical Eye Software\nProducer:        GPL Ghostscript GIT PRERELEASE 9.22\nCreationDate:    Tue Oct 23 03:28:28 2018 -03\nModDate:         Tue Oct 23 03:28:28 2018 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           16\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       160145 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 51977
+}

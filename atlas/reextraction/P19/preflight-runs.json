@@ -1,0 +1,47 @@
+[
+  {
+    "checkpoint_utc": "2026-10-16T18:34:03Z",
+    "preflight_and_checkpoint_wall_seconds": 0.015351250011008233,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null
+  },
+  {
+    "checkpoint_utc": "2026-10-16T18:53:16Z",
+    "source_access_started_utc": "2026-10-16T18:26:19Z",
+    "source_access_ended_utc": "2026-10-16T18:26:19Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.190325166011462,
+    "preflight_and_checkpoint_wall_seconds": 0.01627854202524759,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  },
+  {
+    "checkpoint_utc": "2026-10-16T18:56:30Z",
+    "source_access_started_utc": "2026-10-16T18:26:19Z",
+    "source_access_ended_utc": "2026-10-16T18:26:19Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.190325166011462,
+    "preflight_and_checkpoint_wall_seconds": 0.016433791985036805,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+]

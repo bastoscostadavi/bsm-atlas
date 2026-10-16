@@ -1,0 +1,172 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P33",
+  "source_models": [
+    {
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "ma-radiative-seesaw-z2",
+      "name": "Ma radiative seesaw with an exact Z2 and three singlet fermions",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "ma-radiative-seesaw-z2"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 402,
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1,
+      "regime_id": 123,
+      "field_label": "N_i",
+      "field_kind": "neutral singlet fermion collection",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "3; i=1,2,3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent singlet fermions with the displayed Majorana bilinear. No additional independent conjugate fields are counted, and no real-component condition is imposed on the two-component notation.",
+      "representations": [
+        {
+          "representation_id": 316,
+          "model_id": "ma-radiative-seesaw-z2",
+          "model_revision": 1,
+          "regime_id": 123,
+          "field_id": 402,
+          "factor_id": null,
+          "group_id": 88,
+          "representation_label": "(1,0)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 403,
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1,
+      "regime_id": 123,
+      "field_label": "η=(η+,η0)",
+      "field_kind": "scalar doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": null,
+      "scope_note": "Additional doublet. sqrt(2)Reη0 and sqrt(2)Imη0 are real component coordinates, not additional independent doublets.",
+      "representations": [
+        {
+          "representation_id": 317,
+          "model_id": "ma-radiative-seesaw-z2",
+          "model_revision": 1,
+          "regime_id": 123,
+          "field_id": 403,
+          "factor_id": null,
+          "group_id": 88,
+          "representation_label": "(2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 404,
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1,
+      "regime_id": 123,
+      "field_label": "Φ=(φ+,φ0)",
+      "field_kind": "scalar Higgs doublet",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": "complex",
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 318,
+          "model_id": "ma-radiative-seesaw-z2",
+          "model_revision": 1,
+          "regime_id": 123,
+          "field_id": 404,
+          "factor_id": null,
+          "group_id": 88,
+          "representation_label": "(2,1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 405,
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1,
+      "regime_id": 123,
+      "field_label": "L_i=(ν_i,l_i)",
+      "field_kind": "lepton doublet collection",
+      "spin": "1/2",
+      "chirality": "left-handed",
+      "multiplicity": "SM families indexed by i",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 319,
+          "model_id": "ma-radiative-seesaw-z2",
+          "model_revision": 1,
+          "regime_id": 123,
+          "field_id": 405,
+          "factor_id": null,
+          "group_id": 88,
+          "representation_label": "(2,-1/2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 406,
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1,
+      "regime_id": 123,
+      "field_label": "l_i^c",
+      "field_kind": "conjugate charged-lepton singlet collection",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": "SM families indexed by i",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "Retain the source's conjugate-field notation and positive hypercharge; not an additional lepton family.",
+      "representations": [
+        {
+          "representation_id": 320,
+          "model_id": "ma-radiative-seesaw-z2",
+          "model_revision": 1,
+          "regime_id": 123,
+          "field_id": 406,
+          "factor_id": null,
+          "group_id": 88,
+          "representation_label": "(1,1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2306 @@
+{
+  "paper_id": "P11",
+  "arxiv_version": "1603.04993v3",
+  "source_sha256": "176dbe45e2d1064b1c057fb375d01419d5042810f12da203122d060cb2b498cb",
+  "candidates": [
+    {
+      "candidate_stem": "r2",
+      "target_existing_entry_id": "lq-r2-general",
+      "legacy_inventory_reference": [
+        {
+          "field_id": 90,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "R2"
+        },
+        {
+          "field_id": 91,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "uR"
+        },
+        {
+          "field_id": 92,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "LL"
+        },
+        {
+          "field_id": 93,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "eR"
+        },
+        {
+          "field_id": 94,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "QL"
+        },
+        {
+          "field_id": 95,
+          "source_model_id": "lq-r2-general",
+          "source_model_revision": 1,
+          "regime_id": 29,
+          "field_label": "H"
+        }
+      ],
+      "legacy_mapping_note": "These are original source-field IDs in the target model inventory, retained for curation. No unverified one-to-one mapping between legacy aggregate fields and newly expanded rows is asserted.",
+      "fields": [
+        {
+          "source_coordinate_row": {
+            "label": "Q",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/6"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "Q",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    1,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "1"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "u^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-2/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "u^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-4"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "d^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "d^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "2"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "L",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "L",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "e^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "e^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "6"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "H",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "H",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "R2",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "7/6"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "R2",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    1,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "7"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "r2",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "r2",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "r2",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.3 Eqs.(3)-(4)",
+                "pdf_pages": [
+                  10
+                ],
+                "anchor": "Yukawa couplings of R2"
+              },
+              "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        }
+      ]
+    },
+    {
+      "candidate_stem": "rtilde2-nur",
+      "target_existing_entry_id": "lq-rtilde2-nur",
+      "legacy_inventory_reference": [
+        {
+          "field_id": 96,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "Rtilde2"
+        },
+        {
+          "field_id": 97,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "dR"
+        },
+        {
+          "field_id": 98,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "LL"
+        },
+        {
+          "field_id": 99,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "QL"
+        },
+        {
+          "field_id": 100,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "nuR"
+        },
+        {
+          "field_id": 101,
+          "source_model_id": "lq-rtilde2-nur",
+          "source_model_revision": 1,
+          "regime_id": 30,
+          "field_label": "H"
+        }
+      ],
+      "legacy_mapping_note": "These are original source-field IDs in the target model inventory, retained for curation. No unverified one-to-one mapping between legacy aggregate fields and newly expanded rows is asserted.",
+      "fields": [
+        {
+          "source_coordinate_row": {
+            "label": "Q",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/6"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "Q",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    1,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "1"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "u^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-2/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "u^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-4"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "d^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "d^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "2"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "L",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "L",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "e^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "e^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "6"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "H",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "H",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "Rtilde2",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/6"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "Rtilde2",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    1,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "1"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "nu_R",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "1/2"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "nu_R",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "0"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "taxonomy",
+            "rtilde",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "source_charge": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "copies": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ],
+            "conversion": [
+              "taxonomy",
+              "rtilde",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "taxonomy",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.1, Table 1",
+                "pdf_pages": [
+                  6
+                ],
+                "anchor": "List of scalar and vector LQs"
+              },
+              "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+            },
+            {
+              "id": "rtilde",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Section 1.4 Eq.(5)",
+                "pdf_pages": [
+                  10,
+                  12,
+                  23
+                ],
+                "anchor": "three right-chiral neutrinos"
+              },
+              "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        }
+      ]
+    }
+  ],
+  "partial_source_descriptions": [
+    {
+      "target_entry_ids": [
+        "lq-u1-effective",
+        "lq-u3-effective",
+        "lq-utilde1-effective",
+        "lq-ubar1-nur-effective"
+      ],
+      "status": "partial",
+      "value_status": "not_extracted",
+      "reason": "Vector-current taxonomy read, but each full gauge completion and additional matter not re-established; do not declare complete gauge theories from vector tuples."
+    },
+    {
+      "target_entry_ids": [
+        "su5-georgi-glashow-review",
+        "su5-gg-scalar15",
+        "su5-gg-extra5-two10"
+      ],
+      "status": "partial",
+      "value_status": "source_scoped_GUT_inventory_with_unestablished_scalar_reality",
+      "reason": "Targeted review definition now inspected; scalar24 real-versus-complex condition not established in the displayed review definition. Do not infer field reality solely from real-type adjoint irrep.",
+      "fields": [
+        {
+          "label": "LH fermion10+bar5",
+          "copies": 3,
+          "evidence": [
+            "su5-definitions"
+          ]
+        },
+        {
+          "label": "GG scalar5+24",
+          "copies": "one each",
+          "evidence": [
+            "su5-definitions"
+          ]
+        },
+        {
+          "label": "extra scalar5 and two10",
+          "copies": {
+            "5": 1,
+            "10": 2
+          },
+          "evidence": [
+            "su5-definitions"
+          ]
+        },
+        {
+          "label": "alternative extra scalar15",
+          "copies": 1,
+          "evidence": [
+            "su5-definitions"
+          ]
+        }
+      ]
+    }
+  ],
+  "legacy_source_models": [
+    {
+      "model_id": "lq-r2-general",
+      "model_revision": 1
+    },
+    {
+      "model_id": "lq-rtilde2-nur",
+      "model_revision": 1
+    },
+    {
+      "model_id": "lq-u1-effective",
+      "model_revision": 1
+    },
+    {
+      "model_id": "lq-u3-effective",
+      "model_revision": 1
+    },
+    {
+      "model_id": "lq-ubar1-nur-effective",
+      "model_revision": 1
+    },
+    {
+      "model_id": "lq-utilde1-effective",
+      "model_revision": 1
+    },
+    {
+      "model_id": "su5-georgi-glashow-review",
+      "model_revision": 1
+    },
+    {
+      "model_id": "su5-gg-extra5-two10",
+      "model_revision": 1
+    },
+    {
+      "model_id": "su5-gg-scalar15",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

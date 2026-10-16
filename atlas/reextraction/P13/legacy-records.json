@@ -1,0 +1,696 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P13",
+  "source_models": [
+    {
+      "model_id": "abelian-stueckelberg-sector",
+      "model_revision": 1
+    },
+    {
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-chi-minimal16-charge",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-two-singlet-flat-sector",
+      "model_revision": 1
+    },
+    {
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1
+    },
+    {
+      "model_id": "umssm-single-s-higgs-sector",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "e6-full27-charge-template",
+      "name": "E6-inspired full-27 fermion-charge template",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "e6-full27-charge-template"
+      ]
+    },
+    {
+      "entry_id": "u1-ybl-charge-family",
+      "name": "Family-universal QYBL fermion-charge template",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-ybl-charge-family"
+      ]
+    },
+    {
+      "entry_id": "umssm-single-s-higgs-sector",
+      "name": "Single-S supersymmetric U(1)′ Higgs sector",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "umssm-single-s-higgs-sector"
+      ]
+    },
+    {
+      "entry_id": "u1-chi-minimal16-charge",
+      "name": "χ fermion-charge template with the optional 10+1 omitted",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "u1-chi-minimal16-charge"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 153,
+      "model_id": "abelian-stueckelberg-sector",
+      "model_revision": 1,
+      "regime_id": 46,
+      "field_label": "Cμ",
+      "field_kind": "Abelian gauge connection",
+      "spin": "1",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": []
+    },
+    {
+      "field_id": 154,
+      "model_id": "abelian-stueckelberg-sector",
+      "model_revision": 1,
+      "regime_id": 46,
+      "field_label": "σ",
+      "field_kind": "Stückelberg shifting scalar",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Transforms inhomogeneously. It is not a Higgs field with an assumed VEV or an independently surviving physical Higgs boson.",
+      "representations": []
+    },
+    {
+      "field_id": 139,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "(Q,uc,e+) in 10⊂16",
+      "field_kind": "charge-equivalent fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "The SU(5) label organizes Qχ and Qψ; the collection contains distinct SM multiplets. Y acts componentwise.",
+      "representations": [
+        {
+          "representation_id": 91,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 139,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-cos(θE6)/(2 sqrt(10))+sin(θE6)/(2 sqrt(6))−εY",
+          "source_notation": null,
+          "normalization_note": "Direct-sum action on the listed SM multiplets; Y acts componentwise. Combining assertions 444, 446 and 468 is an algebraic rendering."
+        }
+      ]
+    },
+    {
+      "field_id": 140,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "(dc,L) in 5*⊂16",
+      "field_kind": "charge-equivalent fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "L=(ν,e−); Y acts separately on dc and L. No gauged SU(5) is assumed.",
+      "representations": [
+        {
+          "representation_id": 92,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 140,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "3cos(θE6)/(2 sqrt(10))+sin(θE6)/(2 sqrt(6))−εY",
+          "source_notation": null,
+          "normalization_note": "Y acts componentwise; combining the two tabulated charges with Eq. (47)."
+        }
+      ]
+    },
+    {
+      "field_id": 141,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "νc⊂16",
+      "field_kind": "SM-singlet fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No neutrino mass mechanism is selected.",
+      "representations": [
+        {
+          "representation_id": 93,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 141,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-5cos(θE6)/(2 sqrt(10))+sin(θE6)/(2 sqrt(6))",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 142,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "(D,Hu) in 5⊂10",
+      "field_kind": "charge-equivalent exotic fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "D is a color-triplet SU(2) singlet with electric charge −1/3; Hu is a color-singlet doublet with Y=+1/2. These are Table II fermions, not an added scalar Higgs pair.",
+      "representations": [
+        {
+          "representation_id": 94,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 142,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "cos(θE6)/sqrt(10)−sin(θE6)/sqrt(6)−εY",
+          "source_notation": null,
+          "normalization_note": "Y acts separately on D and Hu; no single common hypercharge is assigned to the collection."
+        }
+      ]
+    },
+    {
+      "field_id": 143,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "(Dc,Hd) in 5*⊂10",
+      "field_kind": "charge-equivalent exotic fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Dc has conjugate SM quantum numbers to D; Hd is a color-singlet doublet with Y=−1/2. Y acts componentwise.",
+      "representations": [
+        {
+          "representation_id": 95,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 143,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-cos(θE6)/sqrt(10)−sin(θE6)/sqrt(6)−εY",
+          "source_notation": null,
+          "normalization_note": "Y acts separately on Dc and Hd."
+        }
+      ]
+    },
+    {
+      "field_id": 144,
+      "model_id": "e6-full27-charge-template",
+      "model_revision": 1,
+      "regime_id": 42,
+      "field_label": "S⊂1",
+      "field_kind": "SM-singlet fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Table II fermion inventory. No scalar expectation value is attached to this fermion record.",
+      "representations": [
+        {
+          "representation_id": 96,
+          "model_id": "e6-full27-charge-template",
+          "model_revision": 1,
+          "regime_id": 42,
+          "field_id": 144,
+          "factor_id": 33,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "2sin(θE6)/sqrt(6)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 145,
+      "model_id": "u1-chi-minimal16-charge",
+      "model_revision": 1,
+      "regime_id": 43,
+      "field_label": "(Q,uc,e+) in 10⊂16",
+      "field_kind": "charge-equivalent fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Ordinary SM fermion multiplets grouped by their common χ charge; not a gauged SU(5) representation.",
+      "representations": [
+        {
+          "representation_id": 97,
+          "model_id": "u1-chi-minimal16-charge",
+          "model_revision": 1,
+          "regime_id": 43,
+          "field_id": 145,
+          "factor_id": 34,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-1/(2 sqrt(10))",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 146,
+      "model_id": "u1-chi-minimal16-charge",
+      "model_revision": 1,
+      "regime_id": 43,
+      "field_label": "(dc,L) in 5*⊂16",
+      "field_kind": "charge-equivalent fermion collection",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 98,
+          "model_id": "u1-chi-minimal16-charge",
+          "model_revision": 1,
+          "regime_id": 43,
+          "field_id": 146,
+          "factor_id": 34,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "3/(2 sqrt(10))",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 147,
+      "model_id": "u1-chi-minimal16-charge",
+      "model_revision": 1,
+      "regime_id": 43,
+      "field_label": "νc⊂16",
+      "field_kind": "SM-singlet fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No scalar partner or neutrino mass mechanism selected.",
+      "representations": [
+        {
+          "representation_id": 99,
+          "model_id": "u1-chi-minimal16-charge",
+          "model_revision": 1,
+          "regime_id": 43,
+          "field_id": 147,
+          "factor_id": 34,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-5/(2 sqrt(10))",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 151,
+      "model_id": "u1-two-singlet-flat-sector",
+      "model_revision": 1,
+      "regime_id": 45,
+      "field_label": "S1",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "SM-singlet sector coordinate; S1 in V denotes its complex scalar component.",
+      "representations": [
+        {
+          "representation_id": 103,
+          "model_id": "u1-two-singlet-flat-sector",
+          "model_revision": 1,
+          "regime_id": 45,
+          "field_id": 151,
+          "factor_id": 36,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "QS1",
+          "source_notation": null,
+          "normalization_note": "QS1 QS2<0."
+        }
+      ]
+    },
+    {
+      "field_id": 152,
+      "model_id": "u1-two-singlet-flat-sector",
+      "model_revision": 1,
+      "regime_id": 45,
+      "field_label": "S2",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "S2 in V denotes its complex scalar component; its charge has the opposite sign to QS1.",
+      "representations": [
+        {
+          "representation_id": 104,
+          "model_id": "u1-two-singlet-flat-sector",
+          "model_revision": 1,
+          "regime_id": 45,
+          "field_id": 152,
+          "factor_id": 36,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "QS2",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 133,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "Q",
+      "field_kind": "quark doublet",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 85,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 133,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z+1)/6",
+          "source_notation": null,
+          "normalization_note": "Table I rendered using assertion 464; at z=0 this is b/6 as in assertion 442."
+        }
+      ]
+    },
+    {
+      "field_id": 134,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "ucL",
+      "field_kind": "conjugate up-quark fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 86,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 134,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(-2z/3-1/6)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 135,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "dcL",
+      "field_kind": "conjugate down-quark fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 87,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 135,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z/3-1/6)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 136,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "LL",
+      "field_kind": "lepton doublet",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 88,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 136,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "-b(z+1)/2",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 137,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "e+L",
+      "field_kind": "conjugate charged-lepton fermion",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3 families",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 89,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 137,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b(z+1/2)",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 138,
+      "model_id": "u1-ybl-charge-family",
+      "model_revision": 1,
+      "regime_id": 41,
+      "field_label": "νcL",
+      "field_kind": "conjugate right-handed neutrino",
+      "spin": null,
+      "chirality": "left",
+      "multiplicity": "3",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No Majorana or Dirac mass assignment is selected.",
+      "representations": [
+        {
+          "representation_id": 90,
+          "model_id": "u1-ybl-charge-family",
+          "model_revision": 1,
+          "regime_id": 41,
+          "field_id": 138,
+          "factor_id": 32,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "b/2",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 148,
+      "model_id": "umssm-single-s-higgs-sector",
+      "model_revision": 1,
+      "regime_id": 44,
+      "field_label": "S",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Standard Model singlet with QS≠0. The same symbol in V denotes its complex scalar component, not an additional multiplet.",
+      "representations": [
+        {
+          "representation_id": 100,
+          "model_id": "umssm-single-s-higgs-sector",
+          "model_revision": 1,
+          "regime_id": 44,
+          "field_id": 148,
+          "factor_id": 35,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "QS",
+          "source_notation": null,
+          "normalization_note": "QS≠0; QS+Qu+Qd=0."
+        }
+      ]
+    },
+    {
+      "field_id": 149,
+      "model_id": "umssm-single-s-higgs-sector",
+      "model_revision": 1,
+      "regime_id": 44,
+      "field_label": "Hu",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs sector",
+      "scope_note": "Hu=(Hu+,Hu0), Y=+1/2. Hu0 in the potential is the scalar component.",
+      "representations": [
+        {
+          "representation_id": 101,
+          "model_id": "umssm-single-s-higgs-sector",
+          "model_revision": 1,
+          "regime_id": 44,
+          "field_id": 149,
+          "factor_id": 35,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "Qu",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 150,
+      "model_id": "umssm-single-s-higgs-sector",
+      "model_revision": 1,
+      "regime_id": 44,
+      "field_label": "Hd",
+      "field_kind": "chiral superfield",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": "1",
+      "field_reality_condition": null,
+      "inherited_baseline_label": "MSSM Higgs sector",
+      "scope_note": "Hd=(Hd0,Hd−), Y=−1/2. Hd0 in the potential is the scalar component.",
+      "representations": [
+        {
+          "representation_id": 102,
+          "model_id": "umssm-single-s-higgs-sector",
+          "model_revision": 1,
+          "regime_id": 44,
+          "field_id": 150,
+          "factor_id": 35,
+          "group_id": null,
+          "representation_label": null,
+          "representation_reality": null,
+          "exact_charge": "Qd",
+          "source_notation": null,
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

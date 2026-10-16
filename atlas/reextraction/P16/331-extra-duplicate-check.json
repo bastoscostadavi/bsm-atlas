@@ -1,0 +1,24 @@
+{
+  "status": "no_exact_match_review_required",
+  "fingerprint": "0302c93b4436401eba3c4013af9537d09599e105ffbe8374fd957226c0d6fa5f",
+  "matches": [],
+  "same_algebra_candidates": [
+    {
+      "entry_id": "pp331-sigma-omega",
+      "name": "Pisano–Pleitez construction with additional sigma and omega triplets",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "pp331-displayed",
+      "name": "Pisano–Pleitez three-triplet SU(3)L × U(1)N construction, displayed v1 specification",
+      "coverage": "partial"
+    },
+    {
+      "entry_id": "holographic-su3-brane-scalar-mediator",
+      "name": "Holographic SU(3)L brane-scalar Higgs with a bulk quartic mediator",
+      "coverage": "partial"
+    }
+  ],
+  "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

@@ -1,0 +1,19 @@
+{
+  "paper_id": "P49",
+  "arxiv_version": "1008.4884v3",
+  "source_sha256": "fb391ef575afab9bd13da5e308256ebb4e03f9115c74d93cd9f87cabd2b0c5f6",
+  "candidates": [],
+  "partial_source_descriptions": [],
+  "legacy_source_models": [
+    {
+      "model_id": "smeft-d6-b-conserving",
+      "model_revision": 1
+    },
+    {
+      "model_id": "smeft-d6-b-violating",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

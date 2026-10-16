@@ -1,0 +1,162 @@
+{
+  "status": "partial_scoped_reextraction_staged",
+  "inspection": {
+    "scope": "Scalar-only definition and explicit D6 and D8 constructions; no claim to a specified complete fermion sector.",
+    "whole_paper_scientifically_read": false,
+    "text_pages_with_claim_anchors": [
+      3,
+      18,
+      20
+    ],
+    "coverage_note": "These are passages and model-definition sections actually inspected, not a claim that every sentence on each page or the entire PDF was read. Field claims are retained separately in field-evidence.json; legacy records remain unchecked reference material."
+  },
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "doublets",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 2.1 Eq.(1)",
+        "pdf_pages": [
+          3
+        ],
+        "anchor": "N complex Higgs doublets"
+      },
+      "value": "Scalar-only NHDM definition: N complex electroweak doublets with Y=1/2; N=3 here. Source explicitly focuses only on the scalar sector, so no complete Yukawa/fermion completion is fixed."
+    },
+    {
+      "id": "D6",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 6.2 Eqs.(22)-(26)",
+        "pdf_pages": [
+          18
+        ],
+        "anchor": "Constructing D6"
+      },
+      "value": "D6=S3 example uses diag(omega,omega^2,1), swaps first two doublets with a phase, and restricts the scalar potential. It has the same three gauge doublets as the D8 example."
+    },
+    {
+      "id": "D8",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 6.3 Eqs.(31)-(33)",
+        "pdf_pages": [
+          20
+        ],
+        "anchor": "Constructing D8"
+      },
+      "value": "D8 example uses diag(i,-i,1) with the same doublet inventory. Discrete family action is not another gauge algebra."
+    }
+  ],
+  "source_descriptions": [
+    {
+      "target_entry_id": "three-higgs-doublets",
+      "status": "partial",
+      "value_status": "not_specified_by_source_in_scalar_only_scope",
+      "fields": [
+        {
+          "label": "phi_a",
+          "copies": 3,
+          "lorentz": "(0,0)",
+          "reality": "complex",
+          "gauge_irrep": {
+            "A1": [
+              1
+            ]
+          },
+          "source_Y": "1/2",
+          "evidence": [
+            "doublets"
+          ]
+        }
+      ],
+      "missing": [
+        "fermion/Yukawa completion not specified in classification scope"
+      ],
+      "source_variants": [
+        "D6",
+        "D8"
+      ]
+    }
+  ],
+  "limitations": [],
+  "value_status_policy": {
+    "not_extracted": "unfinished work, never source omission",
+    "not_specified_by_source": "only within identified inspected source scope",
+    "symbolic_family": "explicit source parameter, not unknown"
+  },
+  "reconciliation_policy": "Reuse/correct the known source-linked existing entry after review; no unmatched fingerprint is a novelty claim.",
+  "paper_id": "P08",
+  "arxiv_version": "1210.6553v2",
+  "run_id": "2026-10-16-full-corpus-1",
+  "source": {
+    "paper_id": "P08",
+    "arxiv_version": "1210.6553v2",
+    "started_utc": "2026-10-16T18:26:17Z",
+    "attempts": [
+      {
+        "url": "https://arxiv.org/pdf/1210.6553v2",
+        "started_utc": "2026-10-16T18:26:17Z",
+        "method": "bounded_public_curl",
+        "ended_utc": "2026-10-16T18:26:18Z",
+        "wall_seconds": 0.7360612080083229,
+        "returncode": 0,
+        "error": null
+      }
+    ],
+    "text_conversion_stderr": "Internal Error: xref num 472 not found but needed, try to reconstruct\n",
+    "text_conversion_returncode": 0,
+    "status": "source_available_not_yet_reextracted",
+    "ended_utc": "2026-10-16T18:26:18Z",
+    "bytes": 573584,
+    "sha256": "67f40c63984bfbe727ae3b907eb0df24a84924aa9d240b46784f61518fc3d086",
+    "local_pdf": "atlas/reextraction/sources/1210.6553v2.pdf",
+    "local_text": "atlas/reextraction/sources/1210.6553v2.txt",
+    "pdf_pages": 41,
+    "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        pdfTeX-1.40.12\nCreationDate:    Wed Nov 27 05:43:53 2024 -03\nModDate:         Wed Nov 27 05:43:53 2024 -03\nCustom Metadata: yes\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           41\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       573584 bytes\nOptimized:       no\nPDF version:     1.5\n",
+    "text_bytes": 137001
+  },
+  "legacy_targets": {
+    "source_model_ids": [
+      "threedm-d6",
+      "threedm-d8"
+    ],
+    "source_field_ids": [
+      63,
+      64
+    ],
+    "public_entry_ids": [
+      "three-higgs-doublets"
+    ]
+  },
+  "staged_numerical_candidates": [],
+  "preflight_results": [],
+  "database_write_performed": false,
+  "independent_review_performed": false,
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T18:56:28Z",
+    "source_access_started_utc": "2026-10-16T18:26:17Z",
+    "source_access_ended_utc": "2026-10-16T18:26:18Z",
+    "scientific_read_started_observed_utc": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_command_wall_seconds": 0.7360612080083229,
+    "preflight_and_checkpoint_wall_seconds": 0.015979541989509016,
+    "child_user_cpu_seconds": 0.0,
+    "child_system_cpu_seconds": 0.0,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "note": "Access window and checkpoint timestamps are observations, not model compute; separate active scientific reading time is not instrumented."
+  }
+}

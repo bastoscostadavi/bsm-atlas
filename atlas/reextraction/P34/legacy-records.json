@@ -1,0 +1,436 @@
+{
+  "review_status": "legacy_unchecked_not_freshly_verified",
+  "paper_id": "P34",
+  "source_models": [
+    {
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1
+    },
+    {
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1
+    },
+    {
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1
+    }
+  ],
+  "public_entries": [
+    {
+      "entry_id": "weinberg-t1i-first-row",
+      "name": "T1-i first-row electroweak mediator template",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "weinberg-t1i-first-row"
+      ]
+    },
+    {
+      "entry_id": "weinberg-t41i-doublet-fermions",
+      "name": "T4-1-i doublet-fermion correction to the type-II seesaw",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "weinberg-t41i-doublet-fermions"
+      ]
+    },
+    {
+      "entry_id": "weinberg-t41ii-first-row",
+      "name": "T4-1-ii first-row scalar-loop type-II extension template",
+      "identity_status": "unresolved",
+      "source_model_ids": [
+        "weinberg-t41ii-first-row"
+      ]
+    }
+  ],
+  "source_fields": [
+    {
+      "field_id": 407,
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1,
+      "regime_id": 126,
+      "field_label": "ϕ",
+      "field_kind": "scalar mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Table 2 first-row label; reality and generation multiplicity unselected.",
+      "representations": [
+        {
+          "representation_id": 321,
+          "model_id": "weinberg-t1i-first-row",
+          "model_revision": 1,
+          "regime_id": 126,
+          "field_id": 407,
+          "factor_id": null,
+          "group_id": 89,
+          "representation_label": "(1,α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "1^S_α",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 408,
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1,
+      "regime_id": 126,
+      "field_label": "φ′",
+      "field_kind": "scalar mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Separate table label; no special-alpha identification with another field is imposed.",
+      "representations": [
+        {
+          "representation_id": 322,
+          "model_id": "weinberg-t1i-first-row",
+          "model_revision": 1,
+          "regime_id": 126,
+          "field_id": 408,
+          "factor_id": null,
+          "group_id": 89,
+          "representation_label": "(2,α−1)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "2^S_{α−1}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 409,
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1,
+      "regime_id": 126,
+      "field_label": "ψ",
+      "field_kind": "fermion mediator",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "No Majorana condition or generation count is inferred from this generic representation row.",
+      "representations": [
+        {
+          "representation_id": 323,
+          "model_id": "weinberg-t1i-first-row",
+          "model_revision": 1,
+          "regime_id": 126,
+          "field_id": 409,
+          "factor_id": null,
+          "group_id": 89,
+          "representation_label": "(1,α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "1^F_α",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 410,
+      "model_id": "weinberg-t1i-first-row",
+      "model_revision": 1,
+      "regime_id": 126,
+      "field_label": "φ",
+      "field_kind": "scalar mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Higgs-like quantum numbers at a selected alpha would not establish a VEV.",
+      "representations": [
+        {
+          "representation_id": 324,
+          "model_id": "weinberg-t1i-first-row",
+          "model_revision": 1,
+          "regime_id": 126,
+          "field_id": 410,
+          "factor_id": null,
+          "group_id": 89,
+          "representation_label": "(2,1+α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "2^S_{1+α}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 415,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "Δ",
+      "field_kind": "scalar triplet mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Delta0 in Eq. (3) is a component; it is not an additional multiplet.",
+      "representations": [
+        {
+          "representation_id": 329,
+          "model_id": "weinberg-t41i-doublet-fermions",
+          "model_revision": 1,
+          "regime_id": 128,
+          "field_id": 415,
+          "factor_id": null,
+          "group_id": 91,
+          "representation_label": "(3,−2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "3^S_{−2}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 416,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "ψ′",
+      "field_kind": "fermion doublet mediator",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Four-component notation and displayed mass term retained; exact flavor multiplicity unselected.",
+      "representations": [
+        {
+          "representation_id": 330,
+          "model_id": "weinberg-t41i-doublet-fermions",
+          "model_revision": 1,
+          "regime_id": 128,
+          "field_id": 416,
+          "factor_id": null,
+          "group_id": 91,
+          "representation_label": "(2,α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "2^F_α",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 417,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "ψ",
+      "field_kind": "fermion doublet mediator",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": "Independent table label, distinct from ψ′.",
+      "representations": [
+        {
+          "representation_id": 331,
+          "model_id": "weinberg-t41i-doublet-fermions",
+          "model_revision": 1,
+          "regime_id": 128,
+          "field_id": 417,
+          "factor_id": null,
+          "group_id": 91,
+          "representation_label": "(2,2+α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "2^F_{2+α}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 418,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "Ψ",
+      "field_kind": "fermion singlet mediator",
+      "spin": "1/2",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 332,
+          "model_id": "weinberg-t41i-doublet-fermions",
+          "model_revision": 1,
+          "regime_id": 128,
+          "field_id": 418,
+          "factor_id": null,
+          "group_id": 91,
+          "representation_label": "(1,1+α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "1^F_{1+α}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 419,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "L",
+      "field_kind": "lepton doublet collection",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "νL in Eq. (3) is the neutrino component. Flavor structure is not reconstructed.",
+      "representations": []
+    },
+    {
+      "field_id": 420,
+      "model_id": "weinberg-t41i-doublet-fermions",
+      "model_revision": 1,
+      "regime_id": 128,
+      "field_label": "H",
+      "field_kind": "Higgs scalar doublet",
+      "spin": null,
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": "Standard Model",
+      "scope_note": "H0 in Eq. (3) is a component of the inherited doublet.",
+      "representations": []
+    },
+    {
+      "field_id": 411,
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1,
+      "regime_id": 127,
+      "field_label": "Δ",
+      "field_kind": "scalar triplet mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 325,
+          "model_id": "weinberg-t41ii-first-row",
+          "model_revision": 1,
+          "regime_id": 127,
+          "field_id": 411,
+          "factor_id": null,
+          "group_id": 90,
+          "representation_label": "(3,−2)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "3^S_{−2}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 412,
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1,
+      "regime_id": 127,
+      "field_label": "φ",
+      "field_kind": "scalar loop mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 326,
+          "model_id": "weinberg-t41ii-first-row",
+          "model_revision": 1,
+          "regime_id": 127,
+          "field_id": 412,
+          "factor_id": null,
+          "group_id": 90,
+          "representation_label": "(1,α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "1^S_α",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 413,
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1,
+      "regime_id": 127,
+      "field_label": "φ′",
+      "field_kind": "scalar loop mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 327,
+          "model_id": "weinberg-t41ii-first-row",
+          "model_revision": 1,
+          "regime_id": 127,
+          "field_id": 413,
+          "factor_id": null,
+          "group_id": 90,
+          "representation_label": "(3,2+α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "3^S_{2+α}",
+          "normalization_note": null
+        }
+      ]
+    },
+    {
+      "field_id": 414,
+      "model_id": "weinberg-t41ii-first-row",
+      "model_revision": 1,
+      "regime_id": 127,
+      "field_label": "Φ",
+      "field_kind": "scalar loop mediator",
+      "spin": "0",
+      "chirality": null,
+      "multiplicity": null,
+      "field_reality_condition": null,
+      "inherited_baseline_label": null,
+      "scope_note": null,
+      "representations": [
+        {
+          "representation_id": 328,
+          "model_id": "weinberg-t41ii-first-row",
+          "model_revision": 1,
+          "regime_id": 127,
+          "field_id": 414,
+          "factor_id": null,
+          "group_id": 90,
+          "representation_label": "(2,1+α)",
+          "representation_reality": null,
+          "exact_charge": null,
+          "source_notation": "2^S_{1+α}",
+          "normalization_note": null
+        }
+      ]
+    }
+  ]
+}

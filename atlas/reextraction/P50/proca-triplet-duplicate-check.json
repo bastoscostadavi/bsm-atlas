@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "d44a155e6525f199329745413b742374fc9ab2c51fc0292c945feff1a73e2175",
+  "matches": [
+    {
+      "entry_id": "heavy-weak-triplet-proca-current-sector",
+      "name": "Heavy weak-triplet Proca vector with lepton, quark and Higgs currents"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

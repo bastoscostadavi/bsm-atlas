@@ -1,0 +1,1020 @@
+{
+  "paper_id": "P33",
+  "arxiv_version": "hep-ph/0601225v1",
+  "source_sha256": "3505cd2e66f6358c256a039128b4845400d90e17f53a5b473646cf1ca321fe82",
+  "candidates": [
+    {
+      "candidate_stem": "ma",
+      "target_existing_entry_id": "ma-radiative-seesaw-z2",
+      "legacy_inventory_reference": [
+        {
+          "field_id": 402,
+          "source_model_id": "ma-radiative-seesaw-z2",
+          "source_model_revision": 1,
+          "regime_id": 123,
+          "field_label": "N_i"
+        },
+        {
+          "field_id": 403,
+          "source_model_id": "ma-radiative-seesaw-z2",
+          "source_model_revision": 1,
+          "regime_id": 123,
+          "field_label": "η=(η+,η0)"
+        },
+        {
+          "field_id": 404,
+          "source_model_id": "ma-radiative-seesaw-z2",
+          "source_model_revision": 1,
+          "regime_id": 123,
+          "field_label": "Φ=(φ+,φ0)"
+        },
+        {
+          "field_id": 405,
+          "source_model_id": "ma-radiative-seesaw-z2",
+          "source_model_revision": 1,
+          "regime_id": 123,
+          "field_label": "L_i=(ν_i,l_i)"
+        },
+        {
+          "field_id": 406,
+          "source_model_id": "ma-radiative-seesaw-z2",
+          "source_model_revision": 1,
+          "regime_id": 123,
+          "field_label": "l_i^c"
+        }
+      ],
+      "legacy_mapping_note": "These are original source-field IDs in the target model inventory, retained for curation. No unverified one-to-one mapping between legacy aggregate fields and newly expanded rows is asserted.",
+      "fields": [
+        {
+          "source_coordinate_row": {
+            "label": "Q",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/6"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "Q",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    1,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "1"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "u^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-2/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "u^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-4"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "d^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/3"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "d^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    1
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "2"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "L",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "L",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "-3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "e^c",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "e^c",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "6"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "H",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "H",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "eta",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1/2"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "eta",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "0",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "complex",
+              "copies": 1,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    1
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "3"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        },
+        {
+          "source_coordinate_row": {
+            "label": "N",
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          "normalized_rows": [
+            {
+              "label": "N",
+              "lorentz": {
+                "dimension": 4,
+                "scheme": "jL_jR",
+                "irreps": [
+                  [
+                    "1/2",
+                    "0"
+                  ]
+                ]
+              },
+              "reality": "none",
+              "copies": 3,
+              "gauge_representations": {
+                "colour": {
+                  "dynkin": [
+                    0,
+                    0
+                  ]
+                },
+                "weak": {
+                  "dynkin": [
+                    0
+                  ]
+                },
+                "hypercharge": {
+                  "charge": "0"
+                }
+              }
+            }
+          ],
+          "claim_ids": [
+            "ma",
+            "baseline"
+          ],
+          "attribute_evidence_claim_ids": {
+            "gauge_algebra": [
+              "ma",
+              "baseline"
+            ],
+            "nonabelian_irreps": [
+              "ma",
+              "baseline"
+            ],
+            "source_charge": [
+              "ma",
+              "baseline"
+            ],
+            "copies": [
+              "ma",
+              "baseline"
+            ],
+            "lorentz_and_reality": [
+              "ma",
+              "baseline"
+            ],
+            "conversion": [
+              "ma",
+              "baseline"
+            ]
+          },
+          "claims": [
+            {
+              "id": "ma",
+              "basis": "source_statement",
+              "locator": {
+                "section_equations": "Eqs.(3)-(6) and three-N mass-eigenstate discussion",
+                "pdf_pages": [
+                  2
+                ],
+                "anchor": "the particle content is given"
+              },
+              "value": "SM plus complex scalar eta=(1,2,1/2) and three singlet Majorana N_i, odd under exact Z2. Eta replaces neither the SM Higgs nor lepton doublets. Re/Im eta mass eigenstates are components of one complex doublet, not extra multiplets. Bosonic/fermionic dark-matter choices share matter content."
+            },
+            {
+              "id": "baseline",
+              "basis": "declared_atlas_baseline",
+              "locator": {
+                "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+                "section": "explicit F_SM/R_SM/R_MSSM templates"
+              },
+              "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+            }
+          ],
+          "derivation": "Exact highest weights use dynkin-gauge-1. prepare_entry expands identified 4D Dirac/RH fermions into LH conjugates of every factor, and applies one primitive positive charge unit over the entire inventory. Retain source-coordinate row above; scalar-realification equivalence is NOT implemented."
+        }
+      ]
+    }
+  ],
+  "partial_source_descriptions": [],
+  "legacy_source_models": [
+    {
+      "model_id": "ma-radiative-seesaw-z2",
+      "model_revision": 1
+    }
+  ],
+  "legacy_records_file": "legacy-records.json",
+  "independent_review_performed": false
+}

@@ -33,7 +33,7 @@ class Identity(unittest.TestCase):
     def test_lr_charge_unit_uses_all_fields(self):
         a={'schema_version':'field-content-1','inventory_complete':True,'gauge_factors':[{'id':'bl','family':'U1','rank':1}],'matter':[]}
         for label,q in [('quark','1/3'),('lepton','-1'),('triplet','2')]:
-            a['matter'].append({'label':label,'lorentz':{'dimension':4,'scheme':'jL_jR','irreps':[['0','0']]},'reality':'complex','copies':1,'gauge_representations':{'bl':{'charge':q}}})
+            a['matter'].append({'label':label,'lorentz':{'dimension':4,'scheme':'jL_jR','irreps':[['0','0']] if label=='triplet' else [['1/2','0']]},'reality':'complex' if label=='triplet' else 'none','copies':1,'gauge_representations':{'bl':{'charge':q}}})
         result=prepare(a)
         self.assertEqual([f['gauge_representations']['bl']['charge'] for f in result['normalized_entry']['matter']],['1','-3','6'])
         self.assertEqual(result['transformations'][0]['positive_source_scale'],'3')

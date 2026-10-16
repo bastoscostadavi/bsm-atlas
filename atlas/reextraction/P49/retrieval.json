@@ -1,0 +1,27 @@
+{
+  "paper_id": "P49",
+  "arxiv_version": "1008.4884v3",
+  "started_utc": "2026-10-16T18:26:23Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/1008.4884v3",
+      "started_utc": "2026-10-16T18:26:23Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:24Z",
+      "wall_seconds": 0.5482573749904986,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:24Z",
+  "bytes": 270411,
+  "sha256": "fb391ef575afab9bd13da5e308256ebb4e03f9115c74d93cd9f87cabd2b0c5f6",
+  "local_pdf": "atlas/reextraction/sources/1008.4884v3.pdf",
+  "local_text": "atlas/reextraction/sources/1008.4884v3.txt",
+  "pdf_pages": 17,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        dvips + GPL Ghostscript GIT PRERELEASE 9.08\nCreationDate:    Mon Jan 16 23:32:07 2017 -02\nModDate:         Mon Jan 16 23:32:07 2017 -02\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           17\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       270411 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 64565
+}

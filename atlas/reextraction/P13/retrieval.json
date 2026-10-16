@@ -1,0 +1,27 @@
+{
+  "paper_id": "P13",
+  "arxiv_version": "0801.1345v3",
+  "started_utc": "2026-10-16T18:26:18Z",
+  "attempts": [
+    {
+      "url": "https://arxiv.org/pdf/0801.1345v3",
+      "started_utc": "2026-10-16T18:26:18Z",
+      "method": "bounded_public_curl",
+      "ended_utc": "2026-10-16T18:26:18Z",
+      "wall_seconds": 0.20478366702445783,
+      "returncode": 0,
+      "error": null
+    }
+  ],
+  "text_conversion_stderr": "",
+  "text_conversion_returncode": 0,
+  "status": "source_available_not_yet_reextracted",
+  "ended_utc": "2026-10-16T18:26:18Z",
+  "bytes": 847336,
+  "sha256": "ac4bcc5c973364eb24b73020f7d49cb968db2b61f76e78d2a426efa5752cf005",
+  "local_pdf": "atlas/reextraction/sources/0801.1345v3.pdf",
+  "local_text": "atlas/reextraction/sources/0801.1345v3.txt",
+  "pdf_pages": 31,
+  "pdfinfo": "Title:           \nSubject:         \nKeywords:        \nAuthor:          \nCreator:         LaTeX with hyperref package\nProducer:        GPL Ghostscript 10.01.2\nCreationDate:    Tue Nov 26 18:56:14 2024 -03\nModDate:         Tue Nov 26 18:56:14 2024 -03\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           31\nEncrypted:       no\nPage size:       612 x 792 pts (letter)\nPage rot:        0\nFile size:       847336 bytes\nOptimized:       no\nPDF version:     1.4\n",
+  "text_bytes": 230800
+}
