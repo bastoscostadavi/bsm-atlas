@@ -16,7 +16,7 @@ CONVENTION = {
 
 ALGEBRA_CONVENTION = {
     'id':'semisimple-algebra-1',
-    'projection':'Forget matter in a resolved non-Abelian core; retain the multiset of canonical simple gauge factors',
+    'projection':'Retain the multiset of resolved canonical simple gauge factors independently of matter-inventory completeness; omit every Abelian factor',
     'meaning':'Derived algebra-only grouping, not a global group, quotient, physical theory or additional source inventory',
 }
 
@@ -24,7 +24,11 @@ def algebra_key(core):
     """Key only the canonical semisimple algebra, independently of matter."""
     factors=[{'family':a['family'],'rank':a['rank']} for a in core['gauge_factors']]
     if any(a['family'] not in {'A','B','C','D','E','F','G'} for a in factors):
-        raise IncompleteContent('Algebra-only keys require a resolved non-Abelian core')
+        raise IncompleteContent('Algebra-only keys require fixed canonical simple gauge factors')
+    for a in factors:
+        family,rank=a['family'],a['rank']
+        if type(rank) is not int or not (family=='A' and rank>=1 or family=='B' and rank>=3 or family=='C' and rank>=2 or family=='D' and rank>=4 or family=='E' and rank in {6,7,8} or family=='F' and rank==4 or family=='G' and rank==2):
+            raise IncompleteContent('Unresolved/noncanonical simple Cartan type or rank')
     factors.sort(key=lambda a:(a['family'],-a['rank']))
     canonical={'schema_version':ALGEBRA_CONVENTION['id'],'gauge_factors':factors}
     encoded=json.dumps(canonical,sort_keys=True,separators=(',',':'))

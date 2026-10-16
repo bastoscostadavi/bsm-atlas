@@ -1,0 +1,167 @@
+{
+  "schema_version": "field-content-2",
+  "inventory_complete": true,
+  "paper_ids": [
+    "P18"
+  ],
+  "name": "Renormalizable adjoint SU5",
+  "gauge_factors": [
+    {
+      "id": "unified",
+      "family": "A",
+      "rank": 4
+    }
+  ],
+  "matter": [
+    {
+      "label": "bar5_i",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            0,
+            0,
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "label": "10_i",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            0,
+            1,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "label": "24_F",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            1,
+            0,
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "label": "5H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            1,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "label": "24H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            1,
+            0,
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "label": "45H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "unified": {
+          "dynkin": [
+            1,
+            0,
+            1,
+            0
+          ]
+        }
+      }
+    }
+  ]
+}

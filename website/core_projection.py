@@ -64,20 +64,46 @@ def attach_cores(entries):
     return sorted(cores.values(),key=lambda c:(c['algebra'],min(c['paperIds'] or ['Z']),c['id']))
 
 def attach_algebras(entries,cores):
-    """Layer 1 is derived from layer 2; never maintain another model inventory."""
+    """Key recorded primary algebras even when their matter remains pending.
+
+    An empty factor list is unknown, not the zero semisimple algebra. A fixed
+    purely Abelian algebra, however, does have zero semisimple part. No matter
+    data or fingerprint is required to establish an algebra-only membership.
+    """
     algebras={}
     core_by_id={c['id']:c for c in cores}
-    for core in cores:
-        projected=algebra_key(core['canonical'])
-        core['semisimpleId']=projected['id']
-        if projected['id'] not in algebras:
-            algebras[projected['id']]={**projected,'algebra':core['algebra'],
-                'algebraSignature':core['algebraSignature'],'factors':core['regime']['factors'],
-                'coreIds':[],'entryIds':[],'paperIds':[],'abelianRanks':[]}
-        algebra=algebras[projected['id']]
-        algebra['coreIds'].append(core['id'])
-        for key in ['entryIds','paperIds','abelianRanks']:
-            algebra[key]=sorted(set(algebra[key])|set(core[key]))
     for entry in entries:
-        entry['semisimpleId']=core_by_id[entry['coreId']]['semisimpleId'] if entry['coreId'] else None
+        entry['semisimpleId']=None
+        regime=next(r for v in entry['variants'] for r in v['regimes'] if r['id']==entry['primaryRegime'])
+        recorded=regime['factors']
+        try:
+            if not recorded or any(a['type'] not in {'A','B','C','D','E','F','G','U1'} or type(a['rank']) is not int or a['type']=='U1' and a['rank']!=1 for a in recorded):
+                raise IncompleteContent('Primary gauge algebra is parameterized or not fully established; no fixed semisimple algebra inferred')
+            projected=algebra_key({'gauge_factors':[{'family':a['type'],'rank':a['rank']} for a in recorded if a['type']!='U1']})
+        except IncompleteContent as error:
+            entry['semisimpleStatus']={'status':'unresolved','reason':str(error)}
+            continue
+        entry['semisimpleId']=projected['id']
+        entry['semisimpleStatus']={'status':'resolved','basis':'recorded_primary_regime','regimeId':regime['id']}
+        if projected['id'] not in algebras:
+            canonical=projected['canonical']
+            factors=[{'key':'algebra:'+str(i),'id':a['family']+str(a['rank']),
+                'type':a['family'],'rank':a['rank'],'label':algebra_label(a['family'],a['rank']),
+                'role':str(1+sum(b==a for b in canonical['gauge_factors'][:i])) if canonical['gauge_factors'].count(a)>1 else ''} for i,a in enumerate(canonical['gauge_factors'])]
+            algebras[projected['id']]={**projected,'algebra':' ⊕ '.join(a['label'] for a in factors) or '0 (no non-Abelian factors)',
+                'algebraSignature':'+'.join(sorted(a['id'] for a in factors)),'factors':factors,
+                'coreIds':[],'entryIds':[],'readyEntryIds':[],'pendingEntryIds':[],'paperIds':[],'abelianRanks':[]}
+        algebra=algebras[projected['id']]
+        algebra['entryIds'].append(entry['id'])
+        algebra['readyEntryIds' if entry['publicationStatus']=='ready' else 'pendingEntryIds'].append(entry['id'])
+        algebra['paperIds']=sorted(set(algebra['paperIds'])|set(entry['paperIds']))
+        if entry['abelianRank'] is not None:algebra['abelianRanks']=sorted(set(algebra['abelianRanks'])|{entry['abelianRank']})
+        if entry['coreId']:
+            core=core_by_id[entry['coreId']]
+            if algebra_key(core['canonical'])['id']!=projected['id']:
+                raise ValueError('Complete core differs from its recorded primary semisimple algebra: '+entry['id'])
+            core['semisimpleId']=projected['id']
+            algebra['coreIds']=sorted(set(algebra['coreIds'])|{core['id']})
+    for a in algebras.values():
+        for key in ['entryIds','readyEntryIds','pendingEntryIds']:a[key].sort()
     return sorted(algebras.values(),key=lambda a:(a['algebra'],a['id']))

@@ -79,7 +79,7 @@ class Catalogue(unittest.TestCase):
         fs=[f['sourceFieldId'] for e in records for v in e['variants'] for r in v['regimes'] for f in r['fields']]
         self.assertEqual(len(models),125)
         self.assertEqual(len(set(models)),125)
-        self.assertEqual(len(fs),573)
+        self.assertEqual(len(fs),581)  # Eight explicitly inherited GG occurrences, not new source fields.
         self.assertEqual(len(set(fs)),573)
         self.assertEqual((SITE/'field-catalogue.json').read_bytes(),(ROOT/'atlas/FIELD_CONTENT_CATALOGUE.json').read_bytes())
 
@@ -100,9 +100,9 @@ class Catalogue(unittest.TestCase):
         self.assertIsNone(next(c['value'] for c in chi['components'] if c['role']=='hypercharge'))
 
     def test_accepted_reextraction_is_additive_and_deduplicated(self):
-        self.assertEqual(DATA['reextraction']['acceptedPapers'],5)
-        self.assertEqual(DATA['reextraction']['acceptedCandidates'],6)
-        self.assertEqual(DATA['reextraction']['acceptedEntries'],5)
+        self.assertEqual(DATA['reextraction']['acceptedPapers'],7)
+        self.assertEqual(DATA['reextraction']['acceptedCandidates'],10)
+        self.assertEqual(DATA['reextraction']['acceptedEntries'],9)
         lr=ENTRIES['lr-triplet-matter']
         self.assertEqual(lr['status'],'recorded_content')
         self.assertEqual(lr['legacyIdentity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
@@ -119,7 +119,7 @@ class Catalogue(unittest.TestCase):
             self.assertTrue(all(f['notationComplete'] for f in r['fields']))
             self.assertTrue(all('legacyProjection' in f for f in r['fields']))
         self.assertEqual({p['id'] for p in DATA['papers'] if p.get('reextractions')},
-                         {'P01','P02','P03','P04','P05'})
+                         {'P01','P02','P03','P04','P05','P11','P18'})
         self.assertEqual(len(ENTRIES['real-singlet-z2']['reextractions']),2)
 
     def test_baselines_and_scopes(self):
@@ -140,7 +140,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))
             self.assertEqual(c.execute('select count(*) from papers').fetchone()[0],51)
-            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],6)
+            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],10)
             self.assertEqual(c.execute("select count(*) from entry_papers where paper_id='R01'").fetchone()[0],0)
             self.assertEqual(json.loads(c.execute("select value from metadata where key='representation_convention_json'").fetchone()[0]),DATA['representationConvention'])
             for e in DATA['entries']:
@@ -149,7 +149,7 @@ class Catalogue(unittest.TestCase):
                     for r in v['regimes']:
                         self.assertEqual(c.execute('select factors_json from regimes where regime_id=?',(r['id'],)).fetchone()[0],json.dumps(r['factors'],ensure_ascii=False))
                         for f in r['fields']:
-                            row=c.execute('select source_rows_json from multiplets where source_field_id=?',(f['sourceFieldId'],)).fetchone()
+                            row=c.execute('select source_rows_json from multiplets where entry_id=? and regime_id=? and source_field_id=?',(e['id'],r['id'],f['sourceFieldId'])).fetchone()
                             self.assertEqual(json.loads(row[0]),f)
         with (SITE/'downloads/field-catalogue.csv').open(newline='') as stream:
             rows=list(csv.DictReader(stream))

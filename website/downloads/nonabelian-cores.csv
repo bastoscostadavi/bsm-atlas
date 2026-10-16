@@ -71,3 +71,23 @@ f436845096c5c205f4e28d460646e0b5d2069723c858ec9ef27678bdbfefa77d,su(3) ⊕ su(2)
 1b4f7df4d936bc5a20de67abf84e0458d1089ecf064293c7775d62f3f02d8765,su(3) ⊕ su(2) ⊕ su(2),4,jL_jR,"[[""0"", ""0""]]","[[0, 0], [2], [0]]",real_module,2,lr-triplet-matter,P04
 1b4f7df4d936bc5a20de67abf84e0458d1089ecf064293c7775d62f3f02d8765,su(3) ⊕ su(2) ⊕ su(2),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 1], [0], [1]]",none,3,lr-triplet-matter,P04
 1b4f7df4d936bc5a20de67abf84e0458d1089ecf064293c7775d62f3f02d8765,su(3) ⊕ su(2) ⊕ su(2),4,jL_jR,"[[""1/2"", ""0""]]","[[1, 0], [1], [0]]",none,3,lr-triplet-matter,P04
+3e818fe1809f96276348c71913aa32caeb6c635264abc55fabc2c1edb99dc0b4,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1]]",none,3,su5-gg-scalar15,P11
+3e818fe1809f96276348c71913aa32caeb6c635264abc55fabc2c1edb99dc0b4,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 1, 0, 0]]",none,3,su5-gg-scalar15,P11
+3e818fe1809f96276348c71913aa32caeb6c635264abc55fabc2c1edb99dc0b4,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 0]]",real_module,1,su5-gg-scalar15,P11
+3e818fe1809f96276348c71913aa32caeb6c635264abc55fabc2c1edb99dc0b4,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 1]]",real_module,1,su5-gg-scalar15,P11
+3e818fe1809f96276348c71913aa32caeb6c635264abc55fabc2c1edb99dc0b4,su(5),4,jL_jR,"[[""0"", ""0""]]","[[2, 0, 0, 0]]",real_module,1,su5-gg-scalar15,P11
+556db8d4c6404b76f54396027a71dd6f79e8296d2a3b13d210435a6833f04d2d,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1]]",none,3,su5-georgi-glashow-review,P11
+556db8d4c6404b76f54396027a71dd6f79e8296d2a3b13d210435a6833f04d2d,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 1, 0, 0]]",none,3,su5-georgi-glashow-review,P11
+556db8d4c6404b76f54396027a71dd6f79e8296d2a3b13d210435a6833f04d2d,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 0]]",real_module,1,su5-georgi-glashow-review,P11
+556db8d4c6404b76f54396027a71dd6f79e8296d2a3b13d210435a6833f04d2d,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 1]]",real_module,1,su5-georgi-glashow-review,P11
+b866b50eb8c9befde292d80487a20453474139dbff15c425900614501704cdaa,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1]]",none,3,su5-gg-extra5-two10,P11
+b866b50eb8c9befde292d80487a20453474139dbff15c425900614501704cdaa,su(5),4,jL_jR,"[[""0"", ""0""]]","[[0, 1, 0, 0]]",real_module,2,su5-gg-extra5-two10,P11
+b866b50eb8c9befde292d80487a20453474139dbff15c425900614501704cdaa,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 1, 0, 0]]",none,3,su5-gg-extra5-two10,P11
+b866b50eb8c9befde292d80487a20453474139dbff15c425900614501704cdaa,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 0]]",real_module,2,su5-gg-extra5-two10,P11
+b866b50eb8c9befde292d80487a20453474139dbff15c425900614501704cdaa,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 1]]",real_module,1,su5-gg-extra5-two10,P11
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1]]",none,3,su5-adjoint-renormalizable,P18
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 1, 0, 0]]",none,3,su5-adjoint-renormalizable,P18
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 0]]",real_module,1,su5-adjoint-renormalizable,P18
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 1]]",real_module,1,su5-adjoint-renormalizable,P18
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""1/2"", ""0""]]","[[1, 0, 0, 1]]",none,1,su5-adjoint-renormalizable,P18
+fa2dd72b569dae3fc78faf2928b46664725f6d1dce5103d2300868310169c659,su(5),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 1, 0]]",real_module,1,su5-adjoint-renormalizable,P18

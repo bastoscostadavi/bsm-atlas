@@ -10,7 +10,7 @@
     "georgi-machacek-general":"Georgi–Machacek model",
     "mssm-matter":"MSSM"
   },
-  "full_inventory_without_baseline": ["minimal-bl-pure", "lr-triplet-matter"],
+  "full_inventory_without_baseline": ["minimal-bl-pure", "lr-triplet-matter", "su5-georgi-glashow-review", "su5-gg-extra5-two10", "su5-gg-scalar15", "su5-adjoint-renormalizable"],
   "reference_papers": [
     {"id":"R01","arxiv":"1905.13729v1","kind":"general theory paper","title":"General solution to the U(1) anomaly equations","authors":"Davi B. Costa, Bogdan A. Dobrescu, Patrick J. Fox","inspectionStatus":"bibliographic record only","reviewStatus":"not a model extraction","inspectedScope":"Bibliographic metadata checked against arXiv. Listed independently of the BSM gauge/matter catalogue.","limitations":"Not part of the 50-paper model-extraction corpus; no BSM gauge/matter model is inferred from this general result.","noModelReason":"General theory paper. Deliberately has no association with any row in the gauge/matter catalogue."}
   ],

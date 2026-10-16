@@ -28,9 +28,10 @@ from catalogue_identity_v1 import from_regime as from_regime_v1, canonicalize as
 from scalar_conventions import CONVENTION as SCALAR_CONVENTION
 from scalar_projection import migrate_catalogue
 from reextraction_reviews import load_reviews,apply_reviews
+from current_reextraction_reviews import load_current_reviews,apply_current_reviews
 from core_projection import attach_cores,attach_algebras
 from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION
-VERSION="gauge-matter-6"
+VERSION="gauge-matter-7"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
@@ -301,6 +302,11 @@ def main_data(database,curations):
     reviewed=load_reviews(ROOT)
     reextraction=apply_reviews(entries,papers,reviewed,display_rep,
         lambda r:from_regime_v1(r,TEMPLATES,dynkin))
+    current_reviews=load_current_reviews(ROOT)
+    apply_current_reviews(entries,papers,current_reviews,display_rep)
+    all_decisions=[r['decision'] for r in reviewed+current_reviews]
+    reextraction.update(acceptedPapers=len({d['paper'] for d in all_decisions}),
+        acceptedEntries=len({d['entry'] for d in all_decisions}),acceptedCandidates=len(all_decisions))
     # Preserve the old counting-unit signature explicitly; frozen extraction
     # evidence is never rewritten to look as though it used the new convention.
     for e in entries:
@@ -360,9 +366,9 @@ def write_outputs(data,check=False):
             l=row['lorentz']
             core_writer.writerow([core['id'],core['algebra'],l['dimension'],l['scheme'],json.dumps(l['irreps']),json.dumps([r['dynkin'] for r in row['gauge']]),row['reality'],row['copies'],';'.join(core['entryIds']),';'.join(core['paperIds'])])
     algebra_csv=io.StringIO();algebra_writer=csv.writer(algebra_csv,lineterminator='\n')
-    algebra_writer.writerow(['semisimple_algebra_id','gauge_algebra','cartan_factors','core_ids','entry_ids','papers'])
+    algebra_writer.writerow(['semisimple_algebra_id','gauge_algebra','cartan_factors','core_ids','entry_ids','papers','ready_entry_ids','pending_entry_ids'])
     for a in data['semisimpleAlgebras']:
-        algebra_writer.writerow([a['id'],a['algebra'],json.dumps(a['canonical']['gauge_factors']),';'.join(a['coreIds']),';'.join(a['entryIds']),';'.join(a['paperIds'])])
+        algebra_writer.writerow([a['id'],a['algebra'],json.dumps(a['canonical']['gauge_factors']),';'.join(a['coreIds']),';'.join(a['entryIds']),';'.join(a['paperIds']),';'.join(a['readyEntryIds']),';'.join(a['pendingEntryIds'])])
     files={SITE/"field-catalogue.json":payload+"\n",SITE/"entry.schema.json":(ROOT/"atlas"/"entry.schema.json").read_text(encoding="utf-8"),ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue(),SITE/'downloads/nonabelian-cores.csv':coarse.getvalue(),SITE/'downloads/semisimple-algebras.csv':algebra_csv.getvalue()}
     for path,content in files.items():
         if check:
@@ -395,11 +401,11 @@ def write_outputs(data,check=False):
               CREATE TABLE IF NOT EXISTS extraction_reviews(entry_id TEXT NOT NULL REFERENCES entries(entry_id),paper_id TEXT NOT NULL REFERENCES papers(paper_id),candidate_name TEXT NOT NULL,fingerprint TEXT NOT NULL REFERENCES content_signatures(fingerprint),normalized_entry_json TEXT NOT NULL,review_json TEXT NOT NULL,PRIMARY KEY(entry_id,paper_id,candidate_name));
               CREATE TABLE IF NOT EXISTS identity_migrations(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),old_schema TEXT NOT NULL,old_fingerprint TEXT NOT NULL,new_schema TEXT NOT NULL,new_fingerprint TEXT NOT NULL REFERENCES content_signatures(fingerprint),reason TEXT NOT NULL);
               CREATE TABLE semisimple_algebras(semisimple_id TEXT PRIMARY KEY,convention TEXT NOT NULL,gauge_algebra TEXT NOT NULL,canonical_json TEXT NOT NULL);
-              CREATE TABLE nonabelian_cores(core_id TEXT PRIMARY KEY,convention TEXT NOT NULL,gauge_algebra TEXT NOT NULL,canonical_json TEXT NOT NULL,semisimple_id TEXT NOT NULL REFERENCES semisimple_algebras(semisimple_id));
-              CREATE TABLE entry_cores(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),regime_id INTEGER NOT NULL REFERENCES regimes(regime_id),core_id TEXT REFERENCES nonabelian_cores(core_id),abelian_rank INTEGER CHECK(abelian_rank IS NULL OR abelian_rank>=0),status TEXT NOT NULL,reason TEXT);
+              CREATE TABLE nonabelian_cores(core_id TEXT PRIMARY KEY,convention TEXT NOT NULL,gauge_algebra TEXT NOT NULL,canonical_json TEXT NOT NULL,semisimple_id TEXT NOT NULL REFERENCES semisimple_algebras(semisimple_id),UNIQUE(core_id,semisimple_id));
+              CREATE TABLE entry_cores(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),regime_id INTEGER NOT NULL REFERENCES regimes(regime_id),core_id TEXT REFERENCES nonabelian_cores(core_id),abelian_rank INTEGER CHECK(abelian_rank IS NULL OR abelian_rank>=0),status TEXT NOT NULL,reason TEXT,semisimple_id TEXT REFERENCES semisimple_algebras(semisimple_id),CHECK(core_id IS NULL OR semisimple_id IS NOT NULL),FOREIGN KEY(core_id,semisimple_id) REFERENCES nonabelian_cores(core_id,semisimple_id));
               CREATE INDEX entry_cores_by_core ON entry_cores(core_id,abelian_rank);
               CREATE INDEX cores_by_semisimple ON nonabelian_cores(semisimple_id);
-              CREATE VIEW entry_layers AS SELECT e.entry_id,e.core_id,c.semisimple_id,e.abelian_rank,e.status,e.reason FROM entry_cores e LEFT JOIN nonabelian_cores c ON e.core_id=c.core_id;
+              CREATE VIEW entry_layers AS SELECT entry_id,core_id,semisimple_id,abelian_rank,status,reason,CASE WHEN semisimple_id IS NULL THEN 'unresolved' ELSE 'resolved' END AS algebra_status FROM entry_cores;
             """)
             con.executemany("INSERT INTO metadata VALUES (?,?)",[("convention_version",VERSION),("source_sha256",data["sourceDatabaseSha256"]),("scope",data["scope"]),("templates_json",json.dumps(data["templates"],ensure_ascii=False))])
             con.execute("INSERT INTO metadata VALUES (?,?)",('lorentz_convention_json',json.dumps(LORENTZ_CONVENTION,ensure_ascii=False)))
@@ -431,7 +437,7 @@ def write_outputs(data,check=False):
             for core in data['cores']:
                 con.execute('INSERT INTO nonabelian_cores VALUES (?,?,?,?,?)',(core['id'],CORE_CONVENTION['id'],core['algebra'],json.dumps(core['canonical'],sort_keys=True,separators=(',',':')),core['semisimpleId']))
             for e in data['entries']:
-                con.execute('INSERT INTO entry_cores VALUES (?,?,?,?,?,?)',(e['id'],e['primaryRegime'],e['coreId'],e['abelianRank'],e['coreStatus']['status'],e['coreStatus'].get('reason')))
+                con.execute('INSERT INTO entry_cores VALUES (?,?,?,?,?,?,?)',(e['id'],e['primaryRegime'],e['coreId'],e['abelianRank'],e['coreStatus']['status'],e['coreStatus'].get('reason'),e['semisimpleId']))
             con.commit()
             for e in data['entries']:
                 identity=e['identity'];h=identity['fingerprint']

@@ -86,7 +86,7 @@ class ScalarModules(unittest.TestCase):
             for n,payload in con.execute('select copies,representation_json from spacetime_representations'):
                 self.assertEqual(n,json.loads(payload)['copies'])
             self.assertEqual({s[0] for s in con.execute('select schema_version from content_signatures')},{'field-content-2'})
-            self.assertEqual(con.execute('select count(*) from identity_migrations').fetchone()[0],15)
+            self.assertEqual(con.execute('select count(*) from identity_migrations').fetchone()[0],19)
             for (q,) in con.execute('select charge from component_gauge_representations where charge is not null'):
                 self.assertEqual(str(int(q)),q)
             # Clone the schema to test the database-level guard without writing
@@ -97,7 +97,7 @@ class ScalarModules(unittest.TestCase):
             for q in ['[0,-3,3]','n','source:2','1/2','--3','']:
                 with self.assertRaises(sqlite3.IntegrityError):
                     mem.execute('insert into component_gauge_representations values (?,?,?,?,?,?,?,?,?)',('test','q','u1','extra',None,q,q,'pending',0))
-        self.assertEqual(sum(e['publicationStatus']=='ready' for e in data['entries']),15)
+        self.assertEqual(sum(e['publicationStatus']=='ready' for e in data['entries']),19)
 
     def test_historical_corpus_has_idempotent_v2_projection(self):
         paths=sorted((ROOT/'atlas/reextraction').glob('P*/*-normalized-candidate.json'))

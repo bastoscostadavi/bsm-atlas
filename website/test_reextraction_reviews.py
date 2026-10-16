@@ -11,6 +11,7 @@ from build_field_catalogue import ROOT, TEMPLATES, display_rep, dynkin
 from catalogue_identity import canonicalize, normalize_spec, from_regime
 from catalogue_identity_v1 import canonicalize as canonicalize_v1, normalize_spec as normalize_v1, from_regime as from_regime_v1
 from reextraction_reviews import load_reviews, replace_regime, apply_reviews
+from current_reextraction_reviews import load_current_reviews, apply_current_reviews
 
 DATA = json.loads((ROOT / 'website/field-catalogue.json').read_text())
 
@@ -90,7 +91,7 @@ class Acceptance(unittest.TestCase):
         db = ROOT / 'website/downloads/field-catalogue.sqlite'
         with closing(sqlite3.connect(db.resolve().as_uri() + '?mode=ro', uri=True)) as con:
             rows = con.execute('SELECT fingerprint,normalized_entry_json,review_json FROM extraction_reviews').fetchall()
-        self.assertEqual(len(rows), 6)
+        self.assertEqual(len(rows), 10)
         for expected, payload, provenance in rows:
             spec = json.loads(payload)
             review = json.loads(provenance)
@@ -98,6 +99,43 @@ class Acceptance(unittest.TestCase):
             self.assertEqual(canonicalize(spec)['fingerprint'], expected)
             self.assertFalse(review['wholePaperRead'])
             self.assertEqual(review['reviewStatus'], 'agent_source_checked_curator_integrated')
+
+    def test_current_gate_ignores_mutable_agent_manifest(self):
+        original = Path.read_text
+        def guarded(path, *args, **kwargs):
+            self.assertNotEqual(path.name, 'integration-manifest.json')
+            return original(path, *args, **kwargs)
+        with patch.object(Path, 'read_text', guarded):
+            reviews = load_current_reviews(ROOT)
+        self.assertEqual(len(reviews), 4)
+        for review in reviews:
+            entry = next(e for e in DATA['entries'] if e['id'] == review['decision']['entry'])
+            self.assertEqual(entry['identity']['fingerprint'], review['decision']['fingerprint'])
+
+    def test_current_evidence_is_hash_pinned(self):
+        original = Path.read_bytes
+        def changed(path, *args, **kwargs):
+            raw = original(path, *args, **kwargs)
+            return raw + b' ' if path.name.endswith('-field-evidence.json') else raw
+        with patch.object(Path, 'read_bytes', changed), self.assertRaisesRegex(ValueError, 'evidence changed'):
+            load_current_reviews(ROOT)
+
+    def test_su5_inheritance_is_explicit_and_regimes_do_not_mix(self):
+        entries = {e['id']:e for e in DATA['entries']}
+        e = entries['su5-gg-extra5-two10']
+        regimes = {r['id']:r for v in e['variants'] for r in v['regimes']}
+        self.assertEqual({f['sourceFieldId'] for f in regimes[36]['fields']},{120,121,122,123,125,126})
+        self.assertEqual({f['sourceFieldId'] for f in regimes[37]['fields']},{127,128})
+        self.assertEqual(next(f for f in regimes[36]['fields'] if f['sourceFieldId']==120)['reextraction']['sourceMapping']['source_regime_id'],35)
+        self.assertIsNone(entries['su5-rpv-trilinear-sector']['identity']['fingerprint'])
+
+    def test_current_adapter_cannot_drop_unmapped_matter(self):
+        entries = deepcopy(DATA['entries'])
+        e = next(e for e in entries if e['id']=='su5-georgi-glashow-review')
+        r = next(r for v in e['variants'] for r in v['regimes'] if r['id']==35)
+        r['fields'][0]['sourceFieldId'] = 999999
+        with self.assertRaisesRegex(ValueError, 'lose or ambiguously map'):
+            apply_current_reviews(entries,deepcopy(DATA['papers']),load_current_reviews(ROOT),display_rep)
 
 
 if __name__ == '__main__':

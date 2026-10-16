@@ -33,35 +33,49 @@ class NonAbelianCore(unittest.TestCase):
         self.assertEqual(algebra_key({'gauge_factors':[]})['canonical']['gauge_factors'],[])
 
     def test_three_layer_memberships_are_a_partition(self):
-        self.assertEqual(DATA['counts']['semisimpleAlgebras'],2)
-        self.assertEqual(len(DATA['semisimpleAlgebras']),2)
+        self.assertEqual(DATA['counts']['semisimpleAlgebras'],14)
+        self.assertEqual(len(DATA['semisimpleAlgebras']),14)
         seen_cores=[];seen_entries=[]
         for a in DATA['semisimpleAlgebras']:
             self.assertEqual(a['id'],sha256(json.dumps(a['canonical'],sort_keys=True,separators=(',',':')).encode()).hexdigest())
             self.assertNotIn('matter',a['canonical'])
             children=[c for c in DATA['cores'] if c['semisimpleId']==a['id']]
             self.assertEqual(set(a['coreIds']),{c['id'] for c in children})
-            self.assertEqual(set(a['entryIds']),{e for c in children for e in c['entryIds']})
+            self.assertEqual(set(a['readyEntryIds']),{e for c in children for e in c['entryIds']})
+            self.assertEqual(set(a['entryIds']),set(a['readyEntryIds'])|set(a['pendingEntryIds']))
+            self.assertFalse(set(a['readyEntryIds'])&set(a['pendingEntryIds']))
             for c in children:self.assertEqual(algebra_key(c['canonical'])['id'],a['id'])
             for entry_id in a['entryIds']:self.assertEqual(ENTRIES[entry_id]['semisimpleId'],a['id'])
             seen_cores.extend(a['coreIds']);seen_entries.extend(a['entryIds'])
         self.assertEqual(len(seen_cores),len(set(seen_cores)))
         self.assertEqual(len(seen_entries),len(set(seen_entries)))
         self.assertEqual(set(seen_cores),{c['id'] for c in DATA['cores']})
-        self.assertEqual(len(seen_entries),15)
-        self.assertTrue(all(e['semisimpleId'] is None for e in DATA['entries'] if e['publicationStatus']=='pending'))
+        self.assertEqual(len(seen_entries),94)
+        self.assertEqual(sum(e['semisimpleId'] is None for e in DATA['entries']),9)
+        self.assertTrue(all(e['coreId'] is None for e in DATA['entries'] if e['publicationStatus']=='pending'))
+
+    def test_algebra_membership_does_not_require_complete_matter(self):
+        a=next(a for a in DATA['semisimpleAlgebras'] if a['algebra']=='su(5)')
+        self.assertEqual(len(a['entryIds']),5)
+        self.assertEqual(len(a['readyEntryIds']),4)
+        self.assertEqual(a['pendingEntryIds'],['su5-rpv-trilinear-sector'])
+        self.assertIsNotNone(ENTRIES['so10-45-126-sector']['semisimpleId'])
+        self.assertIsNone(ENTRIES['hidden-valley-colored-x-framework']['semisimpleId'])
+        for rank in [None,True,0,-1,2.5]:
+            with self.assertRaises(ValueError):algebra_key({'gauge_factors':[{'family':'A','rank':rank}]})
 
     def test_algebra_csv_and_relational_join(self):
         with (ROOT/'website/downloads/semisimple-algebras.csv').open(newline='') as stream:
             rows=list(csv.DictReader(stream))
-        self.assertEqual(len(rows),2)
+        self.assertEqual(len(rows),14)
         for a in DATA['semisimpleAlgebras']:
             row=next(r for r in rows if r['semisimple_algebra_id']==a['id'])
             self.assertEqual(json.loads(row['cartan_factors']),a['canonical']['gauge_factors'])
-            self.assertEqual(set(row['core_ids'].split(';')),set(a['coreIds']))
+            self.assertEqual(set(filter(None,row['core_ids'].split(';'))),set(a['coreIds']))
+            self.assertEqual(set(filter(None,row['pending_entry_ids'].split(';'))),set(a['pendingEntryIds']))
         with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
             self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
-            self.assertEqual(con.execute('select count(*) from semisimple_algebras').fetchone()[0],2)
+            self.assertEqual(con.execute('select count(*) from semisimple_algebras').fetchone()[0],14)
             self.assertEqual(con.execute('select count(*) from entry_layers').fetchone()[0],103)
             for e in DATA['entries']:
                 self.assertEqual(con.execute('select semisimple_id,core_id from entry_layers where entry_id=?',(e['id'],)).fetchone(),(e['semisimpleId'],e['coreId']))
@@ -125,8 +139,8 @@ class NonAbelianCore(unittest.TestCase):
         self.assertEqual(result['matter'][0]['copies'],2)
 
     def test_exported_keys_and_memberships(self):
-        self.assertEqual(DATA['counts']['cores'],11)
-        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),15)
+        self.assertEqual(DATA['counts']['cores'],15)
+        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),19)
         for c in DATA['cores']:
             self.assertEqual(c['id'],sha256(json.dumps(c['canonical'],sort_keys=True,separators=(',',':')).encode()).hexdigest())
             for entry_id in c['entryIds']:
@@ -137,8 +151,8 @@ class NonAbelianCore(unittest.TestCase):
     def test_relational_factors_and_core_index(self):
         with sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True) as con:
             self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
-            self.assertEqual(con.execute('select count(*) from nonabelian_cores').fetchone()[0],11)
-            self.assertEqual(con.execute('select count(*) from entry_cores where core_id is not null').fetchone()[0],15)
+            self.assertEqual(con.execute('select count(*) from nonabelian_cores').fetchone()[0],15)
+            self.assertEqual(con.execute('select count(*) from entry_cores where core_id is not null').fetchone()[0],19)
             self.assertEqual(con.execute('select count(*) from entry_cores').fetchone()[0],103)
             self.assertEqual(con.execute("select count(*) from abelian_factors where cartan_family!='U1'").fetchone()[0],0)
             self.assertEqual(con.execute("select count(*) from nonabelian_factors where cartan_family='U1'").fetchone()[0],0)
