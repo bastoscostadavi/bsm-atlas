@@ -1,4 +1,11 @@
 core_id,gauge_algebra,spacetime_dimension,lorentz_scheme,lorentz_irreps,dynkin_labels,reality_convention,copies,entry_ids,papers
+433f7ab7989abfc6eb7e285be9c6678a751fdb204bcb013f26a72dca6c5bf9dd,so(10),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1, 0]]",none,3,so10-45-126-complex10,P19
+433f7ab7989abfc6eb7e285be9c6678a751fdb204bcb013f26a72dca6c5bf9dd,so(10),4,jL_jR,"[[""0"", ""0""]]","[[0, 0, 0, 2, 0]]",real_module,1,so10-45-126-complex10,P19
+433f7ab7989abfc6eb7e285be9c6678a751fdb204bcb013f26a72dca6c5bf9dd,so(10),4,jL_jR,"[[""0"", ""0""]]","[[0, 1, 0, 0, 0]]",real_module,1,so10-45-126-complex10,P19
+433f7ab7989abfc6eb7e285be9c6678a751fdb204bcb013f26a72dca6c5bf9dd,so(10),4,jL_jR,"[[""0"", ""0""]]","[[1, 0, 0, 0, 0]]",real_module,2,so10-45-126-complex10,P19
+caddbfec870b938893133bf157775466517142e63006f7f3fd0f7dfac7d9417e,so(10),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0, 0, 1, 0]]",none,3,so10-45-126-sector,P19
+caddbfec870b938893133bf157775466517142e63006f7f3fd0f7dfac7d9417e,so(10),4,jL_jR,"[[""0"", ""0""]]","[[0, 0, 0, 2, 0]]",real_module,1,so10-45-126-sector,P19
+caddbfec870b938893133bf157775466517142e63006f7f3fd0f7dfac7d9417e,so(10),4,jL_jR,"[[""0"", ""0""]]","[[0, 1, 0, 0, 0]]",real_module,1,so10-45-126-sector,P19
 3513924258d1d719541101238cd228fe8f3ef013ed1c0de91bcbdcb2fb3a9a52,su(3) ⊕ su(2),4,jL_jR,"[[""0"", ""0""]]","[[0, 0], [0]]",real_module,1,real-singlet-z2,P01;P02
 3513924258d1d719541101238cd228fe8f3ef013ed1c0de91bcbdcb2fb3a9a52,su(3) ⊕ su(2),4,jL_jR,"[[""1/2"", ""0""]]","[[0, 0], [0]]",none,3,real-singlet-z2,P01;P02
 3513924258d1d719541101238cd228fe8f3ef013ed1c0de91bcbdcb2fb3a9a52,su(3) ⊕ su(2),4,jL_jR,"[[""0"", ""0""]]","[[0, 0], [1]]",real_module,1,real-singlet-z2,P01;P02

@@ -1,0 +1,360 @@
+{
+  "target_entry_id": "so10-45-126-complex10",
+  "source_locator_evidence": "atlas/reextraction/so10-resolution-20261016/so10-45-126-complex10-evidence.json",
+  "scalar_convention": "scalar-real-modules-1",
+  "fermion_convention": "All identified4D Weyl fields LH; full gauge conjugation if converted.",
+  "gauge_convention": "dynkin-gauge-1 Bourbaki/Sage finiteCartan",
+  "rows": [
+    {
+      "source_row": {
+        "label": "45H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real",
+        "copies": 1,
+        "gauge_representations": {
+          "unified": {
+            "dynkin": [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "mapping": {
+        "candidate_label": "45H",
+        "source_field_ids": [
+          231
+        ],
+        "source_model_id": "so10-45-126-complex10",
+        "source_regime_id": 64,
+        "claim_ids": [
+          "so10-algebra-regime",
+          "so10-bourbaki-map",
+          "so10-scalar-containers"
+        ],
+        "mapping_basis": "direct_source_field"
+      },
+      "attribute_evidence": {
+        "gauge_algebra": [
+          "so10-algebra-regime"
+        ],
+        "gauge_representation": [
+          "so10-bourbaki-map"
+        ],
+        "lorentz": [
+          "so10-scalar-containers"
+        ],
+        "source_reality": [
+          "so10-scalar-containers"
+        ],
+        "multiplicity": [
+          "so10-scalar-containers"
+        ]
+      },
+      "normalized_components": [
+        {
+          "label": "45H",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "unified": {
+              "dynkin": [
+                0,
+                1,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_row": {
+        "label": "126H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "unified": {
+            "dynkin": [
+              0,
+              0,
+              0,
+              2,
+              0
+            ]
+          }
+        }
+      },
+      "mapping": {
+        "candidate_label": "126H",
+        "source_field_ids": [
+          232
+        ],
+        "source_model_id": "so10-45-126-complex10",
+        "source_regime_id": 64,
+        "claim_ids": [
+          "so10-algebra-regime",
+          "so10-bourbaki-map",
+          "so10-scalar-containers"
+        ],
+        "mapping_basis": "direct_source_field"
+      },
+      "attribute_evidence": {
+        "gauge_algebra": [
+          "so10-algebra-regime"
+        ],
+        "gauge_representation": [
+          "so10-bourbaki-map"
+        ],
+        "lorentz": [
+          "so10-scalar-containers"
+        ],
+        "source_reality": [
+          "so10-scalar-containers"
+        ],
+        "multiplicity": [
+          "so10-scalar-containers"
+        ]
+      },
+      "normalized_components": [
+        {
+          "label": "126H",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "unified": {
+              "dynkin": [
+                0,
+                0,
+                0,
+                2,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_row": {
+        "label": "10H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "unified": {
+            "dynkin": [
+              1,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "mapping": {
+        "candidate_label": "10H",
+        "source_field_ids": [
+          233
+        ],
+        "source_model_id": "so10-45-126-complex10",
+        "source_regime_id": 64,
+        "claim_ids": [
+          "so10-algebra-regime",
+          "so10-bourbaki-map",
+          "so10-complex10"
+        ],
+        "mapping_basis": "direct_source_field"
+      },
+      "attribute_evidence": {
+        "gauge_algebra": [
+          "so10-algebra-regime"
+        ],
+        "gauge_representation": [
+          "so10-bourbaki-map"
+        ],
+        "lorentz": [
+          "so10-scalar-containers",
+          "so10-complex10"
+        ],
+        "source_reality": [
+          "so10-complex10"
+        ],
+        "multiplicity": [
+          "so10-complex10"
+        ]
+      },
+      "normalized_components": [
+        {
+          "label": "10H",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 2,
+          "gauge_representations": {
+            "unified": {
+              "dynkin": [
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source_row": {
+        "label": "16F",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "unified": {
+            "dynkin": [
+              0,
+              0,
+              0,
+              1,
+              0
+            ]
+          }
+        }
+      },
+      "mapping": {
+        "candidate_label": "16F",
+        "source_field_ids": [
+          234
+        ],
+        "source_model_id": "so10-45-126-complex10",
+        "source_regime_id": 64,
+        "claim_ids": [
+          "so10-algebra-regime",
+          "so10-bourbaki-map",
+          "so10-minimal-fermions",
+          "so10-three-families",
+          "so10-left-handed"
+        ],
+        "mapping_basis": "direct_source_field"
+      },
+      "attribute_evidence": {
+        "gauge_algebra": [
+          "so10-algebra-regime"
+        ],
+        "gauge_representation": [
+          "so10-bourbaki-map"
+        ],
+        "lorentz": [
+          "so10-left-handed"
+        ],
+        "source_reality": [
+          "so10-left-handed"
+        ],
+        "multiplicity": [
+          "so10-three-families"
+        ]
+      },
+      "normalized_components": [
+        {
+          "label": "16F",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "unified": {
+              "dynkin": [
+                0,
+                0,
+                0,
+                1,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

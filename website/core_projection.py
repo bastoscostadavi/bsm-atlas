@@ -2,7 +2,7 @@
 from catalogue_identity import IncompleteContent
 from nonabelian_core import restrict_nonabelian, algebra_key, CONVENTION
 from scalar_conventions import is_scalar
-from field_conventions import dimension_a, young_rows
+from field_conventions import irrep_dimension,irrep_dimension_label,young_rows
 
 def algebra_label(family,rank):
     if family=='A':return 'su('+str(rank+1)+')'
@@ -19,9 +19,8 @@ def display_rows(canonical,factors):
         label='('+', '.join(weights[0])+')' if d==4 and len(weights)==1 else ' ⊕ '.join('['+','.join(map(str,w))+']' for w in weights)
         components=[]
         for a,rep in zip(factors,source['gauge']):
-            w=rep['dynkin'];dimension=dimension_a(w) if a['type']=='A' else 1 if not any(w) else None
-            value=str(dimension) if dimension is not None else '['+','.join(map(str,w))+']'
-            if a['type']=='A' and a['rank']>1 and w<w[::-1]:value='bar('+value+')'
+            w=rep['dynkin'];dimension=irrep_dimension(a,w)
+            value=irrep_dimension_label(a,w)
             components.append({'factorKey':a['key'],'factor':a['label'],'role':a['role'],
                 'dynkin':w,'value':value,'dimension':dimension,'youngRows':young_rows(a,w)})
         rows.append({'copies':source['copies'],'components':components,'labels':[],

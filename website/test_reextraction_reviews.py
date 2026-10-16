@@ -1,6 +1,7 @@
 """Acceptance-gate regressions; not an independent scientific source review."""
 from copy import deepcopy
 from contextlib import closing
+import hashlib
 import json
 from pathlib import Path
 import sqlite3
@@ -91,7 +92,7 @@ class Acceptance(unittest.TestCase):
         db = ROOT / 'website/downloads/field-catalogue.sqlite'
         with closing(sqlite3.connect(db.resolve().as_uri() + '?mode=ro', uri=True)) as con:
             rows = con.execute('SELECT fingerprint,normalized_entry_json,review_json FROM extraction_reviews').fetchall()
-        self.assertEqual(len(rows), 10)
+        self.assertEqual(len(rows), 12)
         for expected, payload, provenance in rows:
             spec = json.loads(payload)
             review = json.loads(provenance)
@@ -107,7 +108,7 @@ class Acceptance(unittest.TestCase):
             return original(path, *args, **kwargs)
         with patch.object(Path, 'read_text', guarded):
             reviews = load_current_reviews(ROOT)
-        self.assertEqual(len(reviews), 4)
+        self.assertEqual(len(reviews), 6)
         for review in reviews:
             entry = next(e for e in DATA['entries'] if e['id'] == review['decision']['entry'])
             self.assertEqual(entry['identity']['fingerprint'], review['decision']['fingerprint'])
@@ -136,6 +137,67 @@ class Acceptance(unittest.TestCase):
         r['fields'][0]['sourceFieldId'] = 999999
         with self.assertRaisesRegex(ValueError, 'lose or ambiguously map'):
             apply_current_reviews(entries,deepcopy(DATA['papers']),load_current_reviews(ROOT),display_rep)
+
+    def test_so10_source_scope_and_real_module_multiplicities(self):
+        entries={e['id']:e for e in DATA['entries']}
+        for entry_id,regime_id,ids in [('so10-45-126-sector',61,{229,230,234}),
+                                       ('so10-45-126-complex10',64,{231,232,233,234})]:
+            entry=entries[entry_id]
+            regimes={r['id']:r for v in entry['variants'] for r in v['regimes']}
+            regime=regimes[regime_id]
+            self.assertEqual(entry['publicationStatus'],'ready')
+            self.assertIsNone(regime['baseline'])
+            self.assertEqual([a['id'] for a in regime['factors']],['D5'])
+            self.assertEqual({f['sourceFieldId'] for f in regime['fields']},ids)
+            fields={f['label']:f for f in regime['fields']}
+            expected={'45H':([0,1,0,0,0],1,'real'),
+                      '126H':([0,0,0,2,0],1,'complex'),
+                      '16F':([0,0,0,1,0],3,None)}
+            if regime_id==64:expected['10H']=([1,0,0,0,0],2,'complex')
+            for name,(weight,multiplicity,reality) in expected.items():
+                f=fields[name];l=f['lorentz'][0]
+                self.assertEqual(f['components'][0]['dynkin'],weight)
+                self.assertEqual(l['gaugeComponents'][0]['dynkin'],weight)
+                self.assertEqual(l['copies'],multiplicity)
+                self.assertEqual(l['irreps'],[['1/2','0']] if name=='16F' else [['0','0']])
+                self.assertIn('legacyProjection',f)
+                if reality:
+                    self.assertEqual(l['reality'],'real_module')
+                    self.assertEqual(l['sourceScalar']['reality'],reality)
+                    self.assertEqual(l['sourceScalar']['copies'],1)
+            if regime_id==61:
+                self.assertNotIn('10H',fields)
+                self.assertIn('scalar',regime['legacyDescription'].lower())
+                inherited=fields['16F']['reextraction']['sourceMapping']
+                self.assertEqual(inherited['source_regime_id'],64)
+                self.assertEqual(inherited['source_model_id'],'so10-45-126-complex10')
+                self.assertIn('explicitly_inherited',inherited['mapping_basis'])
+                self.assertEqual(regimes[62]['fields'],[])
+                self.assertEqual(regimes[63]['fields'],[])
+
+    def test_so10_independent_review_pins_the_final_intake_files(self):
+        reviews=[r for r in load_current_reviews(ROOT) if r['decision']['paper']=='P19']
+        self.assertEqual(len(reviews),2)
+        for review in reviews:
+            math=review['mathematics']
+            pins=math['final_artifact_hashes'];base=ROOT/pins['base_directory']
+            for filename,expected in pins.items():
+                if filename!='base_directory':
+                    self.assertEqual(hashlib.sha256((base/filename).read_bytes()).hexdigest(),expected)
+            self.assertEqual(math['review_status'],'frozen_final_source_artifacts_verified')
+            self.assertFalse(math['source']['whole_paper_read'])
+
+    def test_current_manifest_cannot_escape_its_review_directory(self):
+        original=Path.read_text
+        def changed(path,*args,**kwargs):
+            raw=original(path,*args,**kwargs)
+            if path.name=='accepted-so10.json':
+                manifest=json.loads(raw)
+                manifest['reviews'][0]['files']['source']['path']='atlas/field_content_curations.json'
+                return json.dumps(manifest)
+            return raw
+        with patch.object(Path,'read_text',changed),self.assertRaisesRegex(ValueError,'outside accepted evidence'):
+            load_current_reviews(ROOT)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,143 @@
+{
+  "run": "so10-resolution-20261016",
+  "reviewed_on": "2026-10-16",
+  "status": "two_source_reviewed_complete_candidates_ready_for_parent_integration",
+  "independent_inspection": true,
+  "whole_paper_read": false,
+  "source_pdf": "atlas/reextraction/sources/1202.0807v1.pdf",
+  "source_sha256": "a378fefd9dc60a51525ec0f373ccd425092e53277859473fe4c9e857d8ca32f1",
+  "inspected_pdf_pages": [
+    1,
+    2,
+    3,
+    4,
+    11,
+    12,
+    13,
+    14
+  ],
+  "decision": "Resolve both screenshot entries. Do not retain a missing-matter classification for the just45+126 record once source-defined16F matter is explicitly included. The original scalar-sector-only extraction is preserved as provenance.",
+  "targets": [
+    {
+      "entry_id": "so10-45-126-sector",
+      "primary_regime": 61,
+      "full_inventory": [
+        "1 real45H scalar",
+        "1 complex126H scalar",
+        "3 left-handed16F Weyl families"
+      ],
+      "canonical_scalar_multiplicities": {
+        "45H": 1,
+        "126H": 1
+      },
+      "source_mapping": [
+        {
+          "label": "45H",
+          "source_model": "so10-45-126-sector",
+          "regime": 61,
+          "field_id": 229
+        },
+        {
+          "label": "126H",
+          "source_model": "so10-45-126-sector",
+          "regime": 61,
+          "field_id": 230
+        },
+        {
+          "label": "16F",
+          "source_model": "so10-45-126-complex10",
+          "regime": 64,
+          "field_id": 234,
+          "basis": "Same-paper ordinary unified fermion baseline, explicitly needed in SectionIVA just45+126 Yukawa discussion; not a union of spectra/regimes."
+        }
+      ],
+      "fingerprint": "3579e4af4b68638d30508b7b241a6fb1eee258e872ec73a0d31acde663c8917b",
+      "source_caveat": "The paper says this Yukawa system cannot reproduce realistic flavour. This is retained as source provenance, not used as an exclusion/completeness gate.",
+      "required_public_scope_update": "Name and scope must state the completed source model rather than a scalar-only breaking sector; preserve prior sector label/scope and original fields in legacyProjection."
+    },
+    {
+      "entry_id": "so10-45-126-complex10",
+      "primary_regime": 64,
+      "full_inventory": [
+        "1 real45H scalar",
+        "1 complex126H scalar",
+        "1 complex10H scalar",
+        "3 left-handed16F Weyl families"
+      ],
+      "canonical_scalar_multiplicities": {
+        "45H": 1,
+        "126H": 1,
+        "10H": 2
+      },
+      "source_mapping": [
+        {
+          "label": "45H",
+          "source_model": "so10-45-126-complex10",
+          "regime": 64,
+          "field_id": 231
+        },
+        {
+          "label": "126H",
+          "source_model": "so10-45-126-complex10",
+          "regime": 64,
+          "field_id": 232
+        },
+        {
+          "label": "10H",
+          "source_model": "so10-45-126-complex10",
+          "regime": 64,
+          "field_id": 233
+        },
+        {
+          "label": "16F",
+          "source_model": "so10-45-126-complex10",
+          "regime": 64,
+          "field_id": 234
+        }
+      ],
+      "fingerprint": "b8a27b132ee6fb6ef337134b775f186d409d827813189ef1679c4c41b9058943",
+      "source_caveat": "Real10H and120H alternatives mentioned in the source are separate model choices and not included in this candidate."
+    }
+  ],
+  "generation_evidence": {
+    "status": "explicit_declared_source_SM_inheritance_with_independent_count_crosscheck",
+    "not_literal_field_table": true,
+    "crosscheck_applies_to": "Only the complex10 full model's printed b=-12.",
+    "formula": "b=-(11/3)*8+(1/6)*8+(1/3)*35+(1/3)*1+(2/3)*2*n16=-16+(4/3)*n16",
+    "source_b": -12,
+    "inferred_n16": 3,
+    "minimal_model_use": "Inherit the same ordinary three-generation unified fermion baseline, justified by the source's just45+126 discussion; do not claim its different scalar set has b=-12."
+  },
+  "validation": [
+    "Source and normalized candidates agree under normalize_spec.",
+    "Both normalized candidates are idempotent under --require-normalized.",
+    "Duplicate checks find same-algebra pending records, no ready exact match; these are reconciled to the two existing targets, not new entries.",
+    "Original source IDs229-234 verified against current catalogue; inherited234 creates another projected occurrence, not a new source ID."
+  ],
+  "no_anomaly_or_viability_gate": true,
+  "unfinished_extraction": [],
+  "genuine_missing_required_source_assignments": [],
+  "parent_integration_requirements": [
+    "Extend current source adapter to reviewedD5 factors and exact D-series dimensions/display hints.",
+    "Accept additive scoped manifest pinned to this run directory.",
+    "Preserve source-container counts/reality before ordinary scalar real-module projection.",
+    "Retain original secondary regimes62/63 separately; do not combine low-energy decomposition spectra."
+  ],
+  "frozen_intake_files": [
+    "so10-45-126-sector-source-candidate.json",
+    "so10-45-126-sector-normalized.json",
+    "so10-45-126-sector-evidence.json",
+    "so10-45-126-sector-field-evidence.json",
+    "so10-45-126-complex10-source-candidate.json",
+    "so10-45-126-complex10-normalized.json",
+    "so10-45-126-complex10-evidence.json",
+    "so10-45-126-complex10-field-evidence.json"
+  ],
+  "compute_cost": {
+    "inference_tokens": null,
+    "inference_dollars": null,
+    "gpu_seconds": null,
+    "note": "Telemetry unavailable; no invented estimates."
+  }
+}
+

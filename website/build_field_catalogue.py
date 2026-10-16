@@ -32,7 +32,7 @@ from reextraction_reviews import load_reviews,apply_reviews
 from current_reextraction_reviews import load_current_reviews,apply_current_reviews
 from core_projection import attach_cores,attach_algebras
 from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION
-VERSION="gauge-matter-7"
+VERSION="gauge-matter-8"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 

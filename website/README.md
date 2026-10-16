@@ -47,7 +47,7 @@ The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retai
 
 ## Source review and routes
 
-`atlas/reextraction/accepted.json` preserves the historical pilot decisions; `accepted-followup.json` separately pins reviewed current candidates and evidence. Accepted normalized inputs must agree with the published field-content identity. New adapters or source mappings require review; preflight alone is not a general write API.
+`atlas/reextraction/accepted.json` preserves the historical pilot decisions; `accepted-followup.json` and `accepted-so10.json` separately pin reviewed current candidates and evidence. The latter also pins the independent D5 mathematics review. Accepted normalized inputs must agree with the published field-content identity. Current source adapters support reviewed A-series and D5 spectra; a readable SO(10) dimension is derived from exact weights, never used to infer them. New adapters or source mappings require review; preflight alone is not a general write API.
 
 The full-entry view defaults to complete numerical spectra. Coverage also exposes pending records. Symbolic-family input validation exists, but automatic public-family ingestion does not. These limits and the current counts are documented in the [main README](../README.md) and [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
 

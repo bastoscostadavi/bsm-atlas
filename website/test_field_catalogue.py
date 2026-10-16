@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import sqlite3
 import unittest
-from field_conventions import factor, rational, primitive_scale, dynkin, dimension_a, young_rows, dynkin_representation
+from field_conventions import factor, rational, primitive_scale, dynkin, dimension_a, dimension_d, irrep_dimension, irrep_dimension_label, young_rows, dynkin_representation
 from build_field_catalogue import field_type, excluded
 
 SITE=Path(__file__).resolve().parent
@@ -47,6 +47,25 @@ class Conventions(unittest.TestCase):
         self.assertTrue(excluded({'field_kind':'composite fermionic operator collection'}))
         self.assertTrue(excluded({'field_kind':'vector leptoquark gauge component'}))
 
+    def test_exact_d_series_dimensions_do_not_guess_weights_from_names(self):
+        d5=factor('SO(10)')
+        for weight,dimension in [([0,0,0,0,0],1),([1,0,0,0,0],10),
+                                 ([0,1,0,0,0],45),([0,0,0,1,0],16),
+                                 ([0,0,0,0,1],16),([0,0,0,2,0],126),
+                                 ([0,0,0,0,2],126)]:
+            self.assertEqual(dimension_d(weight),dimension)
+            self.assertEqual(irrep_dimension(d5,weight),dimension)
+        self.assertEqual(irrep_dimension_label(d5,[0,0,0,1,0]),'16')
+        self.assertEqual(irrep_dimension_label(d5,[0,0,0,0,1]),'bar(16)')
+        self.assertEqual(irrep_dimension_label(d5,[0,0,0,2,0]),'126')
+        self.assertEqual(irrep_dimension_label(d5,[0,0,0,0,2]),'bar(126)')
+        self.assertIsNone(dynkin(d5,'16'))
+        self.assertIsNone(dimension_d(None))
+        for invalid in [[0,0,0],[-1,0,0,0,0],[True,0,0,0,0]]:
+            with self.assertRaises(ValueError):dimension_d(invalid)
+        with self.assertRaisesRegex(ValueError,'rank mismatch'):
+            irrep_dimension(d5,[1,0,0,0])
+
 class Catalogue(unittest.TestCase):
     def test_dynkin_notation_and_metadata(self):
         self.assertEqual(DATA['representationConvention']['id'],'dynkin-gauge-1')
@@ -80,7 +99,7 @@ class Catalogue(unittest.TestCase):
         fs=[f['sourceFieldId'] for e in records for v in e['variants'] for r in v['regimes'] for f in r['fields']]
         self.assertEqual(len(models),125)
         self.assertEqual(len(set(models)),125)
-        self.assertEqual(len(fs),581)  # Eight explicitly inherited GG occurrences, not new source fields.
+        self.assertEqual(len(fs),582)  # Eight GG and one SO(10) inherited occurrence, not new source fields.
         self.assertEqual(len(set(fs)),573)
         self.assertEqual((SITE/'field-catalogue.json').read_bytes(),(ROOT/'atlas/FIELD_CONTENT_CATALOGUE.json').read_bytes())
 
@@ -101,9 +120,9 @@ class Catalogue(unittest.TestCase):
         self.assertIsNone(next(c['value'] for c in chi['components'] if c['role']=='hypercharge'))
 
     def test_accepted_reextraction_is_additive_and_deduplicated(self):
-        self.assertEqual(DATA['reextraction']['acceptedPapers'],7)
-        self.assertEqual(DATA['reextraction']['acceptedCandidates'],10)
-        self.assertEqual(DATA['reextraction']['acceptedEntries'],9)
+        self.assertEqual(DATA['reextraction']['acceptedPapers'],8)
+        self.assertEqual(DATA['reextraction']['acceptedCandidates'],12)
+        self.assertEqual(DATA['reextraction']['acceptedEntries'],11)
         lr=ENTRIES['lr-triplet-matter']
         self.assertEqual(lr['status'],'recorded_content')
         self.assertEqual(lr['legacyIdentity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
@@ -120,7 +139,7 @@ class Catalogue(unittest.TestCase):
             self.assertTrue(all(f['notationComplete'] for f in r['fields']))
             self.assertTrue(all('legacyProjection' in f for f in r['fields']))
         self.assertEqual({p['id'] for p in DATA['papers'] if p.get('reextractions')},
-                         {'P01','P02','P03','P04','P05','P11','P18'})
+                         {'P01','P02','P03','P04','P05','P11','P18','P19'})
         self.assertEqual(len(ENTRIES['real-singlet-z2']['reextractions']),2)
 
     def test_baselines_and_scopes(self):
@@ -141,7 +160,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))
             self.assertEqual(c.execute('select count(*) from papers').fetchone()[0],51)
-            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],10)
+            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],12)
             self.assertEqual(c.execute("select count(*) from entry_papers where paper_id='R01'").fetchone()[0],0)
             self.assertEqual(json.loads(c.execute("select value from metadata where key='representation_convention_json'").fetchone()[0]),DATA['representationConvention'])
             for e in DATA['entries']:

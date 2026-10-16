@@ -4,12 +4,12 @@ import hashlib
 import json
 
 from catalogue_identity import canonicalize, normalize_spec
-from field_conventions import factor, dimension_a, young_rows, dynkin_representation
+from field_conventions import factor,irrep_dimension,irrep_dimension_label,young_rows,dynkin_representation
 from spacetime_conventions import field_reps
 
 
-def load_current_reviews(root):
-    manifest = json.loads((root / 'atlas/reextraction/accepted-followup.json').read_text())
+def _load_review_manifest(root,filename,directory):
+    manifest = json.loads((root / 'atlas/reextraction' / filename).read_text())
     if manifest['version'] != 1:
         raise ValueError('Unsupported current-review manifest')
     reviews, seen = [], set()
@@ -21,7 +21,7 @@ def load_current_reviews(root):
         files = {}
         for kind, pin in decision['files'].items():
             path = (root / pin['path']).resolve()
-            if not path.is_relative_to((root / 'atlas/reextraction/followup-20261016').resolve()):
+            if not path.is_relative_to((root / 'atlas/reextraction' / directory).resolve()):
                 raise ValueError('Review path outside accepted evidence directory')
             raw = path.read_bytes()
             if hashlib.sha256(raw).hexdigest() != pin['sha256']:
@@ -45,6 +45,16 @@ def load_current_reviews(root):
             raise ValueError('Current source-field mappings disagree')
         reviews.append({'decision': decision, **files, 'reviewedOn': manifest['reviewed_on'],
                         'reviewStatus': manifest['review_status']})
+    return reviews
+
+
+def load_current_reviews(root):
+    reviews=[]
+    for filename,directory in [('accepted-followup.json','followup-20261016'),
+                               ('accepted-so10.json','so10-resolution-20261016')]:
+        reviews.extend(_load_review_manifest(root,filename,directory))
+    ids=[r['decision']['entry'] for r in reviews]
+    if len(ids)!=len(set(ids)): raise ValueError('Duplicate current-review entry across manifests')
     return reviews
 
 
@@ -78,9 +88,10 @@ def apply_current_reviews(entries, papers, reviews, display_rep):
         factors = []
         for a in source['gauge_factors']:
             # New gauge families/U(1) conversions require a reviewed adapter.
-            if a['family'] != 'A':
-                raise ValueError('Current source adapter only supports reviewed A-series spectra')
-            factors.append({**factor('SU(' + str(a['rank'] + 1) + ')', 'unified'),
+            if a['family']=='A': label='SU('+str(a['rank']+1)+')'
+            elif a['family']=='D' and a['rank']==5: label='SO(10)'
+            else: raise ValueError('Current source adapter only supports reviewed A-series and D5 spectra')
+            factors.append({**factor(label, 'unified'),
                             'key': 'review:' + a['id'], 'candidateId': a['id'],
                             'groupId': None, 'normalization': None})
         mapped_ids = [i for row in review['fields']['rows'] for i in row['mapping']['source_field_ids']]
@@ -100,11 +111,8 @@ def apply_current_reviews(entries, papers, reviews, display_rep):
             f, components = deepcopy(old), []
             for a in factors:
                 w = s['gauge_representations'][a['candidateId']]['dynkin']
-                dimension = dimension_a(w)
-                value = str(dimension)
-                # A display hint only: identity always uses exact highest weights.
-                if tuple(w) < tuple(reversed(w)):
-                    value = 'bar(' + value + ')'
+                dimension = irrep_dimension(a,w)
+                value = irrep_dimension_label(a,w)
                 components.append({'factorKey': a['key'], 'factor': a['label'], 'role': a['role'],
                     'value': value, 'dynkin': w, 'youngRows': young_rows(a, w), 'dimension': dimension,
                     'assignmentStatus': 'source_backed_reextraction'})
@@ -138,6 +146,11 @@ def apply_current_reviews(entries, papers, reviews, display_rep):
                       algebra=' ⊕ '.join(a['label'] for a in factors),
                       algebraSignature='+'.join(sorted(a['id'] for a in factors)),
                       reextraction=public_current_review(review))
+        if d.get('regime_description'):
+            regime['legacyDescription']=regime['description']
+            regime['description']=d['regime_description']
+        if d.get('reconciliation'):
+            entry['groupingBasis']=d['reconciliation']
         regime['algebraExpanded'] = regime['algebra']
         for key in ['algebra', 'algebraExpanded', 'algebraSignature', 'baseline']:
             entry[key] = regime[key]

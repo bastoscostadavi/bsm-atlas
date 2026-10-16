@@ -60,7 +60,9 @@ class NonAbelianCore(unittest.TestCase):
         self.assertEqual(len(a['entryIds']),5)
         self.assertEqual(len(a['readyEntryIds']),4)
         self.assertEqual(a['pendingEntryIds'],['su5-rpv-trilinear-sector'])
-        self.assertIsNotNone(ENTRIES['so10-45-126-sector']['semisimpleId'])
+        so10=next(a for a in DATA['semisimpleAlgebras'] if ENTRIES['so10-45-126-sector']['id'] in a['entryIds'])
+        self.assertEqual(set(so10['readyEntryIds']),{'so10-45-126-sector','so10-45-126-complex10'})
+        self.assertEqual(so10['pendingEntryIds'],[])
         self.assertIsNone(ENTRIES['hidden-valley-colored-x-framework']['semisimpleId'])
         for rank in [None,True,0,-1,2.5]:
             with self.assertRaises(ValueError):algebra_key({'gauge_factors':[{'family':'A','rank':rank}]})
@@ -140,8 +142,8 @@ class NonAbelianCore(unittest.TestCase):
         self.assertEqual(result['matter'][0]['copies'],2)
 
     def test_exported_keys_and_memberships(self):
-        self.assertEqual(DATA['counts']['cores'],15)
-        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),19)
+        self.assertEqual(DATA['counts']['cores'],17)
+        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),21)
         for c in DATA['cores']:
             self.assertEqual(c['id'],sha256(json.dumps(c['canonical'],sort_keys=True,separators=(',',':')).encode()).hexdigest())
             for entry_id in c['entryIds']:
@@ -152,8 +154,8 @@ class NonAbelianCore(unittest.TestCase):
     def test_relational_factors_and_core_index(self):
         with closing(sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
             self.assertEqual(con.execute('pragma foreign_key_check').fetchall(),[])
-            self.assertEqual(con.execute('select count(*) from nonabelian_cores').fetchone()[0],15)
-            self.assertEqual(con.execute('select count(*) from entry_cores where core_id is not null').fetchone()[0],19)
+            self.assertEqual(con.execute('select count(*) from nonabelian_cores').fetchone()[0],17)
+            self.assertEqual(con.execute('select count(*) from entry_cores where core_id is not null').fetchone()[0],21)
             self.assertEqual(con.execute('select count(*) from entry_cores').fetchone()[0],103)
             self.assertEqual(con.execute("select count(*) from abelian_factors where cartan_family!='U1'").fetchone()[0],0)
             self.assertEqual(con.execute("select count(*) from nonabelian_factors where cartan_family='U1'").fetchone()[0],0)

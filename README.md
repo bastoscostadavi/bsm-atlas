@@ -47,9 +47,11 @@ See the [complete conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) and [entry sc
 
 ## Current coverage
 
-The saved 50-paper seed supports 103 source-scoped entries: 19 complete numerical inventories, grouped into 15 non-Abelian matter spectra. Fourteen recorded semisimple algebras cover 94 entries; nine have unresolved or parameterized algebras. These are not counts of distinct complete physical theories.
+The saved 50-paper seed supports 103 source-scoped entries: 21 complete numerical inventories, grouped into 17 non-Abelian matter spectra. Fourteen recorded semisimple algebras cover 94 entries; nine have unresolved or parameterized algebras. These are not counts of distinct complete physical theories.
 
-The paper list is independent: general theory and tool papers can have no model association. R01 is an additional theory reference, not a BSM entry. Accepted scoped re-extractions cover seven seed papers; [37 further numerical candidates remain staged for review](atlas/reextraction/followup-20261016/handoff.json). Neither a registered paper nor a staged candidate implies a completed or independently verified extraction.
+The paper list is independent: general theory and tool papers can have no model association. R01 is an additional theory reference, not a BSM entry. Accepted scoped re-extractions cover eight seed papers. Of the 37 numerical candidates staged in the [historical followup handoff](atlas/reextraction/followup-20261016/handoff.json), 36 remain unaccepted. Neither a registered paper nor a staged candidate implies a completed or independently verified extraction.
+
+The [SO(10) source and mathematics review](atlas/reextraction/so10-resolution-20261016/decision.json) completes both P19 entries, including the smaller 45H + 126H model previously extracted only as a scalar sector. Its three-family fermion baseline is explicitly declared source-SM inheritance; no literal multiplicity table or phenomenological viability is claimed. The original snapshot and earlier extraction decisions remain preserved.
 
 ## Develop and contribute
 
