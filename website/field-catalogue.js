@@ -7,10 +7,10 @@
  const notationModes={dimensions:'Dimensions',dynkin:'Dynkin labels',young:'Young diagrams',compare:'Compare notations'};
  const sourceURL=p=>'https://arxiv.org/abs/'+p.arxiv;
  const pdfURL=e=>'https://arxiv.org/pdf/'+e.paper_version_id+(e.pdf_page?'#page='+e.pdf_page:'');
- function findEntries(data,{q='',algebra='',paper='',status=''}={}){
+ function findEntries(data,{q='',algebra='',paper='',status='',core=''}={}){
    const needle=q.trim().toLowerCase();
    const pending=['pending','partial','parameterized'].includes(status);
-   return data.entries.filter(e=>(pending?e.publicationStatus==='pending':e.publicationStatus!=='pending')&&(!algebra||e.algebraSignature===algebra)&&(!paper||e.paperIds.includes(paper))&&(!status||status==='pending'||e.status===status)&&(!needle||[e.id,e.name,e.algebraExpanded,e.baseline,...e.paperIds,...e.variants.flatMap(v=>[v.name,v.id,...v.regimes.flatMap(r=>r.fields.flatMap(f=>[f.label,f.representation,f.dynkinRepresentation,...(f.lorentz||[]).map(l=>l.dynkinRepresentation),...f.sourceRepresentations.map(s=>s.representation_label)]))]),...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
+   return data.entries.filter(e=>(pending?e.publicationStatus==='pending':e.publicationStatus!=='pending')&&(!core||e.coreId===core)&&(!algebra||(algebra.startsWith('na:')?(data.cores||[]).some(c=>c.id===e.coreId&&c.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!status||status==='pending'||e.status===status)&&(!needle||[e.id,e.name,e.algebraExpanded,e.baseline,...e.paperIds,...e.variants.flatMap(v=>[v.name,v.id,...v.regimes.flatMap(r=>r.fields.flatMap(f=>[f.label,f.representation,f.dynkinRepresentation,...(f.lorentz||[]).map(l=>l.dynkinRepresentation),...f.sourceRepresentations.map(s=>s.representation_label)]))]),...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
  }
  const dynkinLabel=c=>c.factor==='u(1)'?String(c.value??'?'):c.dynkin?'['+c.dynkin.join(',')+']':'?';
  function dynkinTuple(components){
@@ -72,14 +72,18 @@
  }
 
  function create(data,document){
-   const state={q:'',algebra:'',paper:'',status:'',open:'',variant:'',regime:'',mode:'dimensions',inherited:false,view:'catalogue',baselineOpen:{},limit:20};
+   const state={q:'',algebra:'',paper:'',status:'',open:'',variant:'',regime:'',mode:'dimensions',inherited:false,view:'catalogue',browse:'cores',core:'',baselineOpen:{},limit:20};
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
+   const coreById=new Map((data.cores||[]).map(c=>[c.id,c]));
+   const entryById=new Map(data.entries.map(e=>[e.id,e]));
    const linked=(p,coverage)=>data.entries.filter(e=>p.entryIds.includes(e.id)&&e.publicationStatus===coverage).length;
    function route(){
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
      state.view=['notation','sources','about'].includes(raw)?raw:'catalogue';
+     state.browse=raw==='entries'||/^(entry|model|core)\//.test(raw)?'entries':'cores';
+     state.core=raw.startsWith('core/')?decodeURIComponent(raw.slice(5)):p.get('core')||'';
      state.open='';
      if(raw.startsWith('entry/'))state.open=decodeURIComponent(raw.slice(6));
      if(raw.startsWith('model/')){
@@ -87,13 +91,16 @@
        state.open=data.entries.find(e=>e.variants.some(v=>v.id===id))?.id||'';
      }
      for(const key of ['q','algebra','paper','status'])state[key]=p.get(key)||'';
+     if(state.open&&!state.core)state.core=entryById.get(state.open)?.coreId||'';
      if(data.entries.find(e=>e.id===state.open)?.publicationStatus==='pending')state.status='pending';
    }
    function url(){
      const p=new URLSearchParams();
      for(const key of ['q','algebra','paper','status'])if(state[key])p.set(key,state[key]);
+     if(state.open&&state.core)p.set('core',state.core);
      if(state.mode!=='dimensions')p.set('notation',state.mode);
-     history.replaceState(null,'','#'+(state.open?'entry/'+encodeURIComponent(state.open):state.view)+(p.size?'?'+p:''));
+     const target=state.open?'entry/'+encodeURIComponent(state.open):state.core?'core/'+encodeURIComponent(state.core):state.view==='catalogue'&&state.browse==='entries'?'entries':state.view;
+     history.replaceState(null,'','#'+target+(p.size?'?'+p:''));
    }
    function baseline(code){
      return code?'<a class="baseline-chip" href="#notation" title="See the '+esc(code)+' definition">'+shorthand(code)+'</a>':'';
@@ -152,19 +159,31 @@
      return representationMarkup(cs,state.mode,column.sm);
    }
    function matrix(e,r){
-     const columns=root.FieldMatrix.gaugeColumns(r),include=!!state.baselineOpen[e.id];
-     const rows=root.FieldMatrix.matrixRows(r,data.templates,include);
+     const isCore=Array.isArray(r.coreRows),columns=isCore&&!r.factors.length?[]:root.FieldMatrix.gaugeColumns(r),include=!!state.baselineOpen[e.id];
+     const rows=isCore?r.coreRows:root.FieldMatrix.matrixRows(r,data.templates,include);
      const dimensions=[...new Set(rows.map(x=>x.lorentz.spacetime.dimension))];
      const algebra=dimensions.length===1?(dimensions[0]&&/^\d+$/.test(dimensions[0])?'so(1,'+(Number(dimensions[0])-1)+')':dimensions[0]?'so(1,D−1), D = '+dimensions[0]:'dimension unrecorded'):'mixed dimensions';
-     return '<div class="matrix-wrap"><table style="'+(columns.length>2?'min-width:'+((columns.length+2)*105+80)+'px':'')+'" class="representation-matrix" aria-label="Matter content of '+esc(e.name)+'"><thead><tr><th>Spacetime<span class="matrix-algebra">'+esc(algebra)+'</span></th>'+columns.map(c=>'<th>'+gaugeHeading(c)+(r.chargeConvention&&c.positions.some(i=>r.factors[i].type==='U1')?'<span class="matrix-algebra">'+esc(r.chargeConvention)+'</span>':'')+algebraDiagrams(c,r)+'</th>').join('')+'<th>Copies</th></tr></thead><tbody>'+
+     return '<div class="matrix-wrap"><table style="'+(columns.length>2?'min-width:'+((columns.length+2)*105+80)+'px':'')+'" class="representation-matrix'+(isCore?' core-matrix':'')+'" aria-label="'+(isCore?'Representations in non-Abelian core ':'Matter content of ')+esc(e.name)+'"><thead><tr><th>Spacetime<span class="matrix-algebra">'+esc(algebra)+'</span></th>'+columns.map(c=>'<th>'+gaugeHeading(c)+(r.chargeConvention&&c.positions.some(i=>r.factors[i].type==='U1')?'<span class="matrix-algebra">'+esc(r.chargeConvention)+'</span>':'')+algebraDiagrams(c,r)+'</th>').join('')+'<th>Copies</th>'+'</tr></thead><tbody>'+
        (r.baseline?'<tr class="baseline-group"><td colspan="'+(columns.length+2)+'"><button class="text-button" data-baseline="'+esc(e.id)+'" aria-expanded="'+include+'">'+shorthand(r.baseline)+'<span> '+(include?'−':'+')+'</span></button></td></tr>':'')+
        rows.map(row=>{
          const l=row.lorentz,condition=scalarRealityLabel(l,row.components);
-         return '<tr class="'+(row.template?'template-row':'')+'" title="'+esc(row.labels.join(', '))+'"><td><span class="math">'+esc(l.label).replaceAll('1/2','½')+'</span>'+(dimensions.length>1?'<span class="matrix-note">'+esc(l.spacetime.dimension||'D unknown')+'D</span>':'')+(condition?'<span class="matrix-note">'+esc(condition)+'</span>':'')+(l.status!=='resolved'?'<span class="matrix-note unresolved">'+(l.status==='source_chirality_unresolved'?'source handedness unresolved':'unresolved')+'</span>':'')+'</td>'+columns.map(c=>'<td>'+gaugeCell(row,c,r)+'</td>').join('')+'<td>'+esc(row.copies??'?')+'</td></tr>';
+         return '<tr class="'+(row.template?'template-row':'')+'" title="'+esc(row.labels.join(', '))+'"><td><span class="math">'+esc(l.label).replaceAll('1/2','½')+'</span>'+(dimensions.length>1?'<span class="matrix-note">'+esc(l.spacetime.dimension||'D unknown')+'D</span>':'')+(condition?'<span class="matrix-note">'+esc(condition)+'</span>':'')+(l.status!=='resolved'?'<span class="matrix-note unresolved">'+(l.status==='source_chirality_unresolved'?'source handedness unresolved':'unresolved')+'</span>':'')+'</td>'+columns.map(c=>'<td>'+gaugeCell(row,c,r)+'</td>').join('')+'<td>'+esc(row.copies??'?')+'</td>'+'</tr>';
        }).join('')+(!rows.length?'<tr><td colspan="'+(columns.length+2)+'" class="subtle">No independent additional fields extracted for this description.</td></tr>':'')+'</tbody></table></div>';
+   }
+   function coreCards(entries){
+     const matched=new Set(entries.map(e=>e.id));
+     const cores=(data.cores||[]).filter(c=>c.entryIds.some(id=>matched.has(id)));
+     const visible=cores.slice(0,state.limit);
+     document.getElementById('result-count').textContent=cores.length+' non-Abelian '+(cores.length===1?'core':'cores');
+     document.getElementById('model-entries').innerHTML=visible.map(c=>{
+       const names=c.entryIds.map(id=>entryById.get(id)?.name).filter(Boolean);
+       return '<article class="model-entry core-entry"><header class="model-heading"><h2><a class="core-title" href="#core/'+esc(c.id)+'">'+math(c.algebra)+'</a></h2><a class="core-open" href="#core/'+esc(c.id)+'">Open '+c.entryIds.length+' '+(c.entryIds.length===1?'entry':'entries')+' →</a></header><p class="core-members">'+names.map(esc).join(' · ')+'</p>'+matrix({id:c.id,name:c.algebra},c.regime)+'</article>';
+     }).join('')+(cores.length>visible.length?'<button class="load-more" data-more>Show more cores ('+(cores.length-visible.length)+' remaining)</button>':'')+(!cores.length?'<p class="empty">No resolved non-Abelian cores match these filters. <a href="#entries?status=pending">Pending source records →</a></p>':'');
+     root.AtlasDiagrams?.render(document);
    }
    function rows(){
      const entries=findEntries(data,state),openIndex=entries.findIndex(e=>e.id===state.open);
+     if(state.browse==='cores'&&!['pending','partial','parameterized'].includes(state.status))return coreCards(entries);
      state.limit=Math.max(state.limit,openIndex+1);
      const visible=entries.slice(0,state.limit);
      document.getElementById('result-count').textContent=entries.length+(['pending','partial','parameterized'].includes(state.status)?' pending source records':entries.length===1?' model':' models');
@@ -185,7 +204,7 @@
      '<h3>Integer Abelian charges</h3><p>One positive common rescaling per concrete charge assignment makes its charges integral and coprime. A declared SM baseline supplies its reference charge unit. For the ordinary SM this is q = 6Y, with g<sub>q</sub> = g<sub>Y</sub>/6. Scalars and fermions share the same generator normalization. Source orientation is retained; fields are not permuted into the ordering used for unlabeled charge-set classifications.</p><p>Symbolic families and incomplete assignments stay outside the concrete-spectrum table. Their source expressions and normalization scope remain in pending records and downloads. A vector such as [0,−3,3] describes different family charges, not one charge or three identical copies. Parameterized-family ingestion is not implemented. Separate U(1) rescalings do not resolve all changes of basis among multiple Abelian factors.</p></div><div>'+
      '<h3>SM shorthand, expanded</h3><p><span class="math">R<sub>SM</sub> = F<sub>SM</sub> ⊕ H<sub>SM</sub></span>. F<sub>SM</sub> contains three generations of left-handed Weyl fermions. H<sub>SM</sub> is one complex scalar doublet. No right-handed neutrino is included. Gauge connections are implied by the algebra and are not additional matter.</p>'+templateTable(data.templates.R_SM)+
      '<h3>Supersymmetric baseline</h3><p>R<sub>MSSM</sub> contains three families of Q, uᶜ, dᶜ, L, eᶜ chiral multiplets; two Higgs chiral multiplets; and the three gauge-adjoint gaugino multiplets. It replaces, rather than supplements, R<sub>SM</sub>. Inherited templates are presentation definitions, not a claim that every source re-enumerates those fields.</p><details><summary>Expand R<sub>MSSM</sub></summary>'+templateTable(data.templates.R_MSSM)+
-     '</details><h3>What an entry means</h3><p>Source variants are grouped only through the documented field-content decisions. Different interactions or global symmetries can share an entry; they are not declared equivalent physical theories. Separate description regimes are never combined into one spectrum. Partial and parameterized entries are not silently deduplicated or promoted to complete models.</p><p>This release starts from the saved, source-scoped extraction of all 50 seed papers. '+esc(data.sourceReview)+' P21, P22 and P26 retain partial profiles.</p><p>'+data.references.map(r=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.title)+' ↗</a>').join('<br>')+'</p></div></div></details></section>';}
+     '</details><h3>Non-Abelian cores</h3><p>The catalogue opens with groups sharing the same non-Abelian gauge algebra, Lorentz representations, non-Abelian irreps and total copy counts. Every U(1) factor, including hypercharge, is omitted in this derived view. Restriction can merge rows: the SM uᶜ and dᶜ multiplets together give six colour antifundamental weak singlets. Scalar real modules are decomposed again after restriction, preserving their real degrees of freedom. Open a core to see all of its recorded full entries. This grouping is not physical equivalence or an SM-embedding certificate. Unresolved inventories are not assigned guessed cores.</p><h3>What an entry means</h3><p>Source variants are grouped only through the documented field-content decisions. Different interactions or global symmetries can share an entry; they are not declared equivalent physical theories. Separate description regimes are never combined into one spectrum. Partial and parameterized entries are not silently deduplicated or promoted to complete models.</p><p>This release starts from the saved, source-scoped extraction of all 50 seed papers. '+esc(data.sourceReview)+' P21, P22 and P26 retain partial profiles.</p><p>'+data.references.map(r=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.title)+' ↗</a>').join('<br>')+'</p></div></div></details></section>';}
 
    function sources(){
      return '<section id="sources"><p class="section-note">Papers are independent records. Some have no associated model.</p><div class="source-list">'+data.papers.map(p=>
@@ -194,25 +213,28 @@
        '<details class="provenance"><summary>Inspection details</summary><p>'+esc(p.kind)+' · '+esc(p.inspectionStatus)+' · '+esc(p.reviewStatus)+'</p><h3>Original scope</h3><p>'+esc(p.inspectedScope)+'</p>'+(p.reextractions?.length?'<h3>Accepted gauge/matter re-extraction</h3>'+[...new Map(p.reextractions.map(x=>[x.inspectedScope,x])).values()].map(x=>'<p>'+esc(x.reviewedOn)+' · '+esc(x.inspectedScope)+' <a href="'+esc(x.evidenceURL)+'" target="_blank" rel="noopener noreferrer">Evidence ↗</a></p>').join('')+'<p>Agent source-checked within the stated scope; not a whole-paper or independent physics review.</p>':'')+'<h3>Limitations</h3><p>'+esc(p.limitations||'No limitation text recorded; completeness not established.')+'</p></details></div></details>').join('')+'</div></section>';
    }
    function about(){
-     return '<section class="about-data"><p>A provisional catalogue built from the saved, scoped extraction of 50 seed papers. This is not an independently verified list of complete theories.</p><p>Accepted gauge/matter re-extractions: '+esc(data.reextraction?.acceptedPapers??0)+' / 50 papers. These cover their stated definition sections, not every passage of each paper. Unaccepted work in progress is not published automatically.</p><p>The default table shows only complete numerical inventories under the stated conventions; this is not independent source certification. Filters → Coverage → Pending source records opens the preserved incomplete/parameterized extraction. ? there means unresolved in this catalogue, not necessarily unspecified in the paper. '+esc(data.sourceReview)+'</p><p>Field-content entries may share interactions or global symmetries not displayed here; conversely, identical fields do not imply identical physical theories. Separate description regimes are never combined into one spectrum.</p><p>The original database and all provenance are preserved. No underlying records were deleted to simplify the interface.</p><p>Before adding a model, use the <a href="entry.schema.json">entry schema</a> and the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/check_entry.py">duplicate checker</a>. An exact field-content match reuses the existing entry; incomplete data require reconciliation.</p><a href="https://github.com/bastoscostadavi/bsm-atlas/tree/main/atlas">Data & methodology ↗</a></section>';
+     return '<section class="about-data"><p>A provisional catalogue built from the saved, scoped extraction of 50 seed papers. The default navigation groups complete numerical entries into non-Abelian cores, retaining representation multiplicities. Full entries and the underlying source records remain separate. This is not an independently verified list of complete theories.</p><p>Accepted gauge/matter re-extractions: '+esc(data.reextraction?.acceptedPapers??0)+' / 50 papers. These cover their stated definition sections, not every passage of each paper. Unaccepted work in progress is not published automatically.</p><p>The default table shows only complete numerical inventories under the stated conventions; this is not independent source certification. Filters → Coverage → Pending source records opens the preserved incomplete/parameterized extraction. ? there means unresolved in this catalogue, not necessarily unspecified in the paper. '+esc(data.sourceReview)+'</p><p>Field-content entries may share interactions or global symmetries not displayed here; conversely, identical fields do not imply identical physical theories. Separate description regimes are never combined into one spectrum.</p><p>The original database and all provenance are preserved. No underlying records were deleted to simplify the interface.</p><p>Before adding a model, use the <a href="entry.schema.json">entry schema</a> and the <a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/check_entry.py">duplicate checker</a>. An exact field-content match reuses the existing entry; incomplete data require reconciliation.</p><a href="https://github.com/bastoscostadavi/bsm-atlas/tree/main/atlas">Data & methodology ↗</a></section>';
    }
    function catalogue(){
-     const algebras=[...new Map(data.entries.map(e=>[e.algebraSignature,e.algebraExpanded])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
+     const isCores=state.browse==='cores'&&!['pending','partial','parameterized'].includes(state.status);
+     const algebras=[...new Map(isCores?(data.cores||[]).map(c=>['na:'+c.algebraSignature,c.algebra]):data.entries.map(e=>[e.algebraSignature,e.algebraExpanded])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
      const active=['algebra','paper','status'].filter(k=>state[k]).length;
      const p=paperById.get(state.paper);
-     return '<div class="toolbar" role="search" aria-label="Filter models"><label class="search-label"><span class="sr-only">Search models</span><input type="search" id="entry-search" placeholder="Search models, algebras or papers" value="'+esc(state.q)+'"></label>'+
+     const core=coreById.get(state.core);
+     const navigation=state.core?'<div class="browse-path"><a href="#catalogue">← All cores</a><span>'+math(core?.algebra||'Core not found')+'</span></div>':'<div class="browse-path"><a href="#catalogue"'+(isCores?' aria-current="page"':'')+'>Cores</a><a href="#entries"'+(!isCores?' aria-current="page"':'')+'>All entries</a></div>';
+     return navigation+(isCores?'<p class="section-note">Non-Abelian algebra, matter representations and copies. Open a core to see its full entries.</p>':core?'<p class="section-note">Same non-Abelian core. Full gauge factors, charges and copies are shown below.</p>':'')+'<div class="toolbar" role="search" aria-label="Filter models"><label class="search-label"><span class="sr-only">Search models</span><input type="search" id="entry-search" placeholder="Search models, algebras or papers" value="'+esc(state.q)+'"></label>'+
        '<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>'+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Gauge algebra<select id="algebra-filter"><option value="">All algebras</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+data.papers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.id)+' — '+esc(p.title)+'</option>').join('')+'</select></label><label>Coverage<select id="status-filter"><option value="">Concrete spectra</option>'+Object.entries(statuses).map(([id,label])=>'<option value="'+id+'"'+(state.status===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label></div></details>'+
-       '<details class="download-menu"><summary>Download</summary><div><a href="downloads/field-catalogue.csv" download>CSV</a><a href="field-catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
+       '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="field-catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
        (p?'<div class="selected-paper"><span>'+esc(p.id)+'</span><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
-       '<div class="results-bar"><span id="result-count"></span><span class="catalogue-disclaimer">'+(['pending','partial','parameterized'].includes(state.status)?'Not accepted spectra':'Real scalar modules · LH Weyl')+'</span>'+(['q','algebra','paper','status'].some(k=>state[k])?'<button class="text-button" data-reset>Reset</button>':'')+'</div>'+
+       '<div class="results-bar"><span id="result-count"></span><span class="catalogue-disclaimer">'+(['pending','partial','parameterized'].includes(state.status)?'Not accepted spectra':isCores?'All U(1) factors omitted':'Real scalar modules · LH Weyl')+'</span>'+(['q','algebra','paper','status'].some(k=>state[k])?'<button class="text-button" data-reset>Reset</button>':'')+'</div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
      const titles={catalogue:'Gauge algebras & matter.',sources:'Papers.',notation:'Notation.',about:'About the data.'};
-     document.getElementById('page-title').textContent=titles[state.view];
+     document.getElementById('page-title').textContent=state.view==='catalogue'&&state.browse==='cores'&&!['pending','partial','parameterized'].includes(state.status)?'Non-Abelian cores.':titles[state.view];
      const key=document.getElementById('notation-key');
-     if(key)key.hidden=state.view!=='catalogue';
+     if(key)key.hidden=state.view!=='catalogue'||state.browse==='cores';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
      content.innerHTML=state.view==='sources'?sources():state.view==='notation'?notation():state.view==='about'?about():catalogue();
@@ -227,7 +249,7 @@
      content.addEventListener('input',e=>{if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
      content.addEventListener('change',e=>{
        const key={'algebra-filter':'algebra','paper-filter':'paper','status-filter':'status'}[e.target.id];
-       if(key){state[key]=e.target.value;state.open='';state.limit=20;url();render();}
+       if(key){state[key]=e.target.value;state.open='';state.limit=20;if(key==='status'&&['pending','partial','parameterized'].includes(state.status)){state.core='';state.browse='entries';state.algebra='';}url();render();}
        else if(e.target.id==='variant-select'){state.variant=e.target.value;state.regime='';rows();}
        else if(e.target.id==='regime-select'){state.regime=e.target.value;rows();}
        else if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
@@ -243,7 +265,7 @@
          state.open=same?'':open.dataset.open;state.variant='';state.regime='';state.inherited=false;
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
-       else if(paper){state.view='catalogue';state.paper=paper.dataset.paper;state.status=paper.dataset.coverage||'';if(!data.entries.some(x=>x.paperIds.includes(state.paper)&&x.publicationStatus==='ready'))state.status='pending';state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
+       else if(paper){state.view='catalogue';state.browse='entries';state.core='';state.algebra='';state.paper=paper.dataset.paper;state.status=paper.dataset.coverage||'';if(!data.entries.some(x=>x.paperIds.includes(state.paper)&&x.publicationStatus==='ready'))state.status='pending';state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
        else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',status:'',open:''});url();render();}
      });
      window.addEventListener('hashchange',()=>{route();render();});

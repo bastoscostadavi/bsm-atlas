@@ -96,7 +96,7 @@ class ScalarModules(unittest.TestCase):
             mem.execute(ddl)
             for q in ['[0,-3,3]','n','source:2','1/2','--3','']:
                 with self.assertRaises(sqlite3.IntegrityError):
-                    mem.execute('insert into component_gauge_representations values (?,?,?,?,?,?,?,?)',('test','q','u1','extra',None,q,q,'pending'))
+                    mem.execute('insert into component_gauge_representations values (?,?,?,?,?,?,?,?,?)',('test','q','u1','extra',None,q,q,'pending',0))
         self.assertEqual(sum(e['publicationStatus']=='ready' for e in data['entries']),15)
 
     def test_historical_corpus_has_idempotent_v2_projection(self):

@@ -19,6 +19,8 @@ You are building the first populated version of **BSM Atlas: a relational databa
 
 The original `atlas/atlas.sqlite` is an immutable retrieved snapshot. The new conventions, Lorentz components and identity registry are additive in the generated `website/downloads/field-catalogue.sqlite` and JSON; do not silently rewrite original source assertions or their review status.
 
+The website's default non-Abelian-core layer is derived, not a second source model inventory. It restricts the complete matter representation to the semisimple gauge algebra, retaining Lorentz types and total copies; all U(1) factors (including hypercharge) and charges are omitted. Decompose scalar real modules and merge identical restricted rows before keying. Do not merely delete charge columns or discard multiplicities. Full entries and source paper associations remain distinct; unresolved inventories receive no guessed core. The export exposes regime factor slots in `gauge_factors`, filtered views `nonabelian_factors`/`abelian_factors`, and the `nonabelian_cores`/`entry_cores` derived index. A coarse match is neither a full spectrum match nor an SM-embedding certificate.
+
 ### Mandatory extraction → normalization → ingestion sequence
 
 The extraction agent, not the website, is responsible for establishing the gauge/matter assignments and converting them BEFORE proposing an addition. Do not insert a source-shaped or partially processed tuple and defer its normalization to the display layer.

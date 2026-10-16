@@ -1,6 +1,6 @@
 # Gauge-algebra and matter catalogue
 
-Version `gauge-matter-4`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
+Version `gauge-matter-5`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
 
 ### Accepted source-backed re-extractions
 
@@ -60,11 +60,21 @@ Canonical scalar components have `reality: real_module`, their own `copies`, and
 
 The default website now shows 15 complete numerical inventories under these conventions. The remaining 88 provisional source records are preserved behind Coverage → Pending source records and in downloads, not presented as accepted spectra. A computable identity is not independent source, anomaly or viability certification.
 
-### Parameterized families: proposed organization, not implemented ingestion
+### Non-Abelian cores in version 5
 
-Do not enumerate every integer substitution. Keep a separate family record with fixed gauge/field structure, shared parameter IDs, domains, constraints and one scalar-valued charge expression per field/factor. Keep concrete normalized spectra separately; associate them with a family only when a paper studies that specialization, or when a user explicitly materializes one. Papers can associate with either kind of record.
+The website opens with **non-Abelian cores**, then links each core to all of its currently resolved full entries. A core retains the semisimple gauge algebra, Lorentz representations, highest-weight non-Abelian irreps and **total copy counts**. It omits every Abelian factor, including SM hypercharge, and its charges. Copies participate in both the key and display: one versus two real singlets, or two versus three Higgs doublets, remain distinct. Only identical restricted rows are aggregated; the SM u^c/d^c multiplets together give six LH colour antifundamental weak singlets.
 
-Distinguish counts of recorded concrete spectra from counts of families. A family's member set can be infinite. Remove normalization-only freedom: `(n,-n)` for integer n≠0 represents the same primitive spectrum `(1,-1)`, whereas `(1,-1,n,-n)` generally retains a charge-ratio parameter. Zero/special parameter values may change normalization, real-module type or identical-row merging and require separate strata. Arbitrary symbolic-family equivalence/overlap is not solved by the numerical fingerprint checker. A family-vector source assignment such as `[0,-3,3]` must expand into separate field rows (merging only identical representations), not become one charge-cell value. Until a dedicated validated family schema is implemented, these descriptions stay in separate staging/pending records.
+This is a derived restriction, not a different physical theory, a symmetry-breaking step, an SM-embedding proof or a replacement for the full entry. All baseline matter is expanded before hashing. Real scalar modules are decomposed after restriction: a charged complex non-Abelian singlet restricts to two real singlet copies, whereas a charged weak doublet restricts to one quaternionic underlying-real module. Fields and degrees of freedom are not deleted. The convention is `nonabelian-core-1`; canonical JSON and its SHA256 determine the key. Factor order, row order, repeated identical-factor permutations and row splitting/aggregation are treated consistently with numerical identities. General simple-algebra outer automorphisms are not exhaustively quotiented.
+
+The release has 11 cores for the 15 complete numerical primary-regime entries. The other 88 source records remain pending, with an explicit unresolved core reason; no core is inferred from an unfinished inventory. Different description regimes are never combined. An omitted Abelian factor can change the rank without changing a core; `abelianRank` is recorded separately, or null when the gauge algebra is unresolved. Core factor slots use canonical numbering, not a claim that a numbered slot has a source's physical L/R role.
+
+Full entries are stored once. `gauge_factors` relationally exposes each regime's factor slots and type; `nonabelian_factors` and `abelian_factors` are filtered SQL views, not independently maintained copies. Unresolved factors remain tagged in the underlying factor table. `component_gauge_representations` references its exact regime/factor slot. `nonabelian_cores` stores derived keys, and `entry_cores` records every entry's primary-regime membership or unresolved reason. Existing full numerical fingerprints and the immutable source DB are unchanged.
+
+### Parameterized entries: agreed design, ingestion not yet implemented
+
+Use the same catalogue for fixed and parameterized gauge/matter entries, not separate user-facing model/family catalogues. Initially fix the gauge algebra, non-Abelian Dynkin labels, Lorentz representations and multiplicities; permit restricted exact integer-valued expressions in Abelian charge slots. Every symbol must be declared in entry-level parameter metadata, with domains and constraints. A fixed entry has empty parameter metadata `{}`, not an unknown assignment. Equations constrain parameters; each charge cell is one scalar-valued expression. Lists such as `[0,-3,3]` expand into separate field rows, not one charge value. These parameters do not include masses or couplings.
+
+Do not enumerate every substitution. A symbolic entry can represent infinitely many spectra. Numerical specializations use complete-inventory primitive normalization, scalar real-module decomposition, identical-row aggregation and numerical duplicate reconciliation. `(n,-n)` for integer n≠0 normalizes to one assignment; `(1,-1,n,-n)` generally retains a charge ratio. Special values may change normalization, real-module type or row merging. Renaming a symbol or rewriting a polynomial should not create duplicates, but arbitrary reparameterizations and overlapping symbolic entries are not solved by the numerical checker. The present executable ingestion remains numerical: no arbitrary symbolic strings have been enabled by the core-view change.
 
 The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by copies. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts using Dynkin labels and exact charges, not dimensions or source names. Unknown weights never establish a merge; su(3) [2,1] and [4,0], both dimension 15, stay distinct. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
 
@@ -136,10 +146,13 @@ The separate `website/downloads/field-catalogue.sqlite` has:
 | entries | entry_id, name, gauge_algebra (primary display), baseline, coverage, source_variants_json |
 | papers | paper_id, arxiv_version, title, inspection_status, review_status |
 | entry_papers | entry_id, paper_id; many-to-many links, no minimum association count |
+| gauge_factors | regime_id, factor_key, factor_order, factor_kind, cartan_family, rank, role, label, normalization_json; Abelian/non-Abelian views filter this table |
+| nonabelian_cores | core_id, convention, gauge_algebra, canonical_json |
+| entry_cores | entry_id, regime_id, core_id (nullable), abelian_rank, status, reason |
 | regimes | regime_id, entry_id, source_model_id, description, spacetime_dimension, gauge_algebra, baseline, factors_json, notes_json |
 | multiplets | multiplet_id, entry_id, source_model_id, regime_id, field_label, field_types, representation, copies, representation_dimension, source_field_id, source_rows_json, components_json, evidence_json |
 | spacetime_representations | representation_id, multiplet_id, component_kind, spacetime_dimension, lorentz_algebra, representation_label, status, representation_json, copies; canonical component counts, separate component rows, including conjugateGauge metadata |
-| component_gauge_representations | component_id, factor_key, algebra_id, role, dynkin_json, charge, representation_label, status; charge is an exact integer string or NULL with a database CHECK constraint, original expressions remain provenance; actual per-component assignments after LH conversion, not just a flag requesting later conjugation |
+| component_gauge_representations | component_id, factor_key, algebra_id, role, dynkin_json, charge, representation_label, status, regime_id; charge is an exact integer string or NULL with a database CHECK constraint, original expressions remain provenance; actual per-component assignments after LH conversion, not just a flag requesting later conjugation |
 | content_signatures | fingerprint (unique primary key), schema_version, canonical_json, canonical_entry_id |
 | entry_identity | entry_id, status, reason, fingerprint, algebra_signature, input_json |
 | identity_migrations | entry_id, old_schema, old_fingerprint, new_schema, new_fingerprint, reason |

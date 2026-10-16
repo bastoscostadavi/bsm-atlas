@@ -38,6 +38,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE=1 python3 website/test_field_catalogue.py
           PYTHONDONTWRITEBYTECODE=1 python3 website/test_identity.py
           PYTHONDONTWRITEBYTECODE=1 python3 website/test_scalar_conventions.py
+          PYTHONDONTWRITEBYTECODE=1 python3 website/test_nonabelian_core.py
           PYTHONDONTWRITEBYTECODE=1 python3 website/test_reextraction_reviews.py
           node website/field-catalogue.test.mjs
           node website/representation-diagrams.test.mjs
