@@ -7,9 +7,10 @@
   <meta name="theme-color" content="#143e3b">
   <title>BSM Atlas — gauge algebras & matter</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="field-catalogue.css?v=20261016-2">
-  <script src="field-catalogue-data.js?v=20261016-2" defer></script>
-  <script src="field-catalogue.js?v=20261016-2" defer></script>
+  <link rel="stylesheet" href="field-catalogue.css?v=20261016-5">
+  <script src="field-catalogue-data.js?v=20261016-5" defer></script>
+  <script src="field-matrix.js?v=20261016-5" defer></script>
+  <script src="field-catalogue.js?v=20261016-5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -32,26 +33,23 @@
           </g>
         </svg>
       </span>
-      <span>BSM <strong>ATLAS</strong><small>Gauge algebras & matter</small></span>
+      <span>BSM Atlas</span>
     </a>
     <nav aria-label="Main navigation">
       <a href="#catalogue">Catalogue</a>
       <a href="#notation">Notation</a>
       <a href="#sources">Papers</a>
     </nav>
-    <button id="theme-toggle" class="quiet-button" type="button" aria-label="Switch to dark theme">Dark theme</button>
+    <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to dark theme" title="Switch to dark theme"><span aria-hidden="true">◐</span></button>
   </header>
   <main id="main">
     <section class="page-intro" id="catalogue">
-      <p class="eyebrow">A field-content catalogue · initial 50-paper corpus</p>
-      <h1>Gauge algebras.<br><em>Matter representations.</em></h1>
-      <p class="intro-copy">A common language for comparing extensions of the Standard Model. Just the local gauge structure, the multiplets, and the papers behind them.</p>
-      <div class="release-line"><span class="status-dot" aria-hidden="true"></span><span id="release-count">Loading the catalogue…</span><span>Notation release · 16 October 2026</span></div>
+      <h1 id="page-title">Gauge algebras & matter.</h1>
     </section>
-    <section class="notation-strip" aria-label="Quick notation key"><div><span class="math">𝔤<sub>SM</sub></span><span>su(3) ⊕ su(2) ⊕ u(1)</span></div><div><span class="math">R<sub>SM</sub></span><span>3 fermion generations + 1 complex Higgs doublet</span></div><a href="#notation">Read the conventions <span aria-hidden="true">↗</span></a></section>
+    <section class="notation-strip" id="notation-key" aria-label="Quick notation key"><span class="math">𝔤<sub>SM</sub> = su(3) ⊕ su(2) ⊕ u(1)</span><span class="math">R<sub>SM</sub> = SM matter</span><a href="#notation">Notation ↗</a></section>
     <div id="view-content" aria-live="polite"></div>
     <noscript><p>This interactive table requires JavaScript. Download the <a href="downloads/field-catalogue.csv">catalogue CSV</a> or <a href="field-catalogue.json">complete catalogue JSON</a>.</p></noscript>
   </main>
-  <footer><div><strong>BSM Atlas</strong><p>A catalogue of field content, not a claim of complete physical theories.</p></div><div><a href="https://github.com/bastoscostadavi/bsm-atlas">Source & methodology ↗</a><p>Source claims remain unchecked; paper–model links provisional.</p></div></footer>
+  <footer><a href="#about">About the data</a><a href="https://github.com/bastoscostadavi/bsm-atlas">GitHub ↗</a></footer>
 </body>
 </html>

@@ -73,7 +73,11 @@ class Catalogue(unittest.TestCase):
         self.assertIn('source:2',delta['representation'])
         self.assertFalse(delta['notationComplete'])
         phi=ENTRIES['two-higgs-doublets']['summaryFields'][0]
-        self.assertEqual(phi['representation'],'(?, 2; 3)')
+        self.assertEqual(phi['representation'],'(1, 2; 3)')
+        for f in fields('two-higgs-doublets'):
+            if f['sourceFieldId'] in {6,7,11,12}:
+                self.assertEqual(f['representation'],'(1, 2; 3)')
+                self.assertEqual(f['curatedCompletion']['paper'],'1106.0034v3')
         self.assertEqual(ENTRIES['three-higgs-doublets']['summaryFields'][0]['representation'],'(2; 3)')
         chi=fields('u1-chi-minimal16-charge')[0]
         self.assertEqual(next(c['value'] for c in chi['components'] if c['role']=='χ'),'-1')

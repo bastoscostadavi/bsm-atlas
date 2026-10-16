@@ -1,6 +1,6 @@
 # Gauge-algebra and matter catalogue
 
-Version `gauge-matter-1`, October 16, 2026. This is a read-only, source-scoped projection, not a replacement of `atlas.sqlite` or a new physics review. The website deliberately exposes just this smaller catalogue.
+Version `gauge-matter-2`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
 
 ## Papers are not model rows
 
@@ -27,6 +27,35 @@ For each concrete U(1) assignment, one positive common rescaling makes charges i
 An incomplete or symbolic assignment is not normalized using an arbitrary numeric subset. For example, incomplete left–right fermion charges prevent dividing the displayed scalar B−L charges by 2: they remain `source:2` until a shared primitive unit is established. All-zero charges alone do not define a unit. Multiple U(1) basis changes and kinetic mixing are not resolved by separate gcd rescalings. The JSON records each factor's normalization status, scale, reference and scope.
 
 ## Matter and baselines
+
+The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by copies. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
+
+### Lorentz convention: all 4D Weyl fields are left-handed
+
+The machine convention is `lorentz-field-1`. Four-dimensional labels are (j_L,j_R) for finite-dimensional representations of Spin^+(1,3): scalar (0,0), LH Weyl (1/2,0), vector (1/2,1/2). These are **field representations**, not on-shell Poincare particle spin/polarization counts. Scalar real/complex conditions are independent metadata.
+
+Every identified RH Weyl field is replaced by its independent LH charge conjugate: `(R; q_1,…,q_k)_R → (conjugate(R); −q_1,…,−q_k)_L`. For example `(3,1;4)_R → (bar(3),1;−4)_L`. All non-Abelian factors must be conjugated, not only hypercharge negated. A 4D Dirac multiplet is two LH rows in R and conjugate(R); a Majorana field is one independent LH Weyl row with its source conjugacy condition retained. Neither operation creates a new model entry. Unknown source handedness leaves the gauge assignment versus its conjugate unresolved and blocks an exact fingerprint.
+
+The NMSSM singlet chiral supermultiplet expands to two rows: a complex scalar `(0,0)` and a Weyl fermion `(1/2,0)`, both in `(1,1;0)` under g_SM. Auxiliary fields and dependent conjugates are not new rows.
+
+Higher dimensions use complexified Lorentz B/D Dynkin labels in standard vector-first/spinor-last node order. A 5D spinor has B2 label [0,1], not a 4D chirality label. A 6D chiral spinor with unrecorded chirality is explicitly ambiguous between the two D3 spinor nodes. Brane fields are distinguished from ambient bulk fields. Ordinary non-bulk descriptions whose original dimension column was NULL currently have a labelled **editorial 4D interpretation**, visible in provenance and exported per-field scope metadata; this is not a newly checked source assertion. Unresolved bulk or parameterized dimensions stay unresolved. No KK reduction is inferred.
+
+### Reusable entry format and duplicate checks
+
+`entry.schema.json` specifies complete candidate inputs: `schema_version`, `inventory_complete`, canonical `gauge_factors`, and `matter` rows with `lorentz`, `reality`, `copies`, and per-factor `gauge_representations`. Labels and paper IDs are metadata, not identity. Dynkin labels are required for non-Abelian factors; charges are exact rational strings and normalized jointly over the full inventory. Runtime checks reject missing factors, unresolved chirality/counts, invalid ranks and inconsistent Lorentz labels.
+
+Run the read-only check **before creating an entry**:
+
+```sh
+python3 atlas/check_entry.py atlas/examples/two-higgs-doublets.json
+python3 atlas/check_entry.py candidate.json --database website/downloads/field-catalogue.sqlite
+```
+
+An exact field-content match returns the existing entry ID: add the paper association instead of creating a duplicate. The database's `content_signatures.fingerprint` is a primary key. `entry_identity` maps existing IDs to that signature, or records why identity is unresolved. The internal canonical JSON is a deterministic fingerprint encoding (with IDs removed), not another source paper record or the candidate-input format.
+
+The checker canonicalizes row ordering, identical-row copy aggregation, gauge-factor ordering/permutations of repeated factors, common U(1) rational rescalings and independent generator sign flips. It normalizes explicit RH/Dirac inputs to the LH basis. It retains neutral fields and vector-like pairs. Scalar reality and all copy counts contribute to identity.
+
+**Limits:** this is field-content identity under the stated schema, not full physical-theory equivalence. General multi-U(1) basis mixing, simple-algebra outer automorphisms, alternate scalar realifications and cross-regime dualities are not exhaustively quotiented. A nonmatch returns `no_exact_match_review_required`, never “new model proven.” Partial sectors and unknown inventories get no complete signature; same-algebra candidates still require reconciliation. The current source claims remain unchecked even when a complete structural signature can be computed.
 
 - S is scalar, with source reality explicit. F is a source fermion, with handedness explicit when known; missing handedness stays missing. Identified right-handed four-dimensional Weyl fields are converted to left-handed conjugates, conjugating all factors together.
 - F_D is one source Dirac/vector-like multiplet. In four dimensions it is a Weyl pair R ⊕ conjugate(R), not a single chiral fermion. Copies count Dirac multiplets in such a row. No bulk-to-4D dimensional reduction is assumed.
@@ -58,8 +87,16 @@ The separate `website/downloads/field-catalogue.sqlite` has:
 | entry_papers | entry_id, paper_id; many-to-many links, no minimum association count |
 | regimes | regime_id, entry_id, source_model_id, description, spacetime_dimension, gauge_algebra, baseline, factors_json, notes_json |
 | multiplets | multiplet_id, entry_id, source_model_id, regime_id, field_label, field_types, representation, copies, representation_dimension, source_field_id, source_rows_json, components_json, evidence_json |
+| spacetime_representations | representation_id, multiplet_id, component_kind, spacetime_dimension, lorentz_algebra, representation_label, status, representation_json; separate component rows, including conjugateGauge metadata |
+| component_gauge_representations | component_id, factor_key, algebra_id, role, dynkin_json, charge, representation_label, status; actual per-component assignments after LH conversion, not just a flag requesting later conjugation |
+| content_signatures | fingerprint (unique primary key), schema_version, canonical_json, canonical_entry_id |
+| entry_identity | entry_id, status, reason, fingerprint, algebra_signature, input_json |
 | metadata | Convention version, source checksum, scope, explicit templates |
 
 `source_rows_json` retains the full projected field object, including inherited/excluded flags, original notation, chirality/reality, normalization conversions and evidence. Thus a raw multiplet count is not an independent-particle count. The CSV is a primary-regime summary; JSON/SQLite preserve separate regimes. Excluded reference structural records are in JSON and the original source DB, not the BSM `entries` table.
 
 Rebuild with `python3 website/build_field_catalogue.py`; use `--check` to detect stale generated text outputs. Tests check the immutable source hash, paper/model separation (especially R01), all source-ID coverage, exact arithmetic, normalization scope, and SQLite/JSON roundtrips. They are data/convention tests, not an anomaly, embedding, completeness or viability certificate. Do not feed partial inventories to an AI search as complete spectra.
+
+### Corrections in version 2
+
+The two standard 2HDM Higgs doublets now explicitly have colour representation 1, giving `(1,2;3)` each. This is a field-specific, documented correction supported by P03, not a rule filling every missing colour slot with 1. Source assertions and the original SQLite remain unchanged; the completion is stored separately with its locator. Concise model display names retain full source labels in variants/provenance.

@@ -1,0 +1,240 @@
+{
+  "schema_version": "field-content-1",
+  "inventory_complete": true,
+  "gauge_factors": [
+    {
+      "id": "3:0",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "3:1",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "3:2",
+      "family": "U1",
+      "rank": 1
+    }
+  ],
+  "matter": [
+    {
+      "label": "Q",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            1
+          ]
+        },
+        "3:2": {
+          "charge": "1"
+        }
+      }
+    },
+    {
+      "label": "uᶜ",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            0
+          ]
+        },
+        "3:2": {
+          "charge": "-4"
+        }
+      }
+    },
+    {
+      "label": "dᶜ",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            0
+          ]
+        },
+        "3:2": {
+          "charge": "2"
+        }
+      }
+    },
+    {
+      "label": "L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            1
+          ]
+        },
+        "3:2": {
+          "charge": "-3"
+        }
+      }
+    },
+    {
+      "label": "eᶜ",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            0
+          ]
+        },
+        "3:2": {
+          "charge": "6"
+        }
+      }
+    },
+    {
+      "label": "Φ1",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            1
+          ]
+        },
+        "3:2": {
+          "charge": "3"
+        }
+      }
+    },
+    {
+      "label": "Φ2",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "3:0": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "3:1": {
+          "dynkin": [
+            1
+          ]
+        },
+        "3:2": {
+          "charge": "3"
+        }
+      }
+    }
+  ]
+}

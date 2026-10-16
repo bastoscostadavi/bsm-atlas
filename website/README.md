@@ -8,6 +8,10 @@ The October 16, 2026 release deliberately narrows the main interface to **BSM ga
 
 Search by model, algebra, representation, paper or author; filter by algebra, source and coverage; expand an entry for variants, separate description regimes, copies, scalar reality, fermion chirality, original notation and passage evidence. Representations can be displayed using dimensions, safe Dynkin conversions or A-series Young diagrams. The notation section expands the SM and MSSM baselines.
 
+The minimal layout uses one representation matrix per model: spacetime first, actual gauge factors next (bundled as g_SM only for direct factors), and copies last. Repeated known rows combine copies. Chiral supermultiplets become scalar and LH Weyl component rows; 4D Dirac fields become LH conjugate pairs without duplicating model entries. Baselines, filters, downloads and technical provenance expand on demand. Catalogue, Papers, Notation and About are separate views.
+
+`spacetime_conventions.py` defines dimension-aware Lorentz labels and the all-LH 4D convention. `field-matrix.js` renders the matrices. `atlas/entry.schema.json`, `catalogue_identity.py` and `check_entry.py` provide complete-entry validation and read-only duplicate checks. The generated SQLite contains Lorentz components and a unique signature registry; incomplete records never imply that a new candidate is absent. See the conventions document for mathematical limits and editorial dimension interpretations.
+
 Partial and parameterized inventories remain visible and are not complete machine-ready spectra. “Recorded inventory” means the converted, scoped inventory is recorded—not that the full theory, anomalies, viability or paper extraction has been independently verified. Missing colour singlets, family counts and unselected sectors are not filled by assumption. All original assertions remain unchecked; P21/P22/P26 have partial source profiles.
 
 Only explicit presentation groupings merge variants with the same stated field content; interaction choices do not establish full theory equivalence. General convention/theory/tool references, operator-only SM inventories and uninstantiated frameworks do not become main catalogue rows. Original excluded structural records are preserved in JSON `referenceRecords`, not linked to new model rows.
@@ -30,6 +34,7 @@ From the repository root:
 PYTHONDONTWRITEBYTECODE=1 python3 website/build_field_catalogue.py
 python3 website/build_field_catalogue.py --check
 PYTHONDONTWRITEBYTECODE=1 python3 website/test_field_catalogue.py
+PYTHONDONTWRITEBYTECODE=1 python3 website/test_identity.py
 node website/field-catalogue.test.mjs
 python3 -m http.server 8000 --bind 127.0.0.1 --directory website
 ```

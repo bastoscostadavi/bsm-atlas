@@ -16,17 +16,23 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+import sys
 from field_conventions import factor, gauge_factors, rational, primitive_scale, irrep_token, dynkin, dimension_a, young_rows, parse_tuple
+from spacetime_conventions import CONVENTION as LORENTZ_CONVENTION, spacetime, field_reps
 
 SITE=Path(__file__).resolve().parent
 ROOT=SITE.parent
-VERSION="gauge-matter-1"
+sys.path.insert(0,str(ROOT/'atlas'))
+from catalogue_identity import canonicalize,from_regime,IncompleteContent,conjugate as conjugate_irrep
+VERSION="gauge-matter-2"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
 
 def multiplet(label,kind,rep,copies=1,reality=None):
-    return {"label":label,"kind":kind,"representation":rep,"copies":copies,"reality":reality,"chirality":"left-handed Weyl" if kind=="F" else None}
+    chirality="left-handed Weyl" if kind=="F" else None
+    components=[{'factor':a['label'],'role':a['role'],'value':v,'dynkin':dynkin(a,v) if a['type']!='U1' else None,'youngRows':young_rows(a,dynkin(a,v)) if a['type']!='U1' else None} for a,v in zip(SM_FACTORS,rep)]
+    return {"label":label,"kind":kind,"representation":rep,"components":components,"copies":copies,"reality":reality,"chirality":chirality,"lorentz":field_reps([kind],chirality=chirality or '',reality=reality)}
 
 
 SM_F=[multiplet(n,"F",r,3) for n,r in [("Q",["3","2","1"]),("uᶜ",["bar(3)","1","-4"]),("dᶜ",["bar(3)","1","2"]),("L",["1","2","-3"]),("eᶜ",["1","1","6"])]]
@@ -64,7 +70,7 @@ def field_type(field):
 def excluded(field):
     kind=(field.get("field_kind") or "").lower()
     note=(field.get("scope_note") or "").lower()
-    return any(x in kind for x in ["component coordinate","matrix organization","mass eigenstate","angular mode","graviton","metric","gauge connection","gauge field strength","gauge vector superfield","gauge superfield","gauge component","gauge boson","gauge-boson","massive-vector combination","spurion","operator collection","superfield operator"]) or "no independent additional degrees" in note
+    return any(x in kind for x in ["component coordinate","matrix organization","mass eigenstate","angular mode","graviton","gravitational","metric","gauge connection","gauge field strength","gauge vector superfield","gauge superfield","gauge component","gauge boson","gauge-boson","massive-vector combination","spurion","operator collection","superfield operator"]) or "no independent additional degrees" in note
 
 
 def copies(field):
@@ -159,7 +165,15 @@ def main_data(database,curations):
                     if values[position] is not None and values[position]!=value:
                         values[position]=None;unconverted.append("Conflicting assignments for "+slots[position]["label"])
                     else: values[position]=value
-            item={"sourceFieldId":f["field_id"],"label":f["field_label"],"sourceKind":f["field_kind"],"kinds":field_type(f),"copies":copies(f),"sourceMultiplicity":f["multiplicity"],"sourceChirality":f["chirality"],"reality":f["field_reality_condition"],"inherited":f["inherited_baseline_label"],"sourceNote":f["scope_note"],"excludedCoordinate":excluded(f),"values":values,"sourceRepresentationIds":rep_ids,"unconverted":unconverted,"sourceRepresentations":[{k:r.get(k) for k in ["representation_id","representation_label","exact_charge","source_notation","normalization_note"]} for r in source_reps],"evidence":source_evidence("field",f["field_id"],model["model_id"])+[e for rid in rep_ids for e in source_evidence("field_representation",rid,model["model_id"])]}
+            completion=curations.get("field_component_completions",{}).get(str(f["field_id"]))
+            if completion and "same_as" in completion:
+                completion=curations["field_component_completions"][completion["same_as"]]
+            if completion:
+                matches=[i for i,a in enumerate(slots) if a["role"]==completion["role"] and a["id"]==completion["algebra"]]
+                if len(matches)!=1 or values[matches[0]] is not None:
+                    raise ValueError("Completion would overwrite or ambiguously assign field "+str(f["field_id"]))
+                values[matches[0]]=completion["value"]
+            item={"sourceFieldId":f["field_id"],"label":f["field_label"],"sourceKind":f["field_kind"],"kinds":field_type(f),"copies":copies(f),"sourceMultiplicity":f["multiplicity"],"sourceChirality":f["chirality"],"reality":f["field_reality_condition"],"inherited":f["inherited_baseline_label"],"sourceNote":f["scope_note"],"excludedCoordinate":excluded(f),"values":values,"sourceRepresentationIds":rep_ids,"unconverted":unconverted,"sourceRepresentations":[{k:r.get(k) for k in ["representation_id","representation_label","exact_charge","source_notation","normalization_note"]} for r in source_reps],"curatedCompletion":completion,"evidence":source_evidence("field",f["field_id"],model["model_id"])+[e for rid in rep_ids for e in source_evidence("field_representation",rid,model["model_id"])]}
             if any(isinstance(v,str) and v.startswith("[") for v in values):
                 item["copies"]=None
                 item["unconverted"].append("Indexed family charge vector: not identical copies of one irrep.")
@@ -200,18 +214,22 @@ def main_data(database,curations):
             # Keep handedness explicit. A right-handed 4D Weyl representation
             # is conjugated as a whole, never by changing just the U(1) sign.
             right=(f["sourceChirality"] or "").lower().startswith("right")
-            four_dimensional=str(regime.get("spacetime_dimension") or "").strip() in {"4","4D","4d"}
+            field_scope=spacetime(regime,{"field_kind":f["sourceKind"]})
+            four_dimensional=field_scope["dimension"]=='4'
             if right and four_dimensional and f["kinds"]==["F"]:
                 changed=[]
                 for v,a in zip(values,complete_factors):
                     if v is None: changed.append(None)
                     elif a["type"]=="U1": changed.append(str(-rational(v)) if rational(v) is not None else "-("+v+")")
-                    elif a["type"]=="A" and a["rank"]>1: changed.append(v[4:-1] if v.startswith("bar(") else "1" if v=="1" else "bar("+v+")")
+                    elif a["type"]=="A" and a["rank"]>1:
+                        w=dynkin(a,v)
+                        changed.append(v if v in {'1','Adj'} or w is not None and w==w[::-1] else v[4:-1] if v.startswith('bar(') else 'bar('+v+')')
                     else: changed.append(v)
                 values=changed;f["label"]+="ᶜ";f["conversion"]="Right-handed source field rewritten as its left-handed charge conjugate."
             elif f["kinds"]==["F_D"]: f["conversion"]="One Dirac/vector-like multiplet in the displayed source representation. In four dimensions it corresponds to two left-handed Weyl multiplets in R and its conjugate; copies count Dirac multiplets, not Weyl fields. No dimensional reduction is inferred for bulk fields."
             elif f["kinds"]==["S","F"]: f["conversion"]="One chiral supermultiplet expanded as one complex scalar and one left-handed Weyl fermion; no auxiliary fields counted."
             else: f["conversion"]="Source handedness/reality retained; unspecified is not silently filled."
+            f["lorentz"]=field_reps(f["kinds"],f["sourceKind"] or '',f["sourceChirality"] or '',f["reality"],field_scope,converted_right=right and four_dimensional and f["kinds"]==['F'])
             components=[];total_dimension=1
             for value,a in zip(values,complete_factors):
                 weight=dynkin(a,value) if value is not None and a["type"]!="U1" else None
@@ -219,6 +237,18 @@ def main_data(database,curations):
                 if dim is None: total_dimension=None
                 elif total_dimension is not None: total_dimension*=dim
                 components.append({"factorKey":a["key"],"factor":a["label"],"role":a["role"],"value":value,"dynkin":weight,"youngRows":young_rows(a,weight),"dimension":dim})
+            for lorentz in f['lorentz']:
+                actual=deepcopy(components)
+                for c,a in zip(actual,complete_factors):
+                    if lorentz.get('conjugateGauge') and c['value'] is not None:
+                        if a['type']=='U1':c['value']=str(-rational(c['value'])) if rational(c['value']) is not None else '−('+c['value']+')'
+                        elif c['dynkin'] is not None:
+                            w=conjugate_irrep({'dynkin':c['dynkin']},{'family':a['type'],'rank':a['rank']})['dynkin']
+                            if w!=c['dynkin']:c['value']=c['value'][4:-1] if c['value'].startswith('bar(') else 'bar('+c['value']+')'
+                            c['dynkin']=w;c['youngRows']=young_rows(a,w)
+                        elif c['value'] not in {'1','Adj'}:c['value']='conj('+c['value']+')'
+                    c['assignmentStatus']='source_handedness_unresolved' if lorentz['status']=='source_chirality_unresolved' else 'assigned_under_stated_conventions' if c['value'] is not None and (a['type']=='U1' and rational(c['value']) is not None or a['type']!='U1' and c['dynkin'] is not None) else 'unresolved'
+                lorentz['gaugeComponents']=actual
             f.update(components=components,representation=display_rep(values,complete_factors),dimension=total_dimension,notationComplete=bool(complete_factors) and all(v is not None and (a["type"]=="U1" and rational(v) is not None or a["type"]!="U1" and dynkin(a,v) is not None) for v,a in zip(values,complete_factors)))
             rendered.append(f)
         if not source_groups and raw_fields: notes.append("Gauge algebra not independently recorded in this regime; no cross-regime assignment invented.")
@@ -257,10 +287,20 @@ def main_data(database,curations):
         if any(p["id"] in paper_ids and p["inspectionStatus"]=="partial" for p in papers): state="partial"
         if any(f["type"] in {"parameterized","unknown","unresolved_sp_convention"} for f in primary["factors"]): state="parameterized"
         if definition["id"]=="sm-eft-matter": state="reference"
-        entries.append({"id":definition["id"],"name":definition["name"],"paperIds":paper_ids,"algebra":primary["algebra"],"algebraExpanded":primary["algebraExpanded"],"algebraSignature":primary["algebraSignature"],"baseline":primary["baseline"],"primaryRegime":primary["id"],"primaryVariant":next(v["id"] for v in variants if primary in v["regimes"]),"status":state,"groupingBasis":definition["basis"],"variants":variants,"summaryFields":[{"label":f["label"],"kinds":f["kinds"],"copies":f["copies"],"representation":f["representation"],"reality":f["reality"]} for f in additions],"catalogueEligible":not all(mid in curations["excluded_models"] for mid in definition["models"])})
+        entries.append({"id":definition["id"],"name":curations.get("display_names",{}).get(definition["id"],definition["name"]),"paperIds":paper_ids,"algebra":primary["algebra"],"algebraExpanded":primary["algebraExpanded"],"algebraSignature":primary["algebraSignature"],"baseline":primary["baseline"],"primaryRegime":primary["id"],"primaryVariant":next(v["id"] for v in variants if primary in v["regimes"]),"status":state,"groupingBasis":definition["basis"],"variants":variants,"summaryFields":[{"label":f["label"],"kinds":f["kinds"],"copies":f["copies"],"representation":f["representation"],"reality":f["reality"]} for f in additions],"catalogueEligible":not all(mid in curations["excluded_models"] for mid in definition["models"])})
     if seen!=set(spec_index): raise ValueError("Source model coverage mismatch")
     references=[e for e in entries if not e["catalogueEligible"]]
     entries=[e for e in entries if e["catalogueEligible"]]
+    for e in entries:
+        try:
+            if e['status']!='recorded_content':raise IncompleteContent('Incomplete/parameterized inventory: resolve the source scope before a uniqueness claim')
+            r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
+            if not r['baseline'] and e['id'] not in curations['full_inventory_without_baseline']:raise IncompleteContent('A recorded sector is not an attested full SM-containing inventory')
+            spec=from_regime(r,TEMPLATES,dynkin)
+            identity=canonicalize(spec)
+            e['identity']={'status':'complete_under_stated_conventions','fingerprint':identity['fingerprint'],'input':spec,'canonical':json.loads(identity['canonical_json'])}
+        except IncompleteContent as error:
+            e['identity']={'status':'unresolved','reason':str(error),'fingerprint':None}
     for p in papers:
         p["entryIds"]=[e["id"] for e in entries if p["id"] in e["paperIds"]]
         p["referenceNotes"]=[curations["excluded_models"][v["id"]] for e in references if p["id"] in e["paperIds"] for v in e["variants"] if v["id"] in curations["excluded_models"]]
@@ -273,16 +313,16 @@ def main_data(database,curations):
     source_ids={f["sourceFieldId"] for e in entries+references for v in e["variants"] for r in v["regimes"] for f in r["fields"]}
     if source_ids!=set(field_index): raise ValueError("A source field was omitted")
     if hashlib.sha256(database.read_bytes()).hexdigest()!=original_hash: raise ValueError("Source changed during read-only build")
-    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"sourceReview":"All underlying assertions remain unchecked and model links provisional. This catalogue is a notation projection of the scoped extraction, not a new full-text review.","scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
+    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"lorentzConvention":LORENTZ_CONVENTION,"sourceReview":"All underlying assertions remain unchecked and model links provisional. This catalogue is a notation projection of the scoped extraction, not a new full-text review.","scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
 
 
 def write_outputs(data,check=False):
     payload=json.dumps(data,ensure_ascii=False,separators=(",",":"))
-    flat=io.StringIO();writer=csv.writer(flat)
+    flat=io.StringIO();writer=csv.writer(flat,lineterminator='\n')
     writer.writerow(["entry_id","name","gauge_algebra","baseline","additional_recorded_multiplets","coverage","papers","source_model_ids"])
     for e in data["entries"]:
         writer.writerow([e["id"],e["name"],e["algebraExpanded"],e["baseline"] or "", " | ".join("/".join(f["kinds"])+" "+str(f["copies"] if f["copies"] is not None else "?")+" × "+f["representation"]+" "+f["label"] for f in e["summaryFields"]),e["status"],";".join(e["paperIds"]),";".join(v["id"] for v in e["variants"])])
-    files={SITE/"field-catalogue.json":payload+"\n",ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue()}
+    files={SITE/"field-catalogue.json":payload+"\n",SITE/"entry.schema.json":(ROOT/"atlas"/"entry.schema.json").read_text(encoding="utf-8"),ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue()}
     for path,content in files.items():
         if check:
             if not path.exists() or path.read_bytes()!=content.encode("utf-8"): raise ValueError("Stale generated catalogue: "+str(path))
@@ -299,9 +339,14 @@ def write_outputs(data,check=False):
               CREATE TABLE IF NOT EXISTS entry_papers(entry_id TEXT REFERENCES entries(entry_id),paper_id TEXT REFERENCES papers(paper_id),PRIMARY KEY(entry_id,paper_id));
               CREATE TABLE IF NOT EXISTS regimes(regime_id INTEGER PRIMARY KEY,entry_id TEXT NOT NULL REFERENCES entries(entry_id),source_model_id TEXT NOT NULL,description TEXT,spacetime_dimension TEXT,gauge_algebra TEXT NOT NULL,baseline TEXT,factors_json TEXT NOT NULL,notes_json TEXT NOT NULL);
               CREATE TABLE IF NOT EXISTS multiplets(multiplet_id TEXT PRIMARY KEY,entry_id TEXT NOT NULL REFERENCES entries(entry_id),source_model_id TEXT NOT NULL,regime_id INTEGER NOT NULL,field_label TEXT NOT NULL,field_types TEXT NOT NULL,representation TEXT NOT NULL,copies INTEGER,representation_dimension INTEGER,source_field_id INTEGER NOT NULL,source_rows_json TEXT NOT NULL,components_json TEXT NOT NULL,evidence_json TEXT NOT NULL);
+              CREATE TABLE IF NOT EXISTS spacetime_representations(representation_id TEXT PRIMARY KEY,multiplet_id TEXT NOT NULL REFERENCES multiplets(multiplet_id),component_kind TEXT NOT NULL,spacetime_dimension TEXT,lorentz_algebra TEXT NOT NULL,representation_label TEXT NOT NULL,status TEXT NOT NULL,representation_json TEXT NOT NULL);
+              CREATE TABLE IF NOT EXISTS component_gauge_representations(component_id TEXT NOT NULL REFERENCES spacetime_representations(representation_id),factor_key TEXT NOT NULL,algebra_id TEXT NOT NULL,role TEXT,dynkin_json TEXT,charge TEXT,representation_label TEXT,status TEXT NOT NULL,PRIMARY KEY(component_id,factor_key));
+              CREATE TABLE IF NOT EXISTS content_signatures(fingerprint TEXT PRIMARY KEY,schema_version TEXT NOT NULL,canonical_json TEXT NOT NULL,canonical_entry_id TEXT NOT NULL REFERENCES entries(entry_id));
+              CREATE TABLE IF NOT EXISTS entry_identity(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),status TEXT NOT NULL,reason TEXT,fingerprint TEXT REFERENCES content_signatures(fingerprint),algebra_signature TEXT NOT NULL,input_json TEXT);
             """)
-            for name in ["entry_papers","multiplets","regimes","entries","papers","metadata"]: con.execute("DELETE FROM "+name)
+            for name in ["entry_identity","content_signatures","entry_papers","component_gauge_representations","spacetime_representations","multiplets","regimes","entries","papers","metadata"]: con.execute("DELETE FROM "+name)
             con.executemany("INSERT INTO metadata VALUES (?,?)",[("convention_version",VERSION),("source_sha256",data["sourceDatabaseSha256"]),("scope",data["scope"]),("templates_json",json.dumps(data["templates"],ensure_ascii=False))])
+            con.execute("INSERT INTO metadata VALUES (?,?)",('lorentz_convention_json',json.dumps(LORENTZ_CONVENTION,ensure_ascii=False)))
             for p in data["papers"]: con.execute("INSERT INTO papers VALUES (?,?,?,?,?)",(p["id"],p["arxiv"],p["title"],p["inspectionStatus"],p["reviewStatus"]))
             for e in data["entries"]:
                 con.execute("INSERT INTO entries VALUES (?,?,?,?,?,?)",(e["id"],e["name"],e["algebraExpanded"],e["baseline"],e["status"],json.dumps([{k:v[k] for k in ["id","revision","scope","baselineSource","baselineParent"]} for v in e["variants"]],ensure_ascii=False)))
@@ -311,6 +356,18 @@ def write_outputs(data,check=False):
                         con.execute("INSERT INTO regimes VALUES (?,?,?,?,?,?,?,?,?)",(r["id"],e["id"],v["id"],r["description"],r["dimension"],r["algebraExpanded"],r["baseline"],json.dumps(r["factors"],ensure_ascii=False),json.dumps(r["notes"],ensure_ascii=False)))
                         for f in r["fields"]:
                             con.execute("INSERT INTO multiplets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(e["id"]+":"+str(f["sourceFieldId"]),e["id"],v["id"],r["id"],f["label"],"/".join(f["kinds"]),f["representation"],f["copies"],f["dimension"],f["sourceFieldId"],json.dumps(f,ensure_ascii=False),json.dumps(f["components"],ensure_ascii=False),json.dumps(f["evidence"],ensure_ascii=False)))
+                            for i,l in enumerate(f['lorentz']):
+                                key=e['id']+':'+str(f['sourceFieldId'])
+                                con.execute('INSERT INTO spacetime_representations VALUES (?,?,?,?,?,?,?,?)',(key+':'+str(i),key,l['component'],l['spacetime']['dimension'],l['spacetime']['algebra'],l['label'],l['status'],json.dumps(l,ensure_ascii=False)))
+                                for a,c in zip(r['factors'],l['gaugeComponents']):
+                                    con.execute('INSERT INTO component_gauge_representations VALUES (?,?,?,?,?,?,?,?)',(key+':'+str(i),a['key'],a['id'],a['role'],json.dumps(c['dynkin']) if c['dynkin'] is not None else None,c['value'] if a['type']=='U1' else None,c['value'],c['assignmentStatus']))
+            con.commit()
+            for e in data['entries']:
+                identity=e['identity'];h=identity['fingerprint']
+                if h:con.execute('INSERT OR IGNORE INTO content_signatures VALUES (?,?,?,?)',(h,'field-content-1',json.dumps(identity['canonical'],sort_keys=True,separators=(',',':')),e['id']))
+                r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
+                signature=sorted([{'family':a['type'],'rank':a['rank']} for a in r['factors']],key=lambda a:(a['family']=='U1',a['family'],-(a['rank'] or 0)))
+                con.execute('INSERT INTO entry_identity VALUES (?,?,?,?,?,?)',(e['id'],identity['status'],identity.get('reason'),h,json.dumps(signature,sort_keys=True,separators=(',',':')),json.dumps(identity['input'],ensure_ascii=False) if h else None))
             con.commit()
             if con.execute("PRAGMA integrity_check").fetchone()[0]!="ok" or con.execute("PRAGMA foreign_key_check").fetchall(): raise ValueError("Invalid catalogue SQLite")
     print("Catalogue: "+str(data["counts"])+("; generated files current" if check else "; source database unchanged"))

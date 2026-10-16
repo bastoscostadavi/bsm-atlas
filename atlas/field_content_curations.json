@@ -1,6 +1,16 @@
 {
   "version": 1,
   "description": "Presentation-only field-content groupings and baseline references. Original source-model identities, assertions and review states are retained. Grouping is not full physical-theory equivalence.",
+  "display_names": {
+    "real-singlet-z2":"Real singlet extension",
+    "complex-singlet-portal":"Complex singlet extension",
+    "two-higgs-doublets":"Two-Higgs-doublet model",
+    "lr-triplet-matter":"Left–right model",
+    "nmssm-matter":"NMSSM",
+    "georgi-machacek-general":"Georgi–Machacek model",
+    "mssm-matter":"MSSM"
+  },
+  "full_inventory_without_baseline": ["minimal-bl-pure"],
   "reference_papers": [
     {"id":"R01","arxiv":"1905.13729v1","kind":"general theory paper","title":"General solution to the U(1) anomaly equations","authors":"Davi B. Costa, Bogdan A. Dobrescu, Patrick J. Fox","inspectionStatus":"bibliographic record only","reviewStatus":"not a model extraction","inspectedScope":"Bibliographic metadata checked against arXiv. Listed independently of the BSM gauge/matter catalogue.","limitations":"Not part of the 50-paper model-extraction corpus; no BSM gauge/matter model is inferred from this general result.","noModelReason":"General theory paper. Deliberately has no association with any row in the gauge/matter catalogue."}
   ],
@@ -57,5 +67,11 @@
   "source_irrep_charge_overrides": {
     "48":{"values":["2","1/2"],"basis":"P08 source gauge normalization note explicitly records three Higgs doublets with Y=1/2; this is not a full SM completion."},
     "49":{"values":["2","1/2"],"basis":"Same P08 scalar-sector assignment; gauge normalization note records Y=1/2."}
+  },
+  "field_component_completions": {
+    "6":{"role":"colour","algebra":"A2","value":"1","basis":"The standard 2HDM Higgs doublets are colour singlets. Explicitly completing the omitted colour slot, not treating every missing representation as a singlet.","paper":"1106.0034v3","locator":"Section 2, Eq. (2), and Section 5.9 (colour breaking is impossible in the 2HDM)","url":"https://arxiv.org/html/1106.0034v3#S5.SS9"},
+    "7":{"same_as":"6"},
+    "11":{"same_as":"6"},
+    "12":{"same_as":"6"}
   }
 }
