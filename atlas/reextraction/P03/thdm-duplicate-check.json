@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "3842f46d3f4d2736536d23e424210b12e2500d1de26d970648f28612ac568b32",
+  "matches": [
+    {
+      "entry_id": "two-higgs-doublets",
+      "name": "Two-Higgs-doublet model"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

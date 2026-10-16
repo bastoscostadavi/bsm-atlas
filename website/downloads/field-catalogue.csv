@@ -2,7 +2,7 @@ entry_id,name,gauge_algebra,baseline,additional_recorded_multiplets,coverage,pap
 real-singlet-z2,Real singlet extension,su(3) ⊕ su(2) ⊕ u(1),R_SM,"S 1 × ([0,0], [0]; 0) S",recorded_content,P01;P02,real-singlet-z2
 complex-singlet-portal,Complex singlet extension,su(3) ⊕ su(2) ⊕ u(1),R_SM,"S 1 × ([0,0], [0]; 0) S",recorded_content,P02,complex-singlet-portal
 two-higgs-doublets,Two-Higgs-doublet model,su(3) ⊕ su(2) ⊕ u(1),F_SM,"S 1 × ([0,0], [1]; 3) Φ1 | S 1 × ([0,0], [1]; 3) Φ2",recorded_content,P03,thdm-type-i-real-z2;thdm-type-ii-real-z2
-lr-triplet-matter,Left–right model,su(2)_left ⊕ su(2)_right ⊕ u(1)_B−L,,"F ? × ([1], ?; ?) QL | F ? × (?, [1]; ?) QRᶜ | F ? × ([1], ?; ?) ℓL | F ? × (?, [1]; ?) ℓRᶜ | S 1 × ([1], [1]; 0) Φ | S 1 × ([2], [0]; source:2) ΔL | S 1 × ([0], [2]; source:2) ΔR",partial,P04,lr-triplet-parity;lr-triplet-charge-conjugation
+lr-triplet-matter,Left–right model,su(3) ⊕ su(2)_left ⊕ su(2)_right ⊕ u(1)_B−L,,"F 3 × ([1,0], [1], [0]; 1) Q_L | F 3 × ([0,1], [0], [1]; -1) Q_Rᶜ | F 3 × ([0,0], [1], [0]; -3) l_L | F 3 × ([0,0], [0], [1]; 3) l_Rᶜ | S 1 × ([0,0], [1], [1]; 0) Phi | S 1 × ([0,0], [2], [0]; 6) Delta_L | S 1 × ([0,0], [0], [2]; 6) Delta_R",recorded_content,P04,lr-triplet-parity;lr-triplet-charge-conjugation
 nmssm-matter,NMSSM,su(3) ⊕ su(2) ⊕ u(1),R_MSSM,"S/F 1 × ([0,0], [0]; 0) Ŝ",recorded_content,P05,nmssm-general-rpc-cpc;nmssm-z3-rpc-cpc
 mchm-spinorial-scalar14,Minimal composite Higgs with a scalar 14 source deformation,su(3) ⊕ sp_rank(2) ⊕ u(1),,"S ? × (?, ?; ?) Φ",partial,P06,mchm-spinorial-scalar14
 mchm-spinorial,Minimal composite Higgs with spinorial fermion embedding,su(3) ⊕ su(2) ⊕ u(1),,"S ? × (?, ?; ?) h^â",partial,P06,mchm-spinorial

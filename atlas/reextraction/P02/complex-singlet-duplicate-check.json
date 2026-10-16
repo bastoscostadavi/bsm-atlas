@@ -1,0 +1,13 @@
+{
+  "status": "exact_field_content_match",
+  "fingerprint": "e8103e2ecd72ee67c6eb75d968ffb35d19d4ec925eb47c8b355f633d8771bb95",
+  "matches": [
+    {
+      "entry_id": "complex-singlet-portal",
+      "name": "Complex singlet extension"
+    }
+  ],
+  "same_algebra_candidates": [],
+  "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}

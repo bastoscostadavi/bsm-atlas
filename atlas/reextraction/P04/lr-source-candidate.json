@@ -1,0 +1,284 @@
+{
+  "schema_version": "field-content-1",
+  "inventory_complete": true,
+  "name": "Minimal triplet left-right matter content",
+  "paper_ids": [
+    "P04"
+  ],
+  "gauge_factors": [
+    {
+      "id": "colour",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "left",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "right",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "bl",
+      "family": "U1",
+      "rank": 1
+    }
+  ],
+  "matter": [
+    {
+      "label": "Q_L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            1
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0
+          ]
+        },
+        "bl": {
+          "charge": "1/3"
+        }
+      }
+    },
+    {
+      "label": "Q_R",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "1/2"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            1
+          ]
+        },
+        "bl": {
+          "charge": "1/3"
+        }
+      }
+    },
+    {
+      "label": "l_L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            1
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0
+          ]
+        },
+        "bl": {
+          "charge": "-1"
+        }
+      }
+    },
+    {
+      "label": "l_R",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "1/2"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            1
+          ]
+        },
+        "bl": {
+          "charge": "-1"
+        }
+      }
+    },
+    {
+      "label": "Phi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            1
+          ]
+        },
+        "right": {
+          "dynkin": [
+            1
+          ]
+        },
+        "bl": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "Delta_L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            2
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0
+          ]
+        },
+        "bl": {
+          "charge": "2"
+        }
+      }
+    },
+    {
+      "label": "Delta_R",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "left": {
+          "dynkin": [
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            2
+          ]
+        },
+        "bl": {
+          "charge": "2"
+        }
+      }
+    }
+  ]
+}

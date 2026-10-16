@@ -2,8 +2,8 @@
 """Build the deliberately small catalogue from the immutable 50-paper snapshot.
 
 No original SQLite table or scientific-review state is modified. The output is
-a traceable, scoped projection, not a fresh full-text extraction or a proof of
-physical-theory equivalence. Regimes are never combined into one spectrum.
+a traceable, scoped projection with separately accepted source re-extractions,
+not a proof of physical-theory equivalence. Regimes are never combined.
 """
 import argparse
 from collections import defaultdict
@@ -24,6 +24,7 @@ SITE=Path(__file__).resolve().parent
 ROOT=SITE.parent
 sys.path.insert(0,str(ROOT/'atlas'))
 from catalogue_identity import canonicalize,normalize_spec,from_regime,IncompleteContent,conjugate as conjugate_irrep
+from reextraction_reviews import load_reviews,apply_reviews
 VERSION="gauge-matter-3"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
@@ -292,6 +293,9 @@ def main_data(database,curations):
     if seen!=set(spec_index): raise ValueError("Source model coverage mismatch")
     references=[e for e in entries if not e["catalogueEligible"]]
     entries=[e for e in entries if e["catalogueEligible"]]
+    reviewed=load_reviews(ROOT)
+    reextraction=apply_reviews(entries,papers,reviewed,display_rep,
+        lambda r:normalize_spec(from_regime(r,TEMPLATES,dynkin)))
     for e in entries:
         try:
             if e['status']!='recorded_content':raise IncompleteContent('Incomplete/parameterized inventory: resolve the source scope before a uniqueness claim')
@@ -314,7 +318,7 @@ def main_data(database,curations):
     source_ids={f["sourceFieldId"] for e in entries+references for v in e["variants"] for r in v["regimes"] for f in r["fields"]}
     if source_ids!=set(field_index): raise ValueError("A source field was omitted")
     if hashlib.sha256(database.read_bytes()).hexdigest()!=original_hash: raise ValueError("Source changed during read-only build")
-    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,"sourceReview":"All underlying assertions remain unchecked and model links provisional. This catalogue is a notation projection of the scoped extraction, not a new full-text review.","scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
+    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,"sourceReview":"Original source assertions remain unchecked and model links provisional. Explicitly accepted re-extractions are agent source-checked within their recorded definition scope, not independently physics-verified or whole-paper reviews.","reextraction":reextraction,"scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":TEMPLATES,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
 
 
 def write_outputs(data,check=False):
@@ -344,11 +348,13 @@ def write_outputs(data,check=False):
               CREATE TABLE IF NOT EXISTS component_gauge_representations(component_id TEXT NOT NULL REFERENCES spacetime_representations(representation_id),factor_key TEXT NOT NULL,algebra_id TEXT NOT NULL,role TEXT,dynkin_json TEXT,charge TEXT,representation_label TEXT,status TEXT NOT NULL,PRIMARY KEY(component_id,factor_key));
               CREATE TABLE IF NOT EXISTS content_signatures(fingerprint TEXT PRIMARY KEY,schema_version TEXT NOT NULL,canonical_json TEXT NOT NULL,canonical_entry_id TEXT NOT NULL REFERENCES entries(entry_id));
               CREATE TABLE IF NOT EXISTS entry_identity(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),status TEXT NOT NULL,reason TEXT,fingerprint TEXT REFERENCES content_signatures(fingerprint),algebra_signature TEXT NOT NULL,input_json TEXT);
+              CREATE TABLE IF NOT EXISTS extraction_reviews(entry_id TEXT NOT NULL REFERENCES entries(entry_id),paper_id TEXT NOT NULL REFERENCES papers(paper_id),candidate_name TEXT NOT NULL,fingerprint TEXT NOT NULL REFERENCES content_signatures(fingerprint),normalized_entry_json TEXT NOT NULL,review_json TEXT NOT NULL,PRIMARY KEY(entry_id,paper_id,candidate_name));
             """)
-            for name in ["entry_identity","content_signatures","entry_papers","component_gauge_representations","spacetime_representations","multiplets","regimes","entries","papers","metadata"]: con.execute("DELETE FROM "+name)
+            for name in ["extraction_reviews","entry_identity","content_signatures","entry_papers","component_gauge_representations","spacetime_representations","multiplets","regimes","entries","papers","metadata"]: con.execute("DELETE FROM "+name)
             con.executemany("INSERT INTO metadata VALUES (?,?)",[("convention_version",VERSION),("source_sha256",data["sourceDatabaseSha256"]),("scope",data["scope"]),("templates_json",json.dumps(data["templates"],ensure_ascii=False))])
             con.execute("INSERT INTO metadata VALUES (?,?)",('lorentz_convention_json',json.dumps(LORENTZ_CONVENTION,ensure_ascii=False)))
             con.execute("INSERT INTO metadata VALUES (?,?)",('representation_convention_json',json.dumps(REPRESENTATION_CONVENTION,ensure_ascii=False)))
+            con.execute("INSERT INTO metadata VALUES (?,?)",('reextraction_json',json.dumps(data['reextraction'],ensure_ascii=False)))
             for p in data["papers"]: con.execute("INSERT INTO papers VALUES (?,?,?,?,?)",(p["id"],p["arxiv"],p["title"],p["inspectionStatus"],p["reviewStatus"]))
             for e in data["entries"]:
                 con.execute("INSERT INTO entries VALUES (?,?,?,?,?,?)",(e["id"],e["name"],e["algebraExpanded"],e["baseline"],e["status"],json.dumps([{k:v[k] for k in ["id","revision","scope","baselineSource","baselineParent"]} for v in e["variants"]],ensure_ascii=False)))
@@ -370,6 +376,13 @@ def write_outputs(data,check=False):
                 r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
                 signature=sorted([{'family':a['type'],'rank':a['rank']} for a in r['factors']],key=lambda a:(a['family']=='U1',a['family'],-(a['rank'] or 0)))
                 con.execute('INSERT INTO entry_identity VALUES (?,?,?,?,?,?)',(e['id'],identity['status'],identity.get('reason'),h,json.dumps(signature,sort_keys=True,separators=(',',':')),json.dumps(identity['input'],ensure_ascii=False) if h else None))
+            for e in data['entries']:
+                for review in e.get('reextractions',[]):
+                    if review['fingerprint']!=e['identity']['fingerprint']:
+                        raise ValueError('Accepted source review differs from published identity')
+                    con.execute('INSERT INTO extraction_reviews VALUES (?,?,?,?,?,?)',
+                        (e['id'],review['paperId'],review['candidate'],review['fingerprint'],
+                         json.dumps(e['identity']['input'],ensure_ascii=False),json.dumps(review,ensure_ascii=False)))
             con.commit()
             if con.execute("PRAGMA integrity_check").fetchone()[0]!="ok" or con.execute("PRAGMA foreign_key_check").fetchall(): raise ValueError("Invalid catalogue SQLite")
     print("Catalogue: "+str(data["counts"])+("; generated files current" if check else "; source database unchanged"))

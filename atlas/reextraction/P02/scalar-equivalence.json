@@ -1,0 +1,11 @@
+{
+  "source": "1306.4710v5 section 6.4, PDF/printed p.12 Eq.(26) and following definition",
+  "field_map": "S=(S1+i S2)/sqrt(2)",
+  "scope": "One unconstrained neutral complex scalar and two real scalar copies, gauge/matter level.",
+  "primary_description": "complex-singlet-normalized-candidate.json",
+  "alternative_description": "complex-two-real-description.json",
+  "primary_current_schema_fingerprint": "e8103e2ecd72ee67c6eb75d968ffb35d19d4ec925eb47c8b355f633d8771bb95",
+  "alternative_current_schema_fingerprint": "7fe75b075dfdfcd80e739ba1252b78c0bc2871c25cdfcb2abbf3464ef3e75ce4",
+  "fingerprints_currently_equal": false,
+  "action": "Do NOT create a second catalogue entry. Explicit source equivalence is established but scalar-realification canonicalization still needs a separate implementation/migration."
+}

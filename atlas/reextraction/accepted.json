@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "reviewed_on": "2026-10-16",
+  "review_status": "agent_source_checked_curator_integrated",
+  "limitations": "Scoped gauge/matter review, not an independent physics, anomaly, viability or whole-paper verification. Legacy assertions remain unchanged. Scalar-realification equivalence is not yet canonicalized.",
+  "reviews": [
+    {"paper":"P01","stem":"singlet","entry":"real-singlet-z2","action":"confirm_existing","fingerprint":"9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3","checkpoint_sha256":"9be3eae142d95de06ef962e567fd5f01110720c3581e0f3249eff5d216f510ce","fields_sha256":"ba0bdd2e8e7e792750d5c9afead4c894fd9153f2aec1a8ab0935e7a9e050709f"},
+    {"paper":"P02","stem":"singlet","entry":"real-singlet-z2","action":"confirm_existing","fingerprint":"9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3","checkpoint_sha256":"165190738f6f9aae0b37699b3b5fdcffabb6c8c3f5465eb199ffd49ef343d137","fields_sha256":"b8e26dff78dd68a1e8c0d37c5fb8e68c42458522b055f89b6ecc6ca149697dbf"},
+    {"paper":"P02","stem":"complex-singlet","entry":"complex-singlet-portal","action":"confirm_existing","fingerprint":"e8103e2ecd72ee67c6eb75d968ffb35d19d4ec925eb47c8b355f633d8771bb95","checkpoint_sha256":"165190738f6f9aae0b37699b3b5fdcffabb6c8c3f5465eb199ffd49ef343d137","fields_sha256":"b8e26dff78dd68a1e8c0d37c5fb8e68c42458522b055f89b6ecc6ca149697dbf"},
+    {"paper":"P03","stem":"thdm","entry":"two-higgs-doublets","action":"confirm_existing","fingerprint":"3842f46d3f4d2736536d23e424210b12e2500d1de26d970648f28612ac568b32","checkpoint_sha256":"79c4e396fbad4b3dc324e3c6f72c8a3dc6c564fc2ea8b571c42933759cc990e3","fields_sha256":"8493fa75f52aebbc3b1925592b2128e589bc0894b992ab81cc681193cc74acf9"},
+    {"paper":"P04","stem":"lr","entry":"lr-triplet-matter","action":"replace_existing","fingerprint":"1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79","checkpoint_sha256":"561750a0deb553ce2c920afbdfee23d941c08f2b69a359a2dc5feb9da35c01f7","fields_sha256":"15ccd61e70df8761d373f161af8379bb999383720306e59f97f32db51f5ef290","factor_roles":{"colour":"colour","left":"left","right":"right","bl":"B−L"},"regimes":[6,7]},
+    {"paper":"P05","stem":"nmssm","entry":"nmssm-matter","action":"confirm_existing","fingerprint":"29e5e9fed8686b57e382aa0b8c44a1bd12db7b8ea5edd1eb957c868c2050ce1a","checkpoint_sha256":"83644382854a98fdda0efecf1ed34d837e3b0c83684b207a8c6f5de5b80feb57","fields_sha256":"ccb49f7022412dab9fb73f4fd86eeab8842e2f33fe512f274edd1ade59f640c3"}
+  ]
+}

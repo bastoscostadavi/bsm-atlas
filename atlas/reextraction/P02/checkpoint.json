@@ -1,0 +1,164 @@
+{
+  "arxiv_version": "1306.4710v5",
+  "filename": "1306.4710v5.pdf",
+  "source_url": "https://arxiv.org/pdf/1306.4710v5",
+  "first_observed_utc": "2026-10-16T17:48:17Z",
+  "scientific_read_started_observed_utc": "2026-10-16T17:48:30Z",
+  "inspection": {
+    "text_pages": [
+      1,
+      2,
+      12,
+      13
+    ],
+    "visual_pages": [
+      1,
+      12
+    ],
+    "scope": "Main singlet model definition in section 1 and bounded complex-singlet generalization in section 6.4. Other extensions are deferred; not a whole-paper reread."
+  },
+  "retrievals": [
+    {
+      "method": "curl_authorized_network",
+      "url": "https://arxiv.org/pdf/1306.4710v5",
+      "outcome": "success",
+      "observed_command_wall_seconds": 0.199876167
+    }
+  ],
+  "claims": [
+    {
+      "id": "declared-baseline",
+      "basis": "atlas_baseline_expansion_not_new_source_table",
+      "locator": "atlas/FIELD_CONTENT_CONVENTIONS.md, explicit F_SM/R_SM/R_MSSM templates; source model-definition locator below",
+      "value": "Expand the expressly inherited SM/MSSM with its standard three families and exact representations. Dynkin maps: su(3) 3=[1,0], anti-3=[0,1], adjoint=[1,1]; su(2) d has label [d-1]. All Weyl fields are LH, including u^c,d^c,e^c. Ordinary textbook Y is used only as the declared baseline coordinate, not claimed to be individually tabulated by this source. No right-handed neutrino or additional sector is invented."
+    },
+    {
+      "id": "p02-main",
+      "basis": "source_statement_and_source_internal_crosscheck",
+      "locator": "Section 1, PDF/printed p.1 Eqs.(1)-(2) and paragraphs below; section 6.4, PDF/printed p.12 contrasting complex and real singlet model",
+      "value": "Main model is SM plus one real scalar singlet S with Z2 stability. Eq.(1) only displays phenomenologically relevant mass/portal terms; surrounding text explicitly mentions the kinetic and quartic self-coupling, so the omitted S^4 in Eq.(1) is not evidence that the interaction is absent."
+    },
+    {
+      "id": "p02-convention",
+      "basis": "comparison_derivation",
+      "locator": "P01 Eq.(2.1), PDF p.5; P02 Eq.(1), PDF p.1",
+      "value": "P01 writes lambda S^2 H^dagger H, P02 writes (lambda_hS/2) S^2 |H|^2. Thus lambda_hS=2 lambda for the same canonically normalized real S. These are not different gauge/matter content."
+    },
+    {
+      "id": "p02-complex",
+      "basis": "source_statement",
+      "locator": "Section 6.4, PDF/printed p.12 Eq.(26) and immediately surrounding paragraphs",
+      "value": "Bounded generalization is one complex gauge singlet with no extra gauge interactions. Source explicitly writes S=(S1+iS2)/sqrt(2), identifies S1,S2 as canonically normalized real singlets, and states the equivalence to two real singlets. Later extra X and dark-radiation possibilities are not part of this bounded candidate."
+    },
+    {
+      "id": "p02-identity",
+      "basis": "atlas_scope_reconciliation",
+      "locator": "singlet and complex-singlet preflight outputs",
+      "value": "Reuse real-singlet-z2 for the main P01/P02 field content; reuse complex-singlet-portal for section 6.4 under current complex-scalar convention. Do not add another row for the alternative two-real description; current checker lacks that realification quotient, so the explicit source equivalence is retained separately."
+    },
+    {
+      "id": "p02-unit",
+      "basis": "atlas_mathematical_conversion_of_declared_baseline",
+      "locator": "singlet and complex-singlet source candidates/preflight reports; declared F_SM/R_SM baseline",
+      "value": "One shared scale 6 over inherited textbook Y yields primitive integer hypercharges. Both candidate singlet sectors have zero hypercharge. P02 does not newly tabulate the full inherited SM charges; these are the explicit baseline coordinate."
+    }
+  ],
+  "legacy_targets": {
+    "entry_id": "real-singlet-z2",
+    "additional_entry_ids": [
+      "complex-singlet-portal"
+    ]
+  },
+  "old_extraction_gaps_resolved": [
+    "Real vs complex scalar distinction explicitly checked against same-version full text.",
+    "Source-backed equivalence of one neutral complex singlet and two real singlets recorded without claiming checker migration."
+  ],
+  "deferred_scope": [
+    "Section 6.2 gamma-line augmentation with charged sigma and new SU(N) is not a complete fixed numerical candidate here.",
+    "Section 6.4 extra X/dark radiation extensions left for future investigation by source."
+  ],
+  "remaining_limitations": [
+    "Scoped definition reread, not a complete phenomenology or viability review.",
+    "Source evidence is agent checked, not independently reviewed.",
+    "Scalar realification is not quotiented by the current identity checker.",
+    "No database ingestion or website update is performed."
+  ],
+  "candidate_stem": "singlet",
+  "paper_id": "P02",
+  "run_id": "2026-10-16-pilot-1",
+  "source": {
+    "local_path": "atlas/reextraction/sources/1306.4710v5.pdf",
+    "bytes": 1638420,
+    "sha256": "a5348d88a8d801d2c2123784d1d3f35e0815a8e674ccd4eee12dfafd6b762035",
+    "url": "https://arxiv.org/pdf/1306.4710v5",
+    "version_requested": "1306.4710v5",
+    "full_pdf_downloaded": true,
+    "whole_paper_scientifically_read": false
+  },
+  "status": "completed_scoped_reextraction_staged",
+  "inspection_coverage_note": "Listed text pages identify inspected passages, not necessarily every sentence; visual pages were rendered and inspected as complete pages. Whole-paper read remains false.",
+  "staged_numerical_candidates": [
+    "singlet-normalized-candidate.json",
+    "complex-singlet-normalized-candidate.json"
+  ],
+  "database_write_performed": false,
+  "reconciliation": {
+    "existing_entry_to_review": "real-singlet-z2",
+    "candidates": [
+      {
+        "stem": "singlet",
+        "fingerprint": "9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3",
+        "candidate": "singlet-normalized-candidate.json",
+        "duplicate_check": {
+          "status": "exact_field_content_match",
+          "fingerprint": "9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3",
+          "matches": [
+            {
+              "entry_id": "real-singlet-z2",
+              "name": "Real singlet extension"
+            }
+          ],
+          "same_algebra_candidates": [],
+          "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+          "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+        }
+      },
+      {
+        "stem": "complex-singlet",
+        "fingerprint": "e8103e2ecd72ee67c6eb75d968ffb35d19d4ec925eb47c8b355f633d8771bb95",
+        "candidate": "complex-singlet-normalized-candidate.json",
+        "duplicate_check": {
+          "status": "exact_field_content_match",
+          "fingerprint": "e8103e2ecd72ee67c6eb75d968ffb35d19d4ec925eb47c8b355f633d8771bb95",
+          "matches": [
+            {
+              "entry_id": "complex-singlet-portal",
+              "name": "Complex singlet extension"
+            }
+          ],
+          "same_algebra_candidates": [],
+          "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+          "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+        }
+      }
+    ],
+    "policy": "A newly complete correction is NOT a new model just because the old incomplete registry has no exact signature. Reuse the known legacy entry after review."
+  },
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T17:58:41Z",
+    "first_checkpoint_utc": "2026-10-16T17:54:15Z",
+    "normalization_preflight_wall_seconds": 0.18037112499587238,
+    "parent_process_user_cpu_seconds": 0.003353000000000002,
+    "parent_process_system_cpu_seconds": 0.006777999999999999,
+    "child_preflight_user_cpu_seconds": 0.12357599999999999,
+    "child_preflight_system_cpu_seconds": 0.034176,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_active_seconds": null,
+    "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+  }
+}

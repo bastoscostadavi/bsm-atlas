@@ -84,9 +84,10 @@ class Catalogue(unittest.TestCase):
         self.assertEqual((SITE/'field-catalogue.json').read_bytes(),(ROOT/'atlas/FIELD_CONTENT_CATALOGUE.json').read_bytes())
 
     def test_normalization_scope(self):
-        delta=next(f for f in fields('lr-triplet-matter') if f['label']=='ΔL')
-        self.assertIn('source:2',delta['representation'])
-        self.assertFalse(delta['notationComplete'])
+        delta=next(f for f in fields('lr-triplet-matter') if f['label']=='Delta_L')
+        self.assertEqual(delta['representation'],'(1, 3, 1; 6)')
+        self.assertTrue(delta['notationComplete'])
+        self.assertIn('source:2',delta['legacyProjection']['representation'])
         phi=ENTRIES['two-higgs-doublets']['summaryFields'][0]
         self.assertEqual(phi['representation'],'(1, 2; 3)')
         for f in fields('two-higgs-doublets'):
@@ -97,6 +98,28 @@ class Catalogue(unittest.TestCase):
         chi=fields('u1-chi-minimal16-charge')[0]
         self.assertEqual(next(c['value'] for c in chi['components'] if c['role']=='χ'),'-1')
         self.assertIsNone(next(c['value'] for c in chi['components'] if c['role']=='hypercharge'))
+
+    def test_accepted_reextraction_is_additive_and_deduplicated(self):
+        self.assertEqual(DATA['reextraction']['acceptedPapers'],5)
+        self.assertEqual(DATA['reextraction']['acceptedCandidates'],6)
+        self.assertEqual(DATA['reextraction']['acceptedEntries'],5)
+        lr=ENTRIES['lr-triplet-matter']
+        self.assertEqual(lr['status'],'recorded_content')
+        self.assertEqual(lr['identity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
+        for v in lr['variants']:
+            r=v['regimes'][0]
+            self.assertEqual([a['id'] for a in r['factors']],['A2','A1','A1','u1'])
+            self.assertEqual(len(r['fields']),7)
+            q=next(f for f in r['fields'] if f['label']=='Q_Rᶜ')
+            self.assertEqual(q['copies'],3)
+            self.assertEqual(q['components'][0]['dynkin'],[0,1])
+            self.assertEqual(q['components'][-1]['value'],'-1')
+            self.assertEqual(q['lorentz'][0]['irreps'],[['1/2','0']])
+            self.assertTrue(all(f['notationComplete'] for f in r['fields']))
+            self.assertTrue(all('legacyProjection' in f for f in r['fields']))
+        self.assertEqual({p['id'] for p in DATA['papers'] if p.get('reextractions')},
+                         {'P01','P02','P03','P04','P05'})
+        self.assertEqual(len(ENTRIES['real-singlet-z2']['reextractions']),2)
 
     def test_baselines_and_scopes(self):
         q=DATA['templates']['R_SM']['fields'][0]
@@ -116,6 +139,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))
             self.assertEqual(c.execute('select count(*) from papers').fetchone()[0],51)
+            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],6)
             self.assertEqual(c.execute("select count(*) from entry_papers where paper_id='R01'").fetchone()[0],0)
             self.assertEqual(json.loads(c.execute("select value from metadata where key='representation_convention_json'").fetchone()[0]),DATA['representationConvention'])
             for e in DATA['entries']:

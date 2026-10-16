@@ -2,6 +2,14 @@
 
 Version `gauge-matter-3`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
 
+### Accepted source-backed re-extractions
+
+The first five papers (P01–P05) now have explicitly accepted, scoped gauge/matter re-extractions. Six paper/candidate occurrences reconcile to five existing entries; no model row is added. `reextraction/accepted.json` lists acceptance decisions, expected fingerprints and hashes of the reviewed checkpoint/attribute-evidence files. The public build rejects changed evidence, candidates still needing normalization, missing row provenance or a mismatched existing fingerprint. Unaccepted queue/batch work is never read by this gate. This protects this projection's reviewed intake; it is not a general-purpose, unbypassable database-write API.
+
+P04 corrects the existing `lr-triplet-matter` entry and both parity/C regimes: colour explicitly suppressed in the source is restored using a declared SM baseline, Eq.(2) yields fermion B−L charges with stated SM electric-charge assumptions, all four fermion multiplets have three copies, and the common full-inventory unit is q=3(B−L). RH quarks/leptons become LH conjugates, including colour conjugation. The two scalar triplets have q=6, not `source:2`; Φ is a complex bidoublet. Definitions, inherited assumptions and derivations remain distinguished in provenance. The source coupling multiplies (B−L)/2, so in that convention g_atlas=g_source/6.
+
+Original field IDs and original assertions are preserved, including each corrected field's `legacyProjection`. The normalized accepted input and separate source review are saved in the additive `extraction_reviews` table of the generated SQLite, as well as JSON. New review states do not alter legacy unchecked assertions. These are definition-scope agent source checks, not whole-paper readings or independent physics/anomaly/viability verification. P01/P02 share the existing real-singlet entry; 2HDM Type-I/II and NMSSM general/Z3 variants retain one field-content entry each. Scalar-realification equivalences are still a separate pending migration.
+
 ## Papers are not model rows
 
 The 50 seed papers remain independently listed. Additional general theory paper R01, **General solution to the U(1) anomaly equations**, arXiv:1905.13729v1, is a paper with **zero associations to the gauge/matter table**. It is listed independently, not as a BSM model. The notation convention below is defined directly and requires no paper association. Software, general theory, uninstantiated frameworks and SM operator-only examples likewise need not have a model association. Source records omitted from the BSM view remain in JSON `referenceRecords` and the unchanged original database.

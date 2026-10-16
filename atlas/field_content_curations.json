@@ -10,7 +10,7 @@
     "georgi-machacek-general":"Georgi–Machacek model",
     "mssm-matter":"MSSM"
   },
-  "full_inventory_without_baseline": ["minimal-bl-pure"],
+  "full_inventory_without_baseline": ["minimal-bl-pure", "lr-triplet-matter"],
   "reference_papers": [
     {"id":"R01","arxiv":"1905.13729v1","kind":"general theory paper","title":"General solution to the U(1) anomaly equations","authors":"Davi B. Costa, Bogdan A. Dobrescu, Patrick J. Fox","inspectionStatus":"bibliographic record only","reviewStatus":"not a model extraction","inspectedScope":"Bibliographic metadata checked against arXiv. Listed independently of the BSM gauge/matter catalogue.","limitations":"Not part of the 50-paper model-extraction corpus; no BSM gauge/matter model is inferred from this general result.","noModelReason":"General theory paper. Deliberately has no association with any row in the gauge/matter catalogue."}
   ],
@@ -31,7 +31,7 @@
   },
   "groups": [
     {"id":"two-higgs-doublets","name":"Two-Higgs-doublet field content","models":["thdm-type-i-real-z2","thdm-type-ii-real-z2"],"basis":"P03 describes Type-I and Type-II Yukawa choices for the same two scalar doublets and SM fermions; Yukawa choices are outside this catalogue."},
-    {"id":"lr-triplet-matter","name":"Minimal triplet left–right field content","models":["lr-triplet-parity","lr-triplet-charge-conjugation"],"basis":"P04's parity and charge-conjugation choices retain the same displayed gauge/matter inventory. Missing fermion charges in the source-scoped extraction are not backfilled."},
+    {"id":"lr-triplet-matter","name":"Minimal triplet left–right field content","models":["lr-triplet-parity","lr-triplet-charge-conjugation"],"basis":"P04's parity and charge-conjugation choices retain the same gauge/matter inventory. The accepted source-backed re-extraction completes colour, fermion charges, family counts and scalar reality with explicit inherited-baseline and derivation provenance."},
     {"id":"nmssm-matter","name":"NMSSM field content","models":["nmssm-general-rpc-cpc","nmssm-z3-rpc-cpc"],"basis":"P05's general and Z3-restricted constructions share MSSM field content plus one singlet chiral superfield; operator restrictions are excluded here."},
     {"id":"three-higgs-doublets","name":"Three-Higgs-doublet scalar sector","models":["threedm-d6","threedm-d8"],"basis":"P08's D6 and D8 scalar-potential variants have three electroweak scalar doublets; no full SM fermion completion is assumed."},
     {"id":"mssm-matter","name":"MSSM field content","models":["mssm-rpc-conventional-soft","mssm-rpv-general","mssm-rpv-bilinear","mssm-rpv-dim23","mssm-rpv-soft-bilinear"],"basis":"P21/P22 use the same MSSM particle content with different operator/parity restrictions. The MSSM shorthand is a declared reference template; source inspection remains partial."},

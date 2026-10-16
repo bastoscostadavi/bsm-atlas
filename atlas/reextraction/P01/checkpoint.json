@@ -1,0 +1,126 @@
+{
+  "arxiv_version": "hep-ph/0011335v3",
+  "filename": "hep-ph_0011335v3.pdf",
+  "source_url": "https://arxiv.org/pdf/hep-ph/0011335v3",
+  "first_observed_utc": "2026-10-16T17:48:15Z",
+  "scientific_read_started_observed_utc": "2026-10-16T17:48:30Z",
+  "inspection": {
+    "text_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "visual_pages": [
+      5
+    ],
+    "scope": "Introduction/model definition through initial vacuum discussion; full Eq.(2.1) definition visually checked. PDF pages have one-page offset from printed numbering."
+  },
+  "retrievals": [
+    {
+      "method": "curl_authorized_network",
+      "url": "https://arxiv.org/pdf/hep-ph/0011335v3",
+      "outcome": "success",
+      "observed_command_wall_seconds": 0.052738709
+    }
+  ],
+  "claims": [
+    {
+      "id": "declared-baseline",
+      "basis": "atlas_baseline_expansion_not_new_source_table",
+      "locator": "atlas/FIELD_CONTENT_CONVENTIONS.md, explicit F_SM/R_SM/R_MSSM templates; source model-definition locator below",
+      "value": "Expand the expressly inherited SM/MSSM with its standard three families and exact representations. Dynkin maps: su(3) 3=[1,0], anti-3=[0,1], adjoint=[1,1]; su(2) d has label [d-1]. All Weyl fields are LH, including u^c,d^c,e^c. Ordinary textbook Y is used only as the declared baseline coordinate, not claimed to be individually tabulated by this source. No right-handed neutrino or additional sector is invented."
+    },
+    {
+      "id": "p01-field",
+      "basis": "source_statement",
+      "locator": "Section 1, PDF p.3 / printed p.2; section 2, PDF p.5 / printed p.4, Eq.(2.1) and paragraph below",
+      "value": "SM Lagrangian plus a single new real scalar S, completely neutral under SM gauge group and the only new electroweak-scale degree of freedom. Higgs H is the SM Higgs doublet. This fixes one real (Lorentz scalar, gauge singlet), not one complex singlet."
+    },
+    {
+      "id": "p01-interactions",
+      "basis": "source_statement",
+      "locator": "Section 2, PDF pp.5-6 / printed pp.4-5, Eqs.(2.1)-(2.2)",
+      "value": "Potential contains real-singlet mass, quartic and portal with coefficient lambda S^2 H^dagger H; S -> -S imposed. These interaction choices do not alter the gauge/matter row."
+    },
+    {
+      "id": "p01-unit",
+      "basis": "atlas_mathematical_conversion",
+      "locator": "singlet-source-candidate.json and singlet-preflight.json",
+      "value": "Inherited textbook hypercharge baseline normalizes jointly by 6; the new scalar has exactly zero charge. This is an atlas baseline coordinate, not a new source hypercharge table."
+    }
+  ],
+  "legacy_targets": {
+    "entry_id": "real-singlet-z2"
+  },
+  "old_extraction_gaps_resolved": [
+    "Fresh pinned-source confirmation of one real, not complex, gauge singlet and explicit SM inheritance."
+  ],
+  "remaining_limitations": [
+    "Scoped definition reread, not a complete phenomenology or viability review.",
+    "Source evidence is agent checked, not independently reviewed.",
+    "Scalar realification is not quotiented by the current identity checker.",
+    "No database ingestion or website update is performed."
+  ],
+  "candidate_stem": "singlet",
+  "paper_id": "P01",
+  "run_id": "2026-10-16-pilot-1",
+  "source": {
+    "local_path": "atlas/reextraction/sources/hep-ph_0011335v3.pdf",
+    "bytes": 251634,
+    "sha256": "fc9995c704637e7af76bc62ce629b2b8d3af44dd7d3c88d4bc25fc751b03b0f8",
+    "url": "https://arxiv.org/pdf/hep-ph/0011335v3",
+    "version_requested": "hep-ph/0011335v3",
+    "full_pdf_downloaded": true,
+    "whole_paper_scientifically_read": false
+  },
+  "status": "completed_scoped_reextraction_staged",
+  "inspection_coverage_note": "Listed text pages identify inspected passages, not necessarily every sentence; visual pages were rendered and inspected as complete pages. Whole-paper read remains false.",
+  "staged_numerical_candidates": [
+    "singlet-normalized-candidate.json"
+  ],
+  "database_write_performed": false,
+  "reconciliation": {
+    "existing_entry_to_review": "real-singlet-z2",
+    "candidates": [
+      {
+        "stem": "singlet",
+        "fingerprint": "9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3",
+        "candidate": "singlet-normalized-candidate.json",
+        "duplicate_check": {
+          "status": "exact_field_content_match",
+          "fingerprint": "9dc8ac0852a8cec7056feb8d06ab6d904ae97ccdb912b16c3121f7b4901946a3",
+          "matches": [
+            {
+              "entry_id": "real-singlet-z2",
+              "name": "Real singlet extension"
+            }
+          ],
+          "same_algebra_candidates": [],
+          "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+          "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+        }
+      }
+    ],
+    "policy": "A newly complete correction is NOT a new model just because the old incomplete registry has no exact signature. Reuse the known legacy entry after review."
+  },
+  "measurement": {
+    "checkpoint_utc": "2026-10-16T17:57:58Z",
+    "first_checkpoint_utc": "2026-10-16T17:54:15Z",
+    "normalization_preflight_wall_seconds": 0.0859055419859942,
+    "parent_process_user_cpu_seconds": 0.0014879999999999997,
+    "parent_process_system_cpu_seconds": 0.0035919999999999997,
+    "child_preflight_user_cpu_seconds": 0.060185999999999996,
+    "child_preflight_system_cpu_seconds": 0.016004,
+    "input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "api_dollars": null,
+    "gpu_hours": null,
+    "scientific_extraction_active_seconds": null,
+    "source_access_active_seconds": null,
+    "notes": "Exact model token/billing/GPU telemetry and active-reading time are not exposed. UTC observations include orchestration and other work; never infer tokens from source words."
+  }
+}

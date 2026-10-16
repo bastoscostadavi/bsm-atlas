@@ -1,0 +1,654 @@
+{
+  "paper_id": "P01",
+  "arxiv_version": "hep-ph/0011335v3",
+  "claim_dictionary": "checkpoint.json#claims",
+  "note": "Claim IDs resolve to precise locators/basis in checkpoint.json. SM/MSSM baseline expansion is not claimed as a new source-printed table; Dynkin/Lorentz coordinates are mathematical conversions.",
+  "rows": [
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "Q",
+      "normalized_label": "Q",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/6"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "u^c",
+      "normalized_label": "u^c",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-2/3"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "d^c",
+      "normalized_label": "d^c",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/3"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "L",
+      "normalized_label": "L",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "e^c",
+      "normalized_label": "e^c",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "H",
+      "normalized_label": "H",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "source_charge": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "copies": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "declared-baseline",
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    },
+    {
+      "candidate": "singlet-normalized-candidate.json",
+      "source_label": "S",
+      "normalized_label": "S",
+      "legacy_source_field_ids": null,
+      "source_coordinate_row": {
+        "label": "S",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_row": {
+        "label": "S",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      "attribute_evidence_claim_ids": {
+        "gauge_algebra": [
+          "p01-field"
+        ],
+        "nonabelian_irreps": [
+          "p01-field"
+        ],
+        "source_charge": [
+          "p01-field"
+        ],
+        "copies": [
+          "p01-field"
+        ],
+        "lorentz_and_reality": [
+          "p01-field"
+        ],
+        "conversion": [
+          "p01-unit"
+        ]
+      }
+    }
+  ]
+}

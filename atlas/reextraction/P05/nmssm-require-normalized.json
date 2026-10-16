@@ -1,0 +1,643 @@
+{
+  "status": "normalized_candidate_requires_source_review",
+  "normalized_entry": {
+    "schema_version": "field-content-1",
+    "inventory_complete": true,
+    "name": "NMSSM matter content (general and Z3 variants)",
+    "paper_ids": [
+      "P05"
+    ],
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "label": "scalar Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "label": "Q",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "label": "scalar u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "label": "u^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "label": "scalar d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "label": "d^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "label": "scalar L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "label": "L",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "label": "scalar e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "label": "e^c",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "label": "H_u",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "label": "higgsino H_u",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "label": "H_d",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "label": "higgsino H_d",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "label": "gluino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "label": "wino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              2
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "label": "bino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "label": "S scalar",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "label": "singlino",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      }
+    ]
+  },
+  "transformations": [
+    {
+      "factor_id": "hypercharge",
+      "normalization": "primitive_integer_full_inventory",
+      "positive_source_scale": "1",
+      "generator_orientation": "retained",
+      "note": "Scale may be combined with charge conjugation when converting source fermions."
+    }
+  ],
+  "fingerprint": "29e5e9fed8686b57e382aa0b8c44a1bd12db7b8ea5edd1eb957c868c2050ce1a",
+  "action": "Verify source evidence for every assignment and run duplicate reconciliation before ingestion. This tool is not a database writer or a source-extraction certificate.",
+  "duplicate_check": {
+    "status": "exact_field_content_match",
+    "fingerprint": "29e5e9fed8686b57e382aa0b8c44a1bd12db7b8ea5edd1eb957c868c2050ce1a",
+    "matches": [
+      {
+        "entry_id": "nmssm-matter",
+        "name": "NMSSM"
+      }
+    ],
+    "same_algebra_candidates": [],
+    "action": "Link the paper to the existing entry; do not create a second field-content entry.",
+    "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+  }
+}
