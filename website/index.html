@@ -3,21 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore BSM model structures, paper contributions, source evidence and explicitly recorded coverage limits.">
+  <meta name="description" content="A source-linked catalogue of BSM gauge algebras and matter representations from 50 papers, with explicit notation and coverage.">
   <meta name="theme-color" content="#143e3b">
-  <title>BSM Atlas — explore the structure of theories</title>
+  <title>BSM Atlas — gauge algebras & matter</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="data.js" defer></script>
-  <script src="manifest.js" defer></script>
-  <script src="search.js" defer></script>
-  <script src="catalog.js" defer></script>
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="field-catalogue.css?v=20261016">
+  <script src="field-catalogue-data.js?v=20261016" defer></script>
+  <script src="field-catalogue.js?v=20261016" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="#models">
+    <a class="wordmark" href="#catalogue">
       <span class="mark" aria-hidden="true" title="Fermion–antifermion annihilation through a virtual photon (s-channel)">
         <svg viewBox="0 0 64 64" focusable="false">
           <g data-diagram="s-channel" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -35,28 +32,26 @@
           </g>
         </svg>
       </span>
-      <span>BSM <strong>ATLAS</strong><small>The structure of theories</small></span>
+      <span>BSM <strong>ATLAS</strong><small>Gauge algebras & matter</small></span>
     </a>
     <nav aria-label="Main navigation">
-      <a href="#models" data-view="models">Models</a>
-      <a href="#papers" data-view="papers">Papers</a>
-      <a href="#schema" data-view="schema">Database</a>
-      <a href="#compare" data-view="compare">Compare</a>
-      <a href="#review" data-view="review">Coverage</a>
-      <a href="#about" data-view="about">About</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#notation">Notation</a>
+      <a href="#sources">Papers</a>
     </nav>
     <button id="theme-toggle" class="quiet-button" type="button" aria-label="Switch to dark theme">Dark theme</button>
   </header>
   <main id="main">
-    <section class="page-intro">
-      <div class="eyebrow" id="page-eyebrow">Beyond the Standard Model</div>
-      <h1 id="page-title">Explore the structure of a theory.</h1>
-      <p id="page-description">Gauge groups, matter representations, defining constraints, and the papers behind them.</p>
-      <div class="snapshot-line"><span class="status-dot" aria-hidden="true"></span><span>Exported snapshot · <time datetime="2026-10-15">15 October 2026</time></span><span class="snapshot-numbers">125 model records · 50 source papers · 34 tables</span></div>
+    <section class="page-intro" id="catalogue">
+      <p class="eyebrow">A field-content catalogue · initial 50-paper corpus</p>
+      <h1>Gauge algebras.<br><em>Matter representations.</em></h1>
+      <p class="intro-copy">A common language for comparing extensions of the Standard Model. Just the local gauge structure, the multiplets, and the papers behind them.</p>
+      <div class="release-line"><span class="status-dot" aria-hidden="true"></span><span id="release-count">Loading the catalogue…</span><span>Notation release · 16 October 2026</span></div>
     </section>
-    <div id="view-content"></div>
-    <noscript><p>This explorer requires JavaScript. The source dataset is available in <a href="data.js">data.js</a>.</p></noscript>
+    <section class="notation-strip" aria-label="Quick notation key"><div><span class="math">𝔤<sub>SM</sub></span><span>su(3) ⊕ su(2) ⊕ u(1)</span></div><div><span class="math">R<sub>SM</sub></span><span>3 fermion generations + 1 complex Higgs doublet</span></div><a href="#notation">Read the conventions <span aria-hidden="true">↗</span></a></section>
+    <div id="view-content" aria-live="polite"></div>
+    <noscript><p>This interactive table requires JavaScript. Download the <a href="downloads/field-catalogue.csv">catalogue CSV</a> or <a href="field-catalogue.json">complete catalogue JSON</a>.</p></noscript>
   </main>
-  <footer><span>BSM Atlas <span class="footer-separator">/</span> An evolving research atlas</span><span><a href="https://github.com/bastoscostadavi/bsm-atlas">Source repository ↗</a> <span class="footer-separator">·</span> <a href="#about">Scope & data conventions</a></span></footer>
+  <footer><div><strong>BSM Atlas</strong><p>A catalogue of field content, not a claim of complete physical theories.</p></div><div><a href="https://github.com/bastoscostadavi/bsm-atlas">Source & methodology ↗</a><p>Source claims remain unchecked; paper–model links provisional.</p></div></footer>
 </body>
 </html>

@@ -30,6 +30,11 @@ jobs:
           node --check website/data.js
           node --check website/search.js
           node --check website/catalog.js
+          node --check website/field-catalogue.js
+          node --check website/field-catalogue-data.js
+          PYTHONDONTWRITEBYTECODE=1 python3 website/build_field_catalogue.py --check
+          PYTHONDONTWRITEBYTECODE=1 python3 website/test_field_catalogue.py
+          node website/field-catalogue.test.mjs
           python3 website/build_manifest.py --check
           node website/check.mjs
           node website/search.test.mjs

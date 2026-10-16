@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "description": "Presentation-only field-content groupings and baseline references. Original source-model identities, assertions and review states are retained. Grouping is not full physical-theory equivalence.",
+  "reference_papers": [
+    {"id":"R01","arxiv":"1905.13729v1","kind":"general theory paper","title":"General solution to the U(1) anomaly equations","authors":"Davi B. Costa, Bogdan A. Dobrescu, Patrick J. Fox","inspectionStatus":"bibliographic record only","reviewStatus":"not a model extraction","inspectedScope":"Bibliographic metadata checked against arXiv. Listed independently of the BSM gauge/matter catalogue.","limitations":"Not part of the 50-paper model-extraction corpus; no BSM gauge/matter model is inferred from this general result.","noModelReason":"General theory paper. Deliberately has no association with any row in the gauge/matter catalogue."}
+  ],
+  "excluded_models": {
+    "abelian-stueckelberg-sector":"An isolated Abelian mass sector, not a specified extension containing the SM gauge/matter content.",
+    "u1-two-singlet-flat-sector":"A displayed flat-direction toy sector; no SM-containing completion is specified.",
+    "u1-minimal-gauge-messenger-toy":"A U(1) messenger toy calculation, not an independently specified SM extension.",
+    "general-gauge-mediation":"A mediation framework with an unselected hidden spectrum; the MSSM visible baseline is not a new field-content entry.",
+    "general-gauge-mediation-higgs-operators":"An operator/correlator framework without an instantiated hidden matter inventory.",
+    "general-heavy-field-tree-matching":"A general matching framework with unselected heavy fields. Concrete source examples are catalogued separately.",
+    "hidden-valley-framework":"The confining group and matter spectrum are unselected; concrete Hidden Valley constructions are catalogued separately.",
+    "large-extra-dimensions-framework":"A geometric framework retaining the SM field inventory; no additional gauge/matter assignment is instantiated here. The explicit Pati–Salam construction is separate.",
+    "rs-two-brane-warped":"A geometric extension with localized SM fields. No distinct BSM gauge/matter inventory is specified in this record.",
+    "holographic-boundary-pgb-framework":"Abstract G/H boundary framework with unselected groups and matter; no concrete gauge/matter model row.",
+    "smeft-d6-b-conserving":"SM field content with higher-dimensional operators, not a gauge/matter extension.",
+    "smeft-d6-b-violating":"SM field content with different operators, not a gauge/matter extension.",
+    "silh-hww-operator-sector":"A software/operator example with SM field content; not an additional BSM field-content model."
+  },
+  "groups": [
+    {"id":"two-higgs-doublets","name":"Two-Higgs-doublet field content","models":["thdm-type-i-real-z2","thdm-type-ii-real-z2"],"basis":"P03 describes Type-I and Type-II Yukawa choices for the same two scalar doublets and SM fermions; Yukawa choices are outside this catalogue."},
+    {"id":"lr-triplet-matter","name":"Minimal triplet left–right field content","models":["lr-triplet-parity","lr-triplet-charge-conjugation"],"basis":"P04's parity and charge-conjugation choices retain the same displayed gauge/matter inventory. Missing fermion charges in the source-scoped extraction are not backfilled."},
+    {"id":"nmssm-matter","name":"NMSSM field content","models":["nmssm-general-rpc-cpc","nmssm-z3-rpc-cpc"],"basis":"P05's general and Z3-restricted constructions share MSSM field content plus one singlet chiral superfield; operator restrictions are excluded here."},
+    {"id":"three-higgs-doublets","name":"Three-Higgs-doublet scalar sector","models":["threedm-d6","threedm-d8"],"basis":"P08's D6 and D8 scalar-potential variants have three electroweak scalar doublets; no full SM fermion completion is assumed."},
+    {"id":"mssm-matter","name":"MSSM field content","models":["mssm-rpc-conventional-soft","mssm-rpv-general","mssm-rpv-bilinear","mssm-rpv-dim23","mssm-rpv-soft-bilinear"],"basis":"P21/P22 use the same MSSM particle content with different operator/parity restrictions. The MSSM shorthand is a declared reference template; source inspection remains partial."},
+    {"id":"dfsz-matter","name":"DFSZ scalar and fermion field content","models":["dfsz-i-quartic","dfsz-ii-quartic"],"basis":"P26's DFSZ-I/II variants retain the common two-doublet plus singlet inventory, with different global-charge/Yukawa choices. The source review is partial."},
+    {"id":"sm-eft-matter","name":"SM field content used in effective descriptions","models":["smeft-d6-b-conserving","smeft-d6-b-violating","silh-hww-operator-sector"],"basis":"P48/P49 change operators, not the SM particle inventory. This is an EFT/reference row, not a new BSM matter spectrum."}
+  ],
+  "baselines": {
+    "real-singlet-z2":"R_SM", "complex-singlet-portal":"R_SM",
+    "thdm-type-i-real-z2":"F_SM", "thdm-type-ii-real-z2":"F_SM",
+    "georgi-machacek-general":"R_SM", "sm-octet-doublet-mfv":"R_SM",
+    "vlq-t-singlet":"R_SM", "vlq-b-singlet":"R_SM", "vlq-xt-doublet":"R_SM", "vlq-tb-doublet":"R_SM", "vlq-by-doublet":"R_SM", "vlq-xtb-triplet":"R_SM", "vlq-tby-triplet":"R_SM",
+    "lq-r2-general":"R_SM", "lq-rtilde2-nur":"R_SM", "lq-u3-effective":"R_SM", "lq-utilde1-effective":"R_SM", "lq-u1-effective":"R_SM", "lq-ubar1-nur-effective":"R_SM",
+    "mdm-majorana-quintuplet":"R_SM", "mdm-real-septuplet-displayed":"R_SM",
+    "nmssm-general-rpc-cpc":"R_MSSM", "nmssm-z3-rpc-cpc":"R_MSSM",
+    "mssm-rpc-conventional-soft":"R_MSSM", "mssm-rpv-general":"R_MSSM", "mssm-rpv-bilinear":"R_MSSM", "mssm-rpv-dim23":"R_MSSM", "mssm-rpv-soft-bilinear":"R_MSSM",
+    "ksvz-neutral-triplet":"R_SM", "ksvz-representation-framework":"R_SM",
+    "dfsz-i-quartic":"F_SM", "dfsz-ii-quartic":"F_SM", "smash-down":"R_SM",
+    "sm-singlet-neutrino-framework":"R_SM", "numsm":"R_SM", "ma-radiative-seesaw-z2":"R_SM",
+    "secluded-dirac-u1-higgsed":"R_SM", "secluded-fermion-scalar-portal":"R_SM", "secluded-neutrino-portal-z2":"R_SM",
+    "vector-higgs-portal-z2-eft":"R_SM", "vector-portal-stueckelberg-higgs":"R_SM", "vector-portal-stueckelberg-scalar":"R_SM", "vector-portal-abelian-higgs":"R_SM",
+    "real-singlet-linear-portal-gluon-sector":"R_SM", "scalar-zeta-ql-qq-sector":"R_SM", "heavy-weak-triplet-proca-current-sector":"R_SM",
+    "smeft-d6-b-conserving":"R_SM", "smeft-d6-b-violating":"R_SM", "silh-hww-operator-sector":"R_SM",
+    "split-susy":"R_SM", "large-extra-dimensions-framework":"R_SM", "rs-two-brane-warped":"R_SM", "ued-orbifold-framework":"R_SM"
+  },
+  "inherits": {
+    "numsm":"sm-singlet-neutrino-framework", "ql421-inverse-seesaw":"ql421-dirac", "trinification-singlet-neutrino-sector":"trinification-n3-adjoint-l", "lns-single-singlet-quarks":"lns-two-singlet-quarks", "lns-reduced-quarks":"lns-two-singlet-quarks", "mssm-rpv-bilinear":"mssm-rpv-general", "mssm-rpv-dim23":"mssm-rpv-general", "mssm-rpv-soft-bilinear":"mssm-rpv-general",
+    "smeft-d6-b-violating":"smeft-d6-b-conserving", "dfsz-ii-quartic":"dfsz-i-quartic", "sm-octet-doublet-mfv-triplets":"sm-octet-doublet-mfv",
+    "grv-quark-flavor-su3":"grv-quark-flavor-u3", "gem-supersoft-messengers":"gem-supersoft", "gem-supersoft-su5-bachelors":"gem-supersoft", "gem-supersoft-su3cubed-bachelors":"gem-supersoft"
+  },
+  "hypercharge_source_multiplier_to_6Y": {
+    "3":"3", "4":"3", "12":"3", "63":"3", "89":"3", "90":"3", "91":"3"
+  },
+  "source_irrep_charge_overrides": {
+    "48":{"values":["2","1/2"],"basis":"P08 source gauge normalization note explicitly records three Higgs doublets with Y=1/2; this is not a full SM completion."},
+    "49":{"values":["2","1/2"],"basis":"Same P08 scalar-sector assignment; gauge normalization note records Y=1/2."}
+  }
+}

@@ -38,6 +38,6 @@ for (const [name, source] of [['header', html], ['favicon', favicon]]) {
 }
 if (photonPath(html) !== photonPath(favicon)) throw new Error('Header and favicon photon paths differ');
 for (const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
-  if (!/^(https?:|mailto:)/.test(match[1]) && !fs.existsSync(path.join(directory, match[1]))) throw new Error('Missing asset: ' + match[1]);
+  if (!/^(https?:|mailto:)/.test(match[1]) && !fs.existsSync(path.join(directory, match[1].split(/[?#]/)[0]))) throw new Error('Missing asset: ' + match[1]);
 }
 console.log(`Snapshot validated: ${models.length} model records, ${names.length} tables, local assets present.`);
