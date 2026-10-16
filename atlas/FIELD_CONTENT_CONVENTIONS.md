@@ -57,6 +57,19 @@ python3 atlas/check_entry.py atlas/examples/two-higgs-doublets.json
 python3 atlas/check_entry.py candidate.json --database website/downloads/field-catalogue.sqlite
 ```
 
+Before that duplicate check, the extraction agent must establish the source facts and normalize the complete numerical candidate:
+
+```sh
+python3 atlas/prepare_entry.py candidate.json --database website/downloads/field-catalogue.sqlite
+python3 atlas/prepare_entry.py normalized.json --require-normalized --database website/downloads/field-catalogue.sqlite
+```
+
+`prepare_entry.py` emits `normalized_entry`, positive common U(1) conversion scales, and optionally duplicate results. It validates the candidate object shape, fixed Dynkin-label ranks and exact charges, converts identified RH/Dirac descriptions to the LH basis, and applies primitive integer normalization across the full inventory while preserving generator orientation. `--require-normalized` rejects source-shaped candidates still needing conversion. `normalize_spec` is also called before the generator saves complete `entry_identity.input_json` payloads, not only inside fingerprint computation. Raw assertions and source units remain unchanged in provenance.
+
+This is a read-only mathematical preflight, not a PDF-reading agent, source-evidence certificate, or enforced database-write API. Follow the mandatory extraction → normalization → ingestion instructions in `BSM_ATLAS_AGENT_PROMPT.md`. Evidence locators and the actual paper inspection remain the extracting agent's responsibility. Existing legacy projections are not retroactively validated by this change.
+
+**Missing versus free:** `not_extracted` means unfinished agent work; it must stay in staging, not be accepted as a scientific table value. A scientific `?` is reserved for a genuine source omission, recorded as `not_specified_by_source` after inspection of the relevant source scope. A paper's explicit free parameter is a symbolic family with a shared parameter identity, domain and relations, not an unknown number. The current complete numerical preflight rejects both unknown and symbolic values; their dedicated partial/family ingestion schema remains future work. No raw `?`, `q`, `source:2` or extraction-error string belongs in a canonical numerical charge column.
+
 An exact field-content match returns the existing entry ID: add the paper association instead of creating a duplicate. The database's `content_signatures.fingerprint` is a primary key. `entry_identity` maps existing IDs to that signature, or records why identity is unresolved. The internal canonical JSON is a deterministic fingerprint encoding (with IDs removed), not another source paper record or the candidate-input format.
 
 The checker canonicalizes row ordering, identical-row copy aggregation, gauge-factor ordering/permutations of repeated factors, common U(1) rational rescalings and independent generator sign flips. It normalizes explicit RH/Dirac inputs to the LH basis. It retains neutral fields and vector-like pairs. Scalar reality and all copy counts contribute to identity.

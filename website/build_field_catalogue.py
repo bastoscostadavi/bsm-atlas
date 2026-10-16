@@ -23,7 +23,7 @@ from spacetime_conventions import CONVENTION as LORENTZ_CONVENTION, spacetime, f
 SITE=Path(__file__).resolve().parent
 ROOT=SITE.parent
 sys.path.insert(0,str(ROOT/'atlas'))
-from catalogue_identity import canonicalize,from_regime,IncompleteContent,conjugate as conjugate_irrep
+from catalogue_identity import canonicalize,normalize_spec,from_regime,IncompleteContent,conjugate as conjugate_irrep
 VERSION="gauge-matter-3"
 DATE="2026-10-16"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
@@ -297,7 +297,7 @@ def main_data(database,curations):
             if e['status']!='recorded_content':raise IncompleteContent('Incomplete/parameterized inventory: resolve the source scope before a uniqueness claim')
             r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
             if not r['baseline'] and e['id'] not in curations['full_inventory_without_baseline']:raise IncompleteContent('A recorded sector is not an attested full SM-containing inventory')
-            spec=from_regime(r,TEMPLATES,dynkin)
+            spec=normalize_spec(from_regime(r,TEMPLATES,dynkin))
             identity=canonicalize(spec)
             e['identity']={'status':'complete_under_stated_conventions','fingerprint':identity['fingerprint'],'input':spec,'canonical':json.loads(identity['canonical_json'])}
         except IncompleteContent as error:

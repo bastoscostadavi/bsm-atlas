@@ -47,7 +47,20 @@
  function evidence(f){
    return '<details class="source-evidence"><summary>Source</summary><p>'+esc(f.sourceKind)+' · source field '+f.sourceFieldId+'</p><p>'+esc(f.conversion)+'</p>'+(f.sourceChirality?'<p>Source chirality: '+esc(f.sourceChirality)+'</p>':'')+'<p>Original multiplicity: '+esc(f.sourceMultiplicity??'not specified')+'</p>'+f.sourceRepresentations.map(r=>'<p><code>'+esc(r.representation_label||'')+(r.exact_charge!==null?' · charge '+esc(r.exact_charge):'')+'</code><br>'+esc(r.normalization_note||r.source_notation||'')+'</p>').join('')+(f.curatedCompletion?'<p>Completed colour assignment: '+esc(f.curatedCompletion.basis)+' <a href="'+esc(f.curatedCompletion.url)+'" target="_blank" rel="noopener noreferrer">'+esc(f.curatedCompletion.paper)+' · '+esc(f.curatedCompletion.locator)+' ↗</a></p>':'')+(f.sourceNote?'<p>'+esc(f.sourceNote)+'</p>':'')+(f.unconverted.length?'<p>Not fully converted: '+f.unconverted.map(esc).join('; ')+'</p>':'')+'<ul>'+f.evidence.map(a=>'<li>'+esc(a.claim)+'<br><span class="muted">'+esc(a.basis)+' · '+esc(a.review)+' · '+esc(a.stance)+' · assertion '+a.assertionId+'</span>'+a.locations.map(l=>'<p><a href="'+esc(pdfURL(l))+'" target="_blank" rel="noopener noreferrer">'+esc(l.paper_version_id)+' · '+esc(l.locator)+(l.pdf_page?' · PDF p. '+l.pdf_page:'')+' ↗</a></p>').join('')+'</li>').join('')+'</ul></details>';
  }
- function templateTable(template){return '<div class="matrix-wrap"><table class="template-table"><thead><tr><th>Multiplet</th><th>Type</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Copies</th></tr></thead><tbody>'+template.fields.map(f=>'<tr><td>'+esc(f.label)+'</td><td>'+esc(f.kind)+(f.reality?' ('+esc(f.reality)+')':'')+'</td><td>'+representationMarkup(f.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(f.components))+'</span></td><td>'+f.copies+'</td></tr>').join('')+'</tbody></table></div>';}
+ function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Copies</th></tr></thead><tbody>'+template.fields.flatMap(f=>f.lorentz.map(l=>'<tr title="'+esc(f.label)+'"><td class="math">'+esc(l.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(f.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(f.components))+'</span></td><td>'+f.copies+'</td></tr>')).join('')+'</tbody></table></div>';}
+ function scalarRealityLabel(lorentz,components){
+   if(lorentz.component!=='S')return '';
+   const reality=String(lorentz.reality||'').toLowerCase();
+   if(reality.startsWith('complex')){
+     // A nonzero U(1) charge already forbids an ordinary real field condition.
+     const charged=components.some(c=>{
+       const q=c.factor==='u(1)'&&String(c.value??'').match(/^([+-]?\d+)(?:\/[1-9]\d*)?$/);
+       return q&&BigInt(q[1])!==0n;
+     });
+     return charged?'':'complex';
+   }
+   return reality.startsWith('real')?'real':'reality unresolved';
+ }
 
  function kindText(kinds){
    if(kinds.includes('S')&&kinds.includes('F'))return 'Scalar + Weyl fermion';
@@ -154,7 +167,7 @@
      return '<div class="matrix-wrap"><table style="'+(columns.length>2?'min-width:'+((columns.length+2)*105+80)+'px':'')+'" class="representation-matrix" aria-label="Matter content of '+esc(e.name)+'"><thead><tr><th>Spacetime<span class="matrix-algebra">'+esc(algebra)+'</span></th>'+columns.map(c=>'<th>'+gaugeHeading(c)+algebraDiagrams(c,r)+'</th>').join('')+'<th>Copies</th></tr></thead><tbody>'+
        (r.baseline?'<tr class="baseline-group"><td colspan="'+(columns.length+2)+'"><button class="text-button" data-baseline="'+esc(e.id)+'" aria-expanded="'+include+'">'+shorthand(r.baseline)+'<span> '+(include?'−':'+')+'</span></button></td></tr>':'')+
        rows.map(row=>{
-         const l=row.lorentz,real=String(l.reality||'').toLowerCase(),condition=l.component==='S'?(real.startsWith('complex')?'complex':real.startsWith('real')?'real':'reality unresolved'):'';
+         const l=row.lorentz,condition=scalarRealityLabel(l,row.components);
          return '<tr class="'+(row.template?'template-row':'')+'" title="'+esc(row.labels.join(', '))+'"><td><span class="math">'+esc(l.label).replaceAll('1/2','½')+'</span>'+(dimensions.length>1?'<span class="matrix-note">'+esc(l.spacetime.dimension||'D unknown')+'D</span>':'')+(condition?'<span class="matrix-note">'+esc(condition)+'</span>':'')+(l.status!=='resolved'?'<span class="matrix-note unresolved">'+(l.status==='source_chirality_unresolved'?'source handedness unresolved':'unresolved')+'</span>':'')+'</td>'+columns.map(c=>'<td>'+gaugeCell(row,c,r)+'</td>').join('')+'<td>'+esc(row.copies??'?')+'</td></tr>';
        }).join('')+(!rows.length?'<tr><td colspan="'+(columns.length+2)+'" class="subtle">No independent additional fields extracted for this description.</td></tr>':'')+'</tbody></table></div>';
    }
@@ -250,6 +263,6 @@
    }
    return {start,state,render,rows};
  }
- root.FieldCatalogue={create,findEntries,esc,young,weight,kindText,compactFields,dynkinTuple};
+ root.FieldCatalogue={create,findEntries,esc,young,weight,kindText,compactFields,dynkinTuple,scalarRealityLabel};
  if(root.document&&root.FIELD_CATALOGUE)create(root.FIELD_CATALOGUE,root.document).start();
 })(typeof window==='undefined'?globalThis:window);

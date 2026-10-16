@@ -7,8 +7,9 @@ import sys
 import unittest
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT/'atlas'))
-from catalogue_identity import canonicalize,conjugate,IncompleteContent
+from catalogue_identity import canonicalize,normalize_spec,conjugate,IncompleteContent
 from check_entry import check
+from prepare_entry import prepare
 from spacetime_conventions import field_reps,spacetime
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
 ENTRIES={e['id']:e for e in DATA['entries']}
@@ -16,6 +17,42 @@ def spec(e):return copy.deepcopy(ENTRIES[e]['identity']['input'])
 def fingerprint(x):return canonicalize(x)['fingerprint']
 
 class Identity(unittest.TestCase):
+    def test_normalize_before_persistence_not_only_inside_fingerprint(self):
+        expected=spec('two-higgs-doublets');source=copy.deepcopy(expected)
+        for f in source['matter']:
+            for rep in f['gauge_representations'].values():
+                if 'charge' in rep:rep['charge']=str(Fraction(rep['charge'])/6)
+        original=copy.deepcopy(source)
+        result=prepare(source,ROOT/'website/downloads/field-catalogue.sqlite')
+        self.assertEqual(result['normalized_entry'],expected)
+        self.assertEqual(source,original)
+        self.assertEqual(result['transformations'][0]['positive_source_scale'],'6')
+        self.assertEqual(result['duplicate_check']['status'],'exact_field_content_match')
+        self.assertEqual(normalize_spec(result['normalized_entry']),result['normalized_entry'])
+
+    def test_lr_charge_unit_uses_all_fields(self):
+        a={'schema_version':'field-content-1','inventory_complete':True,'gauge_factors':[{'id':'bl','family':'U1','rank':1}],'matter':[]}
+        for label,q in [('quark','1/3'),('lepton','-1'),('triplet','2')]:
+            a['matter'].append({'label':label,'lorentz':{'dimension':4,'scheme':'jL_jR','irreps':[['0','0']]},'reality':'complex','copies':1,'gauge_representations':{'bl':{'charge':q}}})
+        result=prepare(a)
+        self.assertEqual([f['gauge_representations']['bl']['charge'] for f in result['normalized_entry']['matter']],['1','-3','6'])
+        self.assertEqual(result['transformations'][0]['positive_source_scale'],'3')
+
+    def test_preflight_blocks_unfinished_and_untyped_inputs(self):
+        for charge in ['?', 'q', 'source:2',0.5,{'status':'not_extracted'}]:
+            a=spec('two-higgs-doublets')
+            u1=next(f['id'] for f in a['gauge_factors'] if f['family']=='U1')
+            a['matter'][0]['gauge_representations'][u1]={'charge':charge}
+            with self.assertRaises(IncompleteContent):prepare(a)
+        a=spec('two-higgs-doublets');a['inventory_complete']=False
+        with self.assertRaises(IncompleteContent):prepare(a)
+        a=spec('two-higgs-doublets');a['matter'][0]['unvalidated_source_note']='not a canonical field'
+        with self.assertRaises(IncompleteContent):prepare(a)
+        a=spec('two-higgs-doublets');a['gauge_factors'][0]['rank']=True
+        with self.assertRaises(IncompleteContent):prepare(a)
+        a=spec('two-higgs-doublets');a['matter'][-1]['reality']='real'
+        with self.assertRaises(IncompleteContent):prepare(a)
+
     def test_order_names_charge_scaling_and_sign(self):
         a=spec('two-higgs-doublets');b=copy.deepcopy(a)
         b['name']='Another paper calls it something else';b['paper_ids']=['new-paper']
