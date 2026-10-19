@@ -1,0 +1,534 @@
+{
+  "target_entry_id": "ql421-dirac",
+  "rows": [
+    {
+      "source_row": {
+        "label": "FQL",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              1,
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "r": {
+            "charge": "0"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "FQL",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                1,
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "r": {
+              "charge": "0"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "FQL",
+        "source_field_ids": [
+          208
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 208,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "FQL"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Fu",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              0,
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "r": {
+            "charge": "-1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Fu",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                0,
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "r": {
+              "charge": "-1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Fu",
+        "source_field_ids": [
+          209
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 209,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "Fu"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Fd",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              0,
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "r": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Fd",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                0,
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "r": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Fd",
+        "source_field_ids": [
+          210
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 210,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "Fd"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "chi",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              1,
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              0
+            ]
+          },
+          "r": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "chi",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                1,
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                0
+              ]
+            },
+            "r": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "chi",
+        "source_field_ids": [
+          211
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 211,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "χ"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "H",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              0,
+              0,
+              0
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "r": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "H",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                0,
+                0,
+                0
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "r": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "H",
+        "source_field_ids": [
+          212
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421",
+          "baseline"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 212,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "H"
+          }
+        ]
+      }
+    },
+    {
+      "source_row": {
+        "label": "Phi",
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour4": {
+            "dynkin": [
+              1,
+              0,
+              1
+            ]
+          },
+          "weak": {
+            "dynkin": [
+              1
+            ]
+          },
+          "r": {
+            "charge": "1/2"
+          }
+        }
+      },
+      "normalized_components": [
+        {
+          "label": "Phi",
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 1,
+          "gauge_representations": {
+            "colour4": {
+              "dynkin": [
+                1,
+                0,
+                1
+              ]
+            },
+            "weak": {
+              "dynkin": [
+                1
+              ]
+            },
+            "r": {
+              "charge": "1"
+            }
+          }
+        }
+      ],
+      "mapping": {
+        "candidate_label": "Phi",
+        "source_field_ids": [
+          213
+        ],
+        "source_model_id": null,
+        "source_regime_id": null,
+        "claim_ids": [
+          "421"
+        ],
+        "mapping_basis": "explicit_legacy_container_to_source_component_map",
+        "legacy_fields": [
+          {
+            "field_id": 213,
+            "model_id": "ql421-dirac",
+            "regime_id": 55,
+            "field_label": "Φ"
+          }
+        ]
+      }
+    }
+  ]
+}

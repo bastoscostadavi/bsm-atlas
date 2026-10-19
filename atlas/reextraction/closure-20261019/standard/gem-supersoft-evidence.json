@@ -1,0 +1,366 @@
+{
+  "entry": "gem-supersoft",
+  "paper": "P24",
+  "decision": "accept",
+  "reason": "Complete explicitly described 4D visible EFT after treating hidden supersymmetry breaking as external spurion; unified origins are not appended as extra factors.",
+  "inspected_scope": "P24 Section2/2.3 visible GEM EFT, plus adjoint-only model definition, PDFp4",
+  "claims": [
+    {
+      "id": "p24-fields",
+      "locator": "P24 Section2 PDFp4/printedp3, Figure1 and model-definition paragraph; source supersoft components Eqs.(2.5)-(2.6) PDFp5",
+      "fact": "MSSM N=1 matter and both Hu,Hd retained; add one adjoint chiral Aj for each Gi=SU3,SU2,U1. Each Aj contains complex scalar and independent LH Weyl, with exact weights SU3 adjoint[1,1],SU2 adjoint[2],U1 adjoint singlet. Therefore complex neutral real-type Aj scalar gives two real-module copies; fermion gives one Weyl. MSSM adjoint gaugino already counted, so Dirac gauginos are not additional fermions on top of both Weyl constituents.",
+      "basis": "fresh_source_statement_and_superfield_expansion"
+    },
+    {
+      "id": "p24-spurion",
+      "locator": "P24 Section2.3 PDFp6/printedp5, first paragraphs",
+      "fact": "Source explicitly defines renormalizable effective theory with soft breaking and external W'alpha/M=theta_alpha mD spurion. Accepted visible EFT has dynamical gSM only; background hidden U1 connection/unknown hidden matter is not appended as an incompletely specified gauge factor. No bulk/brane or unified regime is summed into this 4D EFT.",
+      "basis": "source_explicit_spurion_EFT_scope"
+    }
+  ],
+  "limitations": [
+    "Visible gSM EFT only, with hidden W'alpha/M external spurion. Supersymmetry-breaking hidden/UV completion and GUT-breaking Higgs sector are not part of, or claimed by, this regime. Existing historical hidden-sector/alternate-regime assertions remain provenance."
+  ],
+  "regime": 87,
+  "arxiv": "hep-ph/0206096v3",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0206096v3.pdf",
+      "pages": [
+        4,
+        5,
+        6,
+        9,
+        11,
+        13
+      ],
+      "sha256": "266bb3eae14aca66f7fde40ca539a9746483a7c46844ac365e588e30950bbb79"
+    },
+    {
+      "path": "atlas/reextraction/sources/hep-ph_9709356v7.pdf",
+      "pages": [
+        9,
+        10
+      ],
+      "role": "auxiliary_explicit_MSSM_baseline_cross_check",
+      "sha256": "b1dba94d82b75cc3120d95360d8b81caad838a0a14edfb36951e456f4246e656"
+    }
+  ],
+  "source_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-preflight.json",
+  "fingerprint": "6b916cea139b61863e63b4db817c02492ac863446675ac31afe9fb260d6f3bc4",
+  "normalizer_idempotent": true,
+  "target_entry_id": "gem-supersoft",
+  "paper_id": "P24",
+  "arxiv_version": "hep-ph/0206096v3",
+  "source_field_mapping": [
+    {
+      "candidate_label": "scalar Q",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "scalar u^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "scalar d^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "scalar L",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "scalar e^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [
+        288
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "H_u",
+      "source_field_ids": [
+        289
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "higgsino H_u",
+      "source_field_ids": [
+        289
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "H_d",
+      "source_field_ids": [
+        290
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "higgsino H_d",
+      "source_field_ids": [
+        290
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "gluino",
+      "source_field_ids": [
+        286
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "wino",
+      "source_field_ids": [
+        286
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "bino",
+      "source_field_ids": [
+        286
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "explicit_MSSM_superfield_baseline_expansion"
+    },
+    {
+      "candidate_label": "scalar A3",
+      "source_field_ids": [
+        283
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    },
+    {
+      "candidate_label": "A3",
+      "source_field_ids": [
+        283
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    },
+    {
+      "candidate_label": "scalar A2",
+      "source_field_ids": [
+        284
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    },
+    {
+      "candidate_label": "A2",
+      "source_field_ids": [
+        284
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    },
+    {
+      "candidate_label": "scalar A1",
+      "source_field_ids": [
+        285
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    },
+    {
+      "candidate_label": "A1",
+      "source_field_ids": [
+        285
+      ],
+      "source_model_id": "gem-supersoft",
+      "source_regime_id": 87,
+      "claim_ids": [
+        "p24-fields",
+        "p24-spurion"
+      ],
+      "mapping_basis": "direct_adjoint_chiral_superfield_component"
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 87,
+    "description": "P24 Section2/2.3 visible GEM EFT, plus adjoint-only model definition, PDFp4"
+  },
+  "review": "fresh_definition_scope_source_check_20261019",
+  "whole_paper_read": false
+}

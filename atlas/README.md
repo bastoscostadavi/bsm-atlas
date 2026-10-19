@@ -20,10 +20,11 @@ The machine key `copies` means representation multiplicity. It is retained to av
 - `accepted.json`: frozen pilot acceptance decisions.
 - `accepted-followup.json`: separately pinned current accepted candidates.
 - `accepted-so10.json`: two source-reconciled P19 spectra, with independent mathematics review and frozen evidence in `so10-resolution-20261016/`.
+- `accepted-harvest.json`: complete-only source harvests, typed symbolic families and exact retained seed identities; evidence in `closure-20261019/`.
 - `followup-20261016/handoff.json`: followup results and the distinction between accepted and staged work.
 - `followup-20261016/remaining-work-by-paper.json`: historical remaining-work assessment across the original 50-paper corpus; the later SO(10) review supersedes its two P19 dispositions.
 
-A successful preflight is not scientific review or automatic ingestion. Symbolic-family validation exists; the public exporter currently accepts numerical candidates plus explicitly labelled pending source records. `extraction_cost/` describes optional measurement tooling; missing inference telemetry is not estimated from CPU timings.
+A successful preflight is not scientific review or automatic ingestion. Only complete source-supported specifications are published. Papers can have zero model links; there is no public pending catalogue or new exclusion log. Symbolic charge families retain typed parameter/constraint/expression metadata on the same entry. `extraction_cost/` describes optional measurement tooling; missing inference telemetry is not estimated from CPU timings.
 
 Saved extraction runners reproduce those historical runs; they are not part of the website runtime. The optional `reextraction/test_corpus.py` also checks locally cached source PDFs, which are not published and are not required by the normal build/CI checks.
 

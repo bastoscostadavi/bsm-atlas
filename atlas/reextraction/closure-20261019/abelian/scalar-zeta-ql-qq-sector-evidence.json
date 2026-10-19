@@ -1,0 +1,184 @@
+{
+  "target_entry_id": "scalar-zeta-ql-qq-sector",
+  "paper_id": "P50",
+  "arxiv_version": "1711.10391v2",
+  "sources": [
+    {
+      "path": "atlas/reextraction/sources/1711.10391v2.pdf",
+      "sha256": "95a881a7dc37a51a52feacf80a0df7a090d48fd2b6530461ff0f04a6489f2bfa",
+      "pages": [
+        6,
+        8,
+        18,
+        25
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "p50-baseline",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          6,
+          25
+        ],
+        "section_equations": "Section2 assumptions1-4;AppendixA.1 EqA.1"
+      },
+      "fact": "The BSM EFT is explicitly four-dimensional, invariant under GSM, and includes all SM field multiplets, with one Higgs doublet. Expand this explicit three-family SM inheritance, not merely the currents displayed in the example."
+    },
+    {
+      "id": "p50-new-field",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          6,
+          8,
+          18,
+          25
+        ],
+        "section_equations": "Tables1,3;Section5 individual-multiplet example;AppendixA.2/A.4 kinetic conventions"
+      },
+      "fact": "Table1 has zeta=(3,3)Y=-1/3, and Section5 explicitly assumes only one zeta multiplet. It is one complex scalar; complete conjugation chooses atlas real-module representative (bar3,3;qY=2). Both quark/lepton currents are interactions, not extra independent matter."
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        568
+      ],
+      "source_model_id": "scalar-zeta-ql-qq-sector",
+      "source_regime_id": 190,
+      "legacy_fields": [
+        {
+          "field_id": 568,
+          "model_id": "scalar-zeta-ql-qq-sector",
+          "regime_id": 190,
+          "field_label": "q_Li"
+        }
+      ],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "direct_source_component",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        569
+      ],
+      "source_model_id": "scalar-zeta-ql-qq-sector",
+      "source_regime_id": 190,
+      "legacy_fields": [
+        {
+          "field_id": 569,
+          "model_id": "scalar-zeta-ql-qq-sector",
+          "regime_id": 190,
+          "field_label": "l_Li"
+        }
+      ],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "direct_source_component",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "zeta",
+      "source_field_ids": [
+        567
+      ],
+      "source_model_id": "scalar-zeta-ql-qq-sector",
+      "source_regime_id": 190,
+      "legacy_fields": [
+        {
+          "field_id": 567,
+          "model_id": "scalar-zeta-ql-qq-sector",
+          "regime_id": 190,
+          "field_label": "zeta"
+        }
+      ],
+      "claim_ids": [
+        "p50-baseline",
+        "p50-new-field"
+      ],
+      "mapping_basis": "direct_source_component",
+      "baseline_provenance": null
+    }
+  ],
+  "inspection": {
+    "reviewed_on": "2026-10-19",
+    "scope": "Single-multiplet source example in the GSM-symmetric BSM EFT, with the full SM baseline included.",
+    "whole_paper_read": false,
+    "method": "Fresh direct source PDF page inspection and matching text; existing baseline templates supply conventions only."
+  },
+  "description_regime": {
+    "source_regime_id": 190,
+    "description": "Single-multiplet source example in the GSM-symmetric BSM EFT, with the full SM baseline included."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "This is the source-defined EFT, not a claim of a fully specified higher-energy gauge UV completion.",
+    "Other dictionary multiplets and replicas are alternatives, not simultaneous matter."
+  ]
+}

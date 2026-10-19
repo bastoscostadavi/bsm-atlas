@@ -1,0 +1,159 @@
+{
+  "target_entry_id": "numsm",
+  "paper_id": "P32",
+  "arxiv_version": "hep-ph/0505013v1",
+  "inspection": {
+    "reviewed_on": "2026-10-19",
+    "scope": "Introduction Eq.(1) and paragraph fixing N=3",
+    "whole_paper_read": false,
+    "visually_inspected_pdf_pages": [
+      2
+    ],
+    "method": "Fresh direct review of full rendered source pages, with matching text context; staged candidates used only as leads."
+  },
+  "sources": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0505013v1.pdf",
+      "sha256": "fd7fb3853f75782505791a04800c4a1baeef7ce9f88ff0e2c4e10df9d2f7bc14",
+      "pages": [
+        2
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "fact": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "numsm",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Introduction Eq.(1), N=3 definition",
+        "pdf_pages": [
+          2
+        ],
+        "anchor": "we fix N to be 3"
+      },
+      "fact": "SM plus N singlet RH neutrinos is first a family; the nuMSM explicitly fixes N=3. Each independent Majorana singlet corresponds to one LH Weyl, not a Dirac pair. Mass hierarchy/benchmarks do not create more field-content entries."
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion."
+    },
+    {
+      "candidate_label": "N_R",
+      "source_field_ids": [
+        401
+      ],
+      "source_model_id": "numsm",
+      "source_regime_id": 120,
+      "claim_ids": [
+        "numsm",
+        "baseline"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 401,
+          "model_id": "numsm",
+          "regime_id": 120,
+          "field_label": "N_I"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 120,
+    "description": "Introduction Eq.(1) and paragraph fixing N=3"
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Gauge-matter definition scope only; no independent phenomenology or anomaly certification."
+  ]
+}

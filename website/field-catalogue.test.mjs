@@ -19,21 +19,23 @@ const document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nod
 create(data,document).render();
 assert(nodes.get('view-content').innerHTML.includes('model-entries'));
 assert.equal(nodes.get('page-title').textContent,'Semisimple gauge algebras.');
-assert.equal(nodes.get('result-count').textContent,'14 semisimple algebras');
+assert.equal(nodes.get('result-count').textContent,'11 semisimple algebras');
 assert(nodes.get('view-content').innerHTML.includes('Beyond-Standard-Model gauge algebras and matter representations, linked to source papers.'));
 assert(nodes.get('view-content').innerHTML.includes('placeholder="Gauge algebra, representation, model or paper"'));
 assert(!nodes.get('view-content').innerHTML.includes('Search models'));
 assert(!nodes.get('view-content').innerHTML.includes('Choose an algebra'));
 assert(nodes.get('model-entries').innerHTML.includes('su(5)'));
-assert(nodes.get('model-entries').innerHTML.includes('Parameterized or unresolved algebras · 9'));
+assert(!nodes.get('model-entries').innerHTML.includes('pending-records'));
+assert(!data.semisimpleAlgebras.some(a=>a.algebra==='su(2)'));
+assert(!nodes.get('view-content').innerHTML.includes('status-filter'));
 assert(nodes.get('model-entries').innerHTML.includes('algebra-entry'));
 assert(nodes.get('model-entries').innerHTML.includes('data-dynkin-family="A"'));
 assert(!nodes.get('model-entries').innerHTML.includes('<table'));
 assert(!nodes.get('view-content').innerHTML.includes('Representation notation'));
 assert(nodes.get('view-content').innerHTML.includes('semisimple-algebras.csv'));
-const coreList=create(data,document);coreList.state.browse='cores';coreList.render();
+const coreList=create(data,document);coreList.state.browse='cores';coreList.state.limit=999;coreList.render();
 assert.equal(nodes.get('page-title').textContent,'Non-Abelian matter spectra.');
-assert.equal(nodes.get('result-count').textContent,'17 non-Abelian matter spectra');
+assert.equal(nodes.get('result-count').textContent,'58 non-Abelian matter spectra');
 assert(nodes.get('view-content').innerHTML.includes('Non-Abelian matter representations, Lorentz representations and multiplicities.'));
 assert(!nodes.get('model-entries').innerHTML.includes('<th>Copies</th>'));
 assert(nodes.get('model-entries').innerHTML.includes('Open 3 entries →'));
@@ -77,7 +79,7 @@ assert.equal(scalarRealityLabel({component:'S',reality:'real_module'}),'');
 assert.equal(scalarRealityLabel({component:'S',reality:null}),'count pending');
 assert.equal(scalarRealityLabel({component:'F',reality:'none'}),'');
 assert.equal(findEntries(data).length,data.entries.filter(e=>e.publicationStatus==='ready').length);
-assert(findEntries(data,{status:'pending'}).every(e=>e.publicationStatus==='pending'));
+assert(findEntries(data,{status:'pending'}).every(e=>e.publicationStatus==='ready')); // Old Coverage URLs cannot expose unfinished records.
 assert(!findEntries(data).some(e=>e.publicationStatus==='pending'));
 const primary=id=>{const e=data.entries.find(e=>e.id===id);return e.variants.flatMap(v=>v.regimes).find(r=>r.id===e.primaryRegime);};
 const nm=context.FieldMatrix.matrixRows(primary('nmssm-matter'),data.templates);
@@ -111,7 +113,7 @@ assert(!nodes.get('model-entries').innerHTML.includes('q = source:2'));
 app.state.open='lr-triplet-matter';app.render();
 assert(nodes.get('model-entries').innerHTML.includes('Source-backed re-extraction'));
 app.state.view='about';app.render();
-assert(nodes.get('view-content').innerHTML.includes('8 / 50 papers'));
+assert(nodes.get('view-content').innerHTML.includes('34 / 50 seed papers'));
 assert.equal(dynkinTuple([]),'?');
 assert.equal(dynkinTuple([{factor:'so(10)',value:'16',dynkin:null}]),'(?)');
 assert(!weight({components:[{factor:'so(10)',value:'16',dynkin:null}]}).includes('16'));
@@ -131,7 +133,7 @@ for(const [label,value,dynkin] of [['15','15',[2,1]],['15prime','15',[4,0]],['am
 const distinct=context.FieldMatrix.matrixRows(sameDimension,{});
 assert.equal(distinct.length,3); // Equal dimensions do not merge different or unresolved irreps.
 assert.equal(distinct[0].copies,2); // Different source labels do merge when Dynkin labels agree.
-assert.equal(data.entries.length,103); // Component rows do not create model entries.
+assert.equal(data.entries.length,67); // Exact matches reuse an entry; partial sectors are not models.
 const f={components:[{factor:'su(2)',youngRows:[1]},{factor:'u(1)',role:'hypercharge',value:'3'}]};
 assert(weight(f,'young').includes('hypercharge: 3'));
 app.state.q='vlq-t-singlet';app.state.mode='dimensions';app.state.view='catalogue';app.render();
@@ -141,12 +143,12 @@ assert(!nodes.get('model-entries').innerHTML.includes('q = '));
 const phi=lr.find(row=>row.labels.includes('Phi'));
 assert(phi);assert.equal(phi.copies,2);
 app.state.q='';app.state.status='pending';app.state.mode='dimensions';app.render();
-assert(nodes.get('model-entries').innerHTML.includes('count pending'));
+assert(!nodes.get('model-entries').innerHTML.includes('count pending'));
 assert(!nodes.get('model-entries').innerHTML.includes('q = source:'));
 assert(!nodes.get('model-entries').innerHTML.includes('reality unresolved'));
 const vlqCore=data.entries.find(e=>e.id==='vlq-t-singlet').coreId;
 const grouped=create(data,document);grouped.state.browse='entries';grouped.state.core=vlqCore;grouped.render();
-assert.equal(nodes.get('result-count').textContent,'2 models');
+assert.equal(nodes.get('result-count').textContent,'2 entries');
 assert(nodes.get('view-content').innerHTML.includes('1 · Algebras'));
 assert(nodes.get('view-content').innerHTML.includes('2 · Matter spectra'));
 assert(nodes.get('model-entries').innerHTML.includes('vector-like T singlet'));
@@ -176,7 +178,7 @@ assert.equal(nodes.get('reset-filters').hidden,false);
 context.location.hash='#core/'+vlqCore;
 routed.route();routed.render();
 assert.equal(routed.state.semisimple,smAlgebra);
-assert.equal(nodes.get('result-count').textContent,'2 models');
+assert.equal(nodes.get('result-count').textContent,'2 entries');
 assert(nodes.get('view-content').innerHTML.includes('#algebra/'+smAlgebra));
 context.location.hash='#entry/lr-triplet-matter';routed.route();
 assert.equal(routed.state.browse,'entries');
@@ -187,19 +189,15 @@ context.location.hash='#cores';routed.route();
 assert.equal(routed.state.browse,'cores');assert.equal(routed.state.semisimple,'');
 context.location.hash='#catalogue';routed.route();
 assert.equal(routed.state.browse,'algebras');assert.equal(routed.state.semisimple,'');
-assert.equal(findEntries(data,{includePending:true}).length,103);
-assert.equal(findEntries(data,{algebra:'na:A4',includePending:true}).length,5);
+assert.equal(findEntries(data,{includePending:true}).length,67);
+assert.equal(findEntries(data,{algebra:'na:A4',includePending:true}).length,4);
 const su5Algebra=data.entries.find(e=>e.id==='su5-georgi-glashow-review').semisimpleId;
 context.location.hash='#algebra/'+su5Algebra;routed.route();routed.render();
 assert.equal(nodes.get('result-count').textContent,'4 non-Abelian matter spectra');
-assert(nodes.get('model-entries').innerHTML.includes('Pending matter extraction · 1'));
-assert(nodes.get('model-entries').innerHTML.includes('su5-rpv-trilinear-sector'));
-assert(nodes.get('model-entries').innerHTML.includes('it does not mean the paper omits'));
-context.location.hash='#entry/su5-rpv-trilinear-sector?status=pending';routed.route();routed.render();
-assert.equal(routed.state.semisimple,su5Algebra);
-assert(nodes.get('model-entries').innerHTML.includes('Pending source record · matter spectrum not fully established'));
-assert(nodes.get('layer-navigation').innerHTML.includes('#algebra/'+su5Algebra));
-assert.equal(routed.state.browse,'entries');
+assert(!nodes.get('model-entries').innerHTML.includes('pending-records'));
+assert(!data.entries.some(e=>e.id==='su5-rpv-trilinear-sector'));
+context.location.hash='#entry/lns-single-singlet-quarks';routed.route();
+assert.equal(routed.state.open,'nmssm-matter'); // Source alias resolves to the existing exact field-content entry.
 const so10=data.entries.find(e=>e.id==='so10-45-126-sector').semisimpleId;
 context.location.hash='#algebra/'+so10;routed.route();routed.render();
 assert.equal(nodes.get('result-count').textContent,'2 non-Abelian matter spectra');
@@ -207,8 +205,33 @@ assert(!nodes.get('model-entries').innerHTML.includes('pending-records'));
 assert(nodes.get('model-entries').innerHTML.includes('Multiplicity'));
 assert(nodes.get('model-entries').innerHTML.includes('126'));
 assert(!nodes.get('model-entries').innerHTML.includes('No non-Abelian'));
-assert(nodes.get('layer-navigation').innerHTML.includes('status=all'));
+assert(!nodes.get('layer-navigation').innerHTML.includes('status=all'));
 context.location.hash='#entries?semisimple='+so10+'&status=all';routed.route();routed.render();
-assert.equal(nodes.get('result-count').textContent,'2 models');
+assert.equal(nodes.get('result-count').textContent,'2 entries');
 assert(!nodes.get('model-entries').innerHTML.includes('Pending source record'));
 console.log('Three-level navigation, contextual links, U(1) rank filters, exact Dynkin labels and LH conventions passed.');
+
+context.location.hash='#entry/u1-smnur-all-sm-yukawas';routed.route();routed.render();
+assert(nodes.get('model-entries').innerHTML.includes('Integer parameters:'));
+assert(nodes.get('model-entries').innerHTML.includes('Parameter constraints'));
+assert(nodes.get('model-entries').innerHTML.includes('n1**3 + n2**3 + n3**3 == 3*r**3'));
+assert(nodes.get('model-entries').innerHTML.includes('Shared primitive normalization'));
+assert(!nodes.get('model-entries').innerHTML.includes('count pending'));
+for(const mode of ['dimensions','dynkin','young','compare']){
+  routed.state.mode=mode;routed.render();
+  for(const expression of ['q','-4*q - r','3*q + r','-n1']){
+    assert(nodes.get('model-entries').innerHTML.includes('>'+expression+'</span>'),mode+': '+expression);
+  }
+  assert(!nodes.get('model-entries').innerHTML.includes('>?</span>'),mode+': no discarded typed charge');
+}
+// A legacy free-text charge is not a typed family expression.
+const untyped=JSON.parse(JSON.stringify(data.entries.find(e=>e.id==='two-higgs-doublets')));
+for(const v of untyped.variants)for(const r of v.regimes)for(const f of r.fields){
+  for(const components of [f.components,...f.lorentz.map(l=>l.gaugeComponents)]){
+    const c=components.find(c=>c.factor==='u(1)');
+    c.value='source:2';c.chargeExpression='source:2';
+  }
+}
+const untypedApp=create({...data,entries:[untyped]},document);untypedApp.state.browse='entries';untypedApp.render();
+assert(nodes.get('model-entries').innerHTML.includes('(1, 2; ?)'));
+assert(!nodes.get('model-entries').innerHTML.includes('source:2'));

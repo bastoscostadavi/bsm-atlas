@@ -1,0 +1,178 @@
+{
+  "target_entry_id": "vector-portal-abelian-higgs",
+  "paper_id": "P46",
+  "arxiv_version": "1111.4482v3",
+  "reviewed_on": "2026-10-19",
+  "review": "agent_source_reinspection_for_complete_inventory",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1111.4482v3.pdf",
+      "sha256": "8470273e65676b328c2ecad89a9cf7f1c79deadf4e291eb0992e8194a8906dc7",
+      "pages": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "inspection": {
+    "scope": "Section II.A(iii), Eq. (14), pre-hidden-Higgs-breaking SM plus hidden U(1); no integration out of S in the saved inventory.",
+    "whole_paper_read": false,
+    "rendered_complete_relevant_pages_inspected": [
+      1,
+      2,
+      3
+    ],
+    "historical_review_is_lead_only": true
+  },
+  "claims": [
+    {
+      "id": "source-inventory",
+      "locator": "PDF p.3 Section II.A(iii), Eqs. (14)-(15); PDF p.2 end of Section II.A",
+      "fact": "One hidden U(1) connection and one charged complex scalar S. S is a hidden-sector SM singlet coupled through H-dagger-H S-star-S. The example excludes additional charged hidden matter and preserves charge conjugation. X is the gauge connection, not a separate matter row.",
+      "basis": "source_statement"
+    },
+    {
+      "id": "SM-inheritance",
+      "locator": "PDF p.1 Section II and p.3 Eq. (14); Atlas R_SM template",
+      "fact": "Retain source-declared SM, three ordinary chiral families and one Higgs, all hidden neutral. Scalar S is SM neutral.",
+      "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+    },
+    {
+      "id": "normalization",
+      "locator": "PDF p.3 Eq. (14); complete-inventory normalization convention",
+      "fact": "Source does not assign a numeric charge to S. With only one nonzero hidden charge, choose its positive generator orientation and primitive local-algebra unit q_S=1; this is a convention-derived coordinate, not a printed charge or a global-group claim. SM hypercharge is q=6Y.",
+      "basis": "single_charge_generator_unit_derivation"
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        555
+      ],
+      "source_model_id": "vector-portal-abelian-higgs",
+      "source_regime_id": 181,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 555,
+          "model_id": "vector-portal-abelian-higgs",
+          "regime_id": 181,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "S",
+      "source_field_ids": [
+        554
+      ],
+      "source_model_id": "vector-portal-abelian-higgs",
+      "source_regime_id": 181,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 554,
+          "model_id": "vector-portal-abelian-higgs",
+          "regime_id": 181,
+          "field_label": "S"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 181,
+    "description": "Section II.A(iii), Eq. (14), pre-hidden-Higgs-breaking SM plus hidden U(1); no integration out of S in the saved inventory."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Source hidden charge magnitude is absorbed in the local-algebra generator/coupling unit. This does not specify global form or quantization of unrecorded line operators."
+  ],
+  "no_anomaly_or_viability_gate": true
+}
+

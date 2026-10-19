@@ -1,0 +1,233 @@
+[
+  {
+    "entry": "lq-r2-general",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.3, Table1 and Eqs.(3)-(4); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          10
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-r2-general",
+        "locator": "Sections1.1/1.3, Table1 and Eqs.(3)-(4)",
+        "fact": "Single complex R2=(3,2,7/6), plus SM fields; source i=1,2,3 enumerates ordinary fermion families. No optional RH neutrino in selected R2 model.",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "Source scalar/leptoquark definition scope; no claim to whole-paper phenomenology verification."
+    ]
+  },
+  {
+    "entry": "lq-rtilde2-nur",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.4, Table1 and Eq.(5); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          10
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-rtilde2-nur",
+        "locator": "Sections1.1/1.4, Table1 and Eq.(5)",
+        "fact": "Single complex Rtilde2=(3,2,1/6), plus SM fields and exactly three RH singlet neutrinos stated in Section1.4.",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "Source scalar/leptoquark definition scope; no claim to whole-paper phenomenology verification."
+    ]
+  },
+  {
+    "entry": "lq-u3-effective",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.8 and3.3, Table1, Eqs.(11)-(12); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          12,
+          50
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-u3-effective",
+        "locator": "Sections1.1/1.8 and3.3, Table1, Eqs.(11)-(12)",
+        "fact": "Single complex vector U3=(3,3,2/3) with SM fields, no optional RH neutrino. This is the explicit massive-vector EFT regime, not an inferred extended gauge group.",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "An EFT inventory, not a full extended-gauge UV model; the source explicitly discusses missing UV details in Section3.3. Ordinary SM Higgs retained as the declared SM baseline; gauge connections are implied by algebra, not extra vector matter."
+    ]
+  },
+  {
+    "entry": "lq-utilde1-effective",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.11 and3.3, Table1, Eq.(17); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          13,
+          50
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-utilde1-effective",
+        "locator": "Sections1.1/1.11 and3.3, Table1, Eq.(17)",
+        "fact": "Single complex vector Utilde1=(3,1,5/3), plus ordinary SM fields. Massive-vector EFT scope; no optional RH-neutrino fields required by Eq.(17).",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "An EFT inventory, not a full extended-gauge UV model; the source explicitly discusses missing UV details in Section3.3. Ordinary SM Higgs retained as the declared SM baseline; gauge connections are implied by algebra, not extra vector matter."
+    ]
+  },
+  {
+    "entry": "lq-u1-effective",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.12 and3.3, Table1, Eqs.(18)-(19); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          13,
+          50
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-u1-effective",
+        "locator": "Sections1.1/1.12 and3.3, Table1, Eqs.(18)-(19)",
+        "fact": "Single complex vector U1=(3,1,2/3), plus SM fields. Source labels the optional RH-neutrino term with barred coupling; selected source-authorized SM-fermion-current option omits that optional sector. Massive-vector EFT, not a claimed UV completion.",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "An EFT inventory, not a full extended-gauge UV model; the source explicitly discusses missing UV details in Section3.3. Ordinary SM Higgs retained as the declared SM baseline; gauge connections are implied by algebra, not extra vector matter."
+    ]
+  },
+  {
+    "entry": "lq-ubar1-nur-effective",
+    "paper": "P11",
+    "decision": "accept",
+    "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+    "inspected_scope": "Sections1.1/1.7/1.13 and3.3, Table1, Eq.(20); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+        "pages": [
+          5,
+          6,
+          12,
+          13,
+          50
+        ],
+        "inspection": "Full listed pages read and visually inspected in this review."
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p11-lq-ubar1-nur-effective",
+        "locator": "Sections1.1/1.7/1.13 and3.3, Table1, Eq.(20)",
+        "fact": "Single complex vector Ubar1=(3,1,-1/3) with SM and three RH neutrinos. Section1.7 explicitly chooses three RH neutrinos for subsequent displayed couplings; Section1.13 requires this sector. Massive-vector EFT only.",
+        "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+      }
+    ],
+    "limitations": [
+      "An EFT inventory, not a full extended-gauge UV model; the source explicitly discusses missing UV details in Section3.3. Ordinary SM Higgs retained as the declared SM baseline; gauge connections are implied by algebra, not extra vector matter."
+    ]
+  },
+  {
+    "entry": "mdm-majorana-quintuplet",
+    "decision": "accept",
+    "reason": "Eq.(1) expressly defines SM plus a single minimal non-chiral colour-singlet multiplet; Table1 fixes the concrete representation.",
+    "inspected_scope": "Section2 Eq.(1) and Table1, 4D unbroken SM gauge basis. Read and visually checked PDFpp2-3.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/hep-ph_0512090v4.pdf",
+        "pages": [
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p12",
+        "locator": "Section2 Eq.(1), PDFp2, and Table1 PDFp3",
+        "fact": "LSM plus one colour-singlet multiplet. Minimal non-chiral representation uses real scalar or Majorana fermion with c=1/2; selected quintuplet Y=0 spin1/2 is one independent LH Weyl [4], selected septuplet Y=0 spin0 is one real scalar [6]. Ordinary SM baseline retained, no doubling dependent h.c.",
+        "basis": "fresh_source_definition_and_minimal_real_representation"
+      }
+    ],
+    "limitations": [
+      "Definition-scope review; dark-matter viability, effective decay operators and relic-density predictions do not affect gauge-matter inclusion."
+    ]
+  },
+  {
+    "entry": "mdm-real-septuplet-displayed",
+    "decision": "accept",
+    "reason": "Eq.(1) expressly defines SM plus a single minimal non-chiral colour-singlet multiplet; Table1 fixes the concrete representation.",
+    "inspected_scope": "Section2 Eq.(1) and Table1, 4D unbroken SM gauge basis. Read and visually checked PDFpp2-3.",
+    "sources": [
+      {
+        "path": "atlas/reextraction/sources/hep-ph_0512090v4.pdf",
+        "pages": [
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "fresh-p12",
+        "locator": "Section2 Eq.(1), PDFp2, and Table1 PDFp3",
+        "fact": "LSM plus one colour-singlet multiplet. Minimal non-chiral representation uses real scalar or Majorana fermion with c=1/2; selected quintuplet Y=0 spin1/2 is one independent LH Weyl [4], selected septuplet Y=0 spin0 is one real scalar [6]. Ordinary SM baseline retained, no doubling dependent h.c.",
+        "basis": "fresh_source_definition_and_minimal_real_representation"
+      }
+    ],
+    "limitations": [
+      "Definition-scope review; dark-matter viability, effective decay operators and relic-density predictions do not affect gauge-matter inclusion."
+    ]
+  }
+]

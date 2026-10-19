@@ -1,0 +1,62 @@
+{
+  "entry": "gem-supersoft-su3cubed-bachelors",
+  "paper": "P24",
+  "decision": "accept",
+  "reason": "Complete explicitly described 4D visible EFT after treating hidden supersymmetry breaking as external spurion; unified origins are not appended as extra factors.",
+  "inspected_scope": "P24 Section2/2.3 visible GEM EFT, plus Section3.2.1 bachelor inventory, PDFp11",
+  "claims": [
+    {
+      "id": "p24-fields",
+      "locator": "P24 Section2 PDFp4/printedp3, Figure1 and model-definition paragraph; source supersoft components Eqs.(2.5)-(2.6) PDFp5",
+      "fact": "MSSM N=1 matter and both Hu,Hd retained; add one adjoint chiral Aj for each Gi=SU3,SU2,U1. Each Aj contains complex scalar and independent LH Weyl, with exact weights SU3 adjoint[1,1],SU2 adjoint[2],U1 adjoint singlet. Therefore complex neutral real-type Aj scalar gives two real-module copies; fermion gives one Weyl. MSSM adjoint gaugino already counted, so Dirac gauginos are not additional fermions on top of both Weyl constituents.",
+      "basis": "fresh_source_statement_and_superfield_expansion"
+    },
+    {
+      "id": "p24-spurion",
+      "locator": "P24 Section2.3 PDFp6/printedp5, first paragraphs",
+      "fact": "Source explicitly defines renormalizable effective theory with soft breaking and external W'alpha/M=theta_alpha mD spurion. Accepted visible EFT has dynamical gSM only; background hidden U1 connection/unknown hidden matter is not appended as an incompletely specified gauge factor. No bulk/brane or unified regime is summed into this 4D EFT.",
+      "basis": "source_explicit_spurion_EFT_scope"
+    },
+    {
+      "id": "p24-bachelors",
+      "locator": "P24 Section3.2.1 PDFp11/printedp10, paragraph beginning ESP and bachelor fields",
+      "fact": "One chiral vectorlike doublet pair (1,2,+/-1/2), two chiral charged-singlet pairs (1,1,+/-1), and four chiral neutral singlets (1,1,0), beyond MSSM+Aj. Each neutral complex scalar gives two real-module copies; no arbitrary extra singlets added.",
+      "basis": "fresh_explicit_bachelor_inventory"
+    }
+  ],
+  "limitations": [
+    "Visible gSM EFT only, with hidden W'alpha/M external spurion. Supersymmetry-breaking hidden/UV completion and GUT-breaking Higgs sector are not part of, or claimed by, this regime. Existing historical hidden-sector/alternate-regime assertions remain provenance."
+  ],
+  "regime": 92,
+  "arxiv": "hep-ph/0206096v3",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0206096v3.pdf",
+      "pages": [
+        4,
+        5,
+        6,
+        9,
+        11,
+        13
+      ],
+      "sha256": "266bb3eae14aca66f7fde40ca539a9746483a7c46844ac365e588e30950bbb79"
+    },
+    {
+      "path": "atlas/reextraction/sources/hep-ph_9709356v7.pdf",
+      "pages": [
+        9,
+        10
+      ],
+      "role": "auxiliary_explicit_MSSM_baseline_cross_check",
+      "sha256": "b1dba94d82b75cc3120d95360d8b81caad838a0a14edfb36951e456f4246e656"
+    }
+  ],
+  "source_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-su3cubed-bachelors-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-su3cubed-bachelors-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-su3cubed-bachelors-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-su3cubed-bachelors-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/gem-supersoft-su3cubed-bachelors-preflight.json",
+  "fingerprint": "5622ba0ada236925f103d5ac7a9de7b467d8ce6c6ccf4b7cdcdf161f820fdcaa",
+  "normalizer_idempotent": true
+}

@@ -1,0 +1,477 @@
+{
+  "target_entry_id": "e6-full27-charge-template",
+  "paper_id": "P13",
+  "arxiv_version": "0801.1345v3",
+  "sources": [
+    {
+      "path": "atlas/reextraction/sources/0801.1345v3.pdf",
+      "sha256": "ac4bcc5c973364eb24b73020f7d49cb968db2b61f76e78d2a426efa5752cf005",
+      "pages": [
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "inspection": {
+    "reviewed_on": "2026-10-19",
+    "whole_paper_read": false,
+    "scope": "Fresh full rendered pages9-11;SectionIII.A.3 andTableII, with same-section context",
+    "visually_inspected_pdf_pages": [
+      9,
+      10,
+      11
+    ]
+  },
+  "claims": [
+    {
+      "id": "p13-selected-regime",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          9,
+          10
+        ],
+        "section_equations": "SectionIII.A.3,Eq46-48 and supersymmetric three27 paragraph"
+      },
+      "fact": "The paper explicitly considers an E6-inspired GSM×U1 construction, not a full E6 GUT. It specifies the supersymmetric model with three complete27 chiral multiplets and allows a Hu,Hd pair inside these27s to serve as MSSM Higgs. This accepted target narrows the earlier uninstantiated charge template to the source-explicit psi benchmark theta=pi/2."
+    },
+    {
+      "id": "p13-weights",
+      "basis": "source_statement_and_Dynkin_conversion",
+      "locator": {
+        "pdf_pages": [
+          9,
+          11
+        ],
+        "section_equations": "TableII decomposition/psi column;SectionIII.A.3 field definitions"
+      },
+      "fact": "Use primitive qpsi=2sqrt(6)Qpsi. Each16 has qpsi=1; each10 has qpsi=-2; singletS has qpsi=4. The16 decomposes to Q,u^c,e^c,d^c,L,nu^c; the10 to D,D^c,Hu,Hd. Source D is colour3,Y=-1/3 and Dc its conjugate; Hu,Hd are weak doublets,Y=+/-1/2. Every such chiral multiplet occurs3times. Exact A2 weights distinguish3 andbar3; A1doublet=[1]."
+    },
+    {
+      "id": "p13-component-counts",
+      "basis": "supersymmetry_and_shared_normalization_derivation",
+      "locator": {
+        "pdf_pages": [
+          9,
+          10,
+          11
+        ],
+        "section_equations": "Supersymmetric version and scalar-partner statements"
+      },
+      "fact": "Each source chiral multiplet contributes one source complex scalar and one LH Weyl. Include the four gauge-factor gauginos as adjoint LH Weyl fields, not gauge connections. Hypercharge qY=6Y and qpsi=2sqrt(6)Qpsi are each primitive across full spectrum. Scalar real-module orientation conjugates all factors simultaneously when required."
+    },
+    {
+      "id": "p13-optional-not-added",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          10
+        ],
+        "section_equations": "Paragraph discussing simple gauge unification"
+      },
+      "fact": "The additionalHu+Huc pair from an incomplete27+27bar is an optional repair of simple unification. It is not in the explicitly preceding three-complete27 model. Failure of simple gauge unification is not an atlas exclusion criterion. OtherE6benchmarks/nonSUSYcompletions are not united with this inventory."
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q scalar",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "Q Weyl",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "u^c scalar",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "u^c Weyl",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "e^c scalar",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "e^c Weyl",
+      "source_field_ids": [
+        139
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "d^c scalar",
+      "source_field_ids": [
+        140
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "d^c Weyl",
+      "source_field_ids": [
+        140
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "L scalar",
+      "source_field_ids": [
+        140
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "L Weyl",
+      "source_field_ids": [
+        140
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "nu^c scalar",
+      "source_field_ids": [
+        141
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "nu^c Weyl",
+      "source_field_ids": [
+        141
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "D scalar",
+      "source_field_ids": [
+        142
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "D Weyl",
+      "source_field_ids": [
+        142
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "Hu scalar",
+      "source_field_ids": [
+        142
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "Hu Weyl",
+      "source_field_ids": [
+        142
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "D^c scalar",
+      "source_field_ids": [
+        143
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "D^c Weyl",
+      "source_field_ids": [
+        143
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "Hd scalar",
+      "source_field_ids": [
+        143
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "Hd Weyl",
+      "source_field_ids": [
+        143
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "S scalar",
+      "source_field_ids": [
+        144
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "S Weyl",
+      "source_field_ids": [
+        144
+      ],
+      "source_model_id": "e6-full27-charge-template",
+      "source_regime_id": 42,
+      "mapping_basis": "source_chiral_supermultiplet_component_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "gluino",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "supersymmetric_gauge_multiplet_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "wino",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "supersymmetric_gauge_multiplet_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "binoY",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "supersymmetric_gauge_multiplet_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    },
+    {
+      "candidate_label": "binoPsi",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "supersymmetric_gauge_multiplet_derivation",
+      "claim_ids": [
+        "p13-selected-regime",
+        "p13-weights",
+        "p13-component-counts",
+        "p13-optional-not-added"
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 42,
+    "description": "Supersymmetric GSM×U1psi model with three complete27 chiral families and no optional incomplete27 pair."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "suggested_public_name": "Supersymmetric E6-inspired ψ model with three 27 chiral families",
+    "scope_change": "Narrow the old genericE6 fermion-charge template to the explicitly source-named supersymmetric psi benchmark; do not claim the old arbitrary-angle template is a complete model.",
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Scope deliberately selects the explicitly named source psi benchmark and supersymmetric three27 branch; it does not claim to resolve the entire continuous E6 angle family.",
+    "No full gaugedE6 GUT or GUT-breaking spectrum is inferred.",
+    "Kinetic mixing changes gauge coupling/current basis, not the specified Y,psi generator representations; no source effective-charge epsilonY is misstored as a new matter charge.",
+    "Optional extra incomplete27 Higgs pair not appended, and no unification/viability gate imposed."
+  ]
+}

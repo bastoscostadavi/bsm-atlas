@@ -1,0 +1,301 @@
+{
+  "entry": "split-susy",
+  "paper": "P23",
+  "decision": "accept",
+  "reason": "Source explicitly enumerates complete EFT spectrum in Section3 and Eq.(20).",
+  "inspected_scope": "Below-heavy-scalar 4D unbroken SM-gauge EFT, Section3 Eq.(20), PDFp10/printedp9; matching Eq.(21) text read separately.",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "split",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section3 Eq.(20) and matching Eq.(21)",
+        "pdf_pages": [
+          10
+        ],
+        "anchor": "The spectrum of Split"
+      },
+      "value": "Low-energy regime contains SM with one complex Higgs doublet, two higgsino Weyl doublets and gluino/wino/bino. Squarks,sleptons and second heavy Higgs are integrated out, not simultaneously counted as light matter. Matching to MSSM is a relation between regimes."
+    },
+    {
+      "id": "fresh-split",
+      "locator": "P23 Section3 opening and Eq.(20), PDFp10/printedp9",
+      "fact": "SM fields with one Higgs doublet; two Weyl higgsino doublets Y=+/-1/2; one adjoint Weyl each gluino,wino,bino. Squarks, sleptons and second scalar Higgs are removed at heavy threshold; do not append those full-theory fields simultaneously. q=6Y over full inherited SM inventory.",
+      "basis": "fresh_explicit_EFT_inventory"
+    }
+  ],
+  "limitations": [
+    "This is a complete low-energy EFT gauge-matter specification, not the full heavy-threshold MSSM spectrum or a SUSY-breaking UV completion."
+  ],
+  "regime": 82,
+  "arxiv": "hep-ph/0406088v2",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0406088v2.pdf",
+      "pages": [
+        10
+      ],
+      "inspection": "Fresh complete-page visual inspection and relevant source-definition reading.",
+      "sha256": "de5327eed0aebec17b9db3af81cae65dc88ffc2a4e08e329c441d0658245ece6"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/split-susy-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/split-susy-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/split-susy-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/split-susy-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/split-susy-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/split-susy-preflight.json",
+  "fingerprint": "cd12332c93ad818d25ed0ec875aa3b3a7572a3823c348d77c3c356b7c33b194d",
+  "normalizer_idempotent": true,
+  "target_entry_id": "split-susy",
+  "paper_id": "P23",
+  "arxiv_version": "hep-ph/0406088v2",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        278
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 278,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "q_j"
+        }
+      ]
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        279
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 279,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "u_i"
+        }
+      ]
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [
+        280
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 280,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "d_i"
+        }
+      ]
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        281
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 281,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "ell_j"
+        }
+      ]
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [
+        282
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 282,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "e_i"
+        }
+      ]
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        272
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 272,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "higgsino_u",
+      "source_field_ids": [
+        273
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 273,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "Htilde_u"
+        }
+      ]
+    },
+    {
+      "candidate_label": "higgsino_d",
+      "source_field_ids": [
+        274
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 274,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "Htilde_d"
+        }
+      ]
+    },
+    {
+      "candidate_label": "gluino",
+      "source_field_ids": [
+        275
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 275,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "gtilde^A"
+        }
+      ]
+    },
+    {
+      "candidate_label": "wino",
+      "source_field_ids": [
+        276
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 276,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "Wtilde^a"
+        }
+      ]
+    },
+    {
+      "candidate_label": "bino",
+      "source_field_ids": [
+        277
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "split",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 277,
+          "model_id": "split-susy",
+          "regime_id": 82,
+          "field_label": "Btilde"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 82,
+    "description": "Below-heavy-scalar 4D unbroken SM-gauge EFT, Section3 Eq.(20), PDFp10/printedp9; matching Eq.(21) text read separately."
+  },
+  "review": "fresh_definition_scope_source_check_20261019",
+  "whole_paper_read": false
+}

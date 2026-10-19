@@ -15,7 +15,7 @@ def display_rows(canonical,factors):
     rows=[]
     for source in canonical['matter']:
         l=source['lorentz'];d=l['dimension'];weights=l['irreps']
-        component='S' if is_scalar(l) else 'F' if d==4 and weights==[['1/2','0']] else 'V' if d==4 and weights==[['1/2','1/2']] else 'matter'
+        component='S' if is_scalar(l) else 'F' if d==4 and weights==[['1/2','0']] or d==5 and weights==[[0,1]] else 'V' if d==4 and weights==[['1/2','1/2']] else 'matter'
         label='('+', '.join(weights[0])+')' if d==4 and len(weights)==1 else ' ⊕ '.join('['+','.join(map(str,w))+']' for w in weights)
         components=[]
         for a,rep in zip(factors,source['gauge']):

@@ -41,6 +41,30 @@ def restrict_nonabelian(spec):
     its complex representative becomes real type, each copy becomes two real
     copies. Removing columns alone would lose half its degrees of freedom.
     """
+    if spec.get('schema_version')=='field-content-3':
+        from parameterized_entry import normalize_parameterized
+        source=normalize_parameterized(spec)
+        factors=[a for a in source['gauge_factors'] if a['family']!='U1']
+        # Restrict source complex fields BEFORE realification. This forgets
+        # charges exactly; it does not evaluate parameters at a fictitious point.
+        reduced={'schema_version':'field-content-2','inventory_complete':True,
+                 'gauge_factors':deepcopy(factors),'matter':deepcopy(source['matter'])}
+        for row in reduced['matter']:
+            row['gauge_representations']={a['id']:row['gauge_representations'][a['id']] for a in factors}
+            if not is_scalar(row['lorentz']) and row['reality']=='complex' and representation_type(factors,row['gauge_representations'])=='real':
+                row['reality']='real'
+                row['copies']*=2
+        if not factors:
+            reduced['gauge_factors']=[{'id':'empty-core-spectator','family':'A','rank':1}]
+            for row in reduced['matter']:row['gauge_representations']={'empty-core-spectator':{'dynkin':[0]}}
+        payload=json.loads(canonicalize(reduced)['canonical_json'])
+        if not factors:
+            payload['gauge_factors']=[]
+            for row in payload['matter']:row['gauge']=[]
+        payload['schema_version']=CONVENTION['id']
+        encoded=json.dumps(payload,sort_keys=True,separators=(',',':'))
+        return {'id':sha256(encoded.encode()).hexdigest(),'canonical':payload,
+                'abelianRank':sum(a['family']=='U1' for a in source['gauge_factors'])}
     full=normalize_spec(spec)
     result=deepcopy(full)
     factors=[a for a in full['gauge_factors'] if a['family']!='U1']
@@ -52,7 +76,12 @@ def restrict_nonabelian(spec):
             after=representation_type(factors,field['gauge_representations'])
             if before!='real' and after=='real': field['copies']*=2
         elif field['reality']=='complex':
-            raise IncompleteContent('Complex non-scalar real-module restriction requires a separate counting adapter')
+            # A source complex vector stays a complex field when its restricted
+            # gauge irrep is complex/pseudoreal. If it becomes real type, its
+            # real and imaginary parts are two independent real vectors.
+            if representation_type(factors,field['gauge_representations'])=='real':
+                field['reality']='real'
+                field['copies']*=2
     # The public numerical schema requires at least one gauge factor. A
     # temporary trivial spectator validates the zero semisimple algebra too;
     # it is removed before the core is encoded or hashed.

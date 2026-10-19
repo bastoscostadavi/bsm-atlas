@@ -1,0 +1,464 @@
+{
+  "target_entry_id": "lns-single-singlet-quarks",
+  "paper_id": "P28",
+  "arxiv_version": "hep-ph/9212278v1",
+  "sources": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_9212278v1.pdf",
+      "sha256": "415759affc266dc11c803345033d4a03454eeedd094eb0f6594a29056a29aeb3",
+      "pages": [
+        6,
+        17,
+        18,
+        28,
+        29
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "p28-regime",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          2,
+          3,
+          4,
+          6,
+          17,
+          18,
+          19,
+          28,
+          29
+        ],
+        "section_equations": "SUSY context; Sections2,3,7 Eqs7.4-7.8; AppendixA EqsA.5-A.9"
+      },
+      "fact": "The source treats supersymmetric SM extensions. Three ordinary quark generations carry explicitly stated GSM representations. The low-energy regime has two Higgs doublets, singlet scalars S1,S2 (or explicitly replaced by one S), and three light charged-lepton generations after heavy-field removal. Horizontal continuous charges are bookkeeping for a discrete symmetry, not additional local U1 gauge factors."
+    },
+    {
+      "id": "p28-susy",
+      "basis": "supersymmetry_representation_derivation",
+      "locator": {
+        "pdf_pages": [
+          2,
+          17,
+          19,
+          28,
+          29
+        ],
+        "section_equations": "Section7 SUSY/holomorphy discussion and AppendixA light spectrum"
+      },
+      "fact": "In this source SUSY regime, the displayed charged scalar/matter fields belong to chiral multiplets (one complex scalar plus one LH Weyl); GSM vector multiplets supply one adjoint gaugino per factor. The declared MSSM template expands this implication. No auxiliary fields or dependent conjugates count as matter."
+    },
+    {
+      "id": "p28-EFT-not-UV",
+      "basis": "source_statement",
+      "locator": {
+        "pdf_pages": [
+          18,
+          19,
+          20,
+          28,
+          29
+        ],
+        "section_equations": "Section7 heavy-quark completion; AppendixA heavy-lepton alternatives"
+      },
+      "fact": "The heavy quark and heavy charged-lepton fields are integrated out in the selected light EFT. The six-versus-three-heavy-lepton alternatives and heavy quark regimes are not summed into the light inventory. The one-S alternative explicitly replaces, not adds to, S1,S2."
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "scalar Q",
+      "source_field_ids": [
+        351
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 351,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "Q_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        351
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 351,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "Q_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "scalar u^c",
+      "source_field_ids": [
+        352
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 352,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "ubar_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        352
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 352,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "ubar_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "scalar d^c",
+      "source_field_ids": [
+        353
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 353,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "dbar_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [
+        353
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 353,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "dbar_i"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "scalar L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "scalar e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "H_u",
+      "source_field_ids": [
+        343
+      ],
+      "source_model_id": "lns-two-singlet-quarks",
+      "source_regime_id": 108,
+      "legacy_fields": [
+        {
+          "field_id": 343,
+          "model_id": "lns-two-singlet-quarks",
+          "regime_id": 108,
+          "field_label": "phi_u"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "higgsino H_u",
+      "source_field_ids": [
+        343
+      ],
+      "source_model_id": "lns-two-singlet-quarks",
+      "source_regime_id": 108,
+      "legacy_fields": [
+        {
+          "field_id": 343,
+          "model_id": "lns-two-singlet-quarks",
+          "regime_id": 108,
+          "field_label": "phi_u"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "H_d",
+      "source_field_ids": [
+        344
+      ],
+      "source_model_id": "lns-two-singlet-quarks",
+      "source_regime_id": 108,
+      "legacy_fields": [
+        {
+          "field_id": 344,
+          "model_id": "lns-two-singlet-quarks",
+          "regime_id": 108,
+          "field_label": "phi_d"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "higgsino H_d",
+      "source_field_ids": [
+        344
+      ],
+      "source_model_id": "lns-two-singlet-quarks",
+      "source_regime_id": 108,
+      "legacy_fields": [
+        {
+          "field_id": 344,
+          "model_id": "lns-two-singlet-quarks",
+          "regime_id": 108,
+          "field_label": "phi_d"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "gluino",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "wino",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "bino",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "legacy_fields": [],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy",
+        "p28-EFT-not-UV"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "baseline_provenance": "Source baseline and supersymmetry, where applicable, expanded using the atlas convention; not inferred from an incomplete field list."
+    },
+    {
+      "candidate_label": "S1 scalar",
+      "source_field_ids": [
+        354
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 354,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "S"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    },
+    {
+      "candidate_label": "S1 Weyl",
+      "source_field_ids": [
+        354
+      ],
+      "source_model_id": "lns-single-singlet-quarks",
+      "source_regime_id": 110,
+      "legacy_fields": [
+        {
+          "field_id": 354,
+          "model_id": "lns-single-singlet-quarks",
+          "regime_id": 110,
+          "field_label": "S"
+        }
+      ],
+      "claim_ids": [
+        "p28-regime",
+        "p28-susy"
+      ],
+      "mapping_basis": "source_supermultiplet_component_derivation",
+      "baseline_provenance": null
+    }
+  ],
+  "inspection": {
+    "reviewed_on": "2026-10-19",
+    "scope": "Supersymmetric light gauge-basis EFT below heavy messenger masses; one or two singlet chiral multiplets, before horizontal-field removal.",
+    "whole_paper_read": false,
+    "method": "Fresh direct source PDF page inspection and matching text; existing baseline templates supply conventions only."
+  },
+  "description_regime": {
+    "source_regime_id": 110,
+    "description": "Supersymmetric light gauge-basis EFT below heavy messenger masses; one or two singlet chiral multiplets, before horizontal-field removal."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "SUSY completion of the stated source fields is a representation-theoretic consequence, not a separately printed component table.",
+    "No local horizontal U1 is inferred; source continuous horizontal charges are used to describe discrete symmetry selection rules.",
+    "Masses, scalar stabilization, soft breaking and viable Yukawa patterns are not intake gates.",
+    "Single-S alternative retains the ordinary light lepton representations; their horizontal charge textures are not part of this gauge-matter identity."
+  ]
+}

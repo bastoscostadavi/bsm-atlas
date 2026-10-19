@@ -1,0 +1,188 @@
+{
+  "target_entry_id": "secluded-fermion-scalar-portal",
+  "paper_id": "P44",
+  "arxiv_version": "0711.4866v1",
+  "reviewed_on": "2026-10-19",
+  "review": "agent_source_reinspection_for_complete_inventory",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/0711.4866v1.pdf",
+      "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+      "pages": [
+        4,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "inspection": {
+    "scope": "Section 2.2, Eq. (16) and adjoining discussion on PDF pp.8-9, electroweak-symmetric SM plus singlet mediator and singlet WIMP.",
+    "whole_paper_read": false,
+    "rendered_complete_relevant_pages_inspected": [
+      4,
+      8,
+      9,
+      10
+    ],
+    "historical_review_is_lead_only": true
+  },
+  "claims": [
+    {
+      "id": "source-inventory",
+      "locator": "PDF p.8, Section 2.2, Eq. (16) and adjoining paragraphs; p.9 Eq. (17)",
+      "fact": "One singlet psi and one singlet phi are added. The half kinetic term and phi^2 mass identify one real scalar; the bar-psi(i slash-partial-m-lambda phi)psi term uses the source ordinary Dirac WIMP convention. Post-EWSB Eq. (17) is not a second simultaneous spectrum.",
+      "basis": "source_statement_and_kinetic_term_interpretation"
+    },
+    {
+      "id": "SM-inheritance",
+      "locator": "PDF p.8, Section 2.2, H explicitly identified as SM Higgs; Atlas R_SM template",
+      "fact": "Retain three ordinary SM families and one Higgs doublet using q=6Y; both added fields are SM singlets. No new gauge factor.",
+      "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        530
+      ],
+      "source_model_id": "secluded-fermion-scalar-portal",
+      "source_regime_id": 168,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 530,
+          "model_id": "secluded-fermion-scalar-portal",
+          "regime_id": 168,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "psi",
+      "source_field_ids": [
+        528
+      ],
+      "source_model_id": "secluded-fermion-scalar-portal",
+      "source_regime_id": 168,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 528,
+          "model_id": "secluded-fermion-scalar-portal",
+          "regime_id": 168,
+          "field_label": "ψ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "phi",
+      "source_field_ids": [
+        529
+      ],
+      "source_model_id": "secluded-fermion-scalar-portal",
+      "source_regime_id": 168,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 529,
+          "model_id": "secluded-fermion-scalar-portal",
+          "regime_id": 168,
+          "field_label": "φ"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 168,
+    "description": "Section 2.2, Eq. (16) and adjoining discussion on PDF pp.8-9, electroweak-symmetric SM plus singlet mediator and singlet WIMP."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Field-definition scope, not a whole-paper scientific review. Dirac psi follows the ordinary printed Dirac bilinear and WIMP convention."
+  ],
+  "no_anomaly_or_viability_gate": true
+}
+

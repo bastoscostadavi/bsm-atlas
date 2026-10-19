@@ -1,0 +1,356 @@
+{
+  "target_entry_id": "grv-quark-flavor-su3",
+  "paper_id": "P31",
+  "arxiv_version": "1009.2049v3",
+  "inspection": {
+    "reviewed_on": "2026-10-19",
+    "scope": "Section2 field table,Eqs.(2.1)-(2.4);Sections2.2,5.1,5.2",
+    "whole_paper_read": false,
+    "visually_inspected_pdf_pages": [
+      4,
+      5,
+      8,
+      21,
+      22
+    ],
+    "method": "Fresh direct review of full rendered source pages, with matching text context; staged candidates used only as leads."
+  },
+  "sources": [
+    {
+      "path": "atlas/reextraction/sources/1009.2049v3.pdf",
+      "sha256": "1c1d97f9b6cb6c848e3f76963afa2c20a2c413ff7a3605eb3c2829a9b98434a6",
+      "pages": [
+        4,
+        5,
+        8,
+        21,
+        22
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "fact": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "flavour",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2 Eqs.(2.1)-(2.4), field table; Section5.2",
+        "pdf_pages": [
+          4
+        ],
+        "anchor": "two bifundamentals flavon fields"
+      },
+      "fact": "Source flavour group SU3_Q x SU3_U x SU3_D, optionally U3_U x U3_D: QL fundamentalQ, UR/Psiu fundamentalU, DR/Psid fundamentalD, PsiuR/PsidR fundamentalQ. All quarks colour3; RH labels convert by conjugating BOTH colour and every flavour factor. Yu=(bar3Q,3U,1),Yd=(bar3Q,1,3D) complex scalars. Each flavour triplet is one gauge multiplet, NOT three additional copies."
+    },
+    {
+      "id": "abelian",
+      "basis": "source_statement_and_explicit_generator_basis_derivation",
+      "locator": {
+        "section_equations": "Section5.2 second example",
+        "pdf_pages": [
+          21
+        ],
+        "anchor": "SU (3)QL × U (3)UR × U (3)DR"
+      },
+      "fact": "Choose the source U3_U and U3_D fundamental-number generators as an explicit Abelian basis; UR/Psiu/Yu have U-number+1 and DR/Psid/Yd D-number+1, other source fields zero. These follow directly from U3 fundamental transformations and source Yukawa invariance, with RH conjugation applied after assignment. Ordinary SM leptons are inert under flavour and retain three copies."
+    },
+    {
+      "id": "source-reread-20261019",
+      "basis": "source_statement_and_representation_derivation",
+      "locator": {
+        "pdf_pages": [
+          4,
+          5,
+          8,
+          21,
+          22
+        ],
+        "section": "Section2,2.2,5.2"
+      },
+      "fact": "Section2 gives the two-flavon minimal field table, including all colored fields; p5 introduces SM leptons; section2.2 distinguishes optional extra flavons and gauged lepton sectors from this minimal model. Section5.2 specifies fundamental-number U(1)_UR and U(1)_DR generators. Scalar-potential phenomenological limitations do not change the explicitly two-flavon gauge-matter inventory. Each flavour triplet is one gauge multiplet, not three copies. RH fermions are conjugated on all colour/flavour/U1 slots."
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "QL",
+      "source_field_ids": [
+        388
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 388,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "QL"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "UR",
+      "source_field_ids": [
+        389
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 389,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "UR"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "DR",
+      "source_field_ids": [
+        390
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 390,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "DR"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "PsiuR",
+      "source_field_ids": [
+        391
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 391,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "ΨuR"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "PsidR",
+      "source_field_ids": [
+        392
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 392,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "ΨdR"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "Psiu",
+      "source_field_ids": [
+        393
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 393,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "Ψu"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "Psid",
+      "source_field_ids": [
+        394
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 394,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "Ψd"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion.",
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "declared_SM_inheritance",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly adds the displayed new fields to the SM; the three-family SM template expands that declaration, not a guessed sector completion.",
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        397
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 397,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "H"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "Yu",
+      "source_field_ids": [
+        395
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 395,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "Yu"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    },
+    {
+      "candidate_label": "Yd",
+      "source_field_ids": [
+        396
+      ],
+      "source_model_id": "grv-quark-flavor-u3",
+      "source_regime_id": 116,
+      "claim_ids": [
+        "flavour",
+        "baseline",
+        "source-reread-20261019"
+      ],
+      "mapping_basis": "direct_source_component",
+      "legacy_fields": [
+        {
+          "field_id": 396,
+          "model_id": "grv-quark-flavor-u3",
+          "regime_id": 116,
+          "field_label": "Yd"
+        }
+      ],
+      "cross_variant_scope": "Same P31 field table, but SU3-only gauging of Section5.2; source IDs come from the older U3 projection and do not imply U1 factors are kept."
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 118,
+    "description": "Section2 field table,Eqs.(2.1)-(2.4);Sections2.2,5.1,5.2"
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Gauge-matter definition scope only; no independent phenomenology or anomaly certification.",
+    "Fixed source U1 basis retained; no exhaustive GL(2,Z) basis-equivalence certificate. Optional B-L breaking scalar and enlarged lepton-flavour sector are not included."
+  ]
+}

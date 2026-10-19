@@ -1,0 +1,74 @@
+{
+  "entry": "trinification-singlet-neutrino-sector",
+  "paper": "P20",
+  "decision": "accept",
+  "reason": "Paper explicitly establishes complete unbroken gauge-basis inventory and chosen named alternative.",
+  "inspected_scope": "Table1 PDFp3; Section2.3 Eq.(2.10), PDFp6; Section2.5 Eq.(2.18), PDFp8; Tables2/4 PDFpp9/11",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "tri",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Table1, Sections2.1,2.3 Eqs.(2.9)-(2.13)",
+        "pdf_pages": [
+          3
+        ],
+        "anchor": "Field content of minimal"
+      },
+      "value": "Three families QR=(1,3,bar3),QL=(bar3,1,3),L=(3,bar3,1); three complex H=(3,bar3,1). Table representation orientation and gauge-invariant QL QR H contraction are used as an all-LH Weyl basis; R in QR is a gauge-sector name, not a request to conjugate its already antifundamental colour twice."
+    },
+    {
+      "id": "neutrinos",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.5 Eq.(2.18), Section3 Table3",
+        "pdf_pages": [
+          8
+        ],
+        "anchor": "one extra fermion singlet"
+      },
+      "value": "One Majorana singlet Ni per generation yields three singlet Weyl copies. Alternative adjoint Majorana8L gives one Weyl adjoint. Do not union alternative mechanisms by default; keep the source-specific adjoint and singlet examples separate."
+    },
+    {
+      "id": "fresh-P20",
+      "locator": "Table1 PDFp3; Section2.3 Eq.(2.10), PDFp6; Section2.5 Eq.(2.18), PDFp8; Tables2/4 PDFpp9/11",
+      "fact": "Table1 fixes three families QR=(1,3,bar3),QL=(bar3,1,3),L=(3,bar3,1) and three complex scalar H=(3,bar3,1) under su3L+su3R+su3c. Interpret tables in one LH Weyl convention: invariant QL QR H and L L H contractions, not a second conjugation merely because QR has name R. Adjoint alternative is one Majorana8L (Table4 first row, n=3 case explicitly covered), versus singlet alternative one Majorana Ni per family (Eq2.18). Never union these alternative mechanisms or add arbitrary further optional singlets.",
+      "basis": "fresh_source_definitions_and_explicit_representation_conversion"
+    }
+  ],
+  "limitations": [
+    "Definition-scope source check, not whole-paper or phenomenological viability certification. Source-described alternatives are kept separate."
+  ],
+  "regime": 66,
+  "arxiv": "1507.06848v2",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1507.06848v2.pdf",
+      "pages": [
+        3,
+        8,
+        9,
+        11
+      ],
+      "inspection": "Listed complete pages rendered and visually checked. Additional explicit locator passages read in extracted source text.",
+      "sha256": "7d63f143e92791f5fb5883e8e508c81df5dea172351c804407a28f39bc092e4d"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/trinification-singlet-neutrino-sector-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/trinification-singlet-neutrino-sector-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/trinification-singlet-neutrino-sector-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/trinification-singlet-neutrino-sector-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/trinification-singlet-neutrino-sector-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/trinification-singlet-neutrino-sector-preflight.json",
+  "fingerprint": "0babef400957207d371fde79079a84cf90896bfd4d9b287ce967488c256d2324",
+  "normalizer_idempotent": true
+}

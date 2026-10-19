@@ -1,0 +1,256 @@
+{
+  "entry": "lq-r2-general",
+  "paper": "P11",
+  "decision": "accept",
+  "reason": "Complete source-defined single-leptoquark gauge-matter inventory in one declared EFT or scalar regime; not a demand for UV renormalizability.",
+  "inspected_scope": "Sections1.1/1.3, Table1 and Eqs.(3)-(4); unbroken 4D SM gauge description, ordinary families and Higgs retained.",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "taxonomy",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 1.1, Table 1",
+        "pdf_pages": [
+          6
+        ],
+        "anchor": "List of scalar and vector LQs"
+      },
+      "value": "Exact SM representations are tabulated, with scalar/vector spin and conjugation conventions; a vector LQ tuple is not itself a complete UV gauge theory."
+    },
+    {
+      "id": "r2",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 1.3 Eqs.(3)-(4)",
+        "pdf_pages": [
+          10
+        ],
+        "anchor": "Yukawa couplings of R2"
+      },
+      "value": "R2 is a scalar (3,2,7/6) coupling to SM fermions; one complex multiplet in the displayed single-LQ description."
+    },
+    {
+      "id": "rtilde",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section 1.4 Eq.(5)",
+        "pdf_pages": [
+          10,
+          12,
+          23
+        ],
+        "anchor": "three right-chiral neutrinos"
+      },
+      "value": "Rtilde2 is scalar (3,2,1/6); source explicitly assumes three nu_R. Convert these singlet RH Weyl fields to LH conjugates."
+    },
+    {
+      "id": "su5-definitions",
+      "basis": "source_statement_and_tensor_highest_weight_conversion",
+      "locator": {
+        "section_equations": "Section2.1 pp19-22, Table2 and explicit scalar contractions",
+        "pdf_pages": [
+          20
+        ],
+        "anchor": "one 5-dimensional and two 10-dimensional"
+      },
+      "value": "SU5 GG: three LH10+bar5 families, scalar5+24; light-LQ completion adds one extra5 and two scalar10. Alternative adds one scalar15. Upper-index10 is [0,1,0,0], upper symmetric15 is [2,0,0,0], fundamental5 [1,0,0,0],bar5 [0,0,0,1],adj24 [1,0,0,1]. Source15 decomposes (1,3,1)+(6,1,-2/3)+(3,2,1/6); do not count its components again under a separate GSM factor."
+    },
+    {
+      "id": "fresh-p11-lq-r2-general",
+      "locator": "Sections1.1/1.3, Table1 and Eqs.(3)-(4)",
+      "fact": "Single complex R2=(3,2,7/6), plus SM fields; source i=1,2,3 enumerates ordinary fermion families. No optional RH neutrino in selected R2 model.",
+      "basis": "fresh_source_definitions_with_declared_SM_Higgs_baseline"
+    }
+  ],
+  "limitations": [
+    "Source scalar/leptoquark definition scope; no claim to whole-paper phenomenology verification."
+  ],
+  "regime": 29,
+  "arxiv": "1603.04993v3",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1603.04993v3.pdf",
+      "pages": [
+        5,
+        6,
+        10
+      ],
+      "inspection": "Full listed pages read and visually inspected in this review.",
+      "sha256": "176dbe45e2d1064b1c057fb375d01419d5042810f12da203122d060cb2b498cb"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/lq-r2-general-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/lq-r2-general-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/lq-r2-general-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/lq-r2-general-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/lq-r2-general-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/lq-r2-general-preflight.json",
+  "fingerprint": "10c2981f45ae8b8909e33cffd6a48235dfd3b1ebaaa0599a2e34fe4c38785b4e",
+  "normalizer_idempotent": true,
+  "target_entry_id": "lq-r2-general",
+  "paper_id": "P11",
+  "arxiv_version": "1603.04993v3",
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [
+        94
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 94,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "QL"
+        }
+      ]
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [
+        91
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 91,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "uR"
+        }
+      ]
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "declared_source_inherited_baseline_no_separate_legacy_field_row",
+      "legacy_fields": [],
+      "baseline_provenance": "Frozen source check baseline claim plus source inheritance statement; absence of an old row is not a scientific unknown."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [
+        92
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 92,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "LL"
+        }
+      ]
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [
+        93
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 93,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "eR"
+        }
+      ]
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        95
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 95,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "H"
+        }
+      ]
+    },
+    {
+      "candidate_label": "R2",
+      "source_field_ids": [
+        90
+      ],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "taxonomy",
+        "r2",
+        "baseline"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 90,
+          "model_id": "lq-r2-general",
+          "regime_id": 29,
+          "field_label": "R2"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 29,
+    "description": "Sections1.1/1.3, Table1 and Eqs.(3)-(4); unbroken 4D SM gauge description, ordinary families and Higgs retained."
+  },
+  "review": "fresh_definition_scope_source_check_20261019",
+  "whole_paper_read": false
+}

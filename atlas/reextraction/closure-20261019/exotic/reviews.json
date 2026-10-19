@@ -1,0 +1,465 @@
+[
+  {
+    "entry": "secluded-dirac-u1-higgsed",
+    "paper": "P44",
+    "arxiv": "0711.4866v1",
+    "regime": 166,
+    "decision": "accept",
+    "reason": "Actual source Eq. (2) fixes one Dirac SM-singlet WIMP and one complex SM-singlet Higgs with equal unit hidden charge; the source explicitly retains the SM and declares its fields hidden neutral.",
+    "inspected_scope": "Section 2.1, Eq. (2), pre-U(1)' breaking, with SM inherited explicitly; source alternatives in Sections 2.2-2.4 kept separate.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/0711.4866v1.pdf",
+        "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+        "pages": [
+          4,
+          8,
+          9,
+          10
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "source-inventory",
+        "locator": "PDF p.4, Section 2.1, Eq. (2) and following two paragraphs",
+        "fact": "One Dirac psi and one complex phi couple to the same D_mu=partial_mu+i e' V_mu. WIMP sector is SM singlet; SM fields are hidden neutral. V is the additional U(1)' connection, not independent vector matter.",
+        "basis": "source_statement"
+      },
+      {
+        "id": "SM-inheritance",
+        "locator": "PDF p.4, Eq. (2) discussion; Atlas declared R_SM template",
+        "fact": "The source explicitly couples this hidden sector to the SM. Expand the declared ordinary three-family SM baseline, including one Higgs doublet; do not import any additional RH neutrinos.",
+        "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+      },
+      {
+        "id": "normalization",
+        "locator": "PDF p.4, common D_mu in Eq. (2); catalogue normalization",
+        "fact": "Source hidden unit is already q_psi=q_phi=1; shared primitive hypercharge rescaling over the complete source inventory is q=6Y. Dirac psi becomes two LH Weyl fields with hidden charges +1,-1.",
+        "basis": "mathematical_normalization"
+      }
+    ],
+    "limitations": [
+      "Field-definition scope only, not a whole-paper scientific review. SM components are expanded from the source-declared SM baseline rather than individually re-enumerated in Eq. (2)."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/secluded-dirac-u1-higgsed-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/secluded-dirac-u1-higgsed-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/secluded-dirac-u1-higgsed-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/secluded-dirac-u1-higgsed-field-evidence.json",
+    "fingerprint": "09958c7be3ecd6cd1b73e3825276d152567a7d3785a7e215384f129e3819259a"
+  },
+  {
+    "entry": "secluded-fermion-scalar-portal",
+    "paper": "P44",
+    "arxiv": "0711.4866v1",
+    "regime": 168,
+    "decision": "accept",
+    "reason": "Source identifies two added singlet fields with a real scalar kinetic term and ordinary Dirac bilinear; full inherited SM baseline is established.",
+    "inspected_scope": "Section 2.2, Eq. (16) and adjoining discussion on PDF pp.8-9, electroweak-symmetric SM plus singlet mediator and singlet WIMP.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/0711.4866v1.pdf",
+        "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+        "pages": [
+          4,
+          8,
+          9,
+          10
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "source-inventory",
+        "locator": "PDF p.8, Section 2.2, Eq. (16) and adjoining paragraphs; p.9 Eq. (17)",
+        "fact": "One singlet psi and one singlet phi are added. The half kinetic term and phi^2 mass identify one real scalar; the bar-psi(i slash-partial-m-lambda phi)psi term uses the source ordinary Dirac WIMP convention. Post-EWSB Eq. (17) is not a second simultaneous spectrum.",
+        "basis": "source_statement_and_kinetic_term_interpretation"
+      },
+      {
+        "id": "SM-inheritance",
+        "locator": "PDF p.8, Section 2.2, H explicitly identified as SM Higgs; Atlas R_SM template",
+        "fact": "Retain three ordinary SM families and one Higgs doublet using q=6Y; both added fields are SM singlets. No new gauge factor.",
+        "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+      }
+    ],
+    "limitations": [
+      "Field-definition scope, not a whole-paper scientific review. Dirac psi follows the ordinary printed Dirac bilinear and WIMP convention."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/secluded-fermion-scalar-portal-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/secluded-fermion-scalar-portal-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/secluded-fermion-scalar-portal-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/secluded-fermion-scalar-portal-field-evidence.json",
+    "fingerprint": "278443ddaf42aef95959106c1b3681b1d901c73b63f235d4ef4a7530c0fb16ca"
+  },
+  {
+    "entry": "vector-higgs-portal-z2-eft",
+    "paper": "P46",
+    "arxiv": "1111.4482v3",
+    "regime": 178,
+    "decision": "accept",
+    "reason": "Source supplies a complete finite EFT inventory, SM plus one real massive singlet Lorentz vector. No UV completion is required to catalogue this stated EFT.",
+    "inspected_scope": "Section III Eq. (18), SM-symmetric massive-vector Higgs-portal EFT below its stated cutoff; distinct from pre-breaking realizations.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/1111.4482v3.pdf",
+        "sha256": "8470273e65676b328c2ecad89a9cf7f1c79deadf4e291eb0992e8194a8906dc7",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "source-inventory",
+        "locator": "PDF p.3 Section III Eq. (18), paragraph beginning agnostic attitude; p.1 Eq. (2)",
+        "fact": "The phenomenological description contains the SM Higgs and one real massive vector X_mu, odd under X_mu -> -X_mu. Eq. (18) is explicitly agnostic to mass origin. Its algebra in this effective description is g_SM; X is independent singlet Lorentz-vector matter, not an added massless U(1) connection.",
+        "basis": "source_statement_and_description_regime_selection"
+      },
+      {
+        "id": "SM-inheritance",
+        "locator": "PDF p.1 Section II Eq. (2), SM covariant derivative; p.3 Section III; Atlas R_SM template",
+        "fact": "Source retains the SM; expand three ordinary chiral families and one Higgs. The full pre-EWSB gauge labels use q=6Y. Do not add the heavier hidden Higgs or Stückelberg shift field from alternative realizations.",
+        "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+      }
+    ],
+    "limitations": [
+      "An EFT gauge-matter inventory only, not a UV-complete theory. Retain the source unitarity cutoff limitation; it does not alter the finite field inventory."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/vector-higgs-portal-z2-eft-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/vector-higgs-portal-z2-eft-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/vector-higgs-portal-z2-eft-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/vector-higgs-portal-z2-eft-field-evidence.json",
+    "fingerprint": "a7fb8e33a31d335663d03191455d608013467d88a372b65ff4c3e7159da38ed2"
+  },
+  {
+    "entry": "vector-portal-abelian-higgs",
+    "paper": "P46",
+    "arxiv": "1111.4482v3",
+    "regime": 181,
+    "decision": "accept",
+    "reason": "Source explicitly specifies the sole charged complex scalar and hidden U(1) in addition to the SM, yielding a complete finite inventory.",
+    "inspected_scope": "Section II.A(iii), Eq. (14), pre-hidden-Higgs-breaking SM plus hidden U(1); no integration out of S in the saved inventory.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/1111.4482v3.pdf",
+        "sha256": "8470273e65676b328c2ecad89a9cf7f1c79deadf4e291eb0992e8194a8906dc7",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "source-inventory",
+        "locator": "PDF p.3 Section II.A(iii), Eqs. (14)-(15); PDF p.2 end of Section II.A",
+        "fact": "One hidden U(1) connection and one charged complex scalar S. S is a hidden-sector SM singlet coupled through H-dagger-H S-star-S. The example excludes additional charged hidden matter and preserves charge conjugation. X is the gauge connection, not a separate matter row.",
+        "basis": "source_statement"
+      },
+      {
+        "id": "SM-inheritance",
+        "locator": "PDF p.1 Section II and p.3 Eq. (14); Atlas R_SM template",
+        "fact": "Retain source-declared SM, three ordinary chiral families and one Higgs, all hidden neutral. Scalar S is SM neutral.",
+        "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+      },
+      {
+        "id": "normalization",
+        "locator": "PDF p.3 Eq. (14); complete-inventory normalization convention",
+        "fact": "Source does not assign a numeric charge to S. With only one nonzero hidden charge, choose its positive generator orientation and primitive local-algebra unit q_S=1; this is a convention-derived coordinate, not a printed charge or a global-group claim. SM hypercharge is q=6Y.",
+        "basis": "single_charge_generator_unit_derivation"
+      }
+    ],
+    "limitations": [
+      "Source hidden charge magnitude is absorbed in the local-algebra generator/coupling unit. This does not specify global form or quantization of unrecorded line operators."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/vector-portal-abelian-higgs-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/vector-portal-abelian-higgs-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/vector-portal-abelian-higgs-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/vector-portal-abelian-higgs-field-evidence.json",
+    "fingerprint": "5c019b569694b20df5127ca62d233e6b25370ee72324ac0a099787ac22ad462c"
+  },
+  {
+    "entry": "twin-higgs-linear-scalar-sector",
+    "paper": "P37",
+    "arxiv": "hep-ph/0506256v2",
+    "regime": 133,
+    "decision": "accept",
+    "reason": "Paper explicitly extends its linear scalar example to all SM interactions by gauging two SM copies and interchanging every particle. That source-defined full unextended completion resolves the earlier scalar-only record without union with nonlinear or extended-top alternatives.",
+    "inspected_scope": "Linear, unextended two-SM-copy twin realization: full complex H=(H_A,H_B), with radial mode retained; PDF pp.1-2 before Eq. (4)'s optional extended-top construction.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/hep-ph_0506256v2.pdf",
+        "sha256": "ba49d23d8cb61319f7e0a22a59bcabbba3daa0df31aed5926c63f9b35870aa7a",
+        "pages": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "linear-scalars",
+        "locator": "PDF p.1 Eq. (1), full right column; p.2 text distinguishing linear UV model from nonlinear Eq. (6)",
+        "fact": "H is one unconstrained complex SU(4)-fundamental scalar in the linear model. Under the gauged subgroup it decomposes as one ordinary and one twin doublet. Retain the radial mode; do not count separate dependent Goldstone coordinates.",
+        "basis": "source_statement"
+      },
+      {
+        "id": "two-SM-copies",
+        "locator": "PDF p.2 left column, paragraphs beginning 'This approach' and 'In both'; PDF p.3 Eq. (7)",
+        "fact": "Gauge two copies of the SM A and B and interchange every SM_A particle with its corresponding SM_B particle in the twin-symmetry branch. Both full chiral family spectra are inherited, with three ordinary families in each declared SM copy; H_A and H_B have hypercharge +1/2 in their own copy and zero under the other.",
+        "basis": "source_explicit_two_SM_inheritance_and_declared_baseline"
+      },
+      {
+        "id": "normalization",
+        "locator": "PDF p.3 Eq. (7) and Atlas normalization convention",
+        "fact": "Independently normalize each source hypercharge generator to q_A=6Y_A,q_B=6Y_B over the complete inventory. Non-Abelian irreps are exact Bourbaki A2/A1 labels. All Weyl rows use the LH convention; no extra top partners from Eq. (4).",
+        "basis": "mathematical_normalization"
+      }
+    ],
+    "limitations": [
+      "This is the source-defined full linear unextended twin completion of the old scalar-sector record, not a claim that old field450 alone encoded every family. Mirror parity and nonlinear/extended-top alternatives are not appended."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/twin-higgs-linear-scalar-sector-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/twin-higgs-linear-scalar-sector-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/twin-higgs-linear-scalar-sector-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/twin-higgs-linear-scalar-sector-field-evidence.json",
+    "fingerprint": "07fb04ca2352db2c529d8951d8488523cb173e2e22915b6c78344e52db010700"
+  },
+  {
+    "entry": "fraternal-twin-higgs",
+    "paper": "P38",
+    "arxiv": "1501.05310v2",
+    "regime": 137,
+    "decision": "accept",
+    "reason": "Section II.C explicitly summarizes the complete minimal matter and gauge content, and adjoining definitions establish handedness, generation content, and absence of twin hypercharge.",
+    "inspected_scope": "Full linear Fraternal Twin Higgs of Section II.A-C, above twin weak breaking and confinement but below its UV cutoff; radial scalar retained.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/1501.05310v2.pdf",
+        "sha256": "f8c7009f615324ff1da1affa23a255720fbd0cd78c62e1c9249b9f9476d73e90",
+        "pages": [
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "scalars",
+        "locator": "PDF pp.9-11 Section II.A, Eqs. (1)-(4)",
+        "fact": "One complex H=(A,B) with A the ordinary SM Higgs and B one twin weak doublet. The paper explicitly keeps the radial mode rather than choosing its nonlinear alternative. B is SM neutral; its neutral twin weak doublet is pseudoreal, so one source complex B is one underlying real module.",
+        "basis": "source_statement_and_real_module_derivation"
+      },
+      {
+        "id": "twin-gauge",
+        "locator": "PDF pp.12-13 Section II.B; p.14 Section II.C items3-4",
+        "fact": "Twin su(2) and su(3) are gauged. Twin hypercharge is explicitly not included in the minimal model. The complete algebra is g_SM plus twin su(3) plus twin su(2), not a dark-sector-only algebra.",
+        "basis": "source_statement"
+      },
+      {
+        "id": "twin-fermions",
+        "locator": "PDF p.10 Eq. (2); p.14 Eqs. (9)-(10); pp.14-15 Section II.C items2,5,6",
+        "fact": "Exactly one twin LH quark doublet, twin RH top and bottom, twin LH lepton doublet and twin RH tau, with no first/second twin generations. The three a labels on p.10 become the dimension of twin colour after gauging, not three copies of the triplet. The twin neutrino is the component of Lhat, not an added singlet. RH fields convert to LH conjugates across all factors.",
+        "basis": "source_statement_and_LH_basis_conversion"
+      },
+      {
+        "id": "SM-inheritance",
+        "locator": "PDF pp.9-10 Section II.A; Atlas R_SM template",
+        "fact": "Retain full ordinary three-family SM and one Higgs doublet. Twin fields are SM singlets, so source SM hypercharge converts jointly to q=6Y.",
+        "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+      }
+    ],
+    "limitations": [
+      "Source-defined effective model below its naturalness cutoff, not an invented SUSY/composite completion. The possible twin neutrino Majorana mass need not introduce a RH-neutrino field into this EFT."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/fraternal-twin-higgs-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/fraternal-twin-higgs-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/fraternal-twin-higgs-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/fraternal-twin-higgs-field-evidence.json",
+    "fingerprint": "f309a0d4d2e8f57316479b52ab6bad6b9e163a327dbc60f2187b17b2f96efe8a"
+  },
+  {
+    "entry": "hidden-valley-chi-two-flavor",
+    "paper": "P43",
+    "arxiv": "hep-ph/0604261v2",
+    "regime": 156,
+    "decision": "accept",
+    "reason": "Source Table I specifies the full SM plus hidden microscopic inventory, and the paper itself prints the fixed rank/charge benchmark. No arbitrary member of the generic family is selected.",
+    "inspected_scope": "Microscopic Simple v-Model of Table I, specialized only to the paper's explicit n_v=3, k=0, q_+=-2 benchmark below Eq. (3); before hidden confinement and U(1) breaking.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/hep-ph_0604261v2.pdf",
+        "sha256": "fc8ed5d4eab551290302126266a5b869d8829e7108ac57340ac60fe9c883541c",
+        "pages": [
+          1,
+          2,
+          4,
+          5
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "table-inventory",
+        "locator": "PDF p.1 Simple v-Model and Table I",
+        "fact": "Full SM plus su(n_v) and u(1)_chi. Two hidden flavours U,Ubar and C,Cbar are fundamental/antifundamental; exactly three neutrino singlets N_i and one charged complex phi. All SM fields are valley neutral. Table uses common LH chiral coordinates q,ubar,dbar,L,eplus; N=-1 is interpreted in that same chiral coordinate, with source prose right-handed-species naming retained.",
+        "basis": "source_table_and_common_chiral_coordinate_interpretation"
+      },
+      {
+        "id": "fixed-benchmark",
+        "locator": "PDF p.2 below Eq. (3)",
+        "fact": "The paper explicitly uses n_v=3, kinetic mixing k=0, q_+=-2. The Table I relation q_++q_-=-2 gives q_-=0. Thus U,Ubar,C,Cbar charges are -2,0,+2,0. This numerical benchmark is not a replacement for the entire free-rank/free-charge family.",
+        "basis": "source_statement_and_exact_substitution"
+      },
+      {
+        "id": "normalization",
+        "locator": "PDF p.1 Table I; Atlas full-inventory convention",
+        "fact": "Multiply source hypercharge by6 and chi charge by5 jointly over the complete spectrum. Standard family chi charges become (-1,-1,3,3,-1); N=-5, H=2, phi=10, hidden flavour charges (-10,0,10,0). Three ordinary SM families are inherited; the source independently fixes exactly three N_i.",
+        "basis": "mathematical_normalization_and_declared_SM_baseline"
+      },
+      {
+        "id": "regime",
+        "locator": "PDF pp.1-2 Table I and 2LF/1LF discussion; pp.4-5 Other Models",
+        "fact": "Retain independent microscopic quarks, not dependent confined hadrons as additional matter. Coloured-X frameworks on pp.4-5 are separate alternatives, not appended to Table I.",
+        "basis": "description_regime_selection"
+      }
+    ],
+    "limitations": [
+      "Numerical n_v=3,k=0,q_+=-2 source benchmark only. The generic free-rank family and arbitrary continuous kinetic-generator mixing are not collapsed into this member.",
+      "Table N charge is retained in the common LH coordinate, not conjugated twice because the prose calls the physical species right-handed."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/hidden-valley-chi-two-flavor-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/hidden-valley-chi-two-flavor-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/hidden-valley-chi-two-flavor-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/hidden-valley-chi-two-flavor-field-evidence.json",
+    "fingerprint": "b79b0f9b4f75bff51bea6cb59081a9d9a1db28486ebe918cbab4f97964073677"
+  },
+  {
+    "entry": "su4-hypercolor-partial-compositeness",
+    "paper": "P35",
+    "arxiv": "1404.7137v1",
+    "regime": 129,
+    "decision": "accept",
+    "reason": "Table 1 plus the explicitly supplied SM embedding determine every hyperfermion's gauged charges; full ordinary SM fermions are source inherited. The original hypercolor-only record can be completed without importing IR composites.",
+    "inspected_scope": "Full microscopic SU(4) hypercolor regime of Section 2, weakly coupled to the source SM gauge fields and elementary SM fermions; before confinement. No independent elementary Higgs or IR composite partner is added.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/1404.7137v1.pdf",
+        "sha256": "df71f9bd86b7c279f7b681cecb3320c2f16a78cf8ef7331bb2c6621e83b19356",
+        "pages": [
+          4,
+          5,
+          6,
+          10,
+          16,
+          17
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "HC-table",
+        "locator": "PDF p.5 Table 1 and caption; p.6 Section 2.1",
+        "fact": "All Table 1 fields are two-component LH fermions: psi in antisymmetric6 of SU4HC and flavour5; chi in4HC,flavour3,X=-1/3; chi_tilde inbar4HC,flavourbar3,X=+1/3. Colour is the diagonal of the two flavour SU3 factors. The global SU5,U1X,U1prime are not additional independently gauged factors.",
+        "basis": "source_statement"
+      },
+      {
+        "id": "SM-embedding",
+        "locator": "PDF p.10 Section 3.1, Eq. (11) matrices and Y=T_R3+X paragraph",
+        "fact": "The source EW embedding restricts the flavour5 to (2,2)+(1,1) under SU2L×SU2R, hence one LH HC6 weak doublet with Y=+1/2, one with Y=-1/2, and one HC6 weak singlet Y=0. This is the complete five-flavour psi inventory, not five copies of each weak representation. Chi and chi_tilde are weak singlets, with Y=X.",
+        "basis": "source_embedding_and_exact_weight_decomposition"
+      },
+      {
+        "id": "SM-fermions",
+        "locator": "PDF p.4 Section 2 defines GSM; p.16 Section 3.3 states i=1,2,3 family number; p.17 Eq. (30) and following lepton paragraph",
+        "fact": "The theory includes elementary ordinary SM quarks and leptons, all hypercolor singlets. Expand the declared F_SM baseline of three Q,u^c,d^c,L,e^c families. The Higgs is composite, not an elementary SM scalar in this microscopic regime. Spurionic embeddings and auxiliary entries in Eq. (30) do not create new independent particles or RH-neutrino containers.",
+        "basis": "source_explicit_inheritance_and_declared_F_SM_baseline"
+      },
+      {
+        "id": "independent-fields",
+        "locator": "PDF pp.5-6 Tables 1-2 and Eq. (1); p.10 Eq. (10)",
+        "fact": "Only Table 1 hyperfermions plus elementary SM fermions are independent microscopic matter. Composite bosons/fermionic operators, pNGB coordinates, and auxiliary NJL fields are not appended. A higher-energy origin for four-fermi interactions is not supplied, but its absence is not a gate on this stated inventory.",
+        "basis": "source_statement_and_description_regime_selection"
+      },
+      {
+        "id": "normalization",
+        "locator": "PDF pp.5,10 source charges and Atlas conventions",
+        "fact": "Use exact A3 labels6=[0,1,0],4=[1,0,0],bar4=[0,0,1]. All fermions already LH. Over complete inventory q=6Y is primitive: psi doublets±3,chi=-2,chi_tilde=+2; inherited Q has charge1.",
+        "basis": "mathematical_normalization"
+      }
+    ],
+    "limitations": [
+      "Gauge-matter inventory of the source microscopic model below the unspecified four-fermi-generating physics; no phenomenological viability or UV-origin certification.",
+      "No elementary Higgs exists in this regime; the SM Higgs arises as a composite. Three SM generations use the explicit source family count and the declared F_SM convention."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/su4-hypercolor-partial-compositeness-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/su4-hypercolor-partial-compositeness-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/su4-hypercolor-partial-compositeness-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/su4-hypercolor-partial-compositeness-field-evidence.json",
+    "fingerprint": "0fb152e919429df3d24591ff59578e55fc4021c3e73a521609050abb16c94ffd"
+  },
+  {
+    "entry": "ued-orbifold-framework",
+    "paper": "P41",
+    "arxiv": "hep-ph/0012100v2",
+    "regime": 147,
+    "decision": "accept",
+    "reason": "The paper explicitly specializes its fully specified universal bulk action to one extra dimension; fermions are unambiguously five-dimensional vector-like spinors, with fixed three-family count and full SM gauge representations.",
+    "inspected_scope": "Source-explicit delta=1 specialization, five-dimensional SM bulk action on S1/Z2, existing regime147. No summation with generic-dimension, six-dimensional or KK description regimes.",
+    "source_pdfs": [
+      {
+        "path": "atlas/reextraction/sources/hep-ph_0012100v2.pdf",
+        "sha256": "9d5415c44e728beffb01fbc493b4a45df664e0e07ea4a434717bfaf3410d992f",
+        "pages": [
+          3,
+          4,
+          5
+        ]
+      }
+    ],
+    "claims": [
+      {
+        "id": "bulk-inventory",
+        "locator": "PDF p.3 Section2 Eq.(2.1) and following paragraphs; p.4 opening sentence",
+        "fact": "Bulk g_SM, three families of Q,U,D,L,E and one scalar doublet H. Eq.(2.1) suppresses leptons for brevity but explicitly includes them on the next page. Yukawa matrices are3x3. Physical gauge reps are Q=(3,2,1/6),U=(3,1,2/3),D=(3,1,-1/3),L=(1,2,-1/2),E=(1,1,-1),H=(1,2,1/2).",
+        "basis": "source_statement_and_declared_SM_representation_convention"
+      },
+      {
+        "id": "5D-selection",
+        "locator": "PDF p.4 odd-dimension spinor paragraph and orbifold prescription; p.5 paragraph immediately after Eq.(2.3)",
+        "fact": "Source explicitly specializes delta=1, using S1/Z2. Odd-dimensional Q,U,D,L,E are vector-like four-component spinors, not 4D Weyl fields. Lorentz complexified so5=B2 spinor labels are[0,1]; scalar labels[0,0]. No RH-to-LH gauge conjugation or Dirac splitting is applied to a 5D spinor.",
+        "basis": "source_statement_and_dimension_appropriate_Lorentz_convention"
+      },
+      {
+        "id": "regime-counting",
+        "locator": "PDF pp.3-5 Eqs.(2.1)-(2.3)",
+        "fact": "Save the finite bulk inventory. Gauge potentials A_alpha are implied connections; their lower-dimensional components and infinite KK modes are not independent matter appended to this five-dimensional description. No unspecified higher-dimensional anomaly-cancelling fields are imported from the even-dimension discussion.",
+        "basis": "description_regime_selection"
+      },
+      {
+        "id": "normalization",
+        "locator": "Source standard SM quantum numbers in Eq.(2.1); Atlas primitive normalization",
+        "fact": "The complete five-dimensional inventory has source hypercharges with common primitive normalization q=6Y: Q1,U4,D-2,L-3,E-6,H3. Keeping U,D,E in physical gauge reps is essential in 5D.",
+        "basis": "mathematical_normalization"
+      }
+    ],
+    "limitations": [
+      "Fixed source delta=1 branch only, not the complete dimension-indexed UED family. Compactification/orbifold geometry is provenance rather than a new representation-identity column.",
+      "A five-dimensional gauge-matter EFT below M_s. This does not claim a UV or gravitational completion and is not a four-dimensional chiral inventory."
+    ],
+    "source_path": "atlas/reextraction/closure-20261019/exotic/ued-orbifold-framework-source-candidate.json",
+    "normalized_path": "atlas/reextraction/closure-20261019/exotic/ued-orbifold-framework-normalized.json",
+    "evidence_path": "atlas/reextraction/closure-20261019/exotic/ued-orbifold-framework-evidence.json",
+    "fields_path": "atlas/reextraction/closure-20261019/exotic/ued-orbifold-framework-field-evidence.json",
+    "fingerprint": "e4cc75f4d32d28ff0e6b8b1628b913fa545de093820b6429b87db89d01cd6c89"
+  }
+]

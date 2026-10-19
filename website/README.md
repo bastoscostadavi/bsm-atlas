@@ -28,12 +28,12 @@ GitHub Actions runs the same checks and publishes `website/` on `main`.
 | `build_field_catalogue.py` | Read-only source projection and reproducible exports. |
 | `field_conventions.py`, `spacetime_conventions.py`, `scalar_projection.py` | Exact representation, Lorentz and scalar-counting conversions. |
 | `core_projection.py` | Derived non-Abelian algebra and matter-spectrum groupings. |
-| `reextraction_reviews.py`, `current_reextraction_reviews.py` | Explicit hash-pinned acceptance gates; mutable agent queues are not ingested automatically. |
+| `reextraction_reviews.py`, `current_reextraction_reviews.py`, `harvest_reviews.py` | Hash-pinned source acceptance, complete-only publication, direct new-paper ingestion and exact duplicate reconciliation; mutable agent queues are never automatically published. |
 | `test_*.py`, `*.test.mjs`, `check.mjs` | Current catalogue, source-integrity and frontend regression checks. |
 
 ## Generated outputs
 
-- `field-catalogue.json`: downloadable catalogue, including pending records, separate regimes, evidence, papers and templates.
+- `field-catalogue.json`: complete published entries, supported regimes, source evidence, papers and templates; no pending records.
 - `field-catalogue-data.js`: the same payload for the static interface, including local-file use.
 - `../atlas/FIELD_CONTENT_CATALOGUE.json`: the same saved data for offline inspection.
 - `entry.schema.json`: the published copy of the canonical input schema.
@@ -41,7 +41,7 @@ GitHub Actions runs the same checks and publishes `website/` on `main`.
 - `downloads/field-catalogue.csv`: one primary-regime summary per entry.
 - `downloads/nonabelian-cores.csv`, `downloads/semisimple-algebras.csv`: the two derived browsing layers.
 
-Algebra membership does not require complete matter. Matter-spectrum keys do: pending inventories are listed separately, never promoted by deleting unknown fields. An empty factor list is unknown, not the zero semisimple algebra. Different description regimes are not combined.
+All three browsing levels derive only from complete source-supported inventories. Incomplete sectors cannot create an algebra category. Different description regimes are not combined. A paper can have no model association.
 
 The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retain their meaning and compatibility. Scalar component multiplicities follow the irreducible-real-module convention; source-container counts remain provenance.
 
@@ -49,7 +49,9 @@ The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retai
 
 `atlas/reextraction/accepted.json` preserves the historical pilot decisions; `accepted-followup.json` and `accepted-so10.json` separately pin reviewed current candidates and evidence. The latter also pins the independent D5 mathematics review. Accepted normalized inputs must agree with the published field-content identity. Current source adapters support reviewed A-series and D5 spectra; a readable SO(10) dimension is derived from exact weights, never used to infer them. New adapters or source mappings require review; preflight alone is not a general write API.
 
-The full-entry view defaults to complete numerical spectra. Coverage also exposes pending records. Symbolic-family input validation exists, but automatic public-family ingestion does not. These limits and the current counts are documented in the [main README](../README.md) and [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
+`accepted-harvest.json` additionally pins the complete-only paper harvests and previously complete seed identities. The generic adapter accepts new paper metadata and full validated entries without an intermediate incomplete database row. Source field IDs may be null; internal catalogue row IDs never masquerade as historical source IDs. Exact numerical matches reuse an existing entry and preserve source aliases.
+
+Symbolic families retain parameters/constraints on the same entry. SQL `entry_parameters`, `entry_constraints` and `component_charge_expressions` supply typed storage; the integer-only charge column never receives a formula. Family identities identify normalized templates, not all equivalent parameterizations. Restriction to non-Abelian matter is performed before source realification, without inventing a parameter point. See the [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
 
 Shareable routes include `#catalogue`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Query filters and notation choices are retained through drill-down.
 

@@ -1,0 +1,251 @@
+{
+  "schema_version": "field-content-2",
+  "inventory_complete": true,
+  "paper_ids": [
+    "P17"
+  ],
+  "name": "421 inverse seesaw",
+  "gauge_factors": [
+    {
+      "id": "colour4",
+      "family": "A",
+      "rank": 3
+    },
+    {
+      "id": "weak",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "r",
+      "family": "U1",
+      "rank": 1
+    }
+  ],
+  "matter": [
+    {
+      "label": "FQL",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            1,
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "r": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "Fu",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            0,
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "r": {
+          "charge": "-1/2"
+        }
+      }
+    },
+    {
+      "label": "Fd",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            0,
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "r": {
+          "charge": "1/2"
+        }
+      }
+    },
+    {
+      "label": "chi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            1,
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "r": {
+          "charge": "1/2"
+        }
+      }
+    },
+    {
+      "label": "H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            0,
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "r": {
+          "charge": "1/2"
+        }
+      }
+    },
+    {
+      "label": "Phi",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 1,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            1,
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "r": {
+          "charge": "1/2"
+        }
+      }
+    },
+    {
+      "label": "N",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour4": {
+          "dynkin": [
+            0,
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "r": {
+          "charge": "0"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "schema_version": "field-content-2",
+  "inventory_complete": true,
+  "paper_ids": [
+    "P20"
+  ],
+  "name": "Three-bitriplet trinification plus adjoint",
+  "gauge_factors": [
+    {
+      "id": "left",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "right",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "colour",
+      "family": "A",
+      "rank": 2
+    }
+  ],
+  "matter": [
+    {
+      "label": "QL",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "left": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "label": "QR",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "left": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "label": "L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "left": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "label": "H",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "complex",
+      "copies": 3,
+      "gauge_representations": {
+        "left": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    {
+      "label": "8L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "left": {
+          "dynkin": [
+            1,
+            1
+          ]
+        },
+        "right": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        }
+      }
+    }
+  ]
+}

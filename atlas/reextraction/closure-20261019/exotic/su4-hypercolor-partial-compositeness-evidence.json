@@ -1,0 +1,237 @@
+{
+  "target_entry_id": "su4-hypercolor-partial-compositeness",
+  "paper_id": "P35",
+  "arxiv_version": "1404.7137v1",
+  "reviewed_on": "2026-10-19",
+  "review": "agent_source_reinspection_for_complete_inventory",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1404.7137v1.pdf",
+      "sha256": "df71f9bd86b7c279f7b681cecb3320c2f16a78cf8ef7331bb2c6621e83b19356",
+      "pages": [
+        4,
+        5,
+        6,
+        10,
+        16,
+        17
+      ]
+    }
+  ],
+  "inspection": {
+    "scope": "Full microscopic SU(4) hypercolor regime of Section 2, weakly coupled to the source SM gauge fields and elementary SM fermions; before confinement. No independent elementary Higgs or IR composite partner is added.",
+    "whole_paper_read": false,
+    "rendered_complete_relevant_pages_inspected": [
+      4,
+      5,
+      6,
+      10,
+      16,
+      17
+    ],
+    "historical_review_is_lead_only": true
+  },
+  "claims": [
+    {
+      "id": "HC-table",
+      "locator": "PDF p.5 Table 1 and caption; p.6 Section 2.1",
+      "fact": "All Table 1 fields are two-component LH fermions: psi in antisymmetric6 of SU4HC and flavour5; chi in4HC,flavour3,X=-1/3; chi_tilde inbar4HC,flavourbar3,X=+1/3. Colour is the diagonal of the two flavour SU3 factors. The global SU5,U1X,U1prime are not additional independently gauged factors.",
+      "basis": "source_statement"
+    },
+    {
+      "id": "SM-embedding",
+      "locator": "PDF p.10 Section 3.1, Eq. (11) matrices and Y=T_R3+X paragraph",
+      "fact": "The source EW embedding restricts the flavour5 to (2,2)+(1,1) under SU2L×SU2R, hence one LH HC6 weak doublet with Y=+1/2, one with Y=-1/2, and one HC6 weak singlet Y=0. This is the complete five-flavour psi inventory, not five copies of each weak representation. Chi and chi_tilde are weak singlets, with Y=X.",
+      "basis": "source_embedding_and_exact_weight_decomposition"
+    },
+    {
+      "id": "SM-fermions",
+      "locator": "PDF p.4 Section 2 defines GSM; p.16 Section 3.3 states i=1,2,3 family number; p.17 Eq. (30) and following lepton paragraph",
+      "fact": "The theory includes elementary ordinary SM quarks and leptons, all hypercolor singlets. Expand the declared F_SM baseline of three Q,u^c,d^c,L,e^c families. The Higgs is composite, not an elementary SM scalar in this microscopic regime. Spurionic embeddings and auxiliary entries in Eq. (30) do not create new independent particles or RH-neutrino containers.",
+      "basis": "source_explicit_inheritance_and_declared_F_SM_baseline"
+    },
+    {
+      "id": "independent-fields",
+      "locator": "PDF pp.5-6 Tables 1-2 and Eq. (1); p.10 Eq. (10)",
+      "fact": "Only Table 1 hyperfermions plus elementary SM fermions are independent microscopic matter. Composite bosons/fermionic operators, pNGB coordinates, and auxiliary NJL fields are not appended. A higher-energy origin for four-fermi interactions is not supplied, but its absence is not a gate on this stated inventory.",
+      "basis": "source_statement_and_description_regime_selection"
+    },
+    {
+      "id": "normalization",
+      "locator": "PDF pp.5,10 source charges and Atlas conventions",
+      "fact": "Use exact A3 labels6=[0,1,0],4=[1,0,0],bar4=[0,0,1]. All fermions already LH. Over complete inventory q=6Y is primitive: psi doublets±3,chi=-2,chi_tilde=+2; inherited Q has charge1.",
+      "basis": "mathematical_normalization"
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "source_declared_F_SM_inheritance",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ],
+      "baseline_provenance": "Source retains three elementary ordinary SM fermion families. Expand F_SM only: no elementary Higgs and no independent RH-neutrino field is supplied in this microscopic inventory."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "source_declared_F_SM_inheritance",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ],
+      "baseline_provenance": "Source retains three elementary ordinary SM fermion families. Expand F_SM only: no elementary Higgs and no independent RH-neutrino field is supplied in this microscopic inventory."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "source_declared_F_SM_inheritance",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ],
+      "baseline_provenance": "Source retains three elementary ordinary SM fermion families. Expand F_SM only: no elementary Higgs and no independent RH-neutrino field is supplied in this microscopic inventory."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "source_declared_F_SM_inheritance",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ],
+      "baseline_provenance": "Source retains three elementary ordinary SM fermion families. Expand F_SM only: no elementary Higgs and no independent RH-neutrino field is supplied in this microscopic inventory."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "mapping_basis": "source_declared_F_SM_inheritance",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ],
+      "baseline_provenance": "Source retains three elementary ordinary SM fermion families. Expand F_SM only: no elementary Higgs and no independent RH-neutrino field is supplied in this microscopic inventory."
+    },
+    {
+      "candidate_label": "psi_plus",
+      "source_field_ids": [
+        421
+      ],
+      "source_model_id": "su4-hypercolor-partial-compositeness",
+      "source_regime_id": 129,
+      "mapping_basis": "source_table_irrep_restricted_to_gauged_subgroup",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ]
+    },
+    {
+      "candidate_label": "psi_minus",
+      "source_field_ids": [
+        421
+      ],
+      "source_model_id": "su4-hypercolor-partial-compositeness",
+      "source_regime_id": 129,
+      "mapping_basis": "source_table_irrep_restricted_to_gauged_subgroup",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ]
+    },
+    {
+      "candidate_label": "psi_zero",
+      "source_field_ids": [
+        421
+      ],
+      "source_model_id": "su4-hypercolor-partial-compositeness",
+      "source_regime_id": 129,
+      "mapping_basis": "source_table_irrep_restricted_to_gauged_subgroup",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ]
+    },
+    {
+      "candidate_label": "chi",
+      "source_field_ids": [
+        422
+      ],
+      "source_model_id": "su4-hypercolor-partial-compositeness",
+      "source_regime_id": 129,
+      "mapping_basis": "source_table_irrep_restricted_to_gauged_subgroup",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ]
+    },
+    {
+      "candidate_label": "chi_tilde",
+      "source_field_ids": [
+        423
+      ],
+      "source_model_id": "su4-hypercolor-partial-compositeness",
+      "source_regime_id": 129,
+      "mapping_basis": "source_table_irrep_restricted_to_gauged_subgroup",
+      "claim_ids": [
+        "HC-table",
+        "SM-embedding",
+        "SM-fermions",
+        "independent-fields",
+        "normalization"
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 129,
+    "description": "Full microscopic SU(4) hypercolor regime of Section 2, weakly coupled to the source SM gauge fields and elementary SM fermions; before confinement. No independent elementary Higgs or IR composite partner is added."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Gauge-matter inventory of the source microscopic model below the unspecified four-fermi-generating physics; no phenomenological viability or UV-origin certification.",
+    "No elementary Higgs exists in this regime; the SM Higgs arises as a composite. Three SM generations use the explicit source family count and the declared F_SM convention."
+  ],
+  "no_anomaly_or_viability_gate": true
+}

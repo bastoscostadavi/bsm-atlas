@@ -1,0 +1,85 @@
+{
+  "entry": "mssm-matter",
+  "paper": "P21",
+  "paper_ids": [
+    "P21",
+    "P22"
+  ],
+  "decision": "accept",
+  "reason": "Both reviews explicitly define the same full MSSM field content; interaction/R-parity choices do not alter gauge-matter identity.",
+  "inspected_scope": "P21 Tables1.1/1.2 PDFpp9-10 and P22 AppendixA PDFpp227-228; one 4D MSSM gauge-basis spectrum.",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "mssm",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Tables1.1,1.2 and adjacent field definitions",
+        "pdf_pages": [
+          9
+        ],
+        "anchor": "spin-0 fields are complex"
+      },
+      "value": "Source explicitly tabulates three-family MSSM chiral supermultiplets; scalars complex and fermions LH Weyl. Hu,Hd Y=+/-1/2; gauge supermultiplets are adjoint gluino/wino/bino. Expand into independent scalar/Weyl rows, no auxiliary F and no double conjugation."
+    },
+    {
+      "id": "messengers",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section7.7 Eqs.(7.7.1)-(7.7.2)",
+        "pdf_pages": [
+          88
+        ],
+        "anchor": "Wbreaking"
+      },
+      "value": "Minimal visible messenger example contains q+barq and l+barl chiral supermultiplets plus singlet S; source explicitly parameterizes an otherwise unspecified Wbreaking. It is not a complete hidden-sector theory."
+    },
+    {
+      "id": "fresh-mssm",
+      "locator": "P21 Tables1.1/1.2 PDFpp9-10; P22 AppendixA Eqs.(A.1)-(A.2) PDFpp227-228",
+      "fact": "Three families Q,u^c,d^c,L,e^c; two Higgs chiral multiplets Hu,Hd with Y=+1/2,-1/2; adjoint gluino,wino,bino. P21 explicitly calls all chiral scalars complex and fermions LH Weyl. Both sources define gauge su3+su2+u1; RPV does not introduce additional matter. No auxiliary fields or repeated conjugate containers.",
+      "basis": "fresh_source_tables_and_conventions"
+    }
+  ],
+  "limitations": [
+    "Full gauge-matter content, not the UV supersymmetry-breaking sector or all possible superpotential choices."
+  ],
+  "regime": 67,
+  "arxiv": "hep-ph/9709356v7",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_9709356v7.pdf",
+      "pages": [
+        9,
+        10
+      ],
+      "inspection": "Fresh complete-page visual inspection and relevant source-definition reading.",
+      "sha256": "b1dba94d82b75cc3120d95360d8b81caad838a0a14edfb36951e456f4246e656"
+    },
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0406039v2.pdf",
+      "pages": [
+        227,
+        228
+      ],
+      "inspection": "Fresh complete-page visual inspection and relevant source-definition reading.",
+      "sha256": "2746f9ec4932833b8de0ef942e107f0acde74e35ef1ecb3f9ff7794073dcbe15"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/mssm-matter-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/mssm-matter-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/mssm-matter-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/mssm-matter-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/mssm-matter-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/mssm-matter-preflight.json",
+  "fingerprint": "0cfddbd7e6f5148050ceefe26ba7b02685ff0df7d01b9e032b194e45a388b6b8",
+  "normalizer_idempotent": true
+}

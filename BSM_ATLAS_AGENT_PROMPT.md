@@ -8,7 +8,7 @@ Produce source-backed gauge-algebra and matter-representation entries, linked to
 
 This is a gauge–matter catalogue, not a catalogue of complete Lagrangians. Do not add interactions, global symmetries, breaking patterns, benchmark scans or viability classifications as new required structure. Preserve existing richer evidence without silently rewriting its meaning.
 
-A theory, methods or convention paper may have a paper record and zero model links. A sector or uninstantiated framework is not automatically a complete BSM inventory.
+A theory, methods or convention paper may have a paper record and zero model links. Harvest a complete specification BEFORE adding a model. Incomplete sectors, unfinished extraction and uninstantiated frameworks are not public entries, and no permanent pending catalogue or exclusion log is maintained.
 
 ## Establish the source facts
 
@@ -40,7 +40,7 @@ The restricted language permits integer literals, declared symbols, parentheses,
 
 Do not enumerate an infinite family. Preflight without parameter values produces a validated symbolic payload, not a numerical fingerprint. Specialization checks integer assignments and constraints, then normalizes that member's full inventory. Special charge loci can change scalar counting or row aggregation.
 
-Automatic public-family ingestion is not connected yet. Keep reviewed version-3 payloads staged until typed expression/parameter storage is integrated on the same catalogue entry. Never put a formula into the current integer-only SQL charge column.
+Reviewed version-3 families can be published on the same entry with typed SQL parameter, constraint and charge-expression storage. Never put a formula into the integer-only numerical charge column. A family fingerprint identifies the exact normalized template, not general equivalence under reparameterization. Compute non-Abelian restriction before realification of the source fields, without using a fictitious specialization. A charge-dependent scalar counting jump needs a reviewed piecewise adapter; do not display a guessed generic multiplicity.
 
 ## Preflight and reconciliation
 
@@ -54,13 +54,13 @@ python3 atlas/check_entry.py normalized.json --database website/downloads/field-
 
 Preflight emits the normalized entry, conversions and duplicate results; it is read-only and does not inspect papers or add records. Save its output and the exact normalized candidate using the available file tools. A blocked or still unnormalized candidate must not be accepted.
 
-An exact match reuses the existing field-content entry and adds the source/paper association. A nonmatch is `no_exact_match_review_required`, not proof of a new or inequivalent theory. Review comparable pending records, description regimes, repeated factors, multi-U(1) basis choices and outer-automorphism limits.
+An exact match reuses the existing field-content entry and adds the source/paper association. A nonmatch is `no_exact_match_review_required`, not proof of a new or inequivalent theory. Review comparable published entries, description regimes, repeated factors, multi-U(1) basis choices and outer-automorphism limits. Aliases must resolve to the reused entry.
 
 Do not mark a partial sector `inventory_complete` just to get a fingerprint. Different interactions may share one gauge–matter entry; different field names need not create one.
 
 ## Review, persistence and checks
 
-Stage candidates and evidence in a new explicitly named run directory under `atlas/reextraction/`. Do not overwrite frozen runs, accepted evidence or `atlas/atlas.sqlite`. Do not claim inferred token/dollar/GPU measurements; unavailable telemetry remains null.
+Work on candidate extraction outside the public catalogue. Save complete candidates and evidence in a new explicitly named run directory under `atlas/reextraction/`, then pin accepted files in `accepted-harvest.json`. Do not save a new exclusion log or insert incomplete model rows. Do not overwrite frozen runs, accepted evidence or `atlas/atlas.sqlite`. Do not claim inferred token/dollar/GPU measurements; unavailable telemetry remains null.
 
 For each candidate provide:
 
@@ -70,7 +70,7 @@ For each candidate provide:
 - Genuine omissions, unresolved extraction tasks and source-defined parameter domains, separately.
 - Actual inspection scope, review status and any supporting-source hashes.
 
-Only explicitly reviewed, hash-pinned acceptance decisions are read by the public builder. The current adapters are deliberately scoped, not a general write API; extend and test an adapter when a supported new source structure requires it. Do not force it through an unrelated source-specific conversion. Keep staged and published counts distinct.
+Only explicitly reviewed, hash-pinned acceptance decisions are read by the public builder. A new paper requires verified title, authors and pinned arXiv version in the acceptance metadata; the generic adapter can create its complete entry directly, without a provisional DSI record. New catalogue row IDs are not historical source field IDs. Extend and test an adapter when a supported new source structure requires it. Do not force it through an unrelated conversion. The publication gate rejects unnormalized inputs or new complete identities lacking source-reviewed acceptance.
 
 Then run:
 
@@ -85,7 +85,7 @@ Checks must preserve the original source checksum, frozen evidence and source ID
 
 The website derives three views from the same entries:
 
-1. **Semisimple gauge algebra:** canonical non-Abelian factors only. Include a recorded fixed algebra even if its matter is incomplete; leave parameterized/unknown algebras unplaced rather than guessing ranks.
+1. **Semisimple gauge algebra:** canonical non-Abelian factors of complete published entries only. An incompletely extracted sector must not create a category such as isolated su(2). Do not guess omitted factors or finite ranks.
 2. **Non-Abelian matter spectrum:** complete Lorentz and non-Abelian irreps with multiplicities, omitting all U(1) factors. Restrict scalar real modules correctly and aggregate identical restricted rows.
 3. **Full gauge–matter entry:** restore all gauge factors and charges, with linked sources.
 
@@ -93,4 +93,4 @@ Do not maintain these as separate hand-edited inventories. A coarse match is not
 
 ## Handoff
 
-Report accepted entries separately from staged candidates and partial sectors. Account for every requested paper, its inspected scope, access limitations, unfinished work and expected zero-link cases. Provide the next review/integration steps without claiming that structural checks certify the physics.
+Report the actually published entries, their source-inspection scope and any remaining access/implementation limitation. A paper that does not establish a full supported inventory can have zero model links; do not add a placeholder. Structural checks and source-scoped extraction do not independently certify the physics.

@@ -33,13 +33,13 @@ This is a catalogue of **gauge–matter content**, not complete Lagrangians. Int
 2. **Non-Abelian matter spectrum** — that algebra with Lorentz representations, non-Abelian irreps and multiplicities.
 3. **Full gauge–matter entry** — every gauge factor, exact Abelian charges and linked source papers.
 
-These are derived groupings, not three independently maintained inventories. A recorded algebra can appear before its matter extraction is complete. Unknown ranks and missing representations are never guessed.
+These are derived groupings, not three independently maintained inventories. Only complete source-supported entries appear at any level. A partial sector cannot create an algebra category, and missing information is never guessed.
 
 ## Conventions and evidence
 
 - Simple algebras use canonical Cartan type/rank; non-Abelian irreps use exact highest-weight **Dynkin labels** with fixed node numbering. The website also offers familiar dimensions and Young diagrams where applicable.
 - Four-dimensional Weyl fermions are left-handed. Charge conjugation conjugates every non-Abelian factor and negates every Abelian charge.
-- Numerical U(1) charges use one shared primitive integer normalization over the complete inventory. Symbolic charge families have declared integer parameters and constraints; their schema/preflight exists, but automatic public-family ingestion is not yet connected.
+- Numerical U(1) charges use one shared primitive integer normalization over the complete inventory. Source-defined symbolic charge families retain declared integer parameters and constraints on the same entry, with separate typed expression storage and pointwise numerical normalization.
 - Paper versions, original notation, source passages and normalization steps remain traceable. Unfinished extraction, genuine source omissions and source-defined parameters are distinct.
 - Exact field-content matches reuse an existing entry. Inclusion does not certify anomaly cancellation, viability or an SM embedding.
 
@@ -47,11 +47,11 @@ See the [complete conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) and [entry sc
 
 ## Current coverage
 
-The saved 50-paper seed supports 103 source-scoped entries: 21 complete numerical inventories, grouped into 17 non-Abelian matter spectra. Fourteen recorded semisimple algebras cover 94 entries; nine have unresolved or parameterized algebras. These are not counts of distinct complete physical theories.
+The atlas contains **67 complete gauge-matter entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. They form 58 non-Abelian matter spectra and 11 semisimple gauge algebras. These are field-content counts, not distinct complete physical theories.
 
-The paper list is independent: general theory and tool papers can have no model association. R01 is an additional theory reference, not a BSM entry. Accepted scoped re-extractions cover eight seed papers. Of the 37 numerical candidates staged in the [historical followup handoff](atlas/reextraction/followup-20261016/handoff.json), 36 remain unaccepted. Neither a registered paper nor a staged candidate implies a completed or independently verified extraction.
+All 50 seed papers and the independent theory reference R01 remain listed. A paper may have zero model links. There are no pending entries, incomplete sectors or exclusion log in the public atlas.
 
-The [SO(10) source and mathematics review](atlas/reextraction/so10-resolution-20261016/decision.json) completes both P19 entries, including the smaller 45H + 126H model previously extracted only as a scalar sector. Its three-family fermion baseline is explicitly declared source-SM inheritance; no literal multiplicity table or phenomenological viability is claimed. The original snapshot and earlier extraction decisions remain preserved.
+Publication follows **paper → full specification → normalization and validation → duplicate reconciliation → acceptance**. [Accepted harvests](atlas/reextraction/accepted-harvest.json) pin source evidence and exact inputs. An exact match adds the paper association to an existing entry. A sector that cannot establish a full inventory is not added. The historical DSI snapshot and earlier frozen research remain unchanged for reproducibility; they are not the current public catalogue.
 
 ## Develop and contribute
 

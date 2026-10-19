@@ -30,10 +30,11 @@ from scalar_conventions import CONVENTION as SCALAR_CONVENTION
 from scalar_projection import migrate_catalogue
 from reextraction_reviews import load_reviews,apply_reviews
 from current_reextraction_reviews import load_current_reviews,apply_current_reviews
+from harvest_reviews import load_harvest_reviews,apply_harvest_reviews,publish_complete_entries
 from core_projection import attach_cores,attach_algebras
 from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION
-VERSION="gauge-matter-8"
-DATE="2026-10-16"
+VERSION="gauge-matter-9"
+DATE="2026-10-19"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
 
@@ -331,19 +332,33 @@ def main_data(database,curations):
         except IncompleteContent as error:
             e['identity']={'status':'unresolved','reason':str(error),'fingerprint':None}
         e['publicationStatus']='ready' if e['identity']['fingerprint'] else 'pending'
+    # The historical projection is checked before the publication gate. Public
+    # models need not retain incomplete source records to prove source coverage.
+    source_ids={f['sourceFieldId'] for e in entries+references for v in e['variants'] for r in v['regimes'] for f in r['fields']}
+    if source_ids!=set(field_index): raise ValueError('A source field was omitted from the historical projection')
+    harvests=load_harvest_reviews(ROOT)
+    apply_harvest_reviews(entries,papers,harvests,display_rep)
+    retained=json.loads((ROOT/'atlas/reextraction/accepted-harvest.json').read_text())['retained_seed_identities']
+    entries=publish_complete_entries(entries,retained)
+    all_decisions.extend(r['decision'] for r in harvests)
+    reextraction.update(acceptedPapers=len({d['paper'] for d in all_decisions}),
+        acceptedEntries=len({e['id'] for e in entries if e.get('reextractions')}),
+        acceptedCandidates=len(all_decisions),
+        note='Accepted source-scoped numerical specifications and typed symbolic families; incomplete extraction is not published.')
     cores=attach_cores(entries)
     algebras=attach_algebras(entries,cores)
     for p in papers:
         p["entryIds"]=[e["id"] for e in entries if p["id"] in e["paperIds"]]
-        p["referenceNotes"]=[curations["excluded_models"][v["id"]] for e in references if p["id"] in e["paperIds"] for v in e["variants"] if v["id"] in curations["excluded_models"]]
-    if len(papers)!=50: raise ValueError("The release must account for all 50 seed sources")
-    seed_paper_count=len(papers)
+        p["referenceNotes"]=[]
+        if not p['entryIds']: p['noModelReason']='No complete source-supported gauge–matter entry is published from this paper.'
+    if len(tables['papers'])!=50: raise ValueError("The release must account for all 50 seed sources")
+    seed_paper_count=len(tables['papers'])
     for p in curations.get("reference_papers",[]):
         if any(p["id"]==s["id"] or p["arxiv"].split("v")[0]==s["arxiv"].split("v")[0] for s in papers):
             raise ValueError("Duplicate reference paper: "+p["id"])
         papers.append({**p,"entryIds":[],"referenceNotes":[],"referenceOnly":True})
-    source_ids={f["sourceFieldId"] for e in entries+references for v in e["variants"] for r in v["regimes"] for f in r["fields"]}
-    if source_ids!=set(field_index): raise ValueError("A source field was omitted")
+    # No incomplete source-sector records or exclusion catalogue are published.
+    references=[]
     if hashlib.sha256(database.read_bytes()).hexdigest()!=original_hash: raise ValueError("Source changed during read-only build")
     return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,"scalarConvention":SCALAR_CONVENTION,"coreConvention":CORE_CONVENTION,"cores":cores,"semisimpleConvention":ALGEBRA_CONVENTION,"semisimpleAlgebras":algebras,"sourceReview":"Original source assertions remain unchecked and model links provisional. Explicitly accepted re-extractions are agent source-checked within their recorded definition scope, not independently physics-verified or whole-paper reviews.","reextraction":reextraction,"scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":templates,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references),"cores":len(cores),"semisimpleAlgebras":len(algebras),"coreEntries":sum(e["coreId"] is not None for e in entries)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
 
@@ -383,7 +398,7 @@ def write_outputs(data,check=False):
             for name in ['entry_layers','nonabelian_factors','abelian_factors']:
                 con.execute('DROP VIEW IF EXISTS '+name)
             # This file is a reproducible export, never the immutable source DB.
-            for name in ['entry_cores','nonabelian_cores','semisimple_algebras','identity_migrations','extraction_reviews','entry_identity','content_signatures','entry_papers','component_gauge_representations','spacetime_representations','multiplets','gauge_factors','regimes','entries','papers','metadata']:
+            for name in ['entry_parameters','entry_constraints','component_charge_expressions','entry_cores','nonabelian_cores','semisimple_algebras','identity_migrations','extraction_reviews','entry_identity','content_signatures','entry_papers','component_gauge_representations','spacetime_representations','multiplets','gauge_factors','regimes','entries','papers','metadata']:
                 con.execute('DROP TABLE IF EXISTS '+name)
             con.executescript("""
               CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
@@ -394,9 +409,12 @@ def write_outputs(data,check=False):
               CREATE TABLE gauge_factors(regime_id INTEGER NOT NULL REFERENCES regimes(regime_id),factor_key TEXT NOT NULL,factor_order INTEGER NOT NULL,factor_kind TEXT NOT NULL CHECK(factor_kind IN ('nonabelian','abelian','unresolved')),cartan_family TEXT NOT NULL,rank INTEGER,role TEXT,label TEXT NOT NULL,normalization_json TEXT,PRIMARY KEY(regime_id,factor_key),UNIQUE(regime_id,factor_order));
               CREATE VIEW nonabelian_factors AS SELECT * FROM gauge_factors WHERE factor_kind='nonabelian';
               CREATE VIEW abelian_factors AS SELECT * FROM gauge_factors WHERE factor_kind='abelian';
-              CREATE TABLE IF NOT EXISTS multiplets(multiplet_id TEXT PRIMARY KEY,entry_id TEXT NOT NULL REFERENCES entries(entry_id),source_model_id TEXT NOT NULL,regime_id INTEGER NOT NULL,field_label TEXT NOT NULL,field_types TEXT NOT NULL,representation TEXT NOT NULL,copies INTEGER,representation_dimension INTEGER,source_field_id INTEGER NOT NULL,source_rows_json TEXT NOT NULL,components_json TEXT NOT NULL,evidence_json TEXT NOT NULL);
+              CREATE TABLE IF NOT EXISTS multiplets(multiplet_id TEXT PRIMARY KEY,entry_id TEXT NOT NULL REFERENCES entries(entry_id),source_model_id TEXT NOT NULL,regime_id INTEGER NOT NULL,field_label TEXT NOT NULL,field_types TEXT NOT NULL,representation TEXT NOT NULL,copies INTEGER,representation_dimension INTEGER,source_field_id INTEGER,source_rows_json TEXT NOT NULL,components_json TEXT NOT NULL,evidence_json TEXT NOT NULL);
               CREATE TABLE IF NOT EXISTS spacetime_representations(representation_id TEXT PRIMARY KEY,multiplet_id TEXT NOT NULL REFERENCES multiplets(multiplet_id),component_kind TEXT NOT NULL,spacetime_dimension TEXT,lorentz_algebra TEXT NOT NULL,representation_label TEXT NOT NULL,status TEXT NOT NULL,representation_json TEXT NOT NULL,copies INTEGER CHECK(copies IS NULL OR copies > 0));
               CREATE TABLE IF NOT EXISTS component_gauge_representations(component_id TEXT NOT NULL REFERENCES spacetime_representations(representation_id),factor_key TEXT NOT NULL,algebra_id TEXT NOT NULL,role TEXT,dynkin_json TEXT,charge TEXT CHECK(charge IS NULL OR (length(charge)>0 AND charge NOT GLOB '*[^0-9]*') OR (substr(charge,1,1)='-' AND length(charge)>1 AND substr(charge,2) NOT GLOB '*[^0-9]*')),representation_label TEXT,status TEXT NOT NULL,regime_id INTEGER NOT NULL,PRIMARY KEY(component_id,factor_key),FOREIGN KEY(regime_id,factor_key) REFERENCES gauge_factors(regime_id,factor_key));
+              CREATE TABLE component_charge_expressions(component_id TEXT NOT NULL,factor_key TEXT NOT NULL,expression TEXT NOT NULL,expression_convention TEXT NOT NULL CHECK(expression_convention='integer-polynomial-1'),PRIMARY KEY(component_id,factor_key),FOREIGN KEY(component_id,factor_key) REFERENCES component_gauge_representations(component_id,factor_key));
+              CREATE TABLE entry_parameters(entry_id TEXT NOT NULL REFERENCES entries(entry_id),parameter_name TEXT NOT NULL,domain TEXT NOT NULL CHECK(domain='integer'),PRIMARY KEY(entry_id,parameter_name));
+              CREATE TABLE entry_constraints(entry_id TEXT NOT NULL REFERENCES entries(entry_id),constraint_order INTEGER NOT NULL,expression TEXT NOT NULL,PRIMARY KEY(entry_id,constraint_order));
               CREATE TABLE IF NOT EXISTS content_signatures(fingerprint TEXT PRIMARY KEY,schema_version TEXT NOT NULL,canonical_json TEXT NOT NULL,canonical_entry_id TEXT NOT NULL REFERENCES entries(entry_id));
               CREATE TABLE IF NOT EXISTS entry_identity(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),status TEXT NOT NULL,reason TEXT,fingerprint TEXT REFERENCES content_signatures(fingerprint),algebra_signature TEXT NOT NULL,input_json TEXT);
               CREATE TABLE IF NOT EXISTS extraction_reviews(entry_id TEXT NOT NULL REFERENCES entries(entry_id),paper_id TEXT NOT NULL REFERENCES papers(paper_id),candidate_name TEXT NOT NULL,fingerprint TEXT NOT NULL REFERENCES content_signatures(fingerprint),normalized_entry_json TEXT NOT NULL,review_json TEXT NOT NULL,PRIMARY KEY(entry_id,paper_id,candidate_name));
@@ -419,6 +437,8 @@ def write_outputs(data,check=False):
             for e in data["entries"]:
                 con.execute("INSERT INTO entries VALUES (?,?,?,?,?,?)",(e["id"],e["name"],e["algebraExpanded"],e["baseline"],e["status"],json.dumps([{k:v[k] for k in ["id","revision","scope","baselineSource","baselineParent"]} for v in e["variants"]],ensure_ascii=False)))
                 con.executemany("INSERT INTO entry_papers VALUES (?,?)",[(e["id"],p) for p in e["paperIds"]])
+                con.executemany('INSERT INTO entry_parameters VALUES (?,?,?)',[(e['id'],name,decl['domain']) for name,decl in e.get('parameters',{}).items()])
+                con.executemany('INSERT INTO entry_constraints VALUES (?,?,?)',[(e['id'],i,expr) for i,expr in enumerate(e.get('constraints',[]))])
                 for v in e["variants"]:
                     for r in v["regimes"]:
                         con.execute("INSERT INTO regimes VALUES (?,?,?,?,?,?,?,?,?)",(r["id"],e["id"],v["id"],r["description"],r["dimension"],r["algebraExpanded"],r["baseline"],json.dumps(r["factors"],ensure_ascii=False),json.dumps(r["notes"],ensure_ascii=False)))
@@ -426,13 +446,15 @@ def write_outputs(data,check=False):
                             kind='abelian' if a['type']=='U1' else 'nonabelian' if a['type'] in {'A','B','C','D','E','F','G'} else 'unresolved'
                             con.execute('INSERT INTO gauge_factors VALUES (?,?,?,?,?,?,?,?,?)',(r['id'],a['key'],i,kind,a['type'],a['rank'],a['role'],a['label'],json.dumps(a.get('normalization'),ensure_ascii=False)))
                         for f in r["fields"]:
-                            con.execute("INSERT INTO multiplets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(e["id"]+":"+str(f["sourceFieldId"]),e["id"],v["id"],r["id"],f["label"],"/".join(f["kinds"]),f["representation"],f["copies"],f["dimension"],f["sourceFieldId"],json.dumps(f,ensure_ascii=False),json.dumps(f["components"],ensure_ascii=False),json.dumps(f["evidence"],ensure_ascii=False)))
+                            key=e['id']+':'+str(r['id'])+':'+f.get('catalogueRowId',str(f['sourceFieldId']))
+                            con.execute("INSERT INTO multiplets VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(key,e["id"],v["id"],r["id"],f["label"],"/".join(f["kinds"]),f["representation"],f["copies"],f["dimension"],f["sourceFieldId"],json.dumps(f,ensure_ascii=False),json.dumps(f["components"],ensure_ascii=False),json.dumps(f["evidence"],ensure_ascii=False)))
                             for i,l in enumerate(f['lorentz']):
-                                key=e['id']+':'+str(f['sourceFieldId'])
                                 con.execute('INSERT INTO spacetime_representations VALUES (?,?,?,?,?,?,?,?,?)',(key+':'+str(i),key,l['component'],l['spacetime']['dimension'],l['spacetime']['algebra'],l['label'],l['status'],json.dumps(l,ensure_ascii=False),l['copies']))
                                 for a,c in zip(r['factors'],l['gaugeComponents']):
                                     charge=c['value'] if a['type']=='U1' and re.fullmatch(r'-?\d+',str(c['value'] or '')) else None
                                     con.execute('INSERT INTO component_gauge_representations VALUES (?,?,?,?,?,?,?,?,?)',(key+':'+str(i),a['key'],a['id'],a['role'],json.dumps(c['dynkin']) if c['dynkin'] is not None else None,charge,c['value'],c['assignmentStatus'],r['id']))
+                                    if 'chargeExpression' in c:
+                                        con.execute('INSERT INTO component_charge_expressions VALUES (?,?,?,?)',(key+':'+str(i),a['key'],c['chargeExpression'],'integer-polynomial-1'))
             for a in data['semisimpleAlgebras']:
                 con.execute('INSERT INTO semisimple_algebras VALUES (?,?,?,?)',(a['id'],ALGEBRA_CONVENTION['id'],a['algebra'],json.dumps(a['canonical'],sort_keys=True,separators=(',',':'))))
             for core in data['cores']:
@@ -442,7 +464,7 @@ def write_outputs(data,check=False):
             con.commit()
             for e in data['entries']:
                 identity=e['identity'];h=identity['fingerprint']
-                if h:con.execute('INSERT OR IGNORE INTO content_signatures VALUES (?,?,?,?)',(h,'field-content-2',json.dumps(identity['canonical'],sort_keys=True,separators=(',',':')),e['id']))
+                if h:con.execute('INSERT OR IGNORE INTO content_signatures VALUES (?,?,?,?)',(h,identity['input']['schema_version'],json.dumps(identity['canonical'],sort_keys=True,separators=(',',':')),e['id']))
                 r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
                 signature=sorted([{'family':a['type'],'rank':a['rank']} for a in r['factors']],key=lambda a:(a['family']=='U1',a['family'],-(a['rank'] or 0)))
                 con.execute('INSERT INTO entry_identity VALUES (?,?,?,?,?,?)',(e['id'],identity['status'],identity.get('reason'),h,json.dumps(signature,sort_keys=True,separators=(',',':')),json.dumps(identity['input'],ensure_ascii=False) if h else None))

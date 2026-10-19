@@ -1,0 +1,98 @@
+{
+  "entry": "rpv-singlet-spontaneous-sector",
+  "paper": "P22",
+  "decision": "accept",
+  "reason": "Paper explicitly says beyond MSSM exactly three Nc, three S and one Phi; complete inventory is MSSM plus these seven gauge-singlet chiral multiplets.",
+  "inspected_scope": "Spontaneous-RPV model definition Eq.(2.49), PDFp42, plus AppendixA MSSM/LH/complex conventions PDFpp227-228.",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "rpv",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2 bilinear/trilinear definitions; Appendix A conventions",
+        "pdf_pages": [
+          227,
+          228
+        ],
+        "anchor": "left-handed chiral superfield"
+      },
+      "value": "Explicit bilinear/trilinear RPV modifies allowed superpotential/soft interactions of MSSM fields, not the matter inventory. Source conventions use LH chiral superfields and complex scalars."
+    },
+    {
+      "id": "singlets",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2.6 Eq.(2.49)",
+        "pdf_pages": [
+          42
+        ],
+        "anchor": "three singlets Si"
+      },
+      "value": "Spontaneous RPV example contains three Nc, three S and one Phi beyond MSSM, each gauge-singlet chiral multiplet. All seven contribute a complex scalar and a LH Weyl; restricting VEV discussion to one family does not remove two families."
+    },
+    {
+      "id": "su5-rpv",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section2 GUT discussion Eqs.(2.66)-(2.68)",
+        "pdf_pages": [
+          42,
+          46,
+          65
+        ],
+        "anchor": "all trilinear"
+      },
+      "value": "SU(5) trilinear RPV sector bar5_i bar5_j10_k specifies operators and embeddings, not a full chosen GUT-breaking Higgs inventory."
+    },
+    {
+      "id": "fresh-rpv-singlets",
+      "locator": "P22 model definition preceding Eq.(2.49) PDFp42; AppendixA PDFpp227-228; P21 Tables1.1/1.2",
+      "fact": "Three RH-neutrino chiral superfields Nc_i, three S_i and one Phi beyond MSSM. Singlet refers to full SM: all zero colour/weak weights and zero Y. Each gives one independent LH Weyl and complex scalar (two real-module singlet copies). The subsequent one-family VEV restriction does not delete the other two chiral families. MSSM baseline includes both Higgs chiral multiplets and adjoint gauginos.",
+      "basis": "fresh_source_definition_and_declared_MSSM_expansion"
+    }
+  ],
+  "limitations": [
+    "Source full gauge-matter model is restored from prior sector record; no independent Majoron row because it is a scalar coordinate."
+  ],
+  "regime": 80,
+  "arxiv": "hep-ph/0406039v2",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/hep-ph_0406039v2.pdf",
+      "pages": [
+        42,
+        227,
+        228
+      ],
+      "inspection": "Fresh complete-page visual inspection and relevant source-definition reading.",
+      "sha256": "2746f9ec4932833b8de0ef942e107f0acde74e35ef1ecb3f9ff7794073dcbe15"
+    },
+    {
+      "path": "atlas/reextraction/sources/hep-ph_9709356v7.pdf",
+      "pages": [
+        9,
+        10
+      ],
+      "inspection": "Fresh complete-page visual inspection and relevant source-definition reading.",
+      "role": "auxiliary_explicit_MSSM_template_cross_check",
+      "sha256": "b1dba94d82b75cc3120d95360d8b81caad838a0a14edfb36951e456f4246e656"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/rpv-singlet-spontaneous-sector-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/rpv-singlet-spontaneous-sector-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/rpv-singlet-spontaneous-sector-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/rpv-singlet-spontaneous-sector-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/rpv-singlet-spontaneous-sector-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/rpv-singlet-spontaneous-sector-preflight.json",
+  "fingerprint": "c0f4cc3806692fd04e6902cf54747efe965747bed64809305a066afea9f620d3",
+  "normalizer_idempotent": true
+}

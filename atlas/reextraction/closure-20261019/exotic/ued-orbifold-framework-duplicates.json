@@ -1,0 +1,95 @@
+{
+  "status": "no_exact_match_review_required",
+  "fingerprint": "e4cc75f4d32d28ff0e6b8b1628b913fa545de093820b6429b87db89d01cd6c89",
+  "matches": [],
+  "same_algebra_candidates": [
+    {
+      "entry_id": "real-singlet-z2",
+      "name": "Real singlet extension",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "complex-singlet-portal",
+      "name": "Complex singlet extension",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "two-higgs-doublets",
+      "name": "Two-Higgs-doublet model",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "nmssm-matter",
+      "name": "NMSSM",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-by-doublet",
+      "name": "Standard Model with a vector-like (B Y) doublet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-tby-triplet",
+      "name": "Standard Model with a vector-like (T B Y) triplet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-tb-doublet",
+      "name": "Standard Model with a vector-like (T B) doublet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-xtb-triplet",
+      "name": "Standard Model with a vector-like (X T B) triplet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-xt-doublet",
+      "name": "Standard Model with a vector-like (X T) doublet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-b-singlet",
+      "name": "Standard Model with a vector-like B singlet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vlq-t-singlet",
+      "name": "Standard Model with a vector-like T singlet",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "smash-down",
+      "name": "SMASH with a down-type colored fermion",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "numsm",
+      "name": "nuMSM",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "ma-radiative-seesaw-z2",
+      "name": "Ma radiative seesaw",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "secluded-fermion-scalar-portal",
+      "name": "Secluded Dirac scalar portal",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "vector-higgs-portal-z2-eft",
+      "name": "Z2 vector portal Proca EFT",
+      "coverage": "recorded_content"
+    },
+    {
+      "entry_id": "heavy-weak-triplet-proca-current-sector",
+      "name": "Heavy weak-triplet Proca vector with lepton, quark and Higgs currents",
+      "coverage": "recorded_content"
+    }
+  ],
+  "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
+  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
+}
+

@@ -13,6 +13,7 @@ from catalogue_identity import canonicalize, normalize_spec, from_regime
 from catalogue_identity_v1 import canonicalize as canonicalize_v1, normalize_spec as normalize_v1, from_regime as from_regime_v1
 from reextraction_reviews import load_reviews, replace_regime, apply_reviews
 from current_reextraction_reviews import load_current_reviews, apply_current_reviews
+from harvest_reviews import normalize_input, input_identity
 
 DATA = json.loads((ROOT / 'website/field-catalogue.json').read_text())
 
@@ -92,12 +93,12 @@ class Acceptance(unittest.TestCase):
         db = ROOT / 'website/downloads/field-catalogue.sqlite'
         with closing(sqlite3.connect(db.resolve().as_uri() + '?mode=ro', uri=True)) as con:
             rows = con.execute('SELECT fingerprint,normalized_entry_json,review_json FROM extraction_reviews').fetchall()
-        self.assertEqual(len(rows), 12)
+        self.assertEqual(len(rows), 60)
         for expected, payload, provenance in rows:
             spec = json.loads(payload)
             review = json.loads(provenance)
-            self.assertEqual(spec, normalize_spec(spec))
-            self.assertEqual(canonicalize(spec)['fingerprint'], expected)
+            self.assertEqual(spec, normalize_input(spec))
+            self.assertEqual(input_identity(spec)['fingerprint'], expected)
             self.assertFalse(review['wholePaperRead'])
             self.assertEqual(review['reviewStatus'], 'agent_source_checked_curator_integrated')
 
@@ -126,9 +127,9 @@ class Acceptance(unittest.TestCase):
         e = entries['su5-gg-extra5-two10']
         regimes = {r['id']:r for v in e['variants'] for r in v['regimes']}
         self.assertEqual({f['sourceFieldId'] for f in regimes[36]['fields']},{120,121,122,123,125,126})
-        self.assertEqual({f['sourceFieldId'] for f in regimes[37]['fields']},{127,128})
+        self.assertNotIn(37,regimes)
         self.assertEqual(next(f for f in regimes[36]['fields'] if f['sourceFieldId']==120)['reextraction']['sourceMapping']['source_regime_id'],35)
-        self.assertIsNone(entries['su5-rpv-trilinear-sector']['identity']['fingerprint'])
+        self.assertNotIn('su5-rpv-trilinear-sector',entries)
 
     def test_current_adapter_cannot_drop_unmapped_matter(self):
         entries = deepcopy(DATA['entries'])
@@ -172,8 +173,8 @@ class Acceptance(unittest.TestCase):
                 self.assertEqual(inherited['source_regime_id'],64)
                 self.assertEqual(inherited['source_model_id'],'so10-45-126-complex10')
                 self.assertIn('explicitly_inherited',inherited['mapping_basis'])
-                self.assertEqual(regimes[62]['fields'],[])
-                self.assertEqual(regimes[63]['fields'],[])
+                self.assertNotIn(62,regimes)
+                self.assertNotIn(63,regimes)
 
     def test_so10_independent_review_pins_the_final_intake_files(self):
         reviews=[r for r in load_current_reviews(ROOT) if r['decision']['paper']=='P19']

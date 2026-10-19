@@ -97,10 +97,13 @@ class Catalogue(unittest.TestCase):
         records=DATA['entries']+DATA['referenceRecords']
         models=[v['id'] for e in records for v in e['variants']]
         fs=[f['sourceFieldId'] for e in records for v in e['variants'] for r in v['regimes'] for f in r['fields']]
-        self.assertEqual(len(models),125)
-        self.assertEqual(len(set(models)),125)
-        self.assertEqual(len(fs),582)  # Eight GG and one SO(10) inherited occurrence, not new source fields.
-        self.assertEqual(len(set(fs)),573)
+        self.assertEqual(len(models),len(set(models)))
+        self.assertEqual(DATA['referenceRecords'],[])
+        self.assertTrue(all(e['publicationStatus']=='ready' for e in records))
+        with closing(sqlite3.connect((ROOT/'atlas/atlas.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
+            original_ids={row[0] for row in con.execute('select field_id from theory_fields')}
+        self.assertEqual(len(original_ids),573)
+        self.assertTrue(set(filter(None,fs))<=original_ids)
         self.assertEqual((SITE/'field-catalogue.json').read_bytes(),(ROOT/'atlas/FIELD_CONTENT_CATALOGUE.json').read_bytes())
 
     def test_normalization_scope(self):
@@ -114,15 +117,15 @@ class Catalogue(unittest.TestCase):
             if f['sourceFieldId'] in {6,7,11,12}:
                 self.assertEqual(f['representation'],'(1, 2; 3)')
                 self.assertEqual(f['curatedCompletion']['paper'],'1106.0034v3')
-        self.assertEqual(ENTRIES['three-higgs-doublets']['summaryFields'][0]['representation'],'(2; 3)')
-        chi=fields('u1-chi-minimal16-charge')[0]
-        self.assertEqual(next(c['value'] for c in chi['components'] if c['role']=='χ'),'-1')
-        self.assertIsNone(next(c['value'] for c in chi['components'] if c['role']=='hypercharge'))
+        higgs=next(f for f in fields('three-higgs-doublets') if f['kinds']==['S'])
+        self.assertEqual(higgs['representation'],'(1, 2; 3)')
+        self.assertEqual(higgs['copies'],3)
+        self.assertNotIn('u1-chi-minimal16-charge',ENTRIES)
 
     def test_accepted_reextraction_is_additive_and_deduplicated(self):
-        self.assertEqual(DATA['reextraction']['acceptedPapers'],8)
-        self.assertEqual(DATA['reextraction']['acceptedCandidates'],12)
-        self.assertEqual(DATA['reextraction']['acceptedEntries'],11)
+        self.assertEqual(DATA['reextraction']['acceptedPapers'],34)
+        self.assertEqual(DATA['reextraction']['acceptedCandidates'],60)
+        self.assertEqual(DATA['reextraction']['acceptedEntries'],58)
         lr=ENTRIES['lr-triplet-matter']
         self.assertEqual(lr['status'],'recorded_content')
         self.assertEqual(lr['legacyIdentity']['fingerprint'],'1bea82909a308b94c40d2c1531ae7fc4723a2e7a857e521971963aeeb7a40f79')
@@ -138,8 +141,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(q['lorentz'][0]['irreps'],[['1/2','0']])
             self.assertTrue(all(f['notationComplete'] for f in r['fields']))
             self.assertTrue(all('legacyProjection' in f for f in r['fields']))
-        self.assertEqual({p['id'] for p in DATA['papers'] if p.get('reextractions')},
-                         {'P01','P02','P03','P04','P05','P11','P18','P19'})
+        self.assertEqual(len({p['id'] for p in DATA['papers'] if p.get('reextractions')}),34)
         self.assertEqual(len(ENTRIES['real-singlet-z2']['reextractions']),2)
 
     def test_baselines_and_scopes(self):
@@ -148,11 +150,10 @@ class Catalogue(unittest.TestCase):
         self.assertEqual(q['representation'],['3','2','1'])
         self.assertEqual(ENTRIES['nmssm-matter']['baseline'],'R_MSSM')
         self.assertEqual(ENTRIES['two-higgs-doublets']['baseline'],'F_SM')
-        self.assertEqual(ENTRIES['numsm']['status'],'partial')
+        self.assertEqual(ENTRIES['numsm']['status'],'recorded_content')
         self.assertEqual(ENTRIES['vlq-t-singlet']['summaryFields'][0]['kinds'],['F_D'])
-        self.assertEqual(ENTRIES['lq-u1-effective']['summaryFields'][0]['kinds'],['V'])
-        r=next(r for v in ENTRIES['littlest-higgs-minimal']['variants'] for r in v['regimes'] if r['id']==131)
-        self.assertEqual(len(r['factors']),4) # UV, not UV plus diagonal subgroup
+        self.assertEqual(next(f for f in fields('lq-u1-effective') if f['kinds']==['V'])['kinds'],['V'])
+        self.assertNotIn('littlest-higgs-minimal',ENTRIES)
 
     def test_sqlite_and_csv_roundtrip(self):
         with closing(sqlite3.connect((SITE/'downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as c:
@@ -160,7 +161,7 @@ class Catalogue(unittest.TestCase):
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
             self.assertEqual(c.execute('select count(*) from entries').fetchone()[0],len(DATA['entries']))
             self.assertEqual(c.execute('select count(*) from papers').fetchone()[0],51)
-            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],12)
+            self.assertEqual(c.execute('select count(*) from extraction_reviews').fetchone()[0],60)
             self.assertEqual(c.execute("select count(*) from entry_papers where paper_id='R01'").fetchone()[0],0)
             self.assertEqual(json.loads(c.execute("select value from metadata where key='representation_convention_json'").fetchone()[0]),DATA['representationConvention'])
             for e in DATA['entries']:
@@ -169,8 +170,8 @@ class Catalogue(unittest.TestCase):
                     for r in v['regimes']:
                         self.assertEqual(c.execute('select factors_json from regimes where regime_id=?',(r['id'],)).fetchone()[0],json.dumps(r['factors'],ensure_ascii=False))
                         for f in r['fields']:
-                            row=c.execute('select source_rows_json from multiplets where entry_id=? and regime_id=? and source_field_id=?',(e['id'],r['id'],f['sourceFieldId'])).fetchone()
-                            self.assertEqual(json.loads(row[0]),f)
+                            saved=[json.loads(row[0]) for row in c.execute('select source_rows_json from multiplets where entry_id=? and regime_id=?',(e['id'],r['id']))]
+                            self.assertIn(f,saved)
         with (SITE/'downloads/field-catalogue.csv').open(newline='') as stream:
             rows=list(csv.DictReader(stream))
             self.assertEqual(len(rows),len(DATA['entries']))

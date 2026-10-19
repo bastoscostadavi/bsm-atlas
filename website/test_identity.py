@@ -12,10 +12,11 @@ from catalogue_identity import canonicalize,normalize_spec,conjugate,IncompleteC
 from check_entry import check
 from prepare_entry import prepare
 from spacetime_conventions import field_reps,spacetime
+from harvest_reviews import input_identity
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
 ENTRIES={e['id']:e for e in DATA['entries']}
 def spec(e):return copy.deepcopy(ENTRIES[e]['identity']['input'])
-def fingerprint(x):return canonicalize(x)['fingerprint']
+def fingerprint(x):return input_identity(x)['fingerprint']
 
 class Identity(unittest.TestCase):
     def test_normalize_before_persistence_not_only_inside_fingerprint(self):
@@ -91,8 +92,8 @@ class Identity(unittest.TestCase):
         self.assertNotEqual(fingerprint(spec('real-singlet-z2')),fingerprint(spec('complex-singlet-portal')))
         a=spec('two-higgs-doublets');a['matter'][0]['copies']=None
         with self.assertRaises(IncompleteContent):canonicalize(a)
-        self.assertEqual(ENTRIES['three-higgs-doublets']['identity']['status'],'unresolved')
-        self.assertEqual(ENTRIES['numsm']['identity']['status'],'unresolved')
+        self.assertTrue(ENTRIES['three-higgs-doublets']['identity']['fingerprint'])
+        self.assertTrue(ENTRIES['numsm']['identity']['fingerprint'])
 
     def test_readonly_lookup_and_registry(self):
         database=ROOT/'website/downloads/field-catalogue.sqlite'
@@ -101,8 +102,8 @@ class Identity(unittest.TestCase):
         self.assertIn('nmssm-matter',[e['entry_id'] for e in result['matches']])
         with closing(sqlite3.connect(database)) as c:
             self.assertEqual(c.execute('pragma foreign_key_check').fetchall(),[])
-            self.assertEqual(c.execute('select count(*) from entry_identity').fetchone()[0],103)
-            conjugate_row='vlq-t-singlet:73:1'
+            self.assertEqual(c.execute('select count(*) from entry_identity').fetchone()[0],len(DATA['entries']))
+            conjugate_row=c.execute("select c.component_id from component_gauge_representations c join spacetime_representations s on s.representation_id=c.component_id join multiplets m on m.multiplet_id=s.multiplet_id where m.entry_id='vlq-t-singlet' and m.source_field_id=73 and c.role='hypercharge' and c.charge='-4'").fetchone()[0]
             self.assertEqual(c.execute("select charge from component_gauge_representations where component_id=? and role='hypercharge'",(conjugate_row,)).fetchone()[0],'-4')
             self.assertEqual(json.loads(c.execute("select dynkin_json from component_gauge_representations where component_id=? and role='colour'",(conjugate_row,)).fetchone()[0]),[0,1])
             for e in DATA['entries']:

@@ -1,0 +1,61 @@
+{
+  "entry": "ql421-dirac",
+  "paper": "P17",
+  "decision": "accept",
+  "reason": "Paper explicitly establishes complete unbroken gauge-basis inventory and chosen named alternative.",
+  "inspected_scope": "SectionII Eqs.(2)-(11),(17), PDFpp1-2; scalar inventory/potential Eq.(24), PDFp3",
+  "claims": [
+    {
+      "id": "baseline",
+      "basis": "declared_atlas_baseline",
+      "locator": {
+        "file": "atlas/FIELD_CONTENT_CONVENTIONS.md",
+        "section": "explicit F_SM/R_SM/R_MSSM templates"
+      },
+      "value": "Source-explicit SM/MSSM inheritance is expanded using the declared atlas baseline: three ordinary SM chiral families, no independent RH neutrino unless stated. Exact Dynkin and all-LH conversion are conventions/derivations, not newly printed source tables. Gauge connections and dependent conjugates are not extra matter."
+    },
+    {
+      "id": "421",
+      "basis": "source_statement",
+      "locator": {
+        "section_equations": "Section II Eqs.(2)-(11),(17)",
+        "pdf_pages": [
+          1
+        ],
+        "anchor": "only with left-handed"
+      },
+      "value": "SU(4)C x SU(2)L x U(1)R, three LH families FQL=(4,2,0), Fu=(bar4,1,-1/2),Fd=(bar4,1,+1/2); scalars chi=(4,1,1/2),H=(1,2,1/2),Phi=(15,2,1/2). Adjoint SU4 Dynkin [1,0,1]. Source Dirac-neutrino model can be extended by three singlet LH N for inverse seesaw. Shared primitive R unit has scale 2. No separately appended gSM factor."
+    },
+    {
+      "id": "fresh-P17",
+      "locator": "SectionII Eqs.(2)-(11),(17), PDFpp1-2; scalar inventory/potential Eq.(24), PDFp3",
+      "fact": "Full unified su4c+su2L+u1R: three LH families FQL=(4,2,0), Fu=(bar4,1,-1/2), Fd=(bar4,1,1/2). Exactly scalar chi=(4,1,1/2), H=(1,2,1/2), Phi=(15,2,1/2); charged source scalars complex. Source first discusses complete fine-tuned Dirac-neutrino model, then explicitly adds three LH gauge-singlet N in Eq17 for inverse seesaw. q=2R shared primitive unit; su4 adjoint [1,0,1]. Do not append separate SM or broken-phase gauge-boson multiplets.",
+      "basis": "fresh_source_definitions_and_explicit_representation_conversion"
+    }
+  ],
+  "limitations": [
+    "Definition-scope source check, not whole-paper or phenomenological viability certification. Source-described alternatives are kept separate."
+  ],
+  "regime": 55,
+  "arxiv": "1307.6213v3",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1307.6213v3.pdf",
+      "pages": [
+        1,
+        2,
+        3
+      ],
+      "inspection": "Listed complete pages rendered and visually checked. Additional explicit locator passages read in extracted source text.",
+      "sha256": "74e4656b484a25f587bf829c58acda17acda85c89bb1e77f0452b30edf838c99"
+    }
+  ],
+  "previous_evidence_lead": "atlas/reextraction/followup-20261016/ql421-dirac-evidence.json",
+  "source_path": "atlas/reextraction/closure-20261019/standard/ql421-dirac-source.json",
+  "normalized_path": "atlas/reextraction/closure-20261019/standard/ql421-dirac-normalized.json",
+  "evidence_path": "atlas/reextraction/closure-20261019/standard/ql421-dirac-evidence.json",
+  "fields_path": "atlas/reextraction/closure-20261019/standard/ql421-dirac-fields.json",
+  "preflight_path": "atlas/reextraction/closure-20261019/standard/ql421-dirac-preflight.json",
+  "fingerprint": "a8bb34f1edf113da695a15dd544d39a3f2a269c784db0d433914b726e59d6984",
+  "normalizer_idempotent": true
+}

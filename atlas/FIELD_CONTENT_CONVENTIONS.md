@@ -1,216 +1,117 @@
-# Gauge-algebra and matter catalogue
+# Gauge-algebra and matter conventions
 
-Version `gauge-matter-8`, October 16, 2026. This is a source-scoped projection with explicit curated corrections, not a replacement of `atlas.sqlite` or a new full physics review. The website deliberately exposes just this smaller catalogue.
+Version `gauge-matter-9`, October 19, 2026.
 
-### Accepted source-backed re-extractions
+## Publication rule
 
-Eight papers (P01–P05, P11, P18 and P19) now have explicitly accepted, scoped gauge/matter re-extractions. Twelve paper/candidate occurrences reconcile to eleven existing entries; no model row is added. `reextraction/accepted.json` retains the frozen pilot decisions; `reextraction/accepted-followup.json` pins four reviewed SU(5) source containers, normalized candidates, field mappings and evidence. `reextraction/accepted-so10.json` pins two P19 inventories and their independent D5 mathematics review. The public build rejects changed evidence, candidates still needing normalization, missing row provenance or a mismatched published fingerprint. Unaccepted queue/batch work is never read by these gates. This protects this projection's reviewed intake; it is not a general-purpose, unbypassable database-write API.
+The atlas contains only full, source-supported gauge-algebra and matter specifications. Extract first, normalize and validate second, reconcile duplicates third, and only then add an entry. A paper can remain listed with zero model links. Incomplete sectors, unresolved extraction and uninstantiated frameworks are not public entries. There is no public pending catalogue or new exclusion log.
 
-The four SU(5) corrections establish the full primary unified inventories for Georgi–Glashow, GG plus an additional 5 and two 10 scalars, GG plus a 15 scalar, and the renormalizable adjoint model. Baseline GG fields inherited by the two extensions explicitly retain their originating model, regime and field IDs. These add eight projected occurrences, not eight new source fields. Secondary low-energy regimes are not appended to the unified spectrum. Source scalar containers pass through the ordinary real-module normalization, including the adjoint's source-backed real counting. The operator-only SU(5) RPV sector does not establish a complete GUT-breaking inventory and remains pending.
+Complete here means the gauge algebra, Lorentz and gauge representations, and multiplicities in one stated description regime. It does not mean a complete Lagrangian, independently certified physics, anomaly cancellation, viable phenomenology or a UV completion of an explicitly specified EFT. Do not invent missing matter to supply any of those.
 
-The two P19 corrections establish the unified just-45H + 126H model and its complex-10H extension. Section IV.A explicitly includes ordinary 16F fermions in the smaller model; its unrealistic flavour phenomenology is not a missing-inventory or intake gate. The completed minimal entry retains its original scalar-sector description and fields as provenance, and explicitly inherits only the same-paper 16F baseline (field 234, source regime 64), not 10H or a union of regimes. Both entries declare three ordinary SM families. The source's extended-model coefficient b = −12 independently corroborates that count; it is not a literal three-family table or a beta coefficient printed for the minimal model. Canonical scalar multiplicities are 45:1, 126:1, and, only in the extension, 10:2. The source complex 10 has one container; its real-type representation gives two real modules. Exact D5 node/embedding maps, real-component counting and scope limitations are saved in `reextraction/so10-resolution-20261016/`. This review supersedes the earlier scalar-sector-only disposition without changing frozen historical evidence.
+The current release has **67 entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. All 50 seed papers and the independent theory reference R01 remain listed. The three derived views contain 11 semisimple algebras and 58 non-Abelian matter spectra. These are counts of field content, not distinct complete physical theories.
 
-P04 corrects the existing `lr-triplet-matter` entry and both parity/C regimes: colour explicitly suppressed in the source is restored using a declared SM baseline, Eq.(2) yields fermion B−L charges with stated SM electric-charge assumptions, all four fermion multiplets have three copies, and the common full-inventory unit is q=3(B−L). RH quarks/leptons become LH conjugates, including colour conjugation. The two scalar triplets have q=6, not `source:2`; Φ is a complex bidoublet. Definitions, inherited assumptions and derivations remain distinguished in provenance. The source coupling multiplies (B−L)/2, so in that convention g_atlas=g_source/6.
+## Source and scope
 
-Original field IDs and original assertions are preserved, including each corrected field's `legacyProjection`. The normalized accepted input and separate source review are saved in the additive `extraction_reviews` table of the generated SQLite, as well as JSON. New review states do not alter legacy unchecked assertions. These are definition-scope agent source checks, not whole-paper readings or independent physics/anomaly/viability verification. P01/P02 share the existing real-singlet entry; 2HDM Type-I/II and NMSSM general/Z3 variants retain one field-content entry each. Frozen candidates and evidence retain their historical `field-content-1` fingerprints. Public numerical inputs now use `field-content-2`; historical accepted reviews retain both signatures, while new reviews pin the current signature directly. `identity_migrations` records the counting-convention change.
+Read actual pinned arXiv field definitions, equations, tables and surrounding context. Record inspected pages/sections and the PDF hash. Abstracts alone are insufficient. Source statements, declared inheritance and mathematical derivations remain distinct. Preserve source misprints/conflicts explicitly; do not silently copy them as normalized facts.
 
-The all-50 agent pass is saved separately in `reextraction/corpus-handoff.json`: 18 completed-scoped, 27 partial-scoped and 5 reference-only papers; none queued/access-blocked. These are inspection-scope categories, not 50 complete spectra. P06–P50 contribute 42 frozen numerical candidate occurrences (41 historical signatures), plus partial descriptions. Their acceptance is not automatic: the current gates accept P01–P05, four reviewed P11/P18 SU(5) candidates and two newly reconciled P19 SO(10) candidates. Other followup candidates remain staging. The new counting convention has idempotent projections of all 48 pilot/corpus candidate occurrences without modifying frozen source evidence. Reported token/dollar/GPU costs remain null because those measurements were not exposed; retrieval and deterministic CPU/wall timings are recorded separately and are not inference cost.
+Choose one regime: do not combine UV and IR spectra, bulk and brane fields, fundamental fields and dependent composites, or a linear realization and its constrained nonlinear coordinates. Gauge connections follow from the algebra and are not extra matter. Spurion backgrounds and auxiliary fields are not independent propagating rows.
 
-## Papers are not model rows
+An explicitly inherited SM/MSSM baseline can be expanded using the templates below. Do not append colour, fermions, a Higgs, a breaking scalar or generations simply to complete a sector. An explicit finite benchmark can be harvested from a family; an arbitrary rank, replica count or charge substitution cannot be presented as a source-selected theory.
 
-The 50 seed papers remain independently listed. Additional general theory paper R01, **General solution to the U(1) anomaly equations**, arXiv:1905.13729v1, is a paper with **zero associations to the gauge/matter table**. It is listed independently, not as a BSM model. The notation convention below is defined directly and requires no paper association. Software, general theory, uninstantiated frameworks and SM operator-only examples likewise need not have a model association. Source records omitted from the BSM view remain in JSON `referenceRecords` and the unchanged original database.
+The historical DSI SQLite, SQL export and frozen extraction runs remain unchanged. Their older partial records are not the current public atlas. New source-supported harvests are pinned in `reextraction/accepted-harvest.json`; its files, normalized inputs and source-row provenance are checked before publication. Earlier accepted manifests remain active. The 21 previously complete seed identities are explicitly pinned, not a loophole for new unreviewed entries.
 
-There are 103 provisional field-content entries after the explicitly documented grouping/exclusion decisions. This is not a count of complete or distinct physical theories. Different interactions or global symmetries may share one field-content entry; incomplete entries cannot be globally deduplicated reliably.
+## Gauge algebra
 
-## Algebra conventions
+Use local compact Lie algebras and direct sums, not an inferred global gauge group or quotient:
 
-The visible count column is **Multiplicity**: the number of repetitions of a Lorentz × gauge representation, not its dimension. Existing machine fields named `copies` retain this meaning for compatibility with canonical fingerprints and frozen evidence. This label change does not migrate or recount any data.
+`g_SM = su(3) ⊕ su(2) ⊕ u(1)`.
 
-- Local compact Lie algebras use lowercase `su(n)`, `so(n)`, `u(1)` and direct sums. The SM shorthand is **g_SM = su(3) ⊕ su(2) ⊕ u(1)**. No global group or central quotient is inferred.
-- Simple-factor keys use Cartan type and rank, e.g. A2 and A1. Low-rank B1=A1, D3=A3 and B2=C2 are normalized only at the algebra level. Numeric source Sp(N) conventions remain unresolved unless rank versus fundamental-dimension convention is known.
-- Factor slots are sorted by Cartan family, descending rank, then role. Abelian factors follow non-Abelian factors; identified hypercharge is the first Abelian slot. Repeated factors retain role labels. A permutation is applied to representations together with the algebra; the slot keys are retained.
-- Separate source groups are combined only as recorded product sectors. In the littlest-Higgs record, the diagonal EW subgroup is not appended to the UV doubled EW algebra.
-- A source that records only an EW/new sector remains scoped. No missing colour representation or complete SM-containing embedding is inferred. A declared baseline can supply the SM algebra, but not invented assignments for new fields.
+Each simple factor has a canonical Cartan family and rank, with an explicit factor ID. Normalize the low-rank algebra aliases B1=A1, D3=A3 and B2=C2, and map source weights accordingly. Repeated factors remain distinct slots. Source Sp(N) notation requires an explicit rank versus fundamental-dimension convention.
 
-## Representations and charges
+A BSM extension can retain g_SM with added matter; it need not enlarge the gauge algebra. A sector labelled su(2) alone is not the full algebra of an SM-containing model. Only complete published entries can create an algebra category.
 
-**Dynkin labels are the canonical database identifiers.** `([1,0], [1]; 1)` denotes the su(3) fundamental, su(2) doublet and Abelian charge +1. Square brackets hold one nonnegative highest-weight coefficient per simple-root node, not a dimension. Tuples list non-Abelian irreps in factor-slot order followed by Abelian charges after the semicolon. A question mark is unresolved, **not a singlet or zero**. For example, an SM singlet is `([0,0], [0]; 0)` and the Higgs is `([0,0], [1]; 3)`.
+## Exact non-Abelian representations
 
-The machine convention is `dynkin-gauge-1`: finite-dimensional complex irreps, with **Bourbaki node numbering as implemented by [Sage finite Cartan types](https://doc.sagemath.org/html/en/reference/combinat/sage/combinat/root_system/cartan_type.html)**. A_r uses the chain 1,…,r; B_r ends with the short-root spinor node; C_r ends with the long-root node; D_r has spinor nodes r−1,r attached to r−2. The referenced numbering also fixes E/F/G. This is a gauge convention, separate from the existing dimension-specific Lorentz B/D convention. Map any differently numbered source labels explicitly before intake; do not silently reverse or exchange nodes. Algebra aliases such as D3=A3 also require an explicit weight map when the source supplies Dynkin labels.
+Store highest-weight **Dynkin labels**, one nonnegative integer per simple root, using Bourbaki/Sage finite Cartan node numbering. Dimensions and names are derived displays, not unique identifiers. Record any source-node/embedding conversion.
 
-The implemented A-series conversions have fundamental `[1,0,…,0]` and conjugate `[0,…,0,1]`; SU(2) dimension d has label `[d−1]`. Familiar SU(3) 6/10 and their conjugates are converted conservatively. Dimensions do not uniquely identify all irreps: ambiguous cases, including SO spinor conventions, remain null/`?` in the canonical data and Dynkin display, never a bare dimension masquerading as a Dynkin label. Reviewed P19 D5 labels instead use an explicit source embedding: 10 `[1,0,0,0,0]`, 45 `[0,1,0,0,0]`, LH16 `[0,0,0,1,0]` and scalar126 `[0,0,0,2,0]`. Readable D-series dimensions are computed by the exact Weyl formula. For odd D_r, the penultimate spinor node is unbarred and its dual is barred in this display convention; dimension shorthand is not an identifier. Original representations, exact charges and normalization notes remain in provenance. A-series Young row lengths are sums of the Dynkin labels to the right; they are derived displays, not additional identity rules.
+A_r has chain nodes 1,...,r. D_r has spinor nodes r-1,r attached to r-2. For reviewed D5 sources use roots e1-e2,e2-e3,e3-e4,e4-e5,e4+e5. In the recorded source embedding the LH16 is `[0,0,0,1,0]`, vector10 `[1,0,0,0,0]`, adjoint45 `[0,1,0,0,0]` and scalar126 `[0,0,0,2,0]`. The odd-D dual swaps the two final labels. Never infer either spinor orientation from dimension16.
 
-The website defaults to readable dimensions/charges such as `(3,2;1)`. A visible notation control switches to Dynkin labels, A-series Young diagrams, or an in-cell comparison of all three. Gauge-column headings show finite-type Dynkin diagrams in the same Bourbaki node convention; these describe the **algebra**, not a particular matter irrep. Abelian factors are explicitly labelled without a Dynkin graph. Parameterized or unknown factors get no invented diagram. SVG.js 3.2.8, vendored with its MIT license, renders the geometry locally; it does not infer representations. Oversized Young diagrams fall back to exact row lengths rather than silently clipping boxes.
+Readable A- and D-series dimensions use exact Weyl arithmetic. For odd D_r, the penultimate spinor node is unbarred and its dual barred in dimension shorthand. Exact weights remain authoritative. A-series Young diagrams use row lengths given by sums of Dynkin labels to the right. An unavailable Young display for another family does not mean that its exact representation is unknown.
 
-The JSON adds `representationConvention` and `dynkinRepresentation` on source containers, Lorentz components and baseline templates. Structured `components[].dynkin`, per-component `gaugeComponents[].dynkin`, charges and factor keys remain the actual machine identifiers; formatted strings are displays, not identity keys. Legacy `representation` fields retain their dimension/source-container shorthand for compatibility. The summary CSV now uses Dynkin tuples. SQLite saves the same convention in `metadata.representation_convention_json`; `dynkin_json` remains the canonical weight column, while `representation_label` retains the prior shorthand. The notation-only version-3 change did not modify scalar counting; version 4 below does, explicitly and with signature migration history.
+The website can switch between dimensions, Dynkin labels, eligible Young diagrams and comparison. Gauge-column Dynkin diagrams describe the algebra, not an individual field representation. SVG.js is vendored locally; it draws known geometry and does not infer source assignments.
 
-For each concrete U(1) assignment, one positive common rescaling makes charges integral with gcd 1. Field labels and the source generator orientation are retained; fields are not sorted into an unlabeled charge set. A declared SM reference supplies its charge unit. Ordinary textbook hypercharge uses **q = 6Y**; sources with Q=T3+Y_source/2 instead use q=3Y_source. The corresponding coupling is g_atlas=g_source/scale.
+## Lorentz representations and multiplicity
 
-An incomplete or symbolic assignment is not normalized using an arbitrary numeric subset. Source strings such as `source:2` remain provenance, never values in the numerical charge column. In pending views the cell is `?` until the full shared unit is established; P04 now supplies that unit for the left–right entry. All-zero charges alone do not define a unit. Multiple U(1) basis changes and kinetic mixing are not resolved by separate gcd rescalings. The JSON records each factor's normalization status, scale, reference and scope.
+In four dimensions use Spin+(1,3) field representations `(j_L,j_R)`: scalar `(0,0)`, LH Weyl `(1/2,0)`, vector `(1/2,1/2)`. These are field representations, not on-shell polarization counts.
 
-## Matter and baselines
+All independent 4D Weyl fields are left-handed. Conjugating a RH field conjugates every non-Abelian factor and negates every Abelian charge. A Dirac multiplet becomes two independent LH rows. A Majorana field supplies one independent Weyl row; dependent Hermitian conjugates are not new matter.
 
-### Scalar counting in version 4
+Higher-dimensional fields retain the appropriate B/D Lorentz Dynkin labels. The source-selected 5D UED branch uses B2 spinors `[0,1]` and scalar `[0,0]`, with physical source gauge representations. No 4D chirality conversion or invented KK decomposition is applied.
 
-The canonical unit is **one irreducible real gauge module** (`scalar-real-modules-1`). A displayed highest weight still labels an irreducible complex representative R of complex dimension d:
+The visible column is **Multiplicity**: repetitions of a Lorentz × gauge representation, not its dimension. The machine key `copies` retains that meaning for compatibility. Distinct family charges become separate rows, not an array-valued charge or identical copies.
 
-- Real type: use its real form (real dimension d). One source real field contributes one copy; one unconstrained source complex field contributes two copies.
-- Complex type: use the underlying real module (real dimension 2d). R and its **full** conjugate specify the same scalar module; one source complex field contributes one copy.
-- Pseudoreal type: use the underlying real module (real dimension 2d). An ordinary half-dimensional real condition is not allowed. One source complex field contributes one copy.
+## Scalar counting
 
-For self-dual irreps, real versus pseudoreal type is computed by the exact Tits/Frobenius–Schur indicator `(-1)^(lambda(2rho^vee))`; for tensor products the indicators multiply. See [Theorem 3.6](https://arxiv.org/html/0704.0165v1). A nonzero U(1) charge gives complex type. Self-duality alone does not establish a real form. In particular, a neutral SU(2)×SU(2) bidoublet is real type, so the source complex P04 Φ contributes two canonical copies. A charged SM Higgs contributes one underlying-real copy, not two. A complex neutral singlet contributes two copies; two source real singlets have the same signature.
+The canonical scalar unit is one irreducible **real gauge module** (`scalar-real-modules-1`). A displayed complex highest weight R of dimension d is its representative:
 
-Choose a scalar's complex representative by making its first nonzero Abelian charge positive; when all charges vanish, choose the lexicographically larger of its weight tuple and full dual. Rechoose after factor permutations/sign transformations during fingerprinting. Conjugate **all factors together**. This scalar equivalence is not used for Weyl fermions. The global gauge group/quotient remains unasserted.
+- Real type: the real form has real dimension d. One source real field contributes one copy; an unconstrained source complex field contributes two.
+- Complex or pseudoreal type: the underlying real module has real dimension 2d. One source complex field contributes one copy.
 
-Canonical scalar components have `reality: real_module`, their own `copies`, and normalization metadata. Source-container `copies`, reality and gauge labels remain provenance in `sourceScalar`/original fields; they are not canonical component counts. The website, CSV and SQL component table use component copies consistently. No separate real/complex annotation is needed on a completed scalar row. If the source count/reality has not been established, the component remains pending; the representation type alone cannot select one versus two real copies.
+A neutral complex singlet is therefore two real singlet copies. A charged Higgs doublet is one underlying real module. The NMSSM singlet chiral multiplet gives two scalar copies and one LH Weyl copy. The source complex SO(10) vector10 scalar gives two real10 copies.
 
-The full-entry view defaults to 21 complete numerical inventories under these conventions. The remaining 82 provisional source records are accessible in the algebra overview, pending-record lists, Coverage and downloads, not presented as accepted spectra. A computable identity is not independent source, anomaly or viability certification.
+Source reality is established from the paper, not guessed from self-duality. Real/pseudoreal representation type uses the exact Tits/Frobenius-Schur indicator; tensor-product indicators multiply. A nonzero Abelian charge gives complex type.
 
-### Non-Abelian cores in version 5
+Choose a numerical scalar representative by making its first nonzero Abelian charge positive; with no such charge choose the lexicographically larger full weight tuple versus its dual. Conjugate all factors together. Do not apply scalar conjugation equivalence to Weyl fermions.
 
-The website's second layer displays **non-Abelian cores**, then links each core to all of its currently resolved full entries. A core retains the semisimple gauge algebra, Lorentz representations, highest-weight non-Abelian irreps and **total copy counts**. It omits every Abelian factor, including SM hypercharge, and its charges. Copies participate in both the key and display: one versus two real singlets, or two versus three Higgs doublets, remain distinct. Only identical restricted rows are aggregated; the SM u^c/d^c multiplets together give six LH colour antifundamental weak singlets.
+Canonical component counts and `reality: real_module` are stored separately from source container counts/reality in provenance. A table row never uses an unresolved scalar count. Symbolic families retain source container metadata; publication requires a correct uniform real-module display or an explicitly reviewed piecewise-counting adapter, not a guessed generic count.
 
-This is a derived restriction, not a different physical theory, a symmetry-breaking step, an SM-embedding proof or a replacement for the full entry. All baseline matter is expanded before hashing. Real scalar modules are decomposed after restriction: a charged complex non-Abelian singlet restricts to two real singlet copies, whereas a charged weak doublet restricts to one quaternionic underlying-real module. Fields and degrees of freedom are not deleted. The convention is `nonabelian-core-1`; canonical JSON and its SHA256 determine the key. Factor order, row order, repeated identical-factor permutations and row splitting/aggregation are treated consistently with numerical identities. General simple-algebra outer automorphisms are not exhaustively quotiented.
+## Abelian charges
 
-The release has 17 cores for the 21 complete numerical primary-regime entries. The other 82 source records remain pending, with an explicit unresolved core reason; no matter core is inferred from an unfinished inventory. Different description regimes are never combined. An omitted Abelian factor can change the rank without changing a core; `abelianRank` is recorded separately, or null when the gauge algebra is unresolved. Core factor slots use canonical numbering, not a claim that a numbered slot has a source's physical L/R role.
+For a fixed numerical spectrum, apply one positive common rescaling per U(1) over the complete fermion and scalar inventory so all charges are integers with gcd1. Keep the generator orientation/source-to-atlas conversion in evidence. Ordinary SM hypercharge is `q=6Y`. Never normalize rows, generations or scalar subsets independently.
 
-Full entries are stored once. `gauge_factors` relationally exposes each regime's factor slots and type; `nonabelian_factors` and `abelian_factors` are filtered SQL views, not independently maintained copies. Unresolved factors remain tagged in the underlying factor table. `component_gauge_representations` references its exact regime/factor slot. `nonabelian_cores` stores derived keys, and `entry_cores` records every entry's primary-regime membership or unresolved reason. Existing full numerical fingerprints and the immutable source DB are unchanged.
+Multiple U(1) factors retain an explicit generator basis. Independent gcd rescalings/signs do not exhaust GL(n,Z) basis equivalence or kinetic-mixing conventions.
 
-### Three browsing layers in version 6
+Families use `field-content-3`: fixed gauge factors, non-Abelian and Lorentz representations, positive integer multiplicities, declared integer parameters and exact charge polynomials. For example, `parameters: {z1:{domain:integer}, z2:{domain:integer}}`, charge `z1**2+z2`, constraints `0<z1<z2<3`. A fixed entry has no free parameters.
 
-The default hierarchy is **semisimple gauge algebra → non-Abelian matter spectrum → full gauge–matter entry**. These are successive projections of one underlying catalogue, not three independently maintained source inventories. The first layer forgets all matter as well as every Abelian factor. Its canonical identity is the sorted multiset of canonical simple Cartan types/ranks (`semisimple-algebra-1`); repeated simple factors remain repeated, and the zero semisimple algebra is distinct from an unknown one. No global group or central quotient is inferred. The second layer uses the existing unchanged `nonabelian-core-1` identity, including exact Dynkin labels, Lorentz types and copies. The third uses unchanged numerical field-content identities.
+`integer-polynomial-1` permits integer literals, declared symbols, parentheses, +, -, *, and literal nonnegative powers **. Constraints are exact polynomial comparisons, conjoined with AND. No arrays, floats, undeclared symbols, arbitrary functions or eval. Parsing/expansion has explicit size/degree/coefficient limits.
 
-The release displays 14 recorded semisimple algebras, covering 94 of the 103 primary source records. Algebra membership depends only on resolved fixed Cartan factors, not on matter completeness; five SU(5) records therefore remain visible even though one has only a recorded sector. Nine records with unknown/parameterized gauge factors appear separately, without guessed finite ranks or omitted factors. An empty/missing factor list is unknown, not the zero algebra; an explicitly purely Abelian algebra has zero semisimple part. Level 2 groups the 21 complete numerical entries into 17 matter spectra and lists pending records separately. This hierarchy does not promote pending extraction to accepted spectra or change source review. The U(1)-factor-count filter selects full entries, then projects the selected subset into each layer; it does not change any algebra/core key. Paper/search/notation filters persist through drill-down links. Legacy `#core/…` and `#entry/…` links remain supported.
+Do not enumerate a family. The website displays its parameter domain and constraints on the same entry. Specialization validates the integer point, evaluates charges exactly, then applies numerical primitive normalization, scalar counting, aggregation and duplicate reconciliation. Family generator coordinates need not have a common gcd1 at every point before that specialization.
 
-JSON adds `semisimpleAlgebras` and `semisimpleConvention`; every resolved core and member entry gets a derived `semisimpleId`. SQL adds the derived `semisimple_algebras` cache and a required parent key on `nonabelian_cores`; the `entry_layers` join view exposes all three levels without another source inventory. `downloads/semisimple-algebras.csv` supplies the algebra-only projection. All groupings can be regenerated from full entries; do not hand-edit membership lists.
+Family identity is exact normalized template identity, not proof of equivalence under all reparameterizations or overlapping domains. Domain nonemptiness, anomaly cancellation and physical viability are not certified by syntax validation. The two published family constraints record the source definitions, not a new anomaly-cancellation gate.
 
-### Parameterized charges: schema and read-only preflight
+Typed SQL tables `entry_parameters`, `entry_constraints` and `component_charge_expressions` supplement the same entries. Formulas never enter the integer-only `component_gauge_representations.charge` column. The full schema-versioned specification is preserved in `entry_identity.input_json` and `extraction_reviews.normalized_entry_json`.
 
-Use the same catalogue for fixed and parameterized gauge/matter entries, not separate user-facing model/family catalogues. Initially fix the gauge algebra, non-Abelian Dynkin labels, Lorentz representations and multiplicities; permit restricted exact integer-valued expressions in Abelian charge slots. Every symbol must be declared in entry-level parameter metadata, with domains and constraints. A fixed entry has empty parameter metadata `{}`, not an unknown assignment. Equations constrain parameters; each charge cell is one scalar-valued expression. Lists such as `[0,-3,3]` expand into separate field rows, not one charge value. These parameters do not include masses or couplings.
+## SM presentation templates
 
-Use `schema_version: field-content-3` for this input convention. It extends the same entry format, not a separate model-family catalogue. For example, the entry-level metadata can be:
+These expand a source's explicit inheritance; they are not independent evidence that a paper specified an omitted sector.
 
-```json
-{
-  "parameters": {
-    "z1": {"domain": "integer"},
-    "z2": {"domain": "integer"}
-  },
-  "constraints": ["0 < z1 < z2 < 3"]
-}
-```
-
-Each matter row supplies one expression per Abelian factor, e.g. `"X": {"charge": "z1**2 + z2"}`. A concrete version-3 entry uses `parameters: {}` and constant charge strings. Existing numerical version-1/version-2 candidates remain supported unchanged. `examples/parameterized-charges.json` is a complete, explicitly illustrative SM extension, **not an accepted source model**. Its extra chiral charges deliberately need not cancel anomalies.
-
-The initial expression language is `integer-polynomial-1`: integer literals, declared integer parameters, parentheses, `+`, `-`, `*`, and literal nonnegative powers `**`. Thus all charge expressions are integer-valued on the declared domain. Division (including integer-valued rational-coefficient polynomial formulas), functions, floats, arrays, arbitrary code and undeclared variables are not accepted. Rational numerical source charges still use the existing numerical input path. The parser never executes expressions with `eval`. It expands/collects polynomials and renders them deterministically; 16 parameters, 128 syntax nodes per expression, powers 0–32, total degree 32, 256 expanded terms, 1024 text characters and 4096-bit coefficients bound resource use. Expanded canonical expressions must also fit the syntax limits.
-
-`constraints` is a conjunction (AND) of exact polynomial comparisons using `==`, `!=`, `<`, `<=`, `>` or `>=`. Chains are expanded into individual comparisons. Bounds may be finite or unbounded; an empty list leaves all declared integers allowed. General domain nonemptiness is **not proven** by schema validation. Every declared parameter must occur in at least one charge polynomial; source omissions are not parameters. Intake checks structure, not anomaly cancellation or physical consistency. A source can describe an anomalous recorded sector, an omitted cancelling sector or a different cancellation mechanism; preserve those claims and scope as evidence without requiring an anomaly-equation solution.
-
-Run the read-only preflight or specialize a point:
-
-```sh
-python3 atlas/prepare_entry.py atlas/examples/parameterized-charges.json
-python3 atlas/prepare_entry.py atlas/examples/parameterized-charges.json --values '{"z1":1,"z2":2}' --database website/downloads/field-catalogue.sqlite
-```
-
-Without values, preflight returns a validated/normalized symbolic payload and **no numerical fingerprint**. With values, it requires exactly the declared integer parameters, checks every constraint, evaluates charges exactly, then uses the existing numerical normalization and duplicate registry. Symbolic 4D fermions must already be explicit LH Weyl rows. A scalar with parameter-dependent charge retains its source complex-field count; canonical real-module counts are determined after specialization, since zero-charge loci can change the decomposition. It is not legitimate to substitute a neutral placeholder as an actual member or silently assume generic scalar counting on every locus.
-
-Do not enumerate every substitution. A symbolic entry can represent infinitely many spectra. Numerical specializations use complete-inventory primitive normalization, scalar real-module decomposition, identical-row aggregation and numerical duplicate reconciliation. `(n,-n)` for integer n≠0 normalizes to one assignment; `(1,-1,n,-n)` generally retains a charge ratio. Special values may change the full-inventory gcd, real-module type or row merging. Gcd normalization is applied **pointwise**, not guessed once from the symbolic coefficients. Polynomial rewriting is normalized, but general parameter renaming/reparameterization, overlapping families and multi-U(1) basis changes are not certified as equivalent by this validator.
-
-This implements the input schema and preflight, not an enforceable write API or automatic public-family intake. The current generated catalogue still contains numerical accepted candidates and pending source records; no symbolic example is published as a model. Do not put formulas into its existing integer-only SQL charge column. A later source-reviewed symbolic intake must persist the complete version-3 payload (including parameter domains and constraints) on the same entry, with explicitly typed expression storage, before exposing it through the public exporter.
-
-The website uses **one matrix per entry**: rows are independent matter representations, columns are spacetime and the actual gauge-algebra factors, followed by **Multiplicity**. A direct SM factor is shown as g_SM; an SM subgroup embedded inside SU(5), SU(4), etc. is not appended as a second gauge factor. Identical resolved rows in one regime combine their copy counts using Dynkin labels and exact charges, not dimensions or source names. Unknown weights never establish a merge; su(3) [2,1] and [4,0], both dimension 15, stay distinct. Source variants and separate regimes never become duplicated simultaneous spectra. Baseline rows expand on demand.
-
-### Lorentz convention: all 4D Weyl fields are left-handed
-
-The machine convention is `lorentz-field-1`. Four-dimensional labels are (j_L,j_R) for finite-dimensional representations of Spin^+(1,3): scalar (0,0), LH Weyl (1/2,0), vector (1/2,1/2). These are **field representations**, not on-shell Poincare particle spin/polarization counts. Source scalar reality conditions remain provenance; canonical scalar rows use the real-module counting unit described below.
-
-Every identified RH Weyl field is replaced by its independent LH charge conjugate: `(R; q_1,…,q_k)_R → (conjugate(R); −q_1,…,−q_k)_L`. For example `(3,1;4)_R → (bar(3),1;−4)_L`. All non-Abelian factors must be conjugated, not only hypercharge negated. A 4D Dirac multiplet is two LH rows in R and conjugate(R); a Majorana field is one independent LH Weyl row with its source conjugacy condition retained. Neither operation creates a new model entry. Unknown source handedness leaves the gauge assignment versus its conjugate unresolved and blocks an exact fingerprint.
-
-The NMSSM singlet chiral supermultiplet expands to two rows: scalar `(0,0)` with **two real-module copies** and Weyl `(1/2,0)` with **one copy**, both in `(1,1;0)` under g_SM. Auxiliary fields and dependent conjugates are not new rows.
-
-Higher dimensions use complexified Lorentz B/D Dynkin labels in standard vector-first/spinor-last node order. A 5D spinor has B2 label [0,1], not a 4D chirality label. A 6D chiral spinor with unrecorded chirality is explicitly ambiguous between the two D3 spinor nodes. Brane fields are distinguished from ambient bulk fields. Ordinary non-bulk descriptions whose original dimension column was NULL currently have a labelled **editorial 4D interpretation**, visible in provenance and exported per-field scope metadata; this is not a newly checked source assertion. Unresolved bulk or parameterized dimensions stay unresolved. No KK reduction is inferred.
-
-### Reusable entry format and duplicate checks
-
-`entry.schema.json` specifies complete candidate inputs: `schema_version`, `inventory_complete`, canonical `gauge_factors`, and `matter` rows with `lorentz`, `reality`, `copies`, and per-factor `gauge_representations`. Labels and paper IDs are metadata, not identity. Dynkin labels are required for non-Abelian factors. Numerical charges are exact rational strings and normalized jointly over the full inventory; version-3 symbolic charges use the restricted convention above. Runtime checks reject missing factors, unresolved chirality/counts, invalid ranks and inconsistent Lorentz labels.
-
-Run the read-only check **before creating an entry**:
-
-```sh
-python3 atlas/check_entry.py atlas/examples/two-higgs-doublets.json
-python3 atlas/check_entry.py candidate.json --database website/downloads/field-catalogue.sqlite
-```
-
-Before that duplicate check, the extraction agent must establish the source facts and normalize the complete numerical candidate:
-
-```sh
-python3 atlas/prepare_entry.py candidate.json --database website/downloads/field-catalogue.sqlite
-python3 atlas/prepare_entry.py normalized.json --require-normalized --database website/downloads/field-catalogue.sqlite
-```
-
-`prepare_entry.py` emits `normalized_entry`, positive common U(1) conversion scales, and optionally duplicate results. It validates the candidate object shape, fixed Dynkin-label ranks and exact charges, converts identified RH/Dirac descriptions to the LH basis, and applies primitive integer normalization across the full inventory while preserving generator orientation. `--require-normalized` rejects source-shaped candidates still needing conversion. `normalize_spec` is also called before the generator saves complete `entry_identity.input_json` payloads, not only inside fingerprint computation. Raw assertions and source units remain unchanged in provenance.
-
-This is a read-only mathematical preflight, not a PDF-reading agent, source-evidence certificate, or enforced database-write API. Follow the mandatory extraction → normalization → ingestion instructions in `BSM_ATLAS_AGENT_PROMPT.md`. Evidence locators and the actual paper inspection remain the extracting agent's responsibility. Existing legacy projections are not retroactively validated by this change.
-
-**Missing versus free:** `not_extracted` means unfinished agent work; it must stay in staging, not be accepted as a scientific table value. A scientific `?` is reserved for a genuine source omission, recorded as `not_specified_by_source` after inspection of the relevant source scope. A paper's explicit free parameter is a symbolic entry with a shared parameter identity, domain and relations, not an unknown number. Version-3 preflight validates such declared charge parameters; unknown values remain partial. No raw `?`, undeclared `q`, `source:2` or extraction-error string belongs in a canonical numerical charge column. No anomaly check is an intake requirement.
-
-An exact field-content match returns the existing entry ID: add the paper association instead of creating a duplicate. The database's `content_signatures.fingerprint` is a primary key. `entry_identity` maps existing IDs to that signature, or records why identity is unresolved. The internal canonical JSON is a deterministic fingerprint encoding (with IDs removed), not another source paper record or the candidate-input format.
-
-The checker canonicalizes row ordering, identical-row copy aggregation, gauge-factor ordering/permutations of repeated factors, common U(1) rational rescalings and independent generator sign flips. It normalizes explicit RH/Dirac inputs to the LH basis. It retains neutral fields and vector-like pairs. Scalar real-module type/weights and all component copy counts contribute to identity. A complex scalar in a real-type irrep and two real copies now have the same identity.
-
-**Limits:** this is field-content identity under the stated schema, not full physical-theory equivalence. General multi-U(1) basis mixing, simple-algebra outer automorphisms and cross-regime dualities are not exhaustively quotiented. A nonmatch returns `no_exact_match_review_required`, never “new model proven.” Partial sectors and unknown inventories get no complete signature; same-algebra candidates still require reconciliation. The current source claims remain unchecked even when a complete structural signature can be computed.
-
-- S is scalar, with source reality explicit. F is a source fermion, with handedness explicit when known; missing handedness stays missing. Identified right-handed four-dimensional Weyl fields are converted to left-handed conjugates, conjugating all factors together.
-- F_D is one source Dirac/vector-like multiplet. In four dimensions it is a Weyl pair R ⊕ conjugate(R), not a single chiral fermion. Copies count Dirac multiplets in such a row. No bulk-to-4D dimensional reduction is assumed.
-- S+F is one chiral supermultiplet, represented by one complex scalar and one left-handed Weyl fermion in that representation, with no auxiliary fields counted. V is additional vector matter, not an extra copy of the algebra's gauge connections.
-- Multiplicity means copies of a multiplet, not its representation dimension. A family charge vector is not collapsed to identical copies. Unknown counts stay NULL/`?`.
-- Gauge connections are implied by the algebra. Composite operator collections, spurion backgrounds, field coordinates and mass eigenstates are preserved for provenance but excluded from independent-matter summaries. Different description regimes are never summed into one spectrum.
-
-All baseline templates are explicit presentation definitions, not claims that a source individually re-enumerates them:
-
-| Template | Inventory in left-handed notation; integer q=6Y |
+| Template | Inventory in all-LH notation, q=6Y |
 |---|---|
-| F_SM | 3 copies each of Q=([1,0],[1];1), u^c=([0,1],[0];−4), d^c=([0,1],[0];2), L=([0,0],[1];−3), e^c=([0,0],[0];6) |
-| H_SM | One complex scalar H=([0,0],[1];3) |
-| R_SM | F_SM ⊕ H_SM; no right-handed neutrino |
-| R_MSSM | Three chiral families Q,u^c,d^c,L,e^c, two Higgs chiral multiplets (1,2;±3), and adjoint gluino/wino/bino Weyl multiplets; replaces R_SM |
+| F_SM | Three each of Q=(3,2;1), u^c=(bar3,1;-4), d^c=(bar3,1;2), L=(1,2;-3), e^c=(1,1;6) |
+| H_SM | One complex scalar (1,2;3) |
+| R_SM | F_SM + H_SM; no RH neutrino |
+| R_MSSM | Three chiral matter families; two Higgs chiral multiplets; adjoint gluino/wino/bino Weyl fields; replaces R_SM |
 
-Two-Higgs-doublet summaries use F_SM plus two doublets, not R_SM plus two more doublets. NMSSM uses R_MSSM plus a singlet chiral multiplet. Baseline-parent navigation alone does not silently import a full spectrum into a partial variant.
+Two-Higgs-doublet models use F_SM plus two Higgs doublets, not R_SM plus two more. NMSSM uses R_MSSM plus one singlet chiral multiplet.
 
-## Saved schema and provenance
+## Three derived browsing layers
 
-`FIELD_CONTENT_CATALOGUE.json` and the website JSON contain entries, independently listed papers, templates and preserved reference records. Entry → source variants → regimes → fields retains all 125 original model IDs and all 573 source field IDs, including excluded-coordinate rows. Grouping, exclusions, baseline decisions and source-specific charge conversions live in `field_content_curations.json`. Exact source assertions and passage locators remain attached; none are promoted to checked.
+1. Semisimple gauge algebra: forget matter and every Abelian factor.
+2. Non-Abelian matter spectrum: retain Lorentz irreps, non-Abelian weights and multiplicities, forgetting every Abelian factor.
+3. Full gauge-matter entry: retain all factors and exact charges, including symbolic metadata when applicable.
 
-The separate `website/downloads/field-catalogue.sqlite` has:
+All three derive from the same complete entries. A partial sector cannot create a category. Scalar real modules are decomposed again after restriction; a charged singlet yields two real singlets when its U(1) is forgotten. A source complex vector whose restricted gauge irrep becomes real similarly supplies two real vectors. Symbolic restriction removes Abelian factors before source-field realification; it never substitutes a fictitious parameter point.
 
-| Table | Main columns |
-|---|---|
-| entries | entry_id, name, gauge_algebra (primary display), baseline, coverage, source_variants_json |
-| papers | paper_id, arxiv_version, title, inspection_status, review_status |
-| entry_papers | entry_id, paper_id; many-to-many links, no minimum association count |
-| gauge_factors | regime_id, factor_key, factor_order, factor_kind, cartan_family, rank, role, label, normalization_json; Abelian/non-Abelian views filter this table |
-| semisimple_algebras | semisimple_id, convention, gauge_algebra, canonical_json; derived algebra-only cache |
-| nonabelian_cores | core_id, convention, gauge_algebra, canonical_json, semisimple_id; derived layer-2 cache with one layer-1 parent |
-| entry_cores | entry_id, regime_id, core_id (nullable), abelian_rank, status, reason |
-| entry_layers (view) | entry_id, core_id, semisimple_id, abelian_rank, status, reason; derived three-level join, not another source table |
-| regimes | regime_id, entry_id, source_model_id, description, spacetime_dimension, gauge_algebra, baseline, factors_json, notes_json |
-| multiplets | multiplet_id, entry_id, source_model_id, regime_id, field_label, field_types, representation, copies, representation_dimension, source_field_id, source_rows_json, components_json, evidence_json |
-| spacetime_representations | representation_id, multiplet_id, component_kind, spacetime_dimension, lorentz_algebra, representation_label, status, representation_json, copies; canonical component counts, separate component rows, including conjugateGauge metadata |
-| component_gauge_representations | component_id, factor_key, algebra_id, role, dynkin_json, charge, representation_label, status, regime_id; charge is an exact integer string or NULL with a database CHECK constraint, original expressions remain provenance; actual per-component assignments after LH conversion, not just a flag requesting later conjugation |
-| content_signatures | fingerprint (unique primary key), schema_version, canonical_json, canonical_entry_id |
-| entry_identity | entry_id, status, reason, fingerprint, algebra_signature, input_json |
-| identity_migrations | entry_id, old_schema, old_fingerprint, new_schema, new_fingerprint, reason |
-| metadata | Convention version, source checksum, scope, explicit templates, scalar_convention_json |
+Identical restricted rows aggregate. Coarse grouping is not physical equivalence, symmetry breaking, a global group or an SM-embedding proof. Different interactions/global symmetries can share a full field-content entry.
 
-`source_rows_json` retains the full projected field object, including inherited/excluded flags, original notation, chirality/reality, normalization conversions and evidence. Thus a raw multiplet count is not an independent-particle count. The CSV is a primary-regime summary; JSON/SQLite preserve separate regimes. Excluded reference structural records are in JSON and the original source DB, not the BSM `entries` table.
+## Ingestion and identity
 
-Rebuild with `python3 website/build_field_catalogue.py`; use `--check` to detect stale generated text outputs. Tests check the immutable source hash, paper/model separation (especially R01), all source-ID coverage, exact arithmetic, normalization scope, and SQLite/JSON roundtrips. They are data/convention tests, not an anomaly, embedding, completeness or viability certificate. Do not feed partial inventories to an AI search as complete spectra.
+Use `prepare_entry.py` to normalize, `--require-normalized` to check idempotence, and `check_entry.py` to reconcile numerical duplicates before accepting a candidate. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory.
 
-### Corrections in version 2
+Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 
-The two standard 2HDM Higgs doublets now explicitly have colour representation 1, giving `(1,2;3)` each. This is a field-specific, documented correction supported by P03, not a rule filling every missing colour slot with 1. Source assertions and the original SQLite remain unchanged; the completion is stored separately with its locator. Concise model display names retain full source labels in variants/provenance.
+Public JSON, CSV and SQLite contain complete entries only. `source_field_id` is nullable for an explicitly inherited or newly harvested source row absent from the historical DSI extraction; `catalogueRowId` identifies expanded rows without fabricating legacy IDs. Every such row retains source claims and a mapping basis.
 
-### Notation decision in version 3
+Accepted evidence and candidates are hash-pinned, not read from a mutable agent queue. Bibliographic metadata is required for a new paper; a new entry can be created directly from a validated harvest without first inserting an incomplete DSI record. The original source database is never edited.
 
-Make Dynkin labels the canonical stored identifiers and CSV summary notation, with explicit node numbering. Keep physics dimension shorthand as the website default, with a visible notation switch, in-cell comparisons, derived Young diagrams and gauge-algebra Dynkin diagrams. Preserve original labels in provenance. No new source identifications, model merges or scalar-realification conversions are implied by this display migration. That was a notation-only release. The version-4 real-module migration below implements the separate scalar-counting equivalence.
+Run `make build` and `make check`. Checks cover normalization, publication gates, typed symbolic storage, exact duplicate reconciliation, source integrity, frozen evidence, all three projections, SQL/JSON agreement and frontend behavior. They do not certify the full physics.

@@ -1,0 +1,616 @@
+{
+  "schema_version": "field-content-2",
+  "inventory_complete": true,
+  "name": "Supersymmetric low-energy Standard Model with 1 horizontal singlet chiral multiplet(s)",
+  "paper_ids": [
+    "P28"
+  ],
+  "gauge_factors": [
+    {
+      "id": "colour",
+      "family": "A",
+      "rank": 2
+    },
+    {
+      "id": "weak",
+      "family": "A",
+      "rank": 1
+    },
+    {
+      "id": "hypercharge",
+      "family": "U1",
+      "rank": 1
+    }
+  ],
+  "matter": [
+    {
+      "label": "scalar Q",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "1"
+        }
+      }
+    },
+    {
+      "label": "Q",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "1"
+        }
+      }
+    },
+    {
+      "label": "scalar u^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "4"
+        }
+      }
+    },
+    {
+      "label": "u^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "-4"
+        }
+      }
+    },
+    {
+      "label": "scalar d^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "2"
+        }
+      }
+    },
+    {
+      "label": "d^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "2"
+        }
+      }
+    },
+    {
+      "label": "scalar L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "3"
+        }
+      }
+    },
+    {
+      "label": "L",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "-3"
+        }
+      }
+    },
+    {
+      "label": "scalar e^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "6"
+        }
+      }
+    },
+    {
+      "label": "e^c",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 3,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "6"
+        }
+      }
+    },
+    {
+      "label": "H_u",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "3"
+        }
+      }
+    },
+    {
+      "label": "higgsino H_u",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "3"
+        }
+      }
+    },
+    {
+      "label": "H_d",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "3"
+        }
+      }
+    },
+    {
+      "label": "higgsino H_d",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            1
+          ]
+        },
+        "hypercharge": {
+          "charge": "-3"
+        }
+      }
+    },
+    {
+      "label": "gluino",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            1,
+            1
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "wino",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            2
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "bino",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "S1 scalar",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "0",
+            "0"
+          ]
+        ]
+      },
+      "reality": "real_module",
+      "copies": 2,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        }
+      }
+    },
+    {
+      "label": "S1 Weyl",
+      "lorentz": {
+        "dimension": 4,
+        "scheme": "jL_jR",
+        "irreps": [
+          [
+            "1/2",
+            "0"
+          ]
+        ]
+      },
+      "reality": "none",
+      "copies": 1,
+      "gauge_representations": {
+        "colour": {
+          "dynkin": [
+            0,
+            0
+          ]
+        },
+        "weak": {
+          "dynkin": [
+            0
+          ]
+        },
+        "hypercharge": {
+          "charge": "0"
+        }
+      }
+    }
+  ]
+}

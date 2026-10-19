@@ -1,0 +1,194 @@
+{
+  "target_entry_id": "secluded-dirac-u1-higgsed",
+  "paper_id": "P44",
+  "arxiv_version": "0711.4866v1",
+  "reviewed_on": "2026-10-19",
+  "review": "agent_source_reinspection_for_complete_inventory",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/0711.4866v1.pdf",
+      "sha256": "f8e5605dd715996be62c1abc59a7be18eea3a11d2f4b84257de943a8be025a13",
+      "pages": [
+        4,
+        8,
+        9,
+        10
+      ]
+    }
+  ],
+  "inspection": {
+    "scope": "Section 2.1, Eq. (2), pre-U(1)' breaking, with SM inherited explicitly; source alternatives in Sections 2.2-2.4 kept separate.",
+    "whole_paper_read": false,
+    "rendered_complete_relevant_pages_inspected": [
+      4,
+      8,
+      9,
+      10
+    ],
+    "historical_review_is_lead_only": true
+  },
+  "claims": [
+    {
+      "id": "source-inventory",
+      "locator": "PDF p.4, Section 2.1, Eq. (2) and following two paragraphs",
+      "fact": "One Dirac psi and one complex phi couple to the same D_mu=partial_mu+i e' V_mu. WIMP sector is SM singlet; SM fields are hidden neutral. V is the additional U(1)' connection, not independent vector matter.",
+      "basis": "source_statement"
+    },
+    {
+      "id": "SM-inheritance",
+      "locator": "PDF p.4, Eq. (2) discussion; Atlas declared R_SM template",
+      "fact": "The source explicitly couples this hidden sector to the SM. Expand the declared ordinary three-family SM baseline, including one Higgs doublet; do not import any additional RH neutrinos.",
+      "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+    },
+    {
+      "id": "normalization",
+      "locator": "PDF p.4, common D_mu in Eq. (2); catalogue normalization",
+      "fact": "Source hidden unit is already q_psi=q_phi=1; shared primitive hypercharge rescaling over the complete source inventory is q=6Y. Dirac psi becomes two LH Weyl fields with hidden charges +1,-1.",
+      "basis": "mathematical_normalization"
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "psi",
+      "source_field_ids": [
+        524
+      ],
+      "source_model_id": "secluded-dirac-u1-higgsed",
+      "source_regime_id": 166,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 524,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "regime_id": 166,
+          "field_label": "ψ"
+        }
+      ]
+    },
+    {
+      "candidate_label": "phi",
+      "source_field_ids": [
+        525
+      ],
+      "source_model_id": "secluded-dirac-u1-higgsed",
+      "source_regime_id": 166,
+      "claim_ids": [
+        "source-inventory",
+        "SM-inheritance",
+        "normalization"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 525,
+          "model_id": "secluded-dirac-u1-higgsed",
+          "regime_id": 166,
+          "field_label": "φ"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 166,
+    "description": "Section 2.1, Eq. (2), pre-U(1)' breaking, with SM inherited explicitly; source alternatives in Sections 2.2-2.4 kept separate."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Field-definition scope only, not a whole-paper scientific review. SM components are expanded from the source-declared SM baseline rather than individually re-enumerated in Eq. (2)."
+  ],
+  "no_anomaly_or_viability_gate": true
+}
+

@@ -1,0 +1,314 @@
+{
+  "target_entry_id": "fraternal-twin-higgs",
+  "paper_id": "P38",
+  "arxiv_version": "1501.05310v2",
+  "reviewed_on": "2026-10-19",
+  "review": "agent_source_reinspection_for_complete_inventory",
+  "source_pdfs": [
+    {
+      "path": "atlas/reextraction/sources/1501.05310v2.pdf",
+      "sha256": "f8c7009f615324ff1da1affa23a255720fbd0cd78c62e1c9249b9f9476d73e90",
+      "pages": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    }
+  ],
+  "inspection": {
+    "scope": "Full linear Fraternal Twin Higgs of Section II.A-C, above twin weak breaking and confinement but below its UV cutoff; radial scalar retained.",
+    "whole_paper_read": false,
+    "rendered_complete_relevant_pages_inspected": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "historical_review_is_lead_only": true
+  },
+  "claims": [
+    {
+      "id": "scalars",
+      "locator": "PDF pp.9-11 Section II.A, Eqs. (1)-(4)",
+      "fact": "One complex H=(A,B) with A the ordinary SM Higgs and B one twin weak doublet. The paper explicitly keeps the radial mode rather than choosing its nonlinear alternative. B is SM neutral; its neutral twin weak doublet is pseudoreal, so one source complex B is one underlying real module.",
+      "basis": "source_statement_and_real_module_derivation"
+    },
+    {
+      "id": "twin-gauge",
+      "locator": "PDF pp.12-13 Section II.B; p.14 Section II.C items3-4",
+      "fact": "Twin su(2) and su(3) are gauged. Twin hypercharge is explicitly not included in the minimal model. The complete algebra is g_SM plus twin su(3) plus twin su(2), not a dark-sector-only algebra.",
+      "basis": "source_statement"
+    },
+    {
+      "id": "twin-fermions",
+      "locator": "PDF p.10 Eq. (2); p.14 Eqs. (9)-(10); pp.14-15 Section II.C items2,5,6",
+      "fact": "Exactly one twin LH quark doublet, twin RH top and bottom, twin LH lepton doublet and twin RH tau, with no first/second twin generations. The three a labels on p.10 become the dimension of twin colour after gauging, not three copies of the triplet. The twin neutrino is the component of Lhat, not an added singlet. RH fields convert to LH conjugates across all factors.",
+      "basis": "source_statement_and_LH_basis_conversion"
+    },
+    {
+      "id": "SM-inheritance",
+      "locator": "PDF pp.9-10 Section II.A; Atlas R_SM template",
+      "fact": "Retain full ordinary three-family SM and one Higgs doublet. Twin fields are SM singlets, so source SM hypercharge converts jointly to q=6Y.",
+      "basis": "source_explicit_inheritance_and_declared_atlas_baseline"
+    }
+  ],
+  "source_field_mapping": [
+    {
+      "candidate_label": "Q",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "u^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "d^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "L",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "e^c",
+      "source_field_ids": [],
+      "source_model_id": null,
+      "source_regime_id": null,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "source_declared_SM_baseline_expanded_in_new_review",
+      "legacy_fields": [],
+      "baseline_provenance": "Source explicitly retains the SM; three ordinary SM families and one Higgs are the declared Atlas R_SM convention, not a newly printed component table."
+    },
+    {
+      "candidate_label": "H",
+      "source_field_ids": [
+        460
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 460,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "A"
+        }
+      ]
+    },
+    {
+      "candidate_label": "Qhat",
+      "source_field_ids": [
+        462
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 462,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "Qhat_a"
+        }
+      ]
+    },
+    {
+      "candidate_label": "that_R",
+      "source_field_ids": [
+        463
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 463,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "uhat_a"
+        }
+      ]
+    },
+    {
+      "candidate_label": "bhat_R",
+      "source_field_ids": [
+        464
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 464,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "bhat"
+        }
+      ]
+    },
+    {
+      "candidate_label": "Lhat",
+      "source_field_ids": [
+        465
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 465,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "Lhat"
+        }
+      ]
+    },
+    {
+      "candidate_label": "tauhat_R",
+      "source_field_ids": [
+        466
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 466,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "tauhat_R"
+        }
+      ]
+    },
+    {
+      "candidate_label": "B",
+      "source_field_ids": [
+        461
+      ],
+      "source_model_id": "fraternal-twin-higgs",
+      "source_regime_id": 137,
+      "claim_ids": [
+        "scalars",
+        "twin-gauge",
+        "twin-fermions",
+        "SM-inheritance"
+      ],
+      "mapping_basis": "explicit_legacy_container_to_source_component_map",
+      "legacy_fields": [
+        {
+          "field_id": 461,
+          "model_id": "fraternal-twin-higgs",
+          "regime_id": 137,
+          "field_label": "B"
+        }
+      ]
+    }
+  ],
+  "description_regime": {
+    "source_regime_id": 137,
+    "description": "Full linear Fraternal Twin Higgs of Section II.A-C, above twin weak breaking and confinement but below its UV cutoff; radial scalar retained."
+  },
+  "decision": {
+    "inventory_complete": true,
+    "not_extracted": [],
+    "not_specified_by_source": []
+  },
+  "limitations": [
+    "Source-defined effective model below its naturalness cutoff, not an invented SUSY/composite completion. The possible twin neutrino Majorana mass need not introduce a RH-neutrino field into this EFT."
+  ],
+  "no_anomaly_or_viability_gate": true
+}
+
