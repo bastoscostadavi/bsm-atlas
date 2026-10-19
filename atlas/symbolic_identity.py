@@ -72,7 +72,7 @@ def _canonicalize(encoded):
                 best, best_mapping = candidate, mapping
                 best_constraints, best_charges = constraints, renamed
     # The public specification preserves factor IDs, source row order and labels
-    # for evidence mapping. Only the identity payload removes those identifiers.
+    # for readable source correspondence. Only the identity payload removes those identifiers.
     spec['parameters'] = {name: {'domain': 'integer'} for name in names}
     spec['constraints'] = best_constraints
     for row, charges in zip(spec['matter'], best_charges):

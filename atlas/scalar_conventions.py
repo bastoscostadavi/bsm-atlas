@@ -14,7 +14,6 @@ CONVENTION = {
     'complexType': 'Underlying real module of R; R and its full conjugate specify the same real module',
     'pseudorealType': 'Underlying real module; no half-dimensional ordinary real form is imposed',
     'orientation': 'First nonzero Abelian charge positive; otherwise lexicographically larger weight tuple, in factor order',
-    'missing': 'Unestablished scalar counting is pending extraction, not a completed canonical row',
     'reference': 'https://arxiv.org/html/0704.0165v1',
     'method': 'Tits theorem 3.6; exact finite Cartan matrices and dominant dual weights',
 }
@@ -127,3 +126,21 @@ def is_scalar(lorentz):
     d = lorentz['dimension']
     irreps = lorentz['irreps']
     return irreps == [['0','0']] if d == 4 else len(irreps) == 1 and not any(irreps[0])
+
+
+def uniform_scalar(row, factors, parameters):
+    """Require a uniform real-module count, without inventing a family member."""
+    from charge_expressions import parse_charge
+    probe=deepcopy(row); polynomials={}
+    for a in factors:
+        if a['family']=='U1':
+            p=parse_charge(row['gauge_representations'][a['id']]['charge'],tuple(parameters))
+            polynomials[a['id']]=p
+            probe['gauge_representations'][a['id']]['charge']='0' if p.symbols else p.render()
+    projected,kind=real_scalar(probe,factors,row['reality'])
+    if any(p.symbols for p in polynomials.values()) and kind=='real':
+        raise ValueError('Scalar real-module count changes on charge loci; split into uniform families')
+    flip=any(not p.symbols and int(p.render())!=0 and int(projected['gauge_representations'][key]['charge'])==-int(p.render()) for key,p in polynomials.items())
+    for key,p in polynomials.items():
+        projected['gauge_representations'][key]['charge']=parse_charge('-('+p.render()+')' if flip else p.render(),tuple(parameters)).render()
+    return projected

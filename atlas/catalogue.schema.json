@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://davibc.com/bsm-atlas/catalogue.schema.json",
+  "title": "BSM Atlas source catalogue",
+  "description": "Complete normalized gauge–matter specifications and paper references. Run catalogue.py for normalization and duplicate validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "papers", "entries"],
+  "properties": {
+    "schema_version": {"const": "bsm-atlas-1"},
+    "papers": {"type": "array", "items": {"$ref": "#/$defs/paper"}},
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "paper": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "arxiv", "title", "authors"],
+      "properties": {
+        "id": {"$ref": "#/$defs/text"}, "arxiv": {"$ref": "#/$defs/text"},
+        "title": {"$ref": "#/$defs/text"}, "authors": {"$ref": "#/$defs/text"}
+      }
+    },
+    "reference": {
+      "type": "object", "additionalProperties": false, "required": ["paper_id"],
+      "properties": {
+        "paper_id": {"$ref": "#/$defs/text"},
+        "locators": {"type": "array", "items": {"$ref": "#/$defs/text"}},
+        "parameter_names": {"type": "object", "additionalProperties": {"$ref": "#/$defs/text"}}
+      }
+    },
+    "entry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "name", "specification", "references"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+        "name": {"$ref": "#/$defs/text"},
+        "specification": {
+          "$ref": "entry.schema.json",
+          "properties": {"name": false, "paper_ids": false}
+        },
+        "references": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/reference"}},
+        "aliases": {"type": "array", "items": {
+          "type": "object", "additionalProperties": false, "required": ["id", "name"],
+          "properties": {"id": {"$ref": "#/$defs/text"}, "name": {"$ref": "#/$defs/text"}}
+        }}
+      }
+    }
+  }
+}

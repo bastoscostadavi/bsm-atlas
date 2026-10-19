@@ -9,7 +9,7 @@ import keyword
 import operator
 import re
 
-from catalogue_identity_v1 import IncompleteContent, object_keys
+from entry_validation import IncompleteContent, object_keys
 
 MAX_PARAMETERS = 16
 MAX_TERMS = 256

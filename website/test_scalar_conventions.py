@@ -14,7 +14,7 @@ from scalar_conventions import dual_weight, representation_type, real_scalar
 from catalogue_identity import canonicalize, normalize_spec, IncompleteContent
 
 def single(family='A', weight=(0,), charge=0, reality='complex', copies=1):
-    return {'schema_version':'field-content-1','inventory_complete':True,
+    return {'schema_version':'field-content-2','inventory_complete':True,
         'gauge_factors':[{'id':'g','family':family,'rank':len(weight)},{'id':'q','family':'U1','rank':1}],
         'matter':[{'lorentz':{'dimension':4,'scheme':'jL_jR','irreps':[['0','0']]},
             'reality':reality,'copies':copies,'gauge_representations':{'g':{'dynkin':list(weight)},'q':{'charge':str(charge)}}}]}
@@ -74,41 +74,5 @@ class ScalarModules(unittest.TestCase):
         a['matter'][0]['lorentz']={'dimension':5,'scheme':'B2_Dynkin','irreps':[[0,0]]}
         self.assertEqual(normalize_spec(a)['matter'][0]['reality'],'real_module')
 
-    def test_frozen_pilot_migrates_without_changing_evidence(self):
-        base=ROOT/'atlas/reextraction/P02'
-        a=json.loads((base/'complex-singlet-normalized-candidate.json').read_text())
-        b=json.loads((base/'complex-two-real-description.json').read_text())
-        self.assertEqual(fp(a),fp(b))
-        self.assertEqual(normalize_spec(a),normalize_spec(normalize_spec(a)))
-
-    def test_component_counts_and_integer_charge_export(self):
-        data=json.loads((ROOT/'website/field-catalogue.json').read_text())
-        with closing(sqlite3.connect((ROOT/'website/downloads/field-catalogue.sqlite').resolve().as_uri()+'?mode=ro',uri=True)) as con:
-            for n,payload in con.execute('select copies,representation_json from spacetime_representations'):
-                self.assertEqual(n,json.loads(payload)['copies'])
-            self.assertEqual({s[0] for s in con.execute('select schema_version from content_signatures')},{'field-content-2','field-content-3'})
-            self.assertEqual(con.execute("select count(*) from identity_migrations where old_schema='field-content-1'").fetchone()[0],21)
-            self.assertEqual(con.execute("select count(*) from identity_migrations where new_schema='symbolic-template-2'").fetchone()[0],2)
-            for (q,) in con.execute('select charge from component_gauge_representations where charge is not null'):
-                self.assertEqual(str(int(q)),q)
-            # Clone the schema to test the database-level guard without writing
-            # to the published export or the immutable source database.
-            ddl=con.execute("select sql from sqlite_master where name='component_gauge_representations'").fetchone()[0]
-        with closing(sqlite3.connect(':memory:')) as mem:
-            mem.execute(ddl)
-            for q in ['[0,-3,3]','n','source:2','1/2','--3','']:
-                with self.assertRaises(sqlite3.IntegrityError):
-                    mem.execute('insert into component_gauge_representations values (?,?,?,?,?,?,?,?,?)',('test','q','u1','extra',None,q,q,'pending',0))
-        self.assertEqual(sum(e['publicationStatus']=='ready' for e in data['entries']),len(data['entries']))
-
-    def test_historical_corpus_has_idempotent_v2_projection(self):
-        paths=sorted((ROOT/'atlas/reextraction').glob('P*/*-normalized-candidate.json'))
-        self.assertEqual(len(paths),48)
-        for path in paths:
-            n=normalize_spec(json.loads(path.read_text()))
-            self.assertEqual(n,normalize_spec(n),str(path))
-        frozen=json.loads((ROOT/'atlas/reextraction/corpus-frozen-hashes.json').read_text())
-        for path,digest in frozen['files'].items():
-            self.assertEqual(sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
 
 if __name__=='__main__':unittest.main()

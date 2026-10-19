@@ -16,8 +16,6 @@ def main():
         python + ['website/build_field_catalogue.py', '--check'],
         python + ['-m', 'unittest', 'discover', '-s', 'website', '-p', 'test_*.py'],
         python + ['atlas/test_parameterized_entry.py'],
-        python + ['atlas/reextraction/test_pilot.py'],
-        python + ['atlas/reextraction/followup-20261016/test_followup.py'],
         ['node', 'website/check.mjs'],
         ['node', 'website/field-catalogue.test.mjs'],
         ['node', 'website/representation-diagrams.test.mjs'],

@@ -16,7 +16,7 @@ CONVENTION = {
 
 ALGEBRA_CONVENTION = {
     'id':'semisimple-algebra-1',
-    'projection':'Retain the multiset of resolved canonical simple gauge factors independently of matter-inventory completeness; omit every Abelian factor',
+    'projection':'Retain the multiset of canonical simple factors from complete entries; omit matter and every Abelian factor',
     'meaning':'Derived algebra-only grouping, not a global group, quotient, physical theory or additional source inventory',
 }
 

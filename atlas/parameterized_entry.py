@@ -121,6 +121,6 @@ def validation_report(spec):
             'parameter_domain_nonempty': 'not_proven', 'anomalies': 'not_checked_not_an_intake_requirement',
             'family_equivalence': 'not_certified',
         },
-        'action': 'Use the standardized z1,z2,... template and reconcile its exact template fingerprint before intake. Preserve the source parameter map in provenance. Specialize the original input with --values in its own parameter names for numerical reconciliation.',
+        'action': 'Use the standardized z1,z2,... template and reconcile its exact template fingerprint before intake. Keep an optional source parameter map on the paper reference. Specialize the original input with --values in its own parameter names for numerical reconciliation.',
         'limits': 'The fingerprint removes parameter names and factor/row order, not general reparameterizations, logically equivalent domains, overlaps, U(1) basis mixing or pointwise charge rescalings. Constraints remain part of the template; their satisfiability and anomalies are not certified.',
     }

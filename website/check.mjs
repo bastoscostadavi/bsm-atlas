@@ -1,62 +1,25 @@
-import fs from 'node:fs';
-import vm from 'node:vm';
-import path from 'node:path';
 import assert from 'node:assert/strict';
-import { fileURLToPath } from 'node:url';
-
-const directory = path.dirname(fileURLToPath(import.meta.url));
-const root = path.dirname(directory);
-const data = JSON.parse(fs.readFileSync(path.join(directory, 'field-catalogue.json'), 'utf8'));
-const context = { window: {} };
-vm.runInNewContext(fs.readFileSync(path.join(directory, 'field-catalogue-data.js'), 'utf8'), context);
-assert.equal(JSON.stringify(context.window.FIELD_CATALOGUE), JSON.stringify(data), 'Browser payload differs from downloadable JSON');
-assert.equal(fs.readFileSync(path.join(root, 'atlas/FIELD_CONTENT_CATALOGUE.json'), 'utf8'),
-  fs.readFileSync(path.join(directory, 'field-catalogue.json'), 'utf8'));
-assert.equal(fs.readFileSync(path.join(root, 'atlas/entry.schema.json'), 'utf8'),
-  fs.readFileSync(path.join(directory, 'entry.schema.json'), 'utf8'));
-
-const seed = fs.readFileSync(path.join(root, 'BSM_ATLAS_SEED.md'), 'utf8');
-const versions = [...seed.matchAll(/^\| (P\d{2}) \| \[([^\]]+)\]/gm)];
-assert.equal(versions.length, 50);
-assert.equal(new Set(versions.map(m => m[1])).size, 50);
-for (const [, id, version] of versions) {
-  assert.equal(data.papers.find(p => p.id === id)?.arxiv, version, 'Missing or changed seed version: ' + id);
+import fs from 'node:fs';
+import path from 'node:path';
+const website=new URL('.',import.meta.url),read=p=>fs.readFileSync(new URL(p,website),'utf8');
+const data=JSON.parse(read('field-catalogue.json'));
+assert.equal(read('../atlas/FIELD_CONTENT_CATALOGUE.json'),read('field-catalogue.json'));
+assert.equal(read('catalogue.json'),read('../atlas/catalogue.json'));
+assert.equal(data.schema_version,'bsm-atlas-export-1');
+assert.equal(read('entry.schema.json'),read('../atlas/entry.schema.json'));
+assert.equal(read('catalogue.schema.json'),read('../atlas/catalogue.schema.json'));
+assert.equal(read('field-catalogue-data.js'),'window.FIELD_CATALOGUE = '+read('field-catalogue.json').trimEnd()+';\n');
+assert.equal(data.entries.length,67);
+assert.equal(new Set(data.entries.map(e=>e.identity.fingerprint)).size,67);
+for(const e of data.entries)for(const forbidden of ['variants','reextractions','publicationStatus','groupingBasis','legacyIdentity'])assert(!(forbidden in e));
+for(const key of ['sourceDatabaseSha256','reextraction','sourceReview'])assert(!(key in data));
+const html=read('index.html');
+for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)){
+ const reference=match[1].split('?')[0];if(/^(https?:|mailto:)/.test(reference))continue;
+ assert(fs.existsSync(new URL(reference,website)),reference);
 }
-assert.equal(new Set(data.entries.map(e => e.id)).size, data.entries.length);
-assert.equal(new Set(data.papers.map(p => p.id)).size, data.papers.length);
-const paperIds = new Set(data.papers.map(p => p.id));
-for (const entry of data.entries) {
-  for (const id of entry.paperIds) assert(paperIds.has(id), 'Unknown source paper: ' + id);
-}
-for (const name of ['field-catalogue.csv', 'field-catalogue.sqlite', 'nonabelian-cores.csv', 'semisimple-algebras.csv', 'full-gauge-algebras.csv']) {
-  assert(fs.statSync(path.join(directory, 'downloads', name)).size > 0, 'Missing download: ' + name);
-}
-
-const html = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
-assert(!html.includes('href="#about"'), 'Data scope belongs in The atlas, not a separate footer page');
-const catalogueMenu = html.match(/<details id="catalogue-menu"[\s\S]*?<\/details>/)?.[0];
-assert(catalogueMenu?.includes('<summary>Catalogue'), 'Missing native Catalogue disclosure');
-assert.equal((catalogueMenu.match(/<a /g)||[]).length,4, 'Only the four catalogue choices should be links');
-assert.equal((catalogueMenu.match(/class="catalogue-group-label"/g)||[]).length,2);
-for(const target of ['catalogue','full-algebras','cores','entries'])assert(catalogueMenu.includes('href="#'+target+'"'));
-const favicon = fs.readFileSync(path.join(directory, 'favicon.svg'), 'utf8');
-const photonPath = source => source.match(/data-propagator="photon" d="([^"]+)"/)?.[1];
-for (const [name, source] of [['header', html], ['favicon', favicon]]) {
-  assert(source.includes('data-diagram="s-channel"') && photonPath(source), 'Missing photon-exchange logo in ' + name);
-  assert.equal([...source.matchAll(/data-fermion-arrow=/g)].length, 4, 'Expected four fermion-flow arrows in ' + name);
-}
-assert.equal(photonPath(html), photonPath(favicon));
-for (const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
-  if (!/^(https?:|mailto:)/.test(match[1])) {
-    assert(fs.existsSync(path.join(directory, match[1].split(/[?#]/)[0])), 'Missing asset: ' + match[1]);
-  }
-}
-for (const name of ['README.md', 'BSM_ATLAS_AGENT_PROMPT.md', 'atlas/README.md', 'atlas/FIELD_CONTENT_CONVENTIONS.md', 'website/README.md']) {
-  const filename = path.join(root, name);
-  const markdown = fs.readFileSync(filename, 'utf8');
-  for (const [, target] of markdown.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)) {
-    if (/^(https?:|#)/.test(target)) continue;
-    assert(fs.existsSync(path.resolve(path.dirname(filename), target.split('#')[0])), 'Broken documentation link in ' + name + ': ' + target);
-  }
-}
-console.log('Active catalogue assets, downloads, documentation links, source versions and photon-exchange logo validated.');
+assert(html.includes('data-diagram="s-channel"'));
+assert.equal((html.match(/data-fermion-arrow=/g)||[]).length,4);
+assert(!html.includes('About the data'));
+for(const file of ['field-catalogue.sqlite','field-catalogue.csv','nonabelian-cores.csv','semisimple-algebras.csv','full-gauge-algebras.csv'])assert(fs.existsSync(new URL('downloads/'+file,website)));
+console.log('Static assets and minimal exports agree.');

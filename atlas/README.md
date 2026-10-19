@@ -1,37 +1,20 @@
-# Atlas data and conventions
+# Catalogue data
 
-The active atlas records gauge algebras, Lorentz and gauge representations, multiplicities and source-paper associations. Start with [FIELD_CONTENT_CONVENTIONS.md](FIELD_CONTENT_CONVENTIONS.md), the [entry schema](entry.schema.json) and the [extraction instructions](../BSM_ATLAS_AGENT_PROMPT.md).
+[Catalogue source](catalogue.json) · [Conventions](FIELD_CONTENT_CONVENTIONS.md) · [Ingestion instructions](../BSM_ATLAS_AGENT_PROMPT.md)
 
-## Current catalogue
+The authoritative source has two lists: `papers` and `entries`. An entry contains a complete `specification` and its `references`. References may include short source locators and a source-to-canonical parameter-name map. Entry names and aliases help navigation; they do not distinguish mathematical objects.
 
-- `catalogue_identity.py`, `scalar_conventions.py`, `nonabelian_core.py`: numerical normalization, exact field-content identity and the two non-Abelian projections.
-- `parameterized_entry.py`, `charge_expressions.py`, `symbolic_identity.py`: safe polynomial inputs, exact specialization, canonical z-parameters and order-independent symbolic-template matching. Constraints remain explicit; no domain-equivalence solver is used.
-- `prepare_entry.py`, `check_entry.py`: read-only preflight and duplicate reconciliation.
-- `field_content_curations.json`: explicit presentation, baseline and source-correction decisions.
-- `FIELD_CONTENT_CATALOGUE.json`: generated catalogue, identical to the website JSON; never hand-edit it.
-- `examples/`: numerical and symbolic input examples, not accepted source models.
+Numerical specifications use `field-content-2`. Symbolic charge families use `field-content-3`, with integer parameters and polynomial constraints. The stored numerical scalar unit is `real_module`. The machine key `copies` means multiplicity.
 
-The machine key `copies` means representation multiplicity. It is retained to avoid changing frozen payloads and canonical fingerprints. `catalogue_identity_v1.py` is also still required: the current implementation imports its common validation helpers, and historical evidence uses its original counting convention. It is not an unused script.
+## Code
 
-## Extraction and review
+- `catalogue.py`: strict source validation and normalized ingestion, merging exact duplicate references.
+- `entry_validation.py`, `catalogue_identity.py`, `scalar_conventions.py`: numerical shape validation, normalization, real scalar counting and exact identity.
+- `charge_expressions.py`, `parameterized_entry.py`, `symbolic_identity.py`: safe integer-polynomial syntax, specialization and canonical symbolic-template matching.
+- `nonabelian_core.py`: derived semisimple gauge and matter restrictions and full-algebra keys.
+- `prepare_entry.py`, `check_entry.py`: read-only normalization and duplicate preflight against the generated SQLite export.
+- `schema.sql`: relational export tables and the `entry_layers` and `entry_identity` views.
 
-`reextraction/` contains versioned source checks, original/normalized candidates, source-field mappings, receipts and coverage reports. Frozen hashes protect historical evidence. These records are not disposable build output.
+`catalogue.schema.json` and `entry.schema.json` document structure; executable checks enforce cross-field mathematics and canonical storage. `reference_spectra.json` supplies the SM/MSSM display shorthand and never replaces the full inventory in an entry. `examples/` contains illustrative intake specifications, not accepted source models.
 
-- `accepted.json`: frozen pilot acceptance decisions.
-- `accepted-followup.json`: separately pinned current accepted candidates.
-- `accepted-so10.json`: two source-reconciled P19 spectra, with independent mathematics review and frozen evidence in `so10-resolution-20261016/`.
-- `accepted-harvest.json`: complete-only source harvests, typed symbolic families and exact retained seed identities; evidence in `closure-20261019/`.
-- `followup-20261016/handoff.json`: followup results and the distinction between accepted and staged work.
-- `followup-20261016/remaining-work-by-paper.json`: historical remaining-work assessment across the original 50-paper corpus; the later SO(10) review supersedes its two P19 dispositions.
-
-A successful preflight is not scientific review or automatic ingestion. Only complete source-supported specifications are published. Papers can have zero model links; there is no public pending catalogue or new exclusion log. Symbolic charge families retain typed parameter/constraint/expression metadata on the same entry. `extraction_cost/` describes optional measurement tooling; missing inference telemetry is not estimated from CPU timings.
-
-Saved extraction runners reproduce those historical runs; they are not part of the website runtime. The optional `reextraction/test_corpus.py` also checks locally cached source PDFs, which are not published and are not required by the normal build/CI checks.
-
-## Immutable historical snapshot
-
-`atlas.sqlite`, `atlas.sql`, `schema.sql` and `source_snapshot.json` preserve the original 34-table DSI extraction. The builder reads this snapshot and applies reviewed corrections separately. Do not write new entries or reset review states in it.
-
-`DATABASE_DESIGN.md`, `DATA_DICTIONARY.md`, `SCHEMA.md` and `REVIEW.md` document that historical rich schema and its limitations. They are provenance, not the current minimal-catalogue specification. The obsolete full-snapshot website and duplicate public downloads have been removed; Git history preserves those implementations.
-
-Run `make build` and `make check` from the repository root. The focused relational export is `website/downloads/field-catalogue.sqlite`, not the immutable source snapshot.
+Run `make build` after source changes and `make check` before publication. Do not edit `FIELD_CONTENT_CATALOGUE.json` or the website downloads directly.

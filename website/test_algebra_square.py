@@ -21,7 +21,7 @@ CORES = {group['id']: group for group in DATA['cores']}
 
 class AlgebraSquare(unittest.TestCase):
     def test_full_algebra_keys_forget_matter_names_charges_and_factor_order(self):
-        source = deepcopy(ENTRIES['two-higgs-doublets']['identity']['input'])
+        source = deepcopy(ENTRIES['two-higgs-doublets']['specification'])
         expected = full_algebra_key(source)
         source['matter'] = []
         source['gauge_factors'].reverse()
@@ -52,7 +52,7 @@ class AlgebraSquare(unittest.TestCase):
                                  group['abelianRank'])
                 for entry_id in group['entryIds']:
                     entry = ENTRIES[entry_id]
-                    self.assertEqual(full_algebra_key(entry['identity']['input'])['id'], group['id'])
+                    self.assertEqual(full_algebra_key(entry['specification'])['id'], group['id'])
                     self.assertEqual(entry['fullAlgebraId'], group['id'])
                     self.assertEqual(entry['semisimpleId'], group['semisimpleId'])
                     self.assertEqual(entry['abelianRank'], group['abelianRank'])
@@ -88,7 +88,6 @@ class AlgebraSquare(unittest.TestCase):
         self.assertNotEqual(fixed['fullAlgebraId'], family['fullAlgebraId'])
         self.assertEqual(family['abelianRank'], 2)
         self.assertEqual(len(ENTRIES), 67)
-        self.assertTrue(all(entry['publicationStatus'] == 'ready' for entry in ENTRIES.values()))
 
     def test_zero_semisimple_part_is_a_valid_abelian_algebra(self):
         result = full_algebra_key({'gauge_factors': [{'family': 'U1', 'rank': 1}]})
@@ -100,9 +99,8 @@ class AlgebraSquare(unittest.TestCase):
             rows = list(csv.DictReader(stream))
         self.assertEqual(len(rows), 14)
         for row in rows:
-            group = FULL[row['full_gauge_algebra_id']]
-            self.assertEqual(json.loads(row['cartan_factors']), group['canonical']['gauge_factors'])
-            self.assertEqual(row['semisimple_algebra_id'], group['semisimpleId'])
+            group = FULL[row['id']]
+            self.assertEqual(json.loads(row['canonical_json']), group['canonical'])
             self.assertEqual(set(row['entry_ids'].split(';')), set(group['entryIds']))
 
     def test_sqlite_roundtrip_includes_both_branches(self):

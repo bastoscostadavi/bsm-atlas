@@ -135,10 +135,10 @@ class SymbolicIdentity(unittest.TestCase):
             prepare(source)
         self.assertTrue(prepare(source, values={name: 1 for name in source['parameters']})['fingerprint'])
 
-    def test_published_family_lookup_names_order_and_provenance(self):
+    def test_published_family_lookup_names_order_and_references(self):
         data = json.loads((ROOT / 'website/field-catalogue.json').read_text())
         for entry in data['entries']:
-            source = entry['identity']['input']
+            source = entry['specification']
             if source['schema_version'] != 'field-content-3':
                 continue
             with self.subTest(entry=entry['id']):
@@ -151,10 +151,7 @@ class SymbolicIdentity(unittest.TestCase):
                 report = check(candidate, ROOT / 'website/downloads/field-catalogue.sqlite')
                 self.assertEqual(report['status'], 'exact_symbolic_template_match')
                 self.assertIn(entry['id'], [match['entry_id'] for match in report['matches']])
-                self.assertTrue(entry['parameterRenaming'])
-                for review in entry['reextractions']:
-                    self.assertEqual(review['fingerprint'], result['fingerprint'])
-                    self.assertIn('sourceFingerprint', review)
+                self.assertTrue(any(ref.get('parameter_names') for ref in entry['references']))
 
 
 if __name__ == '__main__':

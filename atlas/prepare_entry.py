@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read-only pre-ingestion validation of numerical or parameterized entries.
 
-The extraction agent must establish source facts and provenance first. This
+The extraction agent must establish the complete source specification first. This
 command emits the normalized candidate that may be considered for ingestion;
 it never writes the original or generated database. Declared symbolic charges
 use field-content-3. Unknown assignments are not free parameters or numbers.
@@ -38,7 +38,7 @@ def prepare(spec,database=None,values=None):
         # Charge conjugation changes signs, never the positive common unit.
         scale=primitive_charge_scale(f['gauge_representations'][a['id']]['charge'] for f in original['matter'])
         transformations.append({'factor_id':a['id'],'normalization':'primitive_integer_full_inventory','positive_source_scale':str(scale) if scale is not None else None,'generator_orientation':'retained','note':'All-zero assignments have no primitive nonzero unit.' if not any(Fraction(f['gauge_representations'][a['id']]['charge']) for f in normalized['matter']) else 'Scale may be combined with charge conjugation when converting source fermions.'})
-    result={'status':'normalized_candidate_requires_source_review','normalized_entry':normalized,'transformations':transformations,'scalar_convention':SCALAR_CONVENTION,'fingerprint':canonicalize(normalized)['fingerprint'],'action':'Verify source evidence for every assignment and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; retain source reality/counts separately. This tool is not a database writer or a source-extraction certificate.'}
+    result={'status':'normalized_candidate_requires_source_review','normalized_entry':normalized,'transformations':transformations,'scalar_convention':SCALAR_CONVENTION,'fingerprint':canonicalize(normalized)['fingerprint'],'action':'Verify every assignment against its paper and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; use source reality/counts correctly on intake. This tool is not a database writer or a source-extraction certificate.'}
     if database is not None:result['duplicate_check']=check(normalized,database)
     if spec!=original:raise AssertionError('Preparation mutated the extraction input')
     return result
@@ -54,7 +54,7 @@ if __name__=='__main__':
         candidate=json.loads(args.candidate.read_text())
         result=prepare(candidate,args.database,args.values)
         if args.require_normalized and candidate!=result['normalized_entry']:
-            raise IncompleteContent('Candidate needs normalization; use normalized_entry and preserve source notation in provenance before ingestion')
+            raise IncompleteContent('Candidate needs normalization; use normalized_entry and check the source conversion before ingestion')
     except (IncompleteContent,KeyError,ValueError,TypeError,AttributeError,IndexError) as error:
         print(json.dumps({'status':'blocked_before_ingestion','reason':str(error),'action':'Correct the schema or extraction. Declare source-free charge parameters using field-content-3; source omissions remain partial, not invented parameter values.'},ensure_ascii=False,indent=2))
         raise SystemExit(2)

@@ -1,8 +1,0 @@
-{
-  "status": "no_exact_match_review_required",
-  "fingerprint": "ebf86221cce17ce920597afb53072cbdb7aac3b2252d7c043e336a189caa41b0",
-  "matches": [],
-  "same_algebra_candidates": [],
-  "action": "Review candidates and incomplete records before adding an entry. No exact match does not prove novelty.",
-  "limits": "Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check."
-}

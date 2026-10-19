@@ -1,138 +1,52 @@
-"""Readable projections of exact core keys; full entries remain authoritative."""
-from catalogue_identity import IncompleteContent
-from nonabelian_core import restrict_nonabelian, algebra_key, full_algebra_key, CONVENTION
-from scalar_conventions import is_scalar
-from field_conventions import irrep_dimension,irrep_dimension_label,young_rows
+"""Four derived views of the same complete gauge–matter catalogue."""
+from copy import deepcopy
+from nonabelian_core import restrict_nonabelian, algebra_key, full_algebra_key
+from presentation import matrix, algebra_label
 
-def algebra_label(family,rank):
-    if family=='A':return 'su('+str(rank+1)+')'
-    if family=='B':return 'so('+str(2*rank+1)+')'
-    if family=='C':return 'sp_rank('+str(rank)+')'
-    if family=='D':return 'so('+str(2*rank)+')'
-    return family.lower()+str(rank)
+def group_factors(canonical):
+    return [{'key':'factor:'+str(i),'id':'u1' if a['family']=='U1' else a['family']+str(a['rank']),
+        'type':a['family'],'rank':a['rank'],'label':algebra_label(a['family'],a['rank']),
+        'role':str(1+sum(b==a for b in canonical['gauge_factors'][:i])) if canonical['gauge_factors'].count(a)>1 else ''}
+        for i,a in enumerate(canonical['gauge_factors'])]
 
-def display_rows(canonical,factors):
-    rows=[]
-    for source in canonical['matter']:
-        l=source['lorentz'];d=l['dimension'];weights=l['irreps']
-        component='S' if is_scalar(l) else 'F' if d==4 and weights==[['1/2','0']] or d==5 and weights==[[0,1]] else 'V' if d==4 and weights==[['1/2','1/2']] else 'matter'
-        label='('+', '.join(weights[0])+')' if d==4 and len(weights)==1 else ' ⊕ '.join('['+','.join(map(str,w))+']' for w in weights)
-        components=[]
-        for a,rep in zip(factors,source['gauge']):
-            w=rep['dynkin'];dimension=irrep_dimension(a,w)
-            value=irrep_dimension_label(a,w)
-            components.append({'factorKey':a['key'],'factor':a['label'],'role':a['role'],
-                'dynkin':w,'value':value,'dimension':dimension,'youngRows':young_rows(a,w)})
-        rows.append({'copies':source['copies'],'components':components,'labels':[],
-            'lorentz':{'component':component,'status':'resolved','reality':source['reality'],
-                'scheme':l['scheme'],'irreps':weights,'label':label,
-                'spacetime':{'dimension':str(d),'algebra':'so(1,'+str(d-1)+')'}}})
-    return sorted(rows,key=lambda r:(int(r['lorentz']['spacetime']['dimension']),{'S':0,'F':1,'V':2}.get(r['lorentz']['component'],3),tuple(tuple(c['dynkin']) for c in r['components'])))
+def label(factors):
+    return ' ⊕ '.join(a['label'] for a in factors) or '0 (no non-Abelian factors)'
 
-def attach_cores(entries):
-    """Group primary complete regimes only; never infer a core from omissions."""
-    cores={}
+def attach_layers(entries):
+    cores,algebras,full={},{},{}
     for entry in entries:
-        regime=next(r for v in entry['variants'] for r in v['regimes'] if r['id']==entry['primaryRegime'])
-        entry['abelianRank']=sum(a['type']=='U1' for a in regime['factors']) if regime['factors'] and all(a['type'] in {'A','B','C','D','E','F','G','U1'} for a in regime['factors']) else None
-        entry['coreId']=None
-        if not entry['identity']['fingerprint']:
-            entry['coreStatus']={'status':'unresolved','reason':'Primary complete inventory is not established; no core inferred from missing data'}
-            continue
-        try:
-            projected=restrict_nonabelian(entry['identity']['input'])
-        except IncompleteContent as error:
-            entry['coreStatus']={'status':'unresolved','reason':str(error)}
-            continue
-        entry['coreId']=projected['id'];entry['coreStatus']={'status':'resolved','convention':CONVENTION['id']}
-        core=cores.get(projected['id'])
-        if core is None:
-            canonical=projected['canonical']
-            factors=[{'key':'core:'+str(i),'id':a['family']+str(a['rank']),
-                'type':a['family'],'rank':a['rank'],'label':algebra_label(a['family'],a['rank']),
-                'role':str(1+sum(b==a for b in canonical['gauge_factors'][:i])) if canonical['gauge_factors'].count(a)>1 else ''} for i,a in enumerate(canonical['gauge_factors'])]
-            label=' ⊕ '.join(a['label'] for a in factors) or '0 (no non-Abelian factors)'
-            core={'id':projected['id'],'algebra':label,'algebraSignature':'+'.join(sorted(a['id'] for a in factors)),'canonical':canonical,'entryIds':[],
-                'paperIds':[],'abelianRanks':[],
-                'regime':{'factors':factors,'baseline':None,'fields':[],
-                    'coreRows':display_rows(canonical,factors)}}
-            cores[core['id']]=core
-        core['entryIds'].append(entry['id'])
-        core['paperIds']=sorted(set(core['paperIds'])|set(entry['paperIds']))
-        core['abelianRanks']=sorted(set(core['abelianRanks'])|{entry['abelianRank']})
-    return sorted(cores.values(),key=lambda c:(c['algebra'],min(c['paperIds'] or ['Z']),c['id']))
-
-def attach_algebras(entries,cores):
-    """Key recorded primary algebras even when their matter remains pending.
-
-    An empty factor list is unknown, not the zero semisimple algebra. A fixed
-    purely Abelian algebra, however, does have zero semisimple part. No matter
-    data or fingerprint is required to establish an algebra-only membership.
-    """
-    algebras={}
-    core_by_id={c['id']:c for c in cores}
-    for entry in entries:
-        entry['semisimpleId']=None
-        regime=next(r for v in entry['variants'] for r in v['regimes'] if r['id']==entry['primaryRegime'])
-        recorded=regime['factors']
-        try:
-            if not recorded or any(a['type'] not in {'A','B','C','D','E','F','G','U1'} or type(a['rank']) is not int or a['type']=='U1' and a['rank']!=1 for a in recorded):
-                raise IncompleteContent('Primary gauge algebra is parameterized or not fully established; no fixed semisimple algebra inferred')
-            projected=algebra_key({'gauge_factors':[{'family':a['type'],'rank':a['rank']} for a in recorded if a['type']!='U1']})
-        except IncompleteContent as error:
-            entry['semisimpleStatus']={'status':'unresolved','reason':str(error)}
-            continue
-        entry['semisimpleId']=projected['id']
-        entry['semisimpleStatus']={'status':'resolved','basis':'recorded_primary_regime','regimeId':regime['id']}
-        if projected['id'] not in algebras:
-            canonical=projected['canonical']
-            factors=[{'key':'algebra:'+str(i),'id':a['family']+str(a['rank']),
-                'type':a['family'],'rank':a['rank'],'label':algebra_label(a['family'],a['rank']),
-                'role':str(1+sum(b==a for b in canonical['gauge_factors'][:i])) if canonical['gauge_factors'].count(a)>1 else ''} for i,a in enumerate(canonical['gauge_factors'])]
-            algebras[projected['id']]={**projected,'algebra':' ⊕ '.join(a['label'] for a in factors) or '0 (no non-Abelian factors)',
-                'algebraSignature':'+'.join(sorted(a['id'] for a in factors)),'factors':factors,
-                'coreIds':[],'entryIds':[],'readyEntryIds':[],'pendingEntryIds':[],'paperIds':[],'abelianRanks':[]}
-        algebra=algebras[projected['id']]
-        algebra['entryIds'].append(entry['id'])
-        algebra['readyEntryIds' if entry['publicationStatus']=='ready' else 'pendingEntryIds'].append(entry['id'])
-        algebra['paperIds']=sorted(set(algebra['paperIds'])|set(entry['paperIds']))
-        if entry['abelianRank'] is not None:algebra['abelianRanks']=sorted(set(algebra['abelianRanks'])|{entry['abelianRank']})
-        if entry['coreId']:
-            core=core_by_id[entry['coreId']]
-            if algebra_key(core['canonical'])['id']!=projected['id']:
-                raise ValueError('Complete core differs from its recorded primary semisimple algebra: '+entry['id'])
-            core['semisimpleId']=projected['id']
-            algebra['coreIds']=sorted(set(algebra['coreIds'])|{core['id']})
-    for a in algebras.values():
-        for key in ['entryIds','readyEntryIds','pendingEntryIds']:a[key].sort()
-    return sorted(algebras.values(),key=lambda a:(a['algebra'],a['id']))
-
-
-def attach_full_algebras(entries,algebras,cores):
-    """The second branch of the browsing square, derived from the same entries."""
-    full={}
-    by_algebra={a['id']:a for a in algebras}
-    by_core={c['id']:c for c in cores}
-    for group in algebras+cores:group['fullAlgebraIds']=[]
-    for entry in entries:
-        projected=full_algebra_key(entry['identity']['input'])
-        if projected['semisimpleId']!=entry['semisimpleId'] or projected['abelianRank']!=entry['abelianRank']:
-            raise ValueError('Full gauge algebra disagrees with its semisimple restriction')
-        entry['fullAlgebraId']=projected['id']
-        if projected['id'] not in full:
-            factors=[]
-            for i,a in enumerate(projected['canonical']['gauge_factors']):
-                factors.append({'key':'full-algebra:'+str(i),'id':a['family']+str(a['rank']),
-                    'type':a['family'],'rank':a['rank'],'role':'',
-                    'label':'u(1)' if a['family']=='U1' else algebra_label(a['family'],a['rank'])})
-            full[projected['id']]={**projected,'factors':factors,
-                'algebra':' ⊕ '.join(a['label'] for a in factors),
-                'entryIds':[],'coreIds':[],'paperIds':[]}
-        group=full[projected['id']]
-        group['entryIds'].append(entry['id'])
-        group['coreIds']=sorted(set(group['coreIds'])|{entry['coreId']})
-        group['paperIds']=sorted(set(group['paperIds'])|set(entry['paperIds']))
-        for parent in [by_algebra[entry['semisimpleId']],by_core[entry['coreId']]]:
-            parent['fullAlgebraIds']=sorted(set(parent['fullAlgebraIds'])|{projected['id']})
-    for group in full.values():group['entryIds'].sort()
-    return sorted(full.values(),key=lambda a:(a['algebra'],a['id']))
+        spec=entry['specification']
+        core=restrict_nonabelian(spec)
+        algebra=algebra_key({'gauge_factors':[a for a in spec['gauge_factors'] if a['family']!='U1']})
+        whole=full_algebra_key(spec)
+        entry.update(coreId=core['id'],semisimpleId=algebra['id'],fullAlgebraId=whole['id'],abelianRank=whole['abelianRank'])
+        if core['id'] not in cores:
+            c=core['canonical']; fs=group_factors(c)
+            # Restriction has no U(1); temporarily add a trivial spectator for a
+            # zero semisimple algebra only while deriving the readable rows.
+            s={'schema_version':'field-content-2','inventory_complete':True,
+                'gauge_factors':[{'id':a['key'],'family':a['type'],'rank':a['rank']} for a in fs],
+                'matter':[{**{k:deepcopy(f[k]) for k in ['lorentz','reality','copies']},
+                    'gauge_representations':{a['key']:rep for a,rep in zip(fs,f['gauge'])}} for f in c['matter']]}
+            regime=matrix(s); regime['coreRows']=regime.pop('rows')
+            cores[core['id']]={'id':core['id'],'canonical':c,'algebra':label(fs),
+                'semisimpleId':algebra['id'],'entryIds':[],'paperIds':[],'abelianRanks':[],
+                'fullAlgebraIds':[],'regime':regime}
+        if algebra['id'] not in algebras:
+            fs=group_factors(algebra['canonical'])
+            algebras[algebra['id']]={**algebra,'algebra':label(fs),
+                'algebraSignature':'+'.join(sorted(a['id'] for a in fs)),
+                'factors':fs,'entryIds':[],'paperIds':[],'coreIds':[],'fullAlgebraIds':[]}
+        if whole['id'] not in full:
+            fs=group_factors(whole['canonical'])
+            full[whole['id']]={**whole,'algebra':label(fs),'factors':fs,
+                'entryIds':[],'paperIds':[],'coreIds':[]}
+        for group in [cores[core['id']],algebras[algebra['id']],full[whole['id']]]:
+            group['entryIds'].append(entry['id'])
+            group['paperIds']=sorted(set(group['paperIds'])|set(entry['paperIds']))
+            if 'coreIds' in group:group['coreIds']=sorted(set(group['coreIds'])|{core['id']})
+            if 'fullAlgebraIds' in group:group['fullAlgebraIds']=sorted(set(group['fullAlgebraIds'])|{whole['id']})
+        cores[core['id']]['abelianRanks']=sorted(set(cores[core['id']]['abelianRanks'])|{whole['abelianRank']})
+    for groups in [cores,algebras,full]:
+        for group in groups.values():group['entryIds'].sort()
+    return tuple(sorted(groups.values(),key=lambda g:(g['algebra'],g['id'])) for groups in [cores,algebras,full])

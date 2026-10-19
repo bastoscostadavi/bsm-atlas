@@ -1,8 +1,4 @@
-"""Canonical gauge/matter identity with irreducible-real scalar modules.
-
-Version-1 source inputs are accepted explicitly and normalized to version 2.
-The frozen v1 implementation is used only to audit historical extraction files.
-"""
+"""Canonical gauge–matter identity with irreducible-real scalar modules."""
 from collections import defaultdict
 from copy import deepcopy
 from fractions import Fraction
@@ -11,8 +7,8 @@ from itertools import permutations, product
 from math import factorial
 import json
 
-from catalogue_identity_v1 import (IncompleteContent, object_keys,
-    primitive_charge_scale, conjugate, normalize_spec as normalize_v1)
+from entry_validation import (IncompleteContent, object_keys,
+    primitive_charge_scale, conjugate, normalize_spec as validate_numerical)
 from scalar_conventions import real_scalar, orient_reps, is_scalar
 
 SCHEMA = 'field-content-2'
@@ -21,19 +17,17 @@ SCHEMA = 'field-content-2'
 def normalize_spec(spec):
     if isinstance(spec,dict) and spec.get('schema_version')=='field-content-3':
         raise IncompleteContent('Use prepare_entry for parameterized validation or specialize with --values before numerical identity checking')
-    if not isinstance(spec,dict) or spec.get('schema_version') not in {'field-content-1',SCHEMA}:
-        raise IncompleteContent('Use field-content-1 source inputs or field-content-2 canonical inputs')
+    if not isinstance(spec,dict) or spec.get('schema_version') != SCHEMA:
+        raise IncompleteContent('Use field-content-2 numerical inputs')
     source = deepcopy(spec)
     validation = deepcopy(spec)
-    validation['schema_version'] = 'field-content-1'
+    validation['schema_version'] = SCHEMA
     for f in validation.get('matter',[]) if isinstance(validation.get('matter'),list) else []:
         if isinstance(f,dict) and f.get('reality') == 'real_module':
-            if spec['schema_version'] != SCHEMA:
-                raise IncompleteContent('Real-module units require field-content-2')
-            # v1 validates shape/Lorentz/Dynkin/charges; the explicit v2 unit is
+            # Validate shape/Lorentz/Dynkin/charges; the explicit real-module unit is
             # validated below, not mistaken for an ordinary real charged irrep.
             f['reality'] = 'complex'
-    result = normalize_v1(validation)
+    result = validate_numerical(validation)
     sources = []
     for f in source['matter']:
         l = f['lorentz']
@@ -90,69 +84,3 @@ def canonicalize(spec):
                 'matter':rows},sort_keys=True,separators=(',',':'))
             if best is None or payload < best: best = payload
     return {'fingerprint':sha256(best.encode()).hexdigest(),'canonical_json':best}
-
-
-def from_regime(regime,templates,weight_resolver):
-    factors = regime['factors']
-    columns = [{'id':a['key'],'family':a['type'],'rank':a['rank']} for a in factors]
-    if any(a['family'] not in {'A','B','C','D','E','F','G','U1'} or not a['rank'] for a in columns):
-        raise IncompleteContent('Gauge factors are not fixed')
-    matter = []
-
-    def reps_from_components(cs):
-        if len(cs) != len(factors): raise IncompleteContent('Missing gauge factor assignments')
-        result = {}
-        for a,c in zip(factors,cs):
-            if a['type'] == 'U1':
-                try: q = Fraction(c['value'])
-                except (ValueError,TypeError,ZeroDivisionError): raise IncompleteContent('Abelian assignment is not numerical')
-                result[a['key']] = {'charge':str(q)}
-            elif c.get('dynkin') is not None:
-                result[a['key']] = {'dynkin':c['dynkin']}
-            else: raise IncompleteContent('Canonical Dynkin labels are missing')
-        return result
-
-    def append(field,reps,template=False):
-        for l in field['lorentz']:
-            if l['status'] != 'resolved': raise IncompleteContent('Unresolved Lorentz or scalar counting')
-            d = l['spacetime']['dimension']
-            if not d or not str(d).isdigit(): raise IncompleteContent('Spacetime dimension is not fixed')
-            actual = deepcopy(reps)
-            if not template and l.get('gaugeComponents') is not None:
-                actual = reps_from_components(l['gaugeComponents'])
-            elif l.get('conjugateGauge'):
-                actual = {a['id']:conjugate(actual[a['id']],a) for a in columns}
-            reality = str(l.get('reality') or '').lower()
-            if l['component'] == 'S':
-                if reality == 'real_module': pass
-                elif reality.startswith('complex'): reality = 'complex'
-                elif reality.startswith('real'): reality = 'real'
-                else: raise IncompleteContent('Scalar count is pending source extraction')
-            elif l['component'] in {'F','F_D'}: reality = 'none'
-            elif reality.startswith('real'): reality = 'real'
-            elif reality.startswith('complex'): reality = 'complex'
-            else: raise IncompleteContent('Vector reality is not extracted')
-            count = l.get('copies',field['copies'])
-            if count is None: raise IncompleteContent('Copy count is not extracted')
-            matter.append({'label':field['label'],
-                'lorentz':{'dimension':int(d),'scheme':l['scheme'],'irreps':l['irreps']},
-                'reality':reality,'copies':count,'gauge_representations':actual})
-
-    if regime['baseline']:
-        for f in templates[regime['baseline']]['fields']:
-            reps = {}
-            for a in factors:
-                if a['id']=='A2' and a['role']=='colour': i=0
-                elif a['id']=='A1' and a['role'] in {'weak_L','left'}: i=1
-                elif a['id']=='u1' and a['role']=='hypercharge': i=2
-                else: raise IncompleteContent('Baseline charges under extra factors require explicit assignments')
-                if i == 2: reps[a['key']] = {'charge':f['representation'][i]}
-                else:
-                    w = weight_resolver(a,f['representation'][i])
-                    if w is None: raise IncompleteContent('Reference irrep is unresolved')
-                    reps[a['key']] = {'dynkin':w}
-            append(f,reps,True)
-    for f in regime['fields']:
-        if f['excludedCoordinate'] or regime['baseline'] and f['inherited']: continue
-        append(f,reps_from_components(f['components']))
-    return {'schema_version':SCHEMA,'inventory_complete':True,'gauge_factors':columns,'matter':matter}
