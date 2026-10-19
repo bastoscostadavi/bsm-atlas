@@ -41,7 +41,7 @@ GitHub Actions runs the same checks and publishes `website/` on `main`.
 - `downloads/field-catalogue.csv`: one primary-regime summary per entry.
 - `downloads/nonabelian-cores.csv`, `downloads/semisimple-algebras.csv`, `downloads/full-gauge-algebras.csv`: the three coarse projections of full entries.
 
-Navigation is a square: semisimple gauge part → full gauge algebra, semisimple gauge part ↓ semisimple matter, and either branch → full matter. It is not a numbered sequence. All four views derive only from complete source-supported inventories. Incomplete sectors cannot create an algebra category. Different description regimes are not combined. A paper can have no model association.
+Navigation uses a compact two-axis selector: semisimple part versus full algebra in columns, and gauge algebra versus matter spectrum in rows. Linked counts open the four views; the active view is underlined. Users can add Abelian factors first or matter first, rather than follow numbered steps. All views derive only from complete source-supported inventories. Incomplete sectors cannot create an algebra category. Different description regimes are not combined. A paper can have no model association.
 
 Full-algebra keys retain canonical simple factors and Abelian rank only; generator names, charges and global forms are not part of that grouping. SQLite `full_gauge_algebras` and `entry_full_algebras` are derived caches; `entry_layers` includes both full-algebra and matter-core memberships. No source inventory or full-entry fingerprint changes when these browsing views are rebuilt.
 

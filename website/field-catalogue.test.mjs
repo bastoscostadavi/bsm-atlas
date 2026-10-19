@@ -21,7 +21,12 @@ assert(nodes.get('view-content').innerHTML.includes('model-entries'));
 assert.equal(nodes.get('page-title').textContent,'Semisimple parts of gauge algebras.');
 assert.equal(nodes.get('result-count').textContent,'11 semisimple parts');
 assert(nodes.get('view-content').innerHTML.includes('Semisimple parts of the gauge algebras, with all U(1) factors and matter omitted.'));
-assert(nodes.get('view-content').innerHTML.includes('browse-square'));
+assert(nodes.get('view-content').innerHTML.includes('scope-navigation'));
+assert(nodes.get('view-content').innerHTML.includes('<th scope="col">Semisimple part</th>'));
+assert(nodes.get('view-content').innerHTML.includes('<th scope="row">Matter spectrum</th>'));
+assert(nodes.get('view-content').innerHTML.includes('aria-label="Full gauge algebra"'));
+assert(!nodes.get('view-content').innerHTML.includes('layer-arrow'));
+assert(!nodes.get('view-content').innerHTML.includes('layer-node'));
 assert(nodes.get('view-content').innerHTML.includes('Full gauge algebra'));
 assert(!nodes.get('view-content').innerHTML.includes('1 · Algebras'));
 assert(!nodes.get('view-content').innerHTML.includes('2 · Matter spectra'));
@@ -300,3 +305,14 @@ assert.equal(routed.state.browse,'full-algebras');
 assert.equal(routed.state.semisimple,smAlgebra);
 context.location.hash='#full-algebra/not-an-algebra';routed.route();
 assert.equal(findEntries(data,routed.state).length,0);
+
+const compact=create(data,document);compact.render();
+let selector=nodes.get('layer-navigation').innerHTML;
+for(const [n,unit] of [[11,'algebras'],[14,'algebras'],[58,'spectra'],[67,'entries']]){
+  assert(selector.includes('<span>'+n+'</span> '+unit));
+}
+assert.equal((selector.match(/aria-current="page"/g)||[]).length,1);
+compact.state.q='three-higgs-doublets';compact.rows();
+selector=nodes.get('layer-navigation').innerHTML;
+assert.equal((selector.match(/<span>1<\/span>/g)||[]).length,4);
+assert(selector.includes('q=three-higgs-doublets'));
