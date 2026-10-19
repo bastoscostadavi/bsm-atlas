@@ -92,8 +92,8 @@ class NonAbelianCore(unittest.TestCase):
         self.assertEqual(result['matter'][0]['copies'],2)
 
     def test_exported_keys_and_memberships(self):
-        self.assertEqual(DATA['counts']['cores'],58)
-        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),67)
+        self.assertEqual(DATA['counts']['cores'],len(DATA['cores']))
+        self.assertEqual(sum(len(c['entryIds']) for c in DATA['cores']),len(DATA['entries']))
         for c in DATA['cores']:
             self.assertEqual(c['id'],sha256(json.dumps(c['canonical'],sort_keys=True,separators=(',',':')).encode()).hexdigest())
             for entry_id in c['entryIds']:

@@ -13,7 +13,7 @@ import tempfile
 
 ROOT=Path(__file__).resolve().parent.parent
 sys.path[:0]=[str(ROOT/'atlas'),str(ROOT/'website')]
-from catalogue import load, identity
+from catalogue import load, identity, validate
 from catalogue_identity import normalize_spec
 from core_projection import attach_layers
 from presentation import matrix, compact_baseline
@@ -24,8 +24,8 @@ VERSION='gauge-matter-12'
 def encoded(value):
     return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
 
-def main_data():
-    source=load()
+def main_data(source=None):
+    source=load() if source is None else validate(source)
     entries=[]
     for item in source['entries']:
         entry=deepcopy(item); spec=entry['specification']; key=identity(spec)

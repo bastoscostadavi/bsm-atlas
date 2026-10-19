@@ -60,7 +60,12 @@ def compact_baseline(regime,templates):
         l=row['lorentz']
         return json.dumps([l['spacetime']['dimension'],l['scheme'],l['irreps'],l['reality'],
             [row['components'][i]['dynkin'] if row['components'][i]['dynkin'] is not None else row['components'][i]['value'] for i in order]])
-    for code in ['R_MSSM','R_SM','F_SM']:
+    codes=['R_MSSM','R_SM','F_SM']
+    scalars=[row for row in regime['rows'] if row['lorentz']['component']=='S']
+    # Keep all Higgs doublets together rather than hide one in R_SM.
+    if len(scalars)==1 and scalars[0]['copies']>1 and key(scalars[0],positions)==key(templates['H_SM']['rows'][0],[0,1,2]):
+        codes=['R_MSSM','F_SM','R_SM']
+    for code in codes:
         remaining=deepcopy(regime['rows'])
         for reference in templates[code]['rows']:
             match=next((row for row in remaining if key(row,positions)==key(reference,[0,1,2]) and row['copies']>=reference['copies']),None)

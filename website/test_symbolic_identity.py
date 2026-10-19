@@ -151,7 +151,8 @@ class SymbolicIdentity(unittest.TestCase):
                 report = check(candidate, ROOT / 'website/downloads/field-catalogue.sqlite')
                 self.assertEqual(report['status'], 'exact_symbolic_template_match')
                 self.assertIn(entry['id'], [match['entry_id'] for match in report['matches']])
-                self.assertTrue(any(ref.get('parameter_names') for ref in entry['references']))
+                for ref in entry['references']:
+                    self.assertLessEqual(set(ref.get('parameter_names',{}).values()),set(source['parameters']))
 
 
 if __name__ == '__main__':

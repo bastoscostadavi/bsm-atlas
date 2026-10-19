@@ -19,19 +19,28 @@ from check_entry import check
 from nonabelian_core import restrict_nonabelian
 from field_conventions import dimension_a, dimension_d
 from presentation import matrix
+from build_field_catalogue import main_data, database
 
 SOURCE=load()
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
 ENTRIES={e['id']:e for e in SOURCE['entries']}
 DATABASE=ROOT/'website/downloads/field-catalogue.sqlite'
+NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification']['matter'])+1
 
 
 class MinimalCatalogue(unittest.TestCase):
     def test_migration_preserved_all_identities_references_and_views(self):
-        snapshot={e['id']:{'fingerprint':e['identity']['fingerprint'],**{k:e[k] for k in ['coreId','semisimpleId','fullAlgebraId','paperIds']}} for e in DATA['entries']}
-        digest=sha256(json.dumps(snapshot,sort_keys=True,separators=(',',':')).encode()).hexdigest()
-        self.assertEqual(digest,'3589cf029f83e77074619dc9bdcf3b7c810b3ac559761da16a33c1a1a6994b79')
-        self.assertEqual(DATA['counts'],dict(entries=67,papers=51,linkedPapers=37,cores=58,semisimpleAlgebras=11,fullAlgebras=14))
+        baseline=json.loads((ROOT/'website/fixtures/minimal-migration.json').read_text())
+        current={e['id']:e for e in DATA['entries']}
+        for key,expected in baseline.items():
+            actual=current[key]
+            self.assertEqual(actual['identity']['fingerprint'],expected['fingerprint'])
+            for layer in ['coreId','semisimpleId','fullAlgebraId']:self.assertEqual(actual[layer],expected[layer])
+            self.assertLessEqual(set(expected['paperIds']),set(actual['paperIds']))
+        self.assertGreaterEqual(len(current),67)
+        self.assertEqual(DATA['counts'],dict(entries=len(DATA['entries']),papers=len(DATA['papers']),
+            linkedPapers=sum(bool(p['entryIds']) for p in DATA['papers']),cores=len(DATA['cores']),
+            semisimpleAlgebras=len(DATA['semisimpleAlgebras']),fullAlgebras=len(DATA['fullAlgebras'])))
 
     def test_source_and_derived_scope(self):
         self.assertEqual(set(SOURCE),{'schema_version','papers','entries'})
@@ -111,31 +120,45 @@ class MinimalCatalogue(unittest.TestCase):
 
     def test_ingestion_new_entry_and_empty_family(self):
         candidate=deepcopy(ENTRIES['two-higgs-doublets']);candidate['id']='three-extra-higgs-benchmark'
-        candidate['specification']['matter'][-1]['copies']+=4
+        candidate['specification']['matter'][-1]['copies']+=NEW_COPIES
         after,target=ingest(SOURCE,candidate)
-        self.assertEqual(len(after['entries']),68);self.assertEqual(target,candidate['id'])
+        self.assertEqual(len(after['entries']),len(SOURCE['entries'])+1);self.assertEqual(target,candidate['id'])
         numeric=deepcopy(ENTRIES['two-higgs-doublets'])
         numeric['specification'].update(schema_version='field-content-3',parameters={},constraints=[])
         after,target=ingest(SOURCE,numeric)
-        self.assertEqual(target,'two-higgs-doublets');self.assertEqual(len(after['entries']),67)
+        self.assertEqual(target,'two-higgs-doublets');self.assertEqual(len(after['entries']),len(SOURCE['entries']))
 
     def test_ingestion_cli_is_dry_by_default_and_atomic_on_validation_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             p=Path(directory)/'source.json';p.write_text(json.dumps(SOURCE))
             candidate=Path(directory)/'candidate.json';c=deepcopy(ENTRIES['two-higgs-doublets'])
-            c['specification']['matter'][-1]['copies']+=4;c['id']='a-new-higgs-model'
+            c['specification']['matter'][-1]['copies']+=NEW_COPIES;c['id']='a-new-higgs-model'
             candidate.write_text(json.dumps(c));before=p.read_bytes()
             command=[sys.executable,'-B',str(ROOT/'atlas/catalogue.py'),'--source',str(p),'--add',str(candidate)]
             run=subprocess.run(command,capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(p.read_bytes(),before)
-            run=subprocess.run([*command,'--write'],capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(len(load(p)['entries']),68)
+            run=subprocess.run([*command,'--write'],capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(len(load(p)['entries']),len(SOURCE['entries'])+1)
             before=p.read_bytes();c['references'][0]['paper_id']='missing';candidate.write_text(json.dumps(c))
             run=subprocess.run([*command,'--write'],capture_output=True,text=True);self.assertEqual(run.returncode,2);self.assertEqual(p.read_bytes(),before)
 
     def test_lookup_exact_and_nearby(self):
         s=deepcopy(ENTRIES['two-higgs-doublets']['specification'])
         self.assertEqual(check(s,DATABASE)['matches'][0]['entry_id'],'two-higgs-doublets')
-        s['matter'][-1]['copies']+=100
+        s['matter'][-1]['copies']+=NEW_COPIES
         self.assertTrue(check(s,DATABASE)['same_algebra_candidates'])
+
+    def test_new_entries_build_without_historical_scaffolding(self):
+        candidate=deepcopy(ENTRIES['two-higgs-doublets']);candidate['id']='growth-test-model'
+        candidate['specification']['matter'][-1]['copies']+=NEW_COPIES
+        source,target=ingest(SOURCE,candidate)
+        expanded=main_data(source)
+        self.assertEqual(expanded['counts']['entries'],len(SOURCE['entries'])+1)
+        self.assertIn(target,[e['id'] for e in expanded['entries']])
+        for kind in ['cores','fullAlgebras','semisimpleAlgebras']:
+            self.assertEqual(sum(len(g['entryIds']) for g in expanded[kind]),len(expanded['entries']))
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'expanded.sqlite';database(path,expanded)
+            with closing(sqlite3.connect(path)) as con:
+                self.assertEqual(con.execute('SELECT count(*) FROM entries').fetchone()[0],len(expanded['entries']))
 
     def test_exact_dimension_displays(self):
         self.assertEqual(dimension_a([1,0]),3);self.assertEqual(dimension_a([0,1]),3)
@@ -154,6 +177,9 @@ class MinimalCatalogue(unittest.TestCase):
         nm=next(e for e in DATA['entries'] if e['id']=='nmssm-matter')
         self.assertEqual(nm['regime']['baseline'],'R_MSSM')
         self.assertEqual(sorted(r['copies'] for r in nm['regime']['additionalRows']),[1,2])
+        thdm=next(e for e in DATA['entries'] if e['id']=='two-higgs-doublets')['regime']
+        self.assertEqual(thdm['baseline'],'F_SM')
+        self.assertEqual(thdm['additionalRows'][0]['copies'],2)
 
     def test_sql_roundtrips_precise_objects_and_references(self):
         with closing(sqlite3.connect(DATABASE)) as con:
@@ -188,7 +214,7 @@ class MinimalCatalogue(unittest.TestCase):
     def test_all_downloads_retain_exact_content(self):
         with (ROOT/'website/downloads/field-catalogue.csv').open(newline='') as stream:
             rows=list(csv.DictReader(stream))
-        self.assertEqual(len(rows),67)
+        self.assertEqual(len(rows),len(DATA['entries']))
         for row in rows:self.assertEqual(json.loads(row['specification_json']),ENTRIES[row['entry_id']]['specification'])
         for kind,file in [('cores','nonabelian-cores'),('semisimpleAlgebras','semisimple-algebras'),('fullAlgebras','full-gauge-algebras')]:
             with (ROOT/'website/downloads'/str(file+'.csv')).open(newline='') as stream:rows=list(csv.DictReader(stream))

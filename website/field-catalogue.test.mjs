@@ -5,8 +5,8 @@ const context={URLSearchParams,location:{hash:'#catalogue'},history:{replaceStat
 for(const file of ['representation-diagrams.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,import.meta.url),'utf8'),context);
 const {findEntries,esc,create,dynkinTuple,representationMarkup}=context.FieldCatalogue;
 const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',import.meta.url)));
-assert.equal(findEntries(data).length,67);
-assert.equal(findEntries(data,{paper:'P15'}).length,3);
+assert.equal(findEntries(data).length,data.entries.length);
+assert(findEntries(data,{paper:'P15'}).length>=3);
 assert.equal(findEntries(data,{paper:'R01'}).length,0);
 assert(findEntries(data,{q:'singlet'}).length>0);
 assert(findEntries(data,{q:'vector-like'}).length>0);
@@ -18,7 +18,7 @@ const descriptions={
  'full-algebras':'Gauge algebras, with matter omitted and all U(1) factors included.',
  cores:'Gauge algebras and matter representations, with all U(1) factors omitted.',
  entries:'Gauge algebras and matter representations, with all U(1) factors included.'};
-for(const [browse,count] of [['algebras',11],['full-algebras',14],['cores',58],['entries',67]]){
+for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
  assert(content().includes(descriptions[browse]));
  assert(nodes.get('result-count').textContent.startsWith(String(count)+' '));
@@ -87,7 +87,7 @@ for(const [hash,browse] of [['#catalogue','algebras'],['#full-algebras?semisimpl
  context.location.hash=hash;app.route();app.render();assert.equal(app.state.browse,browse);
 }
 context.location.hash='#core/'+core+'?fullAlgebra='+smFull.id+'&notation=compare';
-app.route();app.render();assert.equal(nodes.get('result-count').textContent,'2 entries');
+app.route();app.render();assert.equal(nodes.get('result-count').textContent,findEntries(data,{core,fullAlgebra:smFull.id}).length+' entries');
 assert.equal(app.state.mode,'compare');
 app.state.q='vector-like';app.url();app.route();
 assert.equal(app.state.core,core);assert.equal(app.state.fullAlgebra,smFull.id);assert.equal(app.state.q,'vector-like');
