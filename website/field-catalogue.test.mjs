@@ -327,8 +327,13 @@ assert(nodes.get('view-content').innerHTML.includes('infinitely many predictions
 assert(nodes.get('view-content').innerHTML.includes('electron’s magnetic moment'));
 assert(nodes.get('view-content').innerHTML.includes('https://arxiv.org/abs/2209.13084'));
 assert(nodes.get('view-content').innerHTML.includes('among the most precise in all of science'));
-assert.equal((nodes.get('view-content').innerHTML.match(/<p>/g)||[]).length,2);
-assert(!nodes.get('view-content').innerHTML.includes('U(1)'));
+assert.equal((nodes.get('view-content').innerHTML.match(/<p>/g)||[]).length,3);
+assert(nodes.get('view-content').innerHTML.includes('semisimple part of the gauge algebra, with all U(1) factors omitted'));
+assert(nodes.get('view-content').innerHTML.includes('either add the matter representations or include the Abelian factors'));
+assert(nodes.get('view-content').innerHTML.includes('Both routes lead to the full gauge and matter content'));
+assert(nodes.get('view-content').innerHTML.includes('a fixed set of U(1) charges, as in the Standard Model'));
+assert(nodes.get('view-content').innerHTML.includes('charges depend on integer parameters subject to stated constraints'));
+assert(!nodes.get('view-content').innerHTML.includes('normalized to integers with no common factor'));
 assert(!nodes.get('view-content').innerHTML.includes('For a given spacetime dimension'));
 assert(!nodes.get('view-content').innerHTML.includes('Once a Lagrangian is specified'));
 assert(!nodes.get('view-content').innerHTML.includes('Each model entry encodes its field content, gauge and other symmetries'));
