@@ -131,6 +131,37 @@ const core=data.entries.find(e=>e.id==='vlq-t-singlet').coreId;
 for(const [hash,browse] of [['#catalogue','algebras'],['#full-algebras?semisimple='+smAlgebra,'full-algebras'],['#algebra/'+smAlgebra,'cores'],['#core/'+core,'entries'],['#full-algebra/'+smFull.id,'entries'],['#entry/vlq-t-singlet','entries']]){
  context.location.hash=hash;app.route();app.render();assert.equal(app.state.browse,browse);
 }
+// Back is a real parent link, including on a fresh direct visit without history.
+const backHref=()=>content().match(/id="catalogue-back"[^>]*href="([^"]+)"/)?.[1].replaceAll('&amp;','&');
+app.state.mode='dimensions';
+for(const [hash,parent] of [
+ ['#catalogue',undefined],
+ ['#full-algebras','#catalogue'],
+ ['#full-algebras?semisimple=942357faa6b9f87e186cbba32b69a129a0caa5a3da4d5f33454be75f13c8405d','#catalogue'],
+ ['#cores','#catalogue'],
+ ['#algebra/'+smAlgebra,'#catalogue'],
+ ['#entries','#full-algebras'],
+ ['#entries?semisimple='+smAlgebra,'#full-algebras?semisimple='+smAlgebra],
+ ['#full-algebra/'+smFull.id,'#full-algebras?semisimple='+smAlgebra],
+ ['#core/'+core,'#algebra/'+smAlgebra],
+ ['#entry/vlq-t-singlet','#algebra/'+smAlgebra],
+ ['#core/'+core+'?fullAlgebra='+smFull.id,'#algebra/'+smAlgebra+'?fullAlgebra='+smFull.id],
+ ['#full-algebra/not-real','#full-algebras']]){
+ context.location.hash=hash;app.route();app.render();assert.equal(backHref(),parent,hash);
+ if(parent){
+  assert.equal((content().match(/id="catalogue-back"/g)||[]).length,1);
+  assert(content().includes('aria-label="Back to '));
+  context.location.hash=parent;app.route();app.render();
+  assert.equal(app.state.view,'catalogue');assert.equal(app.state.open,'');
+ }
+}
+const retained=new URLSearchParams({q:'vector-like',algebra:'na:'+data.semisimpleAlgebras.find(a=>a.id===smAlgebra).algebraSignature,paper:'P15',abelianRank:'1',notation:'compare'});
+context.location.hash='#core/'+core+'?'+retained+'&fullAlgebra='+smFull.id;
+app.route();app.render();context.location.hash=backHref();app.route();app.render();
+assert.equal(app.state.browse,'cores');assert.equal(app.state.semisimple,smAlgebra);assert.equal(app.state.fullAlgebra,smFull.id);
+for(const [key,value] of retained)assert.equal(app.state[key==='notation'?'mode':key],value);
+app.state.paper='';app.render();
+assert(results().includes('fullAlgebra='+smFull.id)); // Reopening a core retains the intersection.
 context.location.hash='#core/'+core+'?fullAlgebra='+smFull.id+'&notation=compare';
 app.route();app.render();assert.equal(nodes.get('result-count').textContent,findEntries(data,{core,fullAlgebra:smFull.id}).length+' entries');
 assert.equal(app.state.mode,'compare');
@@ -152,6 +183,12 @@ const uiDocument={documentElement:{dataset:{}},addEventListener(name,fn){documen
 context.window={addEventListener(name,fn){windowEvents.set(name,fn);}};
 context.localStorage={getItem(){return null;},setItem(){}};
 const disclosure=create(data,uiDocument);disclosure.start();
+context.location.hash='#full-algebra/'+smFull.id;disclosure.route();disclosure.render();
+uiNodes.get('view-content').events.get('input')({target:{id:'entry-search',value:'vector-like'}});
+const updatedBack=new URL(uiNodes.get('catalogue-back').attributes.get('href'),'https://example.org/');
+const updatedParams=new URLSearchParams(updatedBack.hash.split('?')[1]);
+assert.equal(updatedParams.get('q'),'vector-like');assert.equal(updatedParams.get('semisimple'),smAlgebra);
+context.location.hash='#catalogue';disclosure.route();disclosure.render();
 assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261019-18');
 assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#ffffff');
 uiNodes.get('theme-toggle').events.get('click')();

@@ -110,6 +110,20 @@
      for(const [key,value] of Object.entries(extra))if(value)p.set(key,value);
      return '#'+target+(p.size?'?'+p:'');
    }
+   function backDestination(){
+     if(level()==='algebras')return null;
+     let target='catalogue',extra={},label='semisimple gauge algebras';
+     if(level()==='entries'){
+       if(state.core){
+         target=state.semisimple?'algebra/'+state.semisimple:'cores';
+         extra={fullAlgebra:state.fullAlgebra};
+         label='semisimple gauge algebras and matter representations';
+       }else{
+         target='full-algebras';extra={semisimple:state.semisimple};label='gauge algebras';
+       }
+     }
+     return {href:browseLink(target,extra),label};
+   }
    function catalogueLinks(){
      const parent=coreById.get(state.core)?.semisimpleId||fullAlgebraById.get(state.fullAlgebra)?.semisimpleId||state.semisimple;
      const entryTarget=state.core?'core/'+state.core:state.fullAlgebra?'full-algebra/'+state.fullAlgebra:'entries';
@@ -127,6 +141,8 @@
      const navigation=document.getElementById('catalogue-views');
      if(navigation)navigation.innerHTML=catalogueLinks();
      document.getElementById('catalogue-menu')?.setAttribute?.('data-active',String(state.view==='catalogue'));
+     const back=backDestination();
+     if(back)document.getElementById('catalogue-back')?.setAttribute?.('href',back.href);
    }
    function detail(e){
      const references=[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
@@ -200,7 +216,7 @@
      document.getElementById('result-count').textContent=cores.length+' semisimple matter '+(cores.length===1?'spectrum':'spectra');
      document.getElementById('model-entries').innerHTML=visible.map(c=>{
        const names=c.entryIds.filter(id=>matched.has(id)).map(id=>entryById.get(id)?.name).filter(Boolean);
-       const count=c.entryIds.filter(id=>matched.has(id)).length,href=browseLink('core/'+c.id);
+       const count=c.entryIds.filter(id=>matched.has(id)).length,href=browseLink('core/'+c.id,{fullAlgebra:state.fullAlgebra});
        return '<article class="model-entry core-entry"><header class="model-heading"><h2><a class="core-title" href="'+esc(href)+'">'+math(c.algebra)+'</a></h2><a class="core-open" href="'+esc(href)+'">Open '+count+' '+(count===1?'entry':'entries')+' →</a></header><p class="core-members">'+names.map(esc).join(' · ')+'</p>'+matrix({id:c.id,name:c.algebra},c.regime)+'</article>';
      }).join('')+(cores.length>visible.length?'<button class="load-more" data-more>Show more cores ('+(cores.length-visible.length)+' remaining)</button>':'')+(!cores.length?'<p class="empty">No matter spectra match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
@@ -256,12 +272,14 @@
      const fullAlgebra=fullAlgebraById.get(state.fullAlgebra);
      const algebra=algebraById.get(core?.semisimpleId||state.semisimple);
      const context=state.fullAlgebra?'<span class="math">'+math(fullAlgebra?.algebra||'Full algebra not found')+'</span>':state.core?'<span class="math">'+math(core?.algebra||'Core not found')+'</span>':state.semisimple?'<span class="math">'+math(algebra?.algebra||'Algebra not found')+'</span>':'';
+     const parent=backDestination();
+     const back=parent?'<a id="catalogue-back" class="catalogue-back" href="'+esc(parent.href)+'" aria-label="Back to '+parent.label+'"><span aria-hidden="true">←</span> Back</a>':'';
      const descriptions={
        algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
        'full-algebras':'Gauge algebras, with matter representations omitted.',
        cores:'The semisimple part of the gauge algebra and its matter representations, with U(1) factors omitted.',
        entries:'Complete gauge–matter specifications, with multiplicities and charge assignments.'};
-     return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
+     return '<p class="section-note">'+descriptions[current]+'</p>'+(back||context?'<div class="layer-context">'+back+context+'</div>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
