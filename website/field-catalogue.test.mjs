@@ -27,8 +27,14 @@ const descriptions={
  'full-algebras':'Gauge algebras, with matter omitted and all U(1) factors included.',
  cores:'Gauge algebras and matter representations, with all U(1) factors omitted.',
  entries:'Gauge algebras and matter representations, with all U(1) factors included.'};
+const viewTitles={
+ algebras:'Semisimple part of gauge algebras',
+ 'full-algebras':'Gauge algebra',
+ cores:'Semisimple part of gauge algebras and matter representations',
+ entries:'Gauge algebra and matter representations'};
 for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
+ assert.equal(nodes.get('page-title').textContent,viewTitles[browse]);
  assert(content().includes(descriptions[browse]));
  assert(nodes.get('result-count').textContent.startsWith(String(count)+' '));
  const menu=nodes.get('catalogue-views').innerHTML;

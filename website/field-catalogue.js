@@ -267,7 +267,7 @@
    }
    function render(){
      const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
-     document.getElementById('page-title').textContent=state.view==='catalogue'?({algebras:'Semisimple parts of gauge algebras.','full-algebras':'Full gauge algebras.',cores:'Semisimple matter spectra.',entries:'Full matter spectra.'}[level()]):titles[state.view];
+     document.getElementById('page-title').textContent=state.view==='catalogue'?({algebras:'Semisimple part of gauge algebras','full-algebras':'Gauge algebra',cores:'Semisimple part of gauge algebras and matter representations',entries:'Gauge algebra and matter representations'}[level()]):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
