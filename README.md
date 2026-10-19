@@ -27,13 +27,18 @@ Multiplicity counts repeated representations, not their dimensions. Scalar multi
 
 This is a catalogue of **gauge–matter content**, not complete Lagrangians. Interactions, couplings, global gauge-group quotients, additional symmetries and symmetry-breaking patterns carry further information. Different physical theories can therefore share one atlas entry. These richer structures can be added later without changing the present organizing principle.
 
-## Three views of one catalogue
+## Two paths through one catalogue
 
-1. **Non-Abelian gauge algebra** — the semisimple part, with matter and all U(1) factors omitted.
-2. **Non-Abelian matter spectrum** — that algebra with Lorentz representations, non-Abelian irreps and multiplicities.
-3. **Full gauge–matter entry** — every gauge factor, exact Abelian charges and linked source papers.
+```text
+Semisimple gauge part ──────────→ Full gauge algebra
+          │                              │
+          ↓                              ↓
+Semisimple matter spectrum ─────→ Full matter spectrum
+```
 
-These are derived groupings, not three independently maintained inventories. Only complete source-supported entries appear at any level. A partial sector cannot create an algebra category, and missing information is never guessed.
+The **semisimple part of the gauge algebra** omits every U(1) factor. From there, either add the Abelian factors to browse full gauge algebras, or add Lorentz representations, non-Abelian irreps and multiplicities to browse semisimple matter spectra. Both paths reach the same full entries with all gauge factors, matter representations, charges and linked papers.
+
+The full-algebra grouping records canonical simple factors and the number of U(1) factors, not a generator basis or global gauge group. These are derived views, not independently maintained inventories. Only complete source-supported entries appear in any view. A partial sector cannot create an algebra category, and missing information is never guessed.
 
 ## Conventions and evidence
 
@@ -47,7 +52,7 @@ See the [complete conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) and [entry sc
 
 ## Current coverage
 
-The atlas contains **67 complete gauge-matter entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. They form 58 non-Abelian matter spectra and 11 semisimple gauge algebras. These are field-content counts, not distinct complete physical theories.
+The atlas contains **67 complete gauge-matter entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. They form 58 semisimple matter spectra, 11 semisimple gauge parts and 14 full gauge algebras. These are field-content counts, not distinct complete physical theories.
 
 All 50 seed papers and the independent theory reference R01 remain listed. A paper may have zero model links. There are no pending entries, incomplete sectors or exclusion log in the public atlas.
 

@@ -1,6 +1,6 @@
 # Gauge-algebra and matter conventions
 
-Version `gauge-matter-9`, October 19, 2026.
+Version `gauge-matter-10`, October 19, 2026.
 
 ## Publication rule
 
@@ -8,7 +8,7 @@ The atlas contains only full, source-supported gauge-algebra and matter specific
 
 Complete here means the gauge algebra, Lorentz and gauge representations, and multiplicities in one stated description regime. It does not mean a complete Lagrangian, independently certified physics, anomaly cancellation, viable phenomenology or a UV completion of an explicitly specified EFT. Do not invent missing matter to supply any of those.
 
-The current release has **67 entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. All 50 seed papers and the independent theory reference R01 remain listed. The three derived views contain 11 semisimple algebras and 58 non-Abelian matter spectra. These are counts of field content, not distinct complete physical theories.
+The current release has **67 entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. All 50 seed papers and the independent theory reference R01 remain listed. The derived views contain 11 semisimple gauge parts, 14 full gauge algebras and 58 semisimple matter spectra. These are counts of field content, not distinct complete physical theories.
 
 ## Source and scope
 
@@ -94,13 +94,22 @@ These expand a source's explicit inheritance; they are not independent evidence 
 
 Two-Higgs-doublet models use F_SM plus two Higgs doublets, not R_SM plus two more. NMSSM uses R_MSSM plus one singlet chiral multiplet.
 
-## Three derived browsing layers
+## Four derived browsing views
 
-1. Semisimple gauge algebra: forget matter and every Abelian factor.
-2. Non-Abelian matter spectrum: retain Lorentz irreps, non-Abelian weights and multiplicities, forgetting every Abelian factor.
-3. Full gauge-matter entry: retain all factors and exact charges, including symbolic metadata when applicable.
+```text
+Semisimple gauge part ──────────→ Full gauge algebra
+          │                              │
+          ↓                              ↓
+Semisimple matter spectrum ─────→ Full matter spectrum
+```
 
-All three derive from the same complete entries. A partial sector cannot create a category. Scalar real modules are decomposed again after restriction; a charged singlet yields two real singlets when its U(1) is forgotten. A source complex vector whose restricted gauge irrep becomes real similarly supplies two real vectors. Symbolic restriction removes Abelian factors before source-field realification; it never substitutes a fictitious parameter point.
+The upper-left view is the **semisimple part of the gauge algebra**, not a claim that the full algebra has no Abelian factors. It forgets matter and every U(1). The upper-right view restores all Abelian factors but still omits matter; its canonical key is the multiset of simple factors plus the Abelian rank, independent of generator names or matter charges. It does not specify a global group or quotient.
+
+The lower-left view retains Lorentz irreps, non-Abelian weights and multiplicities, forgetting all U(1) factors. The lower-right view is the complete gauge-matter entry, including exact charges and symbolic metadata when applicable. Both paths select the same underlying entries; selecting a matter core and a full algebra can also intersect those groupings.
+
+All four derive from the same complete entries. A partial sector cannot create a category. Scalar real modules are decomposed again after restriction; a charged singlet yields two real singlets when its U(1) is forgotten. A source complex vector whose restricted gauge irrep becomes real similarly supplies two real vectors. Symbolic restriction removes Abelian factors before source-field realification; it never substitutes a fictitious parameter point.
+
+The generated SQLite caches `full_gauge_algebras` and `entry_full_algebras` alongside the existing semisimple and matter-core caches. `entry_layers` joins both branches. These are reproducible projections, not additional hand-curated model inventories. `downloads/full-gauge-algebras.csv` supplies the algebra-only view.
 
 Identical restricted rows aggregate. Coarse grouping is not physical equivalence, symmetry breaking, a global group or an SM-embedding proof. Different interactions/global symmetries can share a full field-content entry.
 
@@ -114,4 +123,4 @@ Public JSON, CSV and SQLite contain complete entries only. `source_field_id` is 
 
 Accepted evidence and candidates are hash-pinned, not read from a mutable agent queue. Bibliographic metadata is required for a new paper; a new entry can be created directly from a validated harvest without first inserting an incomplete DSI record. The original source database is never edited.
 
-Run `make build` and `make check`. Checks cover normalization, publication gates, typed symbolic storage, exact duplicate reconciliation, source integrity, frozen evidence, all three projections, SQL/JSON agreement and frontend behavior. They do not certify the full physics.
+Run `make build` and `make check`. Checks cover normalization, publication gates, typed symbolic storage, exact duplicate reconciliation, source integrity, frozen evidence, both browsing paths, SQL/JSON agreement and frontend behavior. They do not certify the full physics.

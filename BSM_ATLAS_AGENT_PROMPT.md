@@ -83,11 +83,14 @@ Checks must preserve the original source checksum, frozen evidence and source ID
 
 ## Derived browsing layers
 
-The website derives three views from the same entries:
+The website derives four views from the same entries, arranged as a square rather than numbered steps:
 
-1. **Semisimple gauge algebra:** canonical non-Abelian factors of complete published entries only. An incompletely extracted sector must not create a category such as isolated su(2). Do not guess omitted factors or finite ranks.
-2. **Non-Abelian matter spectrum:** complete Lorentz and non-Abelian irreps with multiplicities, omitting all U(1) factors. Restrict scalar real modules correctly and aggregate identical restricted rows.
-3. **Full gauge–matter entry:** restore all gauge factors and charges, with linked sources.
+- **Semisimple gauge part:** canonical non-Abelian factors, with matter and every U(1) omitted. This is the semisimple part of the full gauge algebra. Incomplete sectors must not create categories such as isolated su(2).
+- **Full gauge algebra:** restore all U(1) factors, still omitting matter. Group by canonical simple factors and Abelian rank, not source generator names, global groups or quotients.
+- **Semisimple matter spectrum:** Lorentz and non-Abelian irreps with multiplicities, omitting all U(1) factors. Restrict scalar real modules correctly and aggregate identical restricted rows.
+- **Full matter spectrum:** all gauge factors, matter representations and charges, with linked sources.
+
+From the semisimple gauge part, users can add Abelian factors first or matter first. Both paths reach the same full entries. All views derive only from complete published entries; do not guess omitted factors or finite ranks.
 
 Do not maintain these as separate hand-edited inventories. A coarse match is not a full-spectrum match, physical-theory equivalence, a global-group specification or an SM-embedding certificate.
 

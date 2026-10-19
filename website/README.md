@@ -27,7 +27,7 @@ GitHub Actions runs the same checks and publishes `website/` on `main`.
 | `representation-diagrams.js`, `vendor/svgjs/` | Local Dynkin and eligible A-series Young diagrams; vendored dependency and license. |
 | `build_field_catalogue.py` | Read-only source projection and reproducible exports. |
 | `field_conventions.py`, `spacetime_conventions.py`, `scalar_projection.py` | Exact representation, Lorentz and scalar-counting conversions. |
-| `core_projection.py` | Derived non-Abelian algebra and matter-spectrum groupings. |
+| `core_projection.py` | Derived semisimple parts, full gauge algebras and semisimple matter-spectrum groupings. |
 | `reextraction_reviews.py`, `current_reextraction_reviews.py`, `harvest_reviews.py` | Hash-pinned source acceptance, complete-only publication, direct new-paper ingestion and exact duplicate reconciliation; mutable agent queues are never automatically published. |
 | `test_*.py`, `*.test.mjs`, `check.mjs` | Current catalogue, source-integrity and frontend regression checks. |
 
@@ -39,9 +39,11 @@ GitHub Actions runs the same checks and publishes `website/` on `main`.
 - `entry.schema.json`: the published copy of the canonical input schema.
 - `downloads/field-catalogue.sqlite`: focused relational export and full numerical identity registry.
 - `downloads/field-catalogue.csv`: one primary-regime summary per entry.
-- `downloads/nonabelian-cores.csv`, `downloads/semisimple-algebras.csv`: the two derived browsing layers.
+- `downloads/nonabelian-cores.csv`, `downloads/semisimple-algebras.csv`, `downloads/full-gauge-algebras.csv`: the three coarse projections of full entries.
 
-All three browsing levels derive only from complete source-supported inventories. Incomplete sectors cannot create an algebra category. Different description regimes are not combined. A paper can have no model association.
+Navigation is a square: semisimple gauge part → full gauge algebra, semisimple gauge part ↓ semisimple matter, and either branch → full matter. It is not a numbered sequence. All four views derive only from complete source-supported inventories. Incomplete sectors cannot create an algebra category. Different description regimes are not combined. A paper can have no model association.
+
+Full-algebra keys retain canonical simple factors and Abelian rank only; generator names, charges and global forms are not part of that grouping. SQLite `full_gauge_algebras` and `entry_full_algebras` are derived caches; `entry_layers` includes both full-algebra and matter-core memberships. No source inventory or full-entry fingerprint changes when these browsing views are rebuilt.
 
 The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retain their meaning and compatibility. Scalar component multiplicities follow the irreducible-real-module convention; source-container counts remain provenance.
 
@@ -53,7 +55,7 @@ The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retai
 
 Symbolic families retain parameters/constraints on the same entry. SQL `entry_parameters`, `entry_constraints` and `component_charge_expressions` supply typed storage; the integer-only charge column never receives a formula. Family identities identify normalized templates, not all equivalent parameterizations. Restriction to non-Abelian matter is performed before source realification, without inventing a parameter point. See the [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
 
-Shareable routes include `#catalogue`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Query filters and notation choices are retained through drill-down.
+Shareable routes include `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
 
 ## Historical source
 

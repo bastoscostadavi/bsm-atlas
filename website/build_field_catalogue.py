@@ -31,9 +31,9 @@ from scalar_projection import migrate_catalogue
 from reextraction_reviews import load_reviews,apply_reviews
 from current_reextraction_reviews import load_current_reviews,apply_current_reviews
 from harvest_reviews import load_harvest_reviews,apply_harvest_reviews,publish_complete_entries
-from core_projection import attach_cores,attach_algebras
-from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION
-VERSION="gauge-matter-9"
+from core_projection import attach_cores,attach_algebras,attach_full_algebras
+from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION,FULL_ALGEBRA_CONVENTION
+VERSION="gauge-matter-10"
 DATE="2026-10-19"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
@@ -347,6 +347,7 @@ def main_data(database,curations):
         note='Accepted source-scoped numerical specifications and typed symbolic families; incomplete extraction is not published.')
     cores=attach_cores(entries)
     algebras=attach_algebras(entries,cores)
+    full_algebras=attach_full_algebras(entries,algebras,cores)
     for p in papers:
         p["entryIds"]=[e["id"] for e in entries if p["id"] in e["paperIds"]]
         p["referenceNotes"]=[]
@@ -360,13 +361,27 @@ def main_data(database,curations):
     # No incomplete source-sector records or exclusion catalogue are published.
     references=[]
     if hashlib.sha256(database.read_bytes()).hexdigest()!=original_hash: raise ValueError("Source changed during read-only build")
-    return {"version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,"representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,"scalarConvention":SCALAR_CONVENTION,"coreConvention":CORE_CONVENTION,"cores":cores,"semisimpleConvention":ALGEBRA_CONVENTION,"semisimpleAlgebras":algebras,"sourceReview":"Original source assertions remain unchecked and model links provisional. Explicitly accepted re-extractions are agent source-checked within their recorded definition scope, not independently physics-verified or whole-paper reviews.","reextraction":reextraction,"scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.","templates":templates,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],"counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),"entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references),"cores":len(cores),"semisimpleAlgebras":len(algebras),"coreEntries":sum(e["coreId"] is not None for e in entries)},"entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),"referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
+    return {
+        "version":VERSION,"publishedOn":DATE,"sourceDatabaseSha256":original_hash,
+        "representationConvention":REPRESENTATION_CONVENTION,"lorentzConvention":LORENTZ_CONVENTION,
+        "scalarConvention":SCALAR_CONVENTION,"coreConvention":CORE_CONVENTION,"cores":cores,
+        "semisimpleConvention":ALGEBRA_CONVENTION,"semisimpleAlgebras":algebras,
+        "fullAlgebraConvention":FULL_ALGEBRA_CONVENTION,"fullAlgebras":full_algebras,
+        "sourceReview":"Original source assertions remain unchecked and model links provisional. Explicitly accepted re-extractions are agent source-checked within their recorded definition scope, not independently physics-verified or whole-paper reviews.",
+        "reextraction":reextraction,"scope":"BSM gauge/matter content and linked source papers only. Pure convention/theory/tool references, uninstantiated frameworks and operator-only SM inventories do not become BSM model rows.",
+        "templates":templates,"references":[{"title":"Dynkin labels and representation conventions (not a model row)","url":"https://arxiv.org/abs/1206.6379"}],
+        "counts":{"papers":len(papers),"seedPapers":seed_paper_count,"sourceModels":len(spec_index),
+            "entries":len(entries),"sourceFields":len(source_ids),"referenceRecords":len(references),
+            "cores":len(cores),"semisimpleAlgebras":len(algebras),"fullAlgebras":len(full_algebras),
+            "coreEntries":sum(e["coreId"] is not None for e in entries)},
+        "entries":sorted(entries,key=lambda e:(min(e["paperIds"] or ["Z"]),e["name"])),
+        "referenceRecords":references,"papers":sorted(papers,key=lambda p:p["id"])}
 
 
 def write_outputs(data,check=False):
     payload=json.dumps(data,ensure_ascii=False,separators=(",",":"))
     flat=io.StringIO();writer=csv.writer(flat,lineterminator='\n')
-    writer.writerow(["entry_id","name","gauge_algebra","baseline","additional_recorded_multiplets","coverage","papers","source_model_ids","nonabelian_core_id","abelian_rank","semisimple_algebra_id"])
+    writer.writerow(["entry_id","name","gauge_algebra","baseline","additional_recorded_multiplets","coverage","papers","source_model_ids","nonabelian_core_id","abelian_rank","semisimple_algebra_id","full_gauge_algebra_id"])
     for e in data["entries"]:
         r=next(r for v in e['variants'] for r in v['regimes'] if r['id']==e['primaryRegime'])
         summary=[]
@@ -374,7 +389,7 @@ def write_outputs(data,check=False):
             if f['excludedCoordinate'] or r['baseline'] and f['inherited']: continue
             for l in f['lorentz']:
                 summary.append(l['label']+' '+str(l['copies'] if l['copies'] is not None else '?')+' × '+l['dynkinRepresentation']+' '+f['label'])
-        writer.writerow([e["id"],e["name"],e["algebraExpanded"],e["baseline"] or "", " | ".join(summary),e['publicationStatus'],";".join(e["paperIds"]),";".join(v["id"] for v in e["variants"]),e['coreId'],e['abelianRank'],e['semisimpleId']])
+        writer.writerow([e["id"],e["name"],e["algebraExpanded"],e["baseline"] or "", " | ".join(summary),e['publicationStatus'],";".join(e["paperIds"]),";".join(v["id"] for v in e["variants"]),e['coreId'],e['abelianRank'],e['semisimpleId'],e['fullAlgebraId']])
     coarse=io.StringIO();core_writer=csv.writer(coarse,lineterminator='\n')
     core_writer.writerow(['core_id','gauge_algebra','spacetime_dimension','lorentz_scheme','lorentz_irreps','dynkin_labels','reality_convention','copies','entry_ids','papers'])
     for core in data['cores']:
@@ -385,7 +400,11 @@ def write_outputs(data,check=False):
     algebra_writer.writerow(['semisimple_algebra_id','gauge_algebra','cartan_factors','core_ids','entry_ids','papers','ready_entry_ids','pending_entry_ids'])
     for a in data['semisimpleAlgebras']:
         algebra_writer.writerow([a['id'],a['algebra'],json.dumps(a['canonical']['gauge_factors']),';'.join(a['coreIds']),';'.join(a['entryIds']),';'.join(a['paperIds']),';'.join(a['readyEntryIds']),';'.join(a['pendingEntryIds'])])
-    files={SITE/"field-catalogue.json":payload+"\n",SITE/"entry.schema.json":(ROOT/"atlas"/"entry.schema.json").read_text(encoding="utf-8"),ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue(),SITE/'downloads/nonabelian-cores.csv':coarse.getvalue(),SITE/'downloads/semisimple-algebras.csv':algebra_csv.getvalue()}
+    full_csv=io.StringIO();full_writer=csv.writer(full_csv,lineterminator='\n')
+    full_writer.writerow(['full_gauge_algebra_id','gauge_algebra','semisimple_algebra_id','abelian_rank','cartan_factors','core_ids','entry_ids','papers'])
+    for a in data['fullAlgebras']:
+        full_writer.writerow([a['id'],a['algebra'],a['semisimpleId'],a['abelianRank'],json.dumps(a['canonical']['gauge_factors']),';'.join(a['coreIds']),';'.join(a['entryIds']),';'.join(a['paperIds'])])
+    files={SITE/"field-catalogue.json":payload+"\n",SITE/"entry.schema.json":(ROOT/"atlas"/"entry.schema.json").read_text(encoding="utf-8"),ROOT/"atlas"/"FIELD_CONTENT_CATALOGUE.json":payload+"\n",SITE/"field-catalogue-data.js":"window.FIELD_CATALOGUE = "+payload+";\n",SITE/"downloads"/"field-catalogue.csv":flat.getvalue(),SITE/'downloads/nonabelian-cores.csv':coarse.getvalue(),SITE/'downloads/semisimple-algebras.csv':algebra_csv.getvalue(),SITE/'downloads/full-gauge-algebras.csv':full_csv.getvalue()}
     for path,content in files.items():
         if check:
             if not path.exists() or path.read_bytes()!=content.encode("utf-8"): raise ValueError("Stale generated catalogue: "+str(path))
@@ -398,7 +417,7 @@ def write_outputs(data,check=False):
             for name in ['entry_layers','nonabelian_factors','abelian_factors']:
                 con.execute('DROP VIEW IF EXISTS '+name)
             # This file is a reproducible export, never the immutable source DB.
-            for name in ['entry_parameters','entry_constraints','component_charge_expressions','entry_cores','nonabelian_cores','semisimple_algebras','identity_migrations','extraction_reviews','entry_identity','content_signatures','entry_papers','component_gauge_representations','spacetime_representations','multiplets','gauge_factors','regimes','entries','papers','metadata']:
+            for name in ['entry_parameters','entry_constraints','component_charge_expressions','entry_full_algebras','full_gauge_algebras','entry_cores','nonabelian_cores','semisimple_algebras','identity_migrations','extraction_reviews','entry_identity','content_signatures','entry_papers','component_gauge_representations','spacetime_representations','multiplets','gauge_factors','regimes','entries','papers','metadata']:
                 con.execute('DROP TABLE IF EXISTS '+name)
             con.executescript("""
               CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
@@ -424,7 +443,10 @@ def write_outputs(data,check=False):
               CREATE TABLE entry_cores(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),regime_id INTEGER NOT NULL REFERENCES regimes(regime_id),core_id TEXT REFERENCES nonabelian_cores(core_id),abelian_rank INTEGER CHECK(abelian_rank IS NULL OR abelian_rank>=0),status TEXT NOT NULL,reason TEXT,semisimple_id TEXT REFERENCES semisimple_algebras(semisimple_id),CHECK(core_id IS NULL OR semisimple_id IS NOT NULL),FOREIGN KEY(core_id,semisimple_id) REFERENCES nonabelian_cores(core_id,semisimple_id));
               CREATE INDEX entry_cores_by_core ON entry_cores(core_id,abelian_rank);
               CREATE INDEX cores_by_semisimple ON nonabelian_cores(semisimple_id);
-              CREATE VIEW entry_layers AS SELECT entry_id,core_id,semisimple_id,abelian_rank,status,reason,CASE WHEN semisimple_id IS NULL THEN 'unresolved' ELSE 'resolved' END AS algebra_status FROM entry_cores;
+              CREATE TABLE full_gauge_algebras(full_algebra_id TEXT PRIMARY KEY,convention TEXT NOT NULL,gauge_algebra TEXT NOT NULL,canonical_json TEXT NOT NULL,semisimple_id TEXT NOT NULL REFERENCES semisimple_algebras(semisimple_id),abelian_rank INTEGER NOT NULL CHECK(abelian_rank>=0));
+              CREATE TABLE entry_full_algebras(entry_id TEXT PRIMARY KEY REFERENCES entries(entry_id),full_algebra_id TEXT NOT NULL REFERENCES full_gauge_algebras(full_algebra_id));
+              CREATE INDEX full_algebras_by_semisimple ON full_gauge_algebras(semisimple_id);
+              CREATE VIEW entry_layers AS SELECT c.entry_id,c.core_id,c.semisimple_id,c.abelian_rank,c.status,c.reason,CASE WHEN c.semisimple_id IS NULL THEN 'unresolved' ELSE 'resolved' END AS algebra_status,f.full_algebra_id FROM entry_cores c LEFT JOIN entry_full_algebras f ON f.entry_id=c.entry_id;
             """)
             con.executemany("INSERT INTO metadata VALUES (?,?)",[("convention_version",VERSION),("source_sha256",data["sourceDatabaseSha256"]),("scope",data["scope"]),("templates_json",json.dumps(data["templates"],ensure_ascii=False))])
             con.execute("INSERT INTO metadata VALUES (?,?)",('lorentz_convention_json',json.dumps(LORENTZ_CONVENTION,ensure_ascii=False)))
@@ -432,6 +454,7 @@ def write_outputs(data,check=False):
             con.execute("INSERT INTO metadata VALUES (?,?)",('scalar_convention_json',json.dumps(SCALAR_CONVENTION,ensure_ascii=False)))
             con.execute("INSERT INTO metadata VALUES (?,?)",('core_convention_json',json.dumps(CORE_CONVENTION,ensure_ascii=False)))
             con.execute("INSERT INTO metadata VALUES (?,?)",('semisimple_convention_json',json.dumps(ALGEBRA_CONVENTION,ensure_ascii=False)))
+            con.execute("INSERT INTO metadata VALUES (?,?)",('full_algebra_convention_json',json.dumps(FULL_ALGEBRA_CONVENTION,ensure_ascii=False)))
             con.execute("INSERT INTO metadata VALUES (?,?)",('reextraction_json',json.dumps(data['reextraction'],ensure_ascii=False)))
             for p in data["papers"]: con.execute("INSERT INTO papers VALUES (?,?,?,?,?)",(p["id"],p["arxiv"],p["title"],p["inspectionStatus"],p["reviewStatus"]))
             for e in data["entries"]:
@@ -461,6 +484,10 @@ def write_outputs(data,check=False):
                 con.execute('INSERT INTO nonabelian_cores VALUES (?,?,?,?,?)',(core['id'],CORE_CONVENTION['id'],core['algebra'],json.dumps(core['canonical'],sort_keys=True,separators=(',',':')),core['semisimpleId']))
             for e in data['entries']:
                 con.execute('INSERT INTO entry_cores VALUES (?,?,?,?,?,?,?)',(e['id'],e['primaryRegime'],e['coreId'],e['abelianRank'],e['coreStatus']['status'],e['coreStatus'].get('reason'),e['semisimpleId']))
+            for a in data['fullAlgebras']:
+                con.execute('INSERT INTO full_gauge_algebras VALUES (?,?,?,?,?,?)',(a['id'],FULL_ALGEBRA_CONVENTION['id'],a['algebra'],json.dumps(a['canonical'],sort_keys=True,separators=(',',':')),a['semisimpleId'],a['abelianRank']))
+            for e in data['entries']:
+                con.execute('INSERT INTO entry_full_algebras VALUES (?,?)',(e['id'],e['fullAlgebraId']))
             con.commit()
             for e in data['entries']:
                 identity=e['identity'];h=identity['fingerprint']

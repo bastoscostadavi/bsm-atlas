@@ -20,6 +20,12 @@ ALGEBRA_CONVENTION = {
     'meaning':'Derived algebra-only grouping, not a global group, quotient, physical theory or additional source inventory',
 }
 
+FULL_ALGEBRA_CONVENTION = {
+    'id':'full-gauge-algebra-1',
+    'projection':'Retain canonical simple factors and the number of u(1) factors; omit matter, charges and source generator names',
+    'meaning':'Abstract local gauge algebra, not a choice of Abelian basis, global group or quotient',
+}
+
 def algebra_key(core):
     """Key only the canonical semisimple algebra, independently of matter."""
     factors=[{'family':a['family'],'rank':a['rank']} for a in core['gauge_factors']]
@@ -33,6 +39,20 @@ def algebra_key(core):
     canonical={'schema_version':ALGEBRA_CONVENTION['id'],'gauge_factors':factors}
     encoded=json.dumps(canonical,sort_keys=True,separators=(',',':'))
     return {'id':sha256(encoded.encode()).hexdigest(),'canonical':canonical}
+
+
+def full_algebra_key(spec):
+    """Algebra-only key shared by numerical spectra and symbolic families."""
+    factors=spec['gauge_factors']
+    if not factors or any(a['family']=='U1' and (type(a['rank']) is not int or a['rank']!=1) for a in factors):
+        raise IncompleteContent('Full gauge algebra requires resolved canonical factors')
+    simple=algebra_key({'gauge_factors':[a for a in factors if a['family']!='U1']})
+    rank=sum(a['family']=='U1' for a in factors)
+    canonical={'schema_version':FULL_ALGEBRA_CONVENTION['id'],
+               'gauge_factors':simple['canonical']['gauge_factors']+[{'family':'U1','rank':1} for _ in range(rank)]}
+    encoded=json.dumps(canonical,sort_keys=True,separators=(',',':'))
+    return {'id':sha256(encoded.encode()).hexdigest(),'canonical':canonical,
+            'semisimpleId':simple['id'],'abelianRank':rank}
 
 def restrict_nonabelian(spec):
     """Return a canonical core from one complete numerical description regime.

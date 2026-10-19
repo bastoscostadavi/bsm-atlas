@@ -28,7 +28,7 @@ const paperIds = new Set(data.papers.map(p => p.id));
 for (const entry of data.entries) {
   for (const id of entry.paperIds) assert(paperIds.has(id), 'Unknown source paper: ' + id);
 }
-for (const name of ['field-catalogue.csv', 'field-catalogue.sqlite', 'nonabelian-cores.csv', 'semisimple-algebras.csv']) {
+for (const name of ['field-catalogue.csv', 'field-catalogue.sqlite', 'nonabelian-cores.csv', 'semisimple-algebras.csv', 'full-gauge-algebras.csv']) {
   assert(fs.statSync(path.join(directory, 'downloads', name)).size > 0, 'Missing download: ' + name);
 }
 

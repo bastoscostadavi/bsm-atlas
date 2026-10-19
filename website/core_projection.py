@@ -1,6 +1,6 @@
 """Readable projections of exact core keys; full entries remain authoritative."""
 from catalogue_identity import IncompleteContent
-from nonabelian_core import restrict_nonabelian, algebra_key, CONVENTION
+from nonabelian_core import restrict_nonabelian, algebra_key, full_algebra_key, CONVENTION
 from scalar_conventions import is_scalar
 from field_conventions import irrep_dimension,irrep_dimension_label,young_rows
 
@@ -106,3 +106,33 @@ def attach_algebras(entries,cores):
     for a in algebras.values():
         for key in ['entryIds','readyEntryIds','pendingEntryIds']:a[key].sort()
     return sorted(algebras.values(),key=lambda a:(a['algebra'],a['id']))
+
+
+def attach_full_algebras(entries,algebras,cores):
+    """The second branch of the browsing square, derived from the same entries."""
+    full={}
+    by_algebra={a['id']:a for a in algebras}
+    by_core={c['id']:c for c in cores}
+    for group in algebras+cores:group['fullAlgebraIds']=[]
+    for entry in entries:
+        projected=full_algebra_key(entry['identity']['input'])
+        if projected['semisimpleId']!=entry['semisimpleId'] or projected['abelianRank']!=entry['abelianRank']:
+            raise ValueError('Full gauge algebra disagrees with its semisimple restriction')
+        entry['fullAlgebraId']=projected['id']
+        if projected['id'] not in full:
+            factors=[]
+            for i,a in enumerate(projected['canonical']['gauge_factors']):
+                factors.append({'key':'full-algebra:'+str(i),'id':a['family']+str(a['rank']),
+                    'type':a['family'],'rank':a['rank'],'role':'',
+                    'label':'u(1)' if a['family']=='U1' else algebra_label(a['family'],a['rank'])})
+            full[projected['id']]={**projected,'factors':factors,
+                'algebra':' ⊕ '.join(a['label'] for a in factors),
+                'entryIds':[],'coreIds':[],'paperIds':[]}
+        group=full[projected['id']]
+        group['entryIds'].append(entry['id'])
+        group['coreIds']=sorted(set(group['coreIds'])|{entry['coreId']})
+        group['paperIds']=sorted(set(group['paperIds'])|set(entry['paperIds']))
+        for parent in [by_algebra[entry['semisimpleId']],by_core[entry['coreId']]]:
+            parent['fullAlgebraIds']=sorted(set(parent['fullAlgebraIds'])|{projected['id']})
+    for group in full.values():group['entryIds'].sort()
+    return sorted(full.values(),key=lambda a:(a['algebra'],a['id']))
