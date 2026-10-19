@@ -47,7 +47,7 @@
  }
  function representationMarkup(components,mode,bundle=true){
    if(!components.length)return '<span class="unresolved" title="Gauge algebra and representation unresolved">?</span>';
-   const isCharge=components[0].factor==='u(1)',d=bundle?dimensionTuple(components):(components[0].value??'?');
+   const d=bundle?dimensionTuple(components):(components[0].value??'?');
    const exact=bundle?dynkinTuple(components):dynkinLabel(components[0]);
    const weights='<span class="math" title="'+esc(components.some(c=>c.factor!=='u(1)'&&!c.dynkin)?'Dynkin labels':'Highest-weight Dynkin labels')+'">'+esc(exact)+'</span>';
    const readable='<span class="math" title="Dynkin labels: '+esc(exact)+'">'+math(d)+'</span>';
@@ -130,7 +130,6 @@
      return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><p class="reference-order">Oldest first</p><ol class="reference-list" aria-label="Papers in chronological order">'+
        references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p>'+(ref.locators?.length?'<p class="reference-meta">'+ref.locators.map(esc).join('; ')+'</p>':'')+'</div></li>';}).join('')+'</ol></section>';
    }
-   function chosen(e){return {r:e.regime};}
    function gaugeHeading(c){
      if(c.sm)return c.label==='g_SM'?shorthand('g_SM'):'𝔤<sub>SM,'+esc(c.label.slice(5))+'</sub>';
      return math(c.label)+(c.role&&(c.repeated||c.label==='u(1)')?'<sub>'+esc(c.role)+'</sub>':'');
@@ -214,7 +213,7 @@
      const visible=entries.slice(0,state.limit);
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
-       const r=chosen(e).r;
+       const r=e.regime;
        return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+'" aria-expanded="'+(state.open===e.id)+'">References '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
@@ -239,7 +238,7 @@
    function atlasIntroduction(){
      return '<article class="about-data"><p>Gauge symmetry and the representations of matter are the defining ingredients of the Standard Model. Its peculiar gauge algebra, chiral matter content and three generations form a striking structure whose origin remains unexplained. It can seem ungainly, even arbitrary, in its particulars, yet beautiful in its workings: gauge anomalies cancel exactly, and its dynamics span confinement, spontaneous symmetry breaking and weakly coupled scattering. In its minimal form, with massless neutrinos, the theory has just 19 free parameters. Once their values are fixed, it makes infinitely many predictions, including the <a href="https://arxiv.org/abs/2209.13084">electron’s magnetic moment</a>, among the most precise in all of science. BSM Atlas takes these defining ingredients as a starting point for charting extensions of the Standard Model. Each entry gives the gauge algebra, the Lorentz and gauge representations of the matter fields, and their multiplicities, using a common notation and linking to the papers in which they are studied.</p>'+
        '<p>The catalogue can be read at different levels of detail. The <a href="#full-algebras">gauge-algebra view</a> shows which algebras occur, while the <a href="#entries">full entries</a> also give their matter representations, multiplicities and charges. To compare models independently of their U(1) factors, the semisimple views retain either <a href="#catalogue">the algebras alone</a> or <a href="#cores">the algebras and their matter</a>. For U(1) factors, an entry may specify fixed charges or a family of charge assignments described by integer parameters and constraints.</p>'+
-       '<p>We build the atlas from arXiv papers, extracting the gauge algebra, matter representations and multiplicities in each model. Before a specification is added, it is converted to the atlas conventions and compared with the existing catalogue. Only complete specifications are included, and papers describing identical gauge–matter content are linked to the same entry. The catalogue keeps these precise objects and their paper references, rather than a separate record of interactions, couplings or symmetry-breaking patterns. Models with the same gauge–matter content therefore share an entry, even when their interactions differ. The references provide the context needed to study each model beyond this structural description.</p>'+
+       '<p>We build the atlas from arXiv papers. Each specification is checked against its source, expressed in common conventions and compared with existing entries before it is added. Only complete specifications are included. Papers studying the same gauge–matter content are linked to one entry, so the catalogue grows both by adding models and by connecting further references to existing ones. Those references provide the interactions, dynamics and physical context needed to study each model beyond its structural description.</p>'+
        '<p>We also intend to use the atlas in two related projects. In <a href="https://github.com/bastoscostadavi/bsm-ai-search">bsm-ai-search</a>, it would guide AI agents in proposing new gauge–matter entries and studying them through the usual BSM research workflow, from exploring their parameter spaces and calculating observables to comparing predictions with experimental results. In <a href="https://github.com/bastoscostadavi/bsm-foundation-model">bsm-foundation-model</a>, an atlas entry would seed a simulation pipeline. Simulations across theories and their parameter spaces would then provide training data for models that infer probability distributions over theories and parameters from experimental observations.</p></article>';
    }
    function catalogue(){
@@ -305,7 +304,7 @@
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
        else if(paper){state.view='catalogue';state.browse='entries';state.core='';state.semisimple='';state.fullAlgebra='';state.algebra='';state.abelianRank='';state.paper=paper.dataset.paper;state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
-       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',status:'',abelianRank:'',open:''});url();render();}
+       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});url();render();}
      });
      window.addEventListener('hashchange',()=>{closeMenu();route();render();});
      let theme='light';try{theme=localStorage.getItem('atlas-theme')||'light';}catch{}

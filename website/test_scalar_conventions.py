@@ -1,4 +1,4 @@
-"""Exact scalar counting and identity regressions, not source-physics review."""
+"""Exact real-module counting, scalar conjugation and identity regressions."""
 from contextlib import closing
 from copy import deepcopy
 import json

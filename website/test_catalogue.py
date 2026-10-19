@@ -1,7 +1,6 @@
-"""Minimal schema, exact source preservation, ingestion and export regressions."""
+"""Catalogue schema, stable identities, ingestion and export regressions."""
 from contextlib import closing
 from copy import deepcopy
-from hashlib import sha256
 import csv
 import json
 from pathlib import Path
@@ -14,11 +13,9 @@ import unittest
 ROOT=Path(__file__).resolve().parent.parent
 sys.path[:0]=[str(ROOT/'atlas'),str(ROOT/'website')]
 from catalogue import load, validate, normalize, identity, ingest
-from catalogue_identity import canonicalize, normalize_spec, IncompleteContent
+from catalogue_identity import canonicalize, normalize_spec
 from check_entry import check
-from nonabelian_core import restrict_nonabelian
 from field_conventions import dimension_a, dimension_d
-from presentation import matrix
 from build_field_catalogue import main_data, database
 
 SOURCE=load()
@@ -28,16 +25,16 @@ DATABASE=ROOT/'website/downloads/field-catalogue.sqlite'
 NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification']['matter'])+1
 
 
-class MinimalCatalogue(unittest.TestCase):
-    def test_migration_preserved_all_identities_references_and_views(self):
-        baseline=json.loads((ROOT/'website/fixtures/minimal-migration.json').read_text())
+class CatalogueTests(unittest.TestCase):
+    def test_catalogue_identities_references_and_view_memberships(self):
+        baseline=json.loads((ROOT/'website/fixtures/catalogue-identities.json').read_text())
         current={e['id']:e for e in DATA['entries']}
         for key,expected in baseline.items():
             actual=current[key]
             self.assertEqual(actual['identity']['fingerprint'],expected['fingerprint'])
             for layer in ['coreId','semisimpleId','fullAlgebraId']:self.assertEqual(actual[layer],expected[layer])
             self.assertLessEqual(set(expected['paperIds']),set(actual['paperIds']))
-        self.assertGreaterEqual(len(current),67)
+        self.assertGreaterEqual(len(current),len(baseline))
         self.assertEqual(DATA['counts'],dict(entries=len(DATA['entries']),papers=len(DATA['papers']),
             linkedPapers=sum(bool(p['entryIds']) for p in DATA['papers']),cores=len(DATA['cores']),
             semisimpleAlgebras=len(DATA['semisimpleAlgebras']),fullAlgebras=len(DATA['fullAlgebras'])))
@@ -146,7 +143,7 @@ class MinimalCatalogue(unittest.TestCase):
         s['matter'][-1]['copies']+=NEW_COPIES
         self.assertTrue(check(s,DATABASE)['same_algebra_candidates'])
 
-    def test_new_entries_build_without_historical_scaffolding(self):
+    def test_new_entry_projects_to_every_view_and_export(self):
         candidate=deepcopy(ENTRIES['two-higgs-doublets']);candidate['id']='growth-test-model'
         candidate['specification']['matter'][-1]['copies']+=NEW_COPIES
         source,target=ingest(SOURCE,candidate)

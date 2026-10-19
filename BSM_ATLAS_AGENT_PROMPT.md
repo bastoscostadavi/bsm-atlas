@@ -1,6 +1,6 @@
 # Adding a BSM Atlas entry
 
-Harvest complete gauge–matter specifications from arXiv papers. The atlas records only the gauge algebra, Lorentz and gauge representations, multiplicities, and paper references. Do not create interaction, symmetry-breaking, claim, evidence, review or viability records.
+Harvest complete gauge–matter specifications from arXiv papers. Each entry consists of a gauge algebra, Lorentz and gauge representations, multiplicities, and paper references. Use the common conventions below so the same specification is recorded once, with all relevant papers linked to it.
 
 ## Read the source
 
@@ -8,7 +8,7 @@ Read the field definitions, equations, tables and surrounding discussion in a ve
 
 Establish every gauge factor and every independent matter row. An explicitly inherited SM or MSSM inventory can be expanded using the reference spectra; a partial sector is not permission to invent the missing fields. Gauge connections follow from the algebra and are not additional matter.
 
-A paper without a complete usable BSM specification may remain in the bibliography without a model link. Do not add partial entries, question marks, pending states or an exclusion log.
+Add an entry only when its full specification is established by the source. A paper without a complete usable BSM specification may remain in the bibliography without a model link.
 
 ## Normalize the mathematical input
 
@@ -24,7 +24,7 @@ Read [FIELD_CONTENT_CONVENTIONS.md](atlas/FIELD_CONTENT_CONVENTIONS.md) and use 
 
 No anomaly-cancellation, viability or embedding certificate is required. Do not add unreported fields to provide one.
 
-## Add references, not a separate evidence graph
+## Record the paper and its references
 
 Paper records in `atlas/catalogue.json` contain `id`, versioned `arxiv`, `title` and `authors`. Add a missing paper record before ingesting its entry.
 
@@ -35,13 +35,13 @@ A candidate is an entry object:
   "id": "a-model-name",
   "name": "A readable model name",
   "specification": {"schema_version": "field-content-2", "inventory_complete": true, "gauge_factors": [], "matter": []},
-  "references": [{"paper_id": "P01", "locators": ["Table 1; Eq. (2.3)"]}]
+  "references": [{"paper_id": "paper-id", "locators": ["Table 1; Eq. (2.3)"]}]
 }
 ```
 
 The empty arrays above illustrate the wrapper only; they are invalid specifications. Start from an [actual numerical](atlas/examples/two-higgs-doublets.json) or [symbolic](atlas/examples/parameterized-charges.json) specification instead. Optional `parameter_names` on a reference maps source parameter names to canonical z-names.
 
-Keep references short and useful. Source locators are optional; extraction transcripts, PDF hashes, agent receipts and run-cost ledgers are not catalogue requirements.
+Choose a stable internal paper ID and use it consistently in references. Keep source locators short and useful. A reference should direct readers to the relevant definitions, equations or field table.
 
 ## Validate, reconcile and save
 

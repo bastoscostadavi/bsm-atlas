@@ -37,21 +37,16 @@ for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-
  assert.equal(nodes.get('page-title').textContent,viewTitles[browse]);
  assert(content().includes('<p class="section-note">'+viewSubtitles[browse]+'</p>'));
  assert.equal((content().match(/class="section-note"/g)||[]).length,1);
- assert(!content().includes('catalogue-disclaimer'));
- assert(!content().includes('Matter & U(1) factors omitted'));
- assert(!content().includes('with all U(1) factors included'));
- assert(!content().includes('and all U(1) factors included'));
  assert(nodes.get('result-count').textContent.startsWith(String(count)+' '));
  const menu=nodes.get('catalogue-views').innerHTML;
  assert.equal((menu.match(/<a /g)||[]).length,4);
  assert.equal((menu.match(/aria-current="page"/g)||[]).length,1);
  assert.equal((menu.match(/class="catalogue-group-label"/g)||[]).length,2);
- assert(!content().includes('layer-navigation'));
  assert(!content().includes('catalogue-back'));
- assert(!content().includes('status-filter'));
- assert(!results().includes('count pending'));
- assert(!results().includes('reality unresolved'));
- assert(!results().includes('<th>Copies</th>'));
+ if(browse==='cores'||browse==='entries'){
+  assert(results().includes('class="representation-matrix'));
+  assert(results().includes('<th>Multiplicity</th>'));
+ }
  if(browse==='cores')assert(!results().includes('u(1)'));
 }
 assert(!data.semisimpleAlgebras.some(a=>a.algebra==='su(2)'));
@@ -69,11 +64,9 @@ assert(results().includes('rep-conjugate'));
 assert(results().includes('aria-label="conjugate 3"'));
 assert(results().includes('<h2>References</h2>'));
 assert(results().includes('https://arxiv.org/abs/'));
-assert(!results().includes('source-buttons'));
-assert(!results().includes('source-badge'));
 assert(!/>P\d+</.test(results()));
 assert(results().includes('aria-label="References for Standard Model with a vector-like T singlet"'));
-for(const extra of ['Provenance','Inspection details','Source-backed re-extraction','assertion ','source field ','Description'])assert(!results().includes(extra));
+assert.equal((results().match(/data-open=/g)||[]).length,1);
 app.state.q='nmssm-matter';app.state.open='nmssm-matter';app.render();
 assert(results().includes('Oldest first'));
 assert(results().includes('<ol class="reference-list" aria-label="Papers in chronological order">'));
@@ -90,7 +83,6 @@ const manyApp=create(many,document);manyApp.state.browse='entries';manyApp.state
 assert.equal((results().match(/data-open=/g)||[]).length,1);
 assert.equal((results().match(/<li><time/g)||[]).length,100);
 assert(results().indexOf('2001.00001v1')<results().indexOf('2001.00100v1'));
-assert(!results().includes('source-buttons'));
 app.state.q='u1-ybl-charge-family';app.render();
 assert(results().includes('Integer parameters:'));
 assert(results().includes('Parameter constraints'));
@@ -102,17 +94,12 @@ assert(content().includes('([0,1], [0]; -4)'));
 assert.equal(nodes.get('notation-guide').open,true);
 app.state.view='sources';app.render();
 assert(content().includes('General solution to the U(1) anomaly equations'));
-assert(!content().includes('Inspection details'));
-assert(!content().includes('source-badge'));
+assert.equal((content().match(/class="paper-item"/g)||[]).length,data.papers.length);
 assert(!/>P\d+</.test(content()));
 app.state.view='atlas';app.render();
-for(const phrase of ['Gauge symmetry and the representations of matter','19 free parameters','infinitely many predictions','electron’s magnetic moment','Only complete specifications are included','precise objects and their paper references','bsm-ai-search','bsm-foundation-model'])assert(content().includes(phrase),phrase);
+for(const phrase of ['Gauge symmetry and the representations of matter','19 free parameters','infinitely many predictions','electron’s magnetic moment','Only complete specifications are included','catalogue grows both by adding models','bsm-ai-search','bsm-foundation-model'])assert(content().includes(phrase),phrase);
 assert(content().includes('an atlas entry would seed a simulation pipeline.'));
-assert(!content().includes('an atlas entry would seed each simulation pipeline.'));
 for(const route of ['#catalogue','#full-algebras','#cores','#entries'])assert(content().includes('href="'+route+'"'));
-assert(!content().includes('supporting passages'));
-assert(!content().includes('50'));
-assert(!content().includes('Once a Lagrangian is specified'));
 const primary=id=>data.entries.find(e=>e.id===id).regime;
 const nm=context.FieldMatrix.matrixRows(primary('nmssm-matter'),data.templates);
 assert.equal(nm.length,2);
@@ -204,4 +191,4 @@ menu.open=true;menu.events.get('focusout')({relatedTarget:{insideCatalogue:true}
 menu.events.get('focusout')({relatedTarget:{}});assert.equal(menu.open,false);
 menu.open=true;windowEvents.get('hashchange')();assert.equal(menu.open,false);
 
-console.log('Minimal explorer, notation, routes, references and disclosure checks passed.');
+console.log('Catalogue views, notation, routes, references and disclosure checks passed.');

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the active catalogue's local and CI checks without fetching sources."""
+"""Run catalogue validation, export consistency and interface checks."""
 import os
 from pathlib import Path
 import subprocess

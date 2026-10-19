@@ -3,6 +3,6 @@ __pycache__/
 .DS_Store
 .venv/
 atlas/papers/
-# Local caches from superseded extraction runs; not catalogue sources.
+# Local source-processing caches.
 atlas/reextraction/
 atlas/extraction_cost/

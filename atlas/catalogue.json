@@ -5286,7 +5286,7 @@
     },
     {
       "id": "su5-georgi-glashow-review",
-      "name": "Georgi–Glashow SU(5), reviewed baseline",
+      "name": "Georgi–Glashow SU(5)",
       "specification": {
         "schema_version": "field-content-2",
         "inventory_complete": true,

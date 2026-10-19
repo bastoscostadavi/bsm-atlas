@@ -4,11 +4,9 @@ Version `gauge-matter-12`, October 19, 2026.
 
 ## Publication rule
 
-The atlas contains only full, source-supported gauge-algebra and matter specifications. Extract first, normalize and validate second, reconcile duplicates third, and only then add an entry. A paper can remain listed with zero model links. Incomplete sectors, unresolved extraction and uninstantiated frameworks are not public entries. There is no public pending catalogue or new exclusion log.
+The atlas contains complete, source-supported gauge-algebra and matter specifications. Read the source, normalize and validate its specification, then reconcile duplicates before adding an entry. A paper can remain in the bibliography without an associated model.
 
 Complete here means the gauge algebra, Lorentz and gauge representations, and multiplicities in one stated description regime. It does not mean a complete Lagrangian, independently certified physics, anomaly cancellation, viable phenomenology or a UV completion of an explicitly specified EFT. Do not invent missing matter to supply any of those.
-
-The current release has **67 entries: 65 fixed numerical specifications and two symbolic charge families**, linked to 37 papers. There are 51 independently listed papers. The derived views contain 11 semisimple gauge parts, 14 full gauge algebras and 58 semisimple matter spectra. These are counts of field content, not distinct complete physical theories.
 
 ## Source and scope
 
@@ -18,7 +16,7 @@ Choose one regime: do not combine UV and IR spectra, bulk and brane fields, fund
 
 An explicitly inherited SM/MSSM baseline can be expanded using the templates below. Do not append colour, fermions, a Higgs, a breaking scalar or generations simply to complete a sector. An explicit finite benchmark can be harvested from a family; an arbitrary rank, replica count or charge substitution cannot be presented as a source-selected theory.
 
-The authoritative source is `catalogue.json`: complete specifications and their paper references. There is no separate claim, evidence or review graph.
+The authoritative source is `catalogue.json`: complete specifications and their paper references. Its JSON, CSV and SQLite exports describe the same objects.
 
 ## Gauge algebra
 
@@ -34,7 +32,7 @@ A BSM extension can retain g_SM with added matter; it need not enlarge the gauge
 
 Store highest-weight **Dynkin labels**, one nonnegative integer per simple root, using Bourbaki/Sage finite Cartan node numbering. Dimensions and names are derived displays, not unique identifiers. Resolve the source node convention before entering the weights.
 
-A_r has chain nodes 1,...,r. D_r has spinor nodes r-1,r attached to r-2. For reviewed D5 sources use roots e1-e2,e2-e3,e3-e4,e4-e5,e4+e5. In the recorded source embedding the LH16 is `[0,0,0,1,0]`, vector10 `[1,0,0,0,0]`, adjoint45 `[0,1,0,0,0]` and scalar126 `[0,0,0,2,0]`. The odd-D dual swaps the two final labels. Never infer either spinor orientation from dimension16.
+A_r has chain nodes 1,...,r. D_r has spinor nodes r-1,r attached to r-2. For D5 use roots e1-e2,e2-e3,e3-e4,e4-e5,e4+e5. The two spinor weights are `[0,0,0,1,0]` and `[0,0,0,0,1]`; the vector10 is `[1,0,0,0,0]`, adjoint45 `[0,1,0,0,0]`, and one 126 is `[0,0,0,2,0]`. The odd-D dual swaps the two final labels. Determine the source's spinor orientation from its embedding, not dimension16 alone.
 
 Readable A- and D-series dimensions use exact Weyl arithmetic. For odd D_r, the penultimate spinor node is unbarred and its dual barred in dimension shorthand. Exact weights remain authoritative. A-series Young diagrams use row lengths given by sums of Dynkin labels to the right. An unavailable Young display for another family does not mean that its exact representation is unknown.
 
@@ -48,7 +46,7 @@ All independent 4D Weyl fields are left-handed. Conjugating a RH field conjugate
 
 Higher-dimensional fields retain the appropriate B/D Lorentz Dynkin labels. The source-selected 5D UED branch uses B2 spinors `[0,1]` and scalar `[0,0]`, with physical source gauge representations. No 4D chirality conversion or invented KK decomposition is applied.
 
-The visible column is **Multiplicity**: repetitions of a Lorentz × gauge representation, not its dimension. The machine key `copies` retains that meaning for compatibility. Distinct family charges become separate rows, not an array-valued charge or identical copies.
+**Multiplicity** counts repetitions of a Lorentz × gauge representation, not its dimension. It is stored in the `copies` field. Distinct family charges become separate rows, not an array-valued charge or identical copies.
 
 ## Scalar counting
 
@@ -83,13 +81,13 @@ The canonical template is the lexicographically smallest JSON serialization over
 
 Constraints are retained in identity, with the same parameter renaming, expanded polynomials, split comparison chains and sorted/deduplicated comparisons. No logical domain solver is used: `z1 > 0` and `z1 >= 1` remain different templates despite defining the same integer domain. Do not drop constraints to manufacture a duplicate. Matching normalized templates reuse an entry; different templates do not prove different families of physical models. Parameter shifts, nonlinear reparameterizations, overlapping domains, pointwise charge rescalings and general U(1) basis mixing are not automatically identified.
 
-Domain nonemptiness, anomaly cancellation and physical viability are not certified by syntax validation. The two published family constraints record the source definitions, not a new anomaly-cancellation gate.
+Constraints record the source's definition of a family. Syntax validation does not certify domain nonemptiness, anomaly cancellation or physical viability.
 
 Typed SQL tables `entry_parameters` and `entry_constraints` supplement the same entries. `matter_representations` separates `dynkin_json`, integer-only decimal `charge` and polynomial `charge_expression`; exactly one is present. Decimal text preserves arbitrarily large exact integer charges. The full specification is stored in `entries.specification_json`.
 
 ## SM presentation templates
 
-These expand a source's explicit inheritance; they are not independent evidence that a paper specified an omitted sector.
+Use these templates to expand matter content explicitly inherited from the SM or MSSM in a source.
 
 | Template | Inventory in all-LH notation, q=6Y |
 |---|---|
@@ -106,7 +104,7 @@ Two-Higgs-doublet models use F_SM plus two Higgs doublets, not R_SM plus two mor
 Semisimple gauge part ──────────→ Full gauge algebra
           │                              │
           ↓                              ↓
-Semisimple matter spectrum ─────→ Full matter spectrum
+Semisimple gauge–matter ────────→ Full gauge–matter
 ```
 
 The upper-left view is the **semisimple part of the gauge algebra**, not a claim that the full algebra has no Abelian factors. It forgets matter and every U(1). The upper-right view restores all Abelian factors but still omits matter; its canonical key is the multiset of simple factors plus the Abelian rank, independent of generator names or matter charges. It does not specify a global group or quotient.
@@ -125,6 +123,6 @@ Use `prepare_entry.py` for read-only normalization and `check_entry.py` for dupl
 
 Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 
-Public JSON, CSV and SQLite contain complete specifications only. Paper references may carry locators and parameter-name mappings; field labels and entry aliases are presentation aids, not identity data. There are no source-claim, extraction-review or pending-entry tables.
+Public JSON, CSV and SQLite contain complete specifications. Paper references may carry locators and parameter-name mappings; field labels and entry aliases are presentation aids, not identity data.
 
 Run `make build` and `make check`. Checks cover strict ingestion, normalization, typed charge storage, exact duplicate reconciliation, both browsing paths, SQL/JSON agreement and frontend behavior. They do not certify physical consistency or the correctness of a paper's claims.

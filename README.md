@@ -4,7 +4,7 @@
 
 The gauge algebra and the representations of matter are the defining structural ingredients of the Standard Model. BSM Atlas uses these same objects to organize models beyond it: **a gauge algebra, Lorentz and gauge representations, multiplicities, and references to the papers that study them**.
 
-The catalogue deliberately stops there. Interactions, coupling constants, global gauge-group quotients, extra symmetries, symmetry-breaking histories and assessments of physical viability are not separate data objects. Papers with the same gauge–matter specification share an entry. Inclusion is not a certificate of anomaly cancellation or an SM embedding.
+Each entry is a complete gauge–matter specification linked to the arXiv papers that study it. Papers with the same specification share an entry, even when their interactions differ. The atlas classifies this structural content; anomaly cancellation, phenomenological viability and embeddings are questions to investigate using the references.
 
 ## One catalogue, four views
 
@@ -27,13 +27,26 @@ See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, c
 
 ## Data
 
-[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records and complete entry specifications with paper references. Optional reference locators identify pages, equations or tables; there is no separate claims, evidence or review graph. Papers can be listed without any associated model.
+[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records and complete entry specifications with paper references. References can identify relevant pages, equations or tables. Papers can be listed without an associated model.
 
-There are currently **67 entries**: 65 numerical specifications and two symbolic charge families, linked to 37 of the 51 listed papers. They form 11 semisimple gauge parts, 14 full gauge algebras and 58 semisimple matter spectra. These count gauge–matter structures, not complete physical theories.
+The website derives its four browsing views and counts directly from this source. JSON, CSV and SQLite downloads expose the same catalogue for analysis and reuse.
 
 The [catalogue schema](atlas/catalogue.schema.json) describes entries and references; the [specification schema](atlas/entry.schema.json) describes the mathematical input. Executable validation also enforces normalization, exact weights, charge syntax, complete inventories and duplicate identities. Only fully specified entries are added.
 
-## Build and contribute
+## Adding papers and models
+
+The catalogue grows by harvesting complete specifications from arXiv papers. Read the source, express its gauge and matter content in the atlas conventions, and reconcile it with the existing entries. An exact match gains a paper reference; a distinct specification becomes a new entry.
+
+Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records, candidate files and source checks. The ingestion command normalizes and validates a candidate before saving it. Dry-run is the default.
+
+```sh
+python3 atlas/catalogue.py --add candidate.json
+python3 atlas/catalogue.py --add candidate.json --write
+make build
+make check
+```
+
+## Build and preview
 
 Python 3.10+ (with SQLite 3.37+) and Node.js 18+ are sufficient; no third-party packages are needed.
 
@@ -43,16 +56,7 @@ make check   # validate the source, exports, mathematics and interface
 make serve   # preview at http://127.0.0.1:8000
 ```
 
-To add a source-checked candidate, follow [the ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md). The writer normalizes it and merges paper references on an exact match. Dry-run is the default.
-
-```sh
-python3 atlas/catalogue.py --add candidate.json
-python3 atlas/catalogue.py --add candidate.json --write
-make build
-make check
-```
-
-GitHub Actions runs these checks and publishes `website/` to GitHub Pages. The site is entirely static and does not connect to the DSI cluster.
+GitHub Actions runs the checks and publishes `website/` to GitHub Pages. The self-contained static site serves the catalogue and its downloads without a database server.
 
 ## Repository map
 
@@ -61,8 +65,6 @@ GitHub Actions runs these checks and publishes `website/` to GitHub Pages. The s
 | `atlas/catalogue.json` | Authoritative entries and bibliography |
 | `atlas/reference_spectra.json` | Exact SM/MSSM spectra used only for presentation shorthand |
 | `atlas/*.py` | Validation, normalization, identity, restriction and ingestion |
-| `atlas/schema.sql` | Minimal relational export schema |
+| `atlas/schema.sql` | Relational export schema |
 | `website/` | Static explorer, builder, exports and regression tests |
 | `scripts/check.py` | The shared local/CI verification command |
-
-The superseded DSI snapshot, extraction-run archives and rich-schema machinery have been removed from the active repository. Their previous versions remain recoverable in Git history. Locally cached papers are not part of the published site.

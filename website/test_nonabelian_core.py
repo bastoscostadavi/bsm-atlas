@@ -1,4 +1,4 @@
-"""Derived core grouping regressions; not a new source-physics review."""
+"""Semisimple restrictions, matter grouping and exact identity regressions."""
 from contextlib import closing
 from copy import deepcopy
 from hashlib import sha256
