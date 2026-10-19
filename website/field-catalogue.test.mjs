@@ -23,16 +23,20 @@ assert.equal(comparePapers({arxiv:'0910.1785v5',title:'same'},{arxiv:'0910.1785v
 const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
 const viewTitles={
- algebras:'Semisimple part of gauge algebras',
- 'full-algebras':'Gauge algebra',
- cores:'Semisimple part of gauge algebras and matter representations',
- entries:'Gauge algebra and matter representations'};
+ algebras:'Gauge algebras',
+ 'full-algebras':'Gauge algebras',
+ cores:'Gauge algebras and matter representations',
+ entries:'Gauge algebras and matter representations'};
+const viewSubtitles={
+ algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
+ 'full-algebras':'Gauge algebras, with matter representations omitted.',
+ cores:'The semisimple part of the gauge algebra and its matter representations, with U(1) factors omitted.',
+ entries:'Complete gauge–matter specifications, with multiplicities and charge assignments.'};
 for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
  assert.equal(nodes.get('page-title').textContent,viewTitles[browse]);
- assert(!content().includes('class="section-note"'));
- assert(!content().includes('factors omitted'));
- assert(!content().includes('matter omitted'));
+ assert(content().includes('<p class="section-note">'+viewSubtitles[browse]+'</p>'));
+ assert.equal((content().match(/class="section-note"/g)||[]).length,1);
  assert(!content().includes('catalogue-disclaimer'));
  assert(!content().includes('Matter & U(1) factors omitted'));
  assert(!content().includes('with all U(1) factors included'));

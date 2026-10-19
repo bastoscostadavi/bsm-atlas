@@ -256,7 +256,12 @@
      const fullAlgebra=fullAlgebraById.get(state.fullAlgebra);
      const algebra=algebraById.get(core?.semisimpleId||state.semisimple);
      const context=state.fullAlgebra?'<span class="math">'+math(fullAlgebra?.algebra||'Full algebra not found')+'</span>':state.core?'<span class="math">'+math(core?.algebra||'Core not found')+'</span>':state.semisimple?'<span class="math">'+math(algebra?.algebra||'Algebra not found')+'</span>':'';
-     return (context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
+     const descriptions={
+       algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
+       'full-algebras':'Gauge algebras, with matter representations omitted.',
+       cores:'The semisimple part of the gauge algebra and its matter representations, with U(1) factors omitted.',
+       entries:'Complete gauge–matter specifications, with multiplicities and charge assignments.'};
+     return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
@@ -266,7 +271,7 @@
    }
    function render(){
      const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
-     document.getElementById('page-title').textContent=state.view==='catalogue'?({algebras:'Semisimple part of gauge algebras','full-algebras':'Gauge algebra',cores:'Semisimple part of gauge algebras and matter representations',entries:'Gauge algebra and matter representations'}[level()]):titles[state.view];
+     document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Gauge algebras':'Gauge algebras and matter representations'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
