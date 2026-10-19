@@ -23,7 +23,7 @@ Do not hand-edit generated files. `make check` rebuilds them in memory or tempor
 
 The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
-A compact Back link returns from a nested catalogue view to its parent, retaining search and filter selections. It uses catalogue routes rather than browser history, so it also works when a filtered page is opened directly.
+There is no site-level Back control; visitors can use their browser's Back button to retrace their navigation.
 
 Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<id>`, `#cores`, `#core/<id>` and `#entry/<id>`. `#atlas`, `#notation` and `#sources` explain the catalogue, its conventions and its bibliography. Legacy `#about` opens The atlas. Entry details show paper references, not extraction logs or review states.
 
