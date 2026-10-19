@@ -33,6 +33,7 @@ for (const name of ['field-catalogue.csv', 'field-catalogue.sqlite', 'nonabelian
 }
 
 const html = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
+assert(!html.includes('href="#about"'), 'Data scope belongs in The atlas, not a separate footer page');
 const catalogueMenu = html.match(/<details id="catalogue-menu"[\s\S]*?<\/details>/)?.[0];
 assert(catalogueMenu?.includes('<summary>Catalogue'), 'Missing native Catalogue disclosure');
 assert.equal((catalogueMenu.match(/<a /g)||[]).length,4, 'Only the four catalogue choices should be links');

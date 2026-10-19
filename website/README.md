@@ -55,9 +55,11 @@ The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retai
 
 Symbolic families retain parameters/constraints on the same entry. SQL `entry_parameters`, `entry_constraints` and `component_charge_expressions` supply typed storage; the integer-only charge column never receives a formula. `symbolic-template-2` uses canonical `z1,z2,...` names, expanded polynomials and order-independent factor/matter identity, while retaining syntactically normalized domain constraints. Source names and old evidence fingerprints remain in provenance and identity migrations. There is no logical domain solver or general reparameterization matching. Restriction to non-Abelian matter is performed before source realification, without inventing a parameter point. See the [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
 
-The `#atlas` introduction is available through **The atlas** in the main navigation. It is separate from the `#about` page documenting data scope and review status.
+The `#atlas` introduction is available through **The atlas** in the main navigation. It explains the arXiv-based extraction process and public scope, without the historical seed-run details. There is no separate About-the-data page or footer link; old `#about` links show the atlas introduction.
 
-Shareable routes include `#atlas`, `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
+Notation is a concise reading guide. The SM and MSSM reference tables are collapsed by default; detailed ingestion rules, identity limits and edge cases remain in the linked conventions document rather than being repeated on the page.
+
+Shareable routes include `#atlas`, `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources` and `#notation`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
 
 ## Historical source
 
