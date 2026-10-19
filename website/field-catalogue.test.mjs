@@ -322,7 +322,7 @@ assert.equal(routed.state.view,'atlas');
 assert.equal(nodes.get('page-title').textContent,'What is the atlas?');
 assert(nodes.get('view-content').innerHTML.includes('The gauge algebra and the representations of the matter fields'));
 assert(nodes.get('view-content').innerHTML.includes('the Lorentz and gauge representations of the matter fields, and their multiplicities'));
-assert(nodes.get('view-content').innerHTML.includes('a small set of free parameters is fixed by experiment'));
+assert(nodes.get('view-content').innerHTML.includes('In its minimal form, with massless neutrinos, the theory has just 19 free parameters'));
 assert(nodes.get('view-content').innerHTML.includes('infinitely many predictions'));
 assert(nodes.get('view-content').innerHTML.includes('electron’s magnetic moment'));
 assert(nodes.get('view-content').innerHTML.includes('https://arxiv.org/abs/2209.13084'));
