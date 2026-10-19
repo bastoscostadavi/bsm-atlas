@@ -57,7 +57,7 @@ Symbolic families retain parameters/constraints on the same entry. SQL `entry_pa
 
 The `#atlas` introduction is available through **The atlas** in the main navigation. It explains the arXiv-based extraction process and public scope, without the historical seed-run details. There is no separate About-the-data page or footer link; old `#about` links show the atlas introduction.
 
-Notation is a concise reading guide. The SM and MSSM reference tables are collapsed by default; detailed ingestion rules, identity limits and edge cases remain in the linked conventions document rather than being repeated on the page.
+Notation explains the stored concepts in connected prose, with examples for representation labels, chirality, multiplicity, scalar counting and charge normalization. The SM and MSSM reference tables are collapsed by default. The linked conventions document remains the implementation reference.
 
 Shareable routes include `#atlas`, `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources` and `#notation`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
 
