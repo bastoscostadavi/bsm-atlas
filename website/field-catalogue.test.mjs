@@ -63,6 +63,8 @@ assert(content().includes('General solution to the U(1) anomaly equations'));
 assert(!content().includes('Inspection details'));
 app.state.view='atlas';app.render();
 for(const phrase of ['Gauge symmetry and the representations of matter','19 free parameters','infinitely many predictions','electron’s magnetic moment','Only complete specifications are included','precise objects and their paper references','bsm-ai-search','bsm-foundation-model'])assert(content().includes(phrase),phrase);
+assert(content().includes('an atlas entry would seed a simulation pipeline.'));
+assert(!content().includes('an atlas entry would seed each simulation pipeline.'));
 for(const route of ['#catalogue','#full-algebras','#cores','#entries'])assert(content().includes('href="'+route+'"'));
 assert(!content().includes('supporting passages'));
 assert(!content().includes('50'));
