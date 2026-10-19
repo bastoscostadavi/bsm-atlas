@@ -378,8 +378,11 @@ assert(nodes.get('view-content').innerHTML.includes('To compare models independe
 assert(!nodes.get('catalogue-views').innerHTML.includes('aria-current="page"'));
 assert(nodes.get('view-content').innerHTML.includes('fixed charges or a family of charge assignments described by integer parameters and constraints'));
 assert(nodes.get('view-content').innerHTML.includes('Only complete specifications are included'));
-assert(nodes.get('view-content').innerHTML.includes('source papers and extraction evidence'));
-assert(nodes.get('view-content').innerHTML.includes('does not identify them as equivalent physical theories'));
+assert(nodes.get('view-content').innerHTML.includes('supporting passages, equations or tables'));
+assert(nodes.get('view-content').innerHTML.includes('recorded alongside any notation conversions'));
+assert(!nodes.get('view-content').innerHTML.includes('extraction evidence'));
+assert(nodes.get('view-content').innerHTML.includes('Choices of coupling constants or further restrictions on interactions do not define new field-content entries'));
+assert(nodes.get('view-content').innerHTML.includes('not an independent check of anomaly cancellation or phenomenological viability'));
 assert(!nodes.get('view-content').innerHTML.includes('50'));
 assert(!nodes.get('view-content').innerHTML.includes('normalized to integers with no common factor'));
 assert(!nodes.get('view-content').innerHTML.includes('For a given spacetime dimension'));
@@ -387,6 +390,11 @@ assert(!nodes.get('view-content').innerHTML.includes('Once a Lagrangian is speci
 assert(!nodes.get('view-content').innerHTML.includes('Each model entry encodes its field content, gauge and other symmetries'));
 assert(nodes.get('view-content').innerHTML.includes('bsm-ai-search'));
 assert(nodes.get('view-content').innerHTML.includes('bsm-foundation-model'));
+assert(nodes.get('view-content').innerHTML.includes('guide AI agents in proposing new gauge–matter entries'));
+assert(nodes.get('view-content').innerHTML.includes('usual BSM research workflow'));
+assert(nodes.get('view-content').innerHTML.includes('comparing predictions with experimental results'));
+assert(nodes.get('view-content').innerHTML.includes('an atlas entry would seed each simulation pipeline'));
+assert(nodes.get('view-content').innerHTML.includes('infer probability distributions over theories and parameters from experimental observations'));
 assert(!nodes.get('view-content').innerHTML.includes('model-entries'));
 assert.equal(nodes.get('notation-key').hidden,true);
 context.location.hash='#about';routed.route();routed.render();
