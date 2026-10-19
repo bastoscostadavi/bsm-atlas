@@ -131,6 +131,29 @@ const core=data.entries.find(e=>e.id==='vlq-t-singlet').coreId;
 for(const [hash,browse] of [['#catalogue','algebras'],['#full-algebras?semisimple='+smAlgebra,'full-algebras'],['#algebra/'+smAlgebra,'cores'],['#core/'+core,'entries'],['#full-algebra/'+smFull.id,'entries'],['#entry/vlq-t-singlet','entries']]){
  context.location.hash=hash;app.route();app.render();assert.equal(app.state.browse,browse);
 }
+// The global menu always opens a catalogue-wide view, never the current drill-down.
+const menuHrefs=()=>Array.from(nodes.get('catalogue-views').innerHTML.matchAll(/href="([^"]+)"/g),m=>m[1].replaceAll('&amp;','&'));
+const menuTargets=['#catalogue','#full-algebras','#cores','#entries'];
+app.state.mode='dimensions';
+for(const hash of [
+ '#full-algebra/2198b5a34a3b9308100b195aa59bd4e51b773bf46ce03c92905a34b6ca973c54',
+ '#full-algebras?semisimple='+smAlgebra,'#algebra/'+smAlgebra,
+ '#core/'+core+'?fullAlgebra='+smFull.id,'#entry/vlq-t-singlet']){
+ context.location.hash=hash;app.route();app.render();assert.deepEqual(menuHrefs(),menuTargets,hash);
+ for(const target of menuHrefs()){
+  context.location.hash=target;app.route();app.render();
+  for(const key of ['core','fullAlgebra','semisimple','open'])assert.equal(app.state[key],'');
+ }
+ assert.equal(nodes.get('result-count').textContent,data.entries.length+' entries');
+}
+context.location.hash='#full-algebra/'+smFull.id+'?q=vector-like&paper=P15&abelianRank=1&notation=compare';
+app.route();app.render();
+for(const [i,href] of menuHrefs().entries()){
+ const [target,query]=href.split('?');assert.equal(target,menuTargets[i]);
+ const params=new URLSearchParams(query);
+ for(const [key,value] of Object.entries({q:'vector-like',paper:'P15',abelianRank:'1',notation:'compare'}))assert.equal(params.get(key),value);
+ for(const key of ['core','fullAlgebra','semisimple'])assert.equal(params.has(key),false);
+}
 // Back is a real parent link, including on a fresh direct visit without history.
 const backHref=()=>content().match(/id="catalogue-back"[^>]*href="([^"]+)"/)?.[1].replaceAll('&amp;','&');
 app.state.mode='dimensions';

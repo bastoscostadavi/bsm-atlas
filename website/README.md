@@ -21,7 +21,7 @@ Do not hand-edit generated files. `make check` rebuilds them in memory or tempor
 
 `index.html`, `field-catalogue.css` and `field-catalogue.js` implement the interface. `field-matrix.js` lays out exact derived rows; `presentation.py` computes readable dimensions and safe SM/MSSM shorthand. `core_projection.py` generates all four view memberships. `representation-diagrams.js` and locally vendored SVG.js draw Dynkin and eligible A-series Young diagrams.
 
-The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. Search, paper filters, Abelian rank and notation selections survive navigation. Selecting a matter core and a full gauge algebra intersects the two groupings.
+The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
 A compact Back link returns from a nested catalogue view to its parent, retaining search and filter selections. It uses catalogue routes rather than browser history, so it also works when a filtered page is opened directly.
 

@@ -125,13 +125,10 @@
      return {href:browseLink(target,extra),label};
    }
    function catalogueLinks(){
-     const parent=coreById.get(state.core)?.semisimpleId||fullAlgebraById.get(state.fullAlgebra)?.semisimpleId||state.semisimple;
-     const entryTarget=state.core?'core/'+state.core:state.fullAlgebra?'full-algebra/'+state.fullAlgebra:'entries';
-     const entryContext=state.core&&state.fullAlgebra?{fullAlgebra:state.fullAlgebra}:!state.core&&!state.fullAlgebra?{semisimple:parent}:{};
      const links=[['algebras','Semisimple part',browseLink('catalogue')],
-       ['full-algebras','Full',browseLink('full-algebras',{semisimple:parent})],
-       ['cores','Semisimple part',browseLink(parent?'algebra/'+parent:'cores')],
-       ['entries','Full',browseLink(entryTarget,entryContext)]];
+       ['full-algebras','Full',browseLink('full-algebras')],
+       ['cores','Semisimple part',browseLink('cores')],
+       ['entries','Full',browseLink('entries')]];
      const link=([id,label,href],group)=>'<li><a aria-label="'+group+' — '+label+'" href="'+esc(href)+'"'+(state.view==='catalogue'&&level()===id?' aria-current="page"':'')+'>'+label+'</a></li>';
      const group=(id,label,items)=>'<div class="catalogue-group"><p id="'+id+'" class="catalogue-group-label">'+label+'</p><ul aria-labelledby="'+id+'">'+items.map(item=>link(item,label)).join('')+'</ul></div>';
      return group('catalogue-algebra-label','Gauge algebra',links.slice(0,2))+
