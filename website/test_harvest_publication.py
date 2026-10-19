@@ -20,6 +20,7 @@ from charge_expressions import parse_charge
 from harvest_reviews import (
     apply_harvest_reviews, input_identity, load_harvest_reviews,
     normalize_input, publish_complete_entries,
+    normalize_source_input, source_input_identity,
 )
 from nonabelian_core import restrict_nonabelian
 from parameterized_entry import specialize
@@ -81,9 +82,9 @@ class HarvestPublication(unittest.TestCase):
                     self.assertTrue(path.is_relative_to(
                         (ROOT / 'atlas/reextraction/closure-20261019').resolve()))
                     self.assertEqual(sha256(path.read_bytes()).hexdigest(), pin['sha256'])
-                self.assertEqual(normalize_input(source), normalized)
-                self.assertEqual(normalize_input(normalized), normalized)
-                self.assertEqual(input_identity(normalized)['fingerprint'],
+                self.assertEqual(normalize_source_input(source), normalized)
+                self.assertEqual(normalize_source_input(normalized), normalized)
+                self.assertEqual(source_input_identity(normalized)['fingerprint'],
                                  decision['fingerprint'])
                 self.assertTrue(normalized['inventory_complete'])
                 self.assertEqual(evidence['target_entry_id'], decision['entry'])
@@ -116,6 +117,22 @@ class HarvestPublication(unittest.TestCase):
         with patch.object(Path, 'read_bytes', guarded_bytes), \
                 patch.object(Path, 'read_text', guarded_text):
             self.assertEqual(len(load_harvest_reviews(ROOT)), 48)
+
+    def test_new_symbolic_reviews_can_pin_the_standardized_identity(self):
+        manifest = json.loads(MANIFEST.read_text())
+        by_id = {review['decision']['entry']: review for review in self.reviews}
+        changed = 0
+        for decision in manifest['reviews']:
+            normalized = by_id[decision['entry']]['normalized']
+            if normalized['schema_version'] == 'field-content-3':
+                decision['fingerprint'] = input_identity(normalized)['fingerprint']
+                changed += 1
+        original = Path.read_text
+        def read_text(path, *args, **kwargs):
+            return json.dumps(manifest) if path == MANIFEST else original(path, *args, **kwargs)
+        with patch.object(Path, 'read_text', read_text):
+            self.assertEqual(len(load_harvest_reviews(ROOT)), 48)
+        self.assertEqual(changed, 2)
 
     def test_publication_has_only_complete_fixed_algebras_and_known_matrix_rows(self):
         self.assertEqual(len(DATA['entries']), 67)
@@ -449,11 +466,12 @@ class TypedChargeFamilies(unittest.TestCase):
                 self.assertEqual(spec, before)
                 self.assertEqual(restricted['id'], ENTRIES[entry_id]['coreId'])
                 for assignment in assignments:
-                    member = normalize_spec(specialize(spec, assignment))
+                    values = {ENTRIES[entry_id]['parameterRenaming'][name]: value for name, value in assignment.items()}
+                    member = normalize_spec(specialize(spec, values))
                     self.assertEqual(restrict_nonabelian(member)['id'], restricted['id'])
                 self.assertNotIn('parameter_assignment', restricted)
         with self.assertRaisesRegex(IncompleteContent, 'constraint'):
-            specialize(ENTRIES['u1-ybl-charge-family']['identity']['input'], {'q': 0, 'r': 0})
+            specialize(ENTRIES['u1-ybl-charge-family']['identity']['input'], {'z1': 0, 'z2': 0})
 
     def test_complex_vector_restriction_keeps_complex_nonabelian_irrep(self):
         spec = vector_family([1, 0])
@@ -477,4 +495,3 @@ class TypedChargeFamilies(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

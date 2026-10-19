@@ -12,8 +12,11 @@ def check(spec,database):
     if isinstance(spec,dict) and spec.get('schema_version')==PARAMETER_SCHEMA:
         report=validation_report(spec)
         if report['normalized_entry']['parameters']:
-            return {**report,'matches':None,'same_algebra_candidates':None,
-                    'action':'Reconcile this family with existing entries using source evidence. Numerical duplicate checking requires a parameter assignment; an unchecked family is not a proven new theory.'}
+            with closing(sqlite3.connect(database.resolve().as_uri()+'?mode=ro',uri=True)) as c:
+                matches=[{'entry_id':r[0],'name':r[1]} for r in c.execute('SELECT e.entry_id,e.name FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.fingerprint=?',(report['fingerprint'],))]
+            return {**report,'status':'exact_symbolic_template_match' if matches else 'no_exact_symbolic_template_match_review_required',
+                    'matches':matches,
+                    'action':'Link the paper to the existing entry.' if matches else 'Review existing families before intake. A different normalized template or domain is not proof of a new family of physical models.'}
         spec=specialize(report['normalized_entry'],{})
     result=canonicalize(spec)
     with closing(sqlite3.connect(database.resolve().as_uri()+'?mode=ro',uri=True)) as c:

@@ -77,6 +77,13 @@ assert(nodes.get('model-entries').innerHTML.includes('data-young-rows="[1]"'));
 app.state.mode='dimensions';app.render();
 assert(nodes.get('model-entries').innerHTML.includes('(1, 2; 3)'));
 app.state.view='notation';app.render();
+assert(nodes.get('view-content').innerHTML.includes('Symbolic charge families'));
+assert(nodes.get('view-content').innerHTML.includes('z1, z2, …'));
+assert(nodes.get('view-content').innerHTML.includes('(z1 + z2)**2 → z1**2 + 2*z1*z2 + z2**2'));
+assert(nodes.get('view-content').innerHTML.includes('descending lexicographic order'));
+assert(nodes.get('view-content').innerHTML.includes('do not solve for equivalent domains'));
+assert(nodes.get('view-content').innerHTML.includes('su(3) ⊕ su(2) and su(2) ⊕ su(3) have the same algebra identifier'));
+assert(!nodes.get('view-content').innerHTML.includes('? means the Dynkin conversion'));
 assert(nodes.get('view-content').innerHTML.includes('Bourbaki'));
 assert(nodes.get('view-content').innerHTML.includes('([0,1], [0]; -4)'));
 assert(nodes.get('view-content').innerHTML.includes('parentheses denote Lorentz spins'));
@@ -227,12 +234,14 @@ console.log('Branching catalogue navigation, contextual links, U(1) rank filters
 context.location.hash='#entry/u1-smnur-all-sm-yukawas';routed.route();routed.render();
 assert(nodes.get('model-entries').innerHTML.includes('Integer parameters:'));
 assert(nodes.get('model-entries').innerHTML.includes('Parameter constraints'));
-assert(nodes.get('model-entries').innerHTML.includes('n1**3 + n2**3 + n3**3 == 3*r**3'));
+assert(nodes.get('model-entries').innerHTML.includes('z1**3 + z2**3 + z3**3 == 3*z4**3'));
+assert(nodes.get('model-entries').innerHTML.includes('Source parameter names:'));
+assert(nodes.get('model-entries').innerHTML.includes('q → z5'));
 assert(nodes.get('model-entries').innerHTML.includes('Shared primitive normalization'));
 assert(!nodes.get('model-entries').innerHTML.includes('count pending'));
 for(const mode of ['dimensions','dynkin','young','compare']){
   routed.state.mode=mode;routed.render();
-  for(const expression of ['q','-4*q - r','3*q + r','-n1']){
+  for(const expression of ['z5','-z4 - 4*z5','z4 + 3*z5','-z1']){
     assert(nodes.get('model-entries').innerHTML.includes('>'+expression+'</span>'),mode+': '+expression);
   }
   assert(!nodes.get('model-entries').innerHTML.includes('>?</span>'),mode+': no discarded typed charge');

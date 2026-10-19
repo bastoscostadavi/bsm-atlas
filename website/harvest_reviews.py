@@ -5,6 +5,7 @@ import json
 
 from catalogue_identity import canonicalize, normalize_spec
 from parameterized_entry import normalize_parameterized, EXPRESSION_CONVENTION
+from symbolic_identity import canonicalize_family, CONVENTION as SYMBOLIC_CONVENTION
 from charge_expressions import parse_charge
 from scalar_conventions import real_scalar, is_scalar
 from field_conventions import irrep_dimension, irrep_dimension_label, young_rows, dynkin_representation
@@ -19,14 +20,22 @@ def claim_text(claim):
 
 
 def normalize_input(spec):
-    return normalize_parameterized(spec) if spec.get('schema_version') == 'field-content-3' else normalize_spec(spec)
+    return canonicalize_family(spec)['normalized_entry'] if spec.get('schema_version') == 'field-content-3' else normalize_spec(spec)
 
 
 def input_identity(spec):
+    return canonicalize_family(spec) if spec['schema_version'] == 'field-content-3' else canonicalize(spec)
+
+
+def normalize_source_input(spec):
+    """Frozen source conventions, before public canonical parameter naming."""
+    return normalize_parameterized(spec) if spec.get('schema_version') == 'field-content-3' else normalize_spec(spec)
+
+
+def source_input_identity(spec):
+    """Audit the legacy ordered template hash without changing source evidence."""
     if spec['schema_version'] != 'field-content-3':
         return canonicalize(spec)
-    # Exact normalized template identity, NOT a proof of family equivalence
-    # under parameter redefinitions, overlaps or multi-U(1) basis changes.
     payload = {k: deepcopy(spec[k]) for k in ['schema_version', 'gauge_factors', 'parameters', 'constraints', 'matter']}
     for row in payload['matter']: row.pop('label', None)
     raw = json.dumps(payload, sort_keys=True, separators=(',', ':'))
@@ -83,9 +92,13 @@ def load_harvest_reviews(root):
         complete=(verdict.get('inventory_complete') and not verdict.get('not_extracted') and not verdict.get('not_specified_by_source')) if isinstance(verdict,dict) else verdict=='accept' and source.get('inventory_complete')
         if not complete:
             raise ValueError('Only complete source-supported inventories may be accepted')
-        if normalize_input(source) != normalized or normalize_input(normalized) != normalized:
+        if normalize_source_input(source) != normalized or normalize_source_input(normalized) != normalized:
             raise ValueError('Harvest still needs normalization')
-        if input_identity(normalized)['fingerprint'] != decision['fingerprint']:
+        # Historical reviews pin the old source-template hash. New reviews can
+        # pin the standardized identity. In either case, verify the actual file
+        # and derive the public identity; never rewrite the accepted evidence.
+        fingerprints = {source_input_identity(normalized)['fingerprint'], input_identity(normalized)['fingerprint']}
+        if decision['fingerprint'] not in fingerprints:
             raise ValueError('Harvest fingerprint mismatch')
         if evidence['target_entry_id'] != decision['entry'] or evidence['paper_id'] != decision['paper']:
             raise ValueError('Harvest source target mismatch')
@@ -107,9 +120,12 @@ def load_harvest_reviews(root):
 
 def public_review(review):
     d, e = review['decision'], review['evidence']
+    identity = input_identity(review['normalized'])
     return {'paperId': d['paper'], 'arxiv': d['arxiv'],
             'candidate': d['files']['normalized']['path'].split('/')[-1],
-            'fingerprint': d['fingerprint'], 'identitySchema': review['normalized']['schema_version'],
+            'fingerprint': identity['fingerprint'], 'identitySchema': review['normalized']['schema_version'],
+            **({'sourceFingerprint': d['fingerprint'], 'identityConvention': SYMBOLIC_CONVENTION,
+                'parameterRenaming': identity['parameter_renaming']} if review['normalized']['schema_version'] == 'field-content-3' else {}),
             'reviewedOn': review['reviewedOn'],
             'reviewStatus': 'agent_source_checked_curator_integrated',
             'inspectedScope': d['scope'], 'wholePaperRead': False,
@@ -131,7 +147,8 @@ def source_rows(source):
 def apply_harvest_reviews(entries, papers, reviews, display_rep):
     by_id, by_paper = {e['id']: e for e in entries}, {p['id']: p for p in papers}
     for review in reviews:
-        d, spec, source, evidence = (review[k] for k in ['decision', 'normalized', 'source', 'evidence'])
+        d, source, evidence = (review[k] for k in ['decision', 'source', 'evidence'])
+        spec = normalize_input(review['normalized'])
         if d['paper'] not in by_paper:
             p=deepcopy(d.get('paper_metadata',{}))
             if not p.get('title') or not p.get('authors') or p.get('arxiv')!=d['arxiv']:
@@ -248,6 +265,12 @@ def apply_harvest_reviews(entries, papers, reviews, display_rep):
                          'input': spec, 'canonical': json.loads(identity['canonical_json'])}
         if spec['schema_version'] == 'field-content-3':
             e['identity']['status'] = 'specified_symbolic_template_not_general_family_equivalence'
+            e['identity']['convention'] = SYMBOLIC_CONVENTION
+            source_identity = source_input_identity(review['normalized'])
+            e['legacyIdentity'] = {'schema': 'field-content-3-ordered-template-1',
+                                   'fingerprint': source_identity['fingerprint'],
+                                   'reason': 'Canonical z-parameters, expanded polynomials and order-independent template identity; source evidence unchanged'}
+            e['parameterRenaming'] = input_identity(review['normalized'])['parameter_renaming']
             e['parameters'], e['constraints'] = spec['parameters'], spec['constraints']
             e['expressionConvention'] = EXPRESSION_CONVENTION
             regime['parameters'], regime['constraints'] = spec['parameters'], spec['constraints']

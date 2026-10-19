@@ -87,7 +87,8 @@ class ScalarModules(unittest.TestCase):
             for n,payload in con.execute('select copies,representation_json from spacetime_representations'):
                 self.assertEqual(n,json.loads(payload)['copies'])
             self.assertEqual({s[0] for s in con.execute('select schema_version from content_signatures')},{'field-content-2','field-content-3'})
-            self.assertEqual(con.execute('select count(*) from identity_migrations').fetchone()[0],21)
+            self.assertEqual(con.execute("select count(*) from identity_migrations where old_schema='field-content-1'").fetchone()[0],21)
+            self.assertEqual(con.execute("select count(*) from identity_migrations where new_schema='symbolic-template-2'").fetchone()[0],2)
             for (q,) in con.execute('select charge from component_gauge_representations where charge is not null'):
                 self.assertEqual(str(int(q)),q)
             # Clone the schema to test the database-level guard without writing

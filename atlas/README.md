@@ -5,7 +5,7 @@ The active atlas records gauge algebras, Lorentz and gauge representations, mult
 ## Current catalogue
 
 - `catalogue_identity.py`, `scalar_conventions.py`, `nonabelian_core.py`: numerical normalization, exact field-content identity and the two non-Abelian projections.
-- `parameterized_entry.py`, `charge_expressions.py`: declared symbolic U(1) charge families and exact specialization.
+- `parameterized_entry.py`, `charge_expressions.py`, `symbolic_identity.py`: safe polynomial inputs, exact specialization, canonical z-parameters and order-independent symbolic-template matching. Constraints remain explicit; no domain-equivalence solver is used.
 - `prepare_entry.py`, `check_entry.py`: read-only preflight and duplicate reconciliation.
 - `field_content_curations.json`: explicit presentation, baseline and source-correction decisions.
 - `FIELD_CONTENT_CATALOGUE.json`: generated catalogue, identical to the website JSON; never hand-edit it.

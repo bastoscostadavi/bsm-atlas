@@ -106,17 +106,21 @@ def specialize(spec, values):
 
 
 def validation_report(spec):
-    normalized = normalize_parameterized(spec)
+    from symbolic_identity import canonicalize_family
+    identity = canonicalize_family(spec)
+    normalized = identity['normalized_entry']
     return {
         'status': 'valid_parameterized_entry_requires_source_review',
         'normalized_entry': normalized,
         'expression_convention': EXPRESSION_CONVENTION,
-        'fingerprint': None,
+        'fingerprint': identity['fingerprint'],
+        'identity_convention': identity['identity_convention'],
+        'parameter_renaming': identity['parameter_renaming'],
         'validation': {
             'syntax': 'passed', 'integer_valued_charges': 'guaranteed_by_integer_polynomial_language',
             'parameter_domain_nonempty': 'not_proven', 'anomalies': 'not_checked_not_an_intake_requirement',
             'family_equivalence': 'not_certified',
         },
-        'action': 'Review source evidence before intake. Keep this as one parameterized entry, not an enumeration. Specialize with --values for primitive normalization and numerical duplicate reconciliation.',
-        'limits': 'Valid mathematical input is not a physical-consistency certificate. General family reparameterizations, overlaps, U(1) basis mixing and parameter-domain satisfiability require separate reconciliation.',
+        'action': 'Use the standardized z1,z2,... template and reconcile its exact template fingerprint before intake. Preserve the source parameter map in provenance. Specialize the original input with --values in its own parameter names for numerical reconciliation.',
+        'limits': 'The fingerprint removes parameter names and factor/row order, not general reparameterizations, logically equivalent domains, overlaps, U(1) basis mixing or pointwise charge rescalings. Constraints remain part of the template; their satisfiability and anomalies are not certified.',
     }

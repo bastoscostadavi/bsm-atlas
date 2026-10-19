@@ -33,7 +33,7 @@ from current_reextraction_reviews import load_current_reviews,apply_current_revi
 from harvest_reviews import load_harvest_reviews,apply_harvest_reviews,publish_complete_entries
 from core_projection import attach_cores,attach_algebras,attach_full_algebras
 from nonabelian_core import CONVENTION as CORE_CONVENTION,ALGEBRA_CONVENTION,FULL_ALGEBRA_CONVENTION
-VERSION="gauge-matter-10"
+VERSION="gauge-matter-11"
 DATE="2026-10-19"
 SM_FACTORS=[factor("SU(3)","colour"),factor("SU(2)","weak_L"),factor("U(1)","hypercharge")]
 
@@ -497,7 +497,7 @@ def write_outputs(data,check=False):
                 con.execute('INSERT INTO entry_identity VALUES (?,?,?,?,?,?)',(e['id'],identity['status'],identity.get('reason'),h,json.dumps(signature,sort_keys=True,separators=(',',':')),json.dumps(identity['input'],ensure_ascii=False) if h else None))
                 if h and e.get('legacyIdentity'):
                     old=e['legacyIdentity']
-                    con.execute('INSERT INTO identity_migrations VALUES (?,?,?,?,?,?)',(e['id'],old['schema'],old['fingerprint'],'field-content-2',h,'Scalars counted as irreducible real gauge modules; original extraction evidence unchanged'))
+                    con.execute('INSERT INTO identity_migrations VALUES (?,?,?,?,?,?)',(e['id'],old['schema'],old['fingerprint'],identity.get('convention',identity['input']['schema_version']),h,old.get('reason','Scalars counted as irreducible real gauge modules; original extraction evidence unchanged')))
             for e in data['entries']:
                 for review in e.get('reextractions',[]):
                     if review['fingerprint']!=e['identity']['fingerprint']:

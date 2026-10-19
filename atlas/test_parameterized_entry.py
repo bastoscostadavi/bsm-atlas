@@ -102,12 +102,13 @@ class ParameterizedEntries(unittest.TestCase):
             prepare(family(constraints=['1 > 2']))
         self.assertEqual(len(prepare(family(constraints=['1 < 2']))['normalized_entry']['constraints']), 0)
 
-    def test_no_numerical_fingerprint_or_fake_registry_miss_for_family(self):
+    def test_symbolic_template_fingerprint_is_not_a_numerical_identity(self):
         source = family()
-        report = prepare(source, Path('/does-not-exist.sqlite'))
-        self.assertIsNone(report['fingerprint'])
-        self.assertEqual(report['duplicate_check']['status'], 'symbolic_family_reconciliation_required')
-        self.assertIsNone(check(source, Path('/does-not-exist.sqlite'))['matches'])
+        report = prepare(source, ROOT/'website/downloads/field-catalogue.sqlite')
+        self.assertTrue(report['fingerprint'])
+        self.assertEqual(report['identity_convention'], 'symbolic-template-2')
+        self.assertEqual(report['duplicate_check']['status'], 'no_exact_symbolic_template_match_review_required')
+        self.assertEqual(report['validation']['family_equivalence'], 'not_certified')
         with self.assertRaises(IncompleteContent):
             canonicalize(source)
 

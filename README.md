@@ -44,7 +44,7 @@ The full-algebra grouping records canonical simple factors and the number of U(1
 
 - Simple algebras use canonical Cartan type/rank; non-Abelian irreps use exact highest-weight **Dynkin labels** with fixed node numbering. The website also offers familiar dimensions and Young diagrams where applicable.
 - Four-dimensional Weyl fermions are left-handed. Charge conjugation conjugates every non-Abelian factor and negates every Abelian charge.
-- Numerical U(1) charges use one shared primitive integer normalization over the complete inventory. Source-defined symbolic charge families retain declared integer parameters and constraints on the same entry, with separate typed expression storage and pointwise numerical normalization.
+- Numerical U(1) charges use one shared primitive integer normalization over the complete inventory. Symbolic families use canonical integer parameters `z1,z2,...` and expanded polynomials, with source names preserved in provenance. Stated constraints remain part of exact template matching; no logical domain-equivalence solver is used. Numerical normalization is applied after specialization.
 - Paper versions, original notation, source passages and normalization steps remain traceable. Unfinished extraction, genuine source omissions and source-defined parameters are distinct.
 - Exact field-content matches reuse an existing entry. Inclusion does not certify anomaly cancellation, viability or an SM embedding.
 

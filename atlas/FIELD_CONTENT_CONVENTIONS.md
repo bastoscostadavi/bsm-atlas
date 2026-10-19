@@ -1,6 +1,6 @@
 # Gauge-algebra and matter conventions
 
-Version `gauge-matter-10`, October 19, 2026.
+Version `gauge-matter-11`, October 19, 2026.
 
 ## Publication rule
 
@@ -77,7 +77,13 @@ Families use `field-content-3`: fixed gauge factors, non-Abelian and Lorentz rep
 
 Do not enumerate a family. The website displays its parameter domain and constraints on the same entry. Specialization validates the integer point, evaluates charges exactly, then applies numerical primitive normalization, scalar counting, aggregation and duplicate reconciliation. Family generator coordinates need not have a common gcd1 at every point before that specialization.
 
-Family identity is exact normalized template identity, not proof of equivalence under all reparameterizations or overlapping domains. Domain nonemptiness, anomaly cancellation and physical viability are not certified by syntax validation. The two published family constraints record the source definitions, not a new anomaly-cancellation gate.
+`symbolic-template-2` standardizes parameters as `z1,z2,...` everywhere in an entry. Expand each integer polynomial, collect equal monomials, discard zero coefficients, and order terms by descending lexicographic exponent tuple in that parameter order. For example, `(z1+z2)**2` becomes `z1**2 + 2*z1*z2 + z2**2`. Keep a source-to-canonical parameter map in provenance.
+
+The canonical template is the lexicographically smallest JSON serialization over consistent parameter relabelings and permutations of identical gauge factors, with simple factors ordered by Cartan family and descending rank and U(1) factors last. Factor IDs, field names and matter-row order are not identity data; identical rows aggregate multiplicities. The executable canonicalizer bounds the combined relabeling search at 4096 choices and blocks larger comparisons explicitly rather than claiming a nonmatch. This limit is a resource bound, not mathematical inequivalence.
+
+Constraints are retained in identity, with the same parameter renaming, expanded polynomials, split comparison chains and sorted/deduplicated comparisons. No logical domain solver is used: `z1 > 0` and `z1 >= 1` remain different templates despite defining the same integer domain. Do not drop constraints to manufacture a duplicate. Matching normalized templates reuse an entry; different templates do not prove different families of physical models. Parameter shifts, nonlinear reparameterizations, overlapping domains, pointwise charge rescalings and general U(1) basis mixing are not automatically identified.
+
+Domain nonemptiness, anomaly cancellation and physical viability are not certified by syntax validation. The two published family constraints record the source definitions, not a new anomaly-cancellation gate. Historical source candidates and their ordered-template fingerprints remain frozen; the public build derives the new identities, records the parameter map and identity migration, and preserves the old evidence fingerprint separately.
 
 Typed SQL tables `entry_parameters`, `entry_constraints` and `component_charge_expressions` supplement the same entries. Formulas never enter the integer-only `component_gauge_representations.charge` column. The full schema-versioned specification is preserved in `entry_identity.input_json` and `extraction_reviews.normalized_entry_json`.
 
@@ -115,7 +121,7 @@ Identical restricted rows aggregate. Coarse grouping is not physical equivalence
 
 ## Ingestion and identity
 
-Use `prepare_entry.py` to normalize, `--require-normalized` to check idempotence, and `check_entry.py` to reconcile numerical duplicates before accepting a candidate. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory.
+Use `prepare_entry.py` to normalize, `--require-normalized` to check idempotence, and `check_entry.py` to reconcile numerical or exact symbolic-template duplicates before accepting a candidate. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory. For `--values`, use the parameter names of the supplied specification: original source names for a source candidate, or z-names for the standardized entry.
 
 Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 

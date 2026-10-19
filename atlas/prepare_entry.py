@@ -18,17 +18,16 @@ from parameterized_entry import SCHEMA as PARAMETER_SCHEMA, specialize, validati
 
 def prepare(spec,database=None,values=None):
     if isinstance(spec,dict) and spec.get('schema_version')==PARAMETER_SCHEMA:
+        if values is not None or not spec.get('parameters'):
+            assignment={} if values is None else values
+            result=prepare(specialize(spec,assignment),database)
+            result['parameter_assignment']=deepcopy(assignment)
+            result['constraint_check']='passed'
+            return result
         report=validation_report(spec)
-        if values is None and report['normalized_entry']['parameters']:
-            if database is not None:
-                report['duplicate_check']={'status':'symbolic_family_reconciliation_required','fingerprint':None,
-                    'action':'A numerical registry cannot certify family identity. Use --values to check a particular member.'}
-            return report
-        assignment={} if values is None else values
-        result=prepare(specialize(report['normalized_entry'],assignment),database)
-        result['parameter_assignment']=deepcopy(assignment)
-        result['constraint_check']='passed'
-        return result
+        if database is not None:
+            report['duplicate_check']=check(spec,database)
+        return report
     if values is not None:
         raise IncompleteContent('--values is only supported for field-content-3 entries')
     original=deepcopy(spec)
