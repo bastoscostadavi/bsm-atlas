@@ -82,7 +82,7 @@
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
-     state.view=['notation','sources','about'].includes(raw)?raw:'catalogue';
+     state.view=['atlas','notation','sources','about'].includes(raw)?raw:'catalogue';
      state.browse=raw==='entries'||/^(entry|model|core|full-algebra)\//.test(raw)?'entries':raw==='full-algebras'?'full-algebras':raw==='cores'||raw.startsWith('algebra/')?'cores':'algebras';
      state.core=raw.startsWith('core/')?decodeURIComponent(raw.slice(5)):p.get('core')||'';
      state.fullAlgebra=raw.startsWith('full-algebra/')?decodeURIComponent(raw.slice(13)):p.get('fullAlgebra')||'';
@@ -286,6 +286,9 @@
        (p.entryIds.length?'<p>'+(linked(p,'ready')?'<button class="text-button" data-paper="'+esc(p.id)+'">'+linked(p,'ready')+' concrete spectra →</button>':'')+'</p>':'<p>'+esc(p.noModelReason||p.referenceNotes?.join(' ')||'No linked BSM model.')+'</p>')+
        '<details class="provenance"><summary>Inspection details</summary><p>'+esc(p.kind)+' · '+esc(p.inspectionStatus)+' · '+esc(p.reviewStatus)+'</p><h3>Original scope</h3><p>'+esc(p.inspectedScope)+'</p>'+(p.reextractions?.length?'<h3>Accepted gauge/matter re-extraction</h3>'+[...new Map(p.reextractions.map(x=>[x.inspectedScope,x])).values()].map(x=>'<p>'+esc(x.reviewedOn)+' · '+esc(x.inspectedScope)+' <a href="'+esc(x.evidenceURL)+'" target="_blank" rel="noopener noreferrer">Evidence ↗</a></p>').join('')+'<p>Agent source-checked within the stated scope; not a whole-paper or independent physics review.</p>':'')+'<h3>Limitations</h3><p>'+esc(p.limitations||'No limitation text recorded; completeness not established.')+'</p></details></div></details>').join('')+'</div></section>';
    }
+   function atlasIntroduction(){
+     return '<article class="about-data"><p>BSM Atlas is a structured, source-backed catalogue of particle-physics model families. The current public explorer records gauge algebras, Lorentz and gauge representations, multiplicities, and exact or parameterized Abelian charges, linked to source papers. These entries specify gauge–matter content, not complete Lagrangians: different interactions, couplings, additional symmetries and symmetry-breaking patterns can share one entry. Once a Lagrangian is specified, choices of its free parameters can select different theories and phases; the observed Standard Model (SM), for example, is described in its spontaneously broken electroweak phase. Further structure can be added to the public catalogue later. The atlas is intended to support <a href="https://github.com/bastoscostadavi/bsm-ai-search">bsm-ai-search</a>, which explores using AI to propose theories and derive and test their predictions, and <a href="https://github.com/bastoscostadavi/bsm-foundation-model">bsm-foundation-model</a>, which explores learning from simulated data to infer probability distributions over theories and their parameters from experimental observations.</p></article>';
+   }
    function about(){
      return '<section class="about-data"><p>A source-backed catalogue of full gauge algebras, matter representations and multiplicities, harvested from arXiv papers. From the semisimple part of the gauge algebra, either add Abelian factors to browse full gauge algebras, or add matter to browse semisimple spectra. Both paths reach the same full entries.</p><p>Only complete, normalized specifications are published. A paper may have no model link. Incomplete sectors and unfinished extraction are not atlas entries, and there is no public pending catalogue.</p><p>Accepted scoped re-extractions cover '+esc(data.reextraction?.acceptedPapers??0)+' / 50 seed papers. These are checks of the relevant field-definition sections, not whole-paper or independent physics certification.</p><p>Identical numerical gauge–matter content reuses one entry and combines its source links. Different interactions or global symmetries can share that entry. A symbolic family retains its integer parameters and constraints; template identity does not establish equivalence under all reparameterizations.</p><p>The historical DSI snapshot remains unchanged in the repository. New entries must pass the <a href="entry.schema.json">schema</a>, normalization, source review and duplicate reconciliation before publication. Anomaly cancellation, phenomenological viability and a UV completion of an explicitly defined EFT are not intake requirements.</p><a href="https://github.com/bastoscostadavi/bsm-atlas/tree/main/atlas">Data & methodology ↗</a></section>';
    }
@@ -310,13 +313,13 @@
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Gauge algebras & matter.',sources:'Papers.',notation:'Notation.',about:'About the data.'};
+     const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.',about:'About the data.'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?({algebras:'Semisimple parts of gauge algebras.','full-algebras':'Full gauge algebras.',cores:'Semisimple matter spectra.',entries:'Full matter spectra.'}[level()]):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
-     content.innerHTML=state.view==='sources'?sources():state.view==='notation'?notation():state.view==='about'?about():catalogue();
+     content.innerHTML=state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():state.view==='about'?about():catalogue();
      if(state.view==='catalogue')rows();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
      root.AtlasDiagrams?.render(document);

@@ -55,7 +55,9 @@ The visible column is **Multiplicity**. Existing JSON/SQLite `copies` keys retai
 
 Symbolic families retain parameters/constraints on the same entry. SQL `entry_parameters`, `entry_constraints` and `component_charge_expressions` supply typed storage; the integer-only charge column never receives a formula. Family identities identify normalized templates, not all equivalent parameterizations. Restriction to non-Abelian matter is performed before source realification, without inventing a parameter point. See the [conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md).
 
-Shareable routes include `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
+The `#atlas` introduction is available through **The atlas** in the main navigation. It is separate from the `#about` page documenting data scope and review status.
+
+Shareable routes include `#atlas`, `#catalogue`, `#full-algebras?semisimple=<id>`, `#full-algebra/<id>`, `#algebra/<id>`, `#core/<id>`, `#entry/<id>`, `#sources`, `#notation` and `#about`. Legacy algebra/core links retain their original meaning. Query filters and notation choices survive both paths. `fullAlgebra=<id>` can additionally restrict a core route to the intersection of both groupings.
 
 ## Historical source
 
