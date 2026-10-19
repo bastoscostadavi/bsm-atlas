@@ -22,11 +22,6 @@ assert.deepEqual(Array.from([...dates].sort(comparePapers),p=>p.title),['a','b',
 assert.equal(comparePapers({arxiv:'0910.1785v5',title:'same'},{arxiv:'0910.1785v1',title:'same'}),0);
 const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
-const descriptions={
- algebras:'Gauge algebras, with matter and all U(1) factors omitted.',
- 'full-algebras':'Gauge algebras, with matter omitted and all U(1) factors included.',
- cores:'Gauge algebras and matter representations, with all U(1) factors omitted.',
- entries:'Gauge algebras and matter representations, with all U(1) factors included.'};
 const viewTitles={
  algebras:'Semisimple part of gauge algebras',
  'full-algebras':'Gauge algebra',
@@ -35,7 +30,13 @@ const viewTitles={
 for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
  assert.equal(nodes.get('page-title').textContent,viewTitles[browse]);
- assert(content().includes(descriptions[browse]));
+ assert(!content().includes('class="section-note"'));
+ assert(!content().includes('factors omitted'));
+ assert(!content().includes('matter omitted'));
+ assert(!content().includes('catalogue-disclaimer'));
+ assert(!content().includes('Matter & U(1) factors omitted'));
+ assert(!content().includes('with all U(1) factors included'));
+ assert(!content().includes('and all U(1) factors included'));
  assert(nodes.get('result-count').textContent.startsWith(String(count)+' '));
  const menu=nodes.get('catalogue-views').innerHTML;
  assert.equal((menu.match(/<a /g)||[]).length,4);
