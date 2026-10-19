@@ -5,6 +5,26 @@
  const shorthand=x=>({'g_SM':'𝔤<sub>SM</sub>','R_SM':'R<sub>SM</sub>','F_SM':'F<sub>SM</sub>','H_SM':'H<sub>SM</sub>','R_MSSM':'R<sub>MSSM</sub>'}[x]||math(x));
  const notationModes={dimensions:'Dimensions',dynkin:'Dynkin labels',young:'Young diagrams',compare:'Compare notations'};
  const sourceURL=p=>'https://arxiv.org/abs/'+p.arxiv;
+ const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ function arxivDate(paper){
+   const id=paper.arxiv.replace(/v[1-9]\d*$/,'');
+   const modern=/^(\d{2})(\d{2})\.(\d{4,5})$/.exec(id);
+   const legacy=/^([a-z-]+)\/(\d{2})(\d{2})(\d{3})$/.exec(id);
+   if(!modern&&!legacy)return null;
+   const yy=Number(modern?modern[1]:legacy[2]),month=Number(modern?modern[2]:legacy[3]);
+   if(month<1||month>12)return null;
+   const year=modern?(yy<7?2100:2000)+yy:(yy>=91?1900:2000)+yy;
+   return {year,month,sequence:Number(modern?modern[3]:legacy[4]),archive:modern?'':legacy[1],
+     value:year+'-'+String(month).padStart(2,'0'),label:months[month-1]+' '+year};
+ }
+ function comparePapers(a,b){
+   const x=arxivDate(a),y=arxivDate(b);
+   // Old-style sequences are comparable only within the same archive.
+   return (x?.year??Infinity)-(y?.year??Infinity)||(x?.month??Infinity)-(y?.month??Infinity)||
+     (x?.archive||'').localeCompare(y?.archive||'')||(x?.sequence??Infinity)-(y?.sequence??Infinity)||
+     a.arxiv.replace(/v[1-9]\d*$/,'').localeCompare(b.arxiv.replace(/v[1-9]\d*$/,''))||a.title.localeCompare(b.title);
+ }
+ const paperDate=p=>{const date=arxivDate(p);return date?'<time datetime="'+date.value+'">'+date.label+'</time>':'';};
  function findEntries(data,{q='',algebra='',paper='',core='',semisimple='',fullAlgebra='',abelianRank=''}={}){
    const needle=q.trim().toLowerCase();
    return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
@@ -42,6 +62,7 @@
  function create(data,document){
    const state={q:'',algebra:'',paper:'',open:'',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20};
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
+   const orderedPapers=[...data.papers].sort(comparePapers);
    const coreById=new Map((data.cores||[]).map(c=>[c.id,c]));
    const algebraById=new Map((data.semisimpleAlgebras||[]).map(a=>[a.id,a]));
    const fullAlgebraById=new Map((data.fullAlgebras||[]).map(a=>[a.id,a]));
@@ -108,8 +129,9 @@
      document.getElementById('catalogue-menu')?.setAttribute?.('data-active',String(state.view==='catalogue'));
    }
    function detail(e){
-     return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div>'+
-       e.references.map(ref=>{const p=paperById.get(ref.paper_id);return '<p><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><br><span class="subtle">'+esc(p.authors)+' · arXiv:'+esc(p.arxiv)+'</span>'+(ref.locators?.length?'<br>'+ref.locators.map(esc).join('; '):'')+'</p>';}).join('')+'</section>';
+     const references=[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
+     return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><p class="reference-order">Oldest first</p><ol class="reference-list" aria-label="Papers in chronological order">'+
+       references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p>'+(ref.locators?.length?'<p class="reference-meta">'+ref.locators.map(esc).join('; ')+'</p>':'')+'</div></li>';}).join('')+'</ol></section>';
    }
    function chosen(e){return {r:e.regime};}
    function gaugeHeading(c){
@@ -196,7 +218,7 @@
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=chosen(e).r;
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="source-buttons">'+e.paperIds.map(id=>'<button class="source-badge" data-paper="'+esc(id)+'" title="'+esc(paperById.get(id).title)+'">'+esc(id)+'</button>').join('')+'</div><button class="text-button" data-open="'+esc(e.id)+'" aria-expanded="'+(state.open===e.id)+'">References '+(state.open===e.id?'−':'+')+'</button></header>'+matrix(e,r)+(state.open===e.id?detail(e):'')+'</article>';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+'" aria-expanded="'+(state.open===e.id)+'">References '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -213,8 +235,8 @@
      '<p><a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/FIELD_CONTENT_CONVENTIONS.md">Full conventions ↗</a></p></div></div></details></section>';}
 
    function sources(){
-     return '<section id="sources"><p class="section-note">Papers are listed independently of models. A paper can have no associated entry.</p><div class="source-list">'+data.papers.map(p=>
-       '<details class="paper-item" id="source-'+esc(p.id)+'"><summary><span class="source-badge">'+esc(p.id)+'</span><span class="paper-title">'+esc(p.title)+'</span><span class="paper-count">'+p.entryIds.length+'</span></summary><div class="paper-body"><p>'+esc(p.authors)+'</p><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">arXiv:'+esc(p.arxiv)+' ↗</a>'+
+     return '<section id="sources"><p class="section-note">Papers are listed independently of models. A paper can have no associated entry.</p><div class="source-list">'+orderedPapers.map(p=>
+       '<details class="paper-item" id="source-'+esc(p.id)+'"><summary>'+paperDate(p)+'<span class="paper-title">'+esc(p.title)+'</span><span class="paper-count">'+p.entryIds.length+'</span></summary><div class="paper-body"><p>'+esc(p.authors)+'</p><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">arXiv:'+esc(p.arxiv)+' ↗</a>'+
        (p.entryIds.length?'<p><button class="text-button" data-paper="'+esc(p.id)+'">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+' →</button></p>':'<p>No linked BSM entry.</p>')+'</div></details>').join('')+'</div></section>';
    }
    function atlasIntroduction(){
@@ -237,9 +259,9 @@
      const description=isAlgebras?'Gauge algebras, with matter and all U(1) factors omitted.':isFullAlgebras?'Gauge algebras, with matter omitted and all U(1) factors included.':isCores?'Gauge algebras and matter representations, with all U(1) factors omitted.':'Gauge algebras and matter representations, with all U(1) factors included.';
      return (context?'<p class="layer-context">'+context+'</p>':'')+'<p class="section-note">'+description+'</p><div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+data.papers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.id)+' — '+esc(p.title)+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
-       (p?'<div class="selected-paper"><span>'+esc(p.id)+'</span><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
+       (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
        '<div class="results-bar"><span id="result-count"></span><span class="catalogue-disclaimer">'+(isAlgebras?'Matter & U(1) factors omitted':isFullAlgebras?'Matter omitted':isCores?'All U(1) factors omitted':'Real scalar modules · LH Weyl')+'</span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
@@ -299,6 +321,6 @@
    }
    return {start,state,render,rows,route,url};
  }
- root.FieldCatalogue={create,findEntries,esc,young,dynkinTuple,representationMarkup};
+ root.FieldCatalogue={create,findEntries,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers};
  if(root.document&&root.FIELD_CATALOGUE)create(root.FIELD_CATALOGUE,root.document).start();
 })(typeof window==='undefined'?globalThis:window);

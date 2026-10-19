@@ -25,6 +25,10 @@ The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra
 
 Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<id>`, `#cores`, `#core/<id>` and `#entry/<id>`. `#atlas`, `#notation` and `#sources` explain the catalogue, its conventions and its bibliography. Legacy `#about` opens The atlas. Entry details show paper references, not extraction logs or review states.
 
+Each full entry has one References toggle, regardless of how many papers are linked. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
+
+Dates use the first-submission month encoded in the [arXiv identifier](https://info.arxiv.org/help/arxiv_identifier.html), not the selected revision date. Sequence numbers order papers within a month and archive; legacy cross-archive ties use a deterministic archive order. The interface shows month precision and does not fabricate exact submission days.
+
 The website shows only complete specifications. Its dimension labels and diagrams are presentation aids; exact Dynkin labels, Lorentz irreps, multiplicities and typed charges remain the stored objects.
 
 GitHub Actions checks the same files and publishes this directory on pushes to main. No data is fetched from DSI or arXiv at build time.
