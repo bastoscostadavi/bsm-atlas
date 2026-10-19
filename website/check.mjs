@@ -20,6 +20,13 @@ for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)){
 }
 assert(html.includes('data-diagram="s-channel"'));
 assert.equal((html.match(/data-fermion-arrow=/g)||[]).length,4);
+const lightIcon=read('favicon.svg'),darkIcon=read('favicon-dark.svg');
+assert(lightIcon.includes('color="#1d1d1f"'));
+assert(lightIcon.includes('fill="#fff"'));
+assert(darkIcon.includes('color="#f5f5f7"'));
+assert(darkIcon.includes('fill="#161617"'));
+assert(!html.includes('#143e3b'));
+assert.equal(darkIcon.replace('color="#f5f5f7"','color="#1d1d1f"').replace('fill="#161617"','fill="#fff"'),lightIcon);
 assert(!html.includes('About the data'));
 for(const file of ['field-catalogue.sqlite','field-catalogue.csv','nonabelian-cores.csv','semisimple-algebras.csv','full-gauge-algebras.csv'])assert(fs.existsSync(new URL('downloads/'+file,website)));
 console.log('Static assets and minimal exports agree.');

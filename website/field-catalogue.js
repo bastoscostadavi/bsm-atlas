@@ -287,7 +287,13 @@
      window.addEventListener('hashchange',()=>{closeMenu();route();render();});
      let theme='light';try{theme=localStorage.getItem('atlas-theme')||'light';}catch{}
      const button=document.getElementById('theme-toggle');
-     const setTheme=t=>{document.documentElement.dataset.theme=t;button.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');button.setAttribute('title','Switch to '+(t==='dark'?'light':'dark')+' theme');};
+     const setTheme=t=>{
+       document.documentElement.dataset.theme=t;
+       button.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');
+       button.setAttribute('title','Switch to '+(t==='dark'?'light':'dark')+' theme');
+       document.getElementById('atlas-favicon')?.setAttribute('href',(t==='dark'?'favicon-dark.svg':'favicon.svg')+'?v=20261019-18');
+       document.getElementById('theme-color')?.setAttribute('content',t==='dark'?'#161617':'#ffffff');
+     };
      setTheme(theme==='dark'?'dark':'light');
      button.addEventListener('click',()=>{theme=document.documentElement.dataset.theme==='dark'?'light':'dark';setTheme(theme);try{localStorage.setItem('atlas-theme',theme);}catch{}});
    }

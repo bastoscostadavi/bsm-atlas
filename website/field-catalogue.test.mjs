@@ -102,13 +102,20 @@ const uiNodes=new Map(),documentEvents=new Map(),windowEvents=new Map();
 let triggerFocused=false,escapePrevented=false;
 const uiDocument={documentElement:{dataset:{}},addEventListener(name,fn){documentEvents.set(name,fn);},
   getElementById(id){
-    if(!uiNodes.has(id))uiNodes.set(id,{events:new Map(),setAttribute(){},addEventListener(name,fn){this.events.set(name,fn);},
+    if(!uiNodes.has(id))uiNodes.set(id,{events:new Map(),attributes:new Map(),setAttribute(name,value){this.attributes.set(name,value);},addEventListener(name,fn){this.events.set(name,fn);},
       contains(target){return Boolean(target.insideCatalogue);},querySelector(){return {focus(){triggerFocused=true;}};}});
     return uiNodes.get(id);
   }};
 context.window={addEventListener(name,fn){windowEvents.set(name,fn);}};
 context.localStorage={getItem(){return null;},setItem(){}};
 const disclosure=create(data,uiDocument);disclosure.start();
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261019-18');
+assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#ffffff');
+uiNodes.get('theme-toggle').events.get('click')();
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon-dark.svg?v=20261019-18');
+assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#161617');
+uiNodes.get('theme-toggle').events.get('click')();
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261019-18');
 const menu=uiNodes.get('catalogue-menu');
 menu.open=true;documentEvents.get('keydown')({key:'Escape',preventDefault(){escapePrevented=true;}});
 assert.equal(menu.open,false);assert(triggerFocused);assert(escapePrevented);
