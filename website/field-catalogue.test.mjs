@@ -21,13 +21,14 @@ assert(nodes.get('view-content').innerHTML.includes('model-entries'));
 assert.equal(nodes.get('page-title').textContent,'Semisimple parts of gauge algebras.');
 assert.equal(nodes.get('result-count').textContent,'11 semisimple parts');
 assert(nodes.get('view-content').innerHTML.includes('Semisimple parts of the gauge algebras, with all U(1) factors and matter omitted.'));
-assert(nodes.get('view-content').innerHTML.includes('scope-navigation'));
-assert(nodes.get('view-content').innerHTML.includes('<th scope="col">Semisimple part</th>'));
-assert(nodes.get('view-content').innerHTML.includes('<th scope="row">Matter spectrum</th>'));
-assert(nodes.get('view-content').innerHTML.includes('aria-label="Full gauge algebra"'));
+assert(!nodes.get('view-content').innerHTML.includes('scope-navigation'));
+assert(!nodes.get('view-content').innerHTML.includes('layer-navigation'));
+assert(nodes.get('catalogue-views').innerHTML.includes('class="catalogue-group-label">Gauge algebra</p>'));
+assert(nodes.get('catalogue-views').innerHTML.includes('class="catalogue-group-label">Gauge algebra and matter representations</p>'));
+assert(nodes.get('catalogue-views').innerHTML.includes('aria-label="Gauge algebra — Full"'));
 assert(!nodes.get('view-content').innerHTML.includes('layer-arrow'));
 assert(!nodes.get('view-content').innerHTML.includes('layer-node'));
-assert(nodes.get('view-content').innerHTML.includes('Full gauge algebra'));
+assert(nodes.get('catalogue-views').innerHTML.includes('href="#full-algebras"'));
 assert(!nodes.get('view-content').innerHTML.includes('1 · Algebras'));
 assert(!nodes.get('view-content').innerHTML.includes('2 · Matter spectra'));
 assert(!nodes.get('view-content').innerHTML.includes('3 · Full entries'));
@@ -168,9 +169,9 @@ assert(!nodes.get('model-entries').innerHTML.includes('reality unresolved'));
 const vlqCore=data.entries.find(e=>e.id==='vlq-t-singlet').coreId;
 const grouped=create(data,document);grouped.state.browse='entries';grouped.state.core=vlqCore;grouped.render();
 assert.equal(nodes.get('result-count').textContent,'2 entries');
-assert(nodes.get('view-content').innerHTML.includes('Semisimple part'));
-assert(nodes.get('view-content').innerHTML.includes('Semisimple matter'));
-assert(nodes.get('view-content').innerHTML.includes('Full gauge algebra'));
+assert(nodes.get('catalogue-views').innerHTML.includes('Semisimple part'));
+assert(nodes.get('catalogue-views').innerHTML.includes('Gauge algebra and matter representations'));
+assert(nodes.get('catalogue-views').innerHTML.includes('Gauge algebra — Full'));
 assert(nodes.get('model-entries').innerHTML.includes('vector-like T singlet'));
 assert(nodes.get('model-entries').innerHTML.includes('vector-like B singlet'));
 assert(!nodes.get('model-entries').innerHTML.includes('Two-Higgs-doublet model'));
@@ -191,15 +192,15 @@ assert.equal(routed.state.abelianRank,'1');
 assert.equal(routed.state.mode,'dynkin');
 assert(nodes.get('model-entries').innerHTML.includes('abelianRank=1&amp;notation=dynkin'));
 assert(!nodes.get('model-entries').innerHTML.includes('Left–right'));
-assert(nodes.get('view-content').innerHTML.includes('href="#algebra/'+smAlgebra+'?abelianRank=1&amp;notation=dynkin" aria-current="page"'));
+assert(nodes.get('catalogue-views').innerHTML.includes('href="#algebra/'+smAlgebra+'?abelianRank=1&amp;notation=dynkin" aria-current="page"'));
 routed.state.q='vector-like';routed.rows();
-assert(nodes.get('layer-navigation').innerHTML.includes('q=vector-like'));
+assert(nodes.get('catalogue-views').innerHTML.includes('q=vector-like'));
 assert.equal(nodes.get('reset-filters').hidden,false);
 context.location.hash='#core/'+vlqCore;
 routed.route();routed.render();
 assert.equal(routed.state.semisimple,smAlgebra);
 assert.equal(nodes.get('result-count').textContent,'2 entries');
-assert(nodes.get('view-content').innerHTML.includes('#algebra/'+smAlgebra));
+assert(nodes.get('catalogue-views').innerHTML.includes('#algebra/'+smAlgebra));
 context.location.hash='#entry/lr-triplet-matter';routed.route();
 assert.equal(routed.state.browse,'entries');
 assert.equal(routed.state.semisimple,lrAlgebra);
@@ -225,7 +226,7 @@ assert(!nodes.get('model-entries').innerHTML.includes('pending-records'));
 assert(nodes.get('model-entries').innerHTML.includes('Multiplicity'));
 assert(nodes.get('model-entries').innerHTML.includes('126'));
 assert(!nodes.get('model-entries').innerHTML.includes('No non-Abelian'));
-assert(!nodes.get('layer-navigation').innerHTML.includes('status=all'));
+assert(!nodes.get('catalogue-views').innerHTML.includes('status=all'));
 context.location.hash='#entries?semisimple='+so10+'&status=all';routed.route();routed.render();
 assert.equal(nodes.get('result-count').textContent,'2 entries');
 assert(!nodes.get('model-entries').innerHTML.includes('Pending source record'));
@@ -288,8 +289,8 @@ assert.equal(nodes.get('result-count').textContent,smFull.entryIds.length+' entr
 assert.equal(nodes.get('page-title').textContent,'Full matter spectra.');
 assert(findEntries(data,{fullAlgebra:smFull.id}).every(e=>e.abelianRank===1));
 assert(!findEntries(data,{fullAlgebra:smFull.id}).some(e=>e.id==='u1-smnur-all-sm-yukawas'));
-assert(nodes.get('view-content').innerHTML.includes('href="#full-algebras?semisimple='+smAlgebra+'"'));
-assert(nodes.get('view-content').innerHTML.includes('href="#algebra/'+smAlgebra+'"'));
+assert(nodes.get('catalogue-views').innerHTML.includes('href="#full-algebras?semisimple='+smAlgebra+'"'));
+assert(nodes.get('catalogue-views').innerHTML.includes('href="#algebra/'+smAlgebra+'"'));
 // Paths can be combined without broadening either restriction.
 context.location.hash='#core/'+vlqCore+'?fullAlgebra='+smFull.id;
 routed.route();routed.render();
@@ -316,15 +317,24 @@ context.location.hash='#full-algebra/not-an-algebra';routed.route();
 assert.equal(findEntries(data,routed.state).length,0);
 
 const compact=create(data,document);compact.render();
-let selector=nodes.get('layer-navigation').innerHTML;
-for(const [n,unit] of [[11,'algebras'],[14,'algebras'],[58,'spectra'],[67,'entries']]){
-  assert(selector.includes('<span>'+n+'</span> '+unit));
-}
+let selector=nodes.get('catalogue-views').innerHTML;
+assert.equal((selector.match(/<a /g)||[]).length,4);
+assert.equal((selector.match(/class="catalogue-group-label"/g)||[]).length,2);
+assert.equal((selector.match(/>Semisimple part<\/a>/g)||[]).length,2);
+assert.equal((selector.match(/>Full<\/a>/g)||[]).length,2);
+for(const target of ['catalogue','full-algebras','cores','entries'])assert(selector.includes('href="#'+target+'"'));
 assert.equal((selector.match(/aria-current="page"/g)||[]).length,1);
 compact.state.q='three-higgs-doublets';compact.rows();
-selector=nodes.get('layer-navigation').innerHTML;
-assert.equal((selector.match(/<span>1<\/span>/g)||[]).length,4);
+selector=nodes.get('catalogue-views').innerHTML;
 assert(selector.includes('q=three-higgs-doublets'));
+for(const view of ['algebras','full-algebras','cores','entries']){
+  compact.state.browse=view;compact.render();
+  const selected=nodes.get('catalogue-views').innerHTML;
+  assert.equal((selected.match(/aria-current="page"/g)||[]).length,1);
+  const href=selected.match(/href="([^"]+)" aria-current="page"/)[1].replaceAll('&amp;','&');
+  context.location.hash=href;compact.route();assert.equal(compact.state.browse,view);
+  assert(!nodes.get('view-content').innerHTML.includes('layer-navigation'));
+}
 
 context.location.hash='#atlas';routed.route();routed.render();
 assert.equal(routed.state.view,'atlas');
@@ -340,9 +350,11 @@ assert(nodes.get('view-content').innerHTML.includes('electron’s magnetic momen
 assert(nodes.get('view-content').innerHTML.includes('https://arxiv.org/abs/2209.13084'));
 assert(nodes.get('view-content').innerHTML.includes('among the most precise in all of science'));
 assert.equal((nodes.get('view-content').innerHTML.match(/<p>/g)||[]).length,3);
-assert(nodes.get('view-content').innerHTML.includes('semisimple part of the gauge algebra, with all U(1) factors omitted'));
-assert(nodes.get('view-content').innerHTML.includes('either add the matter representations or include the Abelian factors'));
-assert(nodes.get('view-content').innerHTML.includes('Both routes lead to the full gauge and matter content'));
+assert(nodes.get('view-content').innerHTML.includes('<a href="#catalogue">semisimple part of the gauge algebra</a>, with all U(1) factors omitted'));
+assert(nodes.get('view-content').innerHTML.includes('<a href="#cores">add the matter representations</a>'));
+assert(nodes.get('view-content').innerHTML.includes('<a href="#full-algebras">full gauge algebra</a>'));
+assert(nodes.get('view-content').innerHTML.includes('Both routes lead to the <a href="#entries">full gauge and matter content</a>'));
+assert(!nodes.get('catalogue-views').innerHTML.includes('aria-current="page"'));
 assert(nodes.get('view-content').innerHTML.includes('a fixed set of U(1) charges, as in the Standard Model'));
 assert(nodes.get('view-content').innerHTML.includes('charges depend on integer parameters subject to stated constraints'));
 assert(!nodes.get('view-content').innerHTML.includes('normalized to integers with no common factor'));
@@ -357,3 +369,25 @@ context.location.hash='#about';routed.route();routed.render();
 assert.equal(nodes.get('page-title').textContent,'About the data.');
 context.location.hash='#catalogue';routed.route();routed.render();
 assert.equal(nodes.get('result-count').textContent,'11 semisimple parts');
+
+// The native disclosure retains link semantics; dismissal returns focus on Escape.
+const uiNodes=new Map(),documentEvents=new Map(),windowEvents=new Map();
+let triggerFocused=false,escapePrevented=false;
+const uiDocument={documentElement:{dataset:{}},addEventListener(name,fn){documentEvents.set(name,fn);},
+  getElementById(id){
+    if(!uiNodes.has(id))uiNodes.set(id,{events:new Map(),setAttribute(){},addEventListener(name,fn){this.events.set(name,fn);},
+      contains(target){return Boolean(target.insideCatalogue);},querySelector(){return {focus(){triggerFocused=true;}};}});
+    return uiNodes.get(id);
+  }};
+context.window={addEventListener(name,fn){windowEvents.set(name,fn);}};
+context.localStorage={getItem(){return null;},setItem(){}};
+const disclosure=create(data,uiDocument);disclosure.start();
+const menu=uiNodes.get('catalogue-menu');
+menu.open=true;documentEvents.get('keydown')({key:'Escape',preventDefault(){escapePrevented=true;}});
+assert.equal(menu.open,false);assert(triggerFocused);assert(escapePrevented);
+menu.open=true;documentEvents.get('click')({target:{insideCatalogue:true}});assert.equal(menu.open,true);
+documentEvents.get('click')({target:{}});assert.equal(menu.open,false);
+menu.open=true;menu.events.get('click')({target:{closest(){return {};}}});assert.equal(menu.open,false);
+menu.open=true;menu.events.get('focusout')({relatedTarget:{insideCatalogue:true}});assert.equal(menu.open,true);
+menu.events.get('focusout')({relatedTarget:{}});assert.equal(menu.open,false);
+menu.open=true;windowEvents.get('hashchange')();assert.equal(menu.open,false);

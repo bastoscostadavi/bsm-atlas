@@ -7,12 +7,12 @@
   <meta name="theme-color" content="#143e3b">
   <title>BSM Atlas — gauge algebras & matter</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="field-catalogue.css?v=20261019-3">
+  <link rel="stylesheet" href="field-catalogue.css?v=20261019-4">
   <script src="vendor/svgjs/svg.min.js" defer></script>
   <script src="representation-diagrams.js?v=20261016-13" defer></script>
   <script src="field-catalogue-data.js?v=20261019-10" defer></script>
   <script src="field-matrix.js?v=20261016-13" defer></script>
-  <script src="field-catalogue.js?v=20261019-10" defer></script>
+  <script src="field-catalogue.js?v=20261019-11" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -39,7 +39,25 @@
     </a>
     <nav aria-label="Main navigation">
       <a href="#atlas">The atlas</a>
-      <a href="#catalogue">Catalogue</a>
+      <details id="catalogue-menu" class="catalogue-menu">
+        <summary>Catalogue<span class="nav-chevron" aria-hidden="true"></span></summary>
+        <div id="catalogue-views" class="catalogue-views">
+          <div class="catalogue-group">
+            <p id="catalogue-algebra-label" class="catalogue-group-label">Gauge algebra</p>
+            <ul aria-labelledby="catalogue-algebra-label">
+              <li><a href="#catalogue" aria-label="Gauge algebra — Semisimple part">Semisimple part</a></li>
+              <li><a href="#full-algebras" aria-label="Gauge algebra — Full">Full</a></li>
+            </ul>
+          </div>
+          <div class="catalogue-group">
+            <p id="catalogue-matter-label" class="catalogue-group-label">Gauge algebra and matter representations</p>
+            <ul aria-labelledby="catalogue-matter-label">
+              <li><a href="#cores" aria-label="Gauge algebra and matter representations — Semisimple part">Semisimple part</a></li>
+              <li><a href="#entries" aria-label="Gauge algebra and matter representations — Full">Full</a></li>
+            </ul>
+          </div>
+        </div>
+      </details>
       <a href="#notation">Notation</a>
       <a href="#sources">Papers</a>
     </nav>

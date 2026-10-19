@@ -120,23 +120,24 @@
      for(const [key,value] of Object.entries(extra))if(value)p.set(key,value);
      return '#'+target+(p.size?'?'+p:'');
    }
-   function layerLinks(){
+   function catalogueLinks(){
      const parent=coreById.get(state.core)?.semisimpleId||fullAlgebraById.get(state.fullAlgebra)?.semisimpleId||state.semisimple;
      const entryTarget=state.core?'core/'+state.core:state.fullAlgebra?'full-algebra/'+state.fullAlgebra:'entries';
      const entryContext=state.core&&state.fullAlgebra?{fullAlgebra:state.fullAlgebra}:!state.core&&!state.fullAlgebra?{semisimple:parent}:{};
      const links=[['algebras','Semisimple part',browseLink('catalogue')],
-       ['full-algebras','Full gauge algebra',browseLink('full-algebras',{semisimple:parent})],
-       ['cores','Semisimple matter',browseLink(parent?'algebra/'+parent:'cores')],
-       ['entries','Full matter',browseLink(entryTarget,entryContext)]];
-     const all=findEntries(data,{...state,semisimple:'',core:'',fullAlgebra:''});
-     const scoped=parent?all.filter(e=>e.semisimpleId===parent):all;
-     const count=(entries,key)=>new Set(entries.map(e=>e[key])).size;
-     const link=([id,label,href],n,singular,plural)=>'<a class="scope-link" aria-label="'+label+'" title="'+label+'" href="'+esc(href)+'"'+(level()===id?' aria-current="page"':'')+'><span>'+n+'</span> '+(n===1?singular:plural)+'</a>';
-     return '<table aria-label="Catalogue views"><thead><tr><td></td><th scope="col">Semisimple part</th><th scope="col">Full</th></tr></thead><tbody>'+
-       '<tr><th scope="row">Gauge algebra</th><td>'+link(links[0],count(all,'semisimpleId'),'algebra','algebras')+'</td><td>'+link(links[1],count(scoped,'fullAlgebraId'),'algebra','algebras')+'</td></tr>'+
-       '<tr><th scope="row">Matter spectrum</th><td>'+link(links[2],count(scoped,'coreId'),'spectrum','spectra')+'</td><td>'+link(links[3],findEntries(data,state).length,'entry','entries')+'</td></tr></tbody></table>';
+       ['full-algebras','Full',browseLink('full-algebras',{semisimple:parent})],
+       ['cores','Semisimple part',browseLink(parent?'algebra/'+parent:'cores')],
+       ['entries','Full',browseLink(entryTarget,entryContext)]];
+     const link=([id,label,href],group)=>'<li><a aria-label="'+group+' — '+label+'" href="'+esc(href)+'"'+(state.view==='catalogue'&&level()===id?' aria-current="page"':'')+'>'+label+'</a></li>';
+     const group=(id,label,items)=>'<div class="catalogue-group"><p id="'+id+'" class="catalogue-group-label">'+label+'</p><ul aria-labelledby="'+id+'">'+items.map(item=>link(item,label)).join('')+'</ul></div>';
+     return group('catalogue-algebra-label','Gauge algebra',links.slice(0,2))+
+       group('catalogue-matter-label','Gauge algebra and matter representations',links.slice(2));
    }
-   function layerNavigation(){return '<nav id="layer-navigation" class="scope-navigation" aria-label="Browse by algebra scope and matter content">'+layerLinks()+'</nav>';}
+   function updateCatalogueMenu(){
+     const navigation=document.getElementById('catalogue-views');
+     if(navigation)navigation.innerHTML=catalogueLinks();
+     document.getElementById('catalogue-menu')?.setAttribute?.('data-active',String(state.view==='catalogue'));
+   }
    function baseline(code){
      return code?'<a class="baseline-chip" href="#notation" title="See the '+esc(code)+' definition">'+shorthand(code)+'</a>':'';
    }
@@ -248,8 +249,7 @@
      root.AtlasDiagrams?.render(document);
    }
    function rows(){
-     const navigation=document.getElementById('layer-navigation');
-     if(navigation)navigation.innerHTML=layerLinks();
+     updateCatalogueMenu();
      const reset=document.getElementById('reset-filters');
      if(reset)reset.hidden=!['q','algebra','paper','status','abelianRank'].some(k=>state[k]);
      const entries=findEntries(data,{...state,includePending:level()!=='entries'}),openIndex=entries.findIndex(e=>e.id===state.open);
@@ -277,9 +277,9 @@
      '<h3>Symbolic charge families</h3><p>Parameters are integers named <code>z1, z2, …</code>. Charge expressions are expanded, equal monomials are collected, and zero terms are removed. Terms follow descending lexicographic order of the exponent tuple (z1, z2, …). For example:</p><p><code>(z1 + z2)**2 → z1**2 + 2*z1*z2 + z2**2</code></p><p>Names are assigned consistently across every charge and constraint. Parameter relabelings, gauge-factor ordering, field names and row ordering do not define a new template. Original parameter names remain available under Parameter constraints in each family.</p><details><summary>Domains and comparison limits</summary><p>Constraints stay on the entry and remain part of its identifier. We rename their parameters, expand their polynomials and sort the comparisons, but do not solve for equivalent domains: <code>z1 &gt; 0</code> and <code>z1 &gt;= 1</code> are kept distinct even over integers. The same normalized template reuses an entry; a different template is not proof of a different physical family. Parameter shifts, nonlinear substitutions, overlapping domains and general U(1) basis changes are not identified automatically.</p><p>Specializing an allowed integer point evaluates the charges exactly, then applies shared primitive normalization and numerical duplicate checks. Typed formulas are stored separately from integer-only charge columns. Neither schema validation nor template matching certifies anomaly cancellation.</p></details>'+
      '<h3>SM shorthand, expanded</h3><p><span class="math">R<sub>SM</sub> = F<sub>SM</sub> ⊕ H<sub>SM</sub></span>. F<sub>SM</sub> contains three generations of left-handed Weyl fermions. H<sub>SM</sub> is one complex scalar doublet. No right-handed neutrino is included. Gauge connections are implied by the algebra and are not additional matter.</p>'+templateTable(data.templates.R_SM)+
      '<h3>Supersymmetric baseline</h3><p>R<sub>MSSM</sub> contains three families of Q, uᶜ, dᶜ, L, eᶜ chiral multiplets; two Higgs chiral multiplets; and the three gauge-adjoint gaugino multiplets. It replaces, rather than supplements, R<sub>SM</sub>. Inherited templates are presentation definitions, not a claim that every source re-enumerates those fields.</p><details><summary>Expand R<sub>MSSM</sub></summary>'+templateTable(data.templates.R_MSSM)+
-     '</details><h3>Two paths, one catalogue</h3><p>The navigation has two axes: semisimple versus full algebra, and gauge algebra alone versus gauge algebra with its matter spectrum. The semisimple part omits all U(1) factors. Move right to include Abelian factors, or down to include matter representations and multiplicities. The linked counts open each view. Either path reaches the same full gauge-and-matter entries. These are derived views of one catalogue, not independently curated model tables.</p>'+
+     '</details><h3>Two paths, one catalogue</h3><p>The Catalogue menu offers two groups: gauge algebra alone, and gauge algebra with its matter representations and multiplicities. Each has a semisimple and a full view. The semisimple part omits all U(1) factors; the full view includes them. One can add Abelian factors first or matter first. Either path reaches the same full gauge-and-matter entries. These are derived views of one catalogue, not independently curated model tables.</p>'+
      '<p>A full-algebra key records canonical simple factors and the number of U(1) factors. It omits generator names, matter charges, global gauge groups and quotients. Search, paper filters and notation choices survive either path.</p>'+
-     '<h3>Semisimple restriction</h3><p>Every U(1), including hypercharge, is omitted in both left-hand views. Restriction can merge matter rows: the SM uᶜ and dᶜ multiplets together give six colour antifundamental weak singlets. Scalar real modules are decomposed again after restriction, preserving real degrees of freedom. The grouping is not physical equivalence, symmetry breaking or an SM-embedding certificate. All four views contain only complete source-supported entries. Symbolic U(1) families with fixed non-Abelian content share the appropriate matter core.</p>'+
+     '<h3>Semisimple restriction</h3><p>Every U(1), including hypercharge, is omitted in both semisimple views. Restriction can merge matter rows: the SM uᶜ and dᶜ multiplets together give six colour antifundamental weak singlets. Scalar real modules are decomposed again after restriction, preserving real degrees of freedom. The grouping is not physical equivalence, symmetry breaking or an SM-embedding certificate. All four views contain only complete source-supported entries. Symbolic U(1) families with fixed non-Abelian content share the appropriate matter core.</p>'+
      '<h3>What an entry means</h3><p>Different interactions or global symmetries can share a field-content entry; they are not declared equivalent physical theories. Separate description regimes are never combined into one spectrum. Symbolic template identities do not establish general family equivalence.</p><p>The catalogue was seeded from 50 papers. Source evidence, inspected scope and normalization steps remain available with each entry. Acceptance concerns the stated gauge–matter inventory, not an independent whole-paper review or physics certification.</p><p>'+data.references.map(r=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer">'+esc(r.title)+' ↗</a>').join('<br>')+'</p></div></div></details></section>';}
 
    function sources(){
@@ -290,7 +290,7 @@
    }
    function atlasIntroduction(){
      return '<article class="about-data"><p>Gauge symmetry and the representations of matter are the defining ingredients of the Standard Model. Its peculiar gauge algebra, chiral matter content and three generations form a striking structure whose origin remains unexplained. It can seem ungainly, even arbitrary, in its particulars, yet beautiful in its workings: gauge anomalies cancel exactly, and its dynamics span confinement, spontaneous symmetry breaking and weakly coupled scattering. In its minimal form, with massless neutrinos, the theory has just 19 free parameters. Once their values are fixed, it makes infinitely many predictions, including the <a href="https://arxiv.org/abs/2209.13084">electron’s magnetic moment</a>, among the most precise in all of science. BSM Atlas takes these defining ingredients as a starting point for charting extensions of the Standard Model. Each entry gives the gauge algebra, the Lorentz and gauge representations of the matter fields, and their multiplicities, using a common notation and linking to the papers in which they are studied.</p>'+
-       '<p>We organize the catalogue around the semisimple part of the gauge algebra, with all U(1) factors omitted. From there, one can either add the matter representations or include the Abelian factors to obtain the full gauge algebra. Both routes lead to the full gauge and matter content. An entry can specify a fixed set of U(1) charges, as in the Standard Model, or a family of models whose charges depend on integer parameters subject to stated constraints.</p>'+
+       '<p>We organize the catalogue around the <a href="#catalogue">semisimple part of the gauge algebra</a>, with all U(1) factors omitted. From there, one can either <a href="#cores">add the matter representations</a> or include the Abelian factors to obtain the <a href="#full-algebras">full gauge algebra</a>. Both routes lead to the <a href="#entries">full gauge and matter content</a>. An entry can specify a fixed set of U(1) charges, as in the Standard Model, or a family of models whose charges depend on integer parameters subject to stated constraints.</p>'+
        '<p>We also intend to use the atlas in two related projects. In <a href="https://github.com/bastoscostadavi/bsm-ai-search">bsm-ai-search</a>, we aim to use AI to propose theories and calculate and test their predictions. In <a href="https://github.com/bastoscostadavi/bsm-foundation-model">bsm-foundation-model</a>, we aim to learn from simulations how to infer probability distributions over theories and their parameters from experimental data.</p></article>';
    }
    function about(){
@@ -308,7 +308,7 @@
      const algebra=algebraById.get(core?.semisimpleId||state.semisimple);
      const context=state.fullAlgebra?'<span class="math">'+math(fullAlgebra?.algebra||'Full algebra not found')+'</span>':state.core?'<span class="math">'+math(core?.algebra||'Core not found')+'</span>':state.semisimple?'<span class="math">'+math(algebra?.algebra||'Algebra not found')+'</span>':'';
      const description=isAlgebras?'Semisimple parts of the gauge algebras, with all U(1) factors and matter omitted.':isFullAlgebras?'Full gauge algebras, including all U(1) factors. Matter representations are omitted.':isCores?'Representations of the semisimple part, Lorentz representations and multiplicities. All U(1) factors are omitted.':'Full gauge algebras and matter representations, including Abelian charges and multiplicities, linked to source papers.';
-     return layerNavigation()+(context?'<p class="layer-context">'+context+'</p>':'')+'<p class="section-note">'+description+'</p><div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
+     return (context?'<p class="layer-context">'+context+'</p>':'')+'<p class="section-note">'+description+'</p><div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+data.papers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.id)+' — '+esc(p.title)+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="field-catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
@@ -324,13 +324,19 @@
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
      content.innerHTML=state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():state.view==='about'?about():catalogue();
-     if(state.view==='catalogue')rows();
+     if(state.view==='catalogue')rows();else updateCatalogueMenu();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
      root.AtlasDiagrams?.render(document);
-     if(document.querySelectorAll)document.querySelectorAll('.site-header nav a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+state.view?'page':'false'));
+     if(document.querySelectorAll)document.querySelectorAll('.site-header nav > a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+state.view?'page':'false'));
    }
    function start(){
      route();render();
+     const menu=document.getElementById('catalogue-menu');
+     const closeMenu=()=>{menu.open=false;};
+     menu.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
+     menu.addEventListener('focusout',e=>{if(e.relatedTarget&&!menu.contains(e.relatedTarget))closeMenu();});
+     document.addEventListener('click',e=>{if(!menu.contains(e.target))closeMenu();});
+     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){closeMenu();menu.querySelector('summary').focus();e.preventDefault();}});
      const content=document.getElementById('view-content');
      content.addEventListener('input',e=>{if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
      content.addEventListener('change',e=>{
@@ -354,7 +360,7 @@
        else if(paper){state.view='catalogue';state.browse='entries';state.core='';state.semisimple='';state.fullAlgebra='';state.algebra='';state.abelianRank='';state.paper=paper.dataset.paper;state.status='';state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
        else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',status:'',abelianRank:'',open:''});url();render();}
      });
-     window.addEventListener('hashchange',()=>{route();render();});
+     window.addEventListener('hashchange',()=>{closeMenu();route();render();});
      let theme='light';try{theme=localStorage.getItem('atlas-theme')||'light';}catch{}
      const button=document.getElementById('theme-toggle');
      const setTheme=t=>{document.documentElement.dataset.theme=t;button.setAttribute('aria-label','Switch to '+(t==='dark'?'light':'dark')+' theme');button.setAttribute('title','Switch to '+(t==='dark'?'light':'dark')+' theme');};

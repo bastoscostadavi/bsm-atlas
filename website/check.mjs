@@ -33,6 +33,11 @@ for (const name of ['field-catalogue.csv', 'field-catalogue.sqlite', 'nonabelian
 }
 
 const html = fs.readFileSync(path.join(directory, 'index.html'), 'utf8');
+const catalogueMenu = html.match(/<details id="catalogue-menu"[\s\S]*?<\/details>/)?.[0];
+assert(catalogueMenu?.includes('<summary>Catalogue'), 'Missing native Catalogue disclosure');
+assert.equal((catalogueMenu.match(/<a /g)||[]).length,4, 'Only the four catalogue choices should be links');
+assert.equal((catalogueMenu.match(/class="catalogue-group-label"/g)||[]).length,2);
+for(const target of ['catalogue','full-algebras','cores','entries'])assert(catalogueMenu.includes('href="#'+target+'"'));
 const favicon = fs.readFileSync(path.join(directory, 'favicon.svg'), 'utf8');
 const photonPath = source => source.match(/data-propagator="photon" d="([^"]+)"/)?.[1];
 for (const [name, source] of [['header', html], ['favicon', favicon]]) {
