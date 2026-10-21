@@ -100,6 +100,8 @@ app.state.view='problems';app.render();
 assert.equal(nodes.get('page-title').textContent,'Problems.');
 assert.equal((content().match(/class="problem-card"/g)||[]).length,data.problems.length);
 assert.equal((content().match(/class="problem-category"/g)||[]).length,3);
+assert.equal((content().match(/class="category-heading"/g)||[]).length,3);
+assert.equal((content().match(/class="problem-list"/g)||[]).length,3);
 assert.deepEqual(Object.keys(problemCategories).sort(),['empirical','reported_discrepancy','structural']);
 assert(content().indexOf('id="category-empirical"')<content().indexOf('id="category-structural"'));
 assert(content().indexOf('id="category-structural"')<content().indexOf('id="category-reported_discrepancy"'));

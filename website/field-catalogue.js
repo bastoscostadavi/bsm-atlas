@@ -265,7 +265,7 @@
    function problems(){
      return '<section class="problems-view"><p class="section-note">Empirical problems and structural questions, with paper-demonstrated results for each.</p><p class="problem-policy">Each link requires a calculation or analytic demonstration of a parameter region or benchmark meeting the stated target. A candidate or a proposed mechanism alone is not enough. These are results reported in the cited papers, not an independent certification under current constraints. Separate solutions need not hold simultaneously, and an absent link does not establish that no solution exists.</p><p class="problem-downloads"><a href="downloads/problems.csv" download>Problems CSV</a> · <a href="downloads/entry-problems.csv" download>Demonstrations CSV</a></p>'+Object.entries(problemCategories).map(([category,group])=>{
        const members=orderedProblems.filter(p=>p.category===category);
-       return members.length?'<section class="problem-category" aria-labelledby="category-'+category+'"><h2 id="category-'+category+'">'+group.name+'</h2><p class="category-description">'+group.description+'</p>'+members.map(problemCard).join('')+'</section>':'';
+       return members.length?'<section class="problem-category" aria-labelledby="category-'+category+'"><div class="category-heading"><h2 id="category-'+category+'">'+group.name+'</h2><p class="category-description">'+group.description+'</p></div><div class="problem-list">'+members.map(problemCard).join('')+'</div></section>':'';
      }).join('')+'</section>';
    }
    function atlasIntroduction(){
