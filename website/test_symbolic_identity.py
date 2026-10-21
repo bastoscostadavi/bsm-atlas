@@ -22,13 +22,13 @@ def family():
                               {'id': 'left', 'family': 'A', 'rank': 1},
                               {'id': 'right', 'family': 'A', 'rank': 1},
                               {'id': 'X', 'family': 'U1', 'rank': 1}],
-            'matter': [{'label': 'psi', 'copies': 3, 'reality': 'none',
+            'matter': [{'copies': 3, 'reality': 'none',
                         'lorentz': {'dimension': 4, 'scheme': 'jL_jR', 'irreps': [['1/2', '0']]},
                         'gauge_representations': {'colour': {'dynkin': [1, 0]},
                                                  'left': {'dynkin': [1]},
                                                  'right': {'dynkin': [0]},
                                                  'X': {'charge': '(n+m)**2'}}},
-                       {'label': 'chi', 'copies': 1, 'reality': 'none',
+                       {'copies': 1, 'reality': 'none',
                         'lorentz': {'dimension': 4, 'scheme': 'jL_jR', 'irreps': [['1/2', '0']]},
                         'gauge_representations': {'colour': {'dynkin': [0, 0]},
                                                  'left': {'dynkin': [0]},
@@ -79,7 +79,6 @@ class SymbolicIdentity(unittest.TestCase):
         b = deepcopy(a)
         b['gauge_factors'].reverse()
         b['matter'].reverse()
-        b['matter'][0]['label'] = 'another paper name'
         for row in b['matter']:
             reps = row['gauge_representations']
             reps['left'], reps['right'] = reps['right'], reps['left']

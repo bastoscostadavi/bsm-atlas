@@ -18,7 +18,7 @@ EXPRESSION_CONVENTION = 'integer-polynomial-1'
 
 def normalize_parameterized(spec):
     object_keys(spec, {'schema_version', 'inventory_complete', 'gauge_factors', 'matter', 'parameters'},
-                {'name', 'paper_ids', 'constraints'})
+                {'constraints'})
     if spec['schema_version'] != SCHEMA:
         raise IncompleteContent('Parameterized entries require field-content-3')
     names = parameter_names(spec['parameters'])
@@ -39,7 +39,7 @@ def normalize_parameterized(spec):
     used = set()
     polynomials = []
     for field, placeholder in zip(result['matter'], probe['matter']):
-        object_keys(field, {'lorentz', 'reality', 'copies', 'gauge_representations'}, {'label'})
+        object_keys(field, {'lorentz', 'reality', 'copies', 'gauge_representations'})
         object_keys(field['lorentz'], {'dimension', 'scheme', 'irreps'})
         field_polynomials = []
         reps = field['gauge_representations']

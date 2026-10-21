@@ -1,6 +1,6 @@
 # Gauge-algebra and matter conventions
 
-Version `gauge-matter-12`, October 19, 2026.
+Version `gauge-matter-13`, October 21, 2026.
 
 ## Publication rule
 
@@ -17,6 +17,8 @@ Choose one regime: do not combine UV and IR spectra, bulk and brane fields, fund
 An explicitly inherited SM/MSSM baseline can be expanded using the templates below. Do not append colour, fermions, a Higgs, a breaking scalar or generations simply to complete a sector. An explicit finite benchmark can be harvested from a family; an arbitrary rank, replica count or charge substitution cannot be presented as a source-selected theory.
 
 The authoritative source is `catalogue.json`: complete specifications and their paper references. Its JSON, CSV and SQLite exports describe the same objects.
+
+Mathematical specifications accept only the fields defined by the schema. Each matter row contains `lorentz`, `reality`, `copies` and `gauge_representations`; free-text field labels, symbols and annotations are not stored or accepted on intake. Entry names and bibliography belong outside the specification. Factor IDs and row IDs are linking keys, not additional mathematical properties. Readable algebra and representation notation is derived from exact data for display.
 
 ## Gauge algebra
 
@@ -77,7 +79,7 @@ Do not enumerate a family. The website displays its parameter domain and constra
 
 `symbolic-template-2` standardizes parameters as `z1,z2,...` everywhere in an entry. Expand each integer polynomial, collect equal monomials, discard zero coefficients, and order terms by descending lexicographic exponent tuple in that parameter order. For example, `(z1+z2)**2` becomes `z1**2 + 2*z1*z2 + z2**2`. An optional `parameter_names` map on a paper reference records source names.
 
-The canonical template is the lexicographically smallest JSON serialization over consistent parameter relabelings and permutations of identical gauge factors, with simple factors ordered by Cartan family and descending rank and U(1) factors last. Factor IDs, field names and matter-row order are not identity data; identical rows aggregate multiplicities. The executable canonicalizer bounds the combined relabeling search at 4096 choices and blocks larger comparisons explicitly rather than claiming a nonmatch. This limit is a resource bound, not mathematical inequivalence.
+The canonical template is the lexicographically smallest JSON serialization over consistent parameter relabelings and permutations of identical gauge factors, with simple factors ordered by Cartan family and descending rank and U(1) factors last. Factor IDs and matter-row order are not identity data; identical rows aggregate multiplicities. The executable canonicalizer bounds the combined relabeling search at 4096 choices and blocks larger comparisons explicitly rather than claiming a nonmatch. This limit is a resource bound, not mathematical inequivalence.
 
 Constraints are retained in identity, with the same parameter renaming, expanded polynomials, split comparison chains and sorted/deduplicated comparisons. No logical domain solver is used: `z1 > 0` and `z1 >= 1` remain different templates despite defining the same integer domain. Do not drop constraints to manufacture a duplicate. Matching normalized templates reuse an entry; different templates do not prove different families of physical models. Parameter shifts, nonlinear reparameterizations, overlapping domains, pointwise charge rescalings and general U(1) basis mixing are not automatically identified.
 
@@ -123,6 +125,6 @@ Use `prepare_entry.py` for read-only normalization and `check_entry.py` for dupl
 
 Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 
-Public JSON, CSV and SQLite contain complete specifications. Paper references may carry locators and parameter-name mappings; field labels and entry aliases are presentation aids, not identity data.
+Public JSON, CSV and SQLite contain complete specifications. Paper references may carry locators and parameter-name mappings; entry aliases are navigation aids, not identity data. The SQL `matter` table stores row identifiers, Lorentz representations, scalar-counting conventions and multiplicities. `matter_representations` supplies the exact gauge components of those same rows.
 
 Run `make build` and `make check`. Checks cover strict ingestion, normalization, typed charge storage, exact duplicate reconciliation, both browsing paths, SQL/JSON agreement and frontend behavior. They do not certify physical consistency or the correctness of a paper's claims.

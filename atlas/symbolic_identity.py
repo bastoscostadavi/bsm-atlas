@@ -71,8 +71,8 @@ def _canonicalize(encoded):
             if best is None or candidate < best:
                 best, best_mapping = candidate, mapping
                 best_constraints, best_charges = constraints, renamed
-    # The public specification preserves factor IDs, source row order and labels
-    # for readable source correspondence. Only the identity payload removes those identifiers.
+    # The public specification preserves factor IDs and source row order.
+    # Only the identity payload removes those identifiers.
     spec['parameters'] = {name: {'domain': 'integer'} for name in names}
     spec['constraints'] = best_constraints
     for row, charges in zip(spec['matter'], best_charges):

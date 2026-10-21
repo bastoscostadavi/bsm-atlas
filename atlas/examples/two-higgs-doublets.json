@@ -20,7 +20,6 @@
   ],
   "matter": [
     {
-      "label": "Q",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -51,7 +50,6 @@
       }
     },
     {
-      "label": "uᶜ",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -82,7 +80,6 @@
       }
     },
     {
-      "label": "dᶜ",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -113,7 +110,6 @@
       }
     },
     {
-      "label": "L",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -144,7 +140,6 @@
       }
     },
     {
-      "label": "eᶜ",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -175,7 +170,6 @@
       }
     },
     {
-      "label": "Φ1",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",
@@ -206,7 +200,6 @@
       }
     },
     {
-      "label": "Φ2",
       "lorentz": {
         "dimension": 4,
         "scheme": "jL_jR",

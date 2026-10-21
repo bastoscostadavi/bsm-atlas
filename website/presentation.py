@@ -33,7 +33,7 @@ def matrix(spec):
                 if symbolic:c['chargeExpression']=r['charge']
             else:c.update(value=irrep_dimension_label(a,r['dynkin']),dynkin=r['dynkin'],dimension=irrep_dimension(a,r['dynkin']),youngRows=young_rows(a,r['dynkin']))
             components.append(c)
-        rows.append({'labels':[f.get('label','')],'copies':f['copies'],'components':components,'lorentz':{
+        rows.append({'copies':f['copies'],'components':components,'lorentz':{
             'component':component,'reality':f['reality'],'scheme':l['scheme'],'irreps':w,
             'label':label,'spacetime':{'dimension':str(d),'algebra':f'so(1,{d-1})'}}})
     # Combine only exact Lorentz × gauge representations, never dimension labels.
@@ -41,7 +41,7 @@ def matrix(spec):
     for row in rows:
         key=json.dumps([row['lorentz'],[{'dynkin':c['dynkin']} if c['dynkin'] is not None else {'charge':c['value']} for c in row['components']]],sort_keys=True)
         if key in merged:
-            merged[key]['copies']+=row['copies']; merged[key]['labels']+=row['labels']
+            merged[key]['copies']+=row['copies']
         else:merged[key]=row
     return {'factors':columns,'rows':list(merged.values()),'parameters':spec.get('parameters',{}),'constraints':spec.get('constraints',[])}
 

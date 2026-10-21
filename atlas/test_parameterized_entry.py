@@ -23,9 +23,9 @@ def family(charges=('z1**2 + z2', 'z2 - z1'), constraints=None):
         'parameters': {'z1': {'domain': 'integer'}, 'z2': {'domain': 'integer'}},
         'constraints': ['0 < z1 < z2 < 3'] if constraints is None else constraints,
         'gauge_factors': [{'id': 'X', 'family': 'U1', 'rank': 1}],
-        'matter': [{'label': f'chi{i}', 'lorentz': {'dimension': 4, 'scheme': 'jL_jR', 'irreps': [['1/2', '0']]},
+        'matter': [{'lorentz': {'dimension': 4, 'scheme': 'jL_jR', 'irreps': [['1/2', '0']]},
                     'reality': 'none', 'copies': 1, 'gauge_representations': {'X': {'charge': q}}}
-                   for i, q in enumerate(charges)],
+                   for q in charges],
     }
 
 

@@ -17,6 +17,7 @@ Read [FIELD_CONTENT_CONVENTIONS.md](atlas/FIELD_CONTENT_CONVENTIONS.md) and use 
 - Identify simple factors by canonical Cartan family and rank, with consistent factor IDs.
 - Supply exact highest-weight Dynkin labels in Bourbaki order, not dimensions alone.
 - Supply an explicit Lorentz representation and positive integer multiplicity for every row.
+- Include only the schema-defined mathematical fields. Do not add field labels, symbols or free-text annotations to a specification. Keep model names and paper references on the entry wrapper.
 - Rewrite independent 4D Weyl fields as left-handed. Conjugate every non-Abelian factor and negate every U(1) charge when converting a right-handed field.
 - For numerical inputs, use `field-content-2`; the normalizer handles rational source units, Dirac splitting and real scalar modules. Stored numerical charges are primitive integers over the entire inventory.
 - For source-defined symbolic charge families, use `field-content-3`: declared integer parameters, exact integer polynomials, and source constraints. The normalizer assigns canonical z-names. Do not turn unknown information into a free parameter.

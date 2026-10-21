@@ -20,15 +20,6 @@
     "inventory_complete": {
       "const": true
     },
-    "name": {
-      "type": "string"
-    },
-    "paper_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "parameters": {
       "type": "object",
       "maxProperties": 16,
@@ -106,9 +97,6 @@
           "gauge_representations"
         ],
         "properties": {
-          "label": {
-            "type": "string"
-          },
           "lorentz": {
             "type": "object",
             "required": [

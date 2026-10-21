@@ -30,13 +30,11 @@ def conjugate(rep,factor):
 def normalize_spec(spec):
     """Validate and normalize a complete numerical intake BEFORE persistence.
 
-    Preserve factor IDs, source labels and generator orientation. The separate
+    Preserve factor IDs and generator orientation. The separate
     identity fingerprint additionally quotients factor permutations/signs.
     This does not extract facts, certify provenance or accept symbolic families.
     """
-    object_keys(spec,{'schema_version','inventory_complete','gauge_factors','matter'},{'name','paper_ids'})
-    if 'name' in spec and not isinstance(spec['name'],str):raise IncompleteContent('Name must be a string')
-    if 'paper_ids' in spec and (not isinstance(spec['paper_ids'],list) or any(not isinstance(p,str) for p in spec['paper_ids'])):raise IncompleteContent('Paper IDs must be strings')
+    object_keys(spec,{'schema_version','inventory_complete','gauge_factors','matter'})
     if spec.get('schema_version')!=SCHEMA:raise IncompleteContent('Unsupported or missing schema_version')
     if spec.get('inventory_complete') is not True:raise IncompleteContent('A complete declared inventory is required; partial inputs only support candidate reconciliation')
     factors=deepcopy(spec.get('gauge_factors',[]));matter=deepcopy(spec.get('matter',[]))
@@ -52,8 +50,7 @@ def normalize_spec(spec):
         if (family=='B' and rank<3) or (family=='C' and rank<2) or (family=='D' and rank<4) or (family=='E' and rank not in {6,7,8}) or (family=='F' and rank!=4) or (family=='G' and rank!=2):raise IncompleteContent('Use canonical simple factors: A1 instead of B1/C1, C2 instead of B2, A3 instead of D3, and A1+A1 instead of D2')
     canonical_fields=[]
     for field in matter:
-        object_keys(field,{'lorentz','reality','copies','gauge_representations'},{'label'})
-        if 'label' in field and not isinstance(field['label'],str):raise IncompleteContent('Field label must be a string')
+        object_keys(field,{'lorentz','reality','copies','gauge_representations'})
         if type(field.get('copies')) is not int or field['copies']<1:raise IncompleteContent('Copies must be a positive integer, not representation dimension')
         lorentz=field.get('lorentz',{})
         object_keys(lorentz,{'dimension','scheme','irreps'})

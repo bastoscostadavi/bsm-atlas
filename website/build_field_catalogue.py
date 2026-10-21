@@ -19,7 +19,7 @@ from core_projection import attach_layers
 from presentation import matrix, compact_baseline
 from field_conventions import REPRESENTATION_CONVENTION
 
-VERSION='gauge-matter-12'
+VERSION='gauge-matter-13'
 
 def encoded(value):
     return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
@@ -84,7 +84,7 @@ def database(path,data):
             for i,expression in enumerate(s.get('constraints',[])):
                 con.execute('INSERT INTO entry_constraints VALUES (?,?,?)',(e['id'],i,expression))
             for i,f in enumerate(s['matter']):
-                con.execute('INSERT INTO matter VALUES (?,?,?,?,?,?)',(e['id'],i,f.get('label',''),encoded(f['lorentz']),f['reality'],f['copies']))
+                con.execute('INSERT INTO matter VALUES (?,?,?,?,?)',(e['id'],i,encoded(f['lorentz']),f['reality'],f['copies']))
                 for a in s['gauge_factors']:
                     r=f['gauge_representations'][a['id']];symbolic=s['schema_version']=='field-content-3'
                     con.execute('INSERT INTO matter_representations VALUES (?,?,?,?,?,?)',

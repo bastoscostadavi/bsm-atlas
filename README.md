@@ -21,6 +21,8 @@ These are derived views, not four independently maintained tables. One can add m
 
 Simple algebras use canonical Cartan type and rank; non-Abelian representations use highest-weight Dynkin labels in fixed node order. Numerical U(1) charges are primitive integers in an explicit generator basis. Four-dimensional independent Weyl fermions are all left-handed. Multiplicity counts repeated representations, not their dimensions; scalar multiplicity counts irreducible real gauge modules.
 
+Representation records contain only schema-defined mathematical data. Field symbols and descriptive labels are not stored; model names and paper metadata remain separate from the specification.
+
 An entry may instead specify a symbolic charge family: integer parameters, expanded integer polynomials and explicit constraints. Parameter names are standardized to `z1,z2,...`; a family remains one entry rather than an enumeration of its members. The matcher removes the stated notation redundancies, not arbitrary reparameterizations or logically equivalent domains.
 
 See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, conjugation, normalization and the limits of identity matching.

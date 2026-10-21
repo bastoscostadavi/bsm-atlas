@@ -76,7 +76,7 @@ class NonAbelianCore(unittest.TestCase):
 
     def test_factor_row_names_and_splitting_do_not_change_core(self):
         a=spec('lr-triplet-matter');b=deepcopy(a)
-        b['gauge_factors'].reverse();b['matter'].reverse();b['name']='Different label'
+        b['gauge_factors'].reverse();b['matter'].reverse()
         f=next(f for f in b['matter'] if f['copies']==3)
         duplicate=deepcopy(f);f['copies']=2;duplicate['copies']=1;b['matter'].append(duplicate)
         self.assertEqual(core(a),core(b))

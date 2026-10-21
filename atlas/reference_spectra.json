@@ -23,7 +23,6 @@
       ],
       "matter": [
         {
-          "label": "Q",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -54,7 +53,6 @@
           }
         },
         {
-          "label": "uᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -85,7 +83,6 @@
           }
         },
         {
-          "label": "dᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -116,7 +113,6 @@
           }
         },
         {
-          "label": "L",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -147,7 +143,6 @@
           }
         },
         {
-          "label": "eᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -178,7 +173,6 @@
           }
         },
         {
-          "label": "H",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -235,7 +229,6 @@
       ],
       "matter": [
         {
-          "label": "Q",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -266,7 +259,6 @@
           }
         },
         {
-          "label": "scalar Q",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -297,7 +289,6 @@
           }
         },
         {
-          "label": "uᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -328,7 +319,6 @@
           }
         },
         {
-          "label": "scalar uᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -359,7 +349,6 @@
           }
         },
         {
-          "label": "dᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -390,7 +379,6 @@
           }
         },
         {
-          "label": "scalar dᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -421,7 +409,6 @@
           }
         },
         {
-          "label": "L",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -452,7 +439,6 @@
           }
         },
         {
-          "label": "scalar L",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -483,7 +469,6 @@
           }
         },
         {
-          "label": "eᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -514,7 +499,6 @@
           }
         },
         {
-          "label": "scalar eᶜ",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -545,7 +529,6 @@
           }
         },
         {
-          "label": "H_u",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -576,7 +559,6 @@
           }
         },
         {
-          "label": "higgsino H_u",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -607,7 +589,6 @@
           }
         },
         {
-          "label": "H_d",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -638,7 +619,6 @@
           }
         },
         {
-          "label": "higgsino H_d",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -669,7 +649,6 @@
           }
         },
         {
-          "label": "gluino",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -700,7 +679,6 @@
           }
         },
         {
-          "label": "wino",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",
@@ -731,7 +709,6 @@
           }
         },
         {
-          "label": "bino",
           "lorentz": {
             "dimension": 4,
             "scheme": "jL_jR",

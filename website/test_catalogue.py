@@ -13,7 +13,7 @@ import unittest
 ROOT=Path(__file__).resolve().parent.parent
 sys.path[:0]=[str(ROOT/'atlas'),str(ROOT/'website')]
 from catalogue import load, validate, normalize, identity, ingest
-from catalogue_identity import canonicalize, normalize_spec
+from catalogue_identity import canonicalize, normalize_spec, IncompleteContent
 from check_entry import check
 from field_conventions import dimension_a, dimension_d
 from build_field_catalogue import main_data, database
@@ -47,6 +47,10 @@ class CatalogueTests(unittest.TestCase):
             exported=next(x for x in DATA['entries'] if x['id']==e['id'])
             self.assertEqual(exported['specification'],e['specification'])
             self.assertEqual(identity(e['specification'])['fingerprint'],exported['identity']['fingerprint'])
+            for row in e['specification']['matter']:
+                self.assertEqual(set(row),{'lorentz','reality','copies','gauge_representations'})
+            for row in exported['regime']['rows']:
+                self.assertEqual(set(row),{'copies','components','lorentz'})
         for p in SOURCE['papers']:self.assertEqual(set(p),{'id','arxiv','title','authors'})
         self.assertFalse(next(p for p in DATA['papers'] if p['id']=='R01')['entryIds'])
         self.assertFalse(any(a['algebra']=='su(2)' for a in DATA['semisimpleAlgebras']))
@@ -76,7 +80,6 @@ class CatalogueTests(unittest.TestCase):
         a=deepcopy(ENTRIES['lr-triplet-matter']['specification']);b=deepcopy(a)
         b['gauge_factors'].reverse();b['matter'].reverse()
         for row in b['matter']:
-            row['label']='a new label'
             for factor in b['gauge_factors']:
                 if factor['family']=='U1':row['gauge_representations'][factor['id']]['charge']=str(-7*int(row['gauge_representations'][factor['id']]['charge']))
         self.assertEqual(canonicalize(a),canonicalize(b))
@@ -85,9 +88,25 @@ class CatalogueTests(unittest.TestCase):
         f['copies']+=1
         self.assertNotEqual(canonicalize(a),canonicalize(b))
 
+    def test_free_text_is_not_representation_data(self):
+        for entry_id in ['two-higgs-doublets','u1-ybl-charge-family']:
+            for location in ['specification','factor','row','lorentz','representation']:
+                for key in ['label','symbol']:
+                    spec=deepcopy(ENTRIES[entry_id]['specification'])
+                    row=spec['matter'][0]
+                    target={'specification':spec,'factor':spec['gauge_factors'][0],
+                            'row':row,'lorentz':row['lorentz'],
+                            'representation':next(iter(row['gauge_representations'].values()))}[location]
+                    target[key]='Q'
+                    with self.subTest(entry=entry_id,location=location,key=key),self.assertRaises(IncompleteContent):
+                        normalize(spec)
+            for key,value in [('name','A field inventory'),('paper_ids',['P01'])]:
+                spec=deepcopy(ENTRIES[entry_id]['specification']);spec[key]=value
+                with self.subTest(entry=entry_id,key=key),self.assertRaises(IncompleteContent):normalize(spec)
+
     def test_right_handed_conversion_and_dirac_splitting(self):
         s=deepcopy(ENTRIES['vlq-t-singlet']['specification'])
-        f=next(f for f in s['matter'] if f['label'].startswith('T') and f['gauge_representations']['hypercharge']['charge']=='4')
+        f=next(f for f in s['matter'] if f['gauge_representations']=={'colour':{'dynkin':[1,0]},'weak_L':{'dynkin':[0]},'hypercharge':{'charge':'4'}})
         source=deepcopy(s);source['matter']=[deepcopy(f)]
         right=deepcopy(source);right['matter'][0]['lorentz']['irreps']=[['0','1/2']]
         normalized=normalize_spec(right)['matter'][0]
@@ -184,6 +203,7 @@ class CatalogueTests(unittest.TestCase):
             self.assertEqual(con.execute('PRAGMA foreign_key_check').fetchall(),[])
             tables={r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
             self.assertEqual(tables,{'metadata','papers','entries','aliases','entry_papers','gauge_factors','matter','matter_representations','entry_parameters','entry_constraints','semisimple_algebras','full_gauge_algebras','nonabelian_cores'})
+            self.assertEqual([r[1] for r in con.execute('PRAGMA table_info(matter)')],['entry_id','row_id','lorentz_json','reality','copies'])
             for e in SOURCE['entries']:
                 spec=e['specification']
                 self.assertEqual(json.loads(con.execute('SELECT specification_json FROM entries WHERE entry_id=?',(e['id'],)).fetchone()[0]),spec)

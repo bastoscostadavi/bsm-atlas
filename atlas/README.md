@@ -6,6 +6,8 @@ The authoritative source has two lists: `papers` and `entries`. An entry contain
 
 Numerical specifications use `field-content-2`. Symbolic charge families use `field-content-3`, with integer parameters and polynomial constraints. The stored numerical scalar unit is `real_module`. The machine key `copies` means multiplicity.
 
+Each representation row has exactly four fields: `lorentz`, `reality`, `copies` and `gauge_representations`. Free-text field labels, symbols and other annotations are rejected. Model names and paper metadata are stored separately from the mathematical specification; readable representation notation is computed for display.
+
 ## Code
 
 - `catalogue.py`: strict source validation and normalized ingestion, merging exact duplicate references.

@@ -24,7 +24,7 @@ CREATE TABLE gauge_factors (entry_id TEXT NOT NULL REFERENCES entries, factor_id
     OR (family='D' AND rank>=4) OR (family='E' AND rank IN (6,7,8)) OR (family='F' AND rank=4)
     OR (family='G' AND rank=2) OR (family='U1' AND rank=1)),
   PRIMARY KEY(entry_id,factor_id), UNIQUE(entry_id,position)) STRICT;
-CREATE TABLE matter (entry_id TEXT NOT NULL REFERENCES entries, row_id INTEGER NOT NULL CHECK(row_id>=0), label TEXT NOT NULL,
+CREATE TABLE matter (entry_id TEXT NOT NULL REFERENCES entries, row_id INTEGER NOT NULL CHECK(row_id>=0),
   lorentz_json TEXT NOT NULL CHECK(json_valid(lorentz_json)), reality TEXT NOT NULL CHECK(reality IN ('none','real','complex','real_module')),
   copies INTEGER NOT NULL CHECK(copies>0), PRIMARY KEY(entry_id,row_id)) STRICT;
 CREATE TABLE matter_representations (entry_id TEXT NOT NULL, row_id INTEGER NOT NULL, factor_id TEXT NOT NULL,
