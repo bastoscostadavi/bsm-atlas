@@ -105,7 +105,7 @@ assert.equal((content().match(/class="paper-item"/g)||[]).length,data.papers.len
 assert(!/>P\d+</.test(content()));
 app.state.view='atlas';app.render();
 for(const phrase of ['Gauge symmetry and the representations of matter','19 free parameters','infinitely many predictions','electron’s magnetic moment','Only complete specifications are included','catalogue grows both by adding models','bsm-ai-search','bsm-foundation-model'])assert(content().includes(phrase),phrase);
-assert(content().includes('an atlas entry would seed a simulation pipeline.'));
+assert(content().includes('Supervised learning would turn collections of simulation outputs into a classification task: identifying their underlying gauge algebra and matter representation.'));
 for(const route of ['#catalogue','#full-algebras','#cores','#entries'])assert(content().includes('href="'+route+'"'));
 const primary=id=>data.entries.find(e=>e.id===id).regime;
 const nm=context.FieldMatrix.matrixRows(primary('nmssm-matter'),data.templates);
