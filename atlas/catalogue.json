@@ -3,7 +3,7 @@
   "problems": [
     {
       "id": "b-meson-cp-asymmetries",
-      "name": "B-meson CP asymmetries",
+      "name": "B-meson CP asymmetries (historical)",
       "description": "Fit the source-era discrepancy in neutral B-meson CP observables with an explicit parameter region or benchmark satisfying the source's stated constraints. This is a historical target, not a claim that the discrepancy persists today."
     },
     {
@@ -13,7 +13,7 @@
     },
     {
       "id": "bottom-forward-backward-asymmetry",
-      "name": "Bottom forward–backward asymmetry",
+      "name": "Bottom forward–backward asymmetry (historical)",
       "description": "Fit the LEP-era bottom-quark forward–backward asymmetry discrepancy while respecting the other constraints examined in the cited analysis. This is a historical, source-specific experimental target, not a claim of a current anomaly."
     },
     {
