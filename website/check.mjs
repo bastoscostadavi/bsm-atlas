@@ -5,7 +5,7 @@ const data=JSON.parse(read('field-catalogue.json'));
 const source=JSON.parse(read('../atlas/catalogue.json'));
 assert.equal(read('../atlas/FIELD_CONTENT_CATALOGUE.json'),read('field-catalogue.json'));
 assert.equal(read('catalogue.json'),read('../atlas/catalogue.json'));
-assert.equal(data.schema_version,'bsm-atlas-export-2');
+assert.equal(data.schema_version,'bsm-atlas-export-3');
 assert.equal(read('entry.schema.json'),read('../atlas/entry.schema.json'));
 assert.equal(read('catalogue.schema.json'),read('../atlas/catalogue.schema.json'));
 assert.equal(read('field-catalogue-data.js'),'window.FIELD_CATALOGUE = '+read('field-catalogue.json').trimEnd()+';\n');

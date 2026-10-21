@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "required": ["schema_version", "papers", "entries", "problems", "entry_problems"],
   "properties": {
-    "schema_version": {"const": "bsm-atlas-2"},
+    "schema_version": {"const": "bsm-atlas-3"},
     "papers": {"type": "array", "items": {"$ref": "#/$defs/paper"}},
     "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}},
     "problems": {"type": "array", "items": {"$ref": "#/$defs/problem"}},
@@ -17,10 +17,14 @@
     "text": {"type": "string", "minLength": 1},
     "problem": {
       "description": "A curated physical target with an explicit success criterion; reuse existing targets rather than introducing synonyms.",
-      "type": "object", "additionalProperties": false, "required": ["id", "name", "description"],
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "description", "category"],
       "properties": {
         "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
-        "name": {"$ref": "#/$defs/text"}, "description": {"$ref": "#/$defs/text"}
+        "name": {"$ref": "#/$defs/text"}, "description": {"$ref": "#/$defs/text"},
+        "category": {
+          "enum": ["empirical", "structural", "reported_discrepancy"],
+          "description": "Empirical: established phenomena not accounted for by the minimal SM. Structural: explanatory or naturalness questions, not established observational contradictions. Reported discrepancy: source-era anomaly fits without a current-status assessment. This category does not rank a result's quality."
+        }
       }
     },
     "demonstration": {

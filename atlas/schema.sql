@@ -18,7 +18,9 @@ CREATE TABLE entry_papers (entry_id TEXT NOT NULL REFERENCES entries, paper_id T
   locators_json TEXT NOT NULL CHECK(json_valid(locators_json)), parameter_names_json TEXT NOT NULL CHECK(json_valid(parameter_names_json)),
   PRIMARY KEY(entry_id,paper_id)) STRICT;
 CREATE TABLE problems (problem_id TEXT PRIMARY KEY, name TEXT NOT NULL CHECK(length(trim(name,char(9,10,11,12,13,32)))>0),
-  description TEXT NOT NULL CHECK(length(trim(description,char(9,10,11,12,13,32)))>0)) STRICT;
+  description TEXT NOT NULL CHECK(length(trim(description,char(9,10,11,12,13,32)))>0),
+  category TEXT NOT NULL CHECK(category IN ('empirical','structural','reported_discrepancy'))) STRICT;
+CREATE INDEX problem_categories ON problems(category);
 -- Each row is a demonstrated result in a cited paper, not a current-viability certificate.
 CREATE TABLE entry_problems (entry_id TEXT NOT NULL, problem_id TEXT NOT NULL REFERENCES problems,
   paper_id TEXT NOT NULL, locators_json TEXT NOT NULL

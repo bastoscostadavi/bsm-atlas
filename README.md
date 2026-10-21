@@ -41,6 +41,8 @@ The [problems catalogue](https://davibc.com/bsm-atlas/#problems) links models to
 
 `problems` defines the targets. Each `entry_problems` record links an entry, a problem and a supporting paper, and gives the demonstrated result and its source locations. The paper must already be linked to that exact entry. Several papers may support one model–problem pair; counts use distinct problems, not the number of papers. These annotations are outside the mathematical specification and its fingerprint.
 
+Each target has a controlled `category`. **Empirical problems** concern established phenomena not accounted for by the minimal SM: dark matter, neutrino masses and the baryon asymmetry. **Structural questions** concern explanation and naturalness: flavour hierarchies, the electroweak hierarchy, strong CP and gauge-coupling unification. Inflation is classified with explanatory questions, not as an established observational discrepancy or a uniquely established mechanism. **Reported discrepancies** retain source-era anomaly fits separately, without assuming that those discrepancies persist. The site groups targets, filters and model evidence by category; it does not combine these different questions into one model score.
+
 Demonstrations report the results and constraints considered by their sources, not an independent certification against current data. Different problems may be solved in disjoint parameter regions or with different interaction choices. An absent link means no qualifying demonstration has been recorded, not that a model cannot solve the problem. The catalogue does not attempt a complete classification of parameter regions or joint solutions.
 
 ## Adding papers and models

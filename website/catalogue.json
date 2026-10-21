@@ -1,55 +1,65 @@
 {
-  "schema_version": "bsm-atlas-2",
+  "schema_version": "bsm-atlas-3",
   "problems": [
     {
       "id": "b-meson-cp-asymmetries",
       "name": "B-meson CP asymmetries (historical)",
+      "category": "reported_discrepancy",
       "description": "Fit the source-era discrepancy in neutral B-meson CP observables with an explicit parameter region or benchmark satisfying the source's stated constraints. This is a historical target, not a claim that the discrepancy persists today."
     },
     {
       "id": "baryon-asymmetry",
       "name": "Baryon asymmetry",
+      "category": "empirical",
       "description": "Generate the observed cosmic baryon asymmetry through a quantitatively evaluated mechanism, with its thermal history, CP sources and parameter assumptions stated."
     },
     {
       "id": "bottom-forward-backward-asymmetry",
       "name": "Bottom forward–backward asymmetry (historical)",
+      "category": "reported_discrepancy",
       "description": "Fit the LEP-era bottom-quark forward–backward asymmetry discrepancy while respecting the other constraints examined in the cited analysis. This is a historical, source-specific experimental target, not a claim of a current anomaly."
     },
     {
       "id": "charged-fermion-flavour",
       "name": "Charged-fermion flavour",
+      "category": "structural",
       "description": "Reproduce charged-fermion mass hierarchies and mixing patterns to the accuracy explicitly demonstrated by the source. Order-of-magnitude textures and precision fits must be distinguished; suppression of flavour-changing processes alone does not qualify."
     },
     {
       "id": "cosmic-inflation",
       "name": "Cosmic inflation",
-      "description": "Calculate an inflationary regime with primordial perturbations compatible with the data examined in the source, stating the field trajectory, couplings and relevant reheating assumptions."
+      "category": "structural",
+      "description": "Calculate an inflationary regime with primordial perturbations compatible with the data examined in the source, stating the field trajectory, couplings and relevant reheating assumptions. Inflation is classified here as an explanatory cosmological scenario, not an observed discrepancy or a uniquely established mechanism."
     },
     {
       "id": "dark-matter",
       "name": "Dark matter",
+      "category": "empirical",
       "description": "Reproduce the cosmological dark-matter abundance with sufficiently stable states, under the production history and constraints examined in the source. A candidate without an abundance calculation does not qualify."
     },
     {
       "id": "electroweak-hierarchy",
       "name": "Electroweak hierarchy",
+      "category": "structural",
       "description": "Demonstrate radiative protection of the weak scale or a calculated separation of scales over a stated energy range. The cutoff, symmetry assumptions and residual tuning must be identified; limited-cutoff protection is not a complete Planck-scale solution."
     },
     {
       "id": "gauge-coupling-unification",
       "name": "Gauge-coupling unification",
+      "category": "structural",
       "description": "Calculate a common high-scale value for the three measured SM gauge couplings, with the spectrum, thresholds and approximation stated. This target alone does not establish realistic fermion masses or a complete viable grand-unified theory."
     },
     {
       "id": "neutrino-masses",
       "name": "Neutrino masses",
+      "category": "empirical",
       "description": "Construct a neutrino mass spectrum compatible with measured oscillation scales. A mass-generating mechanism or a sub-eV scale estimate alone does not qualify; the demonstrated spectrum and any mixing assumptions must be stated."
     },
     {
       "id": "strong-cp",
       "name": "Strong CP",
-      "description": "Demonstrate suppression of the effective QCD CP angle, for example through the computed axion-potential minimum, under explicit symmetry and breaking assumptions."
+      "category": "structural",
+      "description": "Demonstrate suppression of the effective QCD CP angle, for example through the computed axion-potential minimum, under explicit symmetry and breaking assumptions. The SM can accommodate a sufficiently small angle; the structural question is why it is so small."
     }
   ],
   "entry_problems": [

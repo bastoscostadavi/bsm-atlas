@@ -10,7 +10,8 @@ from scalar_conventions import uniform_scalar, is_scalar
 from parameterized_entry import specialize
 
 SOURCE = Path(__file__).with_name('catalogue.json')
-SCHEMA = 'bsm-atlas-2'
+SCHEMA = 'bsm-atlas-3'
+PROBLEM_CATEGORIES = {'empirical','structural','reported_discrepancy'}
 
 
 def identity(spec):
@@ -41,8 +42,10 @@ def validate_problems(data):
         raise IncompleteContent('Problems and demonstrations must be lists')
     problems=set();names=set()
     for p in data['problems']:
-        object_keys(p,{'id','name','description'})
+        object_keys(p,{'id','name','description','category'})
         for value in p.values():text(value)
+        if p['category'] not in PROBLEM_CATEGORIES:
+            raise IncompleteContent('Use empirical, structural or reported_discrepancy for problem category')
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',p['id']) or p['id'] in problems or p['name'].strip().casefold() in names:
             raise IncompleteContent('Problem IDs and names must be unique; use stable slugs')
         problems.add(p['id']);names.add(p['name'].strip().casefold())

@@ -49,7 +49,7 @@ def main_data(source=None):
     problems=[{**p,'entryIds':sorted({c['entry_id'] for c in source['entry_problems'] if c['problem_id']==p['id']}),
                'paperIds':sorted({c['paper_id'] for c in source['entry_problems'] if c['problem_id']==p['id']})}
               for p in source['problems']]
-    return {'version':VERSION,'schema_version':'bsm-atlas-export-2','representationConvention':REPRESENTATION_CONVENTION,
+    return {'version':VERSION,'schema_version':'bsm-atlas-export-3','representationConvention':REPRESENTATION_CONVENTION,
         'entries':entries,'papers':papers,'templates':templates,'cores':cores,
         'problems':problems,'entry_problems':deepcopy(source['entry_problems']),
         'semisimpleAlgebras':algebras,'fullAlgebras':full,
@@ -71,7 +71,7 @@ def database(path,data):
         for p in data['papers']:
             con.execute('INSERT INTO papers VALUES (?,?,?,?)',tuple(p[k] for k in ['id','arxiv','title','authors']))
         for p in data['problems']:
-            con.execute('INSERT INTO problems VALUES (?,?,?)',tuple(p[k] for k in ['id','name','description']))
+            con.execute('INSERT INTO problems VALUES (?,?,?,?)',tuple(p[k] for k in ['id','name','description','category']))
         for a in data['semisimpleAlgebras']:
             con.execute('INSERT INTO semisimple_algebras VALUES (?,?,?)',(a['id'],a['algebra'],encoded(a['canonical'])))
         for a in data['fullAlgebras']:
@@ -115,8 +115,8 @@ def write_outputs(data,check=False):
         'website/catalogue.schema.json':(ROOT/'atlas/catalogue.schema.json').read_text(),
         'website/downloads/field-catalogue.csv':csv_text(['entry_id','name','gauge_algebra','paper_ids','problem_ids','fingerprint','specification_json'],
             ([e['id'],e['name'],e['algebraExpanded'],';'.join(e['paperIds']),';'.join(e['problemIds']),e['identity']['fingerprint'],encoded(e['specification'])] for e in data['entries'])),
-        'website/downloads/problems.csv':csv_text(['problem_id','name','description'],
-            ([p['id'],p['name'],p['description']] for p in data['problems'])),
+        'website/downloads/problems.csv':csv_text(['problem_id','name','description','category'],
+            ([p['id'],p['name'],p['description'],p['category']] for p in data['problems'])),
         'website/downloads/entry-problems.csv':csv_text(['entry_id','problem_id','paper_id','result','locators_json'],
             ([c['entry_id'],c['problem_id'],c['paper_id'],c['result'],encoded(c['locators'])] for c in data['entry_problems']))}
     for kind,file in [('cores','nonabelian-cores'),('semisimpleAlgebras','semisimple-algebras'),('fullAlgebras','full-gauge-algebras')]:
