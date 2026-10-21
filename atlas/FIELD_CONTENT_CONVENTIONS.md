@@ -18,7 +18,7 @@ An explicitly inherited SM/MSSM baseline can be expanded using the templates bel
 
 The authoritative source is `catalogue.json`: complete specifications and their paper references. Its JSON, CSV and SQLite exports describe the same objects.
 
-Problem definitions and paper-demonstrated solutions are separate annotations. They do not alter mathematical specifications, fingerprints or structural groups. Each link requires a source calculation or analytic demonstration of a successful region or benchmark, with assumptions, a result and source locations. Candidate existence alone is insufficient. These links do not certify current viability or simultaneous solutions; an absent link is not a negative result.
+Problem names and categories, and paper-backed model–problem links, are separate from mathematical specifications, fingerprints and structural groups. Each positive link stores only the model, problem and paper IDs. Before adding it, check that the source calculates or analytically demonstrates a successful region or benchmark; candidate existence alone is insufficient. The scientific details remain in the cited paper. These links do not certify current viability or simultaneous solutions; an absent link is not a negative result.
 
 Classify targets with the controlled problem `category`: empirical problems, structural/explanatory questions or reported source-era discrepancies. Keep these categories separate in presentation and counts rather than treating them as an undifferentiated model score. This editorial classification does not change model identity or the required standard of source support.
 

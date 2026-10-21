@@ -77,7 +77,7 @@ assert(results().indexOf('class="reference-list"')<results().indexOf('class="rep
 const savedOrder=data.entries.find(e=>e.id==='nmssm-matter').references.map(ref=>ref.paper_id).join(',');
 app.render();assert.equal(data.entries.find(e=>e.id==='nmssm-matter').references.map(ref=>ref.paper_id).join(','),savedOrder);
 const many=JSON.parse(JSON.stringify(data)),manyEntry=many.entries.find(e=>e.id==='nmssm-matter');
-many.entry_problems=[];
+many.model_problems=[];
 many.papers=Array.from({length:100},(_,i)=>({id:'internal-'+i,arxiv:'2001.'+String(100-i).padStart(5,'0')+'v1',title:'Paper '+(100-i),authors:'Example author',entryIds:[manyEntry.id]}));
 manyEntry.paperIds=many.papers.map(p=>p.id);manyEntry.references=many.papers.map(p=>({paper_id:p.id}));many.entries=[manyEntry];
 const manyApp=create(many,document);manyApp.state.browse='entries';manyApp.state.open=manyEntry.id;manyApp.render();
@@ -109,7 +109,9 @@ for(const p of data.problems){
  const group=content().split('aria-labelledby="category-'+p.category+'"')[1].split('class="problem-category"')[0];
  assert(group.includes('id="problem-'+p.id+'"'),p.id);
 }
-for(const phrase of ['candidate or a proposed mechanism alone is not enough','Separate solutions need not hold simultaneously','downloads/entry-problems.csv','#entries?problem=dark-matter'])assert(content().includes(phrase),phrase);
+for(const phrase of ['candidate or a proposed mechanism alone is not enough','Separate solutions need not hold simultaneously','downloads/model-problems.csv','#entries?problem=dark-matter'])assert(content().includes(phrase),phrase);
+assert(!content().includes('undefined'));
+assert(!content().includes('Sec. 3, Eq. (3.5), Fig. 2'));
 context.location.hash='#entries?problem=dark-matter&notation=compare';app.route();app.render();
 assert.equal(app.state.problem,'dark-matter');
 assert.equal(nodes.get('result-count').textContent,dm.length+(dm.length===1?' entry':' entries'));
@@ -130,7 +132,8 @@ assert(results().includes('Empirical problems · 3'));
 assert(results().includes('Structural questions · 2'));
 assert(!results().includes('Demonstrated solutions · 5'));
 const hostile=JSON.parse(JSON.stringify(data));
-hostile.entry_problems.find(c=>c.entry_id==='real-singlet-z2').result='<img src=x onerror=alert(1)>';
+const linkedPaper=hostile.model_problems.find(c=>c.model_id==='real-singlet-z2').paper_id;
+hostile.papers.find(p=>p.id===linkedPaper).title='<img src=x onerror=alert(1)>';
 const hostileApp=create(hostile,document);hostileApp.state.browse='entries';hostileApp.state.q='real-singlet-z2';hostileApp.render();
 assert(results().includes('&lt;img src=x onerror=alert(1)&gt;'));assert(!results().includes('<img src=x'));
 context.location.hash='#catalogue';app.route();

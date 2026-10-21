@@ -2,39 +2,38 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://davibc.com/bsm-atlas/catalogue.schema.json",
   "title": "BSM Atlas source catalogue",
-  "description": "Complete gauge–matter specifications, references and source-supported demonstrations of solutions. Run catalogue.py for cross-reference and duplicate validation; evidence requires source review.",
+  "description": "Complete gauge–matter specifications, references and paper-backed model–problem links. Run catalogue.py for cross-reference and duplicate validation; scientific support requires source review.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "papers", "entries", "problems", "entry_problems"],
+  "required": ["schema_version", "papers", "entries", "problems", "model_problems"],
   "properties": {
-    "schema_version": {"const": "bsm-atlas-3"},
+    "schema_version": {"const": "bsm-atlas-4"},
     "papers": {"type": "array", "items": {"$ref": "#/$defs/paper"}},
     "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}},
     "problems": {"type": "array", "items": {"$ref": "#/$defs/problem"}},
-    "entry_problems": {"type": "array", "items": {"$ref": "#/$defs/demonstration"}}
+    "model_problems": {"type": "array", "items": {"$ref": "#/$defs/problem_link"}}
   },
   "$defs": {
     "text": {"type": "string", "minLength": 1},
     "problem": {
-      "description": "A curated physical target with an explicit success criterion; reuse existing targets rather than introducing synonyms.",
-      "type": "object", "additionalProperties": false, "required": ["id", "name", "description", "category"],
+      "description": "A curated problem name and category; reuse existing targets rather than introducing synonyms.",
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "category"],
       "properties": {
         "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
-        "name": {"$ref": "#/$defs/text"}, "description": {"$ref": "#/$defs/text"},
+        "name": {"$ref": "#/$defs/text"},
         "category": {
           "enum": ["empirical", "structural", "reported_discrepancy"],
           "description": "Empirical: established phenomena not accounted for by the minimal SM. Structural: explanatory or naturalness questions, not established observational contradictions. Reported discrepancy: source-era anomaly fits without a current-status assessment. This category does not rank a result's quality."
         }
       }
     },
-    "demonstration": {
-      "description": "A result demonstrated in the pinned paper for this exact entry. A successful calculated region, benchmark or conditional analytic result is required; a candidate or suggested mechanism alone is insufficient. Source review is required: schema validation cannot verify scientific support or current viability.",
+    "problem_link": {
+      "description": "A positive model–problem link backed by the pinned paper. A demonstrated successful parameter region, benchmark or conditional analytic result is required; a candidate alone is insufficient. Presence means a qualifying demonstration is recorded; absence is not proof of impossibility. Source review is required; scientific details remain in the paper.",
       "type": "object", "additionalProperties": false,
-      "required": ["entry_id", "problem_id", "paper_id", "locators", "result"],
+      "required": ["model_id", "problem_id", "paper_id"],
       "properties": {
-        "entry_id": {"$ref": "#/$defs/text"}, "problem_id": {"$ref": "#/$defs/text"},
-        "paper_id": {"$ref": "#/$defs/text"}, "result": {"$ref": "#/$defs/text"},
-        "locators": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/text"}}
+        "model_id": {"$ref": "#/$defs/text"}, "problem_id": {"$ref": "#/$defs/text"},
+        "paper_id": {"$ref": "#/$defs/text"}
       }
     },
     "paper": {

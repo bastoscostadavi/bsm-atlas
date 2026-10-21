@@ -224,7 +224,7 @@ a,button{transition:color .15s ease,background .15s ease}
 .evidence-category>h3{font-size:13px;font-weight:500;color:var(--muted);margin:24px 0 16px}
 .demonstration-list{list-style:none;padding:0;margin:0}
 .demonstration-list>li+li{margin-top:20px}
-.demonstration-list>li>p:first-child{font-size:14px;line-height:1.7;margin:0}
+.demonstration-list .reference-meta{margin:0}
 .entry-problems{margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
 .entry-problems>summary{font-size:13px;color:var(--muted);cursor:pointer}
 .entry-problems>.reference-meta{max-width:780px;line-height:1.6;margin-top:14px}

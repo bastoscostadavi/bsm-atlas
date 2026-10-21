@@ -10,7 +10,7 @@ from scalar_conventions import uniform_scalar, is_scalar
 from parameterized_entry import specialize
 
 SOURCE = Path(__file__).with_name('catalogue.json')
-SCHEMA = 'bsm-atlas-3'
+SCHEMA = 'bsm-atlas-4'
 PROBLEM_CATEGORIES = {'empirical','structural','reported_discrepancy'}
 
 
@@ -37,12 +37,12 @@ def text(value):
 
 
 def validate_problems(data):
-    """Check evidence shape and provenance links, not the truth of a paper's result."""
-    if not isinstance(data['problems'],list) or not isinstance(data['entry_problems'],list):
-        raise IncompleteContent('Problems and demonstrations must be lists')
+    """Check link shape and references, not the truth of a paper's result."""
+    if not isinstance(data['problems'],list) or not isinstance(data['model_problems'],list):
+        raise IncompleteContent('Problems and model–problem links must be lists')
     problems=set();names=set()
     for p in data['problems']:
-        object_keys(p,{'id','name','description','category'})
+        object_keys(p,{'id','name','category'})
         for value in p.values():text(value)
         if p['category'] not in PROBLEM_CATEGORIES:
             raise IncompleteContent('Use empirical, structural or reported_discrepancy for problem category')
@@ -51,26 +51,21 @@ def validate_problems(data):
         problems.add(p['id']);names.add(p['name'].strip().casefold())
     references={(e['id'],r['paper_id']) for e in data['entries'] for r in e['references']}
     seen=set()
-    for claim in data['entry_problems']:
-        object_keys(claim,{'entry_id','problem_id','paper_id','locators','result'})
-        for key in ['entry_id','problem_id','paper_id','result']:text(claim[key])
+    for claim in data['model_problems']:
+        object_keys(claim,{'model_id','problem_id','paper_id'})
+        for value in claim.values():text(value)
         if claim['problem_id'] not in problems:
             raise IncompleteContent('Unknown problem')
-        if (claim['entry_id'],claim['paper_id']) not in references:
-            raise IncompleteContent('A demonstration must cite a paper linked to that exact entry')
-        key=(claim['entry_id'],claim['problem_id'],claim['paper_id'])
-        if key in seen:raise IncompleteContent('Repeated entry/problem/paper demonstration')
+        if (claim['model_id'],claim['paper_id']) not in references:
+            raise IncompleteContent('A problem link must cite a paper linked to that exact model')
+        key=(claim['model_id'],claim['problem_id'],claim['paper_id'])
+        if key in seen:raise IncompleteContent('Repeated model/problem/paper link')
         seen.add(key)
-        locators=claim['locators']
-        if not isinstance(locators,list) or not locators:
-            raise IncompleteContent('A demonstrated result needs source locations')
-        for locator in locators:text(locator)
-        if len(set(locators))!=len(locators):raise IncompleteContent('Repeated source location')
 
 
 def validate(data):
     """Reject partial inputs, extra schema fields and duplicate identities."""
-    object_keys(data, {'schema_version', 'papers', 'entries','problems','entry_problems'})
+    object_keys(data, {'schema_version', 'papers', 'entries','problems','model_problems'})
     if data['schema_version'] != SCHEMA:
         raise IncompleteContent('Unsupported catalogue schema')
     if not isinstance(data['papers'], list) or not isinstance(data['entries'], list):
@@ -141,7 +136,7 @@ def ingest(data, candidate):
     object_keys(candidate, {'id','name','specification','references'}, {'aliases'})
     candidate['specification']=normalize(candidate['specification'])
     validate({'schema_version':SCHEMA,'papers':result['papers'],'entries':[candidate],
-              'problems':result['problems'],'entry_problems':[]})
+              'problems':result['problems'],'model_problems':[]})
     h=identity(candidate['specification'])['fingerprint']
     existing=next((e for e in result['entries'] if identity(e['specification'])['fingerprint']==h),None)
     if existing:
@@ -165,17 +160,15 @@ def ingest(data, candidate):
     return result,target
 
 
-def ingest_demonstration(data,candidate):
-    """Add source-reviewed evidence; never infer it from field content alone."""
+def ingest_problem_link(data,candidate):
+    """Add a source-reviewed positive link; never infer it from field content alone."""
     result=deepcopy(data)
     validate(result)
     candidate=deepcopy(candidate)
-    object_keys(candidate,{'entry_id','problem_id','paper_id','locators','result'})
-    key=tuple(candidate[k] for k in ['entry_id','problem_id','paper_id'])
-    previous=next((c for c in result['entry_problems'] if
-                   tuple(c[k] for k in ['entry_id','problem_id','paper_id'])==key),None)
-    if previous is None:result['entry_problems'].append(candidate)
-    elif previous!=candidate:raise IncompleteContent('Conflicting demonstration; review the existing result explicitly')
+    object_keys(candidate,{'model_id','problem_id','paper_id'})
+    for value in candidate.values():text(value)
+    key=tuple(candidate[k] for k in ['model_id','problem_id','paper_id'])
+    if candidate not in result['model_problems']:result['model_problems'].append(candidate)
     validate(result)
     return result,' / '.join(key)
 
@@ -186,20 +179,20 @@ if __name__ == '__main__':
     parser.add_argument('--source',type=Path,default=SOURCE)
     additions=parser.add_mutually_exclusive_group()
     additions.add_argument('--add',type=Path,help='Entry object with specification and references; referenced papers must already be listed')
-    additions.add_argument('--add-demonstration',type=Path,help='Source-reviewed problem demonstration; entry, problem and paper link must exist')
+    additions.add_argument('--add-problem-link',type=Path,help='Source-reviewed positive link; model, problem and model/paper reference must exist')
     parser.add_argument('--write',action='store_true',help='Save the validated addition; otherwise dry-run only')
     args=parser.parse_args()
     try:
         data=load(args.source)
-        if args.add or args.add_demonstration:
-            action,path=(ingest,args.add) if args.add else (ingest_demonstration,args.add_demonstration)
+        if args.add or args.add_problem_link:
+            action,path=(ingest,args.add) if args.add else (ingest_problem_link,args.add_problem_link)
             data,target=action(data,json.loads(path.read_text()))
             if args.write:
                 temporary=args.source.with_suffix('.json.tmp')
                 temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
                 temporary.replace(args.source)
             print(('Saved ' if args.write else 'Validated dry run: ')+target)
-        elif args.write: parser.error('--write requires --add or --add-demonstration')
-        else: print(f"Valid catalogue: {len(data['entries'])} entries, {len(data['papers'])} papers, {len(data['entry_problems'])} demonstrations")
+        elif args.write: parser.error('--write requires --add or --add-problem-link')
+        else: print(f"Valid catalogue: {len(data['entries'])} entries, {len(data['papers'])} papers, {len(data['model_problems'])} problem references")
     except (ValueError,TypeError,KeyError) as error:
         parser.exit(2,str(error)+'\n')

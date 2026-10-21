@@ -137,18 +137,18 @@
      return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><p class="reference-order">Oldest first</p><ol class="reference-list" aria-label="Papers in chronological order">'+
        references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p>'+(ref.locators?.length?'<p class="reference-meta">'+ref.locators.map(esc).join('; ')+'</p>':'')+'</div></li>';}).join('')+'</ol></section>';
    }
-   function demonstration(claim){
-     const p=paperById.get(claim.paper_id);
-     return '<li><p>'+esc(claim.result)+'</p><p class="reference-meta"><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a> · '+paperDate(p)+'<br>'+claim.locators.map(esc).join('; ')+'</p></li>';
+   function problemReference(link){
+     const p=paperById.get(link.paper_id);
+     return '<li><p class="reference-meta"><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a> · '+paperDate(p)+'</p></li>';
    }
    function problemEvidence(entry){
-     const claims=(data.entry_problems||[]).filter(c=>c.entry_id===entry.id);
+     const claims=(data.model_problems||[]).filter(c=>c.model_id===entry.id);
      if(!claims.length)return '';
      const ids=[...new Set(claims.map(c=>c.problem_id))].sort((a,b)=>problemById.get(a).name.localeCompare(problemById.get(b).name));
      return '<details class="entry-problems"><summary>Demonstrated results</summary><p class="reference-meta">Results demonstrated in the cited papers, separated by the kind of question. Different results need not hold in the same parameter region; present-day viability is not certified.</p>'+Object.entries(problemCategories).map(([category,group])=>{
        const members=ids.filter(id=>problemById.get(id).category===category);
        if(!members.length)return '';
-       return '<section class="evidence-category"><h3>'+group.name+' · '+members.length+'</h3>'+members.map(id=>'<section><h4>'+esc(problemById.get(id).name)+'</h4><ul class="demonstration-list">'+claims.filter(c=>c.problem_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id))).map(demonstration).join('')+'</ul></section>').join('')+'</section>';
+       return '<section class="evidence-category"><h3>'+group.name+' · '+members.length+'</h3>'+members.map(id=>'<section><h4>'+esc(problemById.get(id).name)+'</h4><ul class="demonstration-list">'+claims.filter(c=>c.problem_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id))).map(problemReference).join('')+'</ul></section>').join('')+'</section>';
      }).join('')+'</details>';
    }
    function gaugeHeading(c){
@@ -257,13 +257,13 @@
        (p.entryIds.length?'<p><button class="text-button" data-paper="'+esc(p.id)+'">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+' →</button></p>':'<p>No linked BSM entry.</p>')+'</div></details>').join('')+'</div></section>';
    }
    function problemCard(p){
-     return '<details class="problem-card" id="problem-'+esc(p.id)+'"><summary><span>'+esc(p.name)+'</span><span class="paper-count">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+'</span><span class="nav-chevron" aria-hidden="true"></span></summary><p>'+esc(p.description)+'</p><a href="#entries?problem='+esc(p.id)+'">View entries →</a>'+p.entryIds.map(id=>{
-       const entry=entryById.get(id),claims=(data.entry_problems||[]).filter(c=>c.problem_id===p.id&&c.entry_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
-       return '<section class="problem-model"><h3><a href="#entry/'+esc(id)+'">'+esc(entry.name)+'</a></h3><ul class="demonstration-list">'+claims.map(demonstration).join('')+'</ul></section>';
+     return '<details class="problem-card" id="problem-'+esc(p.id)+'"><summary><span>'+esc(p.name)+'</span><span class="paper-count">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+'</span><span class="nav-chevron" aria-hidden="true"></span></summary><a href="#entries?problem='+esc(p.id)+'">View entries →</a>'+p.entryIds.map(id=>{
+       const entry=entryById.get(id),claims=(data.model_problems||[]).filter(c=>c.problem_id===p.id&&c.model_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
+       return '<section class="problem-model"><h3><a href="#entry/'+esc(id)+'">'+esc(entry.name)+'</a></h3><ul class="demonstration-list">'+claims.map(problemReference).join('')+'</ul></section>';
      }).join('')+'</details>';
    }
    function problems(){
-     return '<section class="problems-view"><p class="section-note">Empirical problems and structural questions, with paper-demonstrated results for each.</p><p class="problem-policy">Each link requires a calculation or analytic demonstration of a parameter region or benchmark meeting the stated target. A candidate or a proposed mechanism alone is not enough. These are results reported in the cited papers, not an independent certification under current constraints. Separate solutions need not hold simultaneously, and an absent link does not establish that no solution exists.</p><p class="problem-downloads"><a href="downloads/problems.csv" download>Problems CSV</a> · <a href="downloads/entry-problems.csv" download>Demonstrations CSV</a></p>'+Object.entries(problemCategories).map(([category,group])=>{
+     return '<section class="problems-view"><p class="section-note">Empirical problems and structural questions, with paper-demonstrated results for each.</p><p class="problem-policy">Each link requires a calculation or analytic demonstration of a parameter region or benchmark meeting the target. A candidate or a proposed mechanism alone is not enough. The linked papers provide the details; inclusion is not an independent certification under current constraints. Separate solutions need not hold simultaneously, and an absent link does not establish that no solution exists.</p><p class="problem-downloads"><a href="downloads/problems.csv" download>Problems CSV</a> · <a href="downloads/model-problems.csv" download>Model links CSV</a></p>'+Object.entries(problemCategories).map(([category,group])=>{
        const members=orderedProblems.filter(p=>p.category===category);
        return members.length?'<section class="problem-category" aria-labelledby="category-'+category+'"><div class="category-heading"><h2 id="category-'+category+'">'+group.name+'</h2><p class="category-description">'+group.description+'</p></div><div class="problem-list">'+members.map(problemCard).join('')+'</div></section>':'';
      }).join('')+'</section>';

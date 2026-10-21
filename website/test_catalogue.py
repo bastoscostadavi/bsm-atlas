@@ -38,11 +38,11 @@ class CatalogueTests(unittest.TestCase):
         self.assertEqual(DATA['counts'],dict(entries=len(DATA['entries']),papers=len(DATA['papers']),
             linkedPapers=sum(bool(p['entryIds']) for p in DATA['papers']),cores=len(DATA['cores']),
             semisimpleAlgebras=len(DATA['semisimpleAlgebras']),fullAlgebras=len(DATA['fullAlgebras']),
-            problems=len(DATA['problems']),demonstrations=len(SOURCE['entry_problems']),
-            problemLinks=len({(c['entry_id'],c['problem_id']) for c in SOURCE['entry_problems']})))
+            problems=len(DATA['problems']),problemReferences=len(SOURCE['model_problems']),
+            problemLinks=len({(c['model_id'],c['problem_id']) for c in SOURCE['model_problems']})))
 
     def test_source_and_derived_scope(self):
-        self.assertEqual(set(SOURCE),{'schema_version','papers','entries','problems','entry_problems'})
+        self.assertEqual(set(SOURCE),{'schema_version','papers','entries','problems','model_problems'})
         for e in SOURCE['entries']:
             self.assertLessEqual(set(e),{'id','name','specification','references','aliases'})
             self.assertEqual(normalize(e['specification']),e['specification'])
@@ -204,7 +204,7 @@ class CatalogueTests(unittest.TestCase):
             self.assertEqual(con.execute('PRAGMA integrity_check').fetchone()[0],'ok')
             self.assertEqual(con.execute('PRAGMA foreign_key_check').fetchall(),[])
             tables={r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            self.assertEqual(tables,{'metadata','papers','entries','aliases','entry_papers','gauge_factors','matter','matter_representations','entry_parameters','entry_constraints','semisimple_algebras','full_gauge_algebras','nonabelian_cores','problems','entry_problems'})
+            self.assertEqual(tables,{'metadata','papers','entries','aliases','entry_papers','gauge_factors','matter','matter_representations','entry_parameters','entry_constraints','semisimple_algebras','full_gauge_algebras','nonabelian_cores','problems','model_problems'})
             self.assertEqual([r[1] for r in con.execute('PRAGMA table_info(matter)')],['entry_id','row_id','lorentz_json','reality','copies'])
             for e in SOURCE['entries']:
                 spec=e['specification']

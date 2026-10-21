@@ -29,7 +29,7 @@ See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, c
 
 ## Data
 
-[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records, complete entry specifications with paper references, problem definitions and paper-supported demonstrations. References identify relevant pages, equations or tables. Papers can be listed without an associated model.
+[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records, complete entry specifications with paper references, problem names and categories, and paper-backed model–problem links. Model references identify relevant pages, equations or tables. Papers can be listed without an associated model.
 
 The website derives its four browsing views and counts directly from this source. JSON, CSV and SQLite downloads expose the same catalogue for analysis and reuse.
 
@@ -37,9 +37,9 @@ The [catalogue schema](atlas/catalogue.schema.json) describes entries and refere
 
 ## Problems and demonstrated solutions
 
-The [problems catalogue](https://davibc.com/bsm-atlas/#problems) links models to physical targets for which a cited paper explicitly demonstrates a solution in a parameter region or benchmark. A candidate, motivation or proposed mechanism alone is insufficient. A calculation or analytic demonstration must establish the stated target, with its assumptions and useful source locations recorded.
+The [problems catalogue](https://davibc.com/bsm-atlas/#problems) links models to physical targets for which a cited paper explicitly demonstrates a solution in a parameter region or benchmark. A candidate, motivation or proposed mechanism alone is insufficient. The calculation and its assumptions must be checked in the paper before adding a link; their details remain in that reference.
 
-`problems` defines the targets. Each `entry_problems` record links an entry, a problem and a supporting paper, and gives the demonstrated result and its source locations. The paper must already be linked to that exact entry. Several papers may support one model–problem pair; counts use distinct problems, not the number of papers. These annotations are outside the mathematical specification and its fingerprint.
+`problems` stores only `problem_id`, `name` and `category`. `model_problems` stores only `model_id`, `problem_id` and `paper_id`. The paper must already be linked to that exact model entry. Several papers may support one model–problem pair; counts use distinct problems, not the number of papers. These links are outside the mathematical specification and its fingerprint.
 
 Each target has a controlled `category`. **Empirical problems** concern established phenomena not accounted for by the minimal SM: dark matter, neutrino masses and the baryon asymmetry. **Structural questions** concern explanation and naturalness: flavour hierarchies, the electroweak hierarchy, strong CP and gauge-coupling unification. Inflation is classified with explanatory questions, not as an established observational discrepancy or a uniquely established mechanism. **Reported discrepancies** retain source-era anomaly fits separately, without assuming that those discrepancies persist. The site groups targets, filters and model evidence by category; it does not combine these different questions into one model score.
 
@@ -54,7 +54,7 @@ Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records
 ```sh
 python3 atlas/catalogue.py --add candidate.json
 python3 atlas/catalogue.py --add candidate.json --write
-python3 atlas/catalogue.py --add-demonstration demonstration.json --write
+python3 atlas/catalogue.py --add-problem-link link.json --write
 make build
 make check
 ```

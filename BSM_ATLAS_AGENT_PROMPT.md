@@ -62,17 +62,23 @@ A different fingerprint does not prove physical novelty. Review nearby specifica
 
 After identifying the exact entry, review whether the paper actually demonstrates a solution to an existing problem target. Read the calculation and results in the pinned paper, not just its abstract, introduction or statements about what a candidate might do. A numerical benchmark or parameter region meeting the target qualifies; an analytic demonstration also qualifies when its conditions are explicit. Mere candidate existence, motivation, suggested mechanisms, collider signatures and constraints without a successful region do not.
 
-Use the existing `problems` vocabulary, with one precisely described target per ID. Record an `entry_problems` object with `entry_id`, `problem_id`, `paper_id`, nonempty `locators` and a concise `result`. State what was demonstrated and the relevant parameter assumptions or benchmark; avoid claiming more than the calculation establishes. The paper must already reference that exact spectrum. Do not transfer a result between a UV completion and its EFT, or between different field inventories, without source support. Papers without a linked entry do not generate model–problem links.
+Use the existing `problems` vocabulary, which stores only a stable ID, name and category for each target. Check the demonstrated result and relevant parameter assumptions or benchmark in the paper; avoid claiming more than the calculation establishes. Store only a `model_problems` object with `model_id`, `problem_id` and `paper_id`; scientific details remain in the cited paper. `model_id` is the exact entry's ID, and the paper must already reference that spectrum. Do not transfer a result between a UV completion and its EFT, or between different field inventories, without source support. Papers without a linked entry do not generate model–problem links.
+
+For example, a problem-link candidate has exactly this form:
+
+```json
+{"model_id": "real-singlet-z2", "problem_id": "dark-matter", "paper_id": "P01"}
+```
 
 Every problem definition requires one controlled `category`: `empirical` for established observational phenomena not accounted for by the minimal SM; `structural` for explanatory or naturalness questions that do not constitute an established observational contradiction; or `reported_discrepancy` for source-era anomaly fits without a current-status assessment. The existing classification places strong CP and cosmic inflation with structural/explanatory questions. Preserve that distinction when extracting, displaying or counting results. Do not relabel a naturalness motivation as an empirical failure, or combine categories into a model score. Changing a category does not alter the evidence or the mathematical entry.
 
-These are source-era demonstrations, not a claim that the model survives current constraints. Distinct problem links do not assert a common parameter region, common interactions or a simultaneous solution. Count each model–problem pair once even when several papers support it. Leave unsupported links absent; do not add placeholders or an exclusion log. Model identity remains gauge–matter content only.
+These are source-era demonstrations, not a claim that the model survives current constraints. Distinct problem links do not assert a common parameter region, common interactions or a simultaneous solution. Count each model–problem pair once even when several papers support it. Store positive links only: presence gives 1 in a derived matrix; absence gives 0, meaning no qualifying demonstration is recorded, not that a solution is impossible. Do not add placeholders or an exclusion log. Model identity remains gauge–matter content only.
 
 ```sh
-python3 atlas/catalogue.py --add-demonstration demonstration.json
-python3 atlas/catalogue.py --add-demonstration demonstration.json --write
+python3 atlas/catalogue.py --add-problem-link link.json
+python3 atlas/catalogue.py --add-problem-link link.json --write
 make build
 make check
 ```
 
-The validator requires valid entry/problem/paper links, source locations and a result; it cannot certify that a calculation proves the claim. Source review is required before using the writer. A repeated identical record is idempotent; conflicting results for the same triple require explicit review.
+The validator requires exactly the three identifiers, valid model/problem/paper references and unique triples; it cannot certify that a calculation proves the claim. Source review is required before using the writer. A repeated identical link is idempotent.
