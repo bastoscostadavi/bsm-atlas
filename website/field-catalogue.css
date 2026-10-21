@@ -110,7 +110,7 @@ footer a{color:var(--muted)}
 .site-header{height:auto;min-height:72px;gap:16px;flex-wrap:wrap;padding-top:16px;padding-bottom:16px}
 .wordmark{font-size:17px}
 .site-header .icon-button{margin-left:auto}
-.site-header nav{order:3;justify-content:space-between;width:100%;margin:0;padding-top:2px;gap:clamp(6px,2vw,12px);font-size:12px}
+.site-header nav{order:3;justify-content:space-between;width:100%;margin:0;padding-top:2px}
 .page-intro{padding-top:34px}
 h1{font-size:33px}
 .notation-strip{display:grid;gap:8px;padding-bottom:22px}
@@ -204,37 +204,7 @@ a,button{transition:color .15s ease,background .15s ease}
 .algebra-overview{display:flex;align-items:end;justify-content:space-between;gap:20px}
 .algebra-overview .algebra-diagrams{margin:0;gap:26px}
 .algebra-entry{padding:30px 0}
-.filter-fields{grid-template-columns:repeat(4,minmax(0,1fr))}
-.problem-policy{max-width:780px;font-size:14px;line-height:1.7;color:var(--muted)}
-.problem-downloads{font-size:13px;margin:20px 0 32px}
-.problem-category{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(0,1.8fr);gap:clamp(32px,5vw,72px);border-top:1px solid var(--line);padding-top:32px}
-.problem-category+.problem-category{margin-top:56px}
-.category-heading h2{font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.035em;margin:0 0 14px}
-.category-description{font-size:13px;color:var(--muted);line-height:1.65;max-width:280px;margin:0}
-.problem-list{min-width:0}
-.problem-card{border-top:1px solid var(--line);padding:20px 0}
-.problem-card:first-child{border-top:0;padding-top:4px}
-.problem-card>summary{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:20px;font-size:18px;line-height:1.45;font-weight:400;cursor:pointer;list-style:none}
-.problem-card>summary>.paper-count{white-space:nowrap}
-.problem-card>summary::-webkit-details-marker{display:none}
-.problem-card[open]>summary>.nav-chevron{transform:translateY(1px) rotate(225deg)}
-.problem-card>p,.problem-card>a{font-size:14px;line-height:1.6}
-.problem-model{margin:28px 0}
-.problem-model h3,.entry-problems h4{font-size:15px;font-weight:500;margin:20px 0 12px}
-.evidence-category>h3{font-size:13px;font-weight:500;color:var(--muted);margin:24px 0 16px}
-.demonstration-list{list-style:none;padding:0;margin:0}
-.demonstration-list>li+li{margin-top:20px}
-.demonstration-list .reference-meta{margin:0}
-.entry-problems{margin:18px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
-.entry-problems>summary{font-size:13px;color:var(--muted);cursor:pointer}
-.entry-problems>.reference-meta{max-width:780px;line-height:1.6;margin-top:14px}
-@media(max-width:700px){
-.problem-category{grid-template-columns:minmax(0,1fr);gap:22px;padding-top:28px}
-.problem-category+.problem-category{margin-top:40px}
-.category-heading h2{font-size:25px;margin-bottom:10px}
-.category-description{max-width:580px}
-.problem-card>summary{font-size:17px;gap:14px}
-}
+.filter-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:900px){
 .filter-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
 }

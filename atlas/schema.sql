@@ -17,18 +17,6 @@ CREATE TABLE entries (entry_id TEXT PRIMARY KEY, name TEXT NOT NULL,
 CREATE TABLE entry_papers (entry_id TEXT NOT NULL REFERENCES entries, paper_id TEXT NOT NULL REFERENCES papers,
   locators_json TEXT NOT NULL CHECK(json_valid(locators_json)), parameter_names_json TEXT NOT NULL CHECK(json_valid(parameter_names_json)),
   PRIMARY KEY(entry_id,paper_id)) STRICT;
-CREATE TABLE problems (problem_id TEXT PRIMARY KEY, name TEXT NOT NULL CHECK(length(trim(name,char(9,10,11,12,13,32)))>0),
-  category TEXT NOT NULL CHECK(category IN ('empirical','structural','reported_discrepancy'))) STRICT;
-CREATE INDEX problem_categories ON problems(category);
--- Positive links only; model_id identifies an entries.entry_id.
-CREATE TABLE model_problems (model_id TEXT NOT NULL, problem_id TEXT NOT NULL REFERENCES problems,
-  paper_id TEXT NOT NULL, PRIMARY KEY(model_id,problem_id,paper_id),
-  FOREIGN KEY(model_id,paper_id) REFERENCES entry_papers(entry_id,paper_id)) STRICT;
-CREATE INDEX problem_models ON model_problems(problem_id,model_id);
--- 0 means no qualifying demonstration recorded, not a demonstrated failure.
-CREATE VIEW model_problem_matrix AS SELECT e.entry_id AS model_id,p.problem_id,
-  EXISTS(SELECT 1 FROM model_problems mp WHERE mp.model_id=e.entry_id AND mp.problem_id=p.problem_id) AS solves
-  FROM entries e CROSS JOIN problems p;
 CREATE TABLE aliases (alias_id TEXT PRIMARY KEY, entry_id TEXT NOT NULL REFERENCES entries, name TEXT NOT NULL) STRICT;
 CREATE TABLE gauge_factors (entry_id TEXT NOT NULL REFERENCES entries, factor_id TEXT NOT NULL, position INTEGER NOT NULL CHECK(position>=0),
   family TEXT NOT NULL CHECK(family IN ('A','B','C','D','E','F','G','U1')), rank INTEGER NOT NULL,

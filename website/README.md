@@ -11,11 +11,9 @@ From the repository root, run `make build`, `make check` and `make serve`. Previ
 - `catalogue.json`: the source catalogue, identical to `atlas/catalogue.json`; the JSON download points here.
 - `field-catalogue.json`, `field-catalogue-data.js` and `../atlas/FIELD_CONTENT_CATALOGUE.json`: the same entries, references and derived presentation data.
 - `entry.schema.json` and `catalogue.schema.json`: published schema copies.
-- `downloads/field-catalogue.sqlite`: a typed relational projection, with full exact specifications, paper links, problem names and categories, and model–problem links. The derived `model_problem_matrix` view supplies 1/0 values without duplicating those links.
+- `downloads/field-catalogue.sqlite`: a typed relational projection, with full exact specifications and paper links.
 - `downloads/field-catalogue.csv`: one row per entry, including its exact specification as JSON.
 - The three grouping CSVs: one row per semisimple algebra, full algebra or semisimple matter spectrum, with exact canonical content and linked entry IDs.
-- `downloads/problems.csv`: `problem_id`, `name` and `category`.
-- `downloads/model-problems.csv`: positive links containing only `model_id`, `problem_id` and `paper_id`. The entry CSV also gives distinct problem IDs.
 
 Do not hand-edit generated files. `make check` rebuilds them in memory or temporary storage and detects stale text or SQLite content. It also checks strict ingestion, normalization, identity invariances, diagram geometry and navigation.
 
@@ -27,11 +25,7 @@ The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra
 
 Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<id>`, `#cores`, `#core/<id>` and `#entry/<id>`. `#atlas`, `#notation` and `#sources` explain the catalogue, its conventions and its bibliography. Entry details show the papers studying that specification.
 
-`#problems` separates Empirical problems, Structural questions and Reported discrepancies using the required source `category`. Each target opens its linked models and supporting papers, without separate result summaries or source-location notes. Full entries show a compact Demonstrated results disclosure only when a positive link exists, with distinct-target counts within each category rather than one combined score. The Problem filter uses the same grouped vocabulary in all four structural views and persists through catalogue navigation. Counts distinguish unique model–problem pairs from supporting paper references; an absent link is not presented as a failure. Links concern source-era demonstrations, not current-viability or simultaneous-solution certificates.
-
-Each full entry has one References toggle, regardless of how many papers are linked. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
-
-The References toggle shows the number of linked papers. The Demonstrated results disclosure shows the number of distinct linked problems, counting a problem once even when several papers support it; its expanded contents retain the separate category counts.
+Each full entry has one References toggle showing the number of linked papers. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
 
 Dates use the first-submission month encoded in the [arXiv identifier](https://info.arxiv.org/help/arxiv_identifier.html). Papers are ordered by month, then by sequence number within an archive; cross-archive ties use a deterministic archive order. Dates are displayed with month precision.
 

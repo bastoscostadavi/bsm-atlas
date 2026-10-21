@@ -18,10 +18,6 @@ An explicitly inherited SM/MSSM baseline can be expanded using the templates bel
 
 The authoritative source is `catalogue.json`: complete specifications and their paper references. Its JSON, CSV and SQLite exports describe the same objects.
 
-Problem names and categories, and paper-backed model–problem links, are separate from mathematical specifications, fingerprints and structural groups. Each positive link stores only the model, problem and paper IDs. Before adding it, check that the source calculates or analytically demonstrates a successful region or benchmark; candidate existence alone is insufficient. The scientific details remain in the cited paper. These links do not certify current viability or simultaneous solutions; an absent link is not a negative result.
-
-Classify targets with the controlled problem `category`: empirical problems, structural/explanatory questions or reported source-era discrepancies. Keep these categories separate in presentation and counts rather than treating them as an undifferentiated model score. This editorial classification does not change model identity or the required standard of source support.
-
 Mathematical specifications accept only the fields defined by the schema. Each matter row contains `lorentz`, `reality`, `copies` and `gauge_representations`; free-text field labels, symbols and annotations are not stored or accepted on intake. Entry names and bibliography belong outside the specification. Factor IDs and row IDs are linking keys, not additional mathematical properties. Readable algebra and representation notation is derived from exact data for display.
 
 ## Gauge algebra

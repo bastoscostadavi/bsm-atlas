@@ -4,11 +4,6 @@
  const math=x=>esc(x).replace(/bar\(([^()]*)\)/g,(_,label)=>'<span class="rep-conjugate" aria-label="conjugate '+label+'">'+label+'</span>');
  const shorthand=x=>({'g_SM':'𝔤<sub>SM</sub>','R_SM':'R<sub>SM</sub>','F_SM':'F<sub>SM</sub>','H_SM':'H<sub>SM</sub>','R_MSSM':'R<sub>MSSM</sub>'}[x]||math(x));
  const notationModes={dimensions:'Dimensions',dynkin:'Dynkin labels',young:'Young diagrams',compare:'Compare notations'};
- const problemCategories={
-   empirical:{name:'Empirical problems',description:'Established phenomena not accounted for by the minimal Standard Model.'},
-   structural:{name:'Structural questions',description:'Questions of explanation, naturalness and organization, rather than established contradictions with observations. Inflation is included here as an explanatory cosmological scenario.'},
-   reported_discrepancy:{name:'Reported discrepancies',description:'Fits to anomalies as reported in the cited papers. Their present experimental status has not been reassessed here.'}
- };
  const sourceURL=p=>'https://arxiv.org/abs/'+p.arxiv;
  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
  function arxivDate(paper){
@@ -30,9 +25,9 @@
      a.arxiv.replace(/v[1-9]\d*$/,'').localeCompare(b.arxiv.replace(/v[1-9]\d*$/,''))||a.title.localeCompare(b.title);
  }
  const paperDate=p=>{const date=arxivDate(p);return date?'<time datetime="'+date.value+'">'+date.label+'</time>':'';};
- function findEntries(data,{q='',algebra='',paper='',problem='',core='',semisimple='',fullAlgebra='',abelianRank=''}={}){
+ function findEntries(data,{q='',algebra='',paper='',core='',semisimple='',fullAlgebra='',abelianRank=''}={}){
    const needle=q.trim().toLowerCase();
-   return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!problem||(e.problemIds||[]).includes(problem))&&(!needle||[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv]),...(data.problems||[]).filter(p=>(e.problemIds||[]).includes(p.id)).map(p=>p.name)].join(' ').toLowerCase().includes(needle)));
+   return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
  }
  const dynkinLabel=c=>c.factor==='u(1)'?String(c.value??'?'):c.dynkin?'['+c.dynkin.join(',')+']':'?';
  function dynkinTuple(components){
@@ -65,10 +60,8 @@
  function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Multiplicity</th></tr></thead><tbody>'+template.rows.map(row=>'<tr><td class="math">'+esc(row.lorentz.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(row.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(row.components))+'</span></td><td>'+row.copies+'</td></tr>').join('')+'</tbody></table></div>';}
 
  function create(data,document){
-   const state={q:'',algebra:'',paper:'',problem:'',open:'',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20};
+   const state={q:'',algebra:'',paper:'',open:'',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20};
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
-   const problemById=new Map((data.problems||[]).map(p=>[p.id,p]));
-   const orderedProblems=[...(data.problems||[])].sort((a,b)=>a.name.localeCompare(b.name));
    const orderedPapers=[...data.papers].sort(comparePapers);
    const coreById=new Map((data.cores||[]).map(c=>[c.id,c]));
    const algebraById=new Map((data.semisimpleAlgebras||[]).map(a=>[a.id,a]));
@@ -79,7 +72,7 @@
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
-     state.view=raw==='about'?'atlas':['atlas','notation','sources','problems'].includes(raw)?raw:'catalogue';
+     state.view=raw==='about'?'atlas':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
      state.browse=raw==='entries'||/^(entry|model|core|full-algebra)\//.test(raw)?'entries':raw==='full-algebras'?'full-algebras':raw==='cores'||raw.startsWith('algebra/')?'cores':'algebras';
      state.core=raw.startsWith('core/')?decodeURIComponent(raw.slice(5)):p.get('core')||'';
      state.fullAlgebra=raw.startsWith('full-algebra/')?decodeURIComponent(raw.slice(13)):p.get('fullAlgebra')||'';
@@ -90,7 +83,7 @@
        const id=decodeURIComponent(raw.split('/')[1]);
        state.open=entryById.get(id)?.id||'';
      }
-     for(const key of ['q','algebra','paper','problem','abelianRank'])state[key]=p.get(key)||'';
+     for(const key of ['q','algebra','paper','abelianRank'])state[key]=p.get(key)||'';
      if(state.open&&!state.core)state.core=entryById.get(state.open)?.coreId||'';
      if(state.core)state.semisimple=coreById.get(state.core)?.semisimpleId||'';
      else if(state.open)state.semisimple=entryById.get(state.open)?.semisimpleId||'';
@@ -100,7 +93,7 @@
    }
    function url(){
      const p=new URLSearchParams();
-     for(const key of ['q','algebra','paper','problem','abelianRank'])if(state[key])p.set(key,state[key]);
+     for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
      if(state.open&&state.core)p.set('core',state.core);
      if(state.fullAlgebra&&(state.open||state.core||state.browse!=='entries'))p.set('fullAlgebra',state.fullAlgebra);
      if(state.browse==='entries'&&state.semisimple&&!state.core)p.set('semisimple',state.semisimple);
@@ -112,7 +105,7 @@
    function level(){return state.browse;}
    function browseLink(target,extra={}){
      const p=new URLSearchParams();
-     for(const key of ['q','algebra','paper','problem','abelianRank'])if(state[key])p.set(key,state[key]);
+     for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
      if(state.mode!=='dimensions')p.set('notation',state.mode);
      for(const [key,value] of Object.entries(extra))if(value)p.set(key,value);
      return '#'+target+(p.size?'?'+p:'');
@@ -136,20 +129,6 @@
      const references=[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
      return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><p class="reference-order">Oldest first</p><ol class="reference-list" aria-label="Papers in chronological order">'+
        references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p>'+(ref.locators?.length?'<p class="reference-meta">'+ref.locators.map(esc).join('; ')+'</p>':'')+'</div></li>';}).join('')+'</ol></section>';
-   }
-   function problemReference(link){
-     const p=paperById.get(link.paper_id);
-     return '<li><p class="reference-meta"><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a> · '+paperDate(p)+'</p></li>';
-   }
-   function problemEvidence(entry){
-     const claims=(data.model_problems||[]).filter(c=>c.model_id===entry.id);
-     if(!claims.length)return '';
-     const ids=[...new Set(claims.map(c=>c.problem_id))].sort((a,b)=>problemById.get(a).name.localeCompare(problemById.get(b).name));
-     return '<details class="entry-problems"><summary>Demonstrated results ('+ids.length+')</summary><p class="reference-meta">Results demonstrated in the cited papers, separated by the kind of question. Different results need not hold in the same parameter region; present-day viability is not certified.</p>'+Object.entries(problemCategories).map(([category,group])=>{
-       const members=ids.filter(id=>problemById.get(id).category===category);
-       if(!members.length)return '';
-       return '<section class="evidence-category"><h3>'+group.name+' · '+members.length+'</h3>'+members.map(id=>'<section><h4>'+esc(problemById.get(id).name)+'</h4><ul class="demonstration-list">'+claims.filter(c=>c.problem_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id))).map(problemReference).join('')+'</ul></section>').join('')+'</section>';
-     }).join('')+'</details>';
    }
    function gaugeHeading(c){
      if(c.sm)return c.label==='g_SM'?shorthand('g_SM'):'𝔤<sub>SM,'+esc(c.label.slice(5))+'</sub>';
@@ -225,7 +204,7 @@
    function rows(){
      updateCatalogueMenu();
      const reset=document.getElementById('reset-filters');
-     if(reset)reset.hidden=!['q','algebra','paper','problem','abelianRank'].some(k=>state[k]);
+     if(reset)reset.hidden=!['q','algebra','paper','abelianRank'].some(k=>state[k]);
      const entries=findEntries(data,state),openIndex=entries.findIndex(e=>e.id===state.open);
      if(level()==='algebras')return algebraCards(entries);
      if(level()==='full-algebras')return fullAlgebraCards(entries);
@@ -235,7 +214,7 @@
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=e.regime;
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+(state.open===e.id)+'">References ('+e.references.length+') '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+problemEvidence(e)+'</article>';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+(state.open===e.id)+'">References ('+e.references.length+') '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -256,23 +235,10 @@
        '<details class="paper-item" id="source-'+esc(p.id)+'"><summary>'+paperDate(p)+'<span class="paper-title">'+esc(p.title)+'</span><span class="paper-count">'+p.entryIds.length+'</span></summary><div class="paper-body"><p>'+esc(p.authors)+'</p><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">arXiv:'+esc(p.arxiv)+' ↗</a>'+
        (p.entryIds.length?'<p><button class="text-button" data-paper="'+esc(p.id)+'">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+' →</button></p>':'<p>No linked BSM entry.</p>')+'</div></details>').join('')+'</div></section>';
    }
-   function problemCard(p){
-     return '<details class="problem-card" id="problem-'+esc(p.id)+'"><summary><span>'+esc(p.name)+'</span><span class="paper-count">'+p.entryIds.length+' '+(p.entryIds.length===1?'entry':'entries')+'</span><span class="nav-chevron" aria-hidden="true"></span></summary><a href="#entries?problem='+esc(p.id)+'">View entries →</a>'+p.entryIds.map(id=>{
-       const entry=entryById.get(id),claims=(data.model_problems||[]).filter(c=>c.problem_id===p.id&&c.model_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
-       return '<section class="problem-model"><h3><a href="#entry/'+esc(id)+'">'+esc(entry.name)+'</a></h3><ul class="demonstration-list">'+claims.map(problemReference).join('')+'</ul></section>';
-     }).join('')+'</details>';
-   }
-   function problems(){
-     return '<section class="problems-view"><p class="section-note">Empirical problems and structural questions, with paper-demonstrated results for each.</p><p class="problem-policy">Each link requires a calculation or analytic demonstration of a parameter region or benchmark meeting the target. A candidate or a proposed mechanism alone is not enough. The linked papers provide the details; inclusion is not an independent certification under current constraints. Separate solutions need not hold simultaneously, and an absent link does not establish that no solution exists.</p><p class="problem-downloads"><a href="downloads/problems.csv" download>Problems CSV</a> · <a href="downloads/model-problems.csv" download>Model links CSV</a></p>'+Object.entries(problemCategories).map(([category,group])=>{
-       const members=orderedProblems.filter(p=>p.category===category);
-       return members.length?'<section class="problem-category" aria-labelledby="category-'+category+'"><div class="category-heading"><h2 id="category-'+category+'">'+group.name+'</h2><p class="category-description">'+group.description+'</p></div><div class="problem-list">'+members.map(problemCard).join('')+'</div></section>':'';
-     }).join('')+'</section>';
-   }
    function atlasIntroduction(){
      return '<article class="about-data"><p>Gauge symmetry and the representations of matter are the defining ingredients of the Standard Model. Its peculiar gauge algebra, chiral matter content and three generations form a striking structure whose origin remains unexplained. It can seem ungainly, even arbitrary, in its particulars, yet beautiful in its workings: gauge anomalies cancel exactly, and its dynamics span confinement, spontaneous symmetry breaking and weakly coupled scattering. In its minimal form, with massless neutrinos, the theory has just 19 free parameters. Once their values are fixed, it makes infinitely many predictions, including the <a href="https://arxiv.org/abs/2209.13084">electron’s magnetic moment</a>, among the most precise in all of science. BSM Atlas takes these defining ingredients as a starting point for charting extensions of the Standard Model. Each entry gives the gauge algebra, the Lorentz and gauge representations of the matter fields, and their multiplicities, using a common notation and linking to the papers in which they are studied.</p>'+
        '<p>The catalogue can be read at different levels of detail. The <a href="#full-algebras">gauge-algebra view</a> shows which algebras occur, while the <a href="#entries">full entries</a> also give their matter representations, multiplicities and charges. To compare models independently of their U(1) factors, the semisimple views retain either <a href="#catalogue">the algebras alone</a> or <a href="#cores">the algebras and their matter</a>. For U(1) factors, an entry may specify fixed charges or a family of charge assignments described by integer parameters and constraints.</p>'+
        '<p>We build the atlas from arXiv papers. Each specification is checked against its source, expressed in common conventions and compared with existing entries before it is added. Only complete specifications are included. Papers studying the same gauge–matter content are linked to one entry, so the catalogue grows both by adding models and by connecting further references to existing ones. Those references provide the interactions, dynamics and physical context needed to study each model beyond its structural description.</p>'+
-       '<p>The <a href="#problems">problems catalogue</a> separates empirical problems, such as dark matter and neutrino masses, from structural questions, such as flavour hierarchies and unification. Fits to discrepancies reported in older papers are listed separately, without assuming that the discrepancies persist. Each link requires a paper to demonstrate a parameter region, benchmark or conditional analytic result meeting the stated target; a candidate or suggested mechanism alone is insufficient. Counts remain separate by category, rather than combining them into a single score. Results need not hold simultaneously or remain viable under current constraints, and an absent link is not evidence against a model.</p>'+
        '<p>We also intend to use the atlas in two related projects. In <a href="https://github.com/bastoscostadavi/bsm-ai-search">bsm-ai-search</a>, it would guide AI agents in proposing new gauge–matter entries and studying them through the usual BSM research workflow, from exploring their parameter spaces and calculating observables to comparing predictions with experimental results. In <a href="https://github.com/bastoscostadavi/bsm-foundation-model">bsm-foundation-model</a>, an atlas entry would seed a simulation pipeline. Simulations across theories and their parameter spaces would then provide training data for models that infer probability distributions over theories and parameters from experimental observations.</p></article>';
    }
    function catalogue(){
@@ -280,7 +246,7 @@
      const algebras=(data.semisimpleAlgebras||[]).map(a=>['na:'+a.algebraSignature,a.algebra]).sort((a,b)=>a[1].localeCompare(b[1]));
      if(state.algebra&&!algebras.some(([id])=>id===state.algebra))algebras.push([state.algebra,data.entries.find(e=>e.algebraSignature===state.algebra)?.algebraExpanded||state.algebra]);
      const ranks=[...new Set(data.entries.map(e=>e.abelianRank).filter(n=>Number.isInteger(n)))].sort((a,b)=>a-b);
-     const active=['algebra','paper','problem','abelianRank'].filter(k=>state[k]).length;
+     const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length;
      const p=paperById.get(state.paper);
      const core=coreById.get(state.core);
      const fullAlgebra=fullAlgebraById.get(state.fullAlgebra);
@@ -293,23 +259,20 @@
        entries:'Complete gauge–matter specifications, with multiplicities and charge assignments.'};
      return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>Problem<select id="problem-filter"><option value="">All problems</option>'+Object.entries(problemCategories).map(([category,group])=>{
-         const members=orderedProblems.filter(p=>p.category===category);
-         return members.length?'<optgroup label="'+group.name+'">'+members.map(p=>'<option value="'+esc(p.id)+'"'+(state.problem===p.id?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</optgroup>':'';
-       }).join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>U(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
-       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','problem','abelianRank'].some(k=>state[k])?'':' hidden')+'>Reset</button></div>'+
+       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.',problems:'Problems.'};
+     const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Gauge algebras':'Gauge algebras and matter representations'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
-     content.innerHTML=state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():state.view==='problems'?problems():catalogue();
+     content.innerHTML=state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
      if(state.view==='catalogue')rows();else updateCatalogueMenu();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
      root.AtlasDiagrams?.render(document);
@@ -326,7 +289,7 @@
      const content=document.getElementById('view-content');
      content.addEventListener('input',e=>{if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
      content.addEventListener('change',e=>{
-       const key={'algebra-filter':'algebra','paper-filter':'paper','problem-filter':'problem','abelian-rank-filter':'abelianRank'}[e.target.id];
+       const key={'algebra-filter':'algebra','paper-filter':'paper','abelian-rank-filter':'abelianRank'}[e.target.id];
        if(key){state[key]=e.target.value;state.open='';state.limit=20;url();render();}
        else if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
      });
@@ -341,7 +304,7 @@
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
        else if(paper){state.view='catalogue';state.browse='entries';state.core='';state.semisimple='';state.fullAlgebra='';state.algebra='';state.abelianRank='';state.paper=paper.dataset.paper;state.open='';url();render();document.getElementById('catalogue').scrollIntoView();}
-       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',problem:'',abelianRank:'',open:''});url();render();}
+       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});url();render();}
      });
      window.addEventListener('hashchange',()=>{closeMenu();route();render();});
      let theme='light';try{theme=localStorage.getItem('atlas-theme')||'light';}catch{}
@@ -358,6 +321,6 @@
    }
    return {start,state,render,rows,route,url};
  }
- root.FieldCatalogue={create,findEntries,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers,problemCategories};
+ root.FieldCatalogue={create,findEntries,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers};
  if(root.document&&root.FIELD_CATALOGUE)create(root.FIELD_CATALOGUE,root.document).start();
 })(typeof window==='undefined'?globalThis:window);

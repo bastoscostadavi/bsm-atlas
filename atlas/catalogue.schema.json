@@ -2,40 +2,17 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://davibc.com/bsm-atlas/catalogue.schema.json",
   "title": "BSM Atlas source catalogue",
-  "description": "Complete gauge–matter specifications, references and paper-backed model–problem links. Run catalogue.py for cross-reference and duplicate validation; scientific support requires source review.",
+  "description": "Complete normalized gauge–matter specifications and paper references. Run catalogue.py for normalization and duplicate validation.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "papers", "entries", "problems", "model_problems"],
+  "required": ["schema_version", "papers", "entries"],
   "properties": {
-    "schema_version": {"const": "bsm-atlas-4"},
+    "schema_version": {"const": "bsm-atlas-1"},
     "papers": {"type": "array", "items": {"$ref": "#/$defs/paper"}},
-    "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}},
-    "problems": {"type": "array", "items": {"$ref": "#/$defs/problem"}},
-    "model_problems": {"type": "array", "items": {"$ref": "#/$defs/problem_link"}}
+    "entries": {"type": "array", "items": {"$ref": "#/$defs/entry"}}
   },
   "$defs": {
     "text": {"type": "string", "minLength": 1},
-    "problem": {
-      "description": "A curated problem name and category; reuse existing targets rather than introducing synonyms.",
-      "type": "object", "additionalProperties": false, "required": ["id", "name", "category"],
-      "properties": {
-        "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
-        "name": {"$ref": "#/$defs/text"},
-        "category": {
-          "enum": ["empirical", "structural", "reported_discrepancy"],
-          "description": "Empirical: established phenomena not accounted for by the minimal SM. Structural: explanatory or naturalness questions, not established observational contradictions. Reported discrepancy: source-era anomaly fits without a current-status assessment. This category does not rank a result's quality."
-        }
-      }
-    },
-    "problem_link": {
-      "description": "A positive model–problem link backed by the pinned paper. A demonstrated successful parameter region, benchmark or conditional analytic result is required; a candidate alone is insufficient. Presence means a qualifying demonstration is recorded; absence is not proof of impossibility. Source review is required; scientific details remain in the paper.",
-      "type": "object", "additionalProperties": false,
-      "required": ["model_id", "problem_id", "paper_id"],
-      "properties": {
-        "model_id": {"$ref": "#/$defs/text"}, "problem_id": {"$ref": "#/$defs/text"},
-        "paper_id": {"$ref": "#/$defs/text"}
-      }
-    },
     "paper": {
       "type": "object", "additionalProperties": false,
       "required": ["id", "arxiv", "title", "authors"],
