@@ -17,6 +17,28 @@ CREATE TABLE entries (entry_id TEXT PRIMARY KEY, name TEXT NOT NULL,
 CREATE TABLE entry_papers (entry_id TEXT NOT NULL REFERENCES entries, paper_id TEXT NOT NULL REFERENCES papers,
   locators_json TEXT NOT NULL CHECK(json_valid(locators_json)), parameter_names_json TEXT NOT NULL CHECK(json_valid(parameter_names_json)),
   PRIMARY KEY(entry_id,paper_id)) STRICT;
+CREATE TABLE problems (problem_id TEXT PRIMARY KEY, name TEXT NOT NULL CHECK(length(trim(name,char(9,10,11,12,13,32)))>0),
+  description TEXT NOT NULL CHECK(length(trim(description,char(9,10,11,12,13,32)))>0)) STRICT;
+-- Each row is a demonstrated result in a cited paper, not a current-viability certificate.
+CREATE TABLE entry_problems (entry_id TEXT NOT NULL, problem_id TEXT NOT NULL REFERENCES problems,
+  paper_id TEXT NOT NULL, locators_json TEXT NOT NULL
+    CHECK(json_valid(locators_json) AND json_type(locators_json)='array' AND json_array_length(locators_json)>0),
+  result TEXT NOT NULL CHECK(length(trim(result,char(9,10,11,12,13,32)))>0),
+  PRIMARY KEY(entry_id,problem_id,paper_id),
+  FOREIGN KEY(entry_id,paper_id) REFERENCES entry_papers(entry_id,paper_id)) STRICT;
+CREATE INDEX problem_entries ON entry_problems(problem_id,entry_id);
+CREATE TRIGGER demonstration_locations BEFORE INSERT ON entry_problems BEGIN
+  SELECT CASE WHEN EXISTS(SELECT 1 FROM json_each(NEW.locators_json)
+      WHERE type!='text' OR length(trim(value,char(9,10,11,12,13,32)))=0)
+    OR (SELECT count(*)!=count(DISTINCT value) FROM json_each(NEW.locators_json))
+    THEN RAISE(ABORT,'Use distinct nonempty source-location strings') END;
+END;
+CREATE TRIGGER demonstration_locations_update BEFORE UPDATE ON entry_problems BEGIN
+  SELECT CASE WHEN EXISTS(SELECT 1 FROM json_each(NEW.locators_json)
+      WHERE type!='text' OR length(trim(value,char(9,10,11,12,13,32)))=0)
+    OR (SELECT count(*)!=count(DISTINCT value) FROM json_each(NEW.locators_json))
+    THEN RAISE(ABORT,'Use distinct nonempty source-location strings') END;
+END;
 CREATE TABLE aliases (alias_id TEXT PRIMARY KEY, entry_id TEXT NOT NULL REFERENCES entries, name TEXT NOT NULL) STRICT;
 CREATE TABLE gauge_factors (entry_id TEXT NOT NULL REFERENCES entries, factor_id TEXT NOT NULL, position INTEGER NOT NULL CHECK(position>=0),
   family TEXT NOT NULL CHECK(family IN ('A','B','C','D','E','F','G','U1')), rank INTEGER NOT NULL,

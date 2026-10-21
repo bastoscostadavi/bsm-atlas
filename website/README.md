@@ -11,9 +11,10 @@ From the repository root, run `make build`, `make check` and `make serve`. Previ
 - `catalogue.json`: the source catalogue, identical to `atlas/catalogue.json`; the JSON download points here.
 - `field-catalogue.json`, `field-catalogue-data.js` and `../atlas/FIELD_CONTENT_CATALOGUE.json`: the same entries, references and derived presentation data.
 - `entry.schema.json` and `catalogue.schema.json`: published schema copies.
-- `downloads/field-catalogue.sqlite`: a typed relational projection, with full exact specifications and paper links.
+- `downloads/field-catalogue.sqlite`: a typed relational projection, with full exact specifications, paper links, problem definitions and demonstrated results.
 - `downloads/field-catalogue.csv`: one row per entry, including its exact specification as JSON.
 - The three grouping CSVs: one row per semisimple algebra, full algebra or semisimple matter spectrum, with exact canonical content and linked entry IDs.
+- `downloads/problems.csv` and `downloads/entry-problems.csv`: controlled targets and source-demonstrated model–problem–paper links, including results and locations. The entry CSV also gives distinct problem IDs.
 
 Do not hand-edit generated files. `make check` rebuilds them in memory or temporary storage and detects stale text or SQLite content. It also checks strict ingestion, normalization, identity invariances, diagram geometry and navigation.
 
@@ -24,6 +25,8 @@ Do not hand-edit generated files. `make check` rebuilds them in memory or tempor
 The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
 Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<id>`, `#cores`, `#core/<id>` and `#entry/<id>`. `#atlas`, `#notation` and `#sources` explain the catalogue, its conventions and its bibliography. Entry details show the papers studying that specification.
+
+`#problems` groups source-demonstrated solutions by physical target. Each result links to the exact entry and its supporting paper. Full entries show a compact Demonstrated solutions disclosure only when evidence exists. The Problem filter works in all four structural views and persists through catalogue navigation. Counts distinguish unique model–problem pairs from supporting paper demonstrations; absent evidence is not presented as a failure. Results are source-era claims, not current-viability or simultaneous-solution certificates.
 
 Each full entry has one References toggle, regardless of how many papers are linked. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
 

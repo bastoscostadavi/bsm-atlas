@@ -18,6 +18,8 @@ An explicitly inherited SM/MSSM baseline can be expanded using the templates bel
 
 The authoritative source is `catalogue.json`: complete specifications and their paper references. Its JSON, CSV and SQLite exports describe the same objects.
 
+Problem definitions and paper-demonstrated solutions are separate annotations. They do not alter mathematical specifications, fingerprints or structural groups. Each link requires a source calculation or analytic demonstration of a successful region or benchmark, with assumptions, a result and source locations. Candidate existence alone is insufficient. These links do not certify current viability or simultaneous solutions; an absent link is not a negative result.
+
 Mathematical specifications accept only the fields defined by the schema. Each matter row contains `lorentz`, `reality`, `copies` and `gauge_representations`; free-text field labels, symbols and annotations are not stored or accepted on intake. Entry names and bibliography belong outside the specification. Factor IDs and row IDs are linking keys, not additional mathematical properties. Readable algebra and representation notation is derived from exact data for display.
 
 ## Gauge algebra

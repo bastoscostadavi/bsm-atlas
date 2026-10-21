@@ -4,7 +4,7 @@
 
 The gauge algebra and the representations of matter are the defining structural ingredients of the Standard Model. BSM Atlas uses these same objects to organize models beyond it: **a gauge algebra, Lorentz and gauge representations, multiplicities, and references to the papers that study them**.
 
-Each entry is a complete gauge–matter specification linked to the arXiv papers that study it. Papers with the same specification share an entry, even when their interactions differ. The atlas classifies this structural content; anomaly cancellation, phenomenological viability and embeddings are questions to investigate using the references.
+Each entry is a complete gauge–matter specification linked to the arXiv papers that study it. Papers with the same specification share an entry, even when their interactions differ. A separate problems catalogue records source-demonstrated solutions without changing that mathematical identity. Anomaly cancellation, present-day phenomenological viability and embeddings are questions to investigate using the references.
 
 ## One catalogue, four views
 
@@ -29,11 +29,19 @@ See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, c
 
 ## Data
 
-[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records and complete entry specifications with paper references. References can identify relevant pages, equations or tables. Papers can be listed without an associated model.
+[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records, complete entry specifications with paper references, problem definitions and paper-supported demonstrations. References identify relevant pages, equations or tables. Papers can be listed without an associated model.
 
 The website derives its four browsing views and counts directly from this source. JSON, CSV and SQLite downloads expose the same catalogue for analysis and reuse.
 
 The [catalogue schema](atlas/catalogue.schema.json) describes entries and references; the [specification schema](atlas/entry.schema.json) describes the mathematical input. Executable validation also enforces normalization, exact weights, charge syntax, complete inventories and duplicate identities. Only fully specified entries are added.
+
+## Problems and demonstrated solutions
+
+The [problems catalogue](https://davibc.com/bsm-atlas/#problems) links models to physical targets for which a cited paper explicitly demonstrates a solution in a parameter region or benchmark. A candidate, motivation or proposed mechanism alone is insufficient. A calculation or analytic demonstration must establish the stated target, with its assumptions and useful source locations recorded.
+
+`problems` defines the targets. Each `entry_problems` record links an entry, a problem and a supporting paper, and gives the demonstrated result and its source locations. The paper must already be linked to that exact entry. Several papers may support one model–problem pair; counts use distinct problems, not the number of papers. These annotations are outside the mathematical specification and its fingerprint.
+
+Demonstrations report the results and constraints considered by their sources, not an independent certification against current data. Different problems may be solved in disjoint parameter regions or with different interaction choices. An absent link means no qualifying demonstration has been recorded, not that a model cannot solve the problem. The catalogue does not attempt a complete classification of parameter regions or joint solutions.
 
 ## Adding papers and models
 
@@ -44,6 +52,7 @@ Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records
 ```sh
 python3 atlas/catalogue.py --add candidate.json
 python3 atlas/catalogue.py --add candidate.json --write
+python3 atlas/catalogue.py --add-demonstration demonstration.json --write
 make build
 make check
 ```

@@ -57,3 +57,20 @@ make check
 The first command is a read-only aid. The writer normalizes the specification, validates its complete shape and references, and compares its exact identity with existing entries. An exact match gains references and, when needed, a navigational alias; it does not create a second model. The default is a dry run. All checks must pass before publication.
 
 A different fingerprint does not prove physical novelty. Review nearby specifications for changes of Abelian basis, outer automorphisms, symbolic reparameterizations or alternative descriptions beyond the canonicalizer's stated equivalences. Never silently discard domain constraints to force a match.
+
+## Record demonstrated solutions
+
+After identifying the exact entry, review whether the paper actually demonstrates a solution to an existing problem target. Read the calculation and results in the pinned paper, not just its abstract, introduction or statements about what a candidate might do. A numerical benchmark or parameter region meeting the target qualifies; an analytic demonstration also qualifies when its conditions are explicit. Mere candidate existence, motivation, suggested mechanisms, collider signatures and constraints without a successful region do not.
+
+Use the existing `problems` vocabulary, with one precisely described target per ID. Record an `entry_problems` object with `entry_id`, `problem_id`, `paper_id`, nonempty `locators` and a concise `result`. State what was demonstrated and the relevant parameter assumptions or benchmark; avoid claiming more than the calculation establishes. The paper must already reference that exact spectrum. Do not transfer a result between a UV completion and its EFT, or between different field inventories, without source support. Papers without a linked entry do not generate model–problem links.
+
+These are source-era demonstrations, not a claim that the model survives current constraints. Distinct problem links do not assert a common parameter region, common interactions or a simultaneous solution. Count each model–problem pair once even when several papers support it. Leave unsupported links absent; do not add placeholders or an exclusion log. Model identity remains gauge–matter content only.
+
+```sh
+python3 atlas/catalogue.py --add-demonstration demonstration.json
+python3 atlas/catalogue.py --add-demonstration demonstration.json --write
+make build
+make check
+```
+
+The validator requires valid entry/problem/paper links, source locations and a result; it cannot certify that a calculation proves the claim. Source review is required before using the writer. A repeated identical record is idempotent; conflicting results for the same triple require explicit review.

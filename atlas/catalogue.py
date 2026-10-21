@@ -1,4 +1,4 @@
-"""The authoritative catalogue: complete specifications and paper references."""
+"""Complete specifications, references and paper-demonstrated problem links."""
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -10,6 +10,7 @@ from scalar_conventions import uniform_scalar, is_scalar
 from parameterized_entry import specialize
 
 SOURCE = Path(__file__).with_name('catalogue.json')
+SCHEMA = 'bsm-atlas-2'
 
 
 def identity(spec):
@@ -34,10 +35,40 @@ def text(value):
         raise IncompleteContent('Expected a nonempty string')
 
 
+def validate_problems(data):
+    """Check evidence shape and provenance links, not the truth of a paper's result."""
+    if not isinstance(data['problems'],list) or not isinstance(data['entry_problems'],list):
+        raise IncompleteContent('Problems and demonstrations must be lists')
+    problems=set();names=set()
+    for p in data['problems']:
+        object_keys(p,{'id','name','description'})
+        for value in p.values():text(value)
+        if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',p['id']) or p['id'] in problems or p['name'].strip().casefold() in names:
+            raise IncompleteContent('Problem IDs and names must be unique; use stable slugs')
+        problems.add(p['id']);names.add(p['name'].strip().casefold())
+    references={(e['id'],r['paper_id']) for e in data['entries'] for r in e['references']}
+    seen=set()
+    for claim in data['entry_problems']:
+        object_keys(claim,{'entry_id','problem_id','paper_id','locators','result'})
+        for key in ['entry_id','problem_id','paper_id','result']:text(claim[key])
+        if claim['problem_id'] not in problems:
+            raise IncompleteContent('Unknown problem')
+        if (claim['entry_id'],claim['paper_id']) not in references:
+            raise IncompleteContent('A demonstration must cite a paper linked to that exact entry')
+        key=(claim['entry_id'],claim['problem_id'],claim['paper_id'])
+        if key in seen:raise IncompleteContent('Repeated entry/problem/paper demonstration')
+        seen.add(key)
+        locators=claim['locators']
+        if not isinstance(locators,list) or not locators:
+            raise IncompleteContent('A demonstrated result needs source locations')
+        for locator in locators:text(locator)
+        if len(set(locators))!=len(locators):raise IncompleteContent('Repeated source location')
+
+
 def validate(data):
     """Reject partial inputs, extra schema fields and duplicate identities."""
-    object_keys(data, {'schema_version', 'papers', 'entries'})
-    if data['schema_version'] != 'bsm-atlas-1':
+    object_keys(data, {'schema_version', 'papers', 'entries','problems','entry_problems'})
+    if data['schema_version'] != SCHEMA:
         raise IncompleteContent('Unsupported catalogue schema')
     if not isinstance(data['papers'], list) or not isinstance(data['entries'], list):
         raise IncompleteContent('Papers and entries must be lists')
@@ -90,6 +121,7 @@ def validate(data):
             object_keys(alias, {'id','name'}); text(alias['id']); text(alias['name'])
             if alias['id'] in ids: raise IncompleteContent('Repeated entry or alias ID')
             ids.add(alias['id'])
+    validate_problems(data)
     return data
 
 
@@ -105,7 +137,8 @@ def ingest(data, candidate):
     # Validate shape before duplicate reconciliation; reject unrelated extras.
     object_keys(candidate, {'id','name','specification','references'}, {'aliases'})
     candidate['specification']=normalize(candidate['specification'])
-    validate({'schema_version':'bsm-atlas-1','papers':result['papers'],'entries':[candidate]})
+    validate({'schema_version':SCHEMA,'papers':result['papers'],'entries':[candidate],
+              'problems':result['problems'],'entry_problems':[]})
     h=identity(candidate['specification'])['fingerprint']
     existing=next((e for e in result['entries'] if identity(e['specification'])['fingerprint']==h),None)
     if existing:
@@ -129,23 +162,41 @@ def ingest(data, candidate):
     return result,target
 
 
+def ingest_demonstration(data,candidate):
+    """Add source-reviewed evidence; never infer it from field content alone."""
+    result=deepcopy(data)
+    validate(result)
+    candidate=deepcopy(candidate)
+    object_keys(candidate,{'entry_id','problem_id','paper_id','locators','result'})
+    key=tuple(candidate[k] for k in ['entry_id','problem_id','paper_id'])
+    previous=next((c for c in result['entry_problems'] if
+                   tuple(c[k] for k in ['entry_id','problem_id','paper_id'])==key),None)
+    if previous is None:result['entry_problems'].append(candidate)
+    elif previous!=candidate:raise IncompleteContent('Conflicting demonstration; review the existing result explicitly')
+    validate(result)
+    return result,' / '.join(key)
+
+
 if __name__ == '__main__':
     import argparse
     parser=argparse.ArgumentParser(description='Validate or add a source-checked entry; exact matches merge references.')
     parser.add_argument('--source',type=Path,default=SOURCE)
-    parser.add_argument('--add',type=Path,help='Entry object with specification and references; referenced papers must already be listed')
+    additions=parser.add_mutually_exclusive_group()
+    additions.add_argument('--add',type=Path,help='Entry object with specification and references; referenced papers must already be listed')
+    additions.add_argument('--add-demonstration',type=Path,help='Source-reviewed problem demonstration; entry, problem and paper link must exist')
     parser.add_argument('--write',action='store_true',help='Save the validated addition; otherwise dry-run only')
     args=parser.parse_args()
     try:
         data=load(args.source)
-        if args.add:
-            data,target=ingest(data,json.loads(args.add.read_text()))
+        if args.add or args.add_demonstration:
+            action,path=(ingest,args.add) if args.add else (ingest_demonstration,args.add_demonstration)
+            data,target=action(data,json.loads(path.read_text()))
             if args.write:
                 temporary=args.source.with_suffix('.json.tmp')
                 temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
                 temporary.replace(args.source)
             print(('Saved ' if args.write else 'Validated dry run: ')+target)
-        elif args.write: parser.error('--write requires --add')
-        else: print(f"Valid catalogue: {len(data['entries'])} entries, {len(data['papers'])} papers")
+        elif args.write: parser.error('--write requires --add or --add-demonstration')
+        else: print(f"Valid catalogue: {len(data['entries'])} entries, {len(data['papers'])} papers, {len(data['entry_problems'])} demonstrations")
     except (ValueError,TypeError,KeyError) as error:
         parser.exit(2,str(error)+'\n')
