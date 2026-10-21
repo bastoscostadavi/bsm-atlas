@@ -31,6 +31,8 @@ Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<
 
 Each full entry has one References toggle, regardless of how many papers are linked. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
 
+The References toggle shows the number of linked papers. The Demonstrated results disclosure shows the number of distinct linked problems, counting a problem once even when several papers support it; its expanded contents retain the separate category counts.
+
 Dates use the first-submission month encoded in the [arXiv identifier](https://info.arxiv.org/help/arxiv_identifier.html). Papers are ordered by month, then by sequence number within an archive; cross-archive ties use a deterministic archive order. Dates are displayed with month precision.
 
 The website shows only complete specifications. Its dimension labels and diagrams are presentation aids; exact Dynkin labels, Lorentz irreps, multiplicities and typed charges remain the stored objects.

@@ -145,7 +145,7 @@
      const claims=(data.model_problems||[]).filter(c=>c.model_id===entry.id);
      if(!claims.length)return '';
      const ids=[...new Set(claims.map(c=>c.problem_id))].sort((a,b)=>problemById.get(a).name.localeCompare(problemById.get(b).name));
-     return '<details class="entry-problems"><summary>Demonstrated results</summary><p class="reference-meta">Results demonstrated in the cited papers, separated by the kind of question. Different results need not hold in the same parameter region; present-day viability is not certified.</p>'+Object.entries(problemCategories).map(([category,group])=>{
+     return '<details class="entry-problems"><summary>Demonstrated results ('+ids.length+')</summary><p class="reference-meta">Results demonstrated in the cited papers, separated by the kind of question. Different results need not hold in the same parameter region; present-day viability is not certified.</p>'+Object.entries(problemCategories).map(([category,group])=>{
        const members=ids.filter(id=>problemById.get(id).category===category);
        if(!members.length)return '';
        return '<section class="evidence-category"><h3>'+group.name+' · '+members.length+'</h3>'+members.map(id=>'<section><h4>'+esc(problemById.get(id).name)+'</h4><ul class="demonstration-list">'+claims.filter(c=>c.problem_id===id).sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id))).map(problemReference).join('')+'</ul></section>').join('')+'</section>';
@@ -235,7 +235,7 @@
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=e.regime;
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+'" aria-expanded="'+(state.open===e.id)+'">References '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+problemEvidence(e)+'</article>';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+(state.open===e.id)+'">References ('+e.references.length+') '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+problemEvidence(e)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
