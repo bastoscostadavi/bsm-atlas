@@ -47,13 +47,15 @@ Choose a stable internal paper ID and use it consistently in references. Keep so
 ## Validate, reconcile and save
 
 ```sh
-python3 atlas/prepare_entry.py specification.json
-python3 atlas/catalogue.py --add candidate.json
-python3 atlas/catalogue.py --add candidate.json --write
+python3 -m bsm_atlas prepare specification.json
+python3 -m bsm_atlas add candidate.json
+python3 -m bsm_atlas add candidate.json --write
 make build
 make check
 ```
 
 The first command is a read-only aid. The writer normalizes the specification, validates its complete shape and references, and compares its exact identity with existing entries. An exact match gains references and, when needed, a navigational alias; it does not create a second model. The default is a dry run. All checks must pass before publication.
+
+For a read-only search of the built SQLite export, use `python3 -m bsm_atlas lookup specification.json`. Use `python3 -m bsm_atlas validate` to check the source catalogue. Run all commands from the repository root. Ingestion always reconciles against the authoritative source, even if the export has not yet been rebuilt.
 
 A different fingerprint does not prove physical novelty. Review nearby specifications for changes of Abelian basis, outer automorphisms, symbolic reparameterizations or alternative descriptions beyond the canonicalizer's stated equivalences. Never silently discard domain constraints to force a match.

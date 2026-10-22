@@ -12,9 +12,9 @@ from itertools import permutations, product
 from math import factorial
 import json
 
-from catalogue_identity import IncompleteContent
-from charge_expressions import Polynomial, parameter_names, parse_charge, parse_constraints
-from parameterized_entry import normalize_parameterized
+from .catalogue_identity import IncompleteContent
+from .charge_expressions import Polynomial, parameter_names, parse_charge, parse_constraints
+from .parameterized_entry import normalize_parameterized
 
 CONVENTION = 'symbolic-template-2'
 MAX_CANONICAL_CHOICES = 4096

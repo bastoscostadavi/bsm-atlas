@@ -42,11 +42,13 @@ The catalogue grows by harvesting complete specifications from arXiv papers. Rea
 Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records, candidate files and source checks. The ingestion command normalizes and validates a candidate before saving it. Dry-run is the default.
 
 ```sh
-python3 atlas/catalogue.py --add candidate.json
-python3 atlas/catalogue.py --add candidate.json --write
+python3 -m bsm_atlas add candidate.json
+python3 -m bsm_atlas add candidate.json --write
 make build
 make check
 ```
+
+All catalogue operations use `python3 -m bsm_atlas`. Use `validate` to check the source, `prepare specification.json` to inspect normalization, and `lookup specification.json` to find matches in the built SQLite export. These commands are read-only; only `add --write` saves an entry. Run commands from the repository root. No package installation is required.
 
 ## Build and preview
 
@@ -66,7 +68,8 @@ GitHub Actions runs the checks and publishes `website/` to GitHub Pages. The sel
 |---|---|
 | `atlas/catalogue.json` | Authoritative entries and bibliography |
 | `atlas/reference_spectra.json` | Exact SM/MSSM spectra used only for presentation shorthand |
-| `atlas/*.py` | Validation, normalization, identity, restriction and ingestion |
 | `atlas/schema.sql` | Relational export schema |
-| `website/` | Static explorer, builder, exports and regression tests |
+| `bsm_atlas/` | Python package: intake, mathematical conventions, identities, projections and export |
+| `tests/` | Python and JavaScript regressions, with identity fixtures |
+| `website/` | Published static explorer and generated downloads |
 | `scripts/check.py` | The shared local/CI verification command |

@@ -3,7 +3,7 @@ name: Publish BSM Atlas
 on:
   push:
     branches: [main]
-    paths: ['website/**', 'atlas/**', 'scripts/**', 'Makefile', 'README.md', 'BSM_ATLAS_AGENT_PROMPT.md', '.github/workflows/atlas-pages.yml']
+    paths: ['website/**', 'atlas/**', 'bsm_atlas/**', 'tests/**', 'scripts/**', 'Makefile', 'README.md', 'BSM_ATLAS_AGENT_PROMPT.md', '.github/workflows/atlas-pages.yml']
   workflow_dispatch:
 
 permissions:

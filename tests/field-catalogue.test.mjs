@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+const website=new URL('../website/',import.meta.url);
 const context={URLSearchParams,location:{hash:'#catalogue'},history:{replaceState(_s,_t,hash){context.location.hash=hash;}}};
-for(const file of ['representation-diagrams.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,import.meta.url),'utf8'),context);
+for(const file of ['representation-diagrams.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,website),'utf8'),context);
 const {findEntries,esc,create,dynkinTuple,representationMarkup,arxivDate,comparePapers}=context.FieldCatalogue;
-const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',import.meta.url)));
+const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',website)));
 assert.equal(findEntries(data).length,data.entries.length);
 assert(findEntries(data,{paper:'P15'}).length>=3);
 assert.equal(findEntries(data,{paper:'R01'}).length,0);

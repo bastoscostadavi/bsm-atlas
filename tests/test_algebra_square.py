@@ -6,12 +6,10 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import sqlite3
-import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / 'atlas'))
-from nonabelian_core import algebra_key, full_algebra_key
+from bsm_atlas.nonabelian_core import algebra_key, full_algebra_key
 
 DATA = json.loads((ROOT / 'website/field-catalogue.json').read_text())
 ENTRIES = {entry['id']: entry for entry in DATA['entries']}

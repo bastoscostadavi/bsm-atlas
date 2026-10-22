@@ -7,10 +7,10 @@ Numerical specializations use the existing full-inventory identity convention.
 from copy import deepcopy
 from fractions import Fraction
 
-from catalogue_identity import normalize_spec, IncompleteContent, object_keys
-from charge_expressions import (parameter_names, parse_charge, parse_constraints,
+from .catalogue_identity import normalize_spec, IncompleteContent, object_keys
+from .charge_expressions import (parameter_names, parse_charge, parse_constraints,
                                 constraint_text, validate_values, check_constraints)
-from scalar_conventions import is_scalar
+from .scalar_conventions import is_scalar
 
 SCHEMA = 'field-content-3'
 EXPRESSION_CONVENTION = 'integer-polynomial-1'
@@ -100,13 +100,13 @@ def specialize(spec, values):
             if factor['family'] == 'U1':
                 rep = field['gauge_representations'][factor['id']]
                 rep['charge'] = str(parse_charge(rep['charge'], names).evaluate(values))
-    # Keep evaluated source units here: prepare_entry reports the actual common
+    # Keep evaluated source units here: preparation reports the actual common
     # scale, then applies scalar realification and numerical duplicate checks.
     return result
 
 
 def validation_report(spec):
-    from symbolic_identity import canonicalize_family
+    from .symbolic_identity import canonicalize_family
     identity = canonicalize_family(spec)
     normalized = identity['normalized_entry']
     return {

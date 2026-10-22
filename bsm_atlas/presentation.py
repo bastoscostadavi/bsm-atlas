@@ -1,8 +1,8 @@
 """Readable matrices derived from exact specifications, never intake inference."""
 from copy import deepcopy
 import json
-from scalar_conventions import is_scalar, uniform_scalar
-from field_conventions import irrep_dimension, irrep_dimension_label, young_rows
+from .scalar_conventions import is_scalar, uniform_scalar
+from .field_conventions import irrep_dimension, irrep_dimension_label, young_rows
 
 
 def algebra_label(family,rank):

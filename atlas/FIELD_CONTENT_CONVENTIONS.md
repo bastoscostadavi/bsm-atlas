@@ -121,7 +121,7 @@ Identical restricted rows aggregate. Coarse grouping is not physical equivalence
 
 ## Ingestion and identity
 
-Use `prepare_entry.py` for read-only normalization and `check_entry.py` for duplicate preflight. `catalogue.py --add candidate.json` validates and normalizes a full entry wrapper; `--write` saves it only after validation and duplicate reconciliation. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory. For `--values`, use the parameter names of the supplied specification: original source names for a source candidate, or z-names for the standardized entry.
+Use `python3 -m bsm_atlas prepare specification.json` for read-only normalization and `python3 -m bsm_atlas lookup specification.json` for duplicate preflight against the built SQLite export. `python3 -m bsm_atlas add candidate.json` validates and normalizes a full entry wrapper; `--write` saves it only after validation and duplicate reconciliation. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory. For `prepare --values`, use the parameter names of the supplied specification: original source names for a source candidate, or z-names for the standardized entry.
 
 Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 

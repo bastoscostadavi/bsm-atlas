@@ -130,7 +130,7 @@ def is_scalar(lorentz):
 
 def uniform_scalar(row, factors, parameters):
     """Require a uniform real-module count, without inventing a family member."""
-    from charge_expressions import parse_charge
+    from .charge_expressions import parse_charge
     probe=deepcopy(row); polynomials={}
     for a in factors:
         if a['family']=='U1':

@@ -3,7 +3,7 @@ PYTHON ?= python3
 .PHONY: build check serve
 
 build:
-	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) website/build_field_catalogue.py
+	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -m bsm_atlas build
 
 check:
 	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) scripts/check.py

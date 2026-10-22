@@ -13,12 +13,11 @@ def main():
     commands = [['node', '--check', str(p.relative_to(ROOT))]
                 for p in sorted((ROOT / 'website').glob('*.js'))]
     commands += [
-        python + ['website/build_field_catalogue.py', '--check'],
-        python + ['-m', 'unittest', 'discover', '-s', 'website', '-p', 'test_*.py'],
-        python + ['atlas/test_parameterized_entry.py'],
-        ['node', 'website/check.mjs'],
-        ['node', 'website/field-catalogue.test.mjs'],
-        ['node', 'website/representation-diagrams.test.mjs'],
+        python + ['-m', 'bsm_atlas', 'build', '--check'],
+        python + ['-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_*.py'],
+        ['node', 'tests/check_assets.mjs'],
+        ['node', 'tests/field-catalogue.test.mjs'],
+        ['node', 'tests/representation-diagrams.test.mjs'],
     ]
     env = {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}
     for command in commands:

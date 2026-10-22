@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-const website=new URL('.',import.meta.url),read=p=>fs.readFileSync(new URL(p,website),'utf8');
+const website=new URL('../website/',import.meta.url),read=p=>fs.readFileSync(new URL(p,website),'utf8');
 const data=JSON.parse(read('field-catalogue.json'));
 const source=JSON.parse(read('../atlas/catalogue.json'));
-assert.equal(read('../atlas/FIELD_CONTENT_CATALOGUE.json'),read('field-catalogue.json'));
 assert.equal(read('catalogue.json'),read('../atlas/catalogue.json'));
 assert.equal(data.schema_version,'bsm-atlas-export-1');
 assert.equal(read('entry.schema.json'),read('../atlas/entry.schema.json'));
@@ -16,6 +15,7 @@ assert.deepEqual(Object.keys(data).sort(),['version','schema_version','represent
 const entryKeys=new Set(['id','name','specification','references','aliases','identity','paperIds','regime','algebraExpanded','algebraSignature','coreId','semisimpleId','fullAlgebraId','abelianRank']);
 for(const e of data.entries)for(const key of Object.keys(e))assert(entryKeys.has(key),key);
 const html=read('index.html');
+for(const file of fs.readdirSync(website))assert(!/\.py$|\.test\.mjs$/.test(file),'Python modules and test suites must live outside the published site: '+file);
 const css=read('field-catalogue.css');
 assert(css.includes('.notation-grid p .math{font:inherit}'));
 assert(css.includes('.notation-grid p sub{font-size:.75em;line-height:0}'));

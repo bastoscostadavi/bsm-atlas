@@ -7,16 +7,16 @@ from itertools import permutations, product
 from math import factorial
 import json
 
-from entry_validation import (IncompleteContent, object_keys,
+from .entry_validation import (IncompleteContent, object_keys,
     primitive_charge_scale, conjugate, normalize_spec as validate_numerical)
-from scalar_conventions import real_scalar, orient_reps, is_scalar
+from .scalar_conventions import real_scalar, orient_reps, is_scalar
 
 SCHEMA = 'field-content-2'
 
 
 def normalize_spec(spec):
     if isinstance(spec,dict) and spec.get('schema_version')=='field-content-3':
-        raise IncompleteContent('Use prepare_entry for parameterized validation or specialize with --values before numerical identity checking')
+        raise IncompleteContent('Use python3 -m bsm_atlas prepare for parameterized validation or specialize with --values before numerical identity checking')
     if not isinstance(spec,dict) or spec.get('schema_version') != SCHEMA:
         raise IncompleteContent('Use field-content-2 numerical inputs')
     source = deepcopy(spec)

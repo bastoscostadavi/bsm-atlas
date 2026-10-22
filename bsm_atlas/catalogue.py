@@ -1,15 +1,21 @@
 """The authoritative catalogue: complete specifications and paper references."""
 from copy import deepcopy
+from contextlib import closing
+from fractions import Fraction
 import json
 from pathlib import Path
 import re
+import sqlite3
 
-from catalogue_identity import IncompleteContent, canonicalize, normalize_spec, object_keys
-from symbolic_identity import canonicalize_family
-from scalar_conventions import uniform_scalar, is_scalar
-from parameterized_entry import specialize
+from .catalogue_identity import (IncompleteContent, canonicalize, normalize_spec,
+                                 object_keys, primitive_charge_scale)
+from .symbolic_identity import canonicalize_family
+from .scalar_conventions import CONVENTION as SCALAR_CONVENTION, uniform_scalar, is_scalar
+from .parameterized_entry import SCHEMA as PARAMETER_SCHEMA, specialize, validation_report
 
-SOURCE = Path(__file__).with_name('catalogue.json')
+ROOT = Path(__file__).resolve().parent.parent
+SOURCE = ROOT / 'atlas/catalogue.json'
+DATABASE = ROOT / 'website/downloads/field-catalogue.sqlite'
 
 
 def identity(spec):
@@ -97,6 +103,81 @@ def load(path=SOURCE):
     return validate(json.loads(Path(path).read_text(encoding='utf-8')))
 
 
+def check(spec, database=DATABASE):
+    """Read-only exact and same-algebra lookup against a built SQLite export."""
+    if isinstance(spec, dict) and spec.get('schema_version') == PARAMETER_SCHEMA:
+        report = validation_report(spec)
+        if report['normalized_entry']['parameters']:
+            with closing(sqlite3.connect(database.resolve().as_uri() + '?mode=ro', uri=True)) as con:
+                matches = [{'entry_id': row[0], 'name': row[1]} for row in con.execute(
+                    'SELECT e.entry_id,e.name FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.fingerprint=?',
+                    (report['fingerprint'],))]
+            return {**report,
+                    'status': 'exact_symbolic_template_match' if matches else 'no_exact_symbolic_template_match_review_required',
+                    'matches': matches,
+                    'action': 'Link the paper to the existing entry.' if matches else
+                    'Review existing families before intake. A different normalized template or domain is not proof of a new family of physical models.'}
+        spec = specialize(report['normalized_entry'], {})
+    result = canonicalize(spec)
+    with closing(sqlite3.connect(database.resolve().as_uri() + '?mode=ro', uri=True)) as con:
+        matches = [{'entry_id': row[0], 'name': row[1]} for row in con.execute(
+            'SELECT e.entry_id,e.name FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.fingerprint=?',
+            (result['fingerprint'],))]
+        algebra = json.loads(result['canonical_json'])['gauge_factors']
+        candidates = [{'entry_id': row[0], 'name': row[1], 'algebra': row[2]} for row in con.execute(
+            'SELECT e.entry_id,e.name,a.algebra FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id JOIN full_gauge_algebras a ON a.full_algebra_id=e.full_algebra_id WHERE a.canonical_json=?',
+            (json.dumps({'schema_version': 'full-gauge-algebra-1', 'gauge_factors': algebra},
+                        sort_keys=True, separators=(',', ':')),))]
+    return {'status': 'exact_field_content_match' if matches else 'no_exact_match_review_required',
+            'fingerprint': result['fingerprint'], 'matches': matches,
+            'same_algebra_candidates': [] if matches else candidates,
+            'action': 'Link the paper to the existing entry; do not create a second field-content entry.' if matches else
+            'Review same-algebra candidates before adding an entry. No exact match does not prove novelty.',
+            'limits': 'Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check.'}
+
+
+def prepare(spec, database=None, values=None):
+    """Normalize a source-established specification without writing any files."""
+    if isinstance(spec, dict) and spec.get('schema_version') == PARAMETER_SCHEMA:
+        if values is not None or not spec.get('parameters'):
+            assignment = {} if values is None else values
+            result = prepare(specialize(spec, assignment), database)
+            result['parameter_assignment'] = deepcopy(assignment)
+            result['constraint_check'] = 'passed'
+            return result
+        report = validation_report(spec)
+        if database is not None:
+            report['duplicate_check'] = check(spec, database)
+        return report
+    if values is not None:
+        raise IncompleteContent('--values is only supported for field-content-3 entries')
+    original = deepcopy(spec)
+    normalized = normalize_spec(spec)
+    transformations = []
+    for factor in normalized['gauge_factors']:
+        if factor['family'] != 'U1':
+            continue
+        scale = primitive_charge_scale(row['gauge_representations'][factor['id']]['charge']
+                                       for row in original['matter'])
+        transformations.append({
+            'factor_id': factor['id'], 'normalization': 'primitive_integer_full_inventory',
+            'positive_source_scale': str(scale) if scale is not None else None,
+            'generator_orientation': 'retained',
+            'note': 'All-zero assignments have no primitive nonzero unit.' if not any(
+                Fraction(row['gauge_representations'][factor['id']]['charge']) for row in normalized['matter']) else
+                'Scale may be combined with charge conjugation when converting source fermions.'})
+    result = {'status': 'normalized_candidate_requires_source_review',
+              'normalized_entry': normalized, 'transformations': transformations,
+              'scalar_convention': SCALAR_CONVENTION,
+              'fingerprint': canonicalize(normalized)['fingerprint'],
+              'action': 'Verify every assignment against its paper and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; use source reality/counts correctly on intake. This tool is not a database writer or a source-extraction certificate.'}
+    if database is not None:
+        result['duplicate_check'] = check(normalized, database)
+    if spec != original:
+        raise AssertionError('Preparation mutated the extraction input')
+    return result
+
+
 def ingest(data, candidate):
     """Normalize before writing; an exact match only gains paper references."""
     result=deepcopy(data)
@@ -127,25 +208,3 @@ def ingest(data, candidate):
         result['entries'].append(candidate); target=candidate['id']
     validate(result)
     return result,target
-
-
-if __name__ == '__main__':
-    import argparse
-    parser=argparse.ArgumentParser(description='Validate or add a source-checked entry; exact matches merge references.')
-    parser.add_argument('--source',type=Path,default=SOURCE)
-    parser.add_argument('--add',type=Path,help='Entry object with specification and references; referenced papers must already be listed')
-    parser.add_argument('--write',action='store_true',help='Save the validated addition; otherwise dry-run only')
-    args=parser.parse_args()
-    try:
-        data=load(args.source)
-        if args.add:
-            data,target=ingest(data,json.loads(args.add.read_text()))
-            if args.write:
-                temporary=args.source.with_suffix('.json.tmp')
-                temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-                temporary.replace(args.source)
-            print(('Saved ' if args.write else 'Validated dry run: ')+target)
-        elif args.write: parser.error('--write requires --add')
-        else: print(f"Valid catalogue: {len(data['entries'])} entries, {len(data['papers'])} papers")
-    except (ValueError,TypeError,KeyError) as error:
-        parser.exit(2,str(error)+'\n')

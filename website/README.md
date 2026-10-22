@@ -2,14 +2,14 @@
 
 The GitHub Pages site at [davibc.com/bsm-atlas](https://davibc.com/bsm-atlas/) presents the catalogue through four views, with search, representation notation choices, paper references and downloads. It reads a self-contained payload generated from `atlas/catalogue.json`.
 
-From the repository root, run `make build`, `make check` and `make serve`. Preview at http://127.0.0.1:8000/. Python and Node are the only runtime dependencies.
+From the repository root, run `make build`, `make check` and `make serve`. Preview at http://127.0.0.1:8000/. Building and checking require only Python and Node.js; the published site needs no server-side runtime.
 
 ## Source and exports
 
-`build_field_catalogue.py` reads only `atlas/catalogue.json` and the SM/MSSM reference spectra. It validates every specification, computes identities and the four browsing views, then generates:
+`make build` runs `python3 -m bsm_atlas build`. The builder reads only `atlas/catalogue.json` and the SM/MSSM reference spectra. It validates every specification, computes identities and the four browsing views, then generates:
 
 - `catalogue.json`: the source catalogue, identical to `atlas/catalogue.json`; the JSON download points here.
-- `field-catalogue.json`, `field-catalogue-data.js` and `../atlas/FIELD_CONTENT_CATALOGUE.json`: the same entries, references and derived presentation data.
+- `field-catalogue.json`: entries, references and derived presentation data; `field-catalogue-data.js` supplies the same payload to the browser without a separate fetch.
 - `entry.schema.json` and `catalogue.schema.json`: published schema copies.
 - `downloads/field-catalogue.sqlite`: a typed relational projection, with full exact specifications and paper links.
 - `downloads/field-catalogue.csv`: one row per entry, including its exact specification as JSON.
@@ -19,7 +19,9 @@ Do not hand-edit generated files. `make check` rebuilds them in memory or tempor
 
 ## Interface
 
-`index.html`, `field-catalogue.css` and `field-catalogue.js` implement the interface. `field-matrix.js` lays out exact derived rows; `presentation.py` computes readable dimensions and safe SM/MSSM shorthand. `core_projection.py` generates all four view memberships. `representation-diagrams.js` and locally vendored SVG.js draw Dynkin and eligible A-series Young diagrams.
+`index.html`, `field-catalogue.css` and `field-catalogue.js` implement the interface. `field-matrix.js` lays out exact derived rows. In the Python package, `presentation.py` computes readable dimensions and safe SM/MSSM shorthand, and `core_projection.py` generates all four view memberships. `representation-diagrams.js` and locally vendored SVG.js draw Dynkin and eligible A-series Young diagrams.
+
+Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
 
 The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 

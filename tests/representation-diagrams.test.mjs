@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import vm from 'node:vm';
+const website=new URL('../website/',import.meta.url);
 const context={};
-vm.runInNewContext(fs.readFileSync(new URL('representation-diagrams.js',import.meta.url),'utf8'),context);
+vm.runInNewContext(fs.readFileSync(new URL('representation-diagrams.js',website),'utf8'),context);
 const {dynkinLayout,youngCells,render}=context.AtlasDiagrams;
 const plain=x=>JSON.parse(JSON.stringify(x));
 assert.equal(youngCells([3,1]).length,4);
@@ -44,6 +45,6 @@ render({querySelectorAll(selector){return selector.startsWith('[data-young')?[yo
 assert.deepEqual(counts,{rect:3,circle:2,line:1});
 assert.equal(young.dataset.rendered,'true');
 assert.equal(dynkin.dataset.rendered,'true');
-const vendor=fs.readFileSync(new URL('vendor/svgjs/svg.min.js',import.meta.url));
+const vendor=fs.readFileSync(new URL('vendor/svgjs/svg.min.js',website));
 assert.equal(crypto.createHash('sha256').update(vendor).digest('hex'),'90fc33bcba8181aa5e96e5c975da19f0912d7097a4ec9056ba130fc3ce328ec6');
 console.log('Young geometry, Bourbaki Dynkin layouts, SVG.js API and vendored integrity passed.');

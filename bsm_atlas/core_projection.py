@@ -1,7 +1,7 @@
 """Four derived views of the same complete gauge–matter catalogue."""
 from copy import deepcopy
-from nonabelian_core import restrict_nonabelian, algebra_key, full_algebra_key
-from presentation import matrix, algebra_label
+from .nonabelian_core import restrict_nonabelian, algebra_key, full_algebra_key
+from .presentation import matrix, algebra_label
 
 def group_factors(canonical):
     return [{'key':'factor:'+str(i),'id':'u1' if a['family']=='U1' else a['family']+str(a['rank']),

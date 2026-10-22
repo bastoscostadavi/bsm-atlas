@@ -2,16 +2,13 @@
 from copy import deepcopy
 import json
 from pathlib import Path
-import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / 'atlas'))
-from charge_expressions import parse_charge, parse_constraints
-from symbolic_identity import canonicalize_family
-from catalogue_identity import IncompleteContent
-from prepare_entry import prepare
-from check_entry import check
+from bsm_atlas.charge_expressions import parse_charge, parse_constraints
+from bsm_atlas.symbolic_identity import canonicalize_family
+from bsm_atlas.catalogue_identity import IncompleteContent
+from bsm_atlas.catalogue import prepare, check
 
 
 def family():
@@ -40,7 +37,7 @@ def renamed(spec, mapping):
     result = deepcopy(spec)
     names = tuple(sorted(spec['parameters']))
     result['parameters'] = {mapping[name]: declaration for name, declaration in spec['parameters'].items()}
-    from symbolic_identity import _rename
+    from bsm_atlas.symbolic_identity import _rename
     target_names = tuple(sorted(mapping.values()))
     for row in result['matter']:
         for factor in result['gauge_factors']:

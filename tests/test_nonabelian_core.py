@@ -6,13 +6,11 @@ import json
 import csv
 from pathlib import Path
 import sqlite3
-import sys
 import unittest
 
 ROOT=Path(__file__).resolve().parent.parent
-sys.path.insert(0,str(ROOT/'atlas'))
-from catalogue_identity import canonicalize
-from nonabelian_core import restrict_nonabelian,algebra_key
+from bsm_atlas.catalogue_identity import canonicalize
+from bsm_atlas.nonabelian_core import restrict_nonabelian,algebra_key
 
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
 ENTRIES={e['id']:e for e in DATA['entries']}

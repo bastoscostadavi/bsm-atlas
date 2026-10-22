@@ -7,12 +7,11 @@ import subprocess
 import sys
 import unittest
 
-from catalogue_identity import canonicalize, IncompleteContent
-from charge_expressions import parse_charge, parameter_names
-from parameterized_entry import normalize_parameterized, specialize
-from prepare_entry import prepare
-from check_entry import check
-from nonabelian_core import restrict_nonabelian
+from bsm_atlas.catalogue_identity import canonicalize, IncompleteContent
+from bsm_atlas.charge_expressions import parse_charge, parameter_names
+from bsm_atlas.parameterized_entry import normalize_parameterized, specialize
+from bsm_atlas.catalogue import prepare, check
+from bsm_atlas.nonabelian_core import restrict_nonabelian
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -184,11 +183,11 @@ class ParameterizedEntries(unittest.TestCase):
         with self.assertRaises(IncompleteContent): prepare(numerical, values={})
 
     def test_cli_good_and_bad_assignments(self):
-        command = [sys.executable, '-B', str(ROOT/'atlas/prepare_entry.py'), str(ROOT/'atlas/examples/parameterized-charges.json'), '--values']
-        good = subprocess.run([*command, '{"z1":1,"z2":2}'], capture_output=True, text=True)
+        command = [sys.executable, '-B', '-m', 'bsm_atlas', 'prepare', str(ROOT/'atlas/examples/parameterized-charges.json'), '--values']
+        good = subprocess.run([*command, '{"z1":1,"z2":2}'], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(good.returncode, 0, good.stderr)
         self.assertEqual(json.loads(good.stdout)['parameter_assignment'], {'z1':1, 'z2':2})
-        bad = subprocess.run([*command, '{"z1":0,"z2":2}'], capture_output=True, text=True)
+        bad = subprocess.run([*command, '{"z1":0,"z2":2}'], cwd=ROOT, capture_output=True, text=True)
         self.assertEqual(bad.returncode, 2, bad.stderr)
         self.assertEqual(json.loads(bad.stdout)['status'], 'blocked_before_ingestion')
 

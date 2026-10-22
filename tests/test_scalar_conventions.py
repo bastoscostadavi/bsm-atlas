@@ -4,14 +4,12 @@ from copy import deepcopy
 import json
 from hashlib import sha256
 from pathlib import Path
-import sys
 import sqlite3
 import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0,str(ROOT/'atlas'))
-from scalar_conventions import dual_weight, representation_type, real_scalar
-from catalogue_identity import canonicalize, normalize_spec, IncompleteContent
+from bsm_atlas.scalar_conventions import dual_weight, representation_type, real_scalar
+from bsm_atlas.catalogue_identity import canonicalize, normalize_spec, IncompleteContent
 
 def single(family='A', weight=(0,), charge=0, reality='complex', copies=1):
     return {'schema_version':'field-content-2','inventory_complete':True,

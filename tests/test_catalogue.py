@@ -11,12 +11,10 @@ import tempfile
 import unittest
 
 ROOT=Path(__file__).resolve().parent.parent
-sys.path[:0]=[str(ROOT/'atlas'),str(ROOT/'website')]
-from catalogue import load, validate, normalize, identity, ingest
-from catalogue_identity import canonicalize, normalize_spec, IncompleteContent
-from check_entry import check
-from field_conventions import dimension_a, dimension_d
-from build_field_catalogue import main_data, database
+from bsm_atlas.catalogue import load, validate, normalize, identity, ingest, check
+from bsm_atlas.catalogue_identity import canonicalize, normalize_spec, IncompleteContent
+from bsm_atlas.field_conventions import dimension_a, dimension_d
+from bsm_atlas.build import main_data, database
 
 SOURCE=load()
 DATA=json.loads((ROOT/'website/field-catalogue.json').read_text())
@@ -27,7 +25,7 @@ NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification'
 
 class CatalogueTests(unittest.TestCase):
     def test_catalogue_identities_references_and_view_memberships(self):
-        baseline=json.loads((ROOT/'website/fixtures/catalogue-identities.json').read_text())
+        baseline=json.loads((ROOT/'tests/fixtures/catalogue-identities.json').read_text())
         current={e['id']:e for e in DATA['entries']}
         for key,expected in baseline.items():
             actual=current[key]
@@ -150,11 +148,11 @@ class CatalogueTests(unittest.TestCase):
             candidate=Path(directory)/'candidate.json';c=deepcopy(ENTRIES['two-higgs-doublets'])
             c['specification']['matter'][-1]['copies']+=NEW_COPIES;c['id']='a-new-higgs-model'
             candidate.write_text(json.dumps(c));before=p.read_bytes()
-            command=[sys.executable,'-B',str(ROOT/'atlas/catalogue.py'),'--source',str(p),'--add',str(candidate)]
-            run=subprocess.run(command,capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(p.read_bytes(),before)
-            run=subprocess.run([*command,'--write'],capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(len(load(p)['entries']),len(SOURCE['entries'])+1)
+            command=[sys.executable,'-B','-m','bsm_atlas','add',str(candidate),'--source',str(p)]
+            run=subprocess.run(command,cwd=ROOT,capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(p.read_bytes(),before)
+            run=subprocess.run([*command,'--write'],cwd=ROOT,capture_output=True,text=True);self.assertEqual(run.returncode,0,run.stderr);self.assertEqual(len(load(p)['entries']),len(SOURCE['entries'])+1)
             before=p.read_bytes();c['references'][0]['paper_id']='missing';candidate.write_text(json.dumps(c))
-            run=subprocess.run([*command,'--write'],capture_output=True,text=True);self.assertEqual(run.returncode,2);self.assertEqual(p.read_bytes(),before)
+            run=subprocess.run([*command,'--write'],cwd=ROOT,capture_output=True,text=True);self.assertEqual(run.returncode,2);self.assertEqual(p.read_bytes(),before)
 
     def test_lookup_exact_and_nearby(self):
         s=deepcopy(ENTRIES['two-higgs-doublets']['specification'])

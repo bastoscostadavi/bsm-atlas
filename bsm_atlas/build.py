@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
 """Build the static explorer and relational downloads from atlas/catalogue.json."""
-import argparse
 from contextlib import closing
 from copy import deepcopy
 import csv
@@ -8,16 +6,14 @@ import io
 import json
 from pathlib import Path
 import sqlite3
-import sys
 import tempfile
 
 ROOT=Path(__file__).resolve().parent.parent
-sys.path[:0]=[str(ROOT/'atlas'),str(ROOT/'website')]
-from catalogue import load, identity, validate
-from catalogue_identity import normalize_spec
-from core_projection import attach_layers
-from presentation import matrix, compact_baseline
-from field_conventions import REPRESENTATION_CONVENTION
+from .catalogue import load, identity, validate
+from .catalogue_identity import normalize_spec
+from .core_projection import attach_layers
+from .presentation import matrix, compact_baseline
+from .field_conventions import REPRESENTATION_CONVENTION
 
 VERSION='gauge-matter-13'
 
@@ -97,7 +93,7 @@ def database(path,data):
 def write_outputs(data,check=False):
     payload=encoded(data)+'\n'
     outputs={'website/catalogue.json':(ROOT/'atlas/catalogue.json').read_text(encoding='utf-8'),
-        'website/field-catalogue.json':payload,'atlas/FIELD_CONTENT_CATALOGUE.json':payload,
+        'website/field-catalogue.json':payload,
         'website/field-catalogue-data.js':'window.FIELD_CATALOGUE = '+payload.rstrip()+';\n',
         'website/entry.schema.json':(ROOT/'atlas/entry.schema.json').read_text(),
         'website/catalogue.schema.json':(ROOT/'atlas/catalogue.schema.json').read_text(),
@@ -119,7 +115,3 @@ def write_outputs(data,check=False):
                 if list(new.iterdump())!=list(old.iterdump()):raise ValueError('Stale relational export')
         else:target.write_bytes(temporary.read_bytes())
     print('Catalogue:',data['counts'],'(verified)' if check else '(built)')
-
-if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true')
-    args=parser.parse_args();write_outputs(main_data(),args.check)

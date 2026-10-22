@@ -3,8 +3,8 @@ from copy import deepcopy
 from hashlib import sha256
 import json
 
-from catalogue_identity import normalize_spec, canonicalize, IncompleteContent
-from scalar_conventions import is_scalar, representation_type
+from .catalogue_identity import normalize_spec, canonicalize, IncompleteContent
+from .scalar_conventions import is_scalar, representation_type
 
 CONVENTION = {
     'id':'nonabelian-core-1',
@@ -62,7 +62,7 @@ def restrict_nonabelian(spec):
     copies. Removing columns alone would lose half its degrees of freedom.
     """
     if spec.get('schema_version')=='field-content-3':
-        from parameterized_entry import normalize_parameterized
+        from .parameterized_entry import normalize_parameterized
         source=normalize_parameterized(spec)
         factors=[a for a in source['gauge_factors'] if a['family']!='U1']
         # Restrict source complex fields BEFORE realification. This forgets
