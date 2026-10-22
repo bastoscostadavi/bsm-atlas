@@ -16,6 +16,9 @@ assert.deepEqual(Object.keys(data).sort(),['version','schema_version','represent
 const entryKeys=new Set(['id','name','specification','references','aliases','identity','paperIds','regime','algebraExpanded','algebraSignature','coreId','semisimpleId','fullAlgebraId','abelianRank']);
 for(const e of data.entries)for(const key of Object.keys(e))assert(entryKeys.has(key),key);
 const html=read('index.html');
+const css=read('field-catalogue.css');
+assert(css.includes('.notation-grid p .math{font:inherit}'));
+assert(css.includes('.notation-grid p sub{font-size:.75em;line-height:0}'));
 assert(!html.includes('href="#problems"'));
 const repository=new URL('../',website);
 for(const file of ['README.md','BSM_ATLAS_AGENT_PROMPT.md','atlas/README.md','atlas/FIELD_CONTENT_CONVENTIONS.md','website/README.md']){

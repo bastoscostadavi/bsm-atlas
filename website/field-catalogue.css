@@ -88,6 +88,8 @@ code{font:11px/1.5 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}
 .notation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:50px}
 .notation-grid h3{font-size:17px;letter-spacing:-.02em;font-weight:500;margin:0 0 14px}
 .notation-grid p{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.notation-grid p .math{font:inherit}
+.notation-grid p sub{font-size:.75em;line-height:0}
 .notation-grid details{font-size:13px;margin-bottom:24px}
 .template-table{width:100%;border-collapse:collapse;font-size:12px;margin:14px 0 30px}
 .template-table th,.template-table td{text-align:left;padding:9px 8px 9px 0;border-bottom:1px solid var(--line)}
