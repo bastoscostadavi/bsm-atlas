@@ -174,13 +174,13 @@ const uiDocument={documentElement:{dataset:{}},addEventListener(name,fn){documen
 context.window={addEventListener(name,fn){windowEvents.set(name,fn);}};
 context.localStorage={getItem(){return null;},setItem(){}};
 const disclosure=create(data,uiDocument);disclosure.start();
-assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261019-18');
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261023-01');
 assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#ffffff');
 uiNodes.get('theme-toggle').events.get('click')();
-assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon-dark.svg?v=20261019-18');
-assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#161617');
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon-dark.svg?v=20261023-01');
+assert.equal(uiNodes.get('theme-color').attributes.get('content'),'#1f1e1d');
 uiNodes.get('theme-toggle').events.get('click')();
-assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261019-18');
+assert.equal(uiNodes.get('atlas-favicon').attributes.get('href'),'favicon.svg?v=20261023-01');
 disclosure.state.browse='entries';disclosure.render();
 const referenceClick={target:{closest(selector){return selector==='[data-open]'?{dataset:{open:'nmssm-matter'}}:null;}}};
 uiNodes.get('view-content').events.get('click')(referenceClick);
