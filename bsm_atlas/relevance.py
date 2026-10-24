@@ -34,15 +34,24 @@ def population_record(hit):
     eprints = metadata.get('arxiv_eprints')
     if not isinstance(eprints, list) or not eprints:
         raise ValueError('Population record lacks arXiv identifiers: ' + record_id)
-    identifiers = [base_id(e['value']) for e in eprints]
-    if len(set(identifiers)) != len(identifiers):
-        raise ValueError('Repeated arXiv identifier in INSPIRE ' + record_id)
+    # Some records repeat an identical eprint for an erratum, sometimes with
+    # categories absent on the duplicate. This is one identifier, not two works.
+    unique = {}
+    for eprint in eprints:
+        identifier = base_id(eprint['value'])
+        categories = eprint.get('categories', [])
+        if not isinstance(categories, list) or any(not isinstance(c, str) for c in categories):
+            raise ValueError('Invalid arXiv categories in INSPIRE ' + record_id)
+        unique.setdefault(identifier, set()).update(categories)
+    eprints = [{'value': i, 'categories': sorted(categories)} for i, categories in unique.items()]
+    identifiers = list(unique)
     if not any('hep-ph' in e.get('categories', []) for e in eprints):
         raise ValueError('Population record does not include hep-ph: ' + record_id)
     return {'inspire_record_id': record_id, 'citation_count': citations,
             'arxiv_ids': sorted(identifiers),
             'cohort_year': min(map(posting_year, identifiers)),
-            'metadata': {k: metadata[k] for k in ('citation_count', 'arxiv_eprints', 'titles')}}
+            'metadata': {'citation_count': citations, 'arxiv_eprints': eprints,
+                         **({'titles': metadata['titles']} if 'titles' in metadata else {})}}
 
 
 def page_data(body):

@@ -118,6 +118,14 @@ class RelevanceTests(unittest.TestCase):
         record['citation_count'] = 1
         self.assertEqual(relevance.relevance(record, {'2025': {'papers': 3, 'citations': 7}}), Fraction(3, 7))
 
+    def test_repeated_identical_eprint_is_one_work_not_an_alias(self):
+        raw = hit('2501.00001', 113, 1272707)
+        raw['metadata']['arxiv_eprints'].append({'value': '2501.00001'})
+        record = relevance.population_record(raw)
+        self.assertEqual(record['arxiv_ids'], ['2501.00001'])
+        self.assertEqual(len(record['metadata']['arxiv_eprints']), 1)
+        self.assertEqual(relevance.cohort_statistics([record])['2025'], {'papers': 1, 'citations': 113})
+
     def test_missing_counts_and_duplicate_works_stop_before_selection(self):
         bad = deepcopy(self.records[0])
         bad['metadata'].pop('citation_count')
