@@ -143,6 +143,14 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
             private_json(directory / 'selection-status.json', {
                 'phase': phase, 'updated_utc': timestamp(), **values})
 
+        def arxiv_response(name, url):
+            try:
+                return cached_response(directory, name, url, arxiv_client)
+            except (OSError, ValueError) as error:
+                checkpoint('blocked_arxiv_metadata', reason=str(error), model_calls=0,
+                           message='No automatic retries. Resume only after access is permitted.')
+                raise
+
         selection_path = directory / 'selection.json'
         if selection_path.exists():
             selection = json.loads(selection_path.read_text())
@@ -204,6 +212,10 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                            metadata_issues=len(metadata_issues))
                 raise ValueError('Metadata needs correction before ranking; see metadata-issues.json')
             statistics = cohort_statistics(records)
+            private_json(directory / 'cohorts.json', {
+                'population_records': len(records), 'cohorts': statistics,
+                'citation_metric': request['ranking'], 'retrieved_at': timestamp()})
+            checkpoint('ranking', records=len(records), model_calls=0)
             ordered = sorted(records, key=lambda r: (-relevance(r, statistics), r['arxiv_ids'][0]))
             candidates, excluded = [], 0
             for record in ordered:
@@ -214,8 +226,8 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                 def resolve(record_id, identifiers):
                     url = 'https://export.arxiv.org/api/query?' + urlencode({
                         'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
-                    return resolve_expanded_version(cached_response(directory,
-                        'arxiv-resolution-' + record_id + '.json', url, arxiv_client), identifiers)
+                    return resolve_expanded_version(arxiv_response(
+                        'arxiv-resolution-' + record_id + '.json', url), identifiers)
 
                 item = parse_hit({'id': record['inspire_record_id'], 'metadata': record['metadata']}, resolve)
                 score = relevance(record, statistics)
@@ -245,8 +257,7 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
             identifiers = [r['arxiv'] for r in candidates[start:start + batch_size]]
             url = 'https://export.arxiv.org/api/query?' + urlencode({
                 'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
-            pinned.update(parse_atom(cached_response(directory,
-                f'arxiv-batch-{start:05}.json', url, arxiv_client), identifiers))
+            pinned.update(parse_atom(arxiv_response(f'arxiv-batch-{start:05}.json', url), identifiers))
         manifest = directory / f'papers-{count}.json'
         private_json(manifest, {'papers': [pinned[r['arxiv']] for r in candidates]})
         checkpoint('selection_complete', selected=count, manifest=str(manifest))
