@@ -149,6 +149,13 @@ class CitationTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 citations.safe_url(url)
 
+    def test_request_intervals_are_service_specific_and_validated(self):
+        self.assertEqual(citations.MetadataClient().minimum_interval, 3.1)
+        self.assertEqual(citations.MetadataClient(0.5).minimum_interval, 0.5)
+        for invalid in [-1, float('inf'), float('nan'), 'fast']:
+            with self.assertRaises(ValueError):
+                citations.MetadataClient(invalid)
+
     def test_cache_tampering_fails(self):
         self.directory.mkdir()
         client = Mock()

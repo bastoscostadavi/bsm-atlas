@@ -91,7 +91,9 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
     directory, source = Path(directory), Path(source).resolve()
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
     with exclusive_lock(directory / 'selection.lock'):
-        client, arxiv_client = client or MetadataClient(), arxiv_client or MetadataClient()
+        # INSPIRE permits 15 requests / 5 seconds. Remain below that limit;
+        # arXiv requests retain the separate conservative 3.1-second interval.
+        client, arxiv_client = client or MetadataClient(0.5), arxiv_client or MetadataClient()
         source_bytes = source.read_bytes()
         known = {base_id(p['arxiv']) for p in load(source)['papers']}
         request = {'ranking': 'citations / mean citations in first-posting-year cohort',

@@ -7,6 +7,7 @@ import base64
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+from math import isfinite
 from pathlib import Path
 import re
 import time
@@ -55,14 +56,17 @@ class SafeRedirect(HTTPRedirectHandler):
 
 
 class MetadataClient:
-    """Serial bounded requests; 3.1 seconds apart, no automatic retries."""
-    def __init__(self):
+    """Serial bounded requests; arXiv-safe by default, no automatic retries."""
+    def __init__(self, minimum_interval=3.1):
+        if not isinstance(minimum_interval, (int, float)) or not isfinite(minimum_interval) or minimum_interval < 0:
+            raise ValueError('Invalid metadata request interval')
+        self.minimum_interval = minimum_interval
         self.last_request = time.monotonic()
         self.opener = build_opener(SafeRedirect())
 
     def get(self, url):
         safe_url(url)
-        time.sleep(max(0, 3.1 - (time.monotonic() - self.last_request)))
+        time.sleep(max(0, self.minimum_interval - (time.monotonic() - self.last_request)))
         try:
             request = Request(url, headers={'User-Agent':
                 'bsm-atlas/1 (+https://github.com/bastoscostadavi/bsm-atlas)',
