@@ -17,6 +17,8 @@ def harvest_arguments(commands):
     selection = actions.add_parser('select', help='Freeze most-cited hep-ph papers from INSPIRE and pin arXiv versions; no model calls')
     selection.add_argument('--output-dir', type=Path, required=True)
     selection.add_argument('--count', type=int, default=1000)
+    selection.add_argument('--ranking', choices=['citations', 'year-normalized'], default='citations')
+    selection.add_argument('--source', type=Path, default=SOURCE, help='Catalogue used to exclude recorded works from year-normalized selection')
     preparation = actions.add_parser('prepare', help='Retrieve pinned papers and create isolated prompts; no model calls')
     preparation.add_argument('manifest', type=Path)
     preparation.add_argument('--run-dir', type=Path, required=True)
@@ -66,6 +68,13 @@ def harvest_arguments(commands):
 def harvest_command(args):
     from . import harvest
     if args.action == 'select':
+        if args.ranking == 'year-normalized':
+            from .relevance import select_year_normalized
+            selection = select_year_normalized(args.output_dir, args.count, source=args.source)
+            return {'papers': selection['count'], 'selection': str(args.output_dir / 'selection.json'),
+                    'manifest': str(args.output_dir / f'papers-{args.count}.json'),
+                    'citation_metric': selection['citation_metric'],
+                    'population_records': selection['population_records']}
         from .citations import select_most_cited
         selection = select_most_cited(args.output_dir, args.count)
         return {'papers': selection['count'], 'selection': str(args.output_dir / 'selection.json'),

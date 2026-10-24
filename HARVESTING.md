@@ -92,6 +92,14 @@ The [20-paper extraction pilot](experiments/extraction-pilot/README.md) freezes 
 
 ## Citation-ranked expansion
 
+For age/era-adjusted ordering of new papers, use:
+
+```sh
+python3 -m bsm_atlas harvest select --ranking year-normalized --output-dir .harvest/year-normalized-hepph --count 1000
+```
+
+The score is a paper's current citation count divided by the mean current citation count of hep-ph works first posted to arXiv in the same year. The denominator uses the complete INSPIRE hep-ph population, including uncited and previously harvested works, not only the top-cited sample. An INSPIRE work counts once; multiple eprints use their earliest arXiv posting year. Zero-citation cohorts receive zero scores. Exact rational scores are sorted with arXiv identifiers as the tie-breaker. Known works are excluded before pinning the next 1,000 new papers. The raw metadata, cohort totals, catalogue digest and selected versions are frozen privately for resume; retrieval makes no model calls. This ordering is a sampling heuristic: within-year ages, citation noise in recent cohorts and differing research communities remain relevant.
+
 Freeze the most-cited hep-ph arXiv works across all years, including cross-listed papers:
 
 ```sh
