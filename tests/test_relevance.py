@@ -126,6 +126,35 @@ class RelevanceTests(unittest.TestCase):
         self.assertEqual(len(record['metadata']['arxiv_eprints']), 1)
         self.assertEqual(relevance.cohort_statistics([record])['2025'], {'papers': 1, 'citations': 113})
 
+    def test_decorated_duplicate_requires_same_record_corroboration(self):
+        raw = hit('2003.11751', 16, 1788446)
+        raw['metadata']['arxiv_eprints'].append({'value': '2003.11751 [hep-ph]'})
+        self.assertEqual(relevance.population_record(raw)['arxiv_ids'], ['2003.11751'])
+        raw['metadata']['arxiv_eprints'][1]['value'] = '2003.11751 (hep-ph)'
+        self.assertEqual(relevance.population_record(raw)['arxiv_ids'], ['2003.11751'])
+        for invalid in ['2003.11752 [hep-ph]', '2003.11751 [hep-th]', '2003.11751 arbitrary text']:
+            raw['metadata']['arxiv_eprints'][1]['value'] = invalid
+            with self.assertRaises(ValueError):
+                relevance.population_record(raw)
+
+    def test_submission_token_does_not_define_a_posting_cohort(self):
+        raw = hit('2011.04941', 2, 1829284)
+        raw['metadata']['arxiv_eprints'].insert(0, {'value': 'submit/3418798', 'categories': ['hep-ph']})
+        self.assertEqual(relevance.population_record(raw)['arxiv_ids'], ['2011.04941'])
+        raw['metadata']['arxiv_eprints'].pop()
+        with self.assertRaisesRegex(ValueError, 'No published'):
+            relevance.population_record(raw)
+
+    def test_punctuation_or_version_decoration_requires_a_bare_counterpart(self):
+        raw = hit('2103.13104', 10, 1853253)
+        raw['metadata']['arxiv_eprints'].append({})
+        for value in ['2103.13104.', '2103.13104(v.6)']:
+            raw['metadata']['arxiv_eprints'][1]['value'] = value
+            self.assertEqual(relevance.population_record(raw)['arxiv_ids'], ['2103.13104'])
+        raw['metadata']['arxiv_eprints'][1]['value'] = '2103.13105.'
+        with self.assertRaises(ValueError):
+            relevance.population_record(raw)
+
     def test_missing_counts_and_duplicate_works_stop_before_selection(self):
         bad = deepcopy(self.records[0])
         bad['metadata'].pop('citation_count')
@@ -134,6 +163,17 @@ class RelevanceTests(unittest.TestCase):
         self.records.append(hit('2501.00001', 2, 6))
         with self.assertRaisesRegex(ValueError, 'Duplicate INSPIRE work'):
             self.select()
+        self.assertFalse((self.directory / 'selection.json').exists())
+
+    def test_metadata_errors_are_collected_without_incomplete_cohort_ranking(self):
+        bad = hit('2501.00006', 1, 6)
+        bad['metadata']['arxiv_eprints'][0]['value'] = '2501.00006 invalid'
+        self.records.append(bad)
+        no_arxiv = Mock()
+        with self.assertRaisesRegex(ValueError, 'Metadata needs correction'):
+            self.select(arxiv_client=no_arxiv)
+        no_arxiv.get.assert_not_called()
+        self.assertEqual(len(json.loads((self.directory / 'metadata-issues.json').read_text())), 1)
         self.assertFalse((self.directory / 'selection.json').exists())
 
 

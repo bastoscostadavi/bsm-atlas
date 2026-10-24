@@ -9,6 +9,7 @@ from fractions import Fraction
 from hashlib import sha256
 import json
 from pathlib import Path
+import re
 from urllib.parse import urlencode
 
 from .catalogue import SOURCE as CATALOGUE, exclusive_lock, load
@@ -38,13 +39,35 @@ def population_record(hit):
     # categories absent on the duplicate. This is one identifier, not two works.
     unique = {}
     for eprint in eprints:
-        identifier = base_id(eprint['value'])
+        value = eprint['value']
+        if re.fullmatch(r'submit/\d+', value):
+            # An internal submission token is not a published arXiv identifier.
+            # Another public eprint must establish this work's posting cohort.
+            continue
+        try:
+            identifier = base_id(value)
+        except ValueError:
+            punctuation = re.fullmatch(r'(.+)(?:\.|\(v\.[1-9]\d*\))', value)
+            if punctuation and any(other.get('value') == punctuation[1] for other in eprints):
+                identifier = base_id(punctuation[1])
+                unique.setdefault(identifier, set())
+                continue
+            # Accept a decorated duplicate only when this same record also
+            # supplies its exact bare identifier and the stated category.
+            decorated = re.fullmatch(r'(.+) (?:\[([a-z-]+(?:\.[A-Z]{2})?)\]|\(([a-z-]+(?:\.[A-Z]{2})?)\))', value)
+            if not decorated or not any(
+                    other.get('value') == decorated[1] and
+                    (decorated[2] or decorated[3]) in other.get('categories', []) for other in eprints):
+                raise
+            identifier = base_id(decorated[1])
         categories = eprint.get('categories', [])
         if not isinstance(categories, list) or any(not isinstance(c, str) for c in categories):
             raise ValueError('Invalid arXiv categories in INSPIRE ' + record_id)
         unique.setdefault(identifier, set()).update(categories)
     eprints = [{'value': i, 'categories': sorted(categories)} for i, categories in unique.items()]
     identifiers = list(unique)
+    if not identifiers:
+        raise ValueError('No published arXiv identifier in INSPIRE ' + record_id)
     if not any('hep-ph' in e.get('categories', []) for e in eprints):
         raise ValueError('Population record does not include hep-ph: ' + record_id)
     return {'inspire_record_id': record_id, 'citation_count': citations,
@@ -124,7 +147,7 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
         if selection_path.exists():
             selection = json.loads(selection_path.read_text())
         else:
-            records, seen, work_ids = [], set(), set()
+            records, seen, work_ids, metadata_issues = [], set(), set(), []
             fields = 'citation_count,arxiv_eprints,titles,earliest_date'
 
             def retrieve(query, tag, split_year=None):
@@ -152,13 +175,18 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                     if len(hits) != expected:
                         raise ValueError('Incomplete metadata page in ' + tag)
                     for hit in hits:
-                        record = population_record(hit)
+                        try:
+                            record = population_record(hit)
+                        except ValueError as error:
+                            metadata_issues.append({'record': hit, 'reason': str(error)})
+                            continue
                         if record['inspire_record_id'] in seen or work_ids.intersection(record['arxiv_ids']):
                             raise ValueError('Duplicate INSPIRE work across population partitions')
                         seen.add(record['inspire_record_id'])
                         work_ids.update(record['arxiv_ids'])
                         records.append(record)
-                    checkpoint('metadata', partition=tag, page=page, records=len(records))
+                    checkpoint('metadata', partition=tag, page=page, records=len(records),
+                               metadata_issues=len(metadata_issues))
                 return total
 
             root_url = SOURCE + '?' + urlencode({'q': QUERY, 'fields': fields, 'size': 1})
@@ -168,8 +196,13 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                 retrieve(QUERY + ' and earliest_date:' + str(year), str(year), year)
             retrieve(QUERY + f' and earliest_date:>{last_year}', 'after')
             retrieve(QUERY + ' and not earliest_date:*', 'undated')
-            if len(records) != population_total:
+            if len(records) + len(metadata_issues) != population_total:
                 raise ValueError('Date partitions do not cover the complete hep-ph population')
+            if metadata_issues:
+                private_json(directory / 'metadata-issues.json', metadata_issues)
+                checkpoint('metadata_needs_correction', records=len(records),
+                           metadata_issues=len(metadata_issues))
+                raise ValueError('Metadata needs correction before ranking; see metadata-issues.json')
             statistics = cohort_statistics(records)
             ordered = sorted(records, key=lambda r: (-relevance(r, statistics), r['arxiv_ids'][0]))
             candidates, excluded = [], 0
