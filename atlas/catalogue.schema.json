@@ -18,7 +18,11 @@
       "required": ["id", "arxiv", "title", "authors"],
       "properties": {
         "id": {"$ref": "#/$defs/text"}, "arxiv": {"$ref": "#/$defs/text"},
-        "title": {"$ref": "#/$defs/text"}, "authors": {"$ref": "#/$defs/text"}
+        "title": {"$ref": "#/$defs/text"}, "authors": {"$ref": "#/$defs/text"},
+        "extraction_status": {
+          "type": "string", "enum": ["not_started", "complete", "unresolved"], "default": "not_started",
+          "description": "Extraction progress for this exact arXiv version; valid entries ingest automatically."
+        }
       }
     },
     "reference": {

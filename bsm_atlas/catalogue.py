@@ -1,11 +1,14 @@
 """The authoritative catalogue: complete specifications and paper references."""
 from copy import deepcopy
-from contextlib import closing
+from contextlib import closing, contextmanager
 from fractions import Fraction
+import fcntl
 import json
+import os
 from pathlib import Path
 import re
 import sqlite3
+import tempfile
 
 from .catalogue_identity import (IncompleteContent, canonicalize, normalize_spec,
                                  object_keys, primitive_charge_scale)
@@ -16,6 +19,44 @@ from .parameterized_entry import SCHEMA as PARAMETER_SCHEMA, specialize, validat
 ROOT = Path(__file__).resolve().parent.parent
 SOURCE = ROOT / 'atlas/catalogue.json'
 DATABASE = ROOT / 'website/downloads/field-catalogue.sqlite'
+
+
+@contextmanager
+def exclusive_lock(path):
+    """Fail rather than race another writer; the OS releases locks on crashes."""
+    with Path(path).open('a') as handle:
+        try:
+            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise ValueError('Another process holds the lock: ' + str(path)) from error
+        try:
+            yield
+        finally:
+            fcntl.flock(handle, fcntl.LOCK_UN)
+
+
+def source_lock(path=SOURCE):
+    return exclusive_lock(Path(path).resolve().with_suffix('.json.lock'))
+
+
+def write_json(path, data):
+    """Atomically replace a JSON file, never sharing a fixed temporary filename."""
+    path = Path(path)
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=path.parent,
+                                         prefix='.' + path.name + '-', delete=False) as handle:
+            temporary = Path(handle.name)
+            json.dump(data, handle, ensure_ascii=False, indent=2)
+            handle.write('\n')
+            handle.flush()
+            os.fsync(handle.fileno())
+        if path.exists():
+            temporary.chmod(path.stat().st_mode & 0o777)
+        temporary.replace(path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
 
 
 def identity(spec):
@@ -49,8 +90,10 @@ def validate(data):
         raise IncompleteContent('Papers and entries must be lists')
     papers, ids, fingerprints = set(), set(), set()
     for p in data['papers']:
-        object_keys(p, {'id', 'arxiv', 'title', 'authors'})
+        object_keys(p, {'id', 'arxiv', 'title', 'authors'}, {'extraction_status'})
         for value in p.values(): text(value)
+        if p.get('extraction_status', 'not_started') not in {'not_started', 'complete', 'unresolved'}:
+            raise IncompleteContent('Invalid paper extraction status')
         if p['id'] in papers or not re.fullmatch(r'(?:\d{4}\.\d{4,5}|[a-z-]+/\d{7})v[1-9]\d*', p['arxiv']):
             raise IncompleteContent('Use unique paper IDs and versioned arXiv identifiers')
         papers.add(p['id'])
@@ -113,10 +156,10 @@ def check(spec, database=DATABASE):
                     'SELECT e.entry_id,e.name FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id WHERE i.fingerprint=?',
                     (report['fingerprint'],))]
             return {**report,
-                    'status': 'exact_symbolic_template_match' if matches else 'no_exact_symbolic_template_match_review_required',
+                    'status': 'exact_symbolic_template_match' if matches else 'no_exact_symbolic_template_match',
                     'matches': matches,
                     'action': 'Link the paper to the existing entry.' if matches else
-                    'Review existing families before intake. A different normalized template or domain is not proof of a new family of physical models.'}
+                    'No exact canonical template matches. A different normalized template or domain is not proof of a new family of physical models.'}
         spec = specialize(report['normalized_entry'], {})
     result = canonicalize(spec)
     with closing(sqlite3.connect(database.resolve().as_uri() + '?mode=ro', uri=True)) as con:
@@ -128,11 +171,11 @@ def check(spec, database=DATABASE):
             'SELECT e.entry_id,e.name,a.algebra FROM entry_identity i JOIN entries e ON i.entry_id=e.entry_id JOIN full_gauge_algebras a ON a.full_algebra_id=e.full_algebra_id WHERE a.canonical_json=?',
             (json.dumps({'schema_version': 'full-gauge-algebra-1', 'gauge_factors': algebra},
                         sort_keys=True, separators=(',', ':')),))]
-    return {'status': 'exact_field_content_match' if matches else 'no_exact_match_review_required',
+    return {'status': 'exact_field_content_match' if matches else 'no_exact_match',
             'fingerprint': result['fingerprint'], 'matches': matches,
             'same_algebra_candidates': [] if matches else candidates,
             'action': 'Link the paper to the existing entry; do not create a second field-content entry.' if matches else
-            'Review same-algebra candidates before adding an entry. No exact match does not prove novelty.',
+            'No exact canonical match exists. No exact match does not prove physical novelty.',
             'limits': 'Field-content identity only, not physical-theory equivalence. General U(1) basis mixing, simple-algebra outer automorphisms and different regimes require reconciliation. This is not an SM-embedding, anomaly or viability check.'}
 
 
@@ -166,11 +209,11 @@ def prepare(spec, database=None, values=None):
             'note': 'All-zero assignments have no primitive nonzero unit.' if not any(
                 Fraction(row['gauge_representations'][factor['id']]['charge']) for row in normalized['matter']) else
                 'Scale may be combined with charge conjugation when converting source fermions.'})
-    result = {'status': 'normalized_candidate_requires_source_review',
+    result = {'status': 'normalized_entry',
               'normalized_entry': normalized, 'transformations': transformations,
               'scalar_convention': SCALAR_CONVENTION,
               'fingerprint': canonicalize(normalized)['fingerprint'],
-              'action': 'Verify every assignment against its paper and run duplicate reconciliation before ingestion. Scalar copies use irreducible real gauge modules; use source reality/counts correctly on intake. This tool is not a database writer or a source-extraction certificate.'}
+              'action': 'The entry is normalized. Writers reconcile its canonical fingerprint before insertion. Scalar copies use irreducible real gauge modules. This diagnostic command does not write data or certify source accuracy or physical consistency.'}
     if database is not None:
         result['duplicate_check'] = check(normalized, database)
     if spec != original:
@@ -178,17 +221,24 @@ def prepare(spec, database=None, values=None):
     return result
 
 
-def ingest(data, candidate):
-    """Normalize before writing; an exact match only gains paper references."""
-    result=deepcopy(data)
-    validate(result)
+def ingest(data, candidate, *, _fingerprints=None):
+    """Normalize and reconcile. An internal batch index avoids quadratic scans.
+
+    The batch caller owns a private, initially validated working copy and must
+    validate the complete result before its atomic write. The public single-entry
+    path remains pure and validates both input and output.
+    """
+    batch = _fingerprints is not None
+    result = data if batch else deepcopy(data)
+    if not batch: validate(result)
     candidate=deepcopy(candidate)
     # Validate shape before duplicate reconciliation; reject unrelated extras.
     object_keys(candidate, {'id','name','specification','references'}, {'aliases'})
     candidate['specification']=normalize(candidate['specification'])
     validate({'schema_version':'bsm-atlas-1','papers':result['papers'],'entries':[candidate]})
     h=identity(candidate['specification'])['fingerprint']
-    existing=next((e for e in result['entries'] if identity(e['specification'])['fingerprint']==h),None)
+    existing = _fingerprints.get(h) if batch else next(
+        (e for e in result['entries'] if identity(e['specification'])['fingerprint']==h),None)
     if existing:
         for alias in [{'id':candidate['id'],'name':candidate['name']},*candidate.get('aliases',[])]:
             if alias['id'] != existing['id'] and not any(a['id']==alias['id'] for a in existing.get('aliases',[])):
@@ -206,5 +256,6 @@ def ingest(data, candidate):
         target=existing['id']
     else:
         result['entries'].append(candidate); target=candidate['id']
-    validate(result)
+        if batch: _fingerprints[h] = candidate
+    if not batch: validate(result)
     return result,target

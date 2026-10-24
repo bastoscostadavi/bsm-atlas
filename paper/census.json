@@ -1,0 +1,253 @@
+{
+  "source": "atlas/catalogue.json",
+  "source_sha256": "98c6e670af9afd47f925e96b373f0b50956e114ba30098edc6050f399ba609d9",
+  "convention": "gauge-matter-13",
+  "counts": {
+    "entries": 67,
+    "papers": 51,
+    "linkedPapers": 37,
+    "cores": 58,
+    "semisimpleAlgebras": 11,
+    "fullAlgebras": 14,
+    "numericalEntries": 65,
+    "symbolicFamilies": 2,
+    "paperLinks": 71,
+    "singletonCores": 51,
+    "pairCores": 5,
+    "tripleCores": 2,
+    "entriesInSharedCores": 16
+  },
+  "abelian_rank_histogram": {
+    "0": 8,
+    "1": 49,
+    "2": 9,
+    "3": 1
+  },
+  "core_size_histogram": {
+    "1": 51,
+    "2": 5,
+    "3": 2
+  },
+  "semisimple_algebras": [
+    {
+      "algebra": "so(10)",
+      "entries": 2,
+      "cores": 2,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(2)",
+      "entries": 48,
+      "cores": 40,
+      "full_algebras": 2
+    },
+    {
+      "algebra": "su(3) ⊕ su(2) ⊕ su(2)",
+      "entries": 1,
+      "cores": 1,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3)",
+      "entries": 2,
+      "cores": 2,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(2)",
+      "entries": 1,
+      "cores": 1,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(2) ⊕ su(2)",
+      "entries": 2,
+      "cores": 2,
+      "full_algebras": 2
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(3)",
+      "entries": 2,
+      "cores": 2,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(3) ⊕ su(3) ⊕ su(2)",
+      "entries": 2,
+      "cores": 1,
+      "full_algebras": 2
+    },
+    {
+      "algebra": "su(4) ⊕ su(2)",
+      "entries": 2,
+      "cores": 2,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(4) ⊕ su(3) ⊕ su(2)",
+      "entries": 1,
+      "cores": 1,
+      "full_algebras": 1
+    },
+    {
+      "algebra": "su(5)",
+      "entries": 4,
+      "cores": 4,
+      "full_algebras": 1
+    }
+  ],
+  "full_algebras": [
+    {
+      "algebra": "so(10)",
+      "entries": 2
+    },
+    {
+      "algebra": "su(3) ⊕ su(2) ⊕ su(2) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(2) ⊕ u(1)",
+      "entries": 41
+    },
+    {
+      "algebra": "su(3) ⊕ su(2) ⊕ u(1) ⊕ u(1)",
+      "entries": 7
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(2) ⊕ su(2) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(2) ⊕ su(2) ⊕ u(1) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(2) ⊕ u(1) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(3)",
+      "entries": 2
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(3) ⊕ su(3) ⊕ su(2) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ su(3) ⊕ su(3) ⊕ su(2) ⊕ u(1) ⊕ u(1) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(3) ⊕ su(3) ⊕ u(1)",
+      "entries": 2
+    },
+    {
+      "algebra": "su(4) ⊕ su(2) ⊕ u(1)",
+      "entries": 2
+    },
+    {
+      "algebra": "su(4) ⊕ su(3) ⊕ su(2) ⊕ u(1)",
+      "entries": 1
+    },
+    {
+      "algebra": "su(5)",
+      "entries": 4
+    }
+  ],
+  "shared_cores": [
+    {
+      "entries": [
+        "lq-u1-effective",
+        "lq-utilde1-effective"
+      ],
+      "names": [
+        "SM plus U1 vector EFT",
+        "SM plus Utilde1 vector EFT"
+      ]
+    },
+    {
+      "entries": [
+        "vlq-by-doublet",
+        "vlq-tb-doublet",
+        "vlq-xt-doublet"
+      ],
+      "names": [
+        "Standard Model with a vector-like (B Y) doublet",
+        "Standard Model with a vector-like (T B) doublet",
+        "Standard Model with a vector-like (X T) doublet"
+      ]
+    },
+    {
+      "entries": [
+        "vlq-b-singlet",
+        "vlq-t-singlet"
+      ],
+      "names": [
+        "Standard Model with a vector-like B singlet",
+        "Standard Model with a vector-like T singlet"
+      ]
+    },
+    {
+      "entries": [
+        "numsm",
+        "u1-smnur-all-sm-yukawas",
+        "u1-ybl-charge-family"
+      ],
+      "names": [
+        "nuMSM",
+        "SM with three singlet neutrinos and U1 charges permitting all SM Yukawas",
+        "SM with three singlet neutrinos and family-universal U1 charges"
+      ]
+    },
+    {
+      "entries": [
+        "complex-singlet-portal",
+        "vector-portal-abelian-higgs"
+      ],
+      "names": [
+        "Complex singlet extension",
+        "Abelian Higgs vector portal before breaking"
+      ]
+    },
+    {
+      "entries": [
+        "vlq-tby-triplet",
+        "vlq-xtb-triplet"
+      ],
+      "names": [
+        "Standard Model with a vector-like (T B Y) triplet",
+        "Standard Model with a vector-like (X T B) triplet"
+      ]
+    },
+    {
+      "entries": [
+        "grv-quark-flavor-su3",
+        "grv-quark-flavor-u3"
+      ],
+      "names": [
+        "Gauged SU3-cubed quark flavour",
+        "SU3-cubed flavour with two Abelian generators"
+      ]
+    }
+  ],
+  "worked_examples": {
+    "vector_like_doublets": {
+      "vlq-by-doublet": [
+        -5,
+        5
+      ],
+      "vlq-tb-doublet": [
+        1,
+        -1
+      ],
+      "vlq-xt-doublet": [
+        7,
+        -7
+      ]
+    },
+    "scalar_core_comparison": [
+      "complex-singlet-portal",
+      "vector-portal-abelian-higgs"
+    ]
+  }
+}

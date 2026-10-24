@@ -1,0 +1,1887 @@
+{
+  "2610.29978v1": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak_L",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              2
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      }
+    ]
+  },
+  "2610.29967v1": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak_L",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      }
+    ]
+  },
+  "2610.29754v1": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak_L",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              2
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 4,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 4,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      }
+    ]
+  },
+  "2610.29543v1": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak_L",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "0"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "complex",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      }
+    ]
+  },
+  "2610.29335v1": {
+    "schema_version": "field-content-2",
+    "inventory_complete": true,
+    "gauge_factors": [
+      {
+        "id": "colour",
+        "family": "A",
+        "rank": 2
+      },
+      {
+        "id": "weak_L",
+        "family": "A",
+        "rank": 1
+      },
+      {
+        "id": "hypercharge",
+        "family": "U1",
+        "rank": 1
+      }
+    ],
+    "matter": [
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              1,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "1"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "-4"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              1
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "2"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 3,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              0
+            ]
+          },
+          "hypercharge": {
+            "charge": "6"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "0",
+              "0"
+            ]
+          ]
+        },
+        "reality": "real_module",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "3"
+          }
+        }
+      },
+      {
+        "lorentz": {
+          "dimension": 4,
+          "scheme": "jL_jR",
+          "irreps": [
+            [
+              "1/2",
+              "0"
+            ]
+          ]
+        },
+        "reality": "none",
+        "copies": 1,
+        "gauge_representations": {
+          "colour": {
+            "dynkin": [
+              0,
+              0
+            ]
+          },
+          "weak_L": {
+            "dynkin": [
+              1
+            ]
+          },
+          "hypercharge": {
+            "charge": "-3"
+          }
+        }
+      }
+    ]
+  }
+}

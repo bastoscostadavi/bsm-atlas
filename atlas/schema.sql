@@ -2,7 +2,8 @@
 -- Exact specifications are authoritative; the three grouping tables are caches.
 PRAGMA foreign_keys=ON;
 CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT;
-CREATE TABLE papers (paper_id TEXT PRIMARY KEY, arxiv TEXT NOT NULL UNIQUE, title TEXT NOT NULL, authors TEXT NOT NULL) STRICT;
+CREATE TABLE papers (paper_id TEXT PRIMARY KEY, arxiv TEXT NOT NULL UNIQUE, title TEXT NOT NULL, authors TEXT NOT NULL,
+  extraction_status TEXT NOT NULL DEFAULT 'not_started' CHECK(extraction_status IN ('not_started','complete','unresolved'))) STRICT;
 CREATE TABLE semisimple_algebras (semisimple_id TEXT PRIMARY KEY, algebra TEXT NOT NULL, canonical_json TEXT NOT NULL CHECK(json_valid(canonical_json))) STRICT;
 CREATE TABLE full_gauge_algebras (full_algebra_id TEXT PRIMARY KEY, algebra TEXT NOT NULL,
   semisimple_id TEXT NOT NULL REFERENCES semisimple_algebras, abelian_rank INTEGER NOT NULL CHECK(abelian_rank>=0),
@@ -25,7 +26,7 @@ CREATE TABLE gauge_factors (entry_id TEXT NOT NULL REFERENCES entries, factor_id
     OR (family='G' AND rank=2) OR (family='U1' AND rank=1)),
   PRIMARY KEY(entry_id,factor_id), UNIQUE(entry_id,position)) STRICT;
 CREATE TABLE matter (entry_id TEXT NOT NULL REFERENCES entries, row_id INTEGER NOT NULL CHECK(row_id>=0),
-  lorentz_json TEXT NOT NULL CHECK(json_valid(lorentz_json)), reality TEXT NOT NULL CHECK(reality IN ('none','real','complex','real_module')),
+  lorentz_json TEXT NOT NULL CHECK(json_valid(lorentz_json)), reality TEXT NOT NULL CHECK(reality IN ('none','real','complex','real_module','majorana')),
   copies INTEGER NOT NULL CHECK(copies>0), PRIMARY KEY(entry_id,row_id)) STRICT;
 CREATE TABLE matter_representations (entry_id TEXT NOT NULL, row_id INTEGER NOT NULL, factor_id TEXT NOT NULL,
   dynkin_json TEXT CHECK(dynkin_json IS NULL OR json_valid(dynkin_json)),

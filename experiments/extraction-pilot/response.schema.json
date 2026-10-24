@@ -1,0 +1,52 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "outcome",
+    "reason",
+    "entries"
+  ],
+  "properties": {
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "entries",
+        "skip",
+        "retry"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "specification_json",
+          "locators"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "specification_json": {
+            "type": "string"
+          },
+          "locators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

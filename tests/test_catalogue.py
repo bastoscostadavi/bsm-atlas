@@ -49,7 +49,9 @@ class CatalogueTests(unittest.TestCase):
                 self.assertEqual(set(row),{'lorentz','reality','copies','gauge_representations'})
             for row in exported['regime']['rows']:
                 self.assertEqual(set(row),{'copies','components','lorentz'})
-        for p in SOURCE['papers']:self.assertEqual(set(p),{'id','arxiv','title','authors'})
+        for p in SOURCE['papers']:
+            self.assertLessEqual({'id','arxiv','title','authors'},set(p))
+            self.assertLessEqual(set(p),{'id','arxiv','title','authors','extraction_status'})
         self.assertFalse(next(p for p in DATA['papers'] if p['id']=='R01')['entryIds'])
         self.assertFalse(any(a['algebra']=='su(2)' for a in DATA['semisimpleAlgebras']))
 
@@ -134,6 +136,7 @@ class CatalogueTests(unittest.TestCase):
 
     def test_ingestion_new_entry_and_empty_family(self):
         candidate=deepcopy(ENTRIES['two-higgs-doublets']);candidate['id']='three-extra-higgs-benchmark'
+        candidate.pop('aliases',None)  # Navigation aliases belong to the original identity.
         candidate['specification']['matter'][-1]['copies']+=NEW_COPIES
         after,target=ingest(SOURCE,candidate)
         self.assertEqual(len(after['entries']),len(SOURCE['entries'])+1);self.assertEqual(target,candidate['id'])
@@ -146,6 +149,7 @@ class CatalogueTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             p=Path(directory)/'source.json';p.write_text(json.dumps(SOURCE))
             candidate=Path(directory)/'candidate.json';c=deepcopy(ENTRIES['two-higgs-doublets'])
+            c.pop('aliases',None)
             c['specification']['matter'][-1]['copies']+=NEW_COPIES;c['id']='a-new-higgs-model'
             candidate.write_text(json.dumps(c));before=p.read_bytes()
             command=[sys.executable,'-B','-m','bsm_atlas','add',str(candidate),'--source',str(p)]
@@ -162,6 +166,7 @@ class CatalogueTests(unittest.TestCase):
 
     def test_new_entry_projects_to_every_view_and_export(self):
         candidate=deepcopy(ENTRIES['two-higgs-doublets']);candidate['id']='growth-test-model'
+        candidate.pop('aliases',None)
         candidate['specification']['matter'][-1]['copies']+=NEW_COPIES
         source,target=ingest(SOURCE,candidate)
         expanded=main_data(source)

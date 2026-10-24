@@ -58,7 +58,9 @@ def database(path,data):
         con.executescript((ROOT/'atlas/schema.sql').read_text())
         con.execute('INSERT INTO metadata VALUES (?,?)',('convention',VERSION))
         for p in data['papers']:
-            con.execute('INSERT INTO papers VALUES (?,?,?,?)',tuple(p[k] for k in ['id','arxiv','title','authors']))
+            con.execute('INSERT INTO papers VALUES (?,?,?,?,?)',
+                (*[p[k] for k in ['id','arxiv','title','authors']],
+                 p.get('extraction_status','not_started')))
         for a in data['semisimpleAlgebras']:
             con.execute('INSERT INTO semisimple_algebras VALUES (?,?,?)',(a['id'],a['algebra'],encoded(a['canonical'])))
         for a in data['fullAlgebras']:

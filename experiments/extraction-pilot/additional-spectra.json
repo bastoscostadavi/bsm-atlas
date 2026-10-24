@@ -1,0 +1,606 @@
+{
+  "2610.29754v1": [
+    {
+      "id": "modular-seesaw-ir",
+      "introduced_in_audit": "sol61-revised",
+      "reference_status": "Post-hoc reconstruction, not a held-out reference.",
+      "locators": [
+        "Section 2.1, dynamical chiral modulus kinetic term",
+        "Section 4.1, eq:ordinaryseesaw and explicit integration-out discussion"
+      ],
+      "specification": {
+        "schema_version": "field-content-2",
+        "inventory_complete": true,
+        "gauge_factors": [
+          {
+            "id": "colour",
+            "family": "A",
+            "rank": 2
+          },
+          {
+            "id": "weak_L",
+            "family": "A",
+            "rank": 1
+          },
+          {
+            "id": "hypercharge",
+            "family": "U1",
+            "rank": 1
+          }
+        ],
+        "matter": [
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-4"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "4"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  1
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  2
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          },
+          {
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "complex",
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

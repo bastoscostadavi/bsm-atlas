@@ -1,0 +1,961 @@
+% Official JHEP style bundled verbatim for single-file compilation.
+% Source: https://jhep.sissa.it/jhep/help/JHEP/TeXclass/DOCS/jheppub.sty
+% The package copyright and LPPL license are preserved below.
+\begin{filecontents*}{jheppub.sty}
+%% jheppub.sty
+%% Copyright 2013 SISSA Medialab
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `author-maintained'.
+%
+% The Current Maintainer of this work is
+% SISSA Medialab <info@medialab.sissa.it>
+%
+% This work consists of the file jheppub.sty.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{jheppub}[2018/12/04 v.1.1227]
+
+
+\gdef\@fpheader{Prepared for submission to JHEP}
+\gdef\@journal{jhep}
+
+\newif\ifnotoc\notocfalse
+\newif\ifemailadd\emailaddfalse
+\newif\iftoccontinuous\toccontinuousfalse
+\newif\ifnatbibsort\natbibsorttrue
+
+\DeclareOption{no-natbib-sort}{\natbibsortfalse}
+\ProcessOptions\relax
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{epsfig}
+\RequirePackage{graphicx}
+\ifnatbibsort\RequirePackage[numbers,sort&compress]{natbib}\else\RequirePackage[numbers,compress]{natbib}\fi
+\RequirePackage[colorlinks=true
+  ,urlcolor=blue
+  ,anchorcolor=blue
+  ,citecolor=blue
+  ,filecolor=blue
+  ,linkcolor=blue
+  ,menucolor=blue
+  ,pagecolor=blue
+  ,linktocpage=true
+  ,pdfproducer=medialab
+  ,pdfa=true
+]{hyperref}
+
+\def\@subheader{\@empty}
+\def\@keywords{\@empty}
+\def\@abstract{\@empty}
+\def\@xtum{\@empty}
+\def\@dedicated{\@empty}
+\def\@arxivnumber{\@empty}
+\def\@collaboration{\@empty}
+\def\@collaborationImg{\@empty}
+\def\@proceeding{\@empty}
+\def\@preprint{\@empty}
+
+\newcommand{\subheader}[1]{\gdef\@subheader{#1}}
+\newcommand{\keywords}[1]{\if!\@keywords!\gdef\@keywords{#1}\else%
+\PackageWarningNoLine{\jname}{Keywords already defined.\MessageBreak Ignoring last definition.}\fi}
+\renewcommand{\abstract}[1]{\gdef\@abstract{#1}}
+\newcommand{\dedicated}[1]{\gdef\@dedicated{#1}}
+\newcommand{\arxivnumber}[1]{\gdef\@arxivnumber{#1}}
+\newcommand{\proceeding}[1]{\gdef\@proceeding{#1}}
+\newcommand{\xtumfont}[1]{\textsc{#1}}
+\newcommand{\correctionref}[3]{\gdef\@xtum{\xtumfont{#1} \href{#2}{#3}}}
+\newcommand\jname{JHEP}
+\newcommand\acknowledgments{\section*{Acknowledgments}}
+\newcommand\notoc{\notoctrue}
+\newcommand\preprint[1]{\gdef\@preprint{\hfill #1}}
+
+
+
+%Equivalent to ``\footnote'', but can be used inside the \author macro
+% because it does not write the footnote mark
+% it has an optional argument that will be used as footnote mark when given
+% WARNING: when the optional argument is used, the footnotecounter is not increased
+% WARNING: the character ``!'' cannot be used.
+% If you really need it use somthing like [\relax !] as the optional arg.
+\newcommand\note[2][]{%
+\if!#1!%
+\stepcounter{footnote}\footnotetext{#2}%
+\else%
+{\renewcommand\thefootnote{#1}%
+\footnotetext{#2}}%
+\fi}
+
+
+
+%Use this if you want to try to keep some piece of the abstract on a
+%very long first page
+\newcommand\compress{%
+\renewcommand\afterProceedingsSpace{\bigskip}%
+\renewcommand\afterTitleSpace{\bigskip}%
+\renewcommand\afterRuleSpace{\bigskip\bigskip}
+\renewcommand\afterEmailSpace{\par\bigskip}}
+
+%authors and affiliations
+\newtoks\auth@toks
+\renewcommand{\author}[2][]{%
+  \if!#1!%
+    \auth@toks=\expandafter{\the\auth@toks#2\ }%
+  \else
+    \auth@toks=\expandafter{\the\auth@toks#2$^{#1}$\ }%
+  \fi
+}
+
+\newtoks\affil@toks\newif\ifaffil\affilfalse
+\newcommand{\affiliation}[2][]{%
+\affiltrue
+  \if!#1!%
+    \affil@toks=\expandafter{\the\affil@toks{\item[]#2}}%
+  \else
+    \affil@toks=\expandafter{\the\affil@toks{\item[$^{#1}$]#2}}%
+  \fi
+}
+
+%emails
+%automatically put a comma between emails
+\newtoks\email@toks\newcounter{email@counter}%
+\setcounter{email@counter}{0}%
+\newcommand{\emailAdd}[1]{%
+\emailaddtrue%
+\ifnum\theemail@counter>0\email@toks=\expandafter{\the\email@toks, \@email{#1}}%
+\else\email@toks=\expandafter{\the\email@toks\@email{#1}}%
+\fi\stepcounter{email@counter}}
+\newcommand{\@email}[1]{\href{mailto:#1}{\tt #1}}
+
+
+% Collaboration macros
+\newcommand*\collaboration[1]{\gdef\@collaboration{#1}}
+\newcommand*\collaborationImg[2][]{\gdef\@collaborationImg{#2}}
+
+%all pieces get a ``after'' spacing
+\newcommand\afterLogoSpace{\smallskip}
+\newcommand\afterSubheaderSpace{\vskip3pt plus 2pt minus 1pt}
+\newcommand\afterProceedingsSpace{\vskip21pt plus0.4fil minus15pt}
+\newcommand\afterTitleSpace{\vskip23pt plus0.06fil minus13pt}
+\newcommand\afterRuleSpace{\vskip23pt plus0.06fil minus13pt}
+\newcommand\afterCollaborationSpace{\vskip3pt plus 2pt minus 1pt}
+\newcommand\afterCollaborationImgSpace{\vskip3pt plus 2pt minus 1pt}
+\newcommand\afterAuthorSpace{\vskip5pt plus4pt minus4pt}
+\newcommand\afterAffiliationSpace{\vskip3pt plus3pt}
+\newcommand\afterEmailSpace{\vskip16pt plus9pt minus10pt\filbreak}
+\newcommand\afterXtumSpace{\par\bigskip}
+\newcommand\afterAbstractSpace{\vskip16pt plus9pt minus13pt}
+\newcommand\afterKeywordsSpace{\vskip16pt plus9pt minus13pt}
+\newcommand\afterArxivSpace{\vskip3pt plus0.01fil minus10pt}
+\newcommand\afterDedicatedSpace{\vskip0pt plus0.01fil}
+\newcommand\afterTocSpace{\bigskip\medskip}
+\newcommand\afterTocRuleSpace{\bigskip\bigskip}
+%this is the ``itemsep'' of the affiliations list
+\newlength{\affiliationsSep}\setlength{\affiliationsSep}{-3pt}
+%this hook is needed if the toc starts on the first page
+\newcommand\beforetochook{\pagestyle{myplain}\pagenumbering{roman}}
+
+\DeclareFixedFont\trfont{OT1}{phv}{b}{sc}{11}
+
+%first page
+\renewcommand\maketitle{
+%% First page
+\pagestyle{empty}
+\thispagestyle{titlepage}
+\setcounter{page}{0}
+\noindent{\small\scshape\@fpheader}\@preprint\par
+\afterLogoSpace
+% Subheader
+\if!\@subheader!\else\noindent{\trfont{\@subheader}}\fi
+\afterSubheaderSpace
+% Proceedings
+\if!\@proceeding!\else\noindent{\sc\@proceeding}\fi
+\afterProceedingsSpace
+% Title
+{\LARGE\flushleft\sffamily\bfseries\@title\par}
+\afterTitleSpace
+% Rule
+\hrule height 1.5\p@%
+\afterRuleSpace
+% Collaboration
+\if!\@collaboration!\else
+{\Large\bfseries\sffamily\raggedright\@collaboration}\par
+\afterCollaborationSpace
+\fi
+%
+\if!\@collaborationImg!\else
+{\normalsize\bfseries\sffamily\raggedright\@collaborationImg}\par
+\afterCollaborationImgSpace
+%% I leave the size and font so that if there are two collaboration
+%% they can be linked with an 'and'
+\fi
+% Author
+{\bfseries\raggedright\sffamily\the\auth@toks\par}
+\afterAuthorSpace
+% Affiliation
+\ifaffil\begin{list}{}{%
+\setlength{\leftmargin}{0.28cm}%
+\setlength{\labelsep}{0pt}%
+\setlength{\itemsep}{\affiliationsSep}%
+\setlength{\topsep}{-\parskip}}
+\itshape\small%
+\the\affil@toks
+\end{list}\fi
+\afterAffiliationSpace
+% E-mail
+\ifemailadd %% if emailadd is true
+\noindent\hspace{0.28cm}\begin{minipage}[l]{.9\textwidth}
+\begin{flushleft}
+\textit{E-mail:} \the\email@toks
+\end{flushleft}
+\end{minipage}
+\else %% if emailaddfalse do nothing
+\PackageWarningNoLine{\jname}{E-mails are missing.\MessageBreak Plese use \protect\emailAdd\space macro to provide e-mails.}
+\fi
+\afterEmailSpace
+%Erratum or addendum
+\if!\@xtum!\else\noindent{\@xtum}\afterXtumSpace\fi
+% Abstract
+\if!\@abstract!\else\noindent{\renewcommand\baselinestretch{.9}\textsc{Abstract:}}\ \@abstract\afterAbstractSpace\fi
+% Keywords
+\if!\@keywords!\else\noindent{\textsc{Keywords:}} \@keywords\afterKeywordsSpace\fi
+% Arxivnumber
+\if!\@arxivnumber!\else\noindent{\textsc{ArXiv ePrint:}} \href{https://arxiv.org/abs/\@arxivnumber}{\@arxivnumber}\afterArxivSpace\fi
+% Dedication
+\if!\@dedicated!\else\vbox{\small\it\raggedleft\@dedicated}\afterDedicatedSpace\fi
+%
+\ifnotoc\else
+\iftoccontinuous\else\newpage\fi
+\beforetochook\hrule
+\tableofcontents
+\afterTocSpace
+\hrule
+\afterTocRuleSpace
+\fi
+\setcounter{footnote}{0}
+\pagestyle{myplain}\pagenumbering{arabic}
+} % close the \renewcommand\maketitle{
+
+
+% Page layout
+\renewcommand{\baselinestretch}{1.1}\normalsize
+\setlength\lineskip{1\p@}
+\setlength\parindent{1.2\parindent}
+\setlength\normallineskip{1\p@}
+\setlength\parskip{0\p@ \@plus \p@}
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\widowpenalty 1000
+\clubpenalty 1000
+
+\setcounter{topnumber}{4}
+\renewcommand\topfraction{1}
+\setcounter{bottomnumber}{1}
+\renewcommand\bottomfraction{.6}
+\setcounter{totalnumber}{5}
+\renewcommand\textfraction{0}
+\renewcommand\floatpagefraction{0.8}
+
+\textwidth  .72\paperwidth
+\setlength\@tempdima{.76\paperheight}
+\divide\@tempdima\baselineskip
+\@tempcnta=\@tempdima
+\setlength\textheight{\@tempcnta\baselineskip}
+\addtolength\textheight{\topskip}
+
+\voffset -1in
+\topmargin   .05\paperheight
+\headheight  .02\paperheight
+\headsep     .03\paperheight
+\footskip    .07\paperheight
+
+\marginparsep 9\p@
+\marginparpush 6\p@
+
+\hoffset -1in
+\oddsidemargin .14\paperwidth
+\evensidemargin .14\paperwidth
+\marginparwidth .11\paperwidth
+
+\setlength\arraycolsep{2\p@}
+\setlength\tabcolsep{6\p@}
+\setlength\arrayrulewidth{.4\p@}
+\setlength\doublerulesep{2\p@}
+\setlength\tabbingsep{\labelsep}
+\skip\@mpfootins = \skip\footins
+\setlength\fboxsep{3\p@}
+\setlength\fboxrule{.4\p@}
+
+% No dots in the table of contents
+\renewcommand{\@dotsep}{10000}
+
+% Footer and header of the body
+% the command ``\pagestyle{myplain}'' must be inserted
+% just after ``\begin{document}''
+\newcommand\ps@myplain{
+\pagenumbering{arabic}
+\renewcommand\@oddfoot{\hfill-- \thepage\ --\hfill}
+\renewcommand\@oddhead{}}
+\let\ps@plain=\ps@myplain
+
+
+
+% no header or footer in the title page
+\newcommand\ps@titlepage{\renewcommand\@oddfoot{}\renewcommand\@oddhead{}}
+
+
+
+%number equations after the sections
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\numberwithin{equation}{section}
+
+
+%headings style
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                   {-3.5ex \@plus -1.3ex \@minus -.7ex}%
+                                   {2.3ex \@plus.4ex \@minus .4ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                   {-2.3ex\@plus -1ex \@minus -.5ex}%
+                                   {1.2ex \@plus .3ex \@minus .3ex}%
+                                   {\normalfont\normalsize\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                   {-2.3ex\@plus -1ex \@minus -.5ex}%
+                                   {1ex \@plus .2ex \@minus .2ex}%
+                                   {\normalfont\normalsize\bfseries}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                   {1.75ex \@plus1ex \@minus.2ex}%
+                                   {-1em}%
+                                   {\normalfont\normalsize\bfseries}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\z@}%
+                                   {1.75ex \@plus1ex \@minus .2ex}%
+                                   {-1em}%
+                                   {\normalfont\normalsize\itshape}}
+
+
+%Caption of figure and table
+\def\fnum@figure{\textbf{\figurename\nobreakspace\thefigure}}
+\def\fnum@table{\textbf{\tablename\nobreakspace\thetable}}
+
+%redefining \@makecaption, to have captions with \small font size
+%taken from article.cls l.489--498
+%the only differences are the ``\small '' commands added on two lines
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{\small #1. #2}%
+  \ifdim \wd\@tempboxa >\hsize
+    \small #1. #2\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+
+
+
+
+%apply some formatting on the biblio
+%without redefining the whole env
+\let\oldthebibliography=\thebibliography
+\let\endoldthebibliography=\endthebibliography
+\renewenvironment{thebibliography}[1]{%
+\begin{oldthebibliography}{#1}%
+\small%
+\raggedright%
+\setlength{\itemsep}{5pt plus 0.2ex minus 0.05ex}%
+}%
+{%
+\end{oldthebibliography}%
+}
+\end{filecontents*}
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{jheppub}
+\usepackage{booktabs,array}
+\hypersetup{pdftitle={An Atlas of Forces and Matter Beyond the Standard Model},
+  pdfauthor={Davi Bastos Costa and Chenhao Tan}}
+
+% Census recomputed from atlas/catalogue.json by paper/analyze_catalogue.py.
+% Working snapshot: gauge-matter-13, 22 October 2026.
+% Refresh the census, tables, and numerical discussion as further papers are added.
+\newcommand{\AtlasEntries}{67}
+\newcommand{\AtlasPapers}{51}
+\newcommand{\AtlasLinkedPapers}{37}
+\newcommand{\AtlasCores}{58}
+\newcommand{\AtlasFullAlgebras}{14}
+\newcommand{\AtlasSemisimpleAlgebras}{11}
+\newcommand{\AtlasNumerical}{65}
+\newcommand{\AtlasFamilies}{2}
+\newcommand{\AtlasPaperLinks}{71}
+\newcommand{\AtlasSingletonCores}{51}
+\newcommand{\AtlasPairCores}{5}
+\newcommand{\AtlasTripleCores}{2}
+\newcommand{\AtlasSharedEntries}{16}
+\newcommand{\gSM}{\mathfrak{g}_{\mathrm{SM}}}
+\newcommand{\gss}{\mathfrak{g}_{\mathrm{ss}}}
+\newcommand{\su}{\mathfrak{su}}
+\newcommand{\so}{\mathfrak{so}}
+\newcommand{\uone}{\mathfrak{u}(1)}
+\newcommand{\RSM}{\mathcal{R}_{\mathrm{SM}}}
+% BEGIN PILOT TOTALS
+\newcommand{\PilotRuns}{6}
+\newcommand{\PilotModels}{5}
+\newcommand{\PilotCalls}{120}
+\newcommand{\PilotInputMillions}{6.34}
+\newcommand{\PilotOutputTokens}{60,283}
+\newcommand{\PilotAPIUSD}{12.36}
+% END PILOT TOTALS
+
+\title{An Atlas of Forces and Matter\\  Beyond the Standard Model}
+% Author order supplied by Davi Bastos Costa; affiliations remain to be added.
+\author{Davi Bastos Costa}
+\author{and Chenhao Tan}
+% Add \affiliation and \emailAdd declarations once supplied by the authors.
+\preprint{Draft --- 23 October 2026}
+
+\abstract{
+Gauge symmetry and the representations of matter are the defining ingredients of the Standard Model. Its peculiar gauge algebra, chiral matter content and three generations form a striking structure whose origin remains unexplained, yet whose dynamics yield a vast range of precise predictions from a small set of parameters. We present BSM Atlas, which takes these ingredients as a starting point for charting extensions of the Standard Model. Each entry records the local gauge algebra, the Lorentz and gauge representations of matter, and their multiplicities in common conventions, with links to the papers in which they are studied. The catalogue can be explored through the full gauge algebras or their semisimple parts, with or without matter representations. Abelian charges may be fixed or given as families with integer parameters and explicit constraints. Specifications are extracted from arXiv papers and compared with existing entries, so that papers studying the same gauge--matter content share an entry. The linked sources supply the interactions, dynamics and physical context beyond this structural description. We describe the construction of this extensible resource and use representative entries to explore relationships among forces and matter content. We also outline two prospective applications: guiding AI agents in proposing and investigating theories, and using atlas entries to organize diverse simulations for training models to infer gauge--matter structures from experimental observations.
+}
+\keywords{New Gauge Interactions, Other Weak Scale BSM Models}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+
+The Standard Model organizes elementary particles through a gauge algebra,
+\begin{equation}
+\gSM=\su(3)\oplus\su(2)\oplus\uone,
+\end{equation}
+and their Lorentz and gauge representations. Extensions may change the gauge algebra, add matter while retaining that algebra, or do both. This shared language suggests an atlas in which published constructions can be located by their forces and matter content, compared at different resolutions, and traced back to the papers that define them.
+
+Such a catalogue requires more than a list of model names. Several papers may study the same gauge--matter specification with different interactions or parameter choices. Conversely, a common model name may encompass different field inventories or different description regimes. Source conventions also differ: right- and left-handed fermions may be mixed, Abelian generators may have different normalizations, and a complex scalar in a real representation may be counted differently from its independent real components. A structural comparison must resolve these conventions before identifying shared content.
+
+BSM Atlas records a complete gauge--matter specification in one stated description regime, together with references to its sources. Here, forces are characterized by local gauge algebras, and matter by Lorentz and gauge representations with multiplicities. The resulting objects support both human browsing and exact computational comparison. The aim is to make a common structural layer of BSM model building explicit and reusable. The atlas is designed to grow as further papers are incorporated, adding new specifications and further references to existing ones.
+
+This scope is complementary to established tools. FeynRules derives Feynman rules from fields, parameters, and a Lagrangian~\cite{FeynRules}; SARAH supports model construction and calculations for supersymmetric and non-supersymmetric theories~\cite{SARAH}; and GAMBIT provides machinery for predictions, likelihoods, and global inference~\cite{GAMBIT}. HEPMDB stores and shares model implementations for phenomenological calculations~\cite{HEPMDB}. Within a specified class of extensions, the Anomaly-free Atlas systematically studies anomaly-free Abelian charge assignments~\cite{AnomalyAtlas}. BSM Atlas instead takes published gauge--matter inventories as its primary records across several classes of constructions. It does not require a simulation-ready Lagrangian or perform a new classification of anomaly-free theories.
+
+The distinction between local and global gauge structure is deliberate. A gauge algebra characterizes infinitesimal gauge transformations and the algebraic structure of local gauge interactions. The global form of the gauge group supplies further information, including restrictions on representations and gauge bundles. Line-operator choices can distinguish theories even after a global gauge group is selected~\cite{GlobalStructure}. The present atlas records the algebra and matter representations; it does not infer this additional global information.
+
+The atlas therefore organizes structural specifications rather than complete physical theories. Interactions, coupling constants, mass parameters, vacuum choices, and additional global symmetries can distinguish theories that share an entry. Neither anomaly cancellation nor phenomenological viability is an automatic consequence of inclusion. These questions can be investigated using the linked sources and additional calculations.
+
+We first define the recorded objects and their normalization conventions in Sec.~\ref{sec:objects}. Section~\ref{sec:views} describes four derived views and their relations. Section~\ref{sec:construction} explains source handling and computational validation. Section~\ref{sec:pilot} reports an exploratory paper-extraction pilot, separate from the curated catalogue. Section~\ref{sec:results} presents a census and worked comparisons from that catalogue. Section~\ref{sec:applications} discusses two prospective applications, followed by the present limitations and outlook.
+
+\section{Gauge--matter specifications}
+\label{sec:objects}
+
+\subsection{Algebras and representations}
+
+A fixed numerical entry can be written schematically as
+\begin{equation}
+\mathcal{E}=(\mathfrak{g},\mathcal{R}),\qquad
+\mathfrak{g}=\bigoplus_{a=1}^{s}\mathfrak{g}_a\oplus\uone^{\oplus k},
+\label{eq:entry}
+\end{equation}
+where the $\mathfrak{g}_a$ are compact simple Lie algebras. Its matter inventory is a finite collection
+\begin{equation}
+\mathcal{R}=\left\{\left(\ell_i,\rho_i,m_i\right)\right\}_{i=1}^{n},\qquad
+\rho_i=\bigotimes_{a=1}^{s}V_{\lambda_{ia}}\otimes\chi_{\mathbf q_i},
+\label{eq:inventory}
+\end{equation}
+with Lorentz representation $\ell_i$, positive integer multiplicity $m_i$, non-Abelian highest weights $\lambda_{ia}$, and Abelian charges $\mathbf q_i$. Field reality and the scalar counting convention are also specified. The compact notation in Eq.~\eqref{eq:inventory} labels representation rows; scalar rows are interpreted as real modules as described below.
+
+Simple factors are identified by Cartan type and rank. The implementation normalizes the supported low-rank aliases $B_1=A_1$, $D_3=A_3$, and $B_2=C_2$, transforming representation labels consistently. Each non-Abelian representation is stored by highest-weight Dynkin labels in a fixed node convention. Dimensions alone are insufficient identifiers, since distinct representations can have equal dimension. Repeated isomorphic gauge factors remain separate slots in a specification, although their ordering does not distinguish canonical entries.
+
+Gauge connections follow from the gauge algebra and are not additional matter rows. Independent vector matter fields, when present in a source description, are represented separately. The spacetime dimension belongs to the Lorentz data. Four-dimensional inventories use $(j_L,j_R)$ representations of the connected Lorentz spin group; a scalar has $(0,0)$ and a left-handed Weyl field has $(\tfrac12,0)$. Higher-dimensional descriptions retain their appropriate Lorentz representations rather than being assigned an implicit four-dimensional reduction.
+
+Completeness refers to the full inventory within one description regime. A UV field inventory is not combined with an IR effective inventory, and dependent composites or Hermitian conjugates are not appended as independent fields. The distinction is essential when the same construction admits several useful descriptions.
+
+\subsection{Chirality and Abelian normalization}
+
+All independent four-dimensional Weyl fields are expressed as left-handed. Rewriting a right-handed field as its left-handed charge conjugate conjugates every non-Abelian representation and negates every Abelian charge. A Dirac multiplet is represented by two independent left-handed components; a Majorana field contributes one independent Weyl component. Multiplicity counts repeated representations, rather than representation dimensions or on-shell polarizations.
+
+Following the coprime integer charge convention used in Refs.~\cite{CostaDobrescuFox2019,CostaDobrescuFox2020,Costa2020Um}, we express numerical Abelian charges as primitive integers. For each Abelian generator, a single common positive rescaling is applied to the complete fermion and scalar inventory. For nonzero rational charges $q_i$, one may choose a common denominator $L$ and set
+\begin{equation}
+n_i=Lq_i,\qquad
+\widehat q_i=\frac{n_i}{\gcd_j |n_j|}.
+\label{eq:primitive}
+\end{equation}
+Zeros do not affect the greatest common divisor; an entirely zero charge column remains zero. A generator sign reversal is removed by numerical identity matching. The Standard Model convention used for presentation is $q=6Y$.
+
+With multiple Abelian factors, an explicit generator basis is retained. Independent primitive rescalings, sign changes, and permutations do not implement a general mixing of the Abelian generators. In particular, the present matcher does not exhaust changes of integral basis or kinetic-mixing conventions. These limits concern the defined comparison of charge specifications and should not be mistaken for a complete test of physical inequivalence.
+
+\subsection{Scalars as real gauge modules}
+\label{sec:scalars}
+
+Scalar counting is based on irreducible real gauge modules. Let $V$ denote a complex irreducible representation of complex dimension $d$. If $V$ has real type, it admits a real form of real dimension $d$, and an unconstrained complex scalar in $V$ supplies two copies of that real form. If $V$ has complex or pseudoreal type, its underlying real representation has real dimension $2d$ and is irreducible. A single unconstrained complex scalar then contributes one such real module.
+
+Consequently, a neutral complex singlet contributes two real singlet copies, while the charged Standard Model Higgs doublet contributes one real module with four real components. A representation's self-conjugacy alone does not determine the source field's reality condition. The source must establish whether the scalar is real or an unconstrained complex field. The representation type is computed from exact weights and charges; a nonzero Abelian charge makes the full gauge representation complex.
+
+The complex irreducible representation used to display a real module is an orientation convention. For numerical rows the representative is chosen by the first nonzero Abelian charge, or, in its absence, by a fixed comparison of a highest-weight tuple and its dual. All gauge factors are conjugated together. This scalar equivalence is not applied to Weyl fermions.
+
+\subsection{Symbolic charge families}
+\label{sec:families}
+
+Some sources specify families rather than isolated charge assignments. An atlas family keeps the gauge factors, non-Abelian and Lorentz representations, and multiplicities fixed while storing Abelian charges as exact integer polynomials,
+\begin{equation}
+q_{ib}=p_{ib}(z_1,\ldots,z_r),\qquad
+\mathbf z\in\mathbb Z^r,\quad C(\mathbf z),
+\label{eq:family}
+\end{equation}
+where $C$ is a conjunction of explicit polynomial comparisons. These parameters describe source-defined charge families; they do not stand for unknown source information or continuous masses and couplings. A family occupies one catalogue entry and need not be enumerated.
+
+Polynomials are expanded exactly, parameters are assigned standardized names, and constraints are retained. Template comparison removes consistent parameter relabeling and specified ordering redundancies. It does not solve arbitrary polynomial reparameterization or logical equivalence of domains. For example, the integer constraints $z>0$ and $z\geq1$ need not produce the same template even though their domains agree. A numerical specialization checks the selected integer point and then applies the numerical normalization conventions, including scalar counting. Syntax validation does not establish that an unrestricted symbolic domain is nonempty.
+
+\section{Four views of the atlas}
+\label{sec:views}
+
+The catalogue supports two independent choices of resolution: whether matter is retained, and whether Abelian gauge factors and charges are retained. Together they give the four views in Fig.~\ref{fig:views}. Every view is computed from the same complete entries.
+
+\begin{figure}[tb]
+\centering
+\renewcommand{\arraystretch}{1.7}
+\[
+\begin{array}{ccc}
+\gss & \xleftarrow{\ \text{omit Abelian factors}\ } & \mathfrak g \\
+\big\uparrow\!\scriptstyle\text{ omit matter} &&
+\big\uparrow\!\scriptstyle\text{ omit matter} \\
+(\gss,\mathcal R|_{\gss}) &
+\xleftarrow{\ \text{restrict matter}\ } & (\mathfrak g,\mathcal R)
+\end{array}
+\]
+\caption{Four derived views. Horizontal maps forget every Abelian factor, including hypercharge; vertical maps forget matter. The lower map restricts the actual real scalar modules and decomposes them again when required. The square commutes. Its arrows are projections, not inverses that reconstruct a unique full entry.}
+\label{fig:views}
+\end{figure}
+
+The semisimple algebra view retains only the multiset of simple non-Abelian factors,
+\begin{equation}
+\gss=[\mathfrak g,\mathfrak g]=\bigoplus_a\mathfrak g_a.
+\end{equation}
+The full algebra view restores the Abelian rank $k$ but still omits matter and charge assignments. The semisimple gauge--matter view retains Lorentz representations, non-Abelian representations, and multiplicities after restriction. Finally, the full gauge--matter view retains all recorded representation and charge data, together with symbolic-family metadata when present.
+
+The semisimple matter projection is more than a hidden-column operation. For example, a scalar charged only under an omitted Abelian factor is one real module before restriction but two real singlets afterwards. The decomposition must preserve the underlying real vector space. The Higgs doublet, by contrast, remains one irreducible real module when its hypercharge is omitted, since the fundamental representation of $\su(2)$ is pseudoreal. Identical rows produced by restriction are aggregated.
+
+Two entries can therefore share a semisimple core while differing in charges, Abelian rank, or both. They can also share a full gauge algebra while having different matter. Browsing the intersection of these groupings locates such relationships without requiring a separate catalogue for each view. Agreement at a coarse resolution does not establish physical equivalence, symmetry breaking, or an embedding into a larger gauge structure.
+
+\section{Sources, construction, and access}
+\label{sec:construction}
+
+\subsection{Source-linked records}
+
+The authoritative catalogue separates paper records from entries. A paper record contains bibliographic metadata and a versioned arXiv identifier. An entry contains its complete specification and links to the papers studying that specification; references may also identify a source section, equation, or table. Model names and aliases aid navigation but are separate from the mathematical identity.
+
+The ingestion procedure requires the source field definitions, equations, tables, and relevant surrounding discussion. An explicitly inherited Standard Model or MSSM spectrum can be expanded into its full inventory. A partial sector does not authorize adding unreported fields to complete a proposed theory. Papers lacking a complete usable inventory can remain in the bibliography without an entry. The current snapshot contains \AtlasPapers{} bibliographic records, of which \AtlasLinkedPapers{} are linked to entries.
+
+The present collection is curated rather than a systematic survey with a predefined sampling frame. Its counts describe the included structural specifications. They do not measure the prevalence of model classes in the literature or the probability that a class describes nature. In particular, bibliographic frequency is not a prior over theories, and omission from the atlas is not evidence that a construction has never been studied.
+
+\subsection{Normalization and identity}
+
+An intake candidate is validated, normalized, and compared with existing entries before being saved. For numerical entries, comparison removes matter-row ordering and splitting of identical rows, gauge-factor ordering, permutations of identical factors, the specified primitive Abelian rescalings and sign choices, and the scalar representative equivalences described in Sec.~\ref{sec:scalars}. Canonical serialized data, rather than display notation, determine the comparison. A fingerprint indexes these data.
+
+An exact match reuses the existing entry and combines references. A nonmatch requires interpretation: the present canonicalizer does not exhaust outer automorphisms, general Abelian basis mixing, dual descriptions, or changes of regime. Similarly, symbolic identity is identity of normalized templates under the stated operations, rather than a decision procedure for equality of all represented physical families. Explicit bounds on the permutation search cause oversized comparisons to be rejected for further reconciliation, rather than reported as mathematical nonmatches.
+
+The distinction between structural identity and complete-theory identity is useful in practice. Two papers can share one entry even if their scalar potentials differ, and a single paper can contribute several entries when it specifies different field contents. This relation between papers and entries avoids treating publication count as a count of distinct gauge--matter structures.
+
+\subsection{Validation and public representations}
+
+Executable validation checks representation shapes, Lorentz conventions, multiplicities, charge syntax, normalization, references, and duplicate identities. Regression checks exercise invariance under the supported notation changes, scalar restriction, the consistency of the four groupings, and agreement between exported formats. These are mathematical and software checks. They do not replace checking an extracted inventory against its source, nor do they certify the source's physical claims.
+
+The explorer and its JSON, CSV, and SQLite downloads are derived from the same authoritative catalogue. The relational export retains exact representation data, including arbitrarily large integer charges as decimal text and symbolic charge polynomials in distinct fields. Human-readable dimensions, Dynkin labels, and eligible Young diagrams are computed from the stored mathematical objects. Presentation shorthand for inherited Standard Model or MSSM matter does not replace the complete inventory.
+
+The static explorer permits navigation by any of the four views, intersections of groupings, and linked source papers. Public access and the repository are given in Sec.~\ref{sec:availability}. The analysis below is obtained by recomputing these projections from the source catalogue rather than by counting interface labels.
+
+\section{An exploratory paper-extraction pilot}
+\label{sec:pilot}
+
+\subsection{Corpus and protocol}
+
+We tested paper-isolated extraction on 20 pinned arXiv papers using \PilotModels{} language models and two prompt versions, for a total of \PilotCalls{} calls. The sample consists of the first 20 records of a newest-1,000 query for papers cross-listed in \texttt{hep-ph}, ordered by original submission date and retrieved on 22 October 2026 at 22:23 UTC. All 20 were submitted on 21 October. This consecutive sample includes non-BSM studies; it is neither a balanced model-building benchmark nor the planned citation-selected expansion of the atlas. The pilot results were not ingested into the catalogue analyzed below.
+
+Each ephemeral worker received one full text, versioned bibliography, the atlas conventions and response schema, reference SM/MSSM inventories and examples. Workers had no tools, web access, previous answers or permission to modify the catalogue. They returned candidate entries, a decision to skip, or a request for another attempt when extraction remained unresolved. Such job states belong to the processing layer, not to the scientific specification. All configurations used medium reasoning, Codex CLI 0.163.0 and one attempt per paper. A first paper was run alone, followed by the remaining 19 with two workers; there were no automatic model retries.
+
+Prompt v1 was held fixed across GPT-5.6 Terra, GPT-5.6 Sol and GPT-6 Sol. After examining these results, v2 explicitly required complete SM extensions, including unified models, excluded isolated calculation sectors without inventing SM fields, distinguished a complete low-energy EFT from an incomplete higher-scale description, and required a nonempty response reason. Revised Terra, GPT-6 Luna and GPT-6.1 Sol received identical v2 prompts. Source text bytes and bibliography were identical across all \PilotRuns{} runs. Model comparisons are controlled within a prompt version; comparisons between versions also change the instructions. Requested model aliases were recorded, but immutable backend snapshots were not captured.
+
+\subsection{Source checks and failure modes}
+
+Candidates were normalized and structurally validated, then audited against the source by the coordinating assistant. Five eligible inventories were reconstructed separately from the supplied papers and used for exact canonical comparison. These checks are not blind independent expert annotations, and the five inventories are not an exhaustive ground truth for every possible description in the sample. Table~\ref{tab:pilot-results} reports paper-level outcomes rather than a headline accuracy percentage.
+
+\begin{table}[tb]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+Model & Prompt & \shortstack{Matched\\responses} & \shortstack{Correct\\skips} & \shortstack{False\\skips} & \shortstack{Scope\\errors} & \shortstack{Faulty\\responses} & Pending \\
+\midrule
+% BEGIN PILOT RESULTS
+5.6 Terra & v1 & 4 & 12 & 0 & 2 & 0 & 2 \\
+5.6 Sol & v1 & 5 & 13 & 0 & 1 & 1 & 0 \\
+6 Sol & v1 & 5 & 13 & 0 & 1 & 1 & 0 \\
+5.6 Terra & v2 & 4 & 14 & 1 & 0 & 0 & 1 \\
+6 Luna & v2 & 0 & 14 & 3 & 0 & 2 & 1 \\
+6.1 Sol & v2 & 4 & 14 & 1 & 0 & 0 & 1 \\
+% END PILOT RESULTS
+\bottomrule
+\end{tabular}
+\caption{Exploratory extraction outcomes, with 20 paper responses in each row. A matched response contains only inventories agreeing with source reconstructions; this does not certify reference locators or imply catalogue ingestion. A scope error is a reduced theory outside the SM-extension scope. Faulty responses include intake failures and source-incomplete inventories. Pending means a worker retry or deferred source/convention review, distinguished in the data. A response containing several candidates is counted once. These mutually exclusive categories account for every response, not exhaustive extraction recall.}
+\label{tab:pilot-results}
+\end{table}
+
+Model selection was distinct from representation arithmetic. For the pseudo-Dirac doublet paper~\cite{PilotDoublet}, original Terra accurately extracted a reduced electroweak appendix theory but missed the main-text EFT: inherited SM matter plus independent LH doublets $(\mathbf1,\mathbf2)_{Y=+1/2}$ and $(\mathbf1,\mathbf2)_{Y=-1/2}$. All three Sol runs and revised Terra recovered this inventory, whose extra primitive charges are $+3$ and $-3$ in the atlas convention. The v2 scope clarification removed Terra's reduced-sector proposals, but it also caused a false skip of the previously recovered real-singlet inflaton description. Sol 6.1 likewise skipped this inventory. Prompt tightening therefore changed both exclusions and coverage.
+
+Structural validity did not imply source completeness. In the Fricke modular model~\cite{PilotFricke}, Luna omitted three sneutrino complex scalars and the dynamical modulus chiral multiplet. The deficit is eight real scalar singlet modules and one LH neutral Weyl field. Its proposed inventory nevertheless passed the mathematical validator. Luna also falsely skipped three previously source-validated descriptions, including a paper explicitly adopting the MSSM low-energy EFT. Escalating only its one unresolved job would leave these false skips and two faulty proposal responses untreated.
+
+Sol 6.1 returned five source-matched inventories across four paper responses. Four inventories match the original five-case reference set; one is an additional EFT in Ref.~\cite{PilotFricke}, obtained after the source explicitly integrates out the three neutrino chiral multiplets while retaining the dynamical modulus. Its inventory agrees with the existing NMSSM structural class, not necessarily its interactions. This additional reference was reconstructed after inspecting the output and is not a held-out test case. Response counts and spectrum counts therefore differ.
+
+The higher-spin paper exposes a different distinction. Terra and Luna abstained on the MSSM--supergravity/gravitino description. Sol 5.6's response misapplied a scalar-only counting unit to a Lorentz vector in a separate electromagnetic toy candidate; Sol 6 instead failed the response contract by leaving its reason empty. Neither blocked response was silently salvaged. Sol 6.1 returned a structurally valid MSSM/gravitino proposal without the isolated electromagnetic toy; dedicated higher-spin source/convention review remains pending, so it is neither counted as wrong nor source-approved. Sol 5.6 and Sol 6 also recovered the real-inflaton inventory with misnumbered subsection locators. Matched responses in Table~\ref{tab:pilot-results} are therefore not publication-ready responses.
+
+\subsection{Usage and interpretation}
+
+Table~\ref{tab:pilot-usage} gives reported token usage and extraction runtime. Cached input is included in total input; separately reported reasoning-output counters are not added to output a second time. Wall time sums the first-paper and remaining-19 invocations, not concurrent worker times, and excludes preparation, download recovery and source review.
+
+\begin{table}[tb]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Model & Prompt & \shortstack{Input\\tokens} & \shortstack{Cached\\input} & \shortstack{Output\\tokens} & \shortstack{Wall\\seconds} & \shortstack{API equiv.\\USD} \\
+\midrule
+% BEGIN PILOT USAGE
+5.6 Terra & v1 & 1,062,142 & 165,888 & 6,780 & 86.8 & 1.907 \\
+5.6 Sol & v1 & 1,040,206 & 81,152 & 15,765 & 200.2 & 4.184 \\
+6 Sol & v1 & 1,048,790 & 103,680 & 14,024 & 160.3 & 2.051 \\
+5.6 Terra & v2 & 1,067,706 & 172,288 & 6,802 & 57.6 & 1.907 \\
+6 Luna & v2 & 1,055,982 & 78,848 & 5,535 & 70.6 & 0.101 \\
+6.1 Sol & v2 & 1,069,862 & 20,992 & 11,377 & 193.1 & 2.214 \\
+% END PILOT USAGE
+\bottomrule
+\end{tabular}
+\caption{Measured usage and illustrative API-equivalent cost for each 20-paper run. Input includes cached input. All requests were below 272,000 input tokens and reported no cache writes. Cost uses the standard short-context rates recorded on 23 October 2026, not actual subscription billing; it excludes coordinating review and infrastructure. Runtime is extraction-only, not end-to-end curation throughput.}
+\label{tab:pilot-usage}
+\end{table}
+
+For input $I$, cached input $C$ and output $O$, we calculate the illustrative cost as
+\begin{equation}
+K_{\mathrm{API}}=10^{-6}\big[(I-C)p_{\mathrm{in}}+Cp_{\mathrm{cache}}+Op_{\mathrm{out}}\big].
+\end{equation}
+The recorded rates $(p_{\mathrm{in}},p_{\mathrm{cache}},p_{\mathrm{out}})$ in USD per million tokens are $(2,0.2,12)$ for GPT-5.6 Terra, $(4,0.4,20)$ for GPT-5.6 Sol, $(2,0.2,10)$ for GPT-6 Sol, $(0.1,0.01,0.5)$ for GPT-6 Luna and $(2,0.1,10)$ for GPT-6.1 Sol~\cite{PilotModelRates}. The calls used existing ChatGPT authentication; these calculations are not an invoice or a measurement of per-model subscription quota. The \PilotCalls{} calls total approximately \PilotInputMillions{} million input tokens, \PilotOutputTokens{} output tokens and USD \PilotAPIUSD{} at those illustrative rates, excluding review. Despite lower token prices than Terra, Sol 6.1's observed run cost was higher, with more output and less cached input. Lower token prices alone do not establish lower cost per correct, reviewed inventory.
+
+The sample is small, dominated by papers outside the intended inventory scope, and has one run per configuration. The prompt revision used observed failures without a held-out test, so the results establish neither population accuracy nor a general model ranking. They motivate checking skipped papers as well as proposed entries, and testing stronger-model escalation with independent review before adopting a cheap-first-pass pipeline. The pilot did not test such a cascade or establish its recovery rate and total cost.
+
+\section{Results from the current catalogue}
+\label{sec:results}
+
+We illustrate the atlas through a dated working snapshot of the expanding catalogue. The census characterizes its coverage at this stage; counts and the relative sizes of structural groups can change as further papers are incorporated. The worked comparisons demonstrate how entries can be related within the common representation, independently of the eventual size of the collection.
+
+\subsection{A census at four resolutions}
+
+Table~\ref{tab:census} summarizes the snapshot using convention version \texttt{gauge-matter-13}, analyzed on 22 October 2026. There are \AtlasNumerical{} fixed numerical entries and \AtlasFamilies{} symbolic charge families. Together they occupy \AtlasFullAlgebras{} full gauge algebras, \AtlasSemisimpleAlgebras{} semisimple gauge algebras, and \AtlasCores{} semisimple gauge--matter cores. A symbolic family counts once at each level; these numbers are not counts of all its integer specializations.
+
+\begin{table}[tb]
+\centering
+\begin{tabular}{lr}
+\toprule
+Catalogue object & Count \\
+\midrule
+Full gauge--matter entries & \AtlasEntries \\
+\quad Fixed numerical entries & \AtlasNumerical \\
+\quad Symbolic charge families & \AtlasFamilies \\
+Semisimple gauge--matter cores & \AtlasCores \\
+Full gauge algebras & \AtlasFullAlgebras \\
+Semisimple gauge algebras & \AtlasSemisimpleAlgebras \\
+Bibliographic records & \AtlasPapers \\
+Papers linked to entries & \AtlasLinkedPapers \\
+Entry--paper links & \AtlasPaperLinks \\
+\bottomrule
+\end{tabular}
+\caption{Census of the curated snapshot. An entry--paper link is one association between an entry and a paper. Distinct entries need not represent inequivalent complete theories, and charge families can contain overlapping or canonically identical specializations.}
+\label{tab:census}
+\end{table}
+
+The semisimple matter projection identifies shared structures that are invisible in a model-name list. Its \AtlasCores{} fibers consist of \AtlasSingletonCores{} singleton cores, \AtlasPairCores{} cores with two entries each, and \AtlasTripleCores{} cores with three entries each. Thus \AtlasSharedEntries{} of the \AtlasEntries{} entries belong to a core shared with another entry, and forgetting Abelian structure reduces the entry count by nine. This is a property of the selected corpus and of the stated projection, not an estimate of redundancies across BSM theories in general.
+
+Table~\ref{tab:algebras} resolves the census by semisimple gauge algebra. The largest group is $\su(3)\oplus\su(2)$, with 48 entries distributed among 40 matter cores and two full algebras. The two full algebras in this group are $\gSM$ and $\gSM\oplus\uone$, containing 41 and seven entries, respectively. The full catalogue includes eight entries with no Abelian factor, 49 with one, nine with two, and one with three. The concentration near the Standard Model algebra reflects the present selection and should not be interpreted as a census of all proposed extensions.
+
+\begin{table}[tb]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Semisimple gauge algebra & Entries & Matter cores & Full algebras \\
+\midrule
+$\su(3)\oplus\su(2)$ & 48 & 40 & 2 \\
+$\su(3)\oplus\su(2)\oplus\su(2)$ & 1 & 1 & 1 \\
+$\su(3)\oplus\su(3)$ & 2 & 2 & 1 \\
+$\su(3)\oplus\su(3)\oplus\su(2)$ & 1 & 1 & 1 \\
+$\su(3)\oplus\su(3)\oplus\su(2)\oplus\su(2)$ & 2 & 2 & 2 \\
+$\su(3)^{\oplus3}$ & 2 & 2 & 1 \\
+$\su(3)^{\oplus4}\oplus\su(2)$ & 2 & 1 & 2 \\
+$\su(4)\oplus\su(2)$ & 2 & 2 & 1 \\
+$\su(4)\oplus\su(3)\oplus\su(2)$ & 1 & 1 & 1 \\
+$\su(5)$ & 4 & 4 & 1 \\
+$\so(10)$ & 2 & 2 & 1 \\
+\midrule
+Total & \AtlasEntries & \AtlasCores & \AtlasFullAlgebras \\
+\bottomrule
+\end{tabular}
+\caption{Entries, semisimple matter cores, and full gauge algebras within each semisimple algebra group. The repeated $\su(3)$ factors are retained as separate factors. Grouping by their abstract direct sum does not identify their embeddings or phenomenological roles.}
+\label{tab:algebras}
+\end{table}
+
+\subsection{Vector-like quarks: common matter, different hypercharges}
+\label{sec:vlq}
+
+The vector-like quark doublets $(B\,Y)$, $(T\,B)$, and $(X\,T)$ in Ref.~\cite{VLQ} supply a simple comparison. In left-handed notation their additional matter is
+\begin{equation}
+(\mathbf3,\mathbf2)_{q}\oplus
+(\overline{\mathbf3},\mathbf2)_{-q},\qquad q=-5,\ 1,\ 7,
+\label{eq:vlq}
+\end{equation}
+where $q=6Y_{\mathrm{hyp}}$ and $Y_{\mathrm{hyp}}$ denotes hypercharge, rather than the quark named $Y$. Together with the inherited Standard Model inventory, these are three full entries but one semisimple matter core.
+
+For the color-triplet doublets the electric charges $q/6\pm1/2$ are, respectively,
+\[
+\left(-\frac13,-\frac43\right),\qquad
+\left(\frac23,-\frac13\right),\qquad
+\left(\frac53,\frac23\right).
+\]
+The full specifications preserve these distinctions. Their common core records the shared non-Abelian representation content; it does not imply identical electromagnetic interactions or phenomenology.
+
+\subsection{Scalar portals: restriction changes the counting unit}
+\label{sec:portal}
+
+The complex singlet extension discussed in Ref.~\cite{ScalarSinglet} and the Abelian Higgs portal before symmetry breaking in Ref.~\cite{VectorPortal} illustrate a different relation. The former adds a neutral complex scalar to Standard Model matter. The latter enlarges the algebra by a hidden $\uone$ and adds a scalar charged under that factor, with Standard Model fields neutral under it.
+
+In the first case the extra scalar already supplies two real singlet modules. In the second case it is one irreducible real module of the full algebra, but restricts to two real singlets when the hidden Abelian factor is omitted. Both entries therefore have the same semisimple matter core,
+\begin{equation}
+\mathcal R_{\mathrm{core}}=
+\RSM\big|_{\su(3)\oplus\su(2)}\oplus
+2\,\mathbf1_{\mathrm{real,scalar}}.
+\end{equation}
+Merely deleting the Abelian charge column while keeping its scalar multiplicity fixed would miss this agreement. The hidden gauge boson is encoded by the extra gauge factor, so it does not survive as a matter row in the semisimple projection. This comparison concerns inventories in the specified regimes and is not a claim that their broken-phase dynamics coincide.
+
+\subsection{Charge families without enumeration}
+
+The catalogue also retains two charge families sourced to discussions of Abelian extensions~\cite{Langacker,AnomalyAtlas}. One stored family has five integer parameters and constraints
+\begin{equation}
+z_1+z_2+z_3=3z_4,\qquad
+z_1^3+z_2^3+z_3^3=3z_4^3.
+\end{equation}
+It retains three singlet-neutrino charge assignments and polynomial charges for the Standard Model fields. The family is stored once, including its domain. Counting numerical choices of $\mathbf z$ would introduce an arbitrary cutoff and repeated numerical identities. Its semisimple projection requires neither such a cutoff nor a sample parameter point. This illustrates how the atlas accommodates source-defined families alongside finite inventories, without claiming a new solution of the underlying anomaly equations.
+
+\section{Prospective applications}
+\label{sec:applications}
+
+The common representation and source links suggest two complementary applications: exploring theories from structural starting points, and learning to infer structures from observations. These are prospective uses of the atlas. The catalogue results above do not depend on either application having been realized.
+
+\subsection{AI-assisted theory exploration}
+
+In the forward direction, an AI-assisted workflow could retrieve a documented structure, propose a modification, construct interactions, calculate observables, and compare predictions with experimental constraints. Atlas entries would provide precise starting inventories and references for checking inherited assumptions. Canonical comparison could reveal whether a proposal reproduces an existing stored structure, while the four views could locate nearby constructions that differ in charges or matter.
+
+The subsequent steps require further physics. A structural proposal must be accompanied by the relevant consistency conditions, symmetries, interactions, and parameter choices. For a chiral gauge theory this includes appropriate anomaly checks; a phenomenological calculation additionally requires a specified vacuum and a controlled prediction method. Model-building and inference software such as that in Refs.~\cite{FeynRules,SARAH,GAMBIT} could support these calculations, but an atlas entry is not automatically an input model for those tools.
+
+Making experimental information accessible to these workflows is a complementary task. The NSF programme \emph{Unlocking Dataset Value for AI-Enabled Scientific Discovery (AI Datasets)} supports the enhancement of existing scientific datasets through improved metadata, integration, and pipelines for automated analysis~\cite{NSFAIDatasets}. In collider physics, preparing ATLAS and CMS datasets for use by AI systems could provide experimental input for AI-assisted theory searches. Combined with a structural catalogue and prediction tools, such resources could help agents confront candidate theories with observations. The atlas would organize the theory side of this workflow, while curated experimental datasets and their analysis interfaces would support the comparison with data.
+
+A useful evaluation would test whether the workflow reproduces known results, detects inconsistent proposals, and finds nontrivial structures under a defined search budget. Agreement or disagreement with an atlas fingerprint alone would not establish physical novelty. The atlas supplies a reproducible reference for the structural stage; validating a claimed discovery requires the full chain of reasoning and calculations.
+
+\subsection{Simulation-trained inference across structures}
+
+The second application is a supervised classification problem: given experimental data, predict the underlying gauge algebra and matter representations. An atlas entry supplies the structural label $s=(\mathfrak g,\mathcal R)$, including the recorded multiplicities and Abelian charge assignments. The aim is to train a shared neural model to recognize patterns in observations that distinguish these structures across a diverse range of physical realizations and experimental settings.
+
+Training data would be generated in the reverse direction. Starting from an atlas entry, one would specify compatible interactions and sample physical parameters to generate many simulated datasets. Varying masses, couplings, symmetry-breaking choices, and experimental conditions would produce diverse observations carrying the same structural label. The source papers linked to the entry would guide these dynamical specifications. Schematically, the two directions are
+\begin{align}
+\text{Training-data generation:}\quad
+(\mathfrak g,\mathcal R)
+&\longrightarrow \text{diverse simulated datasets},
+\label{eq:simulation-training}\\
+\text{Classification:}\quad
+D &\longrightarrow (\mathfrak g,\mathcal R).
+\label{eq:inference}
+\end{align}
+Each training example would pair a simulated dataset $D$ with its known structural label $s$. Masses, couplings, and other simulation choices provide diversity within a class; the supervised target is the gauge--matter structure. The classifier would learn a distribution
+\begin{equation}
+p_{\varphi}(s\mid D),\qquad s=(\mathfrak g,\mathcal R),
+\end{equation}
+where $\varphi$ denotes the network parameters. A distribution over candidate structures allows the output to retain ambiguity when several entries are compatible with the observations.
+
+For data naturally represented as unordered collections of events, a permutation-invariant architecture such as a Set Transformer~\cite{SetTransformer} is a candidate. It could encode the collection into a representation used to classify its underlying structure, without depending on an arbitrary ordering of events. Experimental conditions and channel information could be supplied as additional context. The prediction concerns the structure responsible for a dataset, rather than a separate theory assignment for each event. The choice of architecture and data representation would be assessed empirically.
+
+The pMSSM illustrates why substantial simulation diversity is needed within a structural class. The ATLAS Run~2 electroweak study interprets multiple searches within a 19-parameter pMSSM setting~\cite{ATLASpMSSM}, while the Snowmass benchmark study selects parameter points and constructs trajectories through parameter space~\cite{Snowmass}. Such choices can share a gauge--matter inventory while producing different spectra and signatures. They motivate sampling many realizations of each atlas structure rather than associating a class with a single benchmark.
+
+The longer-term goal is to use patterns learned across these simulations to interpret real experimental observations. Its evaluation would require testing parameter regions and experimental conditions beyond those used in training, checking sensitivity to the simulation sampling choices, and calibrating the predicted class probabilities. Structures that are observationally indistinguishable in a given setting would remain ambiguous. The atlas provides a common set of structural labels and source references for developing and testing this programme.
+
+\section{Scope and limitations}
+\label{sec:limitations}
+
+The atlas is being expanded by incorporating further source-supported inventories. The working snapshot analyzed here is one stage of that process, rather than a fixed boundary on the intended coverage. It is neither an exhaustive catalogue of the BSM literature nor an enumeration of all allowed forces and matter. Fixed-rank entries and the supported integer-polynomial charge families cover only part of the ways in which model families are described. The present formalism also does not encode discrete gauge sectors, global gauge-group quotients, or a general relation between alternative descriptions of a theory.
+
+Structural precision should not be confused with dynamical completeness. Sharing an entry does not fix interactions or physical viability, and sharing a semisimple core is an even coarser relation. Conversely, different entries may be related by operations beyond the implemented identity conventions. These distinctions limit the conclusions that can be drawn from catalogue counts and from automatic duplicate checks.
+
+Source interpretation remains an important part of maintaining the resource. A consistent machine-readable inventory can still misrepresent a source if the wrong regime or field reality is selected. The exploratory pilot in Sec.~\ref{sec:pilot} identifies both incomplete proposals and false skips, but does not replace a larger independently reviewed evaluation. Versioned references, source locators, and review of nearby entries support correction and extension without changing the mathematical objects that organize the catalogue.
+
+\section{Conclusions}
+
+BSM Atlas organizes published constructions through the local gauge algebras that characterize their forces and the representations that characterize their matter. Exact highest weights, explicit Lorentz conventions, primitive Abelian charge normalization, and real-module scalar counting make structural comparisons reproducible. Four views connect full specifications to their gauge algebras and semisimple restrictions, with every view derived from one catalogue.
+
+The worked comparisons expose common non-Abelian structures behind different hypercharges and demonstrate why scalar restriction requires preserving the real representation space. Symbolic charge families extend the same organization beyond isolated numerical assignments. As further papers are incorporated, the same conventions and derived views support comparisons across a growing collection of forces and matter content.
+
+The extraction pilot distinguishes computational validation from source interpretation. Correctly shaped representation data can omit fields, and a worker can skip an eligible paper without reporting uncertainty. Candidate review and coverage checks on skipped papers are therefore separate requirements for scaling the harvesting procedure.
+
+The resulting resource provides a basis for comparing source-defined structures, locating related constructions, and organizing further calculations. AI-assisted exploration and simulation-trained inference are two prospective uses of that basis. Their realization will require dynamical specifications and independent validation beyond the structural catalogue presented here.
+
+\acknowledgments
+
+We thank Patrick Fox, Liantao Wang, David Miller, and Clay Cordova for helpful discussions. We thank David Miller in particular for suggesting the connection to the NSF AI Datasets programme.
+
+\section{Data and code availability}
+\label{sec:availability}
+The explorer is available at \url{https://davibc.com/bsm-atlas/}, and source data and code at \url{https://github.com/bastoscostadavi/bsm-atlas}. This draft uses convention version \texttt{gauge-matter-13}. The catalogue snapshot's SHA-256 digest begins \texttt{98c6e670af9a}. The accompanying analysis script recomputes the census, records the complete source digest, and verifies the worked-example grouping relations. Source specifications and JSON, CSV, and SQLite exports retain the paper associations needed to recover the underlying references.
+
+The accompanying \texttt{experiments/extraction-pilot/} directory supplies the separate pilot record: versioned bibliography and source-text hashes, frozen instruction prefixes, per-paper outcomes and usage, prompt/response hashes, reconstructed reference inventories, audit notes, and pricing assumptions. Its offline summary script verifies the aggregate results and the numeric rows of Tables~\ref{tab:pilot-results} and~\ref{tab:pilot-usage}. Full article texts and raw private worker logs are not redistributed with this bundle. No pilot extraction changed the scientific catalogue snapshot.
+
+\appendix
+\section{A Standard Model inventory in atlas conventions}
+\label{app:sm}
+
+For reference, Table~\ref{tab:sm} gives the four-dimensional Standard Model inventory with all independent fermions left-handed and $q=6Y$. The complex Higgs doublet is represented by one real gauge module; its displayed complex irrep has dimension two. No right-handed neutrino is included in this baseline. Adding such a field is a change of inventory, whereas changing a Yukawa matrix is not.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{lccc}
+\toprule
+Field notation & Lorentz irrep & Gauge notation $(\su(3),\su(2))_q$ & Copies \\
+\midrule
+$Q$ & $(\tfrac12,0)$ & $(\mathbf3,\mathbf2)_{1}$ & 3 \\
+$u^c$ & $(\tfrac12,0)$ & $(\overline{\mathbf3},\mathbf1)_{-4}$ & 3 \\
+$d^c$ & $(\tfrac12,0)$ & $(\overline{\mathbf3},\mathbf1)_{2}$ & 3 \\
+$L$ & $(\tfrac12,0)$ & $(\mathbf1,\mathbf2)_{-3}$ & 3 \\
+$e^c$ & $(\tfrac12,0)$ & $(\mathbf1,\mathbf1)_{6}$ & 3 \\
+$H$ & $(0,0)$ & $(\mathbf1,\mathbf2)_{3}$ & 1 real module \\
+\bottomrule
+\end{tabular}
+\caption{Standard Model reference inventory. Field symbols and representation dimensions are explanatory notation; exact Dynkin labels and multiplicities determine the stored mathematical objects.}
+\label{tab:sm}
+\end{table}
+
+\begin{thebibliography}{99}
+
+\bibitem{FeynRules}
+A.~Alloul, N.~D.~Christensen, C.~Degrande, C.~Duhr and B.~Fuks,
+\emph{FeynRules 2.0---A complete toolbox for tree-level phenomenology},
+\href{https://arxiv.org/abs/1310.1921}{arXiv:1310.1921 [hep-ph]}.
+
+\bibitem{SARAH}
+F.~Staub,
+\emph{SARAH 4: A tool for (not only SUSY) model builders},
+\href{https://arxiv.org/abs/1309.7223}{arXiv:1309.7223 [hep-ph]}.
+
+\bibitem{GAMBIT}
+GAMBIT Collaboration, P.~Athron et al.,
+\emph{GAMBIT: The Global and Modular Beyond-the-Standard-Model Inference Tool},
+\href{https://arxiv.org/abs/1705.07908}{arXiv:1705.07908 [hep-ph]}.
+
+\bibitem{HEPMDB}
+High Energy Physics Model Database,
+\url{https://hepmdb.soton.ac.uk/}, accessed 22 October 2026.
+
+\bibitem{AnomalyAtlas}
+B.~C.~Allanach, J.~Davighi and S.~Melville,
+\emph{An Anomaly-free Atlas: charting the space of flavour-dependent gauged $U(1)$ extensions of the Standard Model},
+\href{https://arxiv.org/abs/1812.04602v5}{arXiv:1812.04602v5 [hep-ph]}.
+
+\bibitem{GlobalStructure}
+O.~Aharony, N.~Seiberg and Y.~Tachikawa,
+\emph{Reading between the lines of four-dimensional gauge theories},
+\href{https://arxiv.org/abs/1305.0318}{arXiv:1305.0318 [hep-th]}.
+
+\bibitem{CostaDobrescuFox2019}
+D.~B.~Costa, B.~A.~Dobrescu and P.~J.~Fox,
+\emph{General solution to the $U(1)$ anomaly equations},
+Phys. Rev. Lett. \textbf{123} (2019) 151601,
+\href{https://arxiv.org/abs/1905.13729}{arXiv:1905.13729 [hep-th]}.
+
+\bibitem{CostaDobrescuFox2020}
+D.~B.~Costa, B.~A.~Dobrescu and P.~J.~Fox,
+\emph{Chiral Abelian gauge theories with few fermions},
+Phys. Rev. D \textbf{101} (2020) 095032,
+\href{https://arxiv.org/abs/2001.11991}{arXiv:2001.11991 [hep-ph]}.
+
+\bibitem{Costa2020Um}
+D.~B.~Costa,
+\emph{Anomaly-free $U(1)^m$ extensions of the Standard Model},
+Phys. Rev. D \textbf{102} (2020) 115006,
+\href{https://arxiv.org/abs/2007.08733}{arXiv:2007.08733 [hep-ph]}.
+
+\bibitem{VLQ}
+J.~A.~Aguilar-Saavedra, R.~Benbrik, S.~Heinemeyer and M.~P\'erez-Victoria,
+\emph{A handbook of vector-like quarks: mixing and single production},
+\href{https://arxiv.org/abs/1306.0572v3}{arXiv:1306.0572v3 [hep-ph]}.
+
+\bibitem{ScalarSinglet}
+J.~M.~Cline, P.~Scott, K.~Kainulainen and C.~Weniger,
+\emph{Update on scalar singlet dark matter},
+\href{https://arxiv.org/abs/1306.4710v5}{arXiv:1306.4710v5 [hep-ph]}.
+
+\bibitem{VectorPortal}
+O.~Lebedev, H.~M.~Lee and Y.~Mambrini,
+\emph{Vector Higgs--portal dark matter and the invisible Higgs},
+\href{https://arxiv.org/abs/1111.4482v3}{arXiv:1111.4482v3 [hep-ph]}.
+
+\bibitem{Langacker}
+P.~Langacker,
+\emph{The Physics of Heavy $Z'$ Gauge Bosons},
+\href{https://arxiv.org/abs/0801.1345v3}{arXiv:0801.1345v3 [hep-ph]}.
+
+\bibitem{NSFAIDatasets}
+U.S.~National Science Foundation,
+\emph{Unlocking Dataset Value for AI-Enabled Scientific Discovery (AI Datasets)},
+\href{https://www.nsf.gov/funding/opportunities/ai-datasets-unlocking-dataset-value-ai-enabled-scientific-discovery/nsf26-512/solicitation}{Program Solicitation NSF 26-512} (2026), accessed 22 October 2026.
+
+\bibitem{SetTransformer}
+J.~Lee, Y.~Lee, J.~Kim, A.~R.~Kosiorek, S.~Choi and Y.~W.~Teh,
+\emph{Set Transformer: A Framework for Attention-based Permutation-Invariant Neural Networks},
+in Proceedings of the 36th International Conference on Machine Learning,
+PMLR \textbf{97} (2019) 3744--3753,
+\href{https://arxiv.org/abs/1810.00825}{arXiv:1810.00825 [cs.LG]}.
+
+\bibitem{ATLASpMSSM}
+ATLAS Collaboration,
+\emph{ATLAS Run 2 searches for electroweak production of supersymmetric particles interpreted within the pMSSM},
+JHEP \textbf{05} (2024) 106,
+\href{https://arxiv.org/abs/2402.01392}{arXiv:2402.01392 [hep-ex]}.
+
+\bibitem{Snowmass}
+M.~W.~Cahill-Rowley, J.~L.~Hewett, A.~Ismail, M.~E.~Peskin and T.~G.~Rizzo,
+\emph{pMSSM Benchmark Models for Snowmass 2013},
+\href{https://arxiv.org/abs/1305.2419}{arXiv:1305.2419 [hep-ph]}.
+
+\bibitem{PilotDoublet}
+M.~Ibe and J.~Miyamoto,
+\emph{Heavy Pseudo-Dirac Doublet Dark Matter and Non-Thermal Leptogenesis in Light of the LZ Event},
+\href{https://arxiv.org/abs/2610.29335v1}{arXiv:2610.29335v1 [hep-ph]}.
+
+\bibitem{PilotFricke}
+T.~Kai, J.~Kaidi, K.~Kina and H.~Otsuka,
+\emph{Fermion Hierarchies from Fricke Modular Symmetry},
+\href{https://arxiv.org/abs/2610.29754v1}{arXiv:2610.29754v1 [hep-ph]}.
+
+\bibitem{PilotModelRates}
+OpenAI, model documentation for
+\href{https://developers.openai.com/api/docs/models/gpt-5.6-terra}{GPT-5.6 Terra},
+\href{https://developers.openai.com/api/docs/models/gpt-5.6-sol}{GPT-5.6 Sol},
+\href{https://developers.openai.com/api/docs/models/gpt-6-sol}{GPT-6 Sol},
+\href{https://developers.openai.com/api/docs/models/gpt-6-luna}{GPT-6 Luna} and
+\href{https://developers.openai.com/api/docs/models/gpt-6.1-sol}{GPT-6.1 Sol},
+standard short-context pricing recorded 23 October 2026.
+
+\end{thebibliography}
+\end{document}

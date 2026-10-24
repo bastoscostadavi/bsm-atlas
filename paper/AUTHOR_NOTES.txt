@@ -1,0 +1,107 @@
+First manuscript draft: 22 October 2026
+
+Title
+An Atlas of Forces and Matter Beyond the Standard Model
+
+Target venue
+JHEP, selected by the author on 22 October 2026. Submissions are rolling.
+The manuscript now uses the official jheppub style with article, 11pt, A4.
+The title page, author declarations, abstract, contents, equation numbering,
+captions, acknowledgments, and bibliography use the JHEP conventions.
+The original approved title capitalization and author order are retained.
+JHEP requires an arXiv identifier and the submitted version must match the
+arXiv version. All coauthors must approve publication, and the work must not
+be under consideration at another refereed publication. Its author guidance
+also requires disclosure of AI-assisted manuscript preparation. Prepare an
+accurate disclosure for author review before submission.
+Guidance: https://jhep.sissa.it/jhep/help/JHEP/JHEP_author.jsp
+
+Files
+main.tex is a standalone LaTeX manuscript with an embedded bibliography and
+the official JHEP style bundled verbatim in a filecontents block. This keeps
+single-document desktop compilation working; conventional LaTeX builds use
+the identical jheppub.sty supplied alongside it. The style's original license
+and copyright notices are preserved. It was downloaded on 22 October 2026
+from https://jhep.sissa.it/jhep/help/JHEP/TeXclass/DOCS/jheppub.sty
+analyze_catalogue.py recomputes the census from atlas/catalogue.json through
+the current bsm_atlas package, without changing catalogue data or exports.
+census.json records the analyzed source digest, counts, algebra breakdown,
+shared cores, and the entry identifiers used in the worked examples.
+../output/pdf/atlas-jhep.pdf is the compiled JHEP-formatted review copy.
+
+Reproduce the analysis from the repository root
+python3 -B paper/analyze_catalogue.py --output paper/census.json --check
+
+The manuscript is an initial research draft, not a submission-ready release.
+The theory-search and simulation-inference applications are prospective.
+An exploratory extraction pilot was added on 23 October 2026: 20 pinned
+papers, six configurations, 120 calls, with coordinating-assistant source
+checks. These are not blind expert labels or an arXiv-wide accuracy claim.
+GPT-6.1 Sol recovered four original reference inventories and an additional
+post-hoc reconstructed modular seesaw EFT across four paper responses. Its
+valid gravitino proposal is pending review, not a worker abstention. Report
+paper-response counts separately from spectrum counts. The original five
+reference inventories are unchanged.
+The pilot is separate from the curated catalogue; none of its outputs was
+ingested. Its two prompt versions must not be pooled as a model-only test.
+See ../experiments/extraction-pilot/README.md and results.json for all
+per-paper outcomes, measurements, hashes and frozen pricing assumptions.
+Check its report/manuscript table rows without model calls:
+python3 -B experiments/extraction-pilot/summarize.py
+The catalogue census is computed, not an estimate of the BSM literature.
+The author plans to incorporate more papers before finalizing the paper.
+The current corpus size, census tables, group counts, and numerical discussion
+are working material, not the intended final extent of the atlas. Refresh
+them against the expanded submission snapshot. The abstract and conclusions
+should emphasize the extensible atlas rather than the current entry count.
+
+Author decisions and remaining work
+1. The author order is Davi Bastos Costa, followed by Chenhao Tan, as supplied
+   by Davi Bastos Costa. Supply affiliations, corresponding author, funding,
+   and any additional acknowledgments. No affiliation has been inferred.
+   The requested discussions with Patrick Fox, Liantao Wang, David Miller,
+   and Clay Cordova are acknowledged, together with David Miller's suggestion
+   to connect the outlook to the NSF AI Datasets programme.
+2. Review the scientific framing, level of formal detail, and interpretation
+   of the worked examples. The central paper remains the atlas itself.
+3. Document the source-selection history of the curated catalogue before
+   submission. The separate pilot now records its consecutive recent-paper
+   sample and actual source-check procedure, but does not establish the
+   curated catalogue's accuracy. Add independent expert review, a held-out
+   evaluation and repeated trials before making broader performance claims.
+4. Audit source-to-entry accuracy, especially full inventories, description
+   regimes, scalar reality, higher-dimensional fields, and source-defined
+   charge domains. Passing software checks does not establish this accuracy.
+5. Add precise page/equation/table locators to catalogue references where
+   appropriate, and expand the manuscript's literature comparison as needed.
+6. Freeze and archive the catalogue and code used for submission. The current
+   source digest is recorded in census.json; there is no invented DOI or
+   release tag. Recompute all statistics if source data or conventions change.
+7. Decide whether a larger corpus or an additional physics analysis is needed
+   for the intended journal. The current results are descriptive structural
+   comparisons; the draft does not claim a new viable BSM theory.
+
+Reference checks used for this draft
+The two supplied application references are arXiv:2402.01392 (the ATLAS
+SUSY-2020-15 publication) and arXiv:1305.2419 (Snowmass pMSSM benchmarks).
+They motivate parameter diversity within a shared structural class, rather
+than demonstrating a cross-theory foundation model.
+
+The AI-assisted-search outlook also cites NSF solicitation 26-512,
+Unlocking Dataset Value for AI-Enabled Scientific Discovery (AI Datasets).
+The author reports that ATLAS and CMS are preparing a proposal in response.
+The cited solicitation documents the public programme, not the status or
+contents of that proposal. The manuscript describes how AI-ready ATLAS/CMS
+datasets could complement the atlas without asserting an award or promising
+a particular experimental dataset or interface.
+
+The vector-like doublet example uses arXiv:1306.0572v3 and all-left-handed
+q=6Y notation. The scalar comparison uses the complex singlet discussion in
+arXiv:1306.4710v5, Sec. 6.4, and the hidden Abelian Higgs construction in
+arXiv:1111.4482v3. The family discussion cites arXiv:1812.04602v5 and
+arXiv:0801.1345v3. These examples require final author/source review.
+
+The bibliography remains embedded; no BibTeX run is required. The proposed
+JHEP keywords are New Gauge Interactions and Other Weak Scale BSM Models.
+Affiliations, author emails, and an arXiv identifier remain to be supplied;
+the draft does not display invented metadata.

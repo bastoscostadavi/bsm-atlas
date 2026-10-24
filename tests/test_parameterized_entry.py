@@ -106,7 +106,7 @@ class ParameterizedEntries(unittest.TestCase):
         report = prepare(source, ROOT/'website/downloads/field-catalogue.sqlite')
         self.assertTrue(report['fingerprint'])
         self.assertEqual(report['identity_convention'], 'symbolic-template-2')
-        self.assertEqual(report['duplicate_check']['status'], 'no_exact_symbolic_template_match_review_required')
+        self.assertEqual(report['duplicate_check']['status'], 'no_exact_symbolic_template_match')
         self.assertEqual(report['validation']['family_equivalence'], 'not_certified')
         with self.assertRaises(IncompleteContent):
             canonicalize(source)

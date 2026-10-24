@@ -110,7 +110,7 @@ def validation_report(spec):
     identity = canonicalize_family(spec)
     normalized = identity['normalized_entry']
     return {
-        'status': 'valid_parameterized_entry_requires_source_review',
+        'status': 'valid_parameterized_entry',
         'normalized_entry': normalized,
         'expression_convention': EXPRESSION_CONVENTION,
         'fingerprint': identity['fingerprint'],

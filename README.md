@@ -39,20 +39,26 @@ The [catalogue schema](atlas/catalogue.schema.json) describes entries and refere
 
 The catalogue grows by harvesting complete specifications from arXiv papers. Read the source, express its gauge and matter content in the atlas conventions, and reconcile it with the existing entries. An exact match gains a paper reference; a distinct specification becomes a new entry.
 
-Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records, candidate files and source checks. The ingestion command normalizes and validates a candidate before saving it. Dry-run is the default.
+Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records, entry files and source requirements. Manual entry commands normalize and validate an entry before saving it. Dry-run is the default.
 
 ```sh
-python3 -m bsm_atlas add candidate.json
-python3 -m bsm_atlas add candidate.json --write
+python3 -m bsm_atlas add entry.json
+python3 -m bsm_atlas add entry.json --write
 make build
 make check
 ```
 
-All catalogue operations use `python3 -m bsm_atlas`. Use `validate` to check the source, `prepare specification.json` to inspect normalization, and `lookup specification.json` to find matches in the built SQLite export. These commands are read-only; only `add --write` saves an entry. Run commands from the repository root. No package installation is required.
+All catalogue operations use `python3 -m bsm_atlas`. Use `validate` to check the source, `prepare specification.json` to inspect normalization, and `lookup specification.json` to find matches in the built SQLite export. These commands are read-only. Run commands from the repository root. No package installation is required.
+
+For batches, the [paper-harvesting coordinator](HARVESTING.md) retrieves pinned full texts and assigns one paper to each isolated worker. Code normalizes, validates and automatically writes the extracted entries, merging canonical duplicates and their references. There is no separate proposal or model-approval pass. The existing paper records store an informational `extraction_status`; normal expansion skips every recorded arXiv version before retrieval or agent dispatch, including old failures. Retries require an explicit follow-up. Run files stay private and do not add tables to the atlas.
+
+The [extraction pilot](experiments/extraction-pilot/README.md) documents the 20-paper model comparisons, including frozen prompts, per-paper outcomes, measured tokens and runtime, illustrative costs, and the limits of the comparison. It is separate from the catalogue and makes no arXiv-wide accuracy claim. The [manuscript](paper/main.tex) includes the same results. New extraction batches default to GPT-6.1 Sol with medium reasoning.
+
+For expansion, the coordinator can freeze a citation-ranked hep-ph sample from INSPIRE, pin its arXiv versions, and feed a rolling worker pool from one serial source fetcher. Completed work is retained when a run stops, and saved valid responses can be imported without another model call. See [citation-ranked expansion](HARVESTING.md#citation-ranked-expansion).
 
 ## Build and preview
 
-Python 3.10+ (with SQLite 3.37+) and Node.js 18+ are sufficient; no third-party packages are needed.
+Python 3.10+ (with SQLite 3.37+) and Node.js 18+ on macOS/Linux are sufficient; no third-party Python packages are needed. Model extraction additionally requires a current, authenticated Codex CLI; building and checking the existing catalogue does not.
 
 ```sh
 make build   # regenerate the website data and JSON, CSV and SQLite downloads
@@ -67,9 +73,11 @@ GitHub Actions runs the checks and publishes `website/` to GitHub Pages. The sel
 | Path | Purpose |
 |---|---|
 | `atlas/catalogue.json` | Authoritative entries and bibliography |
-| `atlas/reference_spectra.json` | Exact SM/MSSM spectra used only for presentation shorthand |
+| `atlas/reference_spectra.json` | Exact SM/MSSM inventories for explicitly inherited input and presentation shorthand |
 | `atlas/schema.sql` | Relational export schema |
 | `bsm_atlas/` | Python package: intake, mathematical conventions, identities, projections and export |
 | `tests/` | Python and JavaScript regressions, with identity fixtures |
 | `website/` | Published static explorer and generated downloads |
 | `scripts/check.py` | The shared local/CI verification command |
+| `experiments/extraction-pilot/` | Frozen extraction-pilot inputs, audit outcomes, measurements and report checks |
+| `paper/` | LaTeX manuscript and reproducible catalogue analysis |
