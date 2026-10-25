@@ -110,6 +110,24 @@ class CitationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Duplicate'):
             citations.select_most_cited(self.directory, 1, inspire_client=client)
 
+    def test_explicit_addendum_selects_original_without_claiming_paper_identity(self):
+        identifiers = ['1703.04471', '2003.08511']
+        raw = atom(identifiers).decode().replace('<feed xmlns=',
+            '<feed xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns=')
+        raw = raw.replace('<title>Paper</title>', '<title>Original title</title>', 1)
+        raw = raw.replace('<title>Paper</title>', '<title>Addendum to: Original title</title>', 1)
+        raw = raw.replace('</entry>', '<arxiv:doi>10.123/original</arxiv:doi></entry>', 1)
+        raw = raw.replace('</entry></feed>', '<arxiv:doi>10.123/addendum</arxiv:doi></entry></feed>')
+        result = citations.resolve_expanded_version(raw.encode(), identifiers)
+        self.assertEqual(result['representative'], identifiers[0])
+        self.assertEqual(result['kind'], 'primary_paper_with_addendum_or_erratum')
+        self.assertIn('not asserted to be identical', result['evidence'])
+        for changed in [raw.replace('Addendum to: Original title', 'Related title'),
+                        raw.replace('10.123/addendum', '10.123/original'),
+                        raw.replace('<name>A. Author</name>', '<name>B. Author</name>', 1)]:
+            with self.assertRaises(ValueError):
+                citations.resolve_expanded_version(changed.encode(), identifiers)
+
     def test_unsorted_fail(self):
         client = Mock()
         client.get.return_value = page([hit('2001.00001', 2, 1), hit('2001.00002', 3, 2)], 2)

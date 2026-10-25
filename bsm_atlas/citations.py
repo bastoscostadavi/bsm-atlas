@@ -161,7 +161,7 @@ def parse_page(content, resolve=None, minimum_count=None):
 
 
 def resolve_expanded_version(content, identifiers):
-    """Resolve only explicit expanded-version aliases with matching DOI/authors.
+    """Resolve explicit expanded versions or a primary paper with an addendum.
 
     No chronological guess, title similarity or citation split is sufficient.
     Other merged-record relationships require separate metadata review.
@@ -175,6 +175,7 @@ def resolve_expanded_version(content, identifiers):
         details[identifier] = {
             'doi': entry.findtext(namespace + 'doi', '').strip().lower(),
             'authors': parsed[identifier]['authors'],
+            'title': parsed[identifier]['title'].casefold(),
             'summary': ' '.join(entry.findtext(ATOM + 'summary', '').split())}
     if len(identifiers) != 2:
         raise ValueError('Ambiguous merged INSPIRE work: more than two arXiv IDs')
@@ -187,6 +188,24 @@ def resolve_expanded_version(content, identifiers):
                 detail['authors'] == details[other]['authors']):
             expanded.append(identifier)
     if len(expanded) != 1:
+        originals = []
+        for identifier, detail in details.items():
+            other = next(value for value in identifiers if value != identifier)
+            related = details[other]
+            if (detail['doi'] and related['doi'] and detail['doi'] != related['doi'] and
+                    detail['authors'] == related['authors'] and
+                    any(related['title'] == prefix + detail['title']
+                        for prefix in ('addendum to: ', 'erratum to: '))):
+                originals.append(identifier)
+        if len(originals) == 1:
+            representative = originals[0]
+            related = next(value for value in identifiers if value != representative)
+            return {'representative': representative, 'kind': 'primary_paper_with_addendum_or_erratum',
+                'doi': details[representative]['doi'], 'related_doi': details[related]['doi'],
+                'evidence': 'The related arXiv title explicitly identifies an addendum/erratum '
+                    'to the exact original title, with identical authors and distinct DOIs. '
+                    'The original represents the grouped INSPIRE record for citation sampling; '
+                    'the two arXiv papers are not asserted to be identical.'}
         raise ValueError('Ambiguous merged INSPIRE work; explicit expanded-version/DOI/authors evidence required')
     representative = expanded[0]
     return {'representative': representative, 'kind': 'expanded_version_same_doi_and_authors',
