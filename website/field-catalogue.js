@@ -128,7 +128,7 @@
    function detail(e){
      const references=[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
      return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><p class="reference-order">Oldest first</p><ol class="reference-list" aria-label="Papers in chronological order">'+
-       references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p>'+(ref.locators?.length?'<p class="reference-meta">'+ref.locators.map(esc).join('; ')+'</p>':'')+'</div></li>';}).join('')+'</ol></section>';
+       references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p></div></li>';}).join('')+'</ol></section>';
    }
    function gaugeHeading(c){
      if(c.sm)return c.label==='g_SM'?shorthand('g_SM'):'𝔤<sub>SM,'+esc(c.label.slice(5))+'</sub>';

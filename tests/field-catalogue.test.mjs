@@ -82,12 +82,16 @@ const savedOrder=data.entries.find(e=>e.id==='nmssm-matter').references.map(ref=
 app.render();assert.equal(data.entries.find(e=>e.id==='nmssm-matter').references.map(ref=>ref.paper_id).join(','),savedOrder);
 const many=JSON.parse(JSON.stringify(data)),manyEntry=many.entries.find(e=>e.id==='nmssm-matter');
 many.papers=Array.from({length:100},(_,i)=>({id:'internal-'+i,arxiv:'2001.'+String(100-i).padStart(5,'0')+'v1',title:'Paper '+(100-i),authors:'Example author',entryIds:[manyEntry.id]}));
-manyEntry.paperIds=many.papers.map(p=>p.id);manyEntry.references=many.papers.map(p=>({paper_id:p.id}));many.entries=[manyEntry];
+manyEntry.paperIds=many.papers.map(p=>p.id);manyEntry.references=many.papers.map(p=>({paper_id:p.id,locators:['main.tex: Eq. (internal-source-marker)']}));many.entries=[manyEntry];
 const manyApp=create(many,document);manyApp.state.browse='entries';manyApp.state.open=manyEntry.id;manyApp.render();
 assert.equal((results().match(/data-open=/g)||[]).length,1);
 assert(results().includes('>References (100) −</button>'));
 assert.equal((results().match(/<li><time/g)||[]).length,100);
 assert(results().indexOf('2001.00001v1')<results().indexOf('2001.00100v1'));
+assert(results().includes('Example author'));
+assert(!results().includes('main.tex'));
+assert(!results().includes('internal-source-marker'));
+assert.deepEqual(manyEntry.references[0].locators,['main.tex: Eq. (internal-source-marker)']);
 app.state.q='u1-ybl-charge-family';app.render();
 assert(results().includes('Integer parameters:'));
 assert(results().includes('Parameter constraints'));
