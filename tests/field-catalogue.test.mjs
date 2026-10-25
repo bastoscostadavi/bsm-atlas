@@ -72,7 +72,8 @@ assert(results().includes('>References ('+referenceCount('vlq-t-singlet')+') −
 assert.equal((results().match(/data-open=/g)||[]).length,findEntries(data,{q:app.state.q}).length);
 app.state.q='nmssm-matter';app.state.open='nmssm-matter';app.render();
 assert(results().includes('>References ('+referenceCount('nmssm-matter')+') −</button>'));
-assert(results().includes('Oldest first'));
+assert(!results().includes('Oldest first'));
+assert(!results().includes('reference-order'));
 assert(results().includes('<ol class="reference-list" aria-label="Papers in chronological order">'));
 assert(results().indexOf('hep-ph/9212278v1')<results().indexOf('0910.1785v5'));
 assert(results().includes('<time datetime="1992-12">Dec 1992</time>'));
