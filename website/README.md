@@ -29,6 +29,8 @@ Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<
 
 Each full entry has one References toggle showing the number of linked papers. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.
 
+The Papers page opens with an empty bibliography search. Submit a title, author or arXiv identifier, optionally narrowed by first-submission year; a year alone also works. Results appear only after searching, with 20 papers per page. Each result links to arXiv and lists direct links to its associated atlas entries under a disclosure. Search is case- and accent-insensitive. Searches and pagination can be shared through `#sources?search=...&year=...&page=...`; these controls are independent of the model catalogue filters.
+
 Dates use the first-submission month encoded in the [arXiv identifier](https://info.arxiv.org/help/arxiv_identifier.html). Papers are ordered by month, then by sequence number within an archive; cross-archive ties use a deterministic archive order. Dates are displayed with month precision.
 
 The website shows only complete specifications. Its dimension labels and diagrams are presentation aids; exact Dynkin labels, Lorentz irreps, multiplicities and typed charges remain the stored objects.

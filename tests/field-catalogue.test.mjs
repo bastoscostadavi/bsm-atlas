@@ -4,7 +4,7 @@ import vm from 'node:vm';
 const website=new URL('../website/',import.meta.url);
 const context={URLSearchParams,location:{hash:'#catalogue'},history:{replaceState(_s,_t,hash){context.location.hash=hash;}}};
 for(const file of ['representation-diagrams.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,website),'utf8'),context);
-const {findEntries,esc,create,dynkinTuple,representationMarkup,arxivDate,comparePapers}=context.FieldCatalogue;
+const {findEntries,findPapers,esc,create,dynkinTuple,representationMarkup,arxivDate,comparePapers}=context.FieldCatalogue;
 const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',website)));
 const referenceCount=id=>data.entries.find(e=>e.id===id).references.length;
 assert.equal(findEntries(data).length,data.entries.length);
@@ -22,6 +22,21 @@ assert.equal(arxivDate({arxiv:'1913.13729v1'}),null);
 const dates=[{arxiv:'1501.00010v1',title:'c'},{arxiv:'hep-ph/9912345v2',title:'a'},{arxiv:'1501.00002v8',title:'b'}];
 assert.deepEqual(Array.from([...dates].sort(comparePapers),p=>p.title),['a','b','c']);
 assert.equal(comparePapers({arxiv:'0910.1785v5',title:'same'},{arxiv:'0910.1785v1',title:'same'}),0);
+const bibliography=[
+ {arxiv:'hep-ph/9212278v1',title:'Legacy model',authors:'René Example'},
+ {arxiv:'2001.00001v2',title:'Modern gauge theory',authors:'Other Author'},
+ {arxiv:'2002.00002v1',title:'Modern matter',authors:'René Example'}];
+assert.equal(findPapers(bibliography).length,0);
+assert.equal(findPapers(bibliography,{q:'  '}).length,0);
+assert.equal(findPapers(bibliography,{q:'GAUGE THEORY'})[0],bibliography[1]);
+assert.equal(findPapers(bibliography,{q:'rene'}).length,2);
+assert.equal(findPapers(bibliography,{q:'modern author'})[0],bibliography[1]);
+assert.equal(findPapers(bibliography,{q:'arXiv:hep-ph/9212278'})[0],bibliography[0]);
+assert.equal(findPapers(bibliography,{q:'https://arxiv.org/abs/2001.00001v2'})[0],bibliography[1]);
+assert.equal(findPapers(bibliography,{year:'1992'})[0],bibliography[0]);
+assert.equal(findPapers(bibliography,{year:'2020'}).length,2);
+assert.equal(findPapers(bibliography,{q:'rene',year:'2020'})[0],bibliography[2]);
+assert.equal(findPapers(bibliography,{q:'gauge',year:'1992'}).length,0);
 const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
 const viewTitles={
@@ -107,9 +122,50 @@ for(const phrase of ['Bourbaki','all-zero labels denote a singlet','left-handed 
 assert(content().includes('([0,1], [0]; -4)'));
 assert.equal(nodes.get('notation-guide').open,true);
 app.state.view='sources';app.render();
+assert(content().includes('id="paper-search-form"'));
+assert(content().includes('id="paper-year"'));
+assert(!content().includes('class="paper-item"'));
+assert(!content().includes('General solution to the U(1) anomaly equations'));
+app.state.paperQuery='General solution to the U(1) anomaly equations';app.render();
 assert(content().includes('General solution to the U(1) anomaly equations'));
-assert.equal((content().match(/class="paper-item"/g)||[]).length,data.papers.length);
+assert.equal((content().match(/class="paper-item"/g)||[]).length,1);
+assert(content().includes('href="https://arxiv.org/abs/'));
 assert(!/>P\d+</.test(content()));
+// Search result pages stay bounded, preserve criteria and link to individual entries.
+manyApp.state.view='sources';manyApp.state.paperQuery='example';manyApp.render();
+assert.equal((content().match(/class="paper-item"/g)||[]).length,20);
+assert(content().includes('1–20 of 100 papers'));
+assert(content().includes('Page 1 of 5'));
+assert(content().includes('href="#sources?search=example&amp;page=2" rel="next"'));
+assert(content().includes('href="#entry/'+manyEntry.id+'"'));
+assert(content().indexOf('2001.00001v1')<content().indexOf('2001.00020v1'));
+assert(!content().includes('2001.00021v1'));
+context.location.hash='#sources?search=example&year=2020&page=5';manyApp.route();manyApp.render();
+assert.equal(manyApp.state.paperPage,5);
+assert(content().includes('81–100 of 100 papers'));
+assert(content().includes('href="#sources?search=example&amp;year=2020&amp;page=4" rel="prev"'));
+assert(!content().includes('rel="next"'));
+manyApp.url();assert.equal(context.location.hash,'#sources?search=example&year=2020&page=5');
+for(const page of ['-1','0','1.5','NaN','999999999999999999999']){
+ context.location.hash='#sources?search=example&page='+page;manyApp.route();manyApp.render();
+ assert.equal(manyApp.state.paperPage,1);
+}
+context.location.hash='#sources?search=example&page=100';manyApp.route();manyApp.render();
+assert.equal(manyApp.state.paperPage,5);
+context.location.hash='#sources?year=2020';manyApp.route();manyApp.render();
+assert(content().includes('1–20 of 100 papers'));
+context.location.hash='#sources?search=unmatched';manyApp.route();manyApp.render();
+assert(content().includes('No papers match your search.'));
+assert(!content().includes('class="paper-item"'));
+assert(!content().includes('paper-pagination'));
+context.location.hash='#sources';manyApp.route();manyApp.render();
+assert.equal(manyApp.state.paperQuery,'');assert.equal(manyApp.state.paperYear,'');
+assert(!content().includes('class="paper-item"'));
+const unlinked=create({...many,papers:[{...many.papers[0],entryIds:[],title:'<script>unsafe</script>'}]},document);
+unlinked.state.view='sources';unlinked.state.paperQuery='unsafe';unlinked.render();
+assert(content().includes('No linked atlas entries.'));
+assert(content().includes('&lt;script&gt;unsafe&lt;/script&gt;'));
+assert(!content().includes('<script>'));
 app.state.view='atlas';app.render();
 for(const phrase of ['Gauge symmetry and the representations of matter','19 free parameters','infinitely many predictions','electron’s magnetic moment','Only complete specifications are included','catalogue grows both by adding models','bsm-ai-search','bsm-foundation-model'])assert(content().includes(phrase),phrase);
 assert(content().includes('Supervised learning would turn collections of simulation outputs into a classification task: identifying their underlying gauge algebra and matter representation.'));
@@ -205,4 +261,20 @@ menu.open=true;menu.events.get('focusout')({relatedTarget:{insideCatalogue:true}
 menu.events.get('focusout')({relatedTarget:{}});assert.equal(menu.open,false);
 menu.open=true;windowEvents.get('hashchange')();assert.equal(menu.open,false);
 
-console.log('Catalogue views, notation, routes, references and disclosure checks passed.');
+context.location.hash='#sources?search=example&year=2020&page=3';
+windowEvents.get('hashchange')();
+uiDocument.getElementById('paper-search').value='  singlet  ';uiDocument.getElementById('paper-year').value='';
+let submitted=false;
+uiNodes.get('view-content').events.get('submit')({target:{id:'paper-search-form'},preventDefault(){submitted=true;}});
+assert(submitted);assert.equal(disclosure.state.paperQuery,'singlet');assert.equal(disclosure.state.paperPage,1);
+assert.equal(context.location.hash,'#sources?search=singlet');
+assert.equal(disclosure.state.q,'');
+assert(uiNodes.get('view-content').innerHTML.includes('class="paper-item"'));
+context.location.hash='#sources';windowEvents.get('hashchange')();
+assert(!uiNodes.get('view-content').innerHTML.includes('class="paper-item"'));
+uiNodes.get('paper-search').value=' ';uiNodes.get('paper-year').value='';
+uiNodes.get('view-content').events.get('submit')({target:{id:'paper-search-form'},preventDefault(){}});
+assert.equal(context.location.hash,'#sources');
+assert(!uiNodes.get('view-content').innerHTML.includes('class="paper-item"'));
+
+console.log('Catalogue views, bibliography search and pagination, notation, routes, references and disclosure checks passed.');
