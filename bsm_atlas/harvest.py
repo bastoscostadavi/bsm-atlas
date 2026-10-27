@@ -24,6 +24,7 @@ from .papers import ArxivClient, RetrievalBlocked, SourceUnavailable, arxiv_id, 
 from .symbolic_identity import canonicalize_family
 from .extraction_tracking import (already_recorded, catalogue_source, recorded_papers,
                                   record_extractions)
+from .retention import compact_record, compact_if_enabled
 
 VERSION = 'bsm-harvest-1'
 DEFAULT_MODEL = 'gpt-6.1-sol'
@@ -213,6 +214,10 @@ def prepare_batch(path, directory, resume=False, source=SOURCE, client=None,
                 if pending_only and read_json(job / 'status.json')['state'] != 'pending':
                     continue
                 state = read_json(job / 'status.json')['state']
+                if compact_record(job):
+                    if retry:
+                        raise ValueError('Payloads were removed; use a new run for an explicit retry')
+                    continue
                 explicit_retry = retry and state in {'retry', 'invalid', 'ready'}
                 if (not explicit_retry and state in {'pending', 'ready', 'retry', 'invalid'}
                         and already_recorded(job, item['arxiv'], known,
@@ -327,6 +332,12 @@ def inspect_result(directory, name):
     directory, info = run_info(directory)
     with exclusive_lock(directory / 'run.lock'):
         job = job_path(directory, name)
+        compact = compact_record(job)
+        if compact:
+            return {'paper': compact['paper'], 'compacted': True, 'state': compact['state'],
+                    'reason': compact['reason'], 'diagnostic': compact.get('diagnostic'),
+                    'ingestion': compact['ingestion'],
+                    'message': 'Temporary paper text, prompt, response and event logs were intentionally removed.'}
         result = read_json(job / 'result.json')
         paper = checked_job(job)['paper']
         return {'paper': paper, 'paper_text': str(job / 'paper.txt'),
@@ -344,7 +355,14 @@ def status(directory):
         job = directory / 'jobs' / name
         state = read_json(job / 'status.json') if (job / 'status.json').exists() else {'state': 'retry'}
         row = {'job': name, **state}
-        if (job / 'ingestion.json').exists():
+        compact = compact_record(job)
+        if compact:
+            row.update(state=compact['state'], compacted=True)
+            if compact.get('diagnostic'):
+                row['diagnostic'] = compact['diagnostic']
+            if compact['ingestion']:
+                row.update(outcome=compact['ingestion']['outcome'], entry_ids=compact['ingestion']['entry_ids'])
+        elif (job / 'ingestion.json').exists():
             receipt = read_json(job / 'ingestion.json')
             if (job / 'result.json').exists() and digest((job / 'result.json').read_bytes()) == receipt['result_sha256']:
                 row.update(state='ingested', outcome=receipt['outcome'], entry_ids=receipt['entry_ids'])
@@ -488,6 +506,10 @@ def run_batch(directory, execute=False, model=DEFAULT_MODEL, workers=2,
         for name in info['jobs']:
             job = directory / 'jobs' / name
             state = read_json(job / 'status.json')['state']
+            if compact_record(job):
+                if retry:
+                    raise ValueError('Payloads were removed; use a new run for an explicit retry')
+                continue
             if state == 'ready' or retry and state in {'retry', 'invalid', 'running'}:
                 done = recorded_jobs.get(name)
                 if not retry and done and already_recorded(job, done['arxiv'], known, write=execute):
@@ -515,6 +537,7 @@ def run_batch(directory, execute=False, model=DEFAULT_MODEL, workers=2,
                         future.result()
                         record_extractions(directory, source, True, jobs=[futures[future]], _run_locked=True)
                         ingest_batch(directory, source, True, jobs=[futures[future]], _run_locked=True)
+                        compact_if_enabled(directory, [futures[future]])
                     if progress is not None:
                         progress()
     return status(directory)
@@ -538,6 +561,9 @@ def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=N
             receipts = []
             for name in names:
                 job = directory / 'jobs' / name
+                if compact_record(job):
+                    report['already_recorded_jobs'].append(name)
+                    continue
                 state = read_json(job / 'status.json')['state']
                 if state == 'already_recorded':
                     report['already_recorded_jobs'].append(name)
@@ -582,6 +608,7 @@ def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=N
                     path = job / 'ingestion.json'
                     if not path.exists() or read_json(path) != receipt:
                         write_json(path, receipt)
+                compact_if_enabled(directory, [job.name for job, _ in receipts])
             if rebuild:
                 try:
                     write_outputs(projected)

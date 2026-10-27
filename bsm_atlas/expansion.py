@@ -13,6 +13,7 @@ from .harvest import (DEFAULT_MODEL, RESULT_SCHEMA, check_worker, context, diges
                       read_json, run_job, run_info, status)
 from .papers import ArxivClient, job_id
 from .extraction_tracking import already_recorded, recorded_papers, record_extractions
+from .retention import compact_record, compact_if_enabled, VERSION as RETENTION_VERSION
 
 
 def now():
@@ -39,8 +40,16 @@ def unfinished_manifest(path, previous_directory):
     states = {job['job']: job for job in report['jobs']}
     for item in requests['papers']:
         name = job_id(item['arxiv'])
+        compact = compact_record(previous_directory / 'jobs' / name)
+        if compact:
+            preserved.append({'job': name, 'state': compact['state'], 'compacted': True})
+            continue
         if states[name]['state'] in completed:
             job = previous_directory / 'jobs' / name
+            compact = compact_record(job)
+            if compact:
+                preserved.append({'job': name, 'state': compact['state'], 'compacted': True})
+                continue
             if states[name]['state'] == 'already_recorded':
                 preserved.append({'job': name, 'state': 'already_recorded',
                                   'paper_id': states[name]['paper_id']})
@@ -165,6 +174,7 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
             if not (directory / 'run.json').exists():
                 prepare_batch(path, directory, source=source, client=client,
                               _run_locked=True, _initialize_only=True)
+            write_json(directory / 'retention.json', {'delete_payloads': True, 'schema_version': RETENTION_VERSION})
             checkpoint('starting')
             if (directory / 'run.json').exists():
                 _, info = run_info(directory)
@@ -175,6 +185,7 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                     return checkpoint('stopped', 'An interrupted worker needs explicit inspection; not automatically rerun')
                 cached = [name for name in info['jobs']
                           if read_json(directory / 'jobs' / name / 'status.json')['state'] in {'extracted', 'review', 'skipped'}
+                          and not compact_record(directory / 'jobs' / name)
                           and not (directory / 'jobs' / name / 'ingestion.json').exists()]
                 if cached:
                     imported = ingest_batch(directory, source, True, jobs=cached, _run_locked=True)
@@ -198,6 +209,7 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                             imported = ingest_batch(directory, source, True, jobs=[name], _run_locked=True)
                             model_writes += len(imported['entry_ids'])
                             failure = infrastructure_failure(directory, [name])
+                            compact_if_enabled(directory, [name])
                             if failure and stop_reason is None:
                                 stop_reason = 'Worker infrastructure/auth/quota failure; inspect before resuming. ' + failure
                         except Exception as error:
@@ -212,6 +224,8 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                             advanced = [row for row in window if row['state'] != 'pending']
                             record_extractions(directory, source, True, jobs=[row['job'] for row in advanced],
                                                manifest_path=path, _run_locked=True)
+                            compact_if_enabled(directory, [row['job'] for row in advanced
+                                                          if row['state'] in {'retry', 'invalid', 'already_recorded'}])
                             if not advanced:
                                 stop_reason = stop_reason or 'Retrieval made no progress; inspect before resuming'
                             elif all(row.get('category') == 'network' for row in advanced):

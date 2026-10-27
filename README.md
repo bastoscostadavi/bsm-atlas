@@ -37,6 +37,11 @@ The [catalogue schema](atlas/catalogue.schema.json) describes entries and refere
 
 ## Adding papers and models
 
+Extraction texts, per-paper prompts and raw responses are temporary. Compact
+completion receipts retain only the metadata, hashes, usage and ingestion targets
+needed to resume without repeating paper attempts; see the
+[retention policy](HARVESTING.md#temporary-data-and-compact-completion-tracking).
+
 The catalogue grows by harvesting complete specifications from arXiv papers. Read the source, express its gauge and matter content in the atlas conventions, and reconcile it with the existing entries. An exact match gains a paper reference; a distinct specification becomes a new entry.
 
 Follow the [ingestion instructions](BSM_ATLAS_AGENT_PROMPT.md) for paper records, entry files and source requirements. Manual entry commands normalize and validate an entry before saving it. Dry-run is the default.

@@ -1,5 +1,17 @@
 # Paper extraction pilot
 
+The [GPT-6.1 Terra follow-up](terra61.md) replays the same v2 inputs against the
+recorded GPT-6.1 Sol baseline. Its measurements are stored separately so the
+original six-run snapshot below remains unchanged.
+
+Retention update (26 October 2026): paper texts, assembled per-paper prompts,
+raw responses and worker event logs have been removed. The pilot retains compact
+outcome summaries, audit notes, hashes, reference inventories and usage metrics.
+Historical descriptions below refer to artifacts available when the study ran;
+`--import-local` cannot rebuild discarded payloads. The default summary check
+still verifies the retained measurements and manuscript tables. Cleanup does not
+rewrite previously published Git history.
+
 This exploratory study tests whether a paper-isolated language-model worker can recover complete gauge-algebra and matter specifications in the atlas conventions. Each configuration processes the same 20 pinned papers. Source review found errors that structural validation alone cannot detect, including missing fields and incorrect decisions to skip papers. Escalating only jobs marked unresolved would leave these failures uncorrected.
 
 The results below describe this pilot, not accuracy across the BSM literature. They do not evaluate the correctness of the pre-existing atlas catalogue. No pilot result was ingested into that catalogue.
@@ -21,7 +33,7 @@ Workers return `entries`, `skip` or `retry`. The last means extraction needs ano
 
 Comparisons within each version keep full prompts identical, not just the paper text. Comparisons across versions confound prompt and model changes. There is only one run per configuration: the prompt revision followed inspection of v1 results, and there is no held-out test or variance estimate. Requested model aliases are recorded; immutable backend snapshots were not captured. The extraction implementation was uncommitted during the tests; export-time code hashes are recorded, but are not an immutable per-run code release.
 
-The complete instruction prefixes are frozen in [v1](prompts/v1.txt) and [v2](prompts/v2.txt). Paper metadata, text hashes and full-prompt hashes in [results.json](results.json) identify the per-paper inputs. Full paper texts and raw worker/event files remain in private `.harvest/` working directories rather than being rehosted here.
+The shared instruction prefixes are frozen in [v1](prompts/v1.txt) and [v2](prompts/v2.txt); they contain no paper text. Paper metadata, text hashes and full-prompt hashes in [results.json](results.json) identify the historical per-paper inputs. Full paper texts and raw worker/event files are no longer retained.
 
 ## Results
 

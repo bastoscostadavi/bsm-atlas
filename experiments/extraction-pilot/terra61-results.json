@@ -1,0 +1,667 @@
+{
+  "schema_version": "matched-pilot-comparison-1",
+  "recorded_on": "2026-10-26",
+  "model": "gpt-6.1-terra",
+  "reasoning": "medium",
+  "papers": 20,
+  "attempts": 20,
+  "same_papers_and_full_prompts_as_sol": true,
+  "protocol": {
+    "model": "gpt-6.1-terra",
+    "reasoning": "medium",
+    "workers": 2,
+    "papers": 20,
+    "baseline": "/Users/davicosta/Desktop/projects/bsm-atlas/.harvest/sol61-comparison-20261023/run",
+    "same_prompt_and_paper_hashes": true,
+    "context_sha256": "fe112989ba69a2d78625776b4c85d8e2f2b08bca66e1cd92d770cd6b96a031d7",
+    "cli_version": "codex-cli 0.163.0",
+    "automatic_retries": 0,
+    "catalogue_ingestion": false,
+    "method": "Replay frozen pilot prompt bytes through run_job, not production run_batch. Frozen context predates current production instructions; no admission, status-sync, or ingestion function is called. Existing Sol outputs are the comparison baseline.",
+    "runner_sha256": "b769c000701ded2439ff359b912ff86dd93bdf8182af9548b950aedeb0dffef7",
+    "harvest_code_sha256": "94941cbccbd2e17da539ed2775222b5f333b91547a0da7bd9fe23bdc232070fa"
+  },
+  "categories": {
+    "correct_skip": 14,
+    "matched": 4,
+    "false_skip": 1,
+    "unresolved": 1
+  },
+  "raw_proposals": 4,
+  "matched_spectra": 4,
+  "known_reference_spectra": 6,
+  "recovered_reference_spectra": 4,
+  "usage": {
+    "input_tokens": 1067834,
+    "cached_input_tokens": 142592,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 6377,
+    "reasoning_output_tokens": 805
+  },
+  "wall_seconds": 65.10664262599312,
+  "rates_usd_per_million": {
+    "input": 1,
+    "cached_input": 0.05,
+    "output": 5
+  },
+  "rate_source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+  "prices_verified_on": "2026-10-26",
+  "api_equivalent_usd": 0.9642566,
+  "billing_note": "Illustrative standard API equivalent, not subscription charges. Cached tokens are a subset of input; reasoning is not added to output again. No cache writes.",
+  "sol_baseline": {
+    "model": "gpt-6.1-sol",
+    "counts": {
+      "matched": 4,
+      "correct_skip": 14,
+      "false_skip": 1,
+      "scope_error": 0,
+      "faulty_response": 0,
+      "unresolved": 1
+    },
+    "matched_spectra": 5,
+    "usage": {
+      "input_tokens": 1069862,
+      "cached_input_tokens": 20992,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 11377,
+      "reasoning_output_tokens": 2240
+    },
+    "wall_seconds": 193.085,
+    "api_equivalent_usd": 2.2136092
+  },
+  "limitations": "One run per model, 20 recent papers dominated by ineligible papers; no equivalence claim or arXiv-wide accuracy estimate. Original higher-spin source adjudication is unresolved. Extra modular EFT reference was constructed post hoc in the previous Sol study, not an independent held-out label. Source locators are not certified by fingerprint equality. Replay uses the frozen v2 prompts with the current runner/validator; workflow hashes and CLI version are retained. Concurrent production harvesting may affect latency. No model results ingested.",
+  "records": [
+    {
+      "paper": "2610.30106v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "2323ea8aa17ce51484aae6c393ff5b83ce2bed0c17a1e6afc3cf6835e2a2ce23",
+      "text_sha256": "c02d4b1b1f1a11356a66a591d3b28858eefd496390c2583f7095d917c74ac843",
+      "result_sha256": "762cdd7d0e275c5c1ceb95b96d345e57933764cc1c27726e81bcb78640a63e7d",
+      "usage": {
+        "input_tokens": 161180,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 80,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 4.805,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "f8286c75f9392f9bcef7f07e5ec570971d92d81cc3cddade1f75e93f36cbe0c5"
+      },
+      "bookkeeping_sha256": "1d42c159699aeec989312ebf72e010138a334a7c848423a054cdde7e7b67b6a5"
+    },
+    {
+      "paper": "2610.29978v1",
+      "audit_category": "matched",
+      "baseline_audit_category": "matched",
+      "worker_state": "extracted",
+      "validation_error": null,
+      "reference_fingerprints": [
+        "0cfddbd7e6f5148050ceefe26ba7b02685ff0df7d01b9e032b194e45a388b6b8"
+      ],
+      "extracted_fingerprints": [
+        "0cfddbd7e6f5148050ceefe26ba7b02685ff0df7d01b9e032b194e45a388b6b8"
+      ],
+      "recovered_reference_fingerprints": [
+        "0cfddbd7e6f5148050ceefe26ba7b02685ff0df7d01b9e032b194e45a388b6b8"
+      ],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "a086fd2c1d1d5d80776637fb47e18e2b720c5b18cf715c8aac642c23d9ba30dc",
+      "text_sha256": "2b7d518c04f7f5e4c498059d00e9f7f8d8cab7d214449b34b9f44afb5cb8351d",
+      "result_sha256": "030ae7cd43f9425e24a12e985b263be2f0ef9a96eb18286d53b5e6254f38ab11",
+      "usage": {
+        "input_tokens": 40646,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1385,
+        "reasoning_output_tokens": 37
+      },
+      "worker_seconds": 8.618,
+      "worker_response_summary": {
+        "outcome": "entries",
+        "entry_count": 1,
+        "canonical_sha256": "b2cef7466e8e1da89daa7a6ca5bd277492515d74f0fcc677d8cec3afe74bcdb7"
+      },
+      "bookkeeping_sha256": "cff60ad4b4bb2a2349a236544f4b44e70746714cbe1a2f70ac66b826940ebd51"
+    },
+    {
+      "paper": "2610.29967v1",
+      "audit_category": "false_skip",
+      "baseline_audit_category": "false_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [
+        "38f2aca6638ec8f86c0bb4a83406ea305bd51611c818705d80eb5cd96b3a4c0a"
+      ],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [
+        "38f2aca6638ec8f86c0bb4a83406ea305bd51611c818705d80eb5cd96b3a4c0a"
+      ],
+      "prompt_sha256": "40d7042b9e71d27d391795f8b22b1aebb046806be68da85433a32cdac6d0df34",
+      "text_sha256": "210814dc965344cc5dd811534e70791ff705867dd1103d09f7007834b51551c8",
+      "result_sha256": "2f703ee967fab93270bfaa165e9a027046463071fca953351f514815b7745603",
+      "usage": {
+        "input_tokens": 53908,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 328,
+        "reasoning_output_tokens": 238
+      },
+      "worker_seconds": 6.825,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "39dd3321d99b59ed6ac0effa9c95f216c477b2e9410a9072a92089ad9f3c5043"
+      },
+      "bookkeeping_sha256": "2aa1b06cbcca8b01cb9d3c3e697e060d1f2107ae8e2f5a7821a7446d63115686"
+    },
+    {
+      "paper": "2610.29942v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "869b76eedc028f92e1c6216b404427a597133c58fc3fc4964899c75b97166be7",
+      "text_sha256": "2ed601fb76ad69e79214b7a31fe0b9fb47a42309ec1b298517addfdffc9abe88",
+      "result_sha256": "4c7bf06f08505acf374d072eae3fad85d38cadf4b0ef5c1ce481af25d23e0e0e",
+      "usage": {
+        "input_tokens": 47241,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 120,
+        "reasoning_output_tokens": 30
+      },
+      "worker_seconds": 4.23,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "b024e1b8183134a4ad3b6f39301bea2d880dce4ecd6a7b8cc465f931e0272927"
+      },
+      "bookkeeping_sha256": "787a27aeba79d181861be9084fbfe92ea8526268a7bf8ca4473d14408596d241"
+    },
+    {
+      "paper": "2610.29885v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "ba52b0972f2d0fa3d98ddecfcf0b944fbe413c4c946902342234bb69a802120d",
+      "text_sha256": "ff7d48f3c10211b4ec4447d5edc20c11f9359fc84be4ac86a2cbc10158ac5d49",
+      "result_sha256": "1dfa47b68f6b67ba6cb87e3bdca7c70453d8e405b96867285ccb02e23010e38c",
+      "usage": {
+        "input_tokens": 76924,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 89,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 6.076,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "357a83ac26da6a312ad196edae73b705dd28f4729a33d92d58779dcc5f747e1c"
+      },
+      "bookkeeping_sha256": "6567b7e3790f1f9727ddd5430e529120c34fa57a3c502fb8272f1fb53ef2324d"
+    },
+    {
+      "paper": "2610.29760v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "76dc948743bf24622a771eafbe7248a338f886262179eebf92d59b1d63d8e75b",
+      "text_sha256": "2fb7cbc45e2556f6d1c6c46d35cfe96de2de5007d43fd3fca43eb5bc84f4152c",
+      "result_sha256": "9d36fd90dd26810e4ee29a7f84a32751c702767c54f411cb485b5f5a77b95669",
+      "usage": {
+        "input_tokens": 31705,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 60,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 3.772,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "b1eafd58199cb88ba01e8b596a340b6652b521932a26d321cea028b71225488d"
+      },
+      "bookkeeping_sha256": "b3d1ce4a736c33c3fdce4f39fd025e7396b2f65ad45362b536dfab2c9b46796b"
+    },
+    {
+      "paper": "2610.29754v1",
+      "audit_category": "matched",
+      "baseline_audit_category": "matched",
+      "worker_state": "extracted",
+      "validation_error": null,
+      "reference_fingerprints": [
+        "2481eb82800dc3e5ffcabb6762766c3f555b3c11b7e097fd2199e41eea700bf1",
+        "f69dcb08fbd4cca65fc8da06be1d55b7bc954914eda05e9619032e62cfac4b74"
+      ],
+      "extracted_fingerprints": [
+        "f69dcb08fbd4cca65fc8da06be1d55b7bc954914eda05e9619032e62cfac4b74"
+      ],
+      "recovered_reference_fingerprints": [
+        "f69dcb08fbd4cca65fc8da06be1d55b7bc954914eda05e9619032e62cfac4b74"
+      ],
+      "missing_reference_fingerprints": [
+        "2481eb82800dc3e5ffcabb6762766c3f555b3c11b7e097fd2199e41eea700bf1"
+      ],
+      "prompt_sha256": "8bf8738b2a0c7ae7e452aa0f6fe602717b12d94d4eb1e30d4461aff99fd8b657",
+      "text_sha256": "d18d51306b0e4d7ecc17723d4363867d1bb16bd95e931c5aef444eafee12807b",
+      "result_sha256": "2522610f192225e6e7d7a9608c72db2c53d63971df5c4225c21d4178bd1dbd36",
+      "usage": {
+        "input_tokens": 46705,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1545,
+        "reasoning_output_tokens": 79
+      },
+      "worker_seconds": 11.453,
+      "worker_response_summary": {
+        "outcome": "entries",
+        "entry_count": 1,
+        "canonical_sha256": "3541d2a427451853064b373d23e01170455838f23059ea1d5cee3d5081973010"
+      },
+      "bookkeeping_sha256": "cc5a86d9a716dc3debe4a3043055801ab1ae4a1c064e6aecde868d1a4768afde"
+    },
+    {
+      "paper": "2610.29726v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "9df9b55000c8188c706620d900ff75b6ff69e361cf25bd0c6ce7118016eb83ab",
+      "text_sha256": "cfe9bb9efaeced99b454296987fd18a8dcd46990385e9dff0cb1ce10094e707f",
+      "result_sha256": "fa6f403abf2c3d7b6524202f8b6d6e05c4a9157061262398111e378175b949d1",
+      "usage": {
+        "input_tokens": 59241,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 68,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 4.578,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "c9a8b2fc40f63a41e05623231117eecfb3e243bf0007f1902db50b9f8320479c"
+      },
+      "bookkeeping_sha256": "0d68d24e3d44dab151951b6cb91a261be6fedfaeb77698a4ab121a298e471b3e"
+    },
+    {
+      "paper": "2610.29707v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "00ad5f02d89459d666a0222406d90e6576f80087958c39c4aa1852e7eb2e7fdd",
+      "text_sha256": "08fc767b9106c6c36f352bcca55f224d74a41df06f9a241e45efabbfebbdda4a",
+      "result_sha256": "d98d11d980244659d713c122e2b0d6efd906079e762b91946550c0cfa3784736",
+      "usage": {
+        "input_tokens": 31773,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 103,
+        "reasoning_output_tokens": 19
+      },
+      "worker_seconds": 3.79,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "bb468919453a7377c94aac89c81d6b3b2583330e1eae1151a8115f53dc0218d9"
+      },
+      "bookkeeping_sha256": "1fef02d6dfd0184a7015f4b4100476acb41c59764c6aa353f5eb45246984cf5c"
+    },
+    {
+      "paper": "2610.29678v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "eaac61eda0d1087bcfa674ced508aa4ce9b2fd042f7bec648cea8439a3b00328",
+      "text_sha256": "de895a2b72dae67e647915ba5168e0d8a12129db4964f79842067831a42569bb",
+      "result_sha256": "5dae8d43f9e95dcc73672a6845078d7d5b98c6995904aeb6fbf5e53abe10b89c",
+      "usage": {
+        "input_tokens": 31899,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 56,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 5.033,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "20791783bd429731eddc1dd53b0bc4a0c024f8bff32eec47893ae6dbd85963a2"
+      },
+      "bookkeeping_sha256": "9e879bfb80d377ccdb1d92c81d38b35edd8fd5630901861be99ca9f8ec6718a9"
+    },
+    {
+      "paper": "2610.29598v1",
+      "audit_category": "unresolved",
+      "baseline_audit_category": "unresolved",
+      "worker_state": "retry",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "b1d93beb7bbf82002e14b3cce648583c7287a0b7578e025813ab4bb6f13f5d9c",
+      "text_sha256": "d459b66776264c01d0387b460833ffdc50c99cbc31c8f814235a0098a6861450",
+      "result_sha256": "7a74d6a2ad6229d90f0e2a555dfe3ea525281392f8e18edd1c5d8063f2d2d980",
+      "usage": {
+        "input_tokens": 44551,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 437,
+        "reasoning_output_tokens": 341
+      },
+      "worker_seconds": 8.238,
+      "worker_response_summary": {
+        "outcome": "retry",
+        "entry_count": 0,
+        "canonical_sha256": "13b75b81c9cc08948575a5c929046fcf0280450b0d2befbc325b485db4ab97d7"
+      },
+      "bookkeeping_sha256": "a2b3d709b743631efb99aac631d67430dda77c9fa5b6c3575ae8f3f52cda8108"
+    },
+    {
+      "paper": "2610.29543v1",
+      "audit_category": "matched",
+      "baseline_audit_category": "matched",
+      "worker_state": "extracted",
+      "validation_error": null,
+      "reference_fingerprints": [
+        "85c4d0e6282b0de04a0196473a646171eaed04ac6fe72acf3f275383f992211d"
+      ],
+      "extracted_fingerprints": [
+        "85c4d0e6282b0de04a0196473a646171eaed04ac6fe72acf3f275383f992211d"
+      ],
+      "recovered_reference_fingerprints": [
+        "85c4d0e6282b0de04a0196473a646171eaed04ac6fe72acf3f275383f992211d"
+      ],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "e01276dd2a55499a57849d3eb6e52afb3d48134968bad0e7a9ce614c7aa9b17f",
+      "text_sha256": "86d6769d23db5a8bb3be72f32e3254b638f5da9698ee468df7401926e6cc0025",
+      "result_sha256": "8f0bbe69efee6f0683f9c295ed6f34ab675eb8ccc61553f221d2aa835720264f",
+      "usage": {
+        "input_tokens": 85182,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 828,
+        "reasoning_output_tokens": 33
+      },
+      "worker_seconds": 7.409,
+      "worker_response_summary": {
+        "outcome": "entries",
+        "entry_count": 1,
+        "canonical_sha256": "ed74ec394d47c774e0da98063bd5ae9757b85df5d4530d27be8a6d1af3fd197e"
+      },
+      "bookkeeping_sha256": "86ddc9c8cbf92610f7f94a7a34c260f47b87154228c1927975b2b81f1527b6bd"
+    },
+    {
+      "paper": "2610.29541v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "486f42ab4079fab111761dc25d889042d4798510949e2f72258e148f0bc6a439",
+      "text_sha256": "c801f4af4264f24c10151be1fecb191abba4295f21ceded9a5a7e87a32bc4128",
+      "result_sha256": "a1ae2fed31cece922a20ddb926fdaab527087d64b8e51f03887b24950c86f770",
+      "usage": {
+        "input_tokens": 48826,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 72,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 5.203,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "e1112c0dc01443b6e1ba4304366b35cd496074254652bd5e98cdaafe310050b9"
+      },
+      "bookkeeping_sha256": "088be1f0c79dc827c35aec11d5ea573cdfabb23150d676e867b1e3b4446fa7cb"
+    },
+    {
+      "paper": "2610.29499v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "da7c4220a25697e453e5b32410239e326d1cbded9acedc732288d2f71ee10d12",
+      "text_sha256": "c32021919626972945a9cc606df6acd36bc0ed3c72f832a20ce07f9b5013f442",
+      "result_sha256": "3f71e19f715471c1baf63e5f5f9194f4b68955ef606b24d69d01c797b7ab5983",
+      "usage": {
+        "input_tokens": 38189,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 58,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 4.39,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "b77122213ada08ab4521127a41af5f3a01e1d4c24a35c656fbf5b36780131a4a"
+      },
+      "bookkeeping_sha256": "dff2735e63575de9ac43722cac65f83f9f7c4f80519cdd234cfc78e6bc844e0c"
+    },
+    {
+      "paper": "2610.29439v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "12a8deeccf3679f8532c6019672b6ad38c2f4e5c61bc47d5ae6ad96f32f21e3f",
+      "text_sha256": "ed1dfc1c6374c2ef88d5ab1a61cd3fba173dd00ba7682013c5050c1a0ab2d592",
+      "result_sha256": "27396a7f8662906a00766de58dc19ad074cba65c934e80e0329a29dda64a5be2",
+      "usage": {
+        "input_tokens": 57587,
+        "cached_input_tokens": 8320,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 66,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 4.671,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "569a4fcc5f2e45ed4311cfa3af82f1e966610c9208b63e2ca29ef27549700c72"
+      },
+      "bookkeeping_sha256": "46f7b1f7d1bf860e21090dc84e48a86a951bd0b43d4c44a2f4ed8680668d9cd0"
+    },
+    {
+      "paper": "2610.29400v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "8e575cd45e8d2092c7990245249ebef5d1dd3a189cb14244e5bf3c56a9ba11fb",
+      "text_sha256": "de8009cef3be958caf4f51217490ac4f72e9374d097ef89618305b67c5154551",
+      "result_sha256": "de31c6fa5ceeb322b129a0e38ffcf86f700a6de2840a2999035e2f154420efe1",
+      "usage": {
+        "input_tokens": 31884,
+        "cached_input_tokens": 8320,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 58,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 4.064,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "a9c118646fb9be1522e4761878c842db9fa2d3e5cfa8c66464d98d1015e2f76e"
+      },
+      "bookkeeping_sha256": "ec0f23c4d1356ff8c57fe8798bdfee1a4b8e52260aa99ee641fe49c44be7ef8e"
+    },
+    {
+      "paper": "2610.29392v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "3cdf91955024b273fddb10e9a5b2be806f31b3f638c6c1cec8c60f919629e4fd",
+      "text_sha256": "7d463cfe8592e6f5c8fef4b7fedd4e151857094d304a203868ce16cedea8534b",
+      "result_sha256": "e5d3924637a886cce43cd2533553c557d8eed6973643dd229592c6d37d99d891",
+      "usage": {
+        "input_tokens": 33748,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 64,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 5.194,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "17952037e250871001a08aff3b7ad071e4a3781d5f3d7f0e3dc03240207d357b"
+      },
+      "bookkeeping_sha256": "0ed9c3f3dd2800a30928bfdcc88b7bbe70689a028b482dfe7dfb9d55ee53f817"
+    },
+    {
+      "paper": "2610.29354v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "93c61c14443eb9e60e68bfacd13b53b3a0f2d7534bae373a857e81f9b47d19c8",
+      "text_sha256": "5fa833537a211f6f8edd203b9ee41477867194a8ca927c4d704f007db2ba652b",
+      "result_sha256": "cab53128e95ac3e9d72a6e9bae075054bf56c559649864e43a4ee15f440194ed",
+      "usage": {
+        "input_tokens": 49201,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 66,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 5.538,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "fb1f70526e2459a16c14a5f8cad806a760ae603574ef882d8b7d2a4ea83c8b19"
+      },
+      "bookkeeping_sha256": "66d3b24441e0cfc56eae2758068e78f48b36492b659a6e1c89ebea8bab2e5e5c"
+    },
+    {
+      "paper": "2610.29349v1",
+      "audit_category": "correct_skip",
+      "baseline_audit_category": "correct_skip",
+      "worker_state": "skipped",
+      "validation_error": null,
+      "reference_fingerprints": [],
+      "extracted_fingerprints": [],
+      "recovered_reference_fingerprints": [],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "4b926aaf04164715b66e4d39616a17df2e3ca273893ca631407aac1260934f9a",
+      "text_sha256": "3df2ffa22ed601fe3f859012a108cd6f8cc657a93a6da5a4c2f5069365efdc2d",
+      "result_sha256": "656daaadc47c505c46151e4a0f87f68fe2aaef8f6fa569efcd1a576914355008",
+      "usage": {
+        "input_tokens": 41310,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 71,
+        "reasoning_output_tokens": 0
+      },
+      "worker_seconds": 3.366,
+      "worker_response_summary": {
+        "outcome": "skip",
+        "entry_count": 0,
+        "canonical_sha256": "d25fdcc389d4a56403bdbc1a9ef23da1cfdd22fac11d5affe73bc20f4fe43ab3"
+      },
+      "bookkeeping_sha256": "afd6e6b60106e2e512f43f2389b66a98d9a04b5d5fafa8698c779efaa69544a4"
+    },
+    {
+      "paper": "2610.29335v1",
+      "audit_category": "matched",
+      "baseline_audit_category": "matched",
+      "worker_state": "extracted",
+      "validation_error": null,
+      "reference_fingerprints": [
+        "00e53e73321986c256083a3a692c6f46c1ec06d6803c4cb398a8ad3bc77ee254"
+      ],
+      "extracted_fingerprints": [
+        "00e53e73321986c256083a3a692c6f46c1ec06d6803c4cb398a8ad3bc77ee254"
+      ],
+      "recovered_reference_fingerprints": [
+        "00e53e73321986c256083a3a692c6f46c1ec06d6803c4cb398a8ad3bc77ee254"
+      ],
+      "missing_reference_fingerprints": [],
+      "prompt_sha256": "ef0db4ad1a9e6751065c39e18eb67a12298d8627cc87c17ffb44cd0a23283389",
+      "text_sha256": "5bc510d6863451f6fb21ec1c980f4a0db51ff95df888405535baccbf385b1578",
+      "result_sha256": "cab9d7d2639760fa5fc73476e1698d7a44ab7dd74b8f9285fe62115a309d7e2a",
+      "usage": {
+        "input_tokens": 56134,
+        "cached_input_tokens": 10496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 823,
+        "reasoning_output_tokens": 28
+      },
+      "worker_seconds": 10.462,
+      "worker_response_summary": {
+        "outcome": "entries",
+        "entry_count": 1,
+        "canonical_sha256": "b91584311f03f5afda4dab2ecabd17afb1cdd9908d61c74c509af49bf7801fca"
+      },
+      "bookkeeping_sha256": "9d48d923ad7cd0092b3272163630e3df70e603891dcd5eb4340c5bcb89d782d5"
+    }
+  ],
+  "retention": "Raw responses intentionally removed; counts, hashes, audited outcomes and metrics retained."
+}

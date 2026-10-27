@@ -58,6 +58,8 @@ def sum_usage(records):
 
 
 def freeze():
+    if next((ROOT / '.harvest').glob('**/compacted.json'), None):
+        raise ValueError('Private payloads were intentionally removed. Verify the retained summary without --import-local; a new extraction needs fresh paper retrieval.')
     harvest = ROOT / '.harvest'
     selection = read(harvest / 'newest-hepph-20261022/selection.json')
     expected = read(harvest / 'sol56-comparison-20261022/reviewer-expected-spectra.json')
@@ -140,11 +142,14 @@ def freeze():
                 'audit_note': note['note'], 'locator_caveat': note.get('locator_caveat'),
                 'eligible_reference_match': matched, 'raw_proposals': len(raw['entries']),
                 'matched_spectra': len(raw['entries']) if matched else 0,
-                'worker_response': raw,
+                'worker_response_summary': {'outcome': raw['outcome'], 'entry_count': len(raw['entries']),
+                    'canonical_sha256': sha256(json.dumps(raw, sort_keys=True, ensure_ascii=False).encode()).hexdigest()},
                 'worker_response_canonical_sha256': sha256(json.dumps(raw, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
                 'prompt_sha256': cached['prompt_sha256'], 'result_sha256': digest(job / 'result.json'),
                 'usage': metric['usage'], 'worker_seconds': metric['elapsed_seconds'],
             })
+            from bsm_atlas.retention import seal
+            records[-1]['bookkeeping_sha256'] = seal(records[-1])
             if originals is None:
                 source = next(item for item in selection['records'] if item['arxiv'] == name)
                 result['papers'].append({**cached['paper'], 'published': source['published'],
@@ -267,9 +272,17 @@ def verify(data):
         for r in run['records']:
             assert r['eligible_reference_match'] == (r['audit_category'] == 'matched')
             assert r['matched_spectra'] == (r['raw_proposals'] if r['eligible_reference_match'] else 0)
-            assert r['raw_proposals'] == len(r['worker_response']['entries'])
-            assert r['worker_outcome'] == r['worker_response']['outcome']
-            assert sha256(json.dumps(r['worker_response'], sort_keys=True, ensure_ascii=False).encode()).hexdigest() == r['worker_response_canonical_sha256']
+            if 'worker_response_summary' in r:
+                summary = r['worker_response_summary']
+                assert r['raw_proposals'] == summary['entry_count']
+                assert r['worker_outcome'] == summary['outcome']
+                assert summary['canonical_sha256'] == r['worker_response_canonical_sha256']
+                from bsm_atlas.retention import seal
+                assert r['bookkeeping_sha256'] == seal({k:v for k,v in r.items() if k != 'bookkeeping_sha256'})
+            else:
+                assert r['raw_proposals'] == len(r['worker_response']['entries'])
+                assert r['worker_outcome'] == r['worker_response']['outcome']
+                assert sha256(json.dumps(r['worker_response'], sort_keys=True, ensure_ascii=False).encode()).hexdigest() == r['worker_response_canonical_sha256']
     for version in data['prompt_versions']:
         subset = [run for run in data['runs'] if run['prompt_version'] == version]
         assert len({run['context_sha256'] for run in subset}) == 1

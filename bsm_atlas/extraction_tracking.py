@@ -49,6 +49,7 @@ def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
     """
     from .harvest import (extracted_entries, checked_job, digest, manifest,
                           read_json, run_info)
+    from .retention import compact_record
     directory, info = run_info(directory)
     source = Path(source).resolve()
     names = info['jobs'] if jobs is None else list(jobs)
@@ -71,6 +72,9 @@ def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
                 paper.setdefault('extraction_status', 'not_started')
             for name in names:
                 job = directory / 'jobs' / name
+                if compact_record(job):
+                    report['ignored'].append(name)
+                    continue
                 state_path = job / 'status.json'
                 state = read_json(state_path)['state'] if state_path.exists() else 'pending'
                 if state not in {'extracted', 'review', 'skipped', 'retry', 'invalid'}:
@@ -113,4 +117,10 @@ def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
             report['source_changed'] = data != before
             if write and data != before:
                 write_json(source, data)
+            if write:
+                for row in report['recorded']:
+                    paper = known[row['arxiv']]
+                    write_json(directory / 'jobs' / row['job'] / 'progress.json',
+                               {'source': str(source), 'paper': paper,
+                                'extraction_status': row['extraction_status']})
     return report

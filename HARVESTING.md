@@ -1,5 +1,32 @@
 # Harvesting papers
 
+## Temporary data and compact completion tracking
+
+Paper text, assembled prompts, raw extraction responses and worker event logs are
+temporary. Production expansion deletes them after catalogue/progress writes have
+succeeded. It retains bibliography, statuses, ingestion targets, hashes, usage and
+runtime metrics in small receipts. These receipts are written atomically before
+deletion, so an interrupted cleanup is safe to repeat. Ordinary resume neither
+needs deleted payloads nor repeats completed or failed paper attempts.
+
+For an older stopped run, preview cleanup and then apply it:
+
+```sh
+python3 -m bsm_atlas harvest cleanup .harvest/example/run
+python3 -m bsm_atlas harvest cleanup .harvest/example/run --write
+```
+
+Cleanup takes the run lock, never removes running or unprocessed jobs, verifies
+ingested results against receipts and catalogue references, and does not follow
+symlinks. `--discard-uningested` explicitly retires terminal pilot/unimported
+outputs without adding models. After payload removal, a deliberate new extraction
+requires a fresh run and fresh paper retrieval; it cannot recover the deleted
+response. Historical pilot records retain measured outcomes and hashes, not raw
+worker payloads. Citation-ranking metadata is separate from paper full text.
+
+The source caches and raw outputs described below exist only during processing;
+legacy instructions for inspecting/reimporting them apply before compaction.
+
 The batch coordinator gives each worker one versioned paper and the atlas conventions. Workers extract gauge–matter specifications; code normalizes and validates their output, reconciles exact canonical duplicates, and writes the entries automatically through one serialized catalogue writer. There is no proposal table, second model pass or approval gate.
 
 The existing `papers` records also track extraction progress. Paper text, worker responses, usage and import receipts remain local working files under a run directory, not additional database tables or a published exclusion log.

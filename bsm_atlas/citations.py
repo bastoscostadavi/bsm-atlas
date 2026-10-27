@@ -4,6 +4,8 @@ INSPIRE citation_count includes self citations. Selection covers every year and
 cross-listing in hep-ph, without making a claim about BSM relevance.
 """
 import base64
+import gzip
+import io
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
@@ -228,6 +230,12 @@ def cached_response(directory, name, url, client):
             raise ValueError('Cached response exceeds size bound')
         saved = json.loads(path.read_text())
         body = base64.b64decode(saved['body_base64'], validate=True)
+        encoding = saved.get('body_encoding', 'identity')
+        if encoding == 'gzip':
+            with gzip.GzipFile(fileobj=io.BytesIO(body)) as compressed:
+                body = compressed.read(MAX_RESPONSE + 1)
+        elif encoding != 'identity':
+            raise ValueError('Unsupported metadata cache encoding')
         if saved['url'] != url or sha256(body).hexdigest() != saved['sha256']:
             raise ValueError('Cached metadata URL/hash mismatch: ' + str(path))
     else:
@@ -236,7 +244,8 @@ def cached_response(directory, name, url, client):
             raise ValueError('Invalid or oversized metadata response')
         private_json(path, {'url': url, 'retrieved_at': timestamp(),
             'sha256': sha256(body).hexdigest(),
-            'body_base64': base64.b64encode(body).decode('ascii')})
+            'body_encoding': 'gzip',
+            'body_base64': base64.b64encode(gzip.compress(body, mtime=0)).decode('ascii')})
     if len(body) > MAX_RESPONSE:
         raise ValueError('Cached response exceeds size bound')
     return body

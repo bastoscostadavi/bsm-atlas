@@ -50,6 +50,11 @@ def harvest_arguments(commands):
     run.add_argument('--retry', action='store_true', help='Explicitly rerun failed/invalid workers; may consume more usage')
     summary = actions.add_parser('status', help='Show paper states, elapsed time and reported token usage')
     summary.add_argument('directory', type=Path)
+    cleanup = actions.add_parser('cleanup', help='Remove temporary payloads using compact resume receipts')
+    cleanup.add_argument('directory', type=Path)
+    cleanup.add_argument('--source', type=Path)
+    cleanup.add_argument('--write', action='store_true')
+    cleanup.add_argument('--discard-uningested', action='store_true', help='Explicitly retire old pilot/unimported terminal responses without ingestion')
     synchronization = actions.add_parser('sync-status', help='Backfill paper extraction markers from a saved run; never adds models')
     synchronization.add_argument('directory', type=Path)
     synchronization.add_argument('--source', type=Path, default=SOURCE)
@@ -91,10 +96,18 @@ def harvest_command(args):
                             args.workers, args.codex, args.reasoning, args.timeout, args.fetch_size,
                             reconfigure=args.reconfigure)
     if args.action == 'run':
+        if args.execute:
+            from .retention import VERSION as RETENTION_VERSION
+            write_json(args.directory / 'retention.json',
+                       {'delete_payloads': True, 'schema_version': RETENTION_VERSION})
         return harvest.run_batch(args.directory, args.execute, args.model, args.workers,
                                  args.codex, args.reasoning, args.timeout, args.retry, args.limit)
     if args.action == 'status':
         return harvest.status(args.directory)
+    if args.action == 'cleanup':
+        from .retention import cleanup_run
+        return cleanup_run(args.directory, source=args.source, write=args.write,
+                           discard_uningested=args.discard_uningested)
     if args.action == 'sync-status':
         return harvest.record_extractions(args.directory, args.source, args.write, manifest_path=args.manifest)
     if args.action == 'inspect':

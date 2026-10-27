@@ -29,7 +29,11 @@ class PilotReportTests(unittest.TestCase):
 
     def test_worker_payload_change_is_detected(self):
         altered = deepcopy(self.data)
-        altered['runs'][0]['records'][0]['worker_response']['reason'] = 'Changed response'
+        record = altered['runs'][0]['records'][0]
+        if 'worker_response_summary' in record:
+            record['worker_response_summary']['outcome'] = 'Changed outcome'
+        else:
+            record['worker_response']['reason'] = 'Changed response'
         with self.assertRaises(AssertionError):
             pilot.verify(altered)
 
