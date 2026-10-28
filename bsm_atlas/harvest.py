@@ -199,7 +199,7 @@ def prepare_batch(path, directory, resume=False, source=SOURCE, client=None,
     # Serial preparation and the client delay keep fetches out of the worker pool.
     # The rolling coordinator owns this lock while its one fetch thread works.
     with nullcontext() if _run_locked else exclusive_lock(directory / 'run.lock'):
-        with exclusive_lock(directory.parent / '.arxiv-fetch.lock'):
+        with exclusive_lock(directory.parent / '.arxiv-fetch.lock', wait=_run_locked):
             for name in expected['jobs']:
                 job = directory / 'jobs' / name
                 job.mkdir(exist_ok=True)

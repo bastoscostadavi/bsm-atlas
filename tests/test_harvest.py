@@ -1,5 +1,6 @@
 """Offline paper-to-catalogue tests; fake workers never call a model service."""
 from copy import deepcopy
+from concurrent.futures import ThreadPoolExecutor
 import gzip
 import io
 import json
@@ -8,11 +9,12 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+from threading import Event
 import unittest
 from unittest.mock import Mock, patch
 
 from bsm_atlas import harvest, papers
-from bsm_atlas.catalogue import load, source_lock, write_json
+from bsm_atlas.catalogue import exclusive_lock, load, source_lock, write_json
 
 ROOT = Path(__file__).resolve().parent.parent
 SPEC = json.loads((ROOT / 'atlas/examples/two-higgs-doublets.json').read_text())
@@ -95,6 +97,31 @@ class HarvestTests(unittest.TestCase):
         self.assertIn('untrusted source data', message)
         self.assertIn('field-content-3', message)
         self.assertEqual(self.source.read_bytes(), before)
+
+    def test_cooperating_preparation_waits_for_shared_fetch_lock(self):
+        self.prepare()
+        fetch_lock = self.directory.resolve().parent / '.arxiv-fetch.lock'
+        entered, flags = Event(), []
+
+        def inspect_lock(path, *, wait=False):
+            if path == fetch_lock:
+                flags.append(wait)
+                entered.set()
+            return exclusive_lock(path, wait=wait)
+
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            with exclusive_lock(fetch_lock):
+                with patch('bsm_atlas.harvest.exclusive_lock', side_effect=inspect_lock):
+                    future = pool.submit(harvest.prepare_batch, self.manifest, self.directory,
+                                         resume=True, source=self.source, _run_locked=True)
+                    self.assertTrue(entered.wait(5))
+                    self.assertEqual(flags, [True])
+                    self.assertFalse(future.done())
+            self.assertEqual(future.result(timeout=5)['counts'], {'ready': 1})
+        # Ordinary standalone commands still fail explicitly on contention.
+        with exclusive_lock(fetch_lock):
+            with self.assertRaisesRegex(ValueError, 'Another process holds the lock'):
+                harvest.prepare_batch(self.manifest, self.directory, resume=True, source=self.source)
 
     def test_unversioned_or_duplicate_manifest_is_rejected_before_preparation(self):
         for requests in ([{**self.requests[0], 'arxiv': '2501.00001'}], self.requests * 2):
