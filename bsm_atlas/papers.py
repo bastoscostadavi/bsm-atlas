@@ -55,7 +55,8 @@ class ArxivClient:
         try:
             request = Request(url, headers={'User-Agent':
                               'bsm-atlas/1 (+https://github.com/bastoscostadavi/bsm-atlas)'})
-            with urlopen(request, timeout=30) as response:
+            from .request_gate import arxiv_slot
+            with arxiv_slot(), urlopen(request, timeout=30) as response:
                 requested, returned = urlparse(url), urlparse(response.geturl())
                 if returned.scheme != 'https' or returned.hostname not in {'arxiv.org', 'www.arxiv.org', 'export.arxiv.org'}:
                     raise ValueError('Unexpected redirect away from arXiv')

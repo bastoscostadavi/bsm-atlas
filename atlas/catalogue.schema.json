@@ -19,6 +19,16 @@
       "properties": {
         "id": {"$ref": "#/$defs/text"}, "arxiv": {"$ref": "#/$defs/text"},
         "title": {"$ref": "#/$defs/text"}, "authors": {"$ref": "#/$defs/text"},
+        "extractor": {
+          "type": "object", "additionalProperties": false,
+          "required": ["provider", "model", "reasoning"],
+          "properties": {
+            "provider": {"enum": ["openai", "anthropic"]},
+            "model": {"type": "string", "minLength": 1},
+            "reasoning": {"enum": [null, "low", "medium", "high", "xhigh", "max"]}
+          },
+          "description": "Extractor for the recorded model call, not part of physics identity; absent when unestablished."
+        },
         "extraction_status": {
           "type": "string", "enum": ["not_started", "complete", "unresolved"], "default": "not_started",
           "description": "Extraction progress for this exact arXiv version; valid entries ingest automatically."

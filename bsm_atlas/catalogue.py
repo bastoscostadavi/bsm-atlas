@@ -22,11 +22,11 @@ DATABASE = ROOT / 'website/downloads/field-catalogue.sqlite'
 
 
 @contextmanager
-def exclusive_lock(path):
+def exclusive_lock(path, *, wait=False):
     """Fail rather than race another writer; the OS releases locks on crashes."""
     with Path(path).open('a') as handle:
         try:
-            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            fcntl.flock(handle, fcntl.LOCK_EX | (0 if wait else fcntl.LOCK_NB))
         except BlockingIOError as error:
             raise ValueError('Another process holds the lock: ' + str(path)) from error
         try:
@@ -35,8 +35,8 @@ def exclusive_lock(path):
             fcntl.flock(handle, fcntl.LOCK_UN)
 
 
-def source_lock(path=SOURCE):
-    return exclusive_lock(Path(path).resolve().with_suffix('.json.lock'))
+def source_lock(path=SOURCE, *, wait=False):
+    return exclusive_lock(Path(path).resolve().with_suffix('.json.lock'), wait=wait)
 
 
 def write_json(path, data):
@@ -90,8 +90,13 @@ def validate(data):
         raise IncompleteContent('Papers and entries must be lists')
     papers, ids, fingerprints = set(), set(), set()
     for p in data['papers']:
-        object_keys(p, {'id', 'arxiv', 'title', 'authors'}, {'extraction_status'})
-        for value in p.values(): text(value)
+        object_keys(p, {'id', 'arxiv', 'title', 'authors'}, {'extraction_status', 'extractor'})
+        if 'extractor' in p:
+            from .extractors import validate_extractor
+            validate_extractor(p['extractor'])
+        for key, value in p.items():
+            if key != 'extractor':
+                text(value)
         if p.get('extraction_status', 'not_started') not in {'not_started', 'complete', 'unresolved'}:
             raise IncompleteContent('Invalid paper extraction status')
         if p['id'] in papers or not re.fullmatch(r'(?:\d{4}\.\d{4,5}|[a-z-]+/\d{7})v[1-9]\d*', p['arxiv']):

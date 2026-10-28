@@ -4,6 +4,7 @@ INSPIRE citation_count includes self citations. Selection covers every year and
 cross-listing in hep-ph, without making a claim about BSM relevance.
 """
 import base64
+from contextlib import nullcontext
 import gzip
 import io
 from datetime import datetime, timezone
@@ -73,7 +74,8 @@ class MetadataClient:
             request = Request(url, headers={'User-Agent':
                 'bsm-atlas/1 (+https://github.com/bastoscostadavi/bsm-atlas)',
                 'Accept': 'application/json, application/atom+xml'})
-            with self.opener.open(request, timeout=45) as response:
+            from .request_gate import arxiv_slot
+            with (arxiv_slot() if urlparse(url).hostname == 'export.arxiv.org' else nullcontext()), self.opener.open(request, timeout=45) as response:
                 safe_url(response.geturl())
                 body = response.read(MAX_RESPONSE + 1)
                 if len(body) > MAX_RESPONSE:
@@ -163,7 +165,7 @@ def parse_page(content, resolve=None, minimum_count=None):
 
 
 def resolve_expanded_version(content, identifiers):
-    """Resolve explicit expanded versions or a primary paper with an addendum.
+    """Resolve explicit expansions, duplicate publication deposits or addenda.
 
     No chronological guess, title similarity or citation split is sufficient.
     Other merged-record relationships require separate metadata review.
@@ -177,6 +179,9 @@ def resolve_expanded_version(content, identifiers):
         details[identifier] = {
             'doi': entry.findtext(namespace + 'doi', '').strip().lower(),
             'authors': parsed[identifier]['authors'],
+            'author_names': [author.findtext(ATOM + 'name', '') for author in entry.findall(ATOM + 'author')],
+            'journal_ref': entry.findtext(namespace + 'journal_ref', ''),
+            'published': entry.findtext(ATOM + 'published', ''),
             'title': parsed[identifier]['title'].casefold(),
             'summary': ' '.join(entry.findtext(ATOM + 'summary', '').split())}
     if len(identifiers) != 2:
@@ -190,14 +195,55 @@ def resolve_expanded_version(content, identifiers):
                 detail['authors'] == details[other]['authors']):
             expanded.append(identifier)
     if len(expanded) != 1:
+        left, right = (details[identifier] for identifier in identifiers)
+
+        def journal_key(value):
+            letters = ''.join(re.findall('[a-zA-Z]+', value)).casefold()
+            numbers = tuple(sorted(re.findall(r'\d+', value)))
+            return (letters, numbers) if letters and len(numbers) >= 3 else None
+
+        def author_match(first, second):
+            if not first or len(first) != len(second):
+                return False
+            for a, b in zip(first, second):
+                a = re.findall(r'[^\W\d_]+', a.casefold())
+                b = re.findall(r'[^\W\d_]+', b.casefold())
+                if len(a) < 2 or len(a) != len(b) or a[-1] != b[-1]:
+                    return False
+                if any(x != y and not ((len(x) == 1 or len(y) == 1) and x[0] == y[0])
+                       for x, y in zip(a[:-1], b[:-1])):
+                    return False
+            return True
+
+        if (left['doi'] and left['doi'] == right['doi'] and
+                journal_key(left['journal_ref']) is not None and
+                journal_key(left['journal_ref']) == journal_key(right['journal_ref']) and
+                author_match(left['author_names'], right['author_names']) and
+                all(detail['published'] for detail in (left, right)) and
+                not any(re.match(r'^(?:addendum|erratum|corrigendum)\b', detail['title'])
+                        for detail in (left, right))):
+            representative = max(identifiers, key=lambda i: (details[i]['published'], i))
+            return {'representative': representative,
+                'kind': 'duplicate_deposits_same_doi_journal_and_authors', 'doi': left['doi'],
+                'evidence': 'Both arXiv records identify the same DOI and journal citation, with '
+                    'the same ordered authors allowing initials versus full given names. '
+                    'The later deposit represents this publication for citation sampling only; '
+                    'arXiv identifiers are not merged in the atlas.'}
         originals = []
         for identifier, detail in details.items():
             other = next(value for value in identifiers if value != identifier)
             related = details[other]
+            correction_title = re.sub(r'\s+\[[^\[\]]+\]\s*$', '', related['title'])
+            explicit_correction = any(correction_title == prefix + detail['title']
+                for prefix in ('addendum to: ', 'erratum to: ', 'addendum: ', 'erratum: '))
+            if correction_title != related['title']:
+                # A trailing journal citation is accepted only with an explicit
+                # reference to the original arXiv identifier in the abstract.
+                explicit_correction = explicit_correction and bool(re.search(
+                    r'(?<![\w/])' + re.escape(identifier) + r'(?![\w/])', related['summary']))
             if (detail['doi'] and related['doi'] and detail['doi'] != related['doi'] and
                     detail['authors'] == related['authors'] and
-                    any(related['title'] == prefix + detail['title']
-                        for prefix in ('addendum to: ', 'erratum to: '))):
+                    explicit_correction):
                 originals.append(identifier)
         if len(originals) == 1:
             representative = originals[0]
@@ -251,7 +297,7 @@ def cached_response(directory, name, url, client):
     return body
 
 
-def parse_atom(content, expected):
+def parse_atom(content, expected, *, include_primary=False):
     root = ET.fromstring(content)
     found = {}
     for entry in root.findall(ATOM + 'entry'):
@@ -267,6 +313,12 @@ def parse_atom(content, expected):
         if base in found or base not in expected or not title or not authors:
             raise ValueError('Duplicate, unexpected or incomplete arXiv metadata: ' + base)
         found[base] = {'arxiv': pinned, 'title': title, 'authors': authors}
+        if include_primary:
+            primary = entry.findall('{http://arxiv.org/schemas/atom}primary_category')
+            if (len(primary) != 1 or not primary[0].get('term') or
+                    primary[0].get('term').strip() != primary[0].get('term')):
+                raise ValueError('Missing or ambiguous arXiv primary category: ' + base)
+            found[base]['primary_category'] = primary[0].get('term')
     if set(found) != set(expected):
         raise ValueError('arXiv version pinning incomplete; selection retained for resume; missing: ' +
                          ', '.join(sorted(set(expected) - set(found))))
@@ -275,13 +327,23 @@ def parse_atom(content, expected):
 
 def select_most_cited(directory, count=1000, *, inspire_client=None,
                       arxiv_client=None, page_size=250, batch_size=100,
-                      max_pages=1000):
+                      max_pages=1000, primary_only=True, source=None):
     """Freeze citation selection, then pin versions. Resume in the same directory.
 
     Returns selection.json content. papers-{count}.json is created only when all
     selected papers have exact versions, titles and authors from arXiv.
     Changing request parameters within a resumed directory is rejected.
+    New selections use primary-hep-ph eligibility and exclude recorded works.
+    primary_only=False is retained only for reproducing legacy inclusive samples.
     """
+    if type(primary_only) is not bool:
+        raise ValueError('primary_only must be boolean')
+    if primary_only:
+        from .catalogue import SOURCE as catalogue_source
+        from .relevance import select_population
+        return select_population(directory, count, ranking='citations', primary_only=True,
+            source=source if source is not None else catalogue_source, client=inspire_client,
+            arxiv_client=arxiv_client, page_size=page_size, batch_size=batch_size)
     for name, value, maximum in [('count', count, 100000), ('page_size', page_size, 1000),
                                   ('batch_size', batch_size, 200), ('max_pages', max_pages, 10000)]:
         if type(value) is not int or not 1 <= value <= maximum:

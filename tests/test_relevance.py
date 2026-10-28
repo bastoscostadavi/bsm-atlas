@@ -6,6 +6,8 @@ from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import Mock
+from unittest.mock import patch
+from argparse import Namespace
 from urllib.parse import parse_qs, urlparse
 
 from bsm_atlas import relevance
@@ -42,12 +44,14 @@ def metadata_client(records):
     return client
 
 
-def arxiv_client():
+def arxiv_client(categories=None):
     def get(url):
         identifiers = parse_qs(urlparse(url).query)['id_list'][0].split(',')
-        return ('<feed xmlns="http://www.w3.org/2005/Atom">' + ''.join(
+        return ('<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">' + ''.join(
             '<entry><id>http://arxiv.org/abs/' + i + 'v2</id><title>Paper</title>'
-            '<author><name>Author</name></author></entry>' for i in identifiers) + '</feed>').encode()
+            '<author><name>Author</name></author><arxiv:primary_category term="' +
+            (categories or {}).get(i, 'hep-ph') + '"/></entry>'
+            for i in identifiers) + '</feed>').encode()
     result = Mock()
     result.get.side_effect = get
     return result
@@ -71,6 +75,7 @@ class RelevanceTests(unittest.TestCase):
         return relevance.select_year_normalized(self.directory, 2, source=self.source,
             client=kwargs.pop('client', metadata_client(self.records)),
             arxiv_client=kwargs.pop('arxiv_client', arxiv_client()),
+            primary_only=kwargs.pop('primary_only', False),
             first_year=2024, last_year=2025, page_size=2, batch_size=2, **kwargs)
 
     def test_full_cohort_means_include_zero_and_recorded_works(self):
@@ -82,6 +87,113 @@ class RelevanceTests(unittest.TestCase):
         self.assertEqual(selected['excluded_recorded_works_before_cutoff'], 1)
         papers = json.loads((self.directory / 'papers-2.json').read_text())['papers']
         self.assertEqual([p['arxiv'] for p in papers], ['2501.00001v2', '2401.00002v2'])
+
+    def test_raw_citations_exclude_recorded_before_ranking_cutoff(self):
+        selected = relevance.select_population(self.directory, 2, source=self.source,
+            client=metadata_client(self.records), arxiv_client=arxiv_client(),
+            first_year=2024, last_year=2025, page_size=2, batch_size=2,
+            ranking='citations')
+        self.assertEqual([r['arxiv'] for r in selected['candidates']],
+                         ['2401.00002', '2501.00001'])
+        self.assertEqual([r['citation_count'] for r in selected['candidates']], [10, 2])
+        self.assertEqual(selected['excluded_recorded_works_before_cutoff'], 1)
+        self.assertEqual(selected['population_records'], 5)
+        self.assertEqual(selected['citation_metric'], 'citation_count including self citations')
+        self.assertNotIn('score', selected['candidates'][0])
+        no_network = Mock()
+        no_network.get.side_effect = AssertionError('Unexpected request on resume')
+        self.assertEqual(selected, relevance.select_population(self.directory, 2,
+            source=self.source, client=no_network, arxiv_client=no_network,
+            first_year=2024, last_year=2025, page_size=2, batch_size=2,
+            ranking='citations'))
+        with self.assertRaisesRegex(ValueError, 'inputs changed'):
+            self.select(client=no_network, arxiv_client=no_network)
+
+    def test_raw_citations_tie_break_and_recorded_alias_exclusion(self):
+        self.records[0]['metadata']['arxiv_eprints'].append({
+            'value': '2401.00009', 'categories': ['hep-ph']})
+        self.records[3]['metadata']['citation_count'] = 10
+        selected = relevance.select_population(self.directory, 2, source=self.source,
+            client=metadata_client(list(reversed(self.records))), arxiv_client=arxiv_client(),
+            first_year=2024, last_year=2025, page_size=2, batch_size=2,
+            ranking='citations')
+        self.assertEqual([r['arxiv'] for r in selected['candidates']],
+                         ['2401.00002', '2501.00001'])
+
+    def test_raw_citations_reuse_population_without_a_metadata_sweep(self):
+        self.select()
+        other = self.root / 'raw-citations'
+        other.mkdir()
+        for path in self.directory.glob('*.json'):
+            if path.name == 'population-total.json' or path.name.startswith('cohort-'):
+                (other / path.name).hardlink_to(path)
+        no_metadata = Mock()
+        no_metadata.get.side_effect = AssertionError('Repeated INSPIRE sweep')
+        selected = relevance.select_population(other, 2, source=self.source,
+            client=no_metadata, arxiv_client=arxiv_client(), first_year=2024,
+            last_year=2025, page_size=2, batch_size=2, ranking='citations')
+        self.assertEqual([r['arxiv'] for r in selected['candidates']],
+                         ['2401.00002', '2501.00001'])
+        no_metadata.get.assert_not_called()
+
+    def test_primary_filter_refills_raw_citation_batch_in_order(self):
+        # INSPIRE's category list is deliberately identical for both cases.
+        # Only arXiv's explicit primary_category establishes eligibility.
+        for record in self.records:
+            record['metadata']['arxiv_eprints'][0]['categories'] = ['hep-ph', 'hep-th']
+        client = arxiv_client({'2401.00002': 'hep-th'})
+        selected = relevance.select_population(self.directory, 2, source=self.source,
+            client=metadata_client(self.records), arxiv_client=client,
+            first_year=2024, last_year=2025, page_size=2, batch_size=2,
+            ranking='citations')
+        self.assertEqual([r['arxiv'] for r in selected['candidates']],
+                         ['2501.00001', '2401.00003'])
+        self.assertEqual(selected['primary_category'], 'hep-ph')
+        self.assertEqual(selected['excluded_nonprimary_works_before_cutoff'], 1)
+        self.assertTrue(all(r['primary_category'] == 'hep-ph' for r in selected['candidates']))
+        self.assertEqual(client.get.call_count, 2)
+        manifest = json.loads((self.directory / 'papers-2.json').read_text())['papers']
+        self.assertEqual([r['arxiv'] for r in manifest], ['2501.00001v2', '2401.00003v2'])
+        self.assertTrue(all(set(r) == {'arxiv', 'title', 'authors'} for r in manifest))
+        no_network = Mock()
+        no_network.get.side_effect = AssertionError('Resume repeated primary-category requests')
+        self.assertEqual(selected, relevance.select_population(self.directory, 2,
+            source=self.source, client=no_network, arxiv_client=no_network,
+            first_year=2024, last_year=2025, page_size=2, batch_size=2, ranking='citations'))
+
+    def test_primary_filter_also_applies_to_impact_selection(self):
+        selected = self.select(primary_only=True,
+            arxiv_client=arxiv_client({'2501.00001': 'hep-th'}))
+        self.assertEqual([r['arxiv'] for r in selected['candidates']],
+                         ['2401.00002', '2401.00003'])
+        self.assertEqual(selected['primary_category'], 'hep-ph')
+        # Preserve the established impact metric; change eligibility only.
+        self.assertEqual(selected['cohorts']['2024'], {'papers': 3, 'citations': 50})
+
+    def test_unverified_primary_category_blocks_instead_of_guessing(self):
+        client = arxiv_client({'2501.00001': ''})
+        with self.assertRaisesRegex(ValueError, 'primary category'):
+            self.select(primary_only=True, arxiv_client=client)
+        self.assertFalse((self.directory / 'papers-2.json').exists())
+        self.assertFalse((self.directory / 'selection.json').exists())
+
+    def test_primary_restriction_cannot_silently_reuse_inclusive_selection(self):
+        self.select()
+        with self.assertRaisesRegex(ValueError, 'inputs changed'):
+            self.select(primary_only=True)
+
+    def test_cli_enforces_primary_and_new_only_for_both_rankings(self):
+        from bsm_atlas.__main__ import harvest_command
+        for ranking in ['citations', 'year-normalized']:
+            args = Namespace(action='select', ranking=ranking, output_dir=self.directory,
+                             count=2, source=self.source)
+            result = {'count': 2, 'citation_metric': ranking, 'primary_category': 'hep-ph',
+                      'population_records': 5, 'candidates': [{'citation_count': 10},
+                                                            {'citation_count': 2}]}
+            with patch.object(relevance, 'select_population', return_value=result) as select:
+                self.assertEqual(harvest_command(args)['primary_category'], 'hep-ph')
+                select.assert_called_once_with(self.directory, 2, source=self.source,
+                                               ranking=ranking, primary_only=True)
 
     def test_resume_makes_no_requests_and_source_change_is_rejected(self):
         original = self.select()

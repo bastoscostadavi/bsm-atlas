@@ -75,6 +75,23 @@ class ExpansionTests(unittest.TestCase):
         self.assertEqual(final['usage'], report['usage'])
         self.assertEqual(sum(job['attempts'] for job in harvest.status(self.directory)['jobs']), 5)
 
+    def test_completed_workers_are_ingested_in_one_validated_batch(self):
+        def all_complete(futures, **kwargs):
+            for future in futures:
+                future.result()
+            return set(futures), set()
+
+        with patch('bsm_atlas.expansion.wait', side_effect=all_complete), patch(
+                'bsm_atlas.expansion.ingest_batch', wraps=harvest.ingest_batch) as intake, patch(
+                'bsm_atlas.expansion.record_extractions', wraps=expansion.record_extractions) as tracking:
+            report = self.run_expansion(execute=True, workers=5, fetch_size=5)
+        self.assertEqual(report['counts'], {'ingested': 5})
+        self.assertEqual(intake.call_count, 1)
+        self.assertEqual(len(intake.call_args.kwargs['jobs']), 5)
+        tracking.assert_not_called()
+        registered = json.loads(self.source.read_text())
+        self.assertTrue(all(p['extraction_status'] == 'complete' for p in registered['papers']))
+
     def test_failed_worker_stops_before_launching_entire_manifest(self):
         self.executable.write_text(self.executable.read_text().replace(
             'sys.stdin.read()\n', 'sys.stdin.read()\nsys.exit(7)\n'))

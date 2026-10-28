@@ -14,11 +14,39 @@ def harvest_arguments(commands):
     from .harvest import DEFAULT_MODEL
     harvest = commands.add_parser('harvest', help='Extract paper-isolated specifications and write validated entries automatically')
     actions = harvest.add_subparsers(dest='action', required=True)
-    selection = actions.add_parser('select', help='Freeze most-cited hep-ph papers from INSPIRE and pin arXiv versions; no model calls')
+    selection = actions.add_parser('select', help='Rank unrecorded primary-hep-ph papers and pin arXiv versions; no model calls')
     selection.add_argument('--output-dir', type=Path, required=True)
     selection.add_argument('--count', type=int, default=1000)
     selection.add_argument('--ranking', choices=['citations', 'year-normalized'], default='citations')
-    selection.add_argument('--source', type=Path, default=SOURCE, help='Catalogue used to exclude recorded works from year-normalized selection')
+    selection.add_argument('--source', type=Path, default=SOURCE, help='Catalogue used to exclude recorded works from either ranking')
+    reservation = actions.add_parser('reserve', help='Reserve a disjoint primary-hep-ph batch without model calls')
+    reservation.add_argument('--output-dir', type=Path, required=True)
+    reservation.add_argument('--count', type=int, default=1000)
+    reservation.add_argument('--provider', choices=['codex','claude'], default='claude')
+    reservation.add_argument('--ranking', choices=['citations','year-normalized'], default='citations')
+    reservation.add_argument('--population-cache', type=Path)
+    reservation.add_argument('--source', type=Path, default=SOURCE)
+    registration = actions.add_parser('register', help='Register an existing manifest so other providers cannot reserve its papers')
+    registration.add_argument('manifest', type=Path)
+    registration.add_argument('--provider', choices=['codex','claude'], default='codex')
+    registration.add_argument('--source', type=Path, default=SOURCE)
+    attribution = actions.add_parser('sync-extractors', help='Backfill measured extractor provenance from compact receipts; no model calls')
+    attribution.add_argument('directory', type=Path)
+    attribution.add_argument('--source', type=Path, default=SOURCE)
+    attribution.add_argument('--write', action='store_true')
+    launch = actions.add_parser('launch', help='Durably launch a reserved provider batch; dry-run unless --execute')
+    launch.add_argument('manifest', type=Path)
+    launch.add_argument('--run-dir', type=Path, required=True)
+    launch.add_argument('--provider', choices=['codex','claude'], default='claude')
+    launch.add_argument('--model', required=True, help='Explicit model identifier; no automatic model selection or fallback')
+    launch.add_argument('--reasoning', choices=['low','medium','high','xhigh','max'], default='medium')
+    launch.add_argument('--workers', type=int, default=1)
+    launch.add_argument('--fetch-size', type=int, default=1)
+    launch.add_argument('--timeout', type=float, default=900)
+    launch.add_argument('--claude', default='claude')
+    launch.add_argument('--codex', default='codex')
+    launch.add_argument('--execute', action='store_true')
+    launch.add_argument('--resume', action='store_true')
     preparation = actions.add_parser('prepare', help='Retrieve pinned papers and create isolated prompts; no model calls')
     preparation.add_argument('manifest', type=Path)
     preparation.add_argument('--run-dir', type=Path, required=True)
@@ -35,6 +63,8 @@ def harvest_arguments(commands):
     expansion.add_argument('--model', default=DEFAULT_MODEL)
     expansion.add_argument('--workers', type=int, default=2)
     expansion.add_argument('--codex', default='codex')
+    expansion.add_argument('--provider', choices=['codex','claude'], default='codex')
+    expansion.add_argument('--claude', default='claude', help='Claude Code executable when --provider=claude')
     expansion.add_argument('--reasoning', choices=['low', 'medium', 'high', 'xhigh', 'max'], default='medium')
     expansion.add_argument('--timeout', type=float, default=900)
     expansion.add_argument('--fetch-size', type=int, default=5)
@@ -44,6 +74,8 @@ def harvest_arguments(commands):
     run.add_argument('--model', default=DEFAULT_MODEL)
     run.add_argument('--workers', type=int, default=2)
     run.add_argument('--codex', default='codex', help='Path to a current Codex CLI executable')
+    run.add_argument('--provider', choices=['codex','claude'], default='codex')
+    run.add_argument('--claude', default='claude')
     run.add_argument('--reasoning', choices=['none', 'low', 'medium', 'high', 'xhigh', 'max'], default='medium')
     run.add_argument('--timeout', type=float, default=900)
     run.add_argument('--limit', type=int, help='Maximum number of papers to launch in this invocation')
@@ -72,19 +104,33 @@ def harvest_arguments(commands):
 
 def harvest_command(args):
     from . import harvest
+    if args.action == 'register':
+        from .allocations import register_manifest
+        row = register_manifest(args.manifest, args.provider, args.source)
+        return {'registered': len(row['arxiv_base_ids']), 'provider': row['provider'],
+                'manifest': row['manifest'], 'model_calls': 0}
+    if args.action == 'reserve':
+        from .allocations import reserve_batch
+        return reserve_batch(args.output_dir, args.count, provider=args.provider, ranking=args.ranking,
+                             population_cache=args.population_cache, source=args.source)
+    if args.action == 'sync-extractors':
+        from .extractors import sync_extractors
+        return sync_extractors(args.directory, args.source, args.write)
+    if args.action == 'launch':
+        from .launch import launch_expansion
+        return launch_expansion(args.manifest, args.run_dir, model=args.model, provider=args.provider,
+            executable=args.claude if args.provider == 'claude' else args.codex, reasoning=args.reasoning,
+            workers=args.workers, fetch_size=args.fetch_size, timeout=args.timeout,
+            execute=args.execute, resume=args.resume)
     if args.action == 'select':
-        if args.ranking == 'year-normalized':
-            from .relevance import select_year_normalized
-            selection = select_year_normalized(args.output_dir, args.count, source=args.source)
-            return {'papers': selection['count'], 'selection': str(args.output_dir / 'selection.json'),
-                    'manifest': str(args.output_dir / f'papers-{args.count}.json'),
-                    'citation_metric': selection['citation_metric'],
-                    'population_records': selection['population_records']}
-        from .citations import select_most_cited
-        selection = select_most_cited(args.output_dir, args.count)
+        from .relevance import select_population
+        selection = select_population(args.output_dir, args.count, source=args.source,
+                                      ranking=args.ranking, primary_only=True)
         return {'papers': selection['count'], 'selection': str(args.output_dir / 'selection.json'),
                 'manifest': str(args.output_dir / f'papers-{args.count}.json'),
                 'citation_metric': selection['citation_metric'],
+                'primary_category': selection['primary_category'],
+                'population_records': selection['population_records'],
                 'citation_range': [selection['candidates'][0]['citation_count'],
                                    selection['candidates'][-1]['citation_count']]}
     if args.action == 'prepare':
@@ -93,15 +139,17 @@ def harvest_command(args):
     if args.action == 'expand':
         from .expansion import expand_batch
         return expand_batch(args.manifest, args.run_dir, args.execute, args.resume, args.model,
-                            args.workers, args.codex, args.reasoning, args.timeout, args.fetch_size,
-                            reconfigure=args.reconfigure)
+                            args.workers, args.claude if args.provider == 'claude' else args.codex,
+                            args.reasoning, args.timeout, args.fetch_size,
+                            reconfigure=args.reconfigure, provider=args.provider)
     if args.action == 'run':
         if args.execute:
             from .retention import VERSION as RETENTION_VERSION
             write_json(args.directory / 'retention.json',
                        {'delete_payloads': True, 'schema_version': RETENTION_VERSION})
         return harvest.run_batch(args.directory, args.execute, args.model, args.workers,
-                                 args.codex, args.reasoning, args.timeout, args.retry, args.limit)
+                                 args.claude if args.provider == 'claude' else args.codex,
+                                 args.reasoning, args.timeout, args.retry, args.limit, provider=args.provider)
     if args.action == 'status':
         return harvest.status(args.directory)
     if args.action == 'cleanup':

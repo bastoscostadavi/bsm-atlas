@@ -3,7 +3,12 @@
 PRAGMA foreign_keys=ON;
 CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL) STRICT;
 CREATE TABLE papers (paper_id TEXT PRIMARY KEY, arxiv TEXT NOT NULL UNIQUE, title TEXT NOT NULL, authors TEXT NOT NULL,
-  extraction_status TEXT NOT NULL DEFAULT 'not_started' CHECK(extraction_status IN ('not_started','complete','unresolved'))) STRICT;
+  extraction_status TEXT NOT NULL DEFAULT 'not_started' CHECK(extraction_status IN ('not_started','complete','unresolved')),
+  extractor_provider TEXT CHECK(extractor_provider IN ('openai','anthropic')),
+  extractor_model TEXT CHECK(extractor_model IS NULL OR length(trim(extractor_model))>0),
+  extractor_reasoning TEXT CHECK(extractor_reasoning IN ('low','medium','high','xhigh','max')),
+  CHECK((extractor_provider IS NULL)=(extractor_model IS NULL)),
+  CHECK(extractor_reasoning IS NULL OR extractor_model IS NOT NULL)) STRICT;
 CREATE TABLE semisimple_algebras (semisimple_id TEXT PRIMARY KEY, algebra TEXT NOT NULL, canonical_json TEXT NOT NULL CHECK(json_valid(canonical_json))) STRICT;
 CREATE TABLE full_gauge_algebras (full_algebra_id TEXT PRIMARY KEY, algebra TEXT NOT NULL,
   semisimple_id TEXT NOT NULL REFERENCES semisimple_algebras, abelian_rank INTEGER NOT NULL CHECK(abelian_rank>=0),

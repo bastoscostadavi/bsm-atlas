@@ -40,7 +40,11 @@ def main_data(source=None):
     templates['F_SM']={**templates['R_SM'],'name':'SM fermions','rows':[r for r in templates['R_SM']['rows'] if r['lorentz']['component']!='S']}
     templates['H_SM']={**templates['R_SM'],'name':'SM Higgs','rows':[r for r in templates['R_SM']['rows'] if r['lorentz']['component']=='S']}
     for entry in entries:compact_baseline(entry['regime'],templates)
-    papers=[{**p,'entryIds':sorted(e['id'] for e in entries if p['id'] in e['paperIds'])} for p in source['papers']]
+    paper_entries={p['id']:[] for p in source['papers']}
+    for entry in entries:
+        for paper_id in entry['paperIds']:
+            paper_entries[paper_id].append(entry['id'])
+    papers=[{**p,'entryIds':sorted(paper_entries[p['id']])} for p in source['papers']]
     return {'version':VERSION,'schema_version':'bsm-atlas-export-1','representationConvention':REPRESENTATION_CONVENTION,
         'entries':entries,'papers':papers,'templates':templates,'cores':cores,
         'semisimpleAlgebras':algebras,'fullAlgebras':full,
@@ -58,9 +62,11 @@ def database(path,data):
         con.executescript((ROOT/'atlas/schema.sql').read_text())
         con.execute('INSERT INTO metadata VALUES (?,?)',('convention',VERSION))
         for p in data['papers']:
-            con.execute('INSERT INTO papers VALUES (?,?,?,?,?)',
+            extractor=p.get('extractor',{})
+            con.execute('INSERT INTO papers VALUES (?,?,?,?,?,?,?,?)',
                 (*[p[k] for k in ['id','arxiv','title','authors']],
-                 p.get('extraction_status','not_started')))
+                 p.get('extraction_status','not_started'),
+                 extractor.get('provider'),extractor.get('model'),extractor.get('reasoning')))
         for a in data['semisimpleAlgebras']:
             con.execute('INSERT INTO semisimple_algebras VALUES (?,?,?)',(a['id'],a['algebra'],encoded(a['canonical'])))
         for a in data['fullAlgebras']:

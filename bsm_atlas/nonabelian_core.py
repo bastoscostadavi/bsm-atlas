@@ -5,6 +5,7 @@ import json
 
 from .catalogue_identity import normalize_spec, canonicalize, IncompleteContent
 from .scalar_conventions import is_scalar, representation_type
+from .json_memo import memoized_specification
 
 CONVENTION = {
     'id':'nonabelian-core-1',
@@ -54,6 +55,7 @@ def full_algebra_key(spec):
     return {'id':sha256(encoded.encode()).hexdigest(),'canonical':canonical,
             'semisimpleId':simple['id'],'abelianRank':rank}
 
+@memoized_specification()
 def restrict_nonabelian(spec):
     """Return a canonical core from one complete numerical description regime.
 

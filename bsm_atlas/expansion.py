@@ -92,7 +92,7 @@ def infrastructure_failure(directory, jobs):
 
 def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MODEL,
                  workers=2, executable='codex', reasoning='medium', timeout=900,
-                 fetch_size=5, source=SOURCE, reconfigure=False):
+                 fetch_size=5, source=SOURCE, reconfigure=False, provider='codex'):
     """One serial fetcher feeds a bounded rolling inference pool.
 
     Resume never reruns completed, invalid or failed jobs automatically. A STOP
@@ -101,14 +101,18 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
     """
     path, directory = Path(path).resolve(), Path(directory).resolve()
     requests = manifest(path)
+    if provider not in {'codex', 'claude'}:
+        raise ValueError('Choose codex or claude as the worker provider')
+    if provider == 'claude' and (not model.startswith('claude-') or reasoning not in {'low','medium','high','xhigh','max'}):
+        raise ValueError('Claude requires an explicit claude-* model identifier and a supported effort setting')
     if reconfigure and not resume:
         raise ValueError('Operational reconfiguration requires --resume')
     if directory.is_relative_to(ROOT / 'website'):
         raise ValueError('Expansion files must stay outside the published website')
     if type(fetch_size) is not int or not 1 <= fetch_size <= 100:
         raise ValueError('Use a fetch window of 1–100 papers')
-    if type(workers) is not int or not 1 <= workers <= 8:
-        raise ValueError('Use 1–8 workers')
+    if type(workers) is not int or not 1 <= workers <= 16:
+        raise ValueError('Use 1–16 workers')
     if not isfinite(timeout) or timeout <= 0:
         raise ValueError('Use a positive worker timeout')
     if model == 'gpt-6.1-sol' and reasoning not in {'low', 'medium', 'high', 'xhigh', 'max'}:
@@ -118,12 +122,16 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                 'workers': workers, 'fetch_size': fetch_size,
                 'message': 'Add --execute to retrieve sources and launch extraction. No calls or writes made.'}
     # Fail before retrieval if the worker cannot support isolation/structured output.
-    check_worker(executable)
+    check_worker(executable) if provider == 'codex' else check_worker(executable, provider)
+    from .allocations import register_manifest
+    register_manifest(path, provider, source)
     config = {'manifest_sha256': digest(str(path).encode() + path.read_bytes()),
               'context_sha256': digest(context().encode()), 'model': model,
               'workers': workers, 'reasoning': reasoning, 'timeout': timeout,
               'fetch_size': fetch_size, 'executable': str(executable),
               'source': str(Path(source).resolve())}
+    if provider != 'codex':
+        config['provider'] = provider
     if directory.exists() and not resume:
         raise ValueError('Expansion directory exists; explicitly use --resume')
     directory.mkdir(parents=True, exist_ok=True)
@@ -188,7 +196,7 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                           and not compact_record(directory / 'jobs' / name)
                           and not (directory / 'jobs' / name / 'ingestion.json').exists()]
                 if cached:
-                    imported = ingest_batch(directory, source, True, jobs=cached, _run_locked=True)
+                    imported = ingest_batch(directory, source, True, jobs=cached, _run_locked=True, _source_wait=True)
                     model_writes += len(imported['entry_ids'])
             names = [job_id(item['arxiv']) for item in requests['papers']]
             active, fetching, fetch_names = {}, None, []
@@ -199,31 +207,49 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                     if (directory / 'STOP').exists() and stop_reason is None:
                         stop_reason = 'STOP file present; active workers drained without further submissions'
                         changed = True
+                    completed = []
                     for future, name in list(active.items()):
                         if not future.done():
                             continue
                         try:
                             future.result()
-                            record_extractions(directory, source, True, jobs=[name],
-                                               manifest_path=path, _run_locked=True)
-                            imported = ingest_batch(directory, source, True, jobs=[name], _run_locked=True)
-                            model_writes += len(imported['entry_ids'])
-                            failure = infrastructure_failure(directory, [name])
-                            compact_if_enabled(directory, [name])
-                            if failure and stop_reason is None:
-                                stop_reason = 'Worker infrastructure/auth/quota failure; inspect before resuming. ' + failure
+                            completed.append(name)
                         except Exception as error:
                             if stop_reason is None:
                                 stop_reason = type(error).__name__ + ': ' + str(error)
                         del active[future]
                         changed = True
+                    if completed:
+                        try:
+                            states = {name: read_json(directory / 'jobs' / name / 'status.json')['state']
+                                      for name in completed}
+                            failed = [name for name in completed if states[name] in {'retry', 'invalid'}]
+                            accepted = [name for name in completed if states[name] in {'extracted', 'review', 'skipped'}]
+                            # Intake itself records successful paper status and
+                            # provenance. Do not rewrite the whole source twice.
+                            if failed:
+                                record_extractions(directory, source, True, jobs=failed,
+                                                   manifest_path=path, _run_locked=True, _source_wait=True)
+                            if accepted:
+                                imported = ingest_batch(directory, source, True, jobs=accepted,
+                                                        _run_locked=True, _source_wait=True)
+                                model_writes += len(imported['entry_ids'])
+                            failure = infrastructure_failure(directory, completed)
+                            compact_if_enabled(directory, completed)
+                            if failure and stop_reason is None:
+                                stop_reason = 'Worker infrastructure/auth/quota failure; inspect before resuming. ' + failure
+                        except Exception as error:
+                            if stop_reason is None:
+                                stop_reason = type(error).__name__ + ': ' + str(error)
                     if fetching is not None and fetching.done():
                         try:
                             fetched = fetching.result()
                             window = [row for row in fetched['jobs'] if row['job'] in fetch_names]
                             advanced = [row for row in window if row['state'] != 'pending']
-                            record_extractions(directory, source, True, jobs=[row['job'] for row in advanced],
-                                               manifest_path=path, _run_locked=True)
+                            failed = [row['job'] for row in advanced if row['state'] in {'retry', 'invalid'}]
+                            if failed:
+                                record_extractions(directory, source, True, jobs=failed,
+                                                   manifest_path=path, _run_locked=True, _source_wait=True)
                             compact_if_enabled(directory, [row['job'] for row in advanced
                                                           if row['state'] in {'retry', 'invalid', 'already_recorded'}])
                             if not advanced:
@@ -259,7 +285,8 @@ def expand_batch(path, directory, execute=False, resume=False, model=DEFAULT_MOD
                                     continue
                                 checked_job(job)
                                 active[pool.submit(run_job, job, executable, directory / 'result.schema.json',
-                                                   model, reasoning, timeout)] = name
+                                                   model, reasoning, timeout,
+                                                   **({} if provider == 'codex' else {'provider': provider}))] = name
                                 changed = True
                         if pending and fetching is None and len(ready) < 2 * workers:
                             fetch_names = set(pending)

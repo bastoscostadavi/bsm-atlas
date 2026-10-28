@@ -40,7 +40,7 @@ class CitationTests(unittest.TestCase):
         arxiv = Mock()
         arxiv.get.return_value = atom(['2001.00003', '2001.00001'])
         result = citations.select_most_cited(self.directory, 2, page_size=2,
-                                            inspire_client=inspire, arxiv_client=arxiv)
+                                            inspire_client=inspire, arxiv_client=arxiv, primary_only=False)
         self.assertEqual([item['arxiv'] for item in result['candidates']],
                          ['2001.00003', '2001.00001'])
         manifest = json.loads((self.directory / 'papers-2.json').read_text())
@@ -49,7 +49,7 @@ class CitationTests(unittest.TestCase):
         no_network = Mock()
         no_network.get.side_effect = AssertionError('Unexpected network')
         self.assertEqual(result, citations.select_most_cited(self.directory, 2, page_size=2,
-            inspire_client=no_network, arxiv_client=no_network))
+            inspire_client=no_network, arxiv_client=no_network, primary_only=False))
         no_network.get.assert_not_called()
         self.assertIn('body_base64', json.loads((self.directory / 'inspire-page-0001.json').read_text()))
 
@@ -58,12 +58,12 @@ class CitationTests(unittest.TestCase):
         inspire.get.return_value = page([hit('hep-ph/9901234', 0, 1)], 1)
         arxiv.get.side_effect = OSError('service unavailable')
         with self.assertRaises(OSError):
-            citations.select_most_cited(self.directory, 1, inspire_client=inspire, arxiv_client=arxiv)
+            citations.select_most_cited(self.directory, 1, inspire_client=inspire, arxiv_client=arxiv, primary_only=False)
         self.assertTrue((self.directory / 'selection.json').exists())
         self.assertFalse((self.directory / 'papers-1.json').exists())
         arxiv.get.side_effect = None
         arxiv.get.return_value = atom(['hep-ph/9901234'])
-        citations.select_most_cited(self.directory, 1, inspire_client=inspire, arxiv_client=arxiv)
+        citations.select_most_cited(self.directory, 1, inspire_client=inspire, arxiv_client=arxiv, primary_only=False)
         self.assertEqual(inspire.get.call_count, 1)
 
     def test_bad_counts_and_ambiguous_metadata(self):
@@ -108,7 +108,33 @@ class CitationTests(unittest.TestCase):
         client = Mock()
         client.get.return_value = page([hit('2001.00001', 3, 1), hit('2001.00001v2', 2, 2)], 2)
         with self.assertRaisesRegex(ValueError, 'Duplicate'):
-            citations.select_most_cited(self.directory, 1, inspire_client=client)
+            citations.select_most_cited(self.directory, 1, inspire_client=client, primary_only=False)
+
+    def test_duplicate_deposits_require_doi_journal_and_compatible_authors(self):
+        ids = ['hep-ph/9801361', 'hep-ph/9711308']
+        def entry(identifier, date, authors, journal):
+            return ('<entry><id>http://arxiv.org/abs/' + identifier + 'v1</id>'
+                '<title>Improved determination</title><published>' + date + '</published>' +
+                ''.join('<author><name>' + name + '</name></author>' for name in authors) +
+                '<arxiv:doi>10.1016/S0370-2693(97)01512-8</arxiv:doi>'
+                '<arxiv:journal_ref>' + journal + '</arxiv:journal_ref></entry>')
+        body = ('<feed xmlns="http://www.w3.org/2005/Atom" '
+                'xmlns:arxiv="http://arxiv.org/schemas/atom">' +
+                entry(ids[0], '1998-01-20T14:46:51Z', ['Michel Davier', 'Andreas Hoecker'],
+                      'Phys.Lett.B419:419-431,1998') +
+                entry(ids[1], '1997-11-12T19:04:56Z', ['M. Davier', 'A. Hoecker'],
+                      'Phys.Lett. B419 (1998) 419-431') + '</feed>')
+        result = citations.resolve_expanded_version(body.encode(), ids)
+        self.assertEqual(result['representative'], ids[0])
+        self.assertEqual(result['kind'], 'duplicate_deposits_same_doi_journal_and_authors')
+        self.assertEqual(result, citations.resolve_expanded_version(body.encode(), list(reversed(ids))))
+        for changed in [body.replace('M. Davier', 'N. Davier'),
+                        body.replace('M. Davier', 'Michael Davier'),
+                        body.replace('419-431</arxiv', '419-432</arxiv'),
+                        body.replace('>Improved determination</title>', '>Erratum</title>', 1),
+                        body.replace('10.1016/S0370-2693(97)01512-8', '', 1)]:
+            with self.assertRaises(ValueError):
+                citations.resolve_expanded_version(changed.encode(), ids)
 
     def test_explicit_addendum_selects_original_without_claiming_paper_identity(self):
         identifiers = ['1703.04471', '2003.08511']
@@ -132,12 +158,56 @@ class CitationTests(unittest.TestCase):
         client = Mock()
         client.get.return_value = page([hit('2001.00001', 2, 1), hit('2001.00002', 3, 2)], 2)
         with self.assertRaisesRegex(ValueError, 'citation-descending'):
-            citations.select_most_cited(self.directory, 1, inspire_client=client)
+            citations.select_most_cited(self.directory, 1, inspire_client=client, primary_only=False)
+
+    def test_erratum_with_journal_suffix_requires_explicit_original_identifier(self):
+        ids = ['hep-ph/0205210', '1301.1079']
+        raw = atom(ids).decode().replace('<feed xmlns=',
+            '<feed xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns=')
+        raw = raw.replace('<title>Paper</title>',
+            '<title>Order-v^4 corrections to S-wave quarkonium decay</title>', 1)
+        raw = raw.replace('<title>Paper</title>',
+            '<title>Erratum: Order-v^4 corrections to S-wave quarkonium decay '
+            '[Phys. Rev. D 66, 094011 (2002)]</title>'
+            '<summary>We correct errors in arXiv:hep-ph/0205210.</summary>', 1)
+        raw = raw.replace('</entry>', '<arxiv:doi>10.1103/PhysRevD.66.094011</arxiv:doi></entry>', 1)
+        raw = raw.replace('</entry></feed>',
+            '<arxiv:doi>10.1103/PhysRevD.87.039902</arxiv:doi></entry></feed>')
+        result = citations.resolve_expanded_version(raw.encode(), ids)
+        self.assertEqual(result['representative'], ids[0])
+        self.assertEqual(result['kind'], 'primary_paper_with_addendum_or_erratum')
+        for changed in [raw.replace('arXiv:hep-ph/0205210', 'another paper'),
+                        raw.replace('arXiv:hep-ph/0205210', 'arXiv:hep-ph/02052100'),
+                        raw.replace('Erratum: Order-v^4', 'Erratum: Other-v^4')]:
+            with self.assertRaises(ValueError):
+                citations.resolve_expanded_version(changed.encode(), ids)
+
+    def test_citation_helper_defaults_to_primary_and_new_only(self):
+        from bsm_atlas import relevance
+        marker = object()
+        source = self.directory / 'catalogue.json'
+        with patch.object(relevance, 'select_population', return_value=marker) as select:
+            self.assertIs(citations.select_most_cited(self.directory, 2, source=source), marker)
+            select.assert_called_once_with(self.directory, 2, ranking='citations', primary_only=True,
+                source=source, client=None, arxiv_client=None, page_size=250, batch_size=100)
 
     def test_incomplete_atom_fails(self):
         for content in [atom([]), atom(['2001.00001', '2001.00001']), atom(['2001.00002'])]:
             with self.assertRaises(ValueError):
                 citations.parse_atom(content, ['2001.00001'])
+
+    def test_primary_category_must_be_explicit_not_category_order(self):
+        body = atom(['2001.00001']).decode().replace('<feed xmlns=',
+            '<feed xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns=')
+        body = body.replace('</entry>', '<category term="hep-ph"/>'
+            '<arxiv:primary_category term="hep-th"/></entry>')
+        parsed = citations.parse_atom(body.encode(), ['2001.00001'], include_primary=True)
+        self.assertEqual(parsed['2001.00001']['primary_category'], 'hep-th')
+        for invalid in [body.replace('<arxiv:primary_category term="hep-th"/>', ''),
+                        body.replace('term="hep-th"', 'term=""'),
+                        body.replace('</entry>', '<arxiv:primary_category term="hep-ph"/></entry>')]:
+            with self.assertRaisesRegex(ValueError, 'primary category'):
+                citations.parse_atom(invalid.encode(), ['2001.00001'], include_primary=True)
 
     def test_lower_ranked_alias_does_not_require_resolution(self):
         lower = hit('2001.00002', 3, 2)

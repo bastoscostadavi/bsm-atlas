@@ -384,7 +384,12 @@ def status(directory):
             'usage': dict(usage) if reported else None, 'unreported_attempts': unreported, 'jobs': jobs}
 
 
-def check_worker(executable):
+def check_worker(executable, provider='codex'):
+    if provider == 'claude':
+        from .claude_worker import check
+        return check(executable)
+    if provider != 'codex':
+        raise ValueError('Unknown worker provider')
     try:
         result = subprocess.run([str(executable), 'exec', '--help'], capture_output=True, text=True, timeout=15)
     except subprocess.SubprocessError as error:
@@ -396,7 +401,10 @@ def check_worker(executable):
                          '. Upgrade the CLI or select another executable with --codex. No workers launched.')
 
 
-def worker_command(executable, attempt, schema, model, reasoning):
+def worker_command(executable, attempt, schema, model, reasoning, provider='codex'):
+    if provider == 'claude':
+        from .claude_worker import command
+        return command(executable, schema, model, reasoning)
     command = [str(executable), 'exec', '--ignore-user-config', '--ephemeral',
                '--sandbox', 'read-only', '--skip-git-repo-check', '--cd', str(attempt),
                '--model', model, '--json', '--output-schema', str(schema),
@@ -425,11 +433,15 @@ def event_usage(path):
     return dict(total) if observed else None
 
 
-def run_job(job, executable, schema, model, reasoning, timeout):
+def run_job(job, executable, schema, model, reasoning, timeout, provider='codex'):
     checked_job(job)
     message = (job / 'prompt.txt').read_text(encoding='utf-8')
     try:
         check_prompt_size(message)
+        if provider == 'claude':
+            from .claude_worker import MAX_PROMPT
+            if max(len(message), len(message.encode('utf-8'))) > MAX_PROMPT:
+                raise InputTooLarge('Claude prompt exceeds the conservative 300,000-byte/character guard; no truncation or model call')
     except InputTooLarge as error:
         outcome = {'state': 'retry', 'category': 'input_size', 'reason': str(error)}
         write_json(job / 'status.json', outcome)
@@ -438,14 +450,14 @@ def run_job(job, executable, schema, model, reasoning, timeout):
     attempts = [int(path.name.split('-')[1]) for path in job.glob('attempt-*') if path.is_dir()]
     attempt = job / ('attempt-%04d' % (1 + max(attempts, default=0)))
     attempt.mkdir()
-    command = worker_command(executable, attempt, schema, model, reasoning)
+    command = worker_command(executable, attempt, schema, model, reasoning, provider)
     write_json(job / 'status.json', {'state': 'running', 'model': model})
     outcome = {'state': 'retry', 'reason': 'Worker did not complete'}
     try:
         checked_job(job)
         with (attempt / 'events.jsonl').open('w') as stdout, (attempt / 'stderr.txt').open('w') as stderr:
             with subprocess.Popen(command, stdin=subprocess.PIPE, stdout=stdout, stderr=stderr,
-                                  text=True, start_new_session=True) as process:
+                                  text=True, start_new_session=True, cwd=attempt) as process:
                 try:
                     process.communicate(message, timeout=timeout)
                 except BaseException:
@@ -458,6 +470,9 @@ def run_job(job, executable, schema, model, reasoning, timeout):
                         raise InputTooLarge('Worker rejected this paper as input_too_large; '
                                             'separate source handling required, without truncation')
                     raise RuntimeError('Worker exited with status ' + str(process.returncode) + '; see ' + str(attempt / 'stderr.txt'))
+        if provider == 'claude':
+            from .claude_worker import result as claude_result
+            write_json(attempt / 'result.json', claude_result(attempt / 'events.jsonl'))
         result = read_json(attempt / 'result.json')
         paper = checked_job(job)['paper']
         try:
@@ -475,21 +490,27 @@ def run_job(job, executable, schema, model, reasoning, timeout):
         outcome = {'state': 'retry', 'reason': str(error)}
     finally:
         events = attempt / 'events.jsonl'
+        measurements = {'provider': 'openai', 'model': model,
+                        'usage': event_usage(events) if events.exists() else None}
+        if provider == 'claude':
+            from .claude_worker import measurements as claude_measurements
+            measurements = claude_measurements(events, model) if events.exists() else {
+                'provider': 'anthropic', 'model': model, 'usage': None}
         write_json(attempt / 'metrics.json', {
-            'model': model, 'reasoning': reasoning, 'elapsed_seconds': round(time.monotonic() - started, 3),
-            'usage': event_usage(events) if events.exists() else None})
+            **measurements, 'reasoning': reasoning, 'elapsed_seconds': round(time.monotonic() - started, 3)})
         write_json(job / 'status.json', outcome)
     return outcome
 
 
 def run_batch(directory, execute=False, model=DEFAULT_MODEL, workers=2,
-              executable='codex', reasoning='medium', timeout=900, retry=False, limit=None, progress=None):
+              executable='codex', reasoning='medium', timeout=900, retry=False, limit=None, progress=None,
+              provider='codex'):
     directory, info = run_info(directory)
     current_context(info)
     if model == 'gpt-6.1-sol' and reasoning not in {'low', 'medium', 'high', 'xhigh', 'max'}:
         raise ValueError('GPT-6.1 Sol supports low, medium, high, xhigh or max reasoning; no workers launched')
-    if type(workers) is not int or not 1 <= workers <= 8 or not isfinite(timeout) or timeout <= 0:
-        raise ValueError('Use 1–8 workers and a positive timeout')
+    if type(workers) is not int or not 1 <= workers <= 16 or not isfinite(timeout) or timeout <= 0:
+        raise ValueError('Use 1–16 workers and a positive timeout')
     if limit is not None and limit < 1:
         raise ValueError('--limit must be positive')
     with exclusive_lock(directory / 'run.lock'):
@@ -524,12 +545,13 @@ def run_batch(directory, execute=False, model=DEFAULT_MODEL, workers=2,
             return {'dry_run': True, 'model': model, 'workers': workers,
                     'jobs': [job.name for job in selected], 'message': 'Add --execute to launch model calls. No workers launched.'}
         if selected:
-            check_worker(executable)
+            check_worker(executable) if provider == 'codex' else check_worker(executable, provider)
             if read_json(directory / 'result.schema.json') != RESULT_SCHEMA:
                 raise ValueError('Worker schema changed; prepare a new run')
             with ThreadPoolExecutor(max_workers=workers) as pool:
+                extras = {} if provider == 'codex' else {'provider': provider}
                 futures = {pool.submit(run_job, job, executable, directory / 'result.schema.json',
-                                       model, reasoning, timeout): job.name for job in selected}
+                                       model, reasoning, timeout, **extras): job.name for job in selected}
                 remaining = set(futures)
                 while remaining:
                     done, remaining = wait(remaining, timeout=30, return_when=FIRST_COMPLETED)
@@ -543,7 +565,8 @@ def run_batch(directory, execute=False, model=DEFAULT_MODEL, workers=2,
     return status(directory)
 
 
-def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=None, _run_locked=False):
+def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=None, _run_locked=False,
+                 _source_wait=False):
     directory, info = run_info(directory)
     source = Path(source).resolve()
     names = info['jobs'] if jobs is None else list(jobs)
@@ -552,7 +575,7 @@ def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=N
     if rebuild and (not write or source != SOURCE.resolve()):
         raise ValueError('--rebuild requires --write to the authoritative catalogue')
     with nullcontext() if _run_locked else exclusive_lock(directory / 'run.lock'):
-        with source_lock(source) if write else nullcontext():
+        with source_lock(source, wait=_source_wait) if write else nullcontext():
             data = load(source)
             before = deepcopy(data)
             fingerprints = {identity(entry['specification'])['fingerprint']:entry for entry in data['entries']}
@@ -585,6 +608,10 @@ def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=N
                 else:
                     existing['extraction_status'] = 'complete'
                     paper = existing
+                from .extractors import job_extractor
+                extractor = job_extractor(job)
+                if extractor is not None:
+                    paper['extractor'] = extractor
                 targets = []
                 for entry in entries:
                     entry['references'][0]['paper_id'] = paper['id']
@@ -596,9 +623,10 @@ def ingest_batch(directory, source=SOURCE, write=False, rebuild=False, *, jobs=N
                                       'entry_ids': sorted(set(targets)),
                                       'result_sha256': digest((job / 'result.json').read_bytes()),
                                       'artifact_sha256': artifact_digest(job)}))
-            # Exercise every projection and presentation before committing any new data.
+            # Exercise every projection before accepted intake. Ignored jobs have
+            # not changed the initially validated catalogue and need no rebuild.
             from .build import main_data, write_outputs
-            projected = main_data(data)
+            projected = main_data(data) if receipts or rebuild else None
             report.update(new_papers=len(data['papers']) - len(before['papers']),
                           new_entries=len(data['entries']) - len(before['entries']))
             if write and data != before:

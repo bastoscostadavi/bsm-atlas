@@ -98,7 +98,11 @@ def compact_job(job, *, known=None, entry_papers=None, discard_uningested=False,
                         message = event.get('message') or event.get('error', {}).get('message')
                         if isinstance(message, str):
                             diagnostic = message[:1000]
+                    elif event.get('type') == 'result' and event.get('is_error'):
+                        diagnostic = str(event.get('result', 'Claude worker failed'))[:1000]
+        from .extractors import job_extractor
         value = {'schema_version': VERSION, 'paper': paper, 'state': terminal,
+                 'extractor': job_extractor(job),
                  'category': state.get('category'),
                  'diagnostic': diagnostic,
                  'reason': state.get('reason', '')[:1000], 'ingestion': receipt,

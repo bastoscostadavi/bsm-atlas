@@ -3,6 +3,7 @@ from copy import deepcopy
 import json
 from .scalar_conventions import is_scalar, uniform_scalar
 from .field_conventions import irrep_dimension, irrep_dimension_label, young_rows
+from .json_memo import memoized_specification
 
 
 def algebra_label(family,rank):
@@ -17,6 +18,7 @@ def factors(spec):
 
 
 
+@memoized_specification()
 def matrix(spec):
     columns=factors(spec); rows=[]; symbolic=spec['schema_version']=='field-content-3'
     for source in spec['matter']:

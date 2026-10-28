@@ -39,7 +39,7 @@ def already_recorded(job, identifier, known, *, write=True):
 
 
 def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
-                       manifest_path=None, _run_locked=False):
+                       manifest_path=None, _run_locked=False, _source_wait=False):
     """Backfill/update paper progress only; no calls, approvals or model writes.
 
     An optional original manifest supplies bibliography for retrieval failures.
@@ -64,7 +64,7 @@ def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
     report = {'dry_run': not write, 'recorded': [], 'ignored': [], 'missing_metadata': [],
               'new_papers': 0, 'updated_papers': 0, 'model_writes': 0}
     with nullcontext() if _run_locked else exclusive_lock(directory / 'run.lock'):
-        with source_lock(source) if write else nullcontext():
+        with source_lock(source, wait=_source_wait) if write else nullcontext():
             data = load(source)
             before = deepcopy(data)
             known = {p['arxiv']: p for p in data['papers']}
@@ -108,6 +108,10 @@ def record_extractions(directory, source=SOURCE, write=False, *, jobs=None,
                 if not (outcome == 'unresolved'
                         and existing.get('extraction_status') == 'complete'):
                     existing['extraction_status'] = outcome
+                    from .extractors import job_extractor
+                    extractor = job_extractor(job)
+                    if extractor is not None:
+                        existing['extractor'] = extractor
                 if existing != old:
                     report['updated_papers'] += 1
                 report['recorded'].append({'job': name, 'arxiv': paper['arxiv'],

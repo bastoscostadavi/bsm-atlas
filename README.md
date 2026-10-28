@@ -59,7 +59,13 @@ For batches, the [paper-harvesting coordinator](HARVESTING.md) retrieves pinned 
 
 The [extraction pilot](experiments/extraction-pilot/README.md) documents the 20-paper model comparisons, including frozen prompts, per-paper outcomes, measured tokens and runtime, illustrative costs, and the limits of the comparison. It is separate from the catalogue and makes no arXiv-wide accuracy claim. The [manuscript](paper/main.tex) includes the same results. New extraction batches default to GPT-6.1 Sol with medium reasoning.
 
-For expansion, the coordinator can freeze a citation-ranked hep-ph sample from INSPIRE, pin its arXiv versions, and feed a rolling worker pool from one serial source fetcher. Completed work is retained when a run stops, and saved valid responses can be imported without another model call. See [citation-ranked expansion](HARVESTING.md#citation-ranked-expansion).
+For expansion, the coordinator ranks unrecorded papers using INSPIRE citation metadata, verifies that their primary arXiv category is hep-ph, pins their versions, and feeds a rolling worker pool from one serial source fetcher. Completed work is retained when a run stops, and saved valid responses can be imported without another model call. See [citation-ranked expansion](HARVESTING.md#citation-ranked-expansion).
+
+Codex and Claude Code workers share the same conventions, validator and automatic
+ingester. Disjoint paper reservations prevent overlapping batches; shared locks
+coordinate arXiv requests and catalogue updates. Papers retain compact extractor
+provider, model and effort metadata, independently of the physics specification.
+See [provider coordination and provenance](HARVESTING.md#codex-and-claude-batches).
 
 ## Build and preview
 

@@ -51,7 +51,7 @@ class CatalogueTests(unittest.TestCase):
                 self.assertEqual(set(row),{'copies','components','lorentz'})
         for p in SOURCE['papers']:
             self.assertLessEqual({'id','arxiv','title','authors'},set(p))
-            self.assertLessEqual(set(p),{'id','arxiv','title','authors','extraction_status'})
+            self.assertLessEqual(set(p),{'id','arxiv','title','authors','extraction_status','extractor'})
         self.assertFalse(next(p for p in DATA['papers'] if p['id']=='R01')['entryIds'])
         self.assertFalse(any(a['algebra']=='su(2)' for a in DATA['semisimpleAlgebras']))
 

@@ -10,10 +10,12 @@ import json
 from .entry_validation import (IncompleteContent, object_keys,
     primitive_charge_scale, conjugate, normalize_spec as validate_numerical)
 from .scalar_conventions import real_scalar, orient_reps, is_scalar
+from .json_memo import memoized_specification
 
 SCHEMA = 'field-content-2'
 
 
+@memoized_specification(maxsize=2048)
 def normalize_spec(spec):
     if isinstance(spec,dict) and spec.get('schema_version')=='field-content-3':
         raise IncompleteContent('Use python3 -m bsm_atlas prepare for parameterized validation or specialize with --values before numerical identity checking')
@@ -50,6 +52,7 @@ def normalize_spec(spec):
     return result
 
 
+@memoized_specification(maxsize=2048)
 def canonicalize(spec):
     normalized = normalize_spec(spec)
     factors,fields = normalized['gauge_factors'],normalized['matter']

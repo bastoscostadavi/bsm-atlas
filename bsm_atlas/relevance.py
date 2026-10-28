@@ -104,22 +104,31 @@ def relevance(record, statistics):
             if cohort['citations'] else Fraction(0))
 
 
-def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=None,
-                           arxiv_client=None, first_year=1991, last_year=None,
-                           page_size=1000, batch_size=100):
-    """Freeze full-population means, rank, exclude recorded works, pin versions.
+def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
+                      arxiv_client=None, first_year=1991, last_year=None,
+                      page_size=1000, batch_size=100, ranking='year-normalized',
+                      primary_only=True, exclude_ids=()):
+    """Rank a complete population, exclude recorded works, and pin versions.
 
     INSPIRE date partitions are used only to fit its 10,000-result window. Cohort
     years come from arXiv identifiers, not publication/INSPIRE earliest dates.
     Each INSPIRE work counts once, including zero-citation works. Multiple eprints
     of a work use their earliest posting year, and are resolved before selection.
     Metadata pages and the frozen input catalogue digest support explicit resume.
+    Raw citation ranking can reuse the same validated population cache without
+    another INSPIRE sweep. Both rankings exclude every recorded arXiv base ID,
+    including unresolved papers and alternate eprints of a recorded work.
+    New selections require hep-ph as the authoritative arXiv primary category.
+    The inclusive metadata population still defines the original impact metric;
+    primary_only changes eligibility, not the established cohort normalization.
+    Set primary_only=False only to reproduce an older inclusive selection.
     """
     last_year = last_year or datetime.now(timezone.utc).year
     if (type(count) is not int or not 1 <= count <= 100000 or
             not 1 <= page_size <= 1000 or not 1 <= batch_size <= 200 or
-            not 1991 <= first_year <= last_year <= 2090):
-        raise ValueError('Invalid year-normalized selection settings')
+            not 1991 <= first_year <= last_year <= 2090 or
+            ranking not in {'year-normalized', 'citations'} or type(primary_only) is not bool):
+        raise ValueError('Invalid population selection settings')
     directory, source = Path(directory), Path(source).resolve()
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
     with exclusive_lock(directory / 'selection.lock'):
@@ -127,12 +136,19 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
         # arXiv requests retain the separate conservative 3.1-second interval.
         client, arxiv_client = client or MetadataClient(0.5), arxiv_client or MetadataClient()
         source_bytes = source.read_bytes()
-        known = {base_id(p['arxiv']) for p in load(source)['papers']}
-        request = {'ranking': 'citations / mean citations in first-posting-year cohort',
+        excluded_ids = sorted({base_id(value) for value in exclude_ids})
+        known = {base_id(p['arxiv']) for p in load(source)['papers']} | set(excluded_ids)
+        metric = ('citations / mean citations in first-posting-year cohort'
+                  if ranking == 'year-normalized' else 'citation_count including self citations')
+        request = {'ranking': metric,
                    'query': QUERY, 'count': count, 'source': str(source),
                    'source_sha256': sha256(source_bytes).hexdigest(),
                    'first_year': first_year, 'last_year': last_year,
                    'page_size': page_size, 'batch_size': batch_size}
+        if primary_only:
+            request['primary_category'] = 'hep-ph'
+        if excluded_ids:
+            request['reserved_ids_sha256'] = sha256(json.dumps(excluded_ids).encode()).hexdigest()
         config = directory / 'selection-request.json'
         if config.exists() and json.loads(config.read_text()) != request:
             raise ValueError('Selection inputs changed; use a new directory')
@@ -216,8 +232,35 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                 'population_records': len(records), 'cohorts': statistics,
                 'citation_metric': request['ranking'], 'retrieved_at': timestamp()})
             checkpoint('ranking', records=len(records), model_calls=0)
-            ordered = sorted(records, key=lambda r: (-relevance(r, statistics), r['arxiv_ids'][0]))
+            def score_for(record):
+                return (relevance(record, statistics) if ranking == 'year-normalized'
+                        else record['citation_count'])
+
+            ordered = sorted(records, key=lambda r: (-score_for(r), r['arxiv_ids'][0]))
             candidates, excluded = [], 0
+            pending, primary_checks, excluded_nonprimary = [], [], 0
+
+            def accept_pending():
+                nonlocal excluded_nonprimary
+                if not pending:
+                    return
+                identifiers = [item['arxiv'] for item in pending]
+                name = f'arxiv-primary-{len(primary_checks):05}.json'
+                url = 'https://export.arxiv.org/api/query?' + urlencode({
+                    'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
+                verified = parse_atom(arxiv_response(name, url), identifiers, include_primary=True)
+                primary_checks.append({'file': name, 'arxiv_ids': identifiers})
+                for item in pending:
+                    if verified[item['arxiv']]['primary_category'] != 'hep-ph':
+                        excluded_nonprimary += 1
+                        continue
+                    candidates.append({**item, 'primary_category': 'hep-ph'})
+                    if len(candidates) == count:
+                        break
+                pending.clear()
+                checkpoint('checking_primary_categories', selected=len(candidates),
+                           excluded_nonprimary=excluded_nonprimary, model_calls=0)
+
             for record in ordered:
                 if known.intersection(record['arxiv_ids']):
                     excluded += 1
@@ -230,35 +273,75 @@ def select_year_normalized(directory, count=1000, *, source=CATALOGUE, client=No
                         'arxiv-resolution-' + record_id + '.json', url), identifiers)
 
                 item = parse_hit({'id': record['inspire_record_id'], 'metadata': record['metadata']}, resolve)
-                score = relevance(record, statistics)
-                item.update(cohort_year=record['cohort_year'],
-                            score={'numerator': score.numerator, 'denominator': score.denominator})
-                candidates.append(item)
+                if ranking == 'year-normalized':
+                    score = score_for(record)
+                    item.update(cohort_year=record['cohort_year'],
+                                score={'numerator': score.numerator, 'denominator': score.denominator})
+                if primary_only:
+                    pending.append(item)
+                    if len(pending) >= batch_size:
+                        accept_pending()
+                else:
+                    candidates.append(item)
                 if len(candidates) == count:
                     break
+            if primary_only and len(candidates) < count:
+                accept_pending()
             if len(candidates) != count:
                 raise ValueError('Fewer new papers than requested')
-            selection = {'schema_version': 'bsm-year-normalized-selection-1',
+            selection = {'schema_version': ('bsm-year-normalized-selection-1'
+                          if ranking == 'year-normalized' else 'bsm-population-citation-selection-1'),
                 'source': SOURCE, 'query': QUERY, 'retrieved_at': timestamp(),
                 'citation_metric': request['ranking'], 'self_citations_included': True,
                 'population_records': len(records), 'cohorts': statistics,
                 'excluded_recorded_works_before_cutoff': excluded,
                 'tie_break': 'lowest arxiv base identifier ascending',
                 'count': count, 'candidates': candidates, 'catalogue_sha256': request['source_sha256'],
-                'limitations': 'Within-year age differences, recent small citation counts and field mixtures remain. '
-                    'This is an age/era-adjusted sampling heuristic, not intrinsic scientific relevance.'}
+                'limitations': ('Within-year age differences, recent small citation counts and field mixtures remain. '
+                    'This is an age/era-adjusted sampling heuristic, not intrinsic scientific relevance.'
+                    if ranking == 'year-normalized' else
+                    'Raw citation counts favor older papers and reflect the saved metadata retrieval dates. '
+                    'This is a sampling heuristic, not intrinsic scientific relevance.')}
+            if primary_only:
+                selection.update(primary_category='hep-ph',
+                    primary_category_checks=primary_checks,
+                    excluded_nonprimary_works_before_cutoff=excluded_nonprimary)
             private_json(selection_path, selection)
         candidates = selection['candidates']
         if len(candidates) != count or len({r['arxiv'] for r in candidates}) != count:
             raise ValueError('Frozen selection identities/count changed')
         checkpoint('pinning_versions', selected=count)
         pinned = {}
-        for start in range(0, count, batch_size):
-            identifiers = [r['arxiv'] for r in candidates[start:start + batch_size]]
-            url = 'https://export.arxiv.org/api/query?' + urlencode({
-                'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
-            pinned.update(parse_atom(arxiv_response(f'arxiv-batch-{start:05}.json', url), identifiers))
+        if primary_only:
+            if selection.get('primary_category') != 'hep-ph':
+                raise ValueError('Frozen selection lacks the requested primary-category restriction')
+            for index, check in enumerate(selection['primary_category_checks']):
+                if check['file'] != f'arxiv-primary-{index:05}.json':
+                    raise ValueError('Invalid primary-category cache filename')
+                identifiers = check['arxiv_ids']
+                url = 'https://export.arxiv.org/api/query?' + urlencode({
+                    'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
+                pinned.update(parse_atom(arxiv_response(check['file'], url), identifiers,
+                                         include_primary=True))
+            for candidate in candidates:
+                metadata = pinned.get(candidate['arxiv'], {})
+                if (metadata.get('primary_category') != 'hep-ph' or
+                        candidate.get('primary_category') != 'hep-ph'):
+                    raise ValueError('Selected paper is not verified primary hep-ph')
+            pinned = {key: {k: v for k, v in value.items() if k != 'primary_category'}
+                      for key, value in pinned.items()}
+        else:
+            for start in range(0, count, batch_size):
+                identifiers = [r['arxiv'] for r in candidates[start:start + batch_size]]
+                url = 'https://export.arxiv.org/api/query?' + urlencode({
+                    'id_list': ','.join(identifiers), 'start': 0, 'max_results': len(identifiers)})
+                pinned.update(parse_atom(arxiv_response(f'arxiv-batch-{start:05}.json', url), identifiers))
         manifest = directory / f'papers-{count}.json'
         private_json(manifest, {'papers': [pinned[r['arxiv']] for r in candidates]})
         checkpoint('selection_complete', selected=count, manifest=str(manifest))
         return selection
+
+
+def select_year_normalized(directory, count=1000, **kwargs):
+    """Backward-compatible year-normalized selection over the full population."""
+    return select_population(directory, count, ranking='year-normalized', **kwargs)

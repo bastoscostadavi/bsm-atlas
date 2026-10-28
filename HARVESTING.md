@@ -1,5 +1,69 @@
 # Harvesting papers
 
+## Codex and Claude batches
+
+Both providers use one paper per fresh worker context, the same atlas prompt and
+response schema, and the same deterministic normalizer and ingester. There is
+no second-model approval pass. Claude Code workers run with customizations,
+tools, MCP connections and session persistence disabled. They receive cleaned
+paper text through stdin and return schema-constrained JSON. Use an explicit
+`claude-*` model identifier; no floating alias, model fallback or automatic retry
+is selected. The configured effort is recorded, not assumed equivalent between
+providers. Claude prompts exceeding 300,000 characters or UTF-8 bytes are flagged
+without truncation or a model call.
+
+Paper assignments are immutable private reservations under `.harvest/allocations/`.
+Every new production expansion registers its manifest. Before introducing a
+second provider, register any batch already running under older code:
+
+```sh
+python3 -m bsm_atlas harvest register .harvest/existing/papers-1000.json --provider codex
+python3 -m bsm_atlas harvest reserve --output-dir .harvest/claude --provider claude --count 1000 --ranking citations --population-cache .harvest/existing
+```
+
+Reservation excludes all recorded arXiv base identifiers and all papers allocated
+to either provider, including papers not yet processed. It verifies primary hep-ph
+classification before freezing the manifest and makes no model calls. An exact
+repeat reuses the reservation; overlapping or modified manifests are rejected.
+A temporary bibliography-only selection snapshot is removed after reservation.
+
+Launch a reserved batch (replace the model placeholder with the chosen full ID):
+
+```sh
+python3 -m bsm_atlas harvest launch .harvest/claude/papers-1000.json --run-dir .harvest/claude/run --provider claude --model claude-MODEL-ID --reasoning medium --workers 1
+# The preceding command is a dry run. Add --execute to launch.
+python3 -m bsm_atlas harvest status .harvest/claude/run
+```
+
+The launcher detaches the coordinator, records its PID and status path, and on
+macOS prevents idle sleep while it runs. Duplicate launches are rejected. Use
+`--resume --execute` only after inspecting a stopped run. It does not repeat
+completed or failed paper attempts, purchase credits, change models or publish.
+ArXiv connections across cooperating processes share one paced request gate;
+production catalogue writes wait for the shared source lock and update atomically.
+Only code writes the catalogue: extraction workers have no tools or write access.
+
+## Extractor provenance
+
+Each measured extraction records `extractor: {provider, model, reasoning}` on
+the paper, independently of its gauge–matter identity. Providers are `openai`
+and `anthropic`; reasoning may be null when an older record does not establish
+it. Claude's reported model identifier is used when available; the requested
+identifier is also retained in private metrics. Metrics, provenance and compact
+receipts survive removal of paper text, prompts and raw responses. The generated
+SQLite `papers` table exposes the three fields as nullable `extractor_*` columns.
+No model is attributed to a retrieval failure or unmeasured failed call.
+
+```sh
+python3 -m bsm_atlas harvest sync-extractors .harvest
+python3 -m bsm_atlas harvest sync-extractors .harvest --write
+```
+
+Backfill uses actual ingested-call receipts and measured metrics, not the current
+default model. Discarded pilot comparisons are not attributed to production
+papers. Unestablished provenance remains absent. Do not backfill against a live
+older coordinator: drain and reload it first so all writers understand the schema.
+
 ## Temporary data and compact completion tracking
 
 Paper text, assembled prompts, raw extraction responses and worker event logs are
@@ -119,6 +183,15 @@ The [20-paper extraction pilot](experiments/extraction-pilot/README.md) freezes 
 
 ## Citation-ranked expansion
 
+New batches select only papers whose primary arXiv category is `hep-ph`, for
+both raw-citation and year-normalized ranking. The selector checks arXiv's
+explicit `primary_category` metadata before freezing the extraction manifest;
+INSPIRE category order is not used to infer it. Cross-listed-only papers are
+passed over and replaced by the next eligible works until the requested count
+is reached. Missing or ambiguous primary-category metadata blocks selection
+rather than being guessed. These are metadata checks, not additional model calls.
+Existing entries and already-running frozen batches are unchanged.
+
 For age/era-adjusted ordering of new papers, use:
 
 ```sh
@@ -127,7 +200,19 @@ python3 -m bsm_atlas harvest select --ranking year-normalized --output-dir .harv
 
 The score is a paper's current citation count divided by the mean current citation count of hep-ph works first posted to arXiv in the same year. The denominator uses the complete INSPIRE hep-ph population, including uncited and previously harvested works, not only the top-cited sample. An INSPIRE work counts once; multiple eprints use their earliest arXiv posting year. Zero-citation cohorts receive zero scores. Exact rational scores are sorted with arXiv identifiers as the tie-breaker. Known works are excluded before pinning the next 1,000 new papers. The raw metadata, cohort totals, catalogue digest and selected versions are frozen privately for resume; retrieval makes no model calls. This ordering is a sampling heuristic: within-year ages, citation noise in recent cohorts and differing research communities remain relevant.
 
-Freeze the most-cited hep-ph arXiv works across all years, including cross-listed papers:
+The full-population selector also supports raw citation ordering through
+`bsm_atlas.relevance.select_population(..., ranking='citations')`. A follow-on
+batch can reuse the validated frozen population metadata, exclude all papers in
+the catalogue at the end of its predecessor, and select the highest-cited new
+works without repeating the population sweep. Raw counts include self-citations;
+ties use the lowest arXiv base identifier. The frozen source digest prevents a
+changed catalogue from silently altering a resumed selection. This new-only
+path is also used by the citation-ranked command below. Primary-category checks
+and pinned metadata are cached with hashes for resume. The inclusive population
+continues to define the original impact-score cohort means; the primary-category
+restriction changes eligibility without redefining that score.
+
+Freeze the highest-cited unrecorded primary-hep-ph works across all years:
 
 ```sh
 python3 -m bsm_atlas harvest select --output-dir .harvest/most-cited-hepph --count 1000
@@ -135,11 +220,26 @@ python3 -m bsm_atlas harvest expand .harvest/most-cited-hepph/papers-1000.json -
 # Add --execute to start retrieval and model calls; --codex can select the current CLI.
 ```
 
-Selection uses INSPIRE's total citation count, including self-citations, at the saved retrieval dates. It does not filter for BSM relevance or remove papers already in the bibliography. Citation ties are resolved by arXiv identifier; cutoff ties are retrieved before selection is frozen. Distinct arXiv records referring to an explicitly identified expanded version of the same published work count once, with the alias and supporting metadata retained. Ambiguous merged records stop selection for review rather than silently changing the sample. Versions, titles and authors are then pinned through arXiv metadata. The selection directory stores the original metadata responses and hashes so the same list can be resumed without re-ranking.
+Selection uses INSPIRE's total citation count, including self-citations, at the saved retrieval dates. It excludes every recorded arXiv base identifier, regardless of extraction status, and requires primary hep-ph classification. It does not pre-filter for BSM relevance. Citation ties are resolved by arXiv identifier. Distinct arXiv records referring to an explicitly identified expanded version of the same published work count once, with the alias and supporting metadata retained. Ambiguous merged records stop selection for review rather than silently changing the sample. Versions, titles and authors are pinned through arXiv metadata. The selection directory stores the original metadata responses and hashes so the same list can be resumed without re-ranking. The Python selectors also default to primary-only selection; `primary_only=False` is retained only to reproduce older frozen inclusive samples.
 
 When INSPIRE groups an original paper with an addendum or erratum, the original represents that record for sampling only if the related arXiv title explicitly names the exact original title, the authors match, and both papers have distinct, nonempty DOIs. The relationship is retained in selection metadata; it does not merge the two papers in the atlas or assert that their contents are identical.
 
-Expansion uses a rolling pool of isolated workers: when one finishes, another prepared paper can start without waiting for the others. The default is two concurrent workers; `--workers` accepts up to eight. A single fetcher retrieves sources serially, respecting arXiv's request delay, while extraction runs. It prepares papers in batches of five by default and keeps a bounded buffer rather than downloading the entire collection in advance.
+Separate arXiv deposits of the same publication can also share one citation
+record. They count once for selection only when their DOI and journal citation
+agree and their ordered author names match, allowing initials in place of full
+given names. The later deposit is used for retrieval; the arXiv identifiers are
+not merged in the atlas. A similar title or citation count alone is insufficient.
+
+Expansion uses a rolling pool of isolated workers: when one finishes, another prepared paper can start without waiting for the others. The default is two concurrent workers; `--workers` accepts up to sixteen. A single fetcher retrieves sources serially, respecting arXiv's request delay, while extraction runs. It prepares papers in batches of five by default and keeps a bounded buffer rather than downloading the entire collection in advance.
+
+Completed workers are ingested together when several results are ready, avoiding
+repeated catalogue passes and source writes. Successful intake also records the
+paper's completion status and extractor provenance in that same transaction.
+Unchanged specifications reuse bounded, process-local calculations for numerical
+normalization, identity and presentation; these exact-content caches never persist
+paper text or responses and return independent copies to callers. New or changed
+inputs still pass the same validation, duplicate detection and full projection
+checks before acceptance. The shared writer lock and arXiv pacing remain in force.
 
 A failed worker execution with missing usage, an authentication/quota error, an arXiv access/rate-limit response or a retrieval batch blocked by connection failures stops new submissions and drains existing calls. Paper-specific size, format and missing-source problems are flagged individually while the batch continues. There are no automatic model retries or purchases. Each valid response is automatically ingested; an exact canonical match gains paper references instead of a duplicate model. Successfully retrieved papers and completed responses survive interruptions, and resume imports valid cached responses left by a previous interruption without making another model call.
 
@@ -169,7 +269,7 @@ make check
 
 Inspection is optional and read-only. `ingest` previews saved valid results; `--write` imports them without an approval record or another model pass. The writer registers missing papers, merges exact canonical duplicates and validates all four derived views before atomically replacing the source. Existing paper IDs are reused. A colliding model URL slug is disambiguated using its canonical fingerprint; a name never defines mathematical identity. Re-ingestion is idempotent. A failure before source replacement leaves the entire catalogue unchanged.
 
-Single-entry and batch writers use the same OS-backed lock on macOS/Linux. A competing writer fails explicitly rather than overwriting another process's update. Invalid and retriable results never add model entries. Small private `ingestion.json` receipts record imported result hashes and canonical entry IDs; they are not another database or approval layer. Legacy approval files do not control intake. `--rebuild` regenerates website and SQLite/CSV/JSON exports after writing the source; if export fails, the command reports that the source was saved and asks you to rerun `make build`.
+Single-entry and batch writers use the same OS-backed lock on macOS/Linux. Production expansion serializes competing writes; other commands fail explicitly on a held lock rather than overwriting another process's update. Invalid and retriable results never add model entries. Small private `ingestion.json` receipts record imported result hashes and canonical entry IDs; they are not another database or approval layer. Legacy approval files do not control intake. `--rebuild` regenerates website and SQLite/CSV/JSON exports after writing the source; if export fails, the command reports that the source was saved and asks you to rerun `make build`.
 
 `--source another-catalogue.json` supports isolated rehearsals; it cannot be combined with `--rebuild`. The coordinator never commits, pushes or deploys automatically.
 

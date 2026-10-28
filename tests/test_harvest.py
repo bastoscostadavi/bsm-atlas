@@ -452,6 +452,15 @@ class HarvestTests(unittest.TestCase):
                 harvest.ingest_batch(self.directory, self.source, True)
         self.assertEqual(self.source.read_bytes(), before)
 
+    def test_ignored_jobs_do_not_rebuild_unchanged_catalogue(self):
+        self.prepare()
+        before = self.source.read_bytes()
+        with patch('bsm_atlas.build.main_data', side_effect=AssertionError('Redundant projection')):
+            report = harvest.ingest_batch(self.directory, self.source, True)
+        self.assertEqual(report['accepted_jobs'], [])
+        self.assertEqual(report['ignored_jobs'], ['2501.00001v1'])
+        self.assertEqual(self.source.read_bytes(), before)
+
     def test_rebuild_failure_reports_that_source_was_saved(self):
         self.prepare()
         self.set_result()
@@ -463,7 +472,7 @@ class HarvestTests(unittest.TestCase):
 
     def test_invalid_limits_cannot_launch_workers(self):
         self.prepare()
-        for options in ({'workers': 0}, {'workers': 9}, {'limit': 0}, {'timeout': float('nan')}):
+        for options in ({'workers': 0}, {'workers': 17}, {'limit': 0}, {'timeout': float('nan')}):
             with self.subTest(options=options), self.assertRaises(ValueError):
                 harvest.run_batch(self.directory, True, **options)
 
