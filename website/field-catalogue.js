@@ -294,7 +294,7 @@
    }
    function catalogue(){
      const current=level(),isCores=current==='cores',isAlgebras=current==='algebras',isFullAlgebras=current==='full-algebras',isGauge=isAlgebras||isFullAlgebras;
-     const algebras=(data.semisimpleAlgebras||[]).map(a=>['na:'+a.algebraSignature,a.algebra]).sort((a,b)=>a[1].localeCompare(b[1]));
+     const algebras=(data.semisimpleAlgebras||[]).map(a=>['na:'+a.algebraSignature,a.algebra]);
      if(state.algebra&&!algebras.some(([id])=>id===state.algebra))algebras.push([state.algebra,data.entries.find(e=>e.algebraSignature===state.algebra)?.algebraExpanded||state.algebra]);
      const ranks=[...new Set(data.entries.map(e=>e.abelianRank).filter(n=>Number.isInteger(n)))].sort((a,b)=>a-b);
      const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length;

@@ -10,11 +10,58 @@ import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
 from bsm_atlas.nonabelian_core import algebra_key, full_algebra_key
+from bsm_atlas.core_projection import algebra_sort_key, attach_layers
+from bsm_atlas.presentation import simple_algebra_dimension
 
 DATA = json.loads((ROOT / 'website/field-catalogue.json').read_text())
 ENTRIES = {entry['id']: entry for entry in DATA['entries']}
 FULL = {group['id']: group for group in DATA['fullAlgebras']}
 CORES = {group['id']: group for group in DATA['cores']}
+
+
+class AlgebraOrdering(unittest.TestCase):
+    def test_dimensions_cover_every_simple_family(self):
+        for family,rank,dimension in [('A',1,3),('A',2,8),('A',9,99),('A',10,120),
+                                      ('B',3,21),('C',2,10),('C',4,36),('D',5,45),
+                                      ('E',6,78),('E',7,133),('E',8,248),('F',4,52),('G',2,14)]:
+            with self.subTest(family=family,rank=rank):
+                self.assertEqual(simple_algebra_dimension(family,rank),dimension)
+
+    def test_rank_dimension_cartan_and_abelian_ties(self):
+        # Expected order is mathematical, independent of display labels or IDs.
+        types=[[],[('U1',1)],[('U1',1)]*2,
+               [('A',2)],[('A',2),('A',1)],
+               [('A',2),('A',1),('U1',1)],
+               [('A',2),('A',1),('U1',1),('U1',1)],
+               [('B',3)],[('C',3)],
+               [('A',2),('A',1),('A',1)],
+               [('A',2),('A',2)],[('A',3),('A',1)],[('A',4)],
+               [('A',3),('A',1),('A',1)],[('A',5)],[('D',5)],[('E',6)]]
+        groups=[{'id':str(100-i),'canonical':{'gauge_factors':[
+            {'family':family,'rank':rank} for family,rank in factors]}}
+            for i,factors in enumerate(types)]
+        before=deepcopy(groups)
+        self.assertEqual(sorted(reversed(groups),key=algebra_sort_key),before)
+        # Source factor permutations cannot alter browsing order or mutate data.
+        for group in groups:
+            permuted=deepcopy(group)
+            permuted['canonical']['gauge_factors'].reverse()
+            self.assertEqual(algebra_sort_key(group),algebra_sort_key(permuted))
+        self.assertEqual(groups,before)
+
+    def test_all_derived_layers_share_the_semisimple_order(self):
+        labels=['su(3)','su(3) ⊕ su(2)','su(3) ⊕ su(2) ⊕ su(2)',
+                'su(3) ⊕ su(3)','su(4) ⊕ su(2)','su(5)',
+                'su(4) ⊕ su(2) ⊕ su(2)','so(10)','e6']
+        algebras={group['algebra']:group for group in DATA['semisimpleAlgebras']}
+        entries=[deepcopy(ENTRIES[algebras[label]['entryIds'][0]]) for label in reversed(labels)]
+        expected_ids=[algebras[label]['id'] for label in labels]
+        for groups in attach_layers(entries):
+            self.assertEqual([group.get('semisimpleId',group['id']) for group in groups],expected_ids)
+        for entry in entries:
+            original=ENTRIES[entry['id']]
+            for key in ['specification','identity','coreId','semisimpleId','fullAlgebraId']:
+                self.assertEqual(entry[key],original[key])
 
 
 class AlgebraSquare(unittest.TestCase):

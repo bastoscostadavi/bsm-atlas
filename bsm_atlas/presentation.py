@@ -10,6 +10,14 @@ def algebra_label(family,rank):
     return {'A':f'su({rank+1})','B':f'so({2*rank+1})','C':f'sp_rank({rank})','D':f'so({2*rank})','U1':'u(1)'}.get(family,family.lower()+str(rank))
 
 
+def simple_algebra_dimension(family,rank):
+    """Dimension of a validated simple Cartan type, not a matter irrep."""
+    if family=='A':return rank*(rank+2)
+    if family in {'B','C'}:return rank*(2*rank+1)
+    if family=='D':return rank*(2*rank-1)
+    return {('E',6):78,('E',7):133,('E',8):248,('F',4):52,('G',2):14}[(family,rank)]
+
+
 def factors(spec):
     return [{'key':a['id'],'id':'u1' if a['family']=='U1' else a['family']+str(a['rank']),
              'type':a['family'],'rank':a['rank'],'label':algebra_label(a['family'],a['rank']),

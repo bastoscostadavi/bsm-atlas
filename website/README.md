@@ -25,6 +25,8 @@ Python implementation files and regression tests live in `bsm_atlas/` and `tests
 
 The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
+Algebra and semisimple matter-core lists sort by the semisimple part's total rank, then dimension, then its canonical Cartan signature (family letters and numeric ranks). Full algebras with the same semisimple part sort next by the number of U(1) factors; remaining ties use the group ID. The semisimple filter and grouping CSVs preserve this order. This browsing convention does not change canonical factor order, representation columns or identities.
+
 Routes include `#catalogue`, `#full-algebras`, `#algebra/<id>`, `#full-algebra/<id>`, `#cores`, `#core/<id>` and `#entry/<id>`. `#atlas`, `#notation` and `#sources` explain the catalogue, its conventions and its bibliography. Entry details show the papers studying that specification.
 
 Each full entry has one References toggle showing the number of linked papers. It opens the linked titles, authors and arXiv URLs in oldest-first order. Paper IDs remain internal keys, not visible labels. The paper browser and filters use the same chronological order.

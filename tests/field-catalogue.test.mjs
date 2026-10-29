@@ -68,6 +68,18 @@ for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-
 }
 assert(!data.semisimpleAlgebras.some(a=>a.algebra==='su(2)'));
 assert(data.semisimpleAlgebras.some(a=>a.algebra==='su(5)'));
+// Algebra cards and filter options preserve the generated mathematical order.
+const orderingAlgebras=['su(3) ⊕ su(2)','su(5)','so(10)'].map(label=>data.semisimpleAlgebras.find(a=>a.algebra===label));
+const orderingEntries=orderingAlgebras.map((a,i)=>({...data.entries.find(e=>e.semisimpleId===a.id),name:i===1?'Ordering middle':'Ordering visible'}));
+const orderingApp=create({...data,entries:orderingEntries,semisimpleAlgebras:orderingAlgebras},document);
+const algebraCardIds=()=>Array.from(results().matchAll(/href="#algebra\/([^"?]+)/g),m=>m[1]);
+const algebraFilterSignatures=()=>Array.from(content().match(/<select id="algebra-filter">(.*?)<\/select>/s)[1].matchAll(/<option value="na:([^"]+)"/g),m=>m[1]);
+orderingApp.render();
+assert.deepEqual(algebraCardIds(),orderingAlgebras.map(a=>a.id));
+assert.deepEqual(algebraFilterSignatures(),orderingAlgebras.map(a=>a.algebraSignature));
+orderingApp.state.q='Ordering visible';orderingApp.render();
+assert.deepEqual(algebraCardIds(),[orderingAlgebras[0].id,orderingAlgebras[2].id]);
+assert.deepEqual(algebraFilterSignatures(),orderingAlgebras.map(a=>a.algebraSignature));
 app.state.q='two-higgs-doublets';app.state.browse='entries';app.render();
 assert(results().includes('(1, 2; 3)'));
 assert(results().includes('<th>Multiplicity</th>'));
