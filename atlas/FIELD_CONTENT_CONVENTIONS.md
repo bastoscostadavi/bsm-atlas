@@ -121,9 +121,9 @@ Identical restricted rows aggregate. Coarse grouping is not physical equivalence
 
 ## Browsing order
 
-Algebra lists use ascending semisimple rank, semisimple dimension, and the canonical Cartan signature (family letters and numeric ranks in canonical factor order). Full algebras then compare their number of U(1) factors.
+Algebra lists use descending semisimple rank and semisimple dimension, followed by the canonical Cartan signature (family letters and numeric ranks in canonical factor order). Full algebras then compare their number of U(1) factors in descending order.
 
-Within each algebra, matter spectra use the total **real dimension of the recorded Lorentz × gauge field representation**, including multiplicities. This is field-space dimension, not on-shell polarization counting. Gauge connections do not add matter rows. For a row of multiplicity n, complex gauge dimension d_G and complex Lorentz dimension d_L, its contribution is n × d_L × d_G times:
+Within each algebra, matter spectra sort from larger to smaller by the total **real dimension of the recorded Lorentz × gauge field representation**, including multiplicities. This is field-space dimension, not on-shell polarization counting. Gauge connections do not add matter rows. For a row of multiplicity n, complex gauge dimension d_G and complex Lorentz dimension d_L, its contribution is n × d_L × d_G times:
 
 - 1 for `real` or `majorana` fields, imposing the recorded reality condition once;
 - 2 for unconstrained `complex` or `none` fields, including independent LH Weyl fields;

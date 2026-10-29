@@ -76,7 +76,7 @@ def _charge_signature(charge,parameters):
 
 
 def matter_sort_key(canonical):
-    """Dimension, then exact numeric labels; canonical metadata resolves ties.
+    """Descending dimension, then exact labels; canonical metadata resolves ties.
 
     Callers provide identity-canonical data, so names, row splitting, parameter
     relabelings and permutations of identical gauge factors cannot affect order.
@@ -90,5 +90,5 @@ def matter_sort_key(canonical):
                      tuple((0,tuple(rep['dynkin'])) if 'dynkin' in rep else
                            (1,_charge_signature(rep['charge'],parameters)) for rep in row['gauge']),
                      row['reality'],row['copies']))
-    return (matter_dimension(canonical),tuple(sorted(rows)),
+    return (-matter_dimension(canonical),tuple(sorted(rows)),
             json.dumps(canonical,sort_keys=True,separators=(',',':')))

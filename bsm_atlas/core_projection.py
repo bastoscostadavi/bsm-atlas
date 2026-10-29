@@ -14,7 +14,7 @@ def label(factors):
     return ' ⊕ '.join(a['label'] for a in factors) or '0 (no non-Abelian factors)'
 
 def algebra_order_key(canonical):
-    """Browse by semisimple rank, dimension and numeric Cartan signature.
+    """Browse by descending semisimple rank and dimension, then Cartan signature.
 
     This key only orders groups; canonical factors and their identities stay
     unchanged. Full algebras with the same semisimple part sort by Abelian rank.
@@ -23,9 +23,9 @@ def algebra_order_key(canonical):
     simple=[a for a in factors if a['family']!='U1']
     signature=tuple((a['family'],a['rank']) for a in
                     sorted(simple,key=lambda a:(a['family'],-a['rank'])))
-    return (sum(a['rank'] for a in simple),
-            sum(simple_algebra_dimension(a['family'],a['rank']) for a in simple),
-            signature,sum(a['family']=='U1' for a in factors))
+    return (-sum(a['rank'] for a in simple),
+            -sum(simple_algebra_dimension(a['family'],a['rank']) for a in simple),
+            signature,-sum(a['family']=='U1' for a in factors))
 
 def algebra_sort_key(group):
     return algebra_order_key(group['canonical'])+(group['id'],)

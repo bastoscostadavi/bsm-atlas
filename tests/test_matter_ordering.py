@@ -127,7 +127,7 @@ class MatterDimensions(unittest.TestCase):
 
 class MatterOrdering(unittest.TestCase):
     def test_total_dimension_precedes_representation_tie_breaks(self):
-        spectra = [canonical(single(reality='real', copies=n)) for n in [2, 10, 100]]
+        spectra = [canonical(single(reality='real', copies=n)) for n in [100, 10, 2]]
         self.assertEqual(sorted(reversed(spectra), key=matter_sort_key), spectra)
 
     def test_equal_dimensions_use_numeric_dynkin_labels(self):
@@ -183,18 +183,18 @@ class MatterOrdering(unittest.TestCase):
         self.assertEqual(sorted([a, b], key=matter_sort_key), sorted([b, a], key=matter_sort_key))
 
     def test_core_projection_uses_matter_dimension_within_the_algebra(self):
-        ids = ['real-singlet-z2', 'complex-singlet-portal', 'two-higgs-doublets']
+        ids = ['two-higgs-doublets', 'complex-singlet-portal', 'real-singlet-z2']
         entries = [deepcopy(ENTRIES[entry_id]) for entry_id in reversed(ids)]
         cores, _, _ = attach_layers(entries)
         self.assertEqual([group['entryIds'] for group in cores], [[entry_id] for entry_id in ids])
-        self.assertEqual([matter_dimension(group['canonical']) for group in cores], [185, 186, 188])
+        self.assertEqual([matter_dimension(group['canonical']) for group in cores], [188, 186, 185])
         for entry in entries:
             self.assertEqual(entry['identity'], ENTRIES[entry['id']]['identity'])
             self.assertEqual(entry['specification'], ENTRIES[entry['id']]['specification'])
 
     def test_build_orders_full_entries_without_reordering_source(self):
         source = json.loads((ROOT / 'atlas/catalogue.json').read_text())
-        ids = ['real-singlet-z2', 'complex-singlet-portal', 'two-higgs-doublets']
+        ids = ['two-higgs-doublets', 'complex-singlet-portal', 'real-singlet-z2']
         by_id = {entry['id']: entry for entry in source['entries']}
         source['entries'] = [by_id[entry_id] for entry_id in reversed(ids)]
         before = deepcopy(source)

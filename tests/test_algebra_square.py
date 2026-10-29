@@ -29,14 +29,13 @@ class AlgebraOrdering(unittest.TestCase):
 
     def test_rank_dimension_cartan_and_abelian_ties(self):
         # Expected order is mathematical, independent of display labels or IDs.
-        types=[[],[('U1',1)],[('U1',1)]*2,
-               [('A',2)],[('A',2),('A',1)],
-               [('A',2),('A',1),('U1',1)],
-               [('A',2),('A',1),('U1',1),('U1',1)],
-               [('B',3)],[('C',3)],
+        types=[[('E',6)],[('D',5)],[('A',5)],[('A',3),('A',1),('A',1)],
+               [('A',4)],[('A',3),('A',1)],[('A',2),('A',2)],
                [('A',2),('A',1),('A',1)],
-               [('A',2),('A',2)],[('A',3),('A',1)],[('A',4)],
-               [('A',3),('A',1),('A',1)],[('A',5)],[('D',5)],[('E',6)]]
+               [('B',3)],[('C',3)],
+               [('A',2),('A',1),('U1',1),('U1',1)],
+               [('A',2),('A',1),('U1',1)],[('A',2),('A',1)],
+               [('A',2)],[('U1',1)]*2,[('U1',1)],[]]
         groups=[{'id':str(100-i),'canonical':{'gauge_factors':[
             {'family':family,'rank':rank} for family,rank in factors]}}
             for i,factors in enumerate(types)]
@@ -53,6 +52,7 @@ class AlgebraOrdering(unittest.TestCase):
         labels=['su(3)','su(3) ⊕ su(2)','su(3) ⊕ su(2) ⊕ su(2)',
                 'su(3) ⊕ su(3)','su(4) ⊕ su(2)','su(5)',
                 'su(4) ⊕ su(2) ⊕ su(2)','so(10)','e6']
+        labels.reverse()
         algebras={group['algebra']:group for group in DATA['semisimpleAlgebras']}
         entries=[deepcopy(ENTRIES[algebras[label]['entryIds'][0]]) for label in reversed(labels)]
         expected_ids=[algebras[label]['id'] for label in labels]
