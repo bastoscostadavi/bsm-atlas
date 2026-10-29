@@ -119,6 +119,22 @@ The generated SQLite caches `full_gauge_algebras` alongside the semisimple and m
 
 Identical restricted rows aggregate. Coarse grouping is not physical equivalence, symmetry breaking, a global group or an SM-embedding proof. Different interactions/global symmetries can share a full field-content entry.
 
+## Browsing order
+
+Algebra lists use ascending semisimple rank, semisimple dimension, and the canonical Cartan signature (family letters and numeric ranks in canonical factor order). Full algebras then compare their number of U(1) factors.
+
+Within each algebra, matter spectra use the total **real dimension of the recorded Lorentz × gauge field representation**, including multiplicities. This is field-space dimension, not on-shell polarization counting. Gauge connections do not add matter rows. For a row of multiplicity n, complex gauge dimension d_G and complex Lorentz dimension d_L, its contribution is n × d_L × d_G times:
+
+- 1 for `real` or `majorana` fields, imposing the recorded reality condition once;
+- 2 for unconstrained `complex` or `none` fields, including independent LH Weyl fields;
+- for scalar `real_module` rows, 1 when the full gauge irrep is real type, and 2 when it is complex or pseudoreal type.
+
+In four dimensions d_L is the sum of (2j_L + 1)(2j_R + 1) over the recorded Lorentz irreps. Higher-dimensional Lorentz irreps and all simple gauge families use the exact Weyl dimension formula, in the stored Bourbaki convention. Gauge dimensions multiply across simple factors; each U(1) representation has complex dimension 1. Scalar source counts in symbolic families retain their explicit real/complex convention, so their dimension is computed without choosing a parameter point.
+
+Thus one real singlet contributes 1, a complex Higgs doublet 4, and a LH Weyl field in a gauge representation of complex dimension d contributes 4d. The SM field representation has real dimension 184: 180 from its fermions and 4 from its Higgs. Adding a real singlet, a complex singlet, or a second Higgs doublet gives 185, 186, or 188 respectively. Restricting to the semisimple algebra preserves this dimension while the real-module multiplicities may change.
+
+Dimension ties compare row signatures sorted in ascending order: spacetime dimension, Lorentz scheme and exact numeric Lorentz labels (with the Lorentz irreps sorted in ascending order), then gauge Dynkin labels or charges in canonical factor order, the reality label, and multiplicity. Numerical charges compare as exact numbers. Symbolic charges compare their expanded polynomial exponent/coefficient tuples in canonical parameter coordinates, listing terms in descending lexicographic exponent order; numerical charges precede nonconstant polynomials. Finally the canonical serialization, including symbolic parameters and constraints, distinguishes any remaining ties. This is a deterministic browsing convention, not a claim that equal-dimensional representations or differently constrained families are equivalent. Names, citations and hashes do not decide comparisons between distinct canonical spectra. Ordering affects the derived lists and CSVs, not the source catalogue or identity rules.
+
 ## Ingestion and identity
 
 Use `python3 -m bsm_atlas prepare specification.json` for read-only normalization and `python3 -m bsm_atlas lookup specification.json` for duplicate preflight against the built SQLite export. `python3 -m bsm_atlas add candidate.json` validates and normalizes a full entry wrapper; `--write` saves it only after validation and duplicate reconciliation. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory. For `prepare --values`, use the parameter names of the supplied specification: original source names for a source candidate, or z-names for the standardized entry.

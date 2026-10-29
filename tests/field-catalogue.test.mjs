@@ -80,6 +80,22 @@ assert.deepEqual(algebraFilterSignatures(),orderingAlgebras.map(a=>a.algebraSign
 orderingApp.state.q='Ordering visible';orderingApp.render();
 assert.deepEqual(algebraCardIds(),[orderingAlgebras[0].id,orderingAlgebras[2].id]);
 assert.deepEqual(algebraFilterSignatures(),orderingAlgebras.map(a=>a.algebraSignature));
+// Matter cards preserve generated representation order, including filtered
+// results; model names, identities and core hashes are not sorting criteria.
+const matterOrderingIds=['real-singlet-z2','complex-singlet-portal','two-higgs-doublets'];
+const matterOrderingEntries=matterOrderingIds.map((id,i)=>({...data.entries.find(e=>e.id===id),name:(i===0?'Z ':i===1?'M ':'A ')+(i===1?'Matter ordering middle':'Matter ordering visible')}));
+const matterOrderingCores=matterOrderingEntries.map(e=>({...data.cores.find(c=>c.id===e.coreId),entryIds:[e.id]}));
+const matterOrderingApp=create({...data,entries:matterOrderingEntries,cores:matterOrderingCores},document);
+const matterEntryIds=()=>Array.from(results().matchAll(/<article class="model-entry" id="model-([^"]+)"/g),m=>m[1]);
+const matterCoreIds=()=>Array.from(results().matchAll(/class="core-title" href="#core\/([^"?]+)/g),m=>m[1]);
+for(const browse of ['entries','cores']){
+ matterOrderingApp.state.browse=browse;matterOrderingApp.state.q='';matterOrderingApp.render();
+ const renderedIds=browse==='entries'?matterEntryIds:matterCoreIds;
+ const expectedIds=browse==='entries'?matterOrderingIds:matterOrderingCores.map(c=>c.id);
+ assert.deepEqual(renderedIds(),expectedIds);
+ matterOrderingApp.state.q='Matter ordering visible';matterOrderingApp.render();
+ assert.deepEqual(renderedIds(),[expectedIds[0],expectedIds[2]]);
+}
 app.state.q='two-higgs-doublets';app.state.browse='entries';app.render();
 assert(results().includes('(1, 2; 3)'));
 assert(results().includes('<th>Multiplicity</th>'));

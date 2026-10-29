@@ -11,7 +11,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parent.parent
 from .catalogue import load, identity, validate
 from .catalogue_identity import normalize_spec
-from .core_projection import attach_layers
+from .core_projection import attach_layers, spectrum_sort_key
 from .presentation import matrix, compact_baseline
 from .field_conventions import REPRESENTATION_CONVENTION
 
@@ -40,6 +40,7 @@ def main_data(source=None):
     templates['F_SM']={**templates['R_SM'],'name':'SM fermions','rows':[r for r in templates['R_SM']['rows'] if r['lorentz']['component']!='S']}
     templates['H_SM']={**templates['R_SM'],'name':'SM Higgs','rows':[r for r in templates['R_SM']['rows'] if r['lorentz']['component']=='S']}
     for entry in entries:compact_baseline(entry['regime'],templates)
+    entries.sort(key=lambda entry:spectrum_sort_key(entry['identity']['canonical'])+(entry['id'],))
     paper_entries={p['id']:[] for p in source['papers']}
     for entry in entries:
         for paper_id in entry['paperIds']:
@@ -98,6 +99,48 @@ def database(path,data):
         if con.execute('PRAGMA integrity_check').fetchone()[0]!='ok' or con.execute('PRAGMA foreign_key_check').fetchall():
             raise ValueError('Invalid relational catalogue')
 
+def version_script_assets(html,assets):
+    """Version each expected script once, using the bytes that will be served."""
+    from hashlib import sha256
+    from html import escape
+    from html.parser import HTMLParser
+    from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+
+    offsets=[0]
+    for line in html.splitlines(keepends=True):offsets.append(offsets[-1]+len(line))
+    versions={name:sha256(content).hexdigest()[:16] for name,content in assets.items()}
+    counts={name:0 for name in assets};replacements=[]
+
+    class Scripts(HTMLParser):
+        def handle_starttag(self,tag,attrs):
+            self.script(tag,attrs,False)
+
+        def handle_startendtag(self,tag,attrs):
+            self.script(tag,attrs,True)
+
+        def script(self,tag,attrs,closed):
+            if tag!='script':return
+            sources=[value for name,value in attrs if name=='src']
+            for source in sources:
+                if source is None:continue
+                url=urlsplit(source);name=url.path.removeprefix('./')
+                if url.scheme or url.netloc or name not in versions:continue
+                if len(sources)!=1:raise ValueError('Duplicate src attribute for '+name)
+                counts[name]+=1
+                query=[(key,value) for key,value in parse_qsl(url.query,keep_blank_values=True) if key!='v']
+                query.append(('v',versions[name]))
+                source=urlunsplit((url.scheme,url.netloc,url.path,urlencode(query),url.fragment))
+                updated='<script'+''.join(' '+key+('="'+escape(source if key=='src' else value,quote=True)+'"' if value is not None else '') for key,value in attrs)+(' />' if closed else '>')
+                line,column=self.getpos();start=offsets[line-1]+column
+                replacements.append((start,start+len(self.get_starttag_text()),updated))
+
+    parser=Scripts();parser.feed(html);parser.close()
+    for name,count in counts.items():
+        if count!=1:raise ValueError('Expected one script reference to '+name+', found '+str(count))
+    for start,end,replacement in reversed(replacements):html=html[:start]+replacement+html[end:]
+    return html
+
+
 def write_outputs(data,check=False):
     payload=encoded(data)+'\n'
     outputs={'website/catalogue.json':(ROOT/'atlas/catalogue.json').read_text(encoding='utf-8'),
@@ -110,6 +153,9 @@ def write_outputs(data,check=False):
     for kind,file in [('cores','nonabelian-cores'),('semisimpleAlgebras','semisimple-algebras'),('fullAlgebras','full-gauge-algebras')]:
         outputs['website/downloads/'+file+'.csv']=csv_text(['id','gauge_algebra','entry_ids','canonical_json'],
             ([g['id'],g['algebra'],';'.join(g['entryIds']),encoded(g['canonical'])] for g in data[kind]))
+    outputs['website/index.html']=version_script_assets((ROOT/'website/index.html').read_text(encoding='utf-8'),{
+        'field-catalogue-data.js':outputs['website/field-catalogue-data.js'].encode('utf-8'),
+        'field-catalogue.js':(ROOT/'website/field-catalogue.js').read_bytes()})
     for relative,content in outputs.items():
         path=ROOT/relative
         if check:

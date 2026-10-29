@@ -1,5 +1,8 @@
 """Exact dimension and Young-diagram displays; Dynkin labels remain identity."""
 from fractions import Fraction
+from functools import lru_cache
+
+from .scalar_conventions import cartan
 
 REPRESENTATION_CONVENTION = {
     "id":"dynkin-gauge-1",
@@ -37,6 +40,54 @@ def dimension_d(labels):
             value*=((weight[i]+rho[i])**2-(weight[j]+rho[j])**2)/Fraction(rho[i]**2-rho[j]**2)
     if value.denominator!=1 or value<=0: raise ValueError('Invalid Weyl dimension')
     return int(value)
+
+
+@lru_cache(maxsize=128)
+def _positive_coroots(family,rank):
+    """Positive coroots in the simple-coroot basis of the stored Cartan matrix."""
+    matrix=cartan(family,rank)
+    rows=[[(j,n) for j,n in enumerate(row) if n] for row in matrix]
+    pending=[tuple(int(i==j) for j in range(rank)) for i in range(rank)]
+    roots=set(pending)
+    while pending:
+        root=pending.pop()
+        for i,row in enumerate(rows):
+            # A_ij=<alpha_i,alpha_j^vee>, so the coroot reflection uses
+            # row i, not column i; this distinction matters for B/C/F/G.
+            pairing=sum(n*root[j] for j,n in row)
+            reflected=root[:i]+(root[i]-pairing,)+root[i+1:]
+            if reflected not in roots:
+                roots.add(reflected);pending.append(reflected)
+    return tuple(sorted(root for root in roots if all(n>=0 for n in root)))
+
+
+@lru_cache(maxsize=8192)
+def _weyl_dimension(family,labels):
+    if not any(labels):return 1
+    if family=='D' and len(labels)==3:
+        # Bourbaki D3 has vector node 1 between the two spinor nodes.
+        return dimension_a((labels[1],labels[0],labels[2]))
+    value=Fraction(1)
+    for coroot in _positive_coroots(family,len(labels)):
+        value*=Fraction(sum(n*(a+1) for n,a in zip(coroot,labels)),sum(coroot))
+    if value.denominator!=1 or value<=0:
+        raise ValueError('Invalid Weyl dimension')
+    return int(value)
+
+
+def weyl_dimension(family,labels):
+    """Exact complex irrep dimension from Bourbaki Dynkin labels.
+
+    Supports the finite simple A-G types through rank 64, including B2 and
+    D3 for higher-dimensional Lorentz labels. Gauge intake still applies its
+    stricter low-rank alias conventions. This does not change display labels.
+    """
+    if not isinstance(family,str) or not isinstance(labels,(list,tuple)) or any(type(a) is not int or a<0 for a in labels):
+        raise ValueError('Weyl dimensions require nonnegative integer Dynkin labels')
+    weights=tuple(labels)
+    if not (family=='D' and len(weights)==3):
+        cartan(family,len(weights))
+    return _weyl_dimension(family,weights)
 
 
 def irrep_dimension(algebra,labels):
