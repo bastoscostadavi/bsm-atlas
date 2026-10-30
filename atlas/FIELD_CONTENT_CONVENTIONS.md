@@ -67,9 +67,9 @@ Numerical specifications store canonical component counts and `reality: real_mod
 
 ## Abelian charges
 
-For a fixed numerical spectrum, apply one positive common rescaling per U(1) over the complete fermion and scalar inventory so all charges are integers with gcd1. The input factor IDs fix the displayed generator basis; a common sign reversal does not create a new numerical identity. Ordinary SM hypercharge is `q=6Y`. Never normalize rows, generations or scalar subsets independently.
+For a fixed numerical spectrum, apply one positive common rescaling per u(1) over the complete fermion and scalar inventory so all charges are integers with gcd1. The input factor IDs fix the displayed generator basis; a common sign reversal does not create a new numerical identity. Ordinary SM hypercharge is `q=6Y`. Never normalize rows, generations or scalar subsets independently.
 
-Multiple U(1) factors retain an explicit generator basis. Independent gcd rescalings/signs do not exhaust GL(n,Z) basis equivalence or kinetic-mixing conventions.
+Multiple u(1) factors retain an explicit generator basis. Independent gcd rescalings/signs do not exhaust GL(n,Z) basis equivalence or kinetic-mixing conventions.
 
 Families use `field-content-3`: fixed gauge factors, non-Abelian and Lorentz representations, positive integer multiplicities, declared integer parameters and exact charge polynomials. For example, `parameters: {z1:{domain:integer}, z2:{domain:integer}}`, charge `z1**2+z2`, constraints `0<z1<z2<3`. A fixed entry has no free parameters.
 
@@ -79,9 +79,9 @@ Do not enumerate a family. The website displays its parameter domain and constra
 
 `symbolic-template-2` standardizes parameters as `z1,z2,...` everywhere in an entry. Expand each integer polynomial, collect equal monomials, discard zero coefficients, and order terms by descending lexicographic exponent tuple in that parameter order. For example, `(z1+z2)**2` becomes `z1**2 + 2*z1*z2 + z2**2`. An optional `parameter_names` map on a paper reference records source names.
 
-The canonical template is the lexicographically smallest JSON serialization over consistent parameter relabelings and permutations of identical gauge factors, with simple factors ordered by Cartan family and descending rank and U(1) factors last. Factor IDs and matter-row order are not identity data; identical rows aggregate multiplicities. The executable canonicalizer bounds the combined relabeling search at 4096 choices and blocks larger comparisons explicitly rather than claiming a nonmatch. This limit is a resource bound, not mathematical inequivalence.
+The canonical template is the lexicographically smallest JSON serialization over consistent parameter relabelings and permutations of identical gauge factors, with simple factors ordered by Cartan family and descending rank and u(1) factors last. Factor IDs and matter-row order are not identity data; identical rows aggregate multiplicities. The executable canonicalizer bounds the combined relabeling search at 4096 choices and blocks larger comparisons explicitly rather than claiming a nonmatch. This limit is a resource bound, not mathematical inequivalence.
 
-Constraints are retained in identity, with the same parameter renaming, expanded polynomials, split comparison chains and sorted/deduplicated comparisons. No logical domain solver is used: `z1 > 0` and `z1 >= 1` remain different templates despite defining the same integer domain. Do not drop constraints to manufacture a duplicate. Matching normalized templates reuse an entry; different templates do not prove different families of physical models. Parameter shifts, nonlinear reparameterizations, overlapping domains, pointwise charge rescalings and general U(1) basis mixing are not automatically identified.
+Constraints are retained in identity, with the same parameter renaming, expanded polynomials, split comparison chains and sorted/deduplicated comparisons. No logical domain solver is used: `z1 > 0` and `z1 >= 1` remain different templates despite defining the same integer domain. Do not drop constraints to manufacture a duplicate. Matching normalized templates reuse an entry; different templates do not prove different families of physical models. Parameter shifts, nonlinear reparameterizations, overlapping domains, pointwise charge rescalings and general u(1) basis mixing are not automatically identified.
 
 Constraints record the source's definition of a family. Syntax validation does not certify domain nonemptiness, anomaly cancellation or physical viability.
 
@@ -109,11 +109,11 @@ Semisimple gauge part ──────────→ Full gauge algebra
 Semisimple gauge–matter ────────→ Full gauge–matter
 ```
 
-The upper-left view is the **semisimple part of the gauge algebra**, not a claim that the full algebra has no Abelian factors. It forgets matter and every U(1). The upper-right view restores all Abelian factors but still omits matter; its canonical key is the multiset of simple factors plus the Abelian rank, independent of generator names or matter charges. It does not specify a global group or quotient.
+The upper-left view is the **semisimple part of the gauge algebra**, not a claim that the full algebra has no Abelian factors. It forgets matter and every u(1). The upper-right view restores all Abelian factors but still omits matter; its canonical key is the multiset of simple factors plus the Abelian rank, independent of generator names or matter charges. It does not specify a global group or quotient.
 
-The lower-left view retains Lorentz irreps, non-Abelian weights and multiplicities, forgetting all U(1) factors. The lower-right view is the complete gauge-matter entry, including exact charges and symbolic metadata when applicable. Both paths select the same underlying entries; selecting a matter core and a full algebra can also intersect those groupings.
+The lower-left view retains Lorentz irreps, non-Abelian weights and multiplicities, forgetting all u(1) factors. The lower-right view is the complete gauge-matter entry, including exact charges and symbolic metadata when applicable. Both paths select the same underlying entries; selecting a matter core and a full algebra can also intersect those groupings.
 
-All four derive from the same complete entries. A partial sector cannot create a category. Scalar real modules are decomposed again after restriction; a charged singlet yields two real singlets when its U(1) is forgotten. A source complex vector whose restricted gauge irrep becomes real similarly supplies two real vectors. Symbolic restriction removes Abelian factors before source-field realification; it never substitutes a fictitious parameter point.
+All four derive from the same complete entries. A partial sector cannot create a category. Scalar real modules are decomposed again after restriction; a charged singlet yields two real singlets when its u(1) is forgotten. A source complex vector whose restricted gauge irrep becomes real similarly supplies two real vectors. Symbolic restriction removes Abelian factors before source-field realification; it never substitutes a fictitious parameter point.
 
 The generated SQLite caches `full_gauge_algebras` alongside the semisimple and matter-core caches. `entry_layers` joins both branches. These are reproducible projections, not additional hand-curated model inventories. `downloads/full-gauge-algebras.csv` supplies the algebra-only view.
 
@@ -121,7 +121,7 @@ Identical restricted rows aggregate. Coarse grouping is not physical equivalence
 
 ## Browsing order
 
-Algebra lists use ascending semisimple rank, semisimple dimension, and the canonical Cartan signature (family letters and numeric ranks in canonical factor order). Full algebras then compare their number of U(1) factors.
+Algebra lists use ascending semisimple rank, semisimple dimension, and the canonical Cartan signature (family letters and numeric ranks in canonical factor order). Full algebras then compare their number of u(1) factors.
 
 Within each algebra, matter spectra use the total **real dimension of the recorded Lorentz × gauge field representation**, including multiplicities. This is field-space dimension, not on-shell polarization counting. Gauge connections do not add matter rows. For a row of multiplicity n, complex gauge dimension d_G and complex Lorentz dimension d_L, its contribution is n × d_L × d_G times:
 
@@ -129,7 +129,7 @@ Within each algebra, matter spectra use the total **real dimension of the record
 - 2 for unconstrained `complex` or `none` fields, including independent LH Weyl fields;
 - for scalar `real_module` rows, 1 when the full gauge irrep is real type, and 2 when it is complex or pseudoreal type.
 
-In four dimensions d_L is the sum of (2j_L + 1)(2j_R + 1) over the recorded Lorentz irreps. Higher-dimensional Lorentz irreps and all simple gauge families use the exact Weyl dimension formula, in the stored Bourbaki convention. Gauge dimensions multiply across simple factors; each U(1) representation has complex dimension 1. Scalar source counts in symbolic families retain their explicit real/complex convention, so their dimension is computed without choosing a parameter point.
+In four dimensions d_L is the sum of (2j_L + 1)(2j_R + 1) over the recorded Lorentz irreps. Higher-dimensional Lorentz irreps and all simple gauge families use the exact Weyl dimension formula, in the stored Bourbaki convention. Gauge dimensions multiply across simple factors; each u(1) representation has complex dimension 1. Scalar source counts in symbolic families retain their explicit real/complex convention, so their dimension is computed without choosing a parameter point.
 
 Thus one real singlet contributes 1, a complex Higgs doublet 4, and a LH Weyl field in a gauge representation of complex dimension d contributes 4d. The SM field representation has real dimension 184: 180 from its fermions and 4 from its Higgs. Adding a real singlet, a complex singlet, or a second Higgs doublet gives 185, 186, or 188 respectively. Restricting to the semisimple algebra preserves this dimension while the real-module multiplicities may change.
 
@@ -139,7 +139,7 @@ Dimension ties compare row signatures sorted in ascending order: spacetime dimen
 
 Use `python3 -m bsm_atlas prepare specification.json` for read-only normalization and `python3 -m bsm_atlas lookup specification.json` for duplicate preflight against the built SQLite export. `python3 -m bsm_atlas add candidate.json` validates and normalizes a full entry wrapper; `--write` saves it only after validation and duplicate reconciliation. Exact matches reuse an existing entry and combine paper links; aliases resolve to that entry. A nonmatch is not proof of a new physical theory. For `prepare --values`, use the parameter names of the supplied specification: original source names for a source candidate, or z-names for the standardized entry.
 
-Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common U(1) rescalings/signs, and the stated scalar equivalences. General multi-U(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
+Numerical identity removes row ordering/splitting, factor ordering and permutations of identical factors, primitive common u(1) rescalings/signs, and the stated scalar equivalences. General multi-u(1) mixing, outer automorphisms, cross-regime dualities and symbolic reparameterizations are not exhaustively quotiented.
 
 Public JSON, CSV and SQLite contain complete specifications. Paper references may carry locators and parameter-name mappings; entry aliases are navigation aids, not identity data. The SQL `matter` table stores row identifiers, Lorentz representations, scalar-counting conventions and multiplicities. `matter_representations` supplies the exact gauge components of those same rows.
 

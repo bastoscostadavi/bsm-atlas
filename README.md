@@ -13,13 +13,13 @@ The explorer groups the same entries by:
 | | Gauge algebra | Gauge algebra and matter representations |
 |---|---|---|
 | Semisimple part | Simple non-Abelian factors | Those factors, Lorentz representations, irreps and multiplicities |
-| Full | All factors, including U(1) | The complete specification, including charges |
+| Full | All factors, including u(1) | The complete specification, including charges |
 
 These are derived views, not four independently maintained tables. One can add matter first or Abelian factors first and reach the same full entries. Restricting to the semisimple part also decomposes real scalar modules correctly; it is not merely hiding charge columns.
 
 ## Precise objects
 
-Simple algebras use canonical Cartan type and rank; non-Abelian representations use highest-weight Dynkin labels in fixed node order. Numerical U(1) charges are primitive integers in an explicit generator basis. Four-dimensional independent Weyl fermions are all left-handed. Multiplicity counts repeated representations, not their dimensions; scalar multiplicity counts irreducible real gauge modules.
+Simple algebras use canonical Cartan type and rank; non-Abelian representations use highest-weight Dynkin labels in fixed node order. Numerical u(1) charges are primitive integers in an explicit generator basis. Four-dimensional independent Weyl fermions are all left-handed. Multiplicity counts repeated representations, not their dimensions; scalar multiplicity counts irreducible real gauge modules.
 
 Representation records contain only schema-defined mathematical data. Field symbols and descriptive labels are not stored; model names and paper metadata remain separate from the specification.
 

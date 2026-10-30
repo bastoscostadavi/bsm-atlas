@@ -45,9 +45,9 @@ const viewTitles={
  cores:'Forces and Matter',
  entries:'Forces and Matter'};
 const viewSubtitles={
- algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
+ algebras:'The semisimple part of the gauge algebra, with u(1) factors and matter representations omitted.',
  'full-algebras':'Gauge algebras, with matter representations omitted.',
- cores:'The semisimple part of the gauge algebra and its matter representations, with U(1) factors omitted.',
+ cores:'The semisimple part of the gauge algebra and its matter representations, with u(1) factors omitted.',
  entries:'Gauge algebras and matter representations'};
 for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
@@ -146,7 +146,7 @@ assert(results().includes('>References ('+referenceCount('smash-down')+') +</but
 assert(!results().includes('Demonstrated results'));
 assert(!content().includes('id="problem-filter"'));
 app.state.view='notation';app.render();
-for(const phrase of ['Bourbaki','all-zero labels denote a singlet','left-handed fields','negates its U(1) charges','Scalars count irreducible real gauge modules','three generations, not 6','Symbolic charge families','descending lexicographic order','we do not try to prove that differently written domains','SM matter table','MSSM matter table'])assert(content().includes(phrase),phrase);
+for(const phrase of ['Bourbaki','all-zero labels denote a singlet','left-handed fields','negates its u(1) charges','Scalars count irreducible real gauge modules','three generations, not 6','Symbolic charge families','descending lexicographic order','we do not try to prove that differently written domains','SM matter table','MSSM matter table'])assert(content().includes(phrase),phrase);
 assert(content().includes('([0,1], [0]; -4)'));
 assert.equal(nodes.get('notation-guide').open,true);
 app.state.view='sources';app.render();
