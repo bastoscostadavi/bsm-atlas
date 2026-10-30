@@ -45,6 +45,7 @@ def payload():
                 'paperId': row['paper_id'], 'rationale': row['rationale'],
                 'evidence': json.loads(row['evidence_json']),
                 'needsReview': row['needs_review'] == 'True',
+                'reviewReasons': json.loads(row['review_reasons_json']),
             })
     return {'schemaVersion': 1, 'snapshot': '29 October 2026', 'model': 'Luna',
             'catalogueSha256': manifest['catalogue_sha256'],

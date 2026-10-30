@@ -3,6 +3,16 @@
  'use strict';
  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const number=n=>n.toLocaleString('en-US');
+ const flagLabels={quote_found:'Quote not found',quote_near_locator:'Quote not near cited lines',
+   quote_within_35_words:'Quote exceeds 35 words',locator_has_valid_line:'Missing or invalid line reference',
+   limited_text_coverage:'Limited text coverage',model_not_confirmed:'Model identification uncertain',
+   scientific_uncertainty:'Uncertain association',mechanical_checks_missing_or_mismatched:'Source checks incomplete'};
+ function sourceChecks(a){
+   const reasons=[...new Set(a.reviewReasons||[])];
+   if(!a.needsReview&&!reasons.length)return ' <span class="evidence-status">Automated checks passed</span>';
+   if(!reasons.length)reasons.push('mechanical_checks_missing_or_mismatched');
+   return reasons.map(reason=>' <span class="evidence-flag">'+esc(flagLabels[reason]||'Unrecognized source check flag')+'</span>').join('');
+ }
  function create(catalogue,annotations){
    const data=annotations||{categories:[],problems:[],assessed:[],links:{}},links=data.links;
    const entries=new Map(catalogue.entries.map(e=>[e.id,e])),papers=new Map(catalogue.papers.map(p=>[p.id,p]));
@@ -19,7 +29,7 @@
    }
    const count=id=>Object.keys(links[id]||{}).length;
    const paperCount=id=>new Set(members(id).flatMap(e=>links[e.id][id].map(a=>a.paperId))).size;
-   function method(){return '<details class="problem-method" id="problems-layer"><summary>About Problems</summary><p>Problems adds a literature-based layer to the atlas, connecting model entries to the particle-physics questions they are studied to address. It builds on the common gauge-algebra and matter representation, while retaining links to the supporting papers.</p><p>To construct this layer, Luna read each paper alongside its linked atlas entries and identified model-specific connections to the 13 problems shown here. Each association includes an explanation, source quotations and locators. Associations across papers may involve different interactions or parameter choices; they do not establish simultaneous solutions in one specified theory.</p><p>Other layers can be added in the same way, depending on the question or research interest: for example, mechanisms, experimental signatures, mass scales or observational constraints. Each layer can connect its own annotations and source evidence to the same underlying model entries.</p><p>The current associations are machine-extracted. “Evidence review needed” marks an automated quotation, locator or coverage check that needs attention. Missing links mean none were detected; unassessed entries are identified separately. Source locators refer to the extracted paper text and may differ from PDF page numbers.</p></details>';}
+   function method(){return '<details class="problem-method" id="problems-layer"><summary>About Problems</summary><p>Problems adds a literature-based layer to the atlas, connecting model entries to the particle-physics questions they are studied to address. It builds on the common gauge-algebra and matter representation, while retaining links to the supporting papers.</p><p>To construct this layer, Luna read each paper alongside its linked atlas entries and identified model-specific connections to the 13 problems shown here. Each association includes an explanation, source quotations and locators. Associations across papers may involve different interactions or parameter choices; they do not establish simultaneous solutions in one specified theory.</p><p>Other layers can be added in the same way, depending on the question or research interest: for example, mechanisms, experimental signatures, mass scales or observational constraints. Each layer can connect its own annotations and source evidence to the same underlying model entries.</p><p>The current associations are machine-extracted. Flags identify failed quotation, length, line-reference or text-coverage checks, including evidence used to identify the model. Passing these checks does not verify the scientific interpretation. Missing links mean none were detected; unassessed entries are identified separately. Source locators refer to the extracted paper text and may differ from PDF page numbers.</p></details>';}
    function searchForm(value,placeholder){return '<form id="problem-search-form" class="problem-search" role="search"><label class="search-label"><span class="sr-only">'+esc(placeholder)+'</span><input id="problem-search" type="search" placeholder="'+esc(placeholder)+'" value="'+esc(value)+'"></label><button class="problem-search-button" type="submit">Search</button></form>';}
    function overview(){
      if(!data.problems.length)return '<p class="empty">Problem annotations are unavailable.</p>';
@@ -31,7 +41,7 @@
    }
    function source(a){
      const p=papers.get(a.paperId);if(!p)return '';
-     return '<li class="problem-source"><a href="https://arxiv.org/abs/'+esc(p.arxiv)+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">arXiv:'+esc(p.arxiv)+(a.needsReview?' <span class="evidence-flag">Evidence review needed</span>':' <span class="evidence-status">Automated checks passed</span>')+'</p><p class="problem-rationale">'+esc(a.rationale)+'</p>'+a.evidence.map(e=>'<blockquote>'+esc(e.quote)+'<cite>'+esc(e.locator)+'</cite></blockquote>').join('')+'</li>';
+     return '<li class="problem-source"><a href="https://arxiv.org/abs/'+esc(p.arxiv)+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">arXiv:'+esc(p.arxiv)+sourceChecks(a)+'</p><p class="problem-rationale">'+esc(a.rationale)+'</p>'+a.evidence.map(e=>'<blockquote>'+esc(e.quote)+'<cite>'+esc(e.locator)+'</cite></blockquote>').join('')+'</li>';
    }
    function evidence(id,problem){
      const associations=[...(links[id]?.[problem]||[])].sort((a,b)=>Number(a.needsReview)-Number(b.needsReview)||a.paperId.localeCompare(b.paperId));

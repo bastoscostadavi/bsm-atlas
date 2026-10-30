@@ -32,7 +32,20 @@ assert(explorer.problem('qcd_mass_gap').includes('Problem not found'));
 assert(!explorer.entry('mssm-matter').includes('>Confinement</span>'));
 assert(explorer.problem('dark_matter','nuMSM').includes('46 supporting papers'));
 assert(!explorer.problem('dark_matter','nuMSM').includes('<h3><a href="#entry/mssm-matter'));
-assert(explorer.entry('numsm').includes('Evidence review needed'));
+assert(explorer.entry('numsm').includes('Quote not found'));
+assert(!explorer.entry('numsm').includes('Evidence review needed'));
+for(const model of Object.values(annotations.links))for(const rows of Object.values(model))for(const row of rows){
+ assert(Array.isArray(row.reviewReasons));
+ assert.equal(row.needsReview,row.reviewReasons.length>0);
+}
+// Show every recorded failure, without treating missing check details as a pass.
+const withFlags=reasons=>context.ProblemExplorer.create(data,{...annotations,links:{numsm:{dark_matter:[{
+ paperId:data.papers[0].id,rationale:'Example',evidence:[],needsReview:true,reviewReasons:reasons
+}]}}}).entry('numsm');
+const flags=withFlags(['quote_found','quote_near_locator','quote_within_35_words','locator_has_valid_line','limited_text_coverage']);
+for(const label of ['Quote not found','Quote not near cited lines','Quote exceeds 35 words','Missing or invalid line reference','Limited text coverage'])assert(flags.includes(label));
+assert(!flags.includes('Automated checks passed'));
+assert(withFlags([]).includes('Source checks incomplete'));
 // Source text is escaped even inside quotations and rationales.
 const unsafe=context.ProblemExplorer.create(data,{...annotations,links:{numsm:{dark_matter:[{paperId:data.papers[0].id,rationale:'<script>x</script>',needsReview:true,evidence:[{quote:'<img onerror="x">',locator:'<bad>'}]}]}}});
 assert(unsafe.entry('numsm').includes('&lt;script&gt;'));

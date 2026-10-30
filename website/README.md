@@ -48,7 +48,9 @@ GitHub Actions checks the files and publishes this directory on pushes to main. 
 The `#problems` tab shows 13 problem cards with their category labels.
 Linked models follow the same gauge-algebra and matter-content order as the
 catalogue. Each full entry has a Problems toggle; it opens paper-specific
-rationales, source quotations, locators and automated evidence-review flags.
+rationales, source quotations, locators and the specific automated source-check
+flags, such as “Quote not found” or “Quote not near cited lines”. Multiple flags
+are shown together; checks cover both problem evidence and model identification.
 These are provisional associations, not validated solutions. Missing detected
 links and unassessed entries have separate states.
 The preview omits the established-theory dynamics category (confinement, QCD
