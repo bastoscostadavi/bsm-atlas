@@ -40,10 +40,10 @@ assert.equal(findPapers(bibliography,{q:'gauge',year:'1992'}).length,0);
 const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
 const viewTitles={
- algebras:'Gauge algebras',
- 'full-algebras':'Gauge algebras',
- cores:'Gauge algebras and matter representations',
- entries:'Gauge algebras and matter representations'};
+ algebras:'Forces',
+ 'full-algebras':'Forces',
+ cores:'Forces and Matter',
+ entries:'Forces and Matter'};
 const viewSubtitles={
  algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
  'full-algebras':'Gauge algebras, with matter representations omitted.',

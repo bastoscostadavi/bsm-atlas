@@ -318,8 +318,8 @@
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
-     document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Gauge algebras':'Gauge algebras and matter representations'):titles[state.view];
+     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
+     document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Forces':'Forces and Matter'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
