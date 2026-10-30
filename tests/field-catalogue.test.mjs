@@ -48,7 +48,7 @@ const viewSubtitles={
  algebras:'The semisimple part of the gauge algebra, with U(1) factors and matter representations omitted.',
  'full-algebras':'Gauge algebras, with matter representations omitted.',
  cores:'The semisimple part of the gauge algebra and its matter representations, with U(1) factors omitted.',
- entries:'Complete gauge–matter specifications, with multiplicities and charge assignments.'};
+ entries:'Gauge algebras and matter representations'};
 for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-algebras',data.fullAlgebras.length],['cores',data.cores.length],['entries',data.entries.length]]){
  app.state.browse=browse;app.render();
  assert.equal(nodes.get('page-title').textContent,viewTitles[browse]);
