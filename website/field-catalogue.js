@@ -138,8 +138,8 @@
        ['entries','Full',browseLink('entries')]];
      const link=([id,label,href],group)=>'<li><a aria-label="'+group+' — '+label+'" href="'+esc(href)+'"'+(state.view==='catalogue'&&level()===id?' aria-current="page"':'')+'>'+label+'</a></li>';
      const group=(id,label,items)=>'<div class="catalogue-group"><p id="'+id+'" class="catalogue-group-label">'+label+'</p><ul aria-labelledby="'+id+'">'+items.map(item=>link(item,label)).join('')+'</ul></div>';
-     return group('catalogue-algebra-label','Gauge algebra',links.slice(0,2))+
-       group('catalogue-matter-label','Gauge algebra and matter representations',links.slice(2));
+     return group('catalogue-algebra-label','Forces',links.slice(0,2))+
+       group('catalogue-matter-label','Forces and Matter',links.slice(2));
    }
    function updateCatalogueMenu(){
      const navigation=document.getElementById('catalogue-views');

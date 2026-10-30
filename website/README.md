@@ -25,7 +25,7 @@ The build updates the catalogue data and runtime script URLs in `index.html` wit
 
 Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
 
-The Catalogue disclosure groups four links under Gauge algebra and Gauge algebra and matter representations. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
+The Catalogue disclosure groups four links under “Forces” and “Forces and Matter”. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
 Algebra lists sort by the semisimple part's total rank, then dimension, then its canonical Cartan signature (family letters and numeric ranks). Full algebras with the same semisimple part sort next by the number of u(1) factors; remaining ties use the group ID. The semisimple filter and grouping CSVs preserve this order.
 
