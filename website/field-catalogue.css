@@ -15,10 +15,13 @@ p{margin:.5rem 0 1rem}
 .skip-link:focus{position:fixed;top:12px;left:12px;width:auto;height:auto;clip-path:none;background:var(--paper);padding:10px;z-index:10}
 .site-header,main,footer{max-width:1280px;margin:auto;padding-left:40px;padding-right:40px}
 .site-header{height:76px;display:flex;align-items:center;gap:30px;border-bottom:1px solid var(--line)}
-.wordmark{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:18px;font-weight:600;letter-spacing:-.035em}
+.wordmark{display:flex;align-items:center;gap:10px;min-width:0;color:var(--ink);font-size:18px;font-weight:600;letter-spacing:-.035em}
 .wordmark:hover{text-decoration:none}
+.wordmark-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.wordmark-title{line-height:1.2}
+.wordmark-subtitle{max-width:330px;color:var(--muted);font-size:11px;line-height:1.35;font-weight:400;letter-spacing:0}
 .mark,.mark svg{width:34px;height:34px}
-.mark{display:grid;place-items:center}
+.mark{display:grid;place-items:center;flex-shrink:0}
 .site-header nav{margin-left:auto;display:flex;gap:28px;font-size:13px}
 .site-header nav a{color:var(--muted)}
 .site-header nav a[aria-current=page]{color:var(--ink)}
@@ -115,12 +118,15 @@ footer a{color:var(--muted)}
 .notation-strip{gap:20px;flex-wrap:wrap}
 .notation-strip>a{margin-left:0}
 }
-@media(max-width:600px){
-.site-header,main,footer{padding-left:20px;padding-right:20px}
+@media(max-width:800px){
 .site-header{height:auto;min-height:72px;gap:16px;flex-wrap:wrap;padding-top:16px;padding-bottom:16px}
-.wordmark{font-size:17px}
+.wordmark{flex:1}
 .site-header .icon-button{margin-left:auto}
 .site-header nav{order:3;justify-content:space-between;width:100%;margin:0;padding-top:2px}
+}
+@media(max-width:600px){
+.site-header,main,footer{padding-left:20px;padding-right:20px}
+.wordmark{font-size:17px}
 .page-intro{padding-top:34px}
 h1{font-size:33px}
 .notation-strip{display:grid;gap:8px;padding-bottom:22px}

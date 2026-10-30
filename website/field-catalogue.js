@@ -318,7 +318,7 @@
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Gauge algebras & matter.',atlas:'An Atlas of Forces and Matter Beyond the Standard Model',sources:'Papers.',notation:'Notation.'};
+     const titles={catalogue:'Gauge algebras & matter.',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Gauge algebras':'Gauge algebras and matter representations'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
