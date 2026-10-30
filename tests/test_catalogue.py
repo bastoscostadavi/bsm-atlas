@@ -24,6 +24,15 @@ NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification'
 
 
 class CatalogueTests(unittest.TestCase):
+    def test_broken_phase_higgs_benchmarks_are_not_full_model_entries(self):
+        removed={f'higgs-characterisation-broken-phase-spin-{spin}' for spin in (0,1,2)}
+        self.assertFalse(removed & set(ENTRIES))
+        self.assertFalse(removed & {e['id'] for e in DATA['entries']})
+        paper=next(p for p in DATA['papers'] if p['arxiv']=='1306.6464v3')
+        self.assertEqual(paper['entryIds'],[])
+        self.assertFalse(any(a['algebra']=='su(3)' for a in DATA['semisimpleAlgebras']))
+        self.assertFalse(any(a['algebra']=='su(3) ⊕ u(1)' for a in DATA['fullAlgebras']))
+
     def test_catalogue_identities_references_and_view_memberships(self):
         baseline=json.loads((ROOT/'tests/fixtures/catalogue-identities.json').read_text())
         current={e['id']:e for e in DATA['entries']}

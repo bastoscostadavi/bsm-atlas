@@ -50,7 +50,7 @@ class AlgebraOrdering(unittest.TestCase):
         self.assertEqual(groups,before)
 
     def test_all_derived_layers_share_the_semisimple_order(self):
-        labels=['su(3)','su(3) ⊕ su(2)','su(3) ⊕ su(2) ⊕ su(2)',
+        labels=['su(3) ⊕ su(2)','su(3) ⊕ su(2) ⊕ su(2)',
                 'su(3) ⊕ su(3)','su(4) ⊕ su(2)','su(5)',
                 'su(4) ⊕ su(2) ⊕ su(2)','so(10)','e6']
         algebras={group['algebra']:group for group in DATA['semisimpleAlgebras']}
