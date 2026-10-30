@@ -42,3 +42,33 @@ Dates use the first-submission month encoded in the [arXiv identifier](https://i
 The website shows only complete specifications. Its dimension labels and diagrams are presentation aids; exact Dynkin labels, Lorentz irreps, multiplicities and typed charges remain the stored objects.
 
 GitHub Actions checks the files and publishes this directory on pushes to main. Reading new arXiv papers and adding their specifications is a separate ingestion step; the website build uses the checked-in catalogue.
+
+## Problems
+
+The `#problems` tab shows 13 problem cards with their category labels.
+Linked models follow the same gauge-algebra and matter-content order as the
+catalogue. Each full entry has a Problems toggle; it opens paper-specific
+rationales, source quotations, locators and automated evidence-review flags.
+These are provisional associations, not validated solutions. Missing detected
+links and unassessed entries have separate states.
+The preview omits the established-theory dynamics category (confinement, QCD
+mass gap and hadron structure), leaving 13 visible problem types. The original
+experiment taxonomy and results remain unchanged.
+“About Problems” explains the extraction and how other question-specific
+annotation layers can be added. `#problems?about=layer` opens that explanation
+directly, including from the third paragraph of “What is the atlas?”.
+
+This layer is separate from the structural catalogue and its downloads.
+`problem-data.js` is generated from the frozen experiment exports. To refresh:
+
+```sh
+python3 -B scripts/build_problem_preview.py
+make build
+```
+
+The exporter rejects changed specifications or missing references for positive
+annotations. It omits removed entries from assessment coverage. Check it without
+rewriting data with `python3 -B scripts/build_problem_preview.py --check`.
+Preview locally with `make serve`. The Problems interface is included in the
+website deployed by the GitHub Pages workflow. The frozen experiment exports
+used to regenerate the annotation asset are local research inputs.

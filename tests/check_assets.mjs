@@ -19,7 +19,9 @@ for(const file of fs.readdirSync(website))assert(!/\.py$|\.test\.mjs$/.test(file
 const css=read('field-catalogue.css');
 assert(css.includes('.notation-grid p .math{font:inherit}'));
 assert(css.includes('.notation-grid p sub{font-size:.75em;line-height:0}'));
-assert(!html.includes('href="#problems"'));
+assert(html.includes('href="#problems"'));
+assert(html.includes('src="problem-data.js?'));
+assert(html.includes('src="problem-explorer.js?'));
 const repository=new URL('../',website);
 for(const file of ['README.md','BSM_ATLAS_AGENT_PROMPT.md','atlas/README.md','atlas/FIELD_CONTENT_CONVENTIONS.md','website/README.md']){
  const document=new URL(file,repository);

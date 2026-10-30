@@ -17,6 +17,7 @@ def main():
         python + ['-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_*.py'],
         ['node', 'tests/check_assets.mjs'],
         ['node', 'tests/field-catalogue.test.mjs'],
+        ['node', 'tests/problem-explorer.test.mjs'],
         ['node', 'tests/representation-diagrams.test.mjs'],
     ]
     env = {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}

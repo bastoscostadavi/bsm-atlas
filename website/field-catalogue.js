@@ -70,7 +70,8 @@
  function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Multiplicity</th></tr></thead><tbody>'+template.rows.map(row=>'<tr><td class="math">'+esc(row.lorentz.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(row.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(row.components))+'</span></td><td>'+row.copies+'</td></tr>').join('')+'</tbody></table></div>';}
 
  function create(data,document){
-   const state={q:'',algebra:'',paper:'',open:'',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1};
+   const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20};
+   const problemExplorer=root.ProblemExplorer?.create(data,root.ATLAS_PROBLEMS);
    const papersPerPage=20;
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
    const orderedPapers=[...data.papers].sort(comparePapers);
@@ -78,12 +79,22 @@
    const algebraById=new Map((data.semisimpleAlgebras||[]).map(a=>[a.id,a]));
    const fullAlgebraById=new Map((data.fullAlgebras||[]).map(a=>[a.id,a]));
    const entryById=new Map(data.entries.map(e=>[e.id,e]));
+   const entryOrder=new Map(data.entries.map((e,i)=>[e.id,i]));
+   const orderedEntryIds=ids=>[...ids].sort((a,b)=>(entryOrder.get(a)??Infinity)-(entryOrder.get(b)??Infinity));
    for(const e of data.entries)for(const a of e.aliases||[])entryById.set(a.id,e);
    function route(){
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
-     state.view=raw==='about'?'atlas':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
+     state.view=raw==='about'?'atlas':raw==='problems'||raw.startsWith('problems/')?'problems':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
+     state.panel=p.get('panel')==='problems'?'problems':'references';
+     state.problemLayer=state.view==='problems'&&p.get('about')==='layer';
+     if(state.view==='problems'){
+       state.problem=raw.startsWith('problems/')?decodeURIComponent(raw.slice(9)):'';
+       state.problemQuery=(p.get('search')||'').trim();
+       state.problemCategory=p.get('category')||'';
+       state.problemLimit=20;
+     }
      if(state.view==='sources'){
        state.paperQuery=(p.get('search')||'').trim();
        state.paperYear=p.get('year')||'';
@@ -109,11 +120,16 @@
 
    }
    function url(){
+     if(state.view==='problems'){
+       history.replaceState(null,'',problemExplorer.problemLink(state.problem,state.problemQuery,state.problemCategory));
+       return;
+     }
      if(state.view==='sources'){
        history.replaceState(null,'',sourcesLink(state.paperPage));
        return;
      }
      const p=new URLSearchParams();
+     if(state.open&&state.panel==='problems')p.set('panel','problems');
      for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
      if(state.open&&state.core)p.set('core',state.core);
      if(state.fullAlgebra&&(state.open||state.core||state.browse!=='entries'))p.set('fullAlgebra',state.fullAlgebra);
@@ -216,7 +232,7 @@
      const visible=cores.slice(0,state.limit);
      document.getElementById('result-count').textContent=cores.length+' semisimple matter '+(cores.length===1?'spectrum':'spectra');
      document.getElementById('model-entries').innerHTML=visible.map(c=>{
-       const names=c.entryIds.filter(id=>matched.has(id)).map(id=>entryById.get(id)?.name).filter(Boolean);
+       const names=orderedEntryIds(c.entryIds).filter(id=>matched.has(id)).map(id=>entryById.get(id)?.name).filter(Boolean);
        const count=c.entryIds.filter(id=>matched.has(id)).length,href=browseLink('core/'+c.id,{fullAlgebra:state.fullAlgebra});
        return '<article class="model-entry core-entry"><header class="model-heading"><h2><a class="core-title" href="'+esc(href)+'">'+math(c.algebra)+'</a></h2><a class="core-open" href="'+esc(href)+'">Open '+count+' '+(count===1?'entry':'entries')+' →</a></header><p class="core-members">'+names.map(esc).join(' · ')+'</p>'+matrix({id:c.id,name:c.algebra},c.regime)+'</article>';
      }).join('')+(cores.length>visible.length?'<button class="load-more" data-more>Show more cores ('+(cores.length-visible.length)+' remaining)</button>':'')+(!cores.length?'<p class="empty">No matter spectra match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
@@ -235,7 +251,9 @@
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=e.regime;
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+(state.open===e.id)+'">References ('+e.references.length+') '+(state.open===e.id?'−':'+')+'</button></header>'+(state.open===e.id?detail(e):'')+matrix(e,r)+'</article>';
+       const refsOpen=state.open===e.id&&state.panel==='references',problemsOpen=state.open===e.id&&state.panel==='problems';
+       const problemLabel=problemExplorer?.assessed(e.id)?'Problems ('+problemExplorer.count(e.id)+')':'Problems · unassessed';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+refsOpen+'">References ('+e.references.length+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -283,13 +301,13 @@
          (!papers.length?'<p class="empty">No papers match your search. Try another title, author, arXiv identifier or year.</p>':
            '<div class="source-list">'+visible.map(p=>'<article class="paper-item"><h2 class="paper-title"><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></h2>'+
              '<p class="reference-meta">'+esc(p.authors)+'</p><p class="paper-meta">'+paperDate(p)+'<span>arXiv:'+esc(p.arxiv)+'</span></p>'+
-             (p.entryIds.length?'<details class="paper-entries"><summary>'+p.entryIds.length+' atlas '+(p.entryIds.length===1?'entry':'entries')+'</summary><ul>'+p.entryIds.map(id=>'<li><a href="#entry/'+esc(encodeURIComponent(id))+'">'+esc(entryById.get(id)?.name||id)+'</a></li>').join('')+'</ul></details>':'<p class="reference-meta">No linked atlas entries.</p>')+
+             (p.entryIds.length?'<details class="paper-entries"><summary>'+p.entryIds.length+' atlas '+(p.entryIds.length===1?'entry':'entries')+'</summary><ul>'+orderedEntryIds(p.entryIds).map(id=>'<li><a href="#entry/'+esc(encodeURIComponent(id))+'">'+esc(entryById.get(id)?.name||id)+'</a></li>').join('')+'</ul></details>':'<p class="reference-meta">No linked atlas entries.</p>')+
              '</article>').join('')+'</div>'+pagination))+'</div></section>';
    }
    function atlasIntroduction(){
      return '<article class="about-data"><p>Gauge symmetry and the representations of matter are the defining ingredients of the Standard Model. Its peculiar gauge algebra, chiral matter content and three generations form a striking structure whose origin remains unexplained. It can seem ungainly, even arbitrary, in its particulars, yet beautiful in its workings: gauge anomalies cancel exactly, and its dynamics span confinement, spontaneous symmetry breaking and weakly coupled scattering. In its minimal form, with massless neutrinos, the theory has just 19 free parameters. Once their values are fixed, it makes infinitely many predictions, including the <a href="https://arxiv.org/abs/2209.13084">electron’s magnetic moment</a>, among the most precise in all of science. BSM Atlas takes these defining ingredients as a starting point for charting extensions of the Standard Model. Each entry gives the gauge algebra, the Lorentz and gauge representations of the matter fields, and their multiplicities, using a common notation and linking to the papers in which they are studied.</p>'+
        '<p>The catalogue can be read at different levels of detail. The <a href="#full-algebras">gauge-algebra view</a> shows which algebras occur, while the <a href="#entries">full entries</a> also give their matter representations, multiplicities and charges. To compare models independently of their u(1) factors, the semisimple views retain either <a href="#catalogue">the algebras alone</a> or <a href="#cores">the algebras and their matter</a>. For u(1) factors, an entry may specify fixed charges or a family of charge assignments described by integer parameters and constraints.</p>'+
-       '<p>We build the atlas from arXiv papers. Each specification is checked against its source, expressed in common conventions and compared with existing entries before it is added. Only complete specifications are included. Papers studying the same gauge–matter content are linked to one entry, so the catalogue grows both by adding models and by connecting further references to existing ones. Those references provide the interactions, dynamics and physical context needed to study each model beyond its structural description.</p>'+
+       '<p>We build the atlas from arXiv papers. Each specification is checked against its source, expressed in common conventions and compared with existing entries before it is added. Only complete specifications are included. Papers studying the same gauge–matter content are linked to one entry, so the catalogue grows both by adding models and by connecting further references to existing ones. Those references provide the interactions, dynamics and physical context needed to study each model beyond its structural description. <a href="#problems">Problems</a> adds a layer connecting entries to the questions studied in their papers, as explained in <a href="#problems?about=layer">About Problems</a>.</p>'+
        '<p>We also intend to use the atlas in two related projects. In <a href="https://github.com/bastoscostadavi/bsm-ai-search">bsm-ai-search</a>, it would guide AI agents in proposing new gauge–matter entries and studying them through the usual BSM research workflow, from exploring their parameter spaces and calculating observables to comparing predictions with experimental results. In <a href="https://github.com/bastoscostadavi/bsm-foundation-model">bsm-foundation-model</a>, atlas entries would seed diverse simulations across theories, parameters, and experimental settings. Supervised learning would turn collections of simulation outputs into a classification task: identifying their underlying gauge algebra and matter representation. The goal is to learn patterns across simulated settings and use them to interpret real experimental observations.</p>'+
        '<p>The Atlas is motivated by the hypothesis that the characteristic scales of a BSM theory lie far below the scale of further new physics. This separation makes it reasonable to seek a description in terms of a renormalizable Lagrangian, neglecting the contributions of higher-dimensional operators generated at the higher scale. The observable effects of such a theory may themselves be suppressed by the BSM scales, leaving only small departures from Standard Model predictions. But a common underlying theory relates these departures, so their collective pattern may reveal a signal that remains hidden in individual measurements. By charting candidate theories and tracing their observable consequences, the Atlas aims to help us work backward from measurements to the theory realized in nature. In this way, the Atlas enables bottom-up physics, from the top down.</p></article>';
    }
@@ -318,15 +336,19 @@
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers.',notation:'Notation.'};
+     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',problems:'Problems'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Forces':'Forces and Matter'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
-     content.innerHTML=state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
+     content.innerHTML=state.view==='problems'?(problemExplorer?(state.problem?problemExplorer.problem(state.problem,state.problemQuery,state.problemLimit):problemExplorer.overview()):'<p class="empty">Problem preview unavailable.</p>'):state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
      if(state.view==='catalogue')rows();else updateCatalogueMenu();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
+     if(state.problemLayer){
+       const layer=document.getElementById('problems-layer');
+       if(layer){layer.open=true;layer.scrollIntoView?.({block:'start'});layer.querySelector?.('summary')?.focus?.({preventScroll:true});}
+     }
      root.AtlasDiagrams?.render(document);
      if(document.querySelectorAll)document.querySelectorAll('.site-header nav > a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+state.view?'page':'false'));
    }
@@ -340,6 +362,9 @@
      document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){closeMenu();menu.querySelector('summary').focus();e.preventDefault();}});
      const content=document.getElementById('view-content');
      content.addEventListener('submit',e=>{
+       if(e.target.id==='problem-search-form'){
+         e.preventDefault();state.problemQuery=document.getElementById('problem-search').value.trim();state.problemLimit=20;url();render();return;
+       }
        if(e.target.id!=='paper-search-form')return;
        e.preventDefault();
        state.paperQuery=document.getElementById('paper-search').value.trim();
@@ -355,13 +380,17 @@
        else if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
      });
      content.addEventListener('click',e=>{
+       if(e.target.closest('[data-problem-more]')){state.problemLimit+=20;render();return;}
+       const problems=e.target.closest('[data-problems]');
+       if(problems){state.open=state.open===problems.dataset.problems&&state.panel==='problems'?'':problems.dataset.problems;state.panel='problems';url();rows();return;}
        const open=e.target.closest('[data-open]');
        if(e.target.closest('[data-more]')){state.limit+=20;rows();return;}
        const base=e.target.closest('[data-baseline]');
        if(base){state.baselineOpen[base.dataset.baseline]=!state.baselineOpen[base.dataset.baseline];rows();return;}
        if(open){
-         const same=state.open===open.dataset.open;
+         const same=state.open===open.dataset.open&&state.panel==='references';
          state.open=same?'':open.dataset.open;
+         state.panel='references';
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
        else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});url();render();}
