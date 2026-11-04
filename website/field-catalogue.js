@@ -70,8 +70,10 @@
  function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Multiplicity</th></tr></thead><tbody>'+template.rows.map(row=>'<tr><td class="math">'+esc(row.lorentz.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(row.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(row.components))+'</span></td><td>'+row.copies+'</td></tr>').join('')+'</tbody></table></div>';}
 
  function create(data,document){
-   const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20};
+   const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20,connections:{problems:[],mechanisms:[],view:'problems',q:'',filterQuery:'',limit:20}};
    const problemExplorer=root.ProblemExplorer?.create(data,root.ATLAS_PROBLEMS);
+   const mechanismExplorer=root.MechanismExplorer?.create(data,root.ATLAS_MECHANISMS);
+   const connectionExplorer=root.ConnectionExplorer?.create(data,root.ATLAS_PROBLEMS,root.ATLAS_MECHANISMS);
    const papersPerPage=20;
    const paperById=new Map(data.papers.map(p=>[p.id,p]));
    const orderedPapers=[...data.papers].sort(comparePapers);
@@ -86,9 +88,10 @@
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
-     state.view=raw==='about'?'atlas':raw==='problems'||raw.startsWith('problems/')?'problems':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
-     state.panel=p.get('panel')==='problems'?'problems':'references';
-     state.problemLayer=state.view==='problems'&&p.get('about')==='layer';
+     state.view=raw==='about'?'atlas':raw==='problems'||raw.startsWith('problems/')?'problems':raw==='mechanisms'||raw.startsWith('mechanisms/')?'mechanisms':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
+     if(connectionExplorer)state.connections=connectionExplorer.parse(location.hash);
+     state.panel=['problems','mechanisms'].includes(p.get('panel'))?p.get('panel'):'references';
+     state.problemLayer=['problems','mechanisms'].includes(state.view)&&p.get('about')==='layer';
      if(state.view==='problems'){
        state.problem=raw.startsWith('problems/')?decodeURIComponent(raw.slice(9)):'';
        state.problemQuery=(p.get('search')||'').trim();
@@ -119,7 +122,18 @@
      if(entryById.has(state.open))state.open=entryById.get(state.open).id;
 
    }
+   function appendConnections(p){
+     state.connections.problems.forEach(id=>p.append('problem',id));
+     state.connections.mechanisms.forEach(id=>p.append('mechanism',id));
+   }
+   function currentEntries(){
+     const entries=findEntries(data,state);
+     return connectionExplorer?connectionExplorer.filterEntries(entries,state.connections):entries;
+   }
    function url(){
+     if(connectionExplorer&&['problems','mechanisms'].includes(state.view)){
+       history.replaceState(null,'',connectionExplorer.url(state.connections));return;
+     }
      if(state.view==='problems'){
        history.replaceState(null,'',problemExplorer.problemLink(state.problem,state.problemQuery,state.problemCategory));
        return;
@@ -129,7 +143,8 @@
        return;
      }
      const p=new URLSearchParams();
-     if(state.open&&state.panel==='problems')p.set('panel','problems');
+     if(state.open&&['problems','mechanisms'].includes(state.panel))p.set('panel',state.panel);
+     appendConnections(p);
      for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
      if(state.open&&state.core)p.set('core',state.core);
      if(state.fullAlgebra&&(state.open||state.core||state.browse!=='entries'))p.set('fullAlgebra',state.fullAlgebra);
@@ -141,7 +156,7 @@
    }
    function level(){return state.browse;}
    function browseLink(target,extra={}){
-     const p=new URLSearchParams();
+     const p=new URLSearchParams();appendConnections(p);
      for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
      if(state.mode!=='dimensions')p.set('notation',state.mode);
      for(const [key,value] of Object.entries(extra))if(value)p.set(key,value);
@@ -242,7 +257,7 @@
      updateCatalogueMenu();
      const reset=document.getElementById('reset-filters');
      if(reset)reset.hidden=!['q','algebra','paper','abelianRank'].some(k=>state[k]);
-     const entries=findEntries(data,state),openIndex=entries.findIndex(e=>e.id===state.open);
+     const entries=currentEntries(),openIndex=entries.findIndex(e=>e.id===state.open);
      if(level()==='algebras')return algebraCards(entries);
      if(level()==='full-algebras')return fullAlgebraCards(entries);
      if(level()==='cores')return coreCards(entries);
@@ -251,9 +266,10 @@
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=e.regime;
-       const refsOpen=state.open===e.id&&state.panel==='references',problemsOpen=state.open===e.id&&state.panel==='problems';
+       const refsOpen=state.open===e.id&&state.panel==='references',problemsOpen=state.open===e.id&&state.panel==='problems',mechanismsOpen=state.open===e.id&&state.panel==='mechanisms';
+       const mechanismLabel=mechanismExplorer?.assessed(e.id)?'Mechanisms ('+mechanismExplorer.count(e.id)+')':'Mechanisms · unassessed';
        const problemLabel=problemExplorer?.assessed(e.id)?'Problems ('+problemExplorer.count(e.id)+')':'Problems · unassessed';
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+refsOpen+'">References ('+e.references.length+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+refsOpen+'">References ('+e.references.length+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+(mechanismExplorer?'<button class="text-button problem-entry-button" data-mechanisms="'+esc(e.id)+'" aria-label="Mechanisms for '+esc(e.name)+'" aria-expanded="'+mechanismsOpen+'">'+mechanismLabel+' '+(mechanismsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):state.panel==='mechanisms'&&mechanismExplorer?mechanismExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -316,7 +332,8 @@
      const algebras=(data.semisimpleAlgebras||[]).map(a=>['na:'+a.algebraSignature,a.algebra]);
      if(state.algebra&&!algebras.some(([id])=>id===state.algebra))algebras.push([state.algebra,data.entries.find(e=>e.algebraSignature===state.algebra)?.algebraExpanded||state.algebra]);
      const ranks=[...new Set(data.entries.map(e=>e.abelianRank).filter(n=>Number.isInteger(n)))].sort((a,b)=>a-b);
-     const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length;
+     const connectionCount=state.connections.problems.length+state.connections.mechanisms.length;
+     const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length+connectionCount;
      const p=paperById.get(state.paper);
      const core=coreById.get(state.core);
      const fullAlgebra=fullAlgebraById.get(state.fullAlgebra);
@@ -329,20 +346,20 @@
        entries:'Gauge algebras and matter representations'};
      return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>u(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label></div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>u(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label>'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
-       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])?'':' hidden')+'>Reset</button></div>'+
+       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
-     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',problems:'Problems'};
+     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',problems:'Problems',mechanisms:'Mechanisms'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Forces':'Forces and Matter'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
-     content.innerHTML=state.view==='problems'?(problemExplorer?(state.problem?problemExplorer.problem(state.problem,state.problemQuery,state.problemLimit):problemExplorer.overview()):'<p class="empty">Problem preview unavailable.</p>'):state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
+     content.innerHTML=connectionExplorer&&['problems','mechanisms'].includes(state.view)?connectionExplorer.page(state.connections):state.view==='problems'?(problemExplorer?(state.problem?problemExplorer.problem(state.problem,state.problemQuery,state.problemLimit):problemExplorer.overview()):'<p class="empty">Problem preview unavailable.</p>'):state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
      if(state.view==='catalogue')rows();else updateCatalogueMenu();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
      if(state.problemLayer){
@@ -351,6 +368,22 @@
      }
      root.AtlasDiagrams?.render(document);
      if(document.querySelectorAll)document.querySelectorAll('.site-header nav > a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+state.view?'page':'false'));
+   }
+   function refreshConnections(){
+     url();
+     if(state.view==='catalogue'){
+       const focused=document.activeElement,kind=focused?.dataset?.connectionKind,value=focused?.value;
+       const scrolls=new Map(Array.from(document.querySelectorAll?.('.connection-picker')||[],picker=>[picker.dataset.picker,picker.querySelector('.connection-picker-options').scrollTop]));
+       render();
+       document.querySelectorAll?.('.connection-picker').forEach(picker=>{picker.querySelector('.connection-picker-options').scrollTop=scrolls.get(picker.dataset.picker)||0;});
+       if(kind)Array.from(document.querySelectorAll?.('input[data-connection-kind]')||[]).find(input=>input.dataset.connectionKind===kind&&input.value===value)?.focus({preventScroll:true});
+       return;
+     }
+     const results=document.getElementById('connection-results'),selection=document.getElementById('connection-selection');
+     if(results)results.innerHTML=connectionExplorer.results(state.connections);
+     if(selection)selection.outerHTML=connectionExplorer.chips(state.connections);
+     const link=document.querySelector?.('.connection-intro>a');
+     link?.setAttribute('href',connectionExplorer.catalogueURL(state.connections));
    }
    function start(){
      route();render();
@@ -373,13 +406,33 @@
        url();render();
        document.getElementById('paper-results')?.focus?.({preventScroll:true});
      });
-     content.addEventListener('input',e=>{if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
+     content.addEventListener('input',e=>{
+       if(connectionExplorer&&e.target.id==='connection-filter-search'){
+         state.connections.filterQuery=e.target.value;document.getElementById('connection-filter-groups').innerHTML=connectionExplorer.filterGroups(state.connections,[state.view]);return;
+       }
+       if(connectionExplorer&&e.target.id==='connection-model-search'){state.connections.q=e.target.value;state.connections.limit=20;refreshConnections();return;}
+       if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
      content.addEventListener('change',e=>{
+       if(connectionExplorer&&e.target.dataset?.connectionKind&&e.target.type==='checkbox'){
+         const kind=e.target.dataset.connectionKind,ids=new Set(state.connections[kind]);
+         if(e.target.checked)ids.add(e.target.value);else ids.delete(e.target.value);
+         state.connections[kind]=[...ids];state.connections.limit=20;state.limit=20;state.open='';
+         e.target.closest('label')?.classList.toggle('is-selected',e.target.checked);refreshConnections();return;
+       }
        const key={'algebra-filter':'algebra','paper-filter':'paper','abelian-rank-filter':'abelianRank'}[e.target.id];
        if(key){state[key]=e.target.value;state.open='';state.limit=20;url();render();}
        else if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
      });
      content.addEventListener('click',e=>{
+       const remove=e.target.closest('[data-connection-remove]');
+       if(connectionExplorer&&remove){
+         const kind=remove.dataset.connectionKind;state.connections[kind]=state.connections[kind].filter(id=>id!==remove.dataset.connectionRemove);
+         url();render();return;
+       }
+       if(connectionExplorer&&e.target.closest('[data-connection-clear]')){state.connections.problems=[];state.connections.mechanisms=[];state.connections.limit=20;state.limit=20;url();render();return;}
+       if(connectionExplorer&&e.target.closest('[data-connection-more]')){state.connections.limit+=20;refreshConnections();return;}
+       const mechanisms=e.target.closest('[data-mechanisms]');
+       if(mechanisms){state.open=state.open===mechanisms.dataset.mechanisms&&state.panel==='mechanisms'?'':mechanisms.dataset.mechanisms;state.panel='mechanisms';url();rows();return;}
        if(e.target.closest('[data-problem-more]')){state.problemLimit+=20;render();return;}
        const problems=e.target.closest('[data-problems]');
        if(problems){state.open=state.open===problems.dataset.problems&&state.panel==='problems'?'':problems.dataset.problems;state.panel='problems';url();rows();return;}
@@ -393,7 +446,7 @@
          state.panel='references';
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
-       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});url();render();}
+       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});state.connections.problems=[];state.connections.mechanisms=[];url();render();}
      });
      window.addEventListener('hashchange',()=>{
        const wasSources=state.view==='sources',page=state.paperPage;

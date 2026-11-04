@@ -155,7 +155,10 @@ def write_outputs(data,check=False):
             ([g['id'],g['algebra'],';'.join(g['entryIds']),encoded(g['canonical'])] for g in data[kind]))
     outputs['website/index.html']=version_script_assets((ROOT/'website/index.html').read_text(encoding='utf-8'),{
         'field-catalogue-data.js':outputs['website/field-catalogue-data.js'].encode('utf-8'),
-        'field-catalogue.js':(ROOT/'website/field-catalogue.js').read_bytes()})
+        'field-catalogue.js':(ROOT/'website/field-catalogue.js').read_bytes(),
+        **{name:(ROOT/'website'/name).read_bytes() for name in
+           ('problem-data.js','mechanism-data.js','problem-explorer.js','connection-explorer.js')
+           if (ROOT/'website'/name).exists()}})
     for relative,content in outputs.items():
         path=ROOT/relative
         if check:

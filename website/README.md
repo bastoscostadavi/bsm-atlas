@@ -43,34 +43,55 @@ The website shows only complete specifications. Its dimension labels and diagram
 
 GitHub Actions checks the files and publishes this directory on pushes to main. Reading new arXiv papers and adding their specifications is a separate ingestion step; the website build uses the checked-in catalogue.
 
-## Problems
+## Problems and mechanisms
 
-The `#problems` tab shows 13 problem cards with their category labels.
-Linked models follow the same gauge-algebra and matter-content order as the
-catalogue. Each full entry has a Problems toggle; it opens paper-specific
-rationales, source quotations, locators and the specific automated source-check
-flags, such as “Quote not found” or “Quote not near cited lines”. Multiple flags
-are shown together; checks cover both problem evidence and model identification.
-These are provisional associations, not validated solutions. Missing detected
-links and unassessed entries have separate states.
-The preview omits the established-theory dynamics category (confinement, QCD
-mass gap and hadron structure), leaving 13 visible problem types. The original
-experiment taxonomy and results remain unchanged.
-“About Problems” explains the extraction and how other question-specific
-annotation layers can be added. `#problems?about=layer` opens that explanation
-directly, including from the third paragraph of “What is the atlas?”.
+`#problems` and `#mechanisms` are separate browsing pages. Each offers a
+searchable, category-grouped list of checkboxes and a list of matching model
+entries in catalogue order. Selecting several terms retains only entries linked
+to every selected term. The mechanism layer includes all 31 definitions; the
+problem layer retains its 13 visible definitions, omitting the established-theory
+dynamics category from the original experiment.
 
-This layer is separate from the structural catalogue and its downloads.
-`problem-data.js` is generated from the frozen experiment exports. To refresh:
+Both pages retain rationales, short source quotations, locators and the specific
+automated source-check flags. Entry details offer separate Problems and
+Mechanisms buttons. An unassessed entry is distinguished from an assessed entry
+with no detected positive links. `#entry/<id>?panel=mechanisms` opens the mechanism
+evidence directly; the existing Problems panel and old single-problem URLs remain
+supported. `#problems?about=layer` explains both annotation layers.
+
+The Catalogue's **Filters** disclosure includes Problems and Mechanisms pickers.
+All selections are intersected with each other and with the existing model/paper
+search, algebra, paper and u(1) filters. Every catalogue view uses the same
+filtered entries: algebra and matter-core groups appear only when they contain a
+matching entry. Selections survive drill-down, catalogue menu navigation and
+shareable URLs, using repeated `problem` and `mechanism` parameters. For example:
+
+```text
+#entries?problem=dark_matter&mechanism=thermal_freeze_out&mechanism=coannihilation
+```
+
+Only positive `addresses` (problem) and `implements` (mechanism) decisions create
+links. Absence, ambiguous decisions and failed processing create no links. Matching
+several selections is an entry-level intersection across papers; it does not imply
+the connections are realized together in the same paper or parameter choice.
+All classifications remain machine-extracted and provisional. Review flags are
+preserved, including those affecting model identification. Passing the automated
+checks does not verify the scientific interpretation.
+
+These layers are separate from the structural catalogue and its downloads.
+`problem-data.js` and `mechanism-data.js` are generated from the frozen experiment
+exports. Refresh them from local research inputs with:
 
 ```sh
 python3 -B scripts/build_problem_preview.py
+python3 -B scripts/build_mechanism_preview.py
 make build
 ```
 
-The exporter rejects changed specifications or missing references for positive
-annotations. It omits removed entries from assessment coverage. Check it without
-rewriting data with `python3 -B scripts/build_problem_preview.py --check`.
-Preview locally with `make serve`. The Problems interface is included in the
-website deployed by the GitHub Pages workflow. The frozen experiment exports
-used to regenerate the annotation asset are local research inputs.
+Both exporters reject changed specifications and missing paper references for
+positive annotations, and omit removed catalogue entries. Each supports `--check`
+for verification without rewriting its asset. Frozen experiment inputs stay
+outside the published website. `make check` tests the generated assets, evidence,
+multiple-selection intersections, catalogue integration, routes and controls.
+`make serve` previews the site locally. GitHub Pages publishes the website through
+the existing workflow; no server-side runtime is needed.

@@ -18,6 +18,7 @@ def main():
         ['node', 'tests/check_assets.mjs'],
         ['node', 'tests/field-catalogue.test.mjs'],
         ['node', 'tests/problem-explorer.test.mjs'],
+        ['node', 'tests/connection-explorer.test.mjs'],
         ['node', 'tests/representation-diagrams.test.mjs'],
     ]
     env = {**os.environ, 'PYTHONDONTWRITEBYTECODE': '1'}

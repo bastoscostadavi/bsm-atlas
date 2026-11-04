@@ -13,16 +13,18 @@
    if(!reasons.length)reasons.push('mechanical_checks_missing_or_mismatched');
    return reasons.map(reason=>' <span class="evidence-flag">'+esc(flagLabels[reason]||'Unrecognized source check flag')+'</span>').join('');
  }
- function create(catalogue,annotations){
-   const data=annotations||{categories:[],problems:[],assessed:[],links:{}},links=data.links;
+ function create(catalogue,annotations,options={}){
+   const supplied=annotations||{categories:[],problems:[],assessed:[],links:{}};
+   const data={...supplied,problems:supplied.problems||supplied.mechanisms||[]},links=data.links;
+   const mechanism=options.kind==='mechanisms',base=mechanism?'mechanisms':'problems',plural=mechanism?'Mechanisms':'Problems';
    const entries=new Map(catalogue.entries.map(e=>[e.id,e])),papers=new Map(catalogue.papers.map(p=>[p.id,p]));
    const assessed=new Set(data.assessed),byProblem=new Map(data.problems.map(p=>[p.id,p]));
    const categories=new Map(data.categories.map(c=>[c.id,c]));
    const search=(value,q)=>value.toLocaleLowerCase().includes(q.trim().toLocaleLowerCase());
-   const entryLink=id=>'#entry/'+encodeURIComponent(id)+'?panel=problems';
+   const entryLink=id=>'#entry/'+encodeURIComponent(id)+'?panel='+base;
    const problemLink=(id='',q='',category='')=>{
      const p=new URLSearchParams();if(q)p.set('search',q);if(category&&!id)p.set('category',category);
-     return '#problems'+(id?'/'+encodeURIComponent(id):'')+(p.size?'?'+p:'');
+     return '#'+base+(id?'/'+encodeURIComponent(id):'')+(p.size?'?'+p:'');
    };
    function members(id,q=''){
      return [...entries.values()].filter(e=>links[e.id]?.[id]&&search(e.name,q));
@@ -48,9 +50,9 @@
      return '<ol class="problem-sources">'+associations.slice(0,3).map(source).join('')+'</ol>'+(associations.length>3?'<details class="problem-more-sources"><summary>Show '+(associations.length-3)+' more supporting papers</summary><ol class="problem-sources">'+associations.slice(3).map(source).join('')+'</ol></details>':'');
    }
    function entry(id){
-     if(!assessed.has(id))return '<section class="entry-detail problem-entry-panel"><h2>Problems</h2><p class="problem-empty">This entry has no valid paper assessment in the Luna run. It is unassessed, rather than a model with zero problems.</p><a href="#problems">Browse problems →</a></section>';
-     const problems=data.problems.filter(p=>links[id]?.[p.id]);
-     return '<section class="entry-detail problem-entry-panel"><div class="detail-heading"><h2>Problem associations</h2></div><p class="problem-panel-note">Detected across this entry’s papers. Associations may use different interactions or parameter choices.</p>'+(!problems.length?'<p class="problem-empty">No “addresses” associations were detected in the valid paper assessments. This does not establish that the model addresses no problems.</p>':'')+problems.map(p=>'<details class="problem-association"><summary><span>'+esc(p.label)+'</span><span class="problem-paper-count">'+links[id][p.id].length+' '+(links[id][p.id].length===1?'paper':'papers')+'</span></summary><p class="problem-definition">'+esc(p.include)+'</p>'+evidence(id,p.id)+'</details>').join('')+'<a class="problem-panel-link" href="#problems">Browse all problems →</a></section>';
+     if(!assessed.has(id))return '<section class="entry-detail problem-entry-panel"><h2>'+plural+'</h2><p class="problem-empty">This entry has no valid paper assessment in the Luna run. It is unassessed, rather than an entry with no detected connections.</p><a href="#'+base+'">Browse '+plural.toLowerCase()+' →</a></section>';
+     const terms=data.problems.filter(p=>links[id]?.[p.id]);
+     return '<section class="entry-detail problem-entry-panel"><div class="detail-heading"><h2>'+(mechanism?'Mechanism':'Problem')+' associations</h2></div><p class="problem-panel-note">Detected across this entry’s papers. Associations may use different interactions or parameter choices.</p>'+(!terms.length?'<p class="problem-empty">No “'+(mechanism?'implements':'addresses')+'” associations were detected in the valid paper assessments. This does not establish that the model has no relevant applications.</p>':'')+terms.map(p=>'<details class="problem-association"><summary><span>'+esc(p.label)+'</span><span class="problem-paper-count">'+links[id][p.id].length+' '+(links[id][p.id].length===1?'paper':'papers')+'</span></summary><p class="problem-definition">'+esc(p.include)+'</p>'+evidence(id,p.id)+'</details>').join('')+'<a class="problem-panel-link" href="#'+base+'">Browse all '+plural.toLowerCase()+' →</a></section>';
    }
    function problem(id,q='',limit=20){
      const p=byProblem.get(id);
@@ -60,7 +62,8 @@
        '<div class="problem-result-toolbar">'+searchForm(q,'Search linked models')+'<span>'+number(models.length)+' model '+(models.length===1?'entry':'entries')+(q?' matching':'')+' · '+number(paperCount(id))+' supporting papers in total</span></div>'+
        '<div class="problem-models">'+visible.map(e=>'<article class="problem-model"><div class="problem-model-heading"><h3><a href="'+esc(entryLink(e.id))+'">'+esc(e.name)+'</a></h3><a class="problem-entry-link" href="'+esc(entryLink(e.id))+'">View entry →</a></div><p class="problem-model-meta">'+links[e.id][id].length+' supporting '+(links[e.id][id].length===1?'paper':'papers')+'</p><details class="problem-model-evidence"><summary>Supporting papers & evidence</summary>'+evidence(e.id,id)+'</details></article>').join('')+'</div>'+(!models.length?'<p class="empty">'+(all.length?'No linked models match this search.':'No associations were detected for this problem in the assessed corpus.')+'</p>':'')+(models.length>limit?'<button class="load-more" data-problem-more>Show more models ('+(models.length-limit)+' remaining)</button>':'')+method();
    }
-   return {overview,problem,entry,count,assessed:id=>assessed.has(id),problemLink};
+   return {overview,problem,entry,count,evidence,assessed:id=>assessed.has(id),problemLink};
  }
  root.ProblemExplorer={create};
+ root.MechanismExplorer={create:(catalogue,annotations)=>create(catalogue,annotations,{kind:'mechanisms'})};
 })(typeof window==='undefined'?globalThis:window);
