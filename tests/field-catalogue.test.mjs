@@ -37,7 +37,7 @@ assert.equal(findPapers(bibliography,{year:'1992'})[0],bibliography[0]);
 assert.equal(findPapers(bibliography,{year:'2020'}).length,2);
 assert.equal(findPapers(bibliography,{q:'rene',year:'2020'})[0],bibliography[2]);
 assert.equal(findPapers(bibliography,{q:'gauge',year:'1992'}).length,0);
-const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{});return nodes.get(id);}};
+const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{setAttribute(name,value){this[name]=value;}});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
 const viewTitles={
  algebras:'Forces',
@@ -55,10 +55,10 @@ for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-
  assert(content().includes('<p class="section-note">'+viewSubtitles[browse]+'</p>'));
  assert.equal((content().match(/class="section-note"/g)||[]).length,1);
  assert(nodes.get('result-count').textContent.startsWith(String(count)+' '));
- const menu=nodes.get('catalogue-views').innerHTML;
- assert.equal((menu.match(/<a /g)||[]).length,4);
- assert.equal((menu.match(/aria-current="page"/g)||[]).length,1);
- assert.equal((menu.match(/class="catalogue-group-label"/g)||[]).length,2);
+ const gauge=['algebras','full-algebras'].includes(browse);
+ assert.equal(nodes.get('nav-forces')['aria-current'],gauge?'page':'false');
+ assert.equal(nodes.get('nav-matter')['aria-current'],gauge?'false':'page');
+ assert.equal(content().includes('id="semisimple-only" type="checkbox" checked'),browse==='algebras'||browse==='cores');
  assert(!content().includes('catalogue-back'));
  if(browse==='cores'||browse==='entries'){
   assert(results().includes('class="representation-matrix'));
@@ -73,7 +73,7 @@ const orderingAlgebras=['su(3) ⊕ su(2)','su(5)','so(10)'].map(label=>data.semi
 const orderingEntries=orderingAlgebras.map((a,i)=>({...data.entries.find(e=>e.semisimpleId===a.id),name:i===1?'Ordering middle':'Ordering visible'}));
 const orderingApp=create({...data,entries:orderingEntries,semisimpleAlgebras:orderingAlgebras},document);
 const algebraCardIds=()=>Array.from(results().matchAll(/href="#algebra\/([^"?]+)/g),m=>m[1]);
-orderingApp.render();
+orderingApp.state.browse='algebras';orderingApp.render();
 for(const id of ['algebra-filter','paper-filter','abelian-rank-filter'])assert(!content().includes('id="'+id+'"'));
 assert.deepEqual(algebraCardIds(),orderingAlgebras.map(a=>a.id));
 orderingApp.state.q='Ordering visible';orderingApp.render();
@@ -216,9 +216,9 @@ for(const [hash,browse] of [['#catalogue','algebras'],['#full-algebras?semisimpl
  context.location.hash=hash;app.route();app.render();assert.equal(app.state.browse,browse);
  assert(!content().includes('catalogue-back'));
 }
-// The global menu always opens a catalogue-wide view, never the current drill-down.
-const menuHrefs=()=>Array.from(nodes.get('catalogue-views').innerHTML.matchAll(/href="([^"]+)"/g),m=>m[1].replaceAll('&amp;','&'));
-const menuTargets=['#catalogue','#full-algebras','#cores','#entries'];
+// The two navigation links always open a full view, clearing drill-down grouping.
+const menuHrefs=()=>['nav-forces','nav-matter'].map(id=>nodes.get(id).href);
+const menuTargets=['#full-algebras','#entries'];
 app.state.mode='dimensions';
 for(const hash of [
  '#full-algebra/2198b5a34a3b9308100b195aa59bd4e51b773bf46ce03c92905a34b6ca973c54',
@@ -250,13 +250,12 @@ context.location.hash='#entry/lns-single-singlet-quarks';app.route();assert.equa
 context.location.hash='#full-algebra/not-real';app.route();app.render();assert.equal(nodes.get('result-count').textContent,'0 entries');
 context.location.hash='#about';app.route();assert.equal(app.state.view,'atlas');
 context.location.hash='#catalogue';
-// The native disclosure retains link semantics; dismissal returns focus on Escape.
+// Direct navigation and semisimple toggles work alongside the entry controls.
 const uiNodes=new Map(),documentEvents=new Map(),windowEvents=new Map();
-let triggerFocused=false,escapePrevented=false;
 const uiDocument={documentElement:{dataset:{}},addEventListener(name,fn){documentEvents.set(name,fn);},
   getElementById(id){
     if(!uiNodes.has(id))uiNodes.set(id,{events:new Map(),attributes:new Map(),setAttribute(name,value){this.attributes.set(name,value);},addEventListener(name,fn){this.events.set(name,fn);},
-      contains(target){return Boolean(target.insideCatalogue);},querySelector(){return {focus(){triggerFocused=true;}};}});
+      contains(target){return Boolean(target.insideCatalogue);},querySelector(){return {focus(){}};}});
     return uiNodes.get(id);
   }};
 context.window={addEventListener(name,fn){windowEvents.set(name,fn);}};
@@ -277,15 +276,25 @@ assert(uiNodes.get('model-entries').innerHTML.includes('Papers in chronological 
 uiNodes.get('view-content').events.get('click')(referenceClick);
 assert.equal(disclosure.state.open,'');
 assert(!uiNodes.get('model-entries').innerHTML.includes('class="reference-list"'));
-const menu=uiNodes.get('catalogue-menu');
-menu.open=true;documentEvents.get('keydown')({key:'Escape',preventDefault(){escapePrevented=true;}});
-assert.equal(menu.open,false);assert(triggerFocused);assert(escapePrevented);
-menu.open=true;documentEvents.get('click')({target:{insideCatalogue:true}});assert.equal(menu.open,true);
-documentEvents.get('click')({target:{}});assert.equal(menu.open,false);
-menu.open=true;menu.events.get('click')({target:{closest(){return {};}}});assert.equal(menu.open,false);
-menu.open=true;menu.events.get('focusout')({relatedTarget:{insideCatalogue:true}});assert.equal(menu.open,true);
-menu.events.get('focusout')({relatedTarget:{}});assert.equal(menu.open,false);
-menu.open=true;windowEvents.get('hashchange')();assert.equal(menu.open,false);
+const toggleSemisimple=checked=>uiNodes.get('view-content').events.get('change')({target:{id:'semisimple-only',checked}});
+for(const [full,semisimple] of [['full-algebras','algebras'],['entries','cores']]){
+ context.location.hash='#'+full+'?q=singlet&notation=compare';windowEvents.get('hashchange')();
+ assert.equal(disclosure.state.browse,full);
+ toggleSemisimple(true);assert.equal(disclosure.state.browse,semisimple);
+ assert.equal(disclosure.state.q,'singlet');assert.equal(disclosure.state.mode,'compare');
+ const hash=context.location.hash;disclosure.route();disclosure.render();
+ assert.equal(disclosure.state.browse,semisimple);assert.equal(context.location.hash,hash);
+ toggleSemisimple(false);assert.equal(disclosure.state.browse,full);
+ assert.equal(disclosure.state.q,'singlet');assert.equal(disclosure.state.mode,'compare');
+}
+// Toggling within a drill-down retains exactly the same filtered entries after reload.
+context.location.hash='#core/'+core+'?fullAlgebra='+smFull.id;windowEvents.get('hashchange')();
+const beforeToggle=findEntries(data,disclosure.state).map(e=>e.id);
+toggleSemisimple(true);disclosure.route();
+assert.deepEqual(findEntries(data,disclosure.state).map(e=>e.id),beforeToggle);
+toggleSemisimple(false);disclosure.route();
+assert.deepEqual(findEntries(data,disclosure.state).map(e=>e.id),beforeToggle);
+context.location.hash='';windowEvents.get('hashchange')();assert.equal(disclosure.state.browse,'full-algebras');
 
 context.location.hash='#sources?search=example&year=2020&page=3';
 windowEvents.get('hashchange')();
@@ -303,4 +312,4 @@ uiNodes.get('view-content').events.get('submit')({target:{id:'paper-search-form'
 assert.equal(context.location.hash,'#sources');
 assert(!uiNodes.get('view-content').innerHTML.includes('class="paper-item"'));
 
-console.log('Catalogue views, bibliography search and pagination, notation, routes, references and disclosure checks passed.');
+console.log('Catalogue views, bibliography search and pagination, notation, routes, references, direct navigation and semisimple toggle checks passed.');

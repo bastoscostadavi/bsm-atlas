@@ -7,7 +7,7 @@
   <meta id="theme-color" name="theme-color" content="#ffffff">
   <title>BSM Atlas — gauge algebras & matter</title>
   <link id="atlas-favicon" rel="icon" href="favicon.svg?v=20261023-01" type="image/svg+xml">
-  <link rel="stylesheet" href="field-catalogue.css?v=20261104-clear-controls">
+  <link rel="stylesheet" href="field-catalogue.css?v=20261104-forces-navigation">
   <script src="vendor/svgjs/svg.min.js" defer></script>
   <script src="representation-diagrams.js?v=20261016-13" defer></script>
   <script src="field-catalogue-data.js?v=24de0c34c4e55538" defer></script>
@@ -16,12 +16,12 @@
   <script src="mechanism-data.js?v=d62a132a9060e45c" defer></script>
   <script src="problem-explorer.js?v=b9329a602e419811" defer></script>
   <script src="connection-explorer.js?v=4eec3f8df527ad9c" defer></script>
-  <script src="field-catalogue.js?v=5491c657f9461efd" defer></script>
+  <script src="field-catalogue.js?v=79714fb1dd611750" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
-    <a class="wordmark" href="#catalogue">
+    <a class="wordmark" href="#full-algebras">
       <span class="mark" aria-hidden="true" title="Fermion–antifermion annihilation through a virtual photon (s-channel)">
         <svg viewBox="0 0 64 64" focusable="false">
           <g data-diagram="s-channel" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -46,25 +46,8 @@
     </a>
     <nav aria-label="Main navigation">
       <a href="#atlas">The atlas</a>
-      <details id="catalogue-menu" class="catalogue-menu">
-        <summary>Catalogue<span class="nav-chevron" aria-hidden="true"></span></summary>
-        <div id="catalogue-views" class="catalogue-views">
-          <div class="catalogue-group">
-            <p id="catalogue-algebra-label" class="catalogue-group-label">Forces</p>
-            <ul aria-labelledby="catalogue-algebra-label">
-              <li><a href="#catalogue" aria-label="Forces — Semisimple part">Semisimple part</a></li>
-              <li><a href="#full-algebras" aria-label="Forces — Full">Full</a></li>
-            </ul>
-          </div>
-          <div class="catalogue-group">
-            <p id="catalogue-matter-label" class="catalogue-group-label">Forces and Matter</p>
-            <ul aria-labelledby="catalogue-matter-label">
-              <li><a href="#cores" aria-label="Forces and Matter — Semisimple part">Semisimple part</a></li>
-              <li><a href="#entries" aria-label="Forces and Matter — Full">Full</a></li>
-            </ul>
-          </div>
-        </div>
-      </details>
+      <a id="nav-forces" href="#full-algebras">Forces</a>
+      <a id="nav-matter" href="#entries">Forces and Matter</a>
       <a href="#problems">Problems</a>
       <a href="#mechanisms">Mechanisms</a>
       <a href="#sources">Papers</a>

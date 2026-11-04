@@ -27,21 +27,6 @@ p{margin:.5rem 0 1rem}
 .site-header nav a[aria-current=page]{color:var(--ink)}
 .icon-button{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;font-size:20px;flex-shrink:0}
 .icon-button:hover{background:var(--soft)}
-.catalogue-menu{position:relative;z-index:5}
-.catalogue-menu>summary{display:flex;align-items:center;gap:7px;list-style:none;color:var(--muted)}
-.catalogue-menu>summary::-webkit-details-marker{display:none}
-.catalogue-menu[data-active=true]>summary,.catalogue-menu[open]>summary{color:var(--ink)}
-.nav-chevron{width:6px;height:6px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-2px) rotate(45deg)}
-.catalogue-menu[open] .nav-chevron{transform:translateY(1px) rotate(225deg)}
-.catalogue-menu:not([open])>.catalogue-views{display:none}
-.catalogue-views{position:absolute;right:0;top:calc(100% + 16px);width:344px;max-width:calc(100vw - 40px);padding:10px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px #00000014}
-.catalogue-group-label{font-size:12px;font-weight:500;color:var(--muted);margin:8px 12px 4px}
-.catalogue-group+.catalogue-group{margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
-.catalogue-views ul{list-style:none;margin:0;padding:0}
-.site-header .catalogue-views a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px;padding:9px 12px;border-radius:6px;color:var(--ink)}
-.site-header .catalogue-views a:hover,.site-header .catalogue-views a:focus-visible{background:var(--soft);text-decoration:none}
-.catalogue-views a[aria-current=page]{font-weight:500}
-.catalogue-views a[aria-current=page]::after{content:'✓';color:var(--muted)}
 main{min-height:calc(100vh - 150px);padding-bottom:48px}
 .page-intro{padding:50px 0 24px}
 h1{font-size:clamp(30px,3.4vw,46px);line-height:1.14;letter-spacing:-.045em;font-weight:600;margin:0}
@@ -230,8 +215,6 @@ a,button{transition:color .15s ease,background .15s ease}
 }
 @media(max-width:600px){
 .site-header nav{position:relative}
-.catalogue-menu{position:static}
-.catalogue-views{left:0;right:0;top:calc(100% + 12px);width:auto;max-width:none}
 .algebra-entry .model-heading h2{flex-basis:auto}
 .algebra-entry .model-heading{justify-content:space-between;align-items:center}
 .algebra-entry .core-title.math,.algebra-entry .model-heading h2.math{font-size:21px}
@@ -394,6 +377,16 @@ a,button{transition:color .15s ease,background .15s ease}
  .connection-results-heading{align-items:start;flex-direction:column;gap:6px}
  .connection-catalogue-heading{flex-direction:column;gap:6px}
  .connection-catalogue-choosers{grid-template-columns:1fr;gap:10px}
- .site-header nav{gap:8px;font-size:11px;flex-wrap:wrap;align-items:center}
+ .site-header nav{gap:8px;font-size:11px;flex-wrap:wrap;align-items:center;justify-content:flex-start}
  .site-header nav>a{white-space:nowrap}
+}
+
+/* Full views are the default; the checkbox switches to semisimple projections. */
+.catalogue-view-controls{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:20px}
+.catalogue-view-controls .section-note{margin:0}
+.semisimple-toggle{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.semisimple-toggle input{width:15px;height:15px;margin:0;accent-color:var(--accent);cursor:pointer}
+.semisimple-toggle:has(input:checked){color:var(--ink)}
+@media(max-width:700px){
+ .catalogue-view-controls{align-items:flex-start;flex-direction:column;gap:12px}
 }

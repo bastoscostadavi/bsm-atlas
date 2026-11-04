@@ -31,7 +31,14 @@ are not applied to these files; problem and mechanism annotations are excluded.
 
 Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
 
-The Catalogue disclosure groups four links under “Forces” and “Forces and Matter”. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, problem and mechanism selections, and notation choices survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
+The main navigation has two direct catalogue links: **Forces** opens all full
+gauge algebras (`#full-algebras`), and **Forces and Matter** opens full entries
+(`#entries`). The home link also opens full gauge algebras. **Semisimple part
+only** switches either page to its semisimple projection, omitting u(1) factors.
+Search, problem/mechanism selections, notation and any current grouping survive
+the toggle. The two main links always reopen their complete full view, clearing
+drill-down grouping while retaining search and annotation filters. Old
+`#catalogue` and `#cores` URLs continue to open semisimple views.
 
 Algebra lists sort by the semisimple part's total rank, then dimension, then its canonical Cartan signature (family letters and numeric ranks). Full algebras with the same semisimple part sort next by the number of u(1) factors; remaining ties use the group ID. The grouping CSVs preserve this order.
 
