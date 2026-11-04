@@ -22,7 +22,7 @@ The build updates the catalogue data and runtime script URLs in `index.html` wit
 ## Interface
 
 The visible “Matter representation notation” label identifies the selector for
-dimensions, Dynkin labels, Young diagrams and comparison mode. “Download catalogue”
+dimensions, Dynkin labels, Young diagrams and comparison mode. “Download”
 opens complete dataset downloads: CSV for all groups or entries in the current
 view, plus the full catalogue in JSON or SQLite. Search and filter selections
 are not applied to these files; problem and mechanism annotations are excluded.
