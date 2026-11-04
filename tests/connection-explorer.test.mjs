@@ -10,7 +10,7 @@ const problems=context.ATLAS_PROBLEMS,mechanisms=context.ATLAS_MECHANISMS;
 const explorer=context.ConnectionExplorer.create(data,problems,mechanisms);
 const ids=entries=>Array.from(entries,e=>e.id);
 assert.equal(mechanisms.mechanisms.length,31);
-assert.equal(Object.values(mechanisms.links).reduce((n,terms)=>n+Object.keys(terms).length,0),1626);
+assert.equal(Object.values(mechanisms.links).reduce((n,terms)=>n+Object.keys(terms).length,0),1624);
 for(const [id,terms] of Object.entries(mechanisms.links)){
  const entry=data.entries.find(e=>e.id===id);assert(entry);
  assert(mechanisms.assessed.includes(id));
