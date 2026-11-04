@@ -25,9 +25,9 @@ The build updates the catalogue data and runtime script URLs in `index.html` wit
 
 Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
 
-The Catalogue disclosure groups four links under “Forces” and “Forces and Matter”. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, paper filters, Abelian rank and notation selections survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
+The Catalogue disclosure groups four links under “Forces” and “Forces and Matter”. Each group offers Semisimple part and Full. These menu links open catalogue-wide views, clearing any algebra or matter-core selection made by drilling down. Search, problem and mechanism selections, and notation choices survive navigation. Links within the catalogue retain the selected grouping; selecting a matter core and a full gauge algebra intersects the two groupings.
 
-Algebra lists sort by the semisimple part's total rank, then dimension, then its canonical Cartan signature (family letters and numeric ranks). Full algebras with the same semisimple part sort next by the number of u(1) factors; remaining ties use the group ID. The semisimple filter and grouping CSVs preserve this order.
+Algebra lists sort by the semisimple part's total rank, then dimension, then its canonical Cartan signature (family letters and numeric ranks). Full algebras with the same semisimple part sort next by the number of u(1) factors; remaining ties use the group ID. The grouping CSVs preserve this order.
 
 Matter cores and full entries use that algebra order, followed by the total real dimension of their Lorentz × gauge field representations, including multiplicities. Equal dimensions compare exact numeric Lorentz labels, gauge weights and charges, reality conventions and multiplicities; canonical symbolic metadata resolves remaining ties. The ordering is independent of model names and source row order. It does not change canonical factor order, representation columns or identities. See the [field-content conventions](../atlas/FIELD_CONTENT_CONVENTIONS.md#browsing-order) for counting examples and the exact tie-breaking convention.
 
@@ -60,8 +60,8 @@ evidence directly; the existing Problems panel and old single-problem URLs remai
 supported. `#problems?about=layer` explains both annotation layers.
 
 The Catalogue's **Filters** disclosure includes Problems and Mechanisms pickers.
-All selections are intersected with each other and with the existing model/paper
-search, algebra, paper and u(1) filters. Every catalogue view uses the same
+All selections are intersected with each other and with the catalogue search
+and the selected algebra or matter grouping. Every catalogue view uses the same
 filtered entries: algebra and matter-core groups appear only when they contain a
 matching entry. Selections survive drill-down, catalogue menu navigation and
 shareable URLs, using repeated `problem` and `mechanism` parameters. For example:

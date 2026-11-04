@@ -329,9 +329,6 @@
    }
    function catalogue(){
      const current=level(),isCores=current==='cores',isAlgebras=current==='algebras',isFullAlgebras=current==='full-algebras',isGauge=isAlgebras||isFullAlgebras;
-     const algebras=(data.semisimpleAlgebras||[]).map(a=>['na:'+a.algebraSignature,a.algebra]);
-     if(state.algebra&&!algebras.some(([id])=>id===state.algebra))algebras.push([state.algebra,data.entries.find(e=>e.algebraSignature===state.algebra)?.algebraExpanded||state.algebra]);
-     const ranks=[...new Set(data.entries.map(e=>e.abelianRank).filter(n=>Number.isInteger(n)))].sort((a,b)=>a-b);
      const connectionCount=state.connections.problems.length+state.connections.mechanisms.length;
      const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length+connectionCount;
      const p=paperById.get(state.paper);
@@ -346,7 +343,7 @@
        entries:'Gauge algebras and matter representations'};
      return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields"><label>Semisimple part<select id="algebra-filter"><option value="">All semisimple parts</option>'+algebras.map(([id,label])=>'<option value="'+esc(id)+'"'+(state.algebra===id?' selected':'')+'>'+esc(label)+'</option>').join('')+'</select></label><label>Paper<select id="paper-filter"><option value="">All papers</option>'+orderedPapers.map(p=>'<option value="'+esc(p.id)+'"'+(state.paper===p.id?' selected':'')+'>'+esc(p.title)+(arxivDate(p)?' ('+arxivDate(p).year+')':'')+'</option>').join('')+'</select></label><label>u(1) factors<select id="abelian-rank-filter"><option value="">Any number</option>'+ranks.map(n=>'<option value="'+n+'"'+(String(n)===state.abelianRank?' selected':'')+'>'+n+'</option>').join('')+'</select></label>'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields">'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
        '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
@@ -419,9 +416,7 @@
          state.connections[kind]=[...ids];state.connections.limit=20;state.limit=20;state.open='';
          e.target.closest('label')?.classList.toggle('is-selected',e.target.checked);refreshConnections();return;
        }
-       const key={'algebra-filter':'algebra','paper-filter':'paper','abelian-rank-filter':'abelianRank'}[e.target.id];
-       if(key){state[key]=e.target.value;state.open='';state.limit=20;url();render();}
-       else if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
+       if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
      });
      content.addEventListener('click',e=>{
        const remove=e.target.closest('[data-connection-remove]');
