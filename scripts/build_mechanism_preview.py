@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / 'experiments/mechanism-mapping-luna'
 EXCLUDED_CATEGORIES = set()
+DISPLAY_LABELS = {'radiative_neutrino_mass': 'Radiative neutrino mass'}
 
 
 def payload():
@@ -19,7 +20,8 @@ def payload():
     frozen = {m['id']: m for p in manifest['papers'] for m in p['models']}
     taxonomy = json.loads((RUN / 'mechanisms.json').read_text())
     categories = [c for c in taxonomy['categories'] if c['id'] not in EXCLUDED_CATEGORIES]
-    mechanisms = [p for p in taxonomy['mechanisms'] if p['category_id'] not in EXCLUDED_CATEGORIES]
+    mechanisms = [{**p, 'label': DISPLAY_LABELS.get(p['id'], p['label'])}
+                  for p in taxonomy['mechanisms'] if p['category_id'] not in EXCLUDED_CATEGORIES]
     visible_mechanisms = {p['id'] for p in mechanisms}
     assessed = set()
     with (RUN / 'classifications.csv').open() as stream:
