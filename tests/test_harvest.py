@@ -130,21 +130,34 @@ class HarvestTests(unittest.TestCase):
                 harvest.prepare_batch(self.manifest, self.directory, source=self.source)
         self.assertFalse(self.directory.exists())
 
-    def test_prompt_limits_scope_without_excluding_unified_models_or_complete_efts(self):
+    def test_prompt_targets_renormalizable_models_not_operator_efts(self):
         self.prepare()
         message = (self.job() / 'prompt.txt').read_text()
-        for rule in ('Include only complete Standard Model extensions',
+        for rule in ('Include only complete Standard Model extensions studied as renormalizable models',
                      'unified models with the SM embedded in a larger algebra',
                      'not appear as separate direct-sum factors',
                      'an SM mention alone is not an inherited baseline',
                      'Exclude the unextended SM, standalone toy theories',
                      'calculation-only sectors that omit part of the SM',
                      'Never append missing SM fields',
-                     'SM-extension EFT remains eligible in its stated regime',
-                     'even if a different UV or cosmological setup is incomplete',
+                     'discrete gauge–matter slot',
+                     'not a choice of higher-dimensional operators',
+                     'SM-only SMEFT studies are out of scope',
+                     'dimension-six top chromomagnetic operator',
+                     'dimension-five Weinberg',
+                     'Do not store Wilson coefficients as symbolic charge parameters',
+                     'before electroweak symmetry breaking',
+                     'Never infer missing UV fields',
+                     'A complete renormalizable model remains eligible',
+                     'no further UV completion',
                      'Always supply a nonempty reason'):
             with self.subTest(rule=rule):
                 self.assertIn(rule, message)
+        self.assertNotIn('SM-extension EFT remains eligible in its stated regime',message)
+        self.assertNotIn('An explicitly defined SM-extension EFT is eligible',message)
+        for example in ('SM plus a new singlet scalar','below-EWSB Higgs-characterisation',
+                        'The word "effective" alone is not an exclusion'):
+            self.assertIn(example,message)
 
     def test_empty_worker_reason_is_invalid_for_every_outcome(self):
         self.prepare()

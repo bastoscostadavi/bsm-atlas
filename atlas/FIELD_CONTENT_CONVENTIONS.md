@@ -6,7 +6,9 @@ Version `gauge-matter-13`, October 21, 2026.
 
 The atlas contains complete, source-supported gauge-algebra and matter specifications. Read the source, normalize and validate its specification, then reconcile duplicates before adding an entry. A paper can remain in the bibliography without an associated model.
 
-Complete here means the gauge algebra, Lorentz and gauge representations, and multiplicities in one stated description regime. It does not mean a complete Lagrangian, independently certified physics, anomaly cancellation, viable phenomenology or a UV completion of an explicitly specified EFT. Do not invent missing matter to supply any of those.
+Complete here means the gauge algebra, Lorentz and gauge representations, and multiplicities of a source-supported renormalizable SM extension. It does not mean that all Lagrangian terms and couplings have already been stored, independently certified physics, anomaly cancellation, viable phenomenology or a further UV completion above the model's stated validity range. Do not invent missing matter to supply any of those.
+
+The gauge–matter specification identifies a discrete slot for constructing a renormalizable Lagrangian and studying its parameters and predictions. Higher-dimensional operators are outside the present extraction scope: their Wilson coefficients could eventually add parameters within that same slot, not additional entries. SM-only operator EFTs therefore do not supply a new BSM specification. Extract a separately specified complete renormalizable model if the paper provides one; do not infer it from its effective operators or substitute a broken-electroweak-phase parametrization for it. A source calling a model "effective" does not itself exclude a complete renormalizable description.
 
 ## Source and scope
 
@@ -71,7 +73,7 @@ For a fixed numerical spectrum, apply one positive common rescaling per u(1) ove
 
 Multiple u(1) factors retain an explicit generator basis. Independent gcd rescalings/signs do not exhaust GL(n,Z) basis equivalence or kinetic-mixing conventions.
 
-Families use `field-content-3`: fixed gauge factors, non-Abelian and Lorentz representations, positive integer multiplicities, declared integer parameters and exact charge polynomials. For example, `parameters: {z1:{domain:integer}, z2:{domain:integer}}`, charge `z1**2+z2`, constraints `0<z1<z2<3`. A fixed entry has no free parameters.
+Families use `field-content-3`: fixed gauge factors, non-Abelian and Lorentz representations, positive integer multiplicities, declared integer parameters and exact charge polynomials. For example, `parameters: {z1:{domain:integer}, z2:{domain:integer}}`, charge `z1**2+z2`, constraints `0<z1<z2<3`. A fixed entry has no symbolic charge parameters; this does not mean its Lagrangian has no free masses or couplings. This schema's `parameters` field is for charge families, not interaction coefficients or future EFT Wilson coefficients.
 
 `integer-polynomial-1` permits integer literals, declared symbols, parentheses, +, -, *, and literal nonnegative powers **. Constraints are exact polynomial comparisons, conjoined with AND. No arrays, floats, undeclared symbols, arbitrary functions or eval. Parsing/expansion has explicit size/degree/coefficient limits.
 

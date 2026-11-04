@@ -36,6 +36,9 @@ def payload():
                 continue
             model = row['model_id']
             if model not in entries:
+                # Frozen assessments can outlive a removed catalogue entry.
+                if model in frozen:
+                    continue
                 raise ValueError('Positive annotation has no current entry: ' + model)
             if entries[model]['specification'] != frozen[model]['specification']:
                 raise ValueError('Entry changed since Luna assessment: ' + model)
