@@ -51,7 +51,7 @@ h1{font-size:clamp(30px,3.4vw,46px);line-height:1.14;letter-spacing:-.045em;font
 .math sub{font-size:.65em}
 .notation-strip .math{font-size:14px}
 .subtle{font-size:12px;color:var(--muted)}
-.toolbar{display:flex;align-items:start;gap:12px;margin:6px 0 20px;flex-wrap:wrap}
+.toolbar{display:flex;align-items:end;gap:12px;margin:6px 0 20px;flex-wrap:wrap}
 .search-label{flex:1;min-width:180px}
 input[type=search]{width:100%;height:44px;border:0;border-radius:9px;background:var(--soft);padding:0 14px;font-size:14px}
 select{border:1px solid var(--line);background:var(--paper);border-radius:7px;padding:9px;min-width:0;width:100%}
@@ -63,9 +63,12 @@ summary{cursor:pointer;user-select:none}
 .filter-panel[open]>summary{background:var(--soft)}
 .filter-fields{flex-basis:100%;order:3;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:12px 0 4px}
 .filter-fields label{min-width:0;display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
-.download-menu{position:relative}
-.download-menu>div{position:absolute;right:0;top:50px;z-index:3;background:var(--paper);border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 24px #00000012;min-width:130px;padding:6px}
+.download-menu{position:relative;margin-left:auto}
+.download-menu>div{position:absolute;right:0;top:50px;z-index:3;background:var(--paper);border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 24px #00000012;width:300px;max-width:calc(100vw - 40px);padding:6px}
 .download-menu a{display:block;padding:8px 12px;font-size:13px;border-radius:5px}
+.download-menu a strong{display:block;font-size:12px;font-weight:500}
+.download-menu a span{display:block;font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px}
+.download-note{font-size:11px;color:var(--muted);line-height:1.6;margin:8px 12px 10px}
 .download-menu a:hover{background:var(--soft);text-decoration:none}
 .results-bar{display:flex;gap:18px;align-items:center;color:var(--muted);font-size:12px;margin-bottom:14px}
 .text-button{font-size:12px;color:var(--accent);padding:0}
@@ -186,7 +189,8 @@ a,button{transition:color .15s ease,background .15s ease}
 .model-entry{padding:24px 0}
 .model-entry .entry-detail{margin-left:0;margin-right:0;max-width:100%}
 }
-.notation-select{flex:0 0 154px;width:154px}
+.notation-select{flex:0 0 190px;width:190px;display:flex;flex-direction:column;gap:5px}
+.notation-control-label{font-size:11px;color:var(--muted)}
 .notation-select select{height:44px;font-size:12px}
 .algebra-diagrams{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin-top:5px}
 .dynkin-factor{display:inline-flex;flex-direction:column;align-items:center;font-weight:400}

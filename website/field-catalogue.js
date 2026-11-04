@@ -329,6 +329,8 @@
    }
    function catalogue(){
      const current=level(),isCores=current==='cores',isAlgebras=current==='algebras',isFullAlgebras=current==='full-algebras',isGauge=isAlgebras||isFullAlgebras;
+     const csvLabel=isAlgebras?'All semisimple algebras':isFullAlgebras?'All full gauge algebras':isCores?'All semisimple matter spectra':'All model entries';
+     const csvDescription=isGauge?'One row per gauge algebra.':isCores?'One row per semisimple matter spectrum.':'One row per model, with its exact specification.';
      const connectionCount=state.connections.problems.length+state.connections.mechanisms.length;
      const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length+connectionCount;
      const p=paperById.get(state.paper);
@@ -342,9 +344,9 @@
        cores:'The semisimple part of the gauge algebra and its matter representations, with u(1) factors omitted.',
        entries:'Gauge algebras and matter representations'};
      return '<p class="section-note">'+descriptions[current]+'</p>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
-       (!isGauge?'<label class="notation-select"><span class="sr-only">Representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
+       (!isGauge?'<label class="notation-select"><span class="notation-control-label">Matter representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields">'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
-       '<details class="download-menu"><summary>Download</summary><div><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download>CSV</a><a href="catalogue.json" download>JSON</a><a href="downloads/field-catalogue.sqlite" download>SQLite</a></div></details></div>'+
+       '<details class="download-menu"><summary>Download catalogue</summary><div><p class="download-note">Complete datasets. Current search and filters are not applied.</p><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download><strong>'+csvLabel+' · CSV</strong><span>'+csvDescription+'</span></a><a href="catalogue.json" download><strong>Complete catalogue · JSON</strong><span>All model specifications and source papers.</span></a><a href="downloads/field-catalogue.sqlite" download><strong>Catalogue database · SQLite</strong><span>All models and references in a relational database.</span></a><p class="download-note">Problem and mechanism annotations are not included.</p></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
        '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';

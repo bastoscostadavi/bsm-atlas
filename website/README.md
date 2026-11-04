@@ -21,6 +21,12 @@ The build updates the catalogue data and runtime script URLs in `index.html` wit
 
 ## Interface
 
+The visible “Matter representation notation” label identifies the selector for
+dimensions, Dynkin labels, Young diagrams and comparison mode. “Download catalogue”
+opens complete dataset downloads: CSV for all groups or entries in the current
+view, plus the full catalogue in JSON or SQLite. Search and filter selections
+are not applied to these files; problem and mechanism annotations are excluded.
+
 `index.html`, `field-catalogue.css` and `field-catalogue.js` implement the interface. `field-matrix.js` lays out exact derived rows. In the Python package, `presentation.py` computes readable dimensions and safe SM/MSSM shorthand, and `core_projection.py` generates all four view memberships. `representation-diagrams.js` and locally vendored SVG.js draw Dynkin and eligible A-series Young diagrams.
 
 Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
