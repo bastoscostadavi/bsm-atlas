@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">BSM Atlas</title>
+  <desc id="description">An Atlas of Forces and Matter Beyond the Standard Model</desc>
+  <rect width="1200" height="630" fill="#1d1d1f"/>
+  <path d="M0 500C205 424 355 547 570 483C807 412 977 318 1200 373V630H0Z" fill="#27272a"/>
+  <path d="M0 527C184 454 353 567 596 494C851 418 1007 368 1200 403V630H0Z" fill="#30302e"/>
+  <g transform="translate(86 91)">
+    <polygon points="0,0 12,0 82,112 70,120" fill="#f0eee6"/>
+    <polygon points="70,112 82,120 12,232 0,232" fill="#f0eee6"/>
+    <polygon points="292,0 304,0 234,120 222,112" fill="#f0eee6"/>
+    <polygon points="222,120 234,112 304,232 292,232" fill="#f0eee6"/>
+    <g fill="#e0997b">
+      <circle cx="84" cy="96" r="8"/><circle cx="106" cy="136" r="8"/><circle cx="128" cy="96" r="8"/>
+      <circle cx="150" cy="136" r="8"/><circle cx="172" cy="96" r="8"/><circle cx="194" cy="136" r="8"/><circle cx="216" cy="96" r="8"/>
+    </g>
+    <g fill="#f0eee6" stroke="none">
+      <path d="M22 0-15-18-15 18Z" transform="translate(38 58) rotate(57)"/>
+      <path d="M22 0-15-18-15 18Z" transform="translate(38 174) rotate(123)"/>
+      <path d="M22 0-15-18-15 18Z" transform="translate(266 58) rotate(-57)"/>
+      <path d="M22 0-15-18-15 18Z" transform="translate(266 174) rotate(-123)"/>
+      <circle cx="76" cy="116" r="10"/>
+      <circle cx="228" cy="116" r="10"/>
+    </g>
+  </g>
+  <text x="86" y="422" fill="#f0eee6" font-family="Arial, Helvetica, sans-serif" font-size="80" font-weight="700">BSM Atlas</text>
+  <text x="86" y="485" fill="#d5d2ca" font-family="Arial, Helvetica, sans-serif" font-size="34">An Atlas of Forces and Matter Beyond the Standard Model</text>
+  <text x="86" y="553" fill="#e0997b" font-family="Arial, Helvetica, sans-serif" font-size="23" letter-spacing="1">DAVIBC.COM / BSM-ATLAS</text>
+</svg>
