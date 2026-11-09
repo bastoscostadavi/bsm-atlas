@@ -66,9 +66,10 @@ assert.equal(nodes.get('problems-layer').open,true);
 assert.equal(nodes.get('page-title').textContent,'Problems');
 context.location.hash='#atlas';app.route();app.render();
 const paragraphs=Array.from(nodes.get('view-content').innerHTML.matchAll(/<p>(.*?)<\/p>/g),m=>m[1]);
-assert(paragraphs[2].includes('href="#problems"'));
-assert(paragraphs[2].includes('href="#mechanisms"'));
-assert(!paragraphs[2].includes('href="#problems?about=layer"'));
+const construction=paragraphs.find(p=>p.includes('href="#problems"'));
+assert(construction);
+assert(construction.includes('href="#mechanisms"'));
+assert(!construction.includes('href="#problems?about=layer"'));
 for(const [view,title] of [['sources','Papers'],['notation','Notation']]){
  context.location.hash='#'+view;app.route();app.render();
  assert.equal(nodes.get('page-title').textContent,title);
