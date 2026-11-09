@@ -1,0 +1,617 @@
+{
+  "date": "2026-11-09",
+  "scope": "Two additional erroneous leading/front-page entries in the working catalogue",
+  "superseded_entries": {
+    "u1-bminusl-seesaw": {
+      "id": "u1-bminusl-seesaw",
+      "name": "SU(2)_L × U(1)_{I3R} × U(1)_{B-L} seesaw model",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "I3R",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "B_minus_L",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "1"
+              },
+              "I3R": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "-1"
+              },
+              "I3R": {
+                "charge": "-1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "-1"
+              },
+              "I3R": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "-3"
+              },
+              "I3R": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "6"
+              },
+              "I3R": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "6"
+              },
+              "I3R": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "0"
+              },
+              "I3R": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 2,
+            "gauge_representations": {
+              "B_minus_L": {
+                "charge": "-12"
+              },
+              "I3R": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-1703-02471v3",
+          "locators": [
+            "Section 7, Eqs. (35)–(36); lines 1029–1046"
+          ]
+        }
+      ]
+    },
+    "scalar-leptoquarks-s1prime": {
+      "id": "scalar-leptoquarks-s1prime",
+      "name": "SM plus scalar leptoquark S1′",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-4"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "8"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-hep-ph-9307324v2",
+          "locators": [
+            "Eq. (1), lines 142–170"
+          ]
+        }
+      ]
+    }
+  },
+  "changes": {
+    "scalar-leptoquarks-s1prime": {
+      "action": "repaired",
+      "target": "sm-s1",
+      "fingerprint": "4f85a1c60318b050d56838bfdca10e54b509b3a0251fbaf8e2fc4829f7bc7755",
+      "real_field_dimension": 190
+    },
+    "u1-bminusl-seesaw": {
+      "action": "repaired",
+      "target": "u1r-bl-minimal",
+      "fingerprint": "c45a5a2e20aa3979f6ddc2f852d67856b82af0536dcf9f0f9bf84d22ccd8ff8e",
+      "real_field_dimension": 198
+    }
+  },
+  "detached_literature": {
+    "arxiv-1703-02471v3": [
+      {
+        "entry_id": "u1-bminusl-seesaw",
+        "problems": [
+          {
+            "term_id": "neutrino_masses",
+            "rationale": "The model includes three right-handed neutrinos and a scalar whose VEV generates their Majorana masses; the paper explicitly identifies the resulting type-I seesaw formula.",
+            "evidence": [
+              {
+                "quote": "after symmetry breaking this leads to the type I seesaw formula for neutrino masses",
+                "locator": "L001046, Eq. (36)"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "type_i_seesaw",
+            "rationale": "The model specifies RH neutrinos, their Majorana coupling to the B−L-breaking scalar, and the resulting type-I seesaw formula.",
+            "evidence": [
+              {
+                "quote": "from the Yukawa interactions in Eq. (1) it is clear that after symmetry breaking this leads to the type I seesaw formula for neutrino masses",
+                "locator": "L001046, Eq. (36)"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          },
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The paper identifies the triplet and doublet VEVs as the successive gauge-symmetry-breaking pattern to the SM and then electromagnetism.",
+            "evidence": [
+              {
+                "quote": "⟨Δ0⟩=vR breaks the gauge symmetry down to the SM gauge group which is further broken by ⟨H0⟩=vEW to U(1)em",
+                "locator": "L001046"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv-hep-ph-9307324v2": [
+      {
+        "entry_id": "scalar-leptoquarks-s1prime",
+        "problems": [],
+        "mechanisms": []
+      }
+    ]
+  },
+  "superseded_papers": [
+    {
+      "arxiv": "1703.02471v3",
+      "title": "Long Lived Light Scalars as Probe of Low Scale Seesaw Models",
+      "authors": "P. S. Bhupal Dev, Rabindra N. Mohapatra, Yongchao Zhang",
+      "id": "arxiv-1703-02471v3",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "hep-ph/9307324v2",
+      "title": "Single Leptoquark Production at $e^+e^-$ and $γγ$ Colliders",
+      "authors": "G. Belanger, D. London, H. Nadeau",
+      "id": "arxiv-hep-ph-9307324v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    }
+  ],
+  "sources": {
+    "hep-ph/9307324v2": {
+      "file": "main.tex",
+      "sha256": "a43d350062d73b348d44472c9f2e10174659baf9c1afec683ff1a3e015711363"
+    },
+    "1703.02471v3": {
+      "file": "H3_LR_NPB_v2.tex",
+      "sha256": "36e343159de40c3b05ff8eab6f51d10f42565a8704853df68ee738f5060f2784"
+    }
+  },
+  "before_counts": {
+    "entries": 1581,
+    "papers": 22053
+  },
+  "after_counts": {
+    "entries": 1579,
+    "papers": 22053
+  }
+}

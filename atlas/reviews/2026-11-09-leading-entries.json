@@ -1,0 +1,2019 @@
+{
+  "date": "2026-11-09",
+  "scope": "Seven leading entries in the published full-matter ordering",
+  "superseded_entries": {
+    "u1h-noninvertible-pq": {
+      "id": "u1h-noninvertible-pq",
+      "name": "SM plus gauged U(1)_H horizontal symmetry",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-4"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 3,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2402-12453v1",
+          "locators": [
+            "Table 1; Table 2; Eqs. (3.6), (3.10)–(3.13)",
+            "Table 1; Table 3; Eqs. (3.15), (3.22)–(3.24)"
+          ]
+        },
+        {
+          "paper_id": "arxiv-1711-03988v1",
+          "locators": [
+            "L000075-L000085; Eq. (massratios)",
+            "L000406-L000410"
+          ]
+        },
+        {
+          "paper_id": "arxiv-2104-15118v6",
+          "locators": [
+            "Sections 2.2–2.5, Eqs. (L1), (Lf), (higgsR); Section 3, lines 570–573"
+          ]
+        },
+        {
+          "paper_id": "arxiv-2510-02426v1",
+          "locators": [
+            "Sec. 5.1, Eq. (1) (L000576–L000599)"
+          ]
+        },
+        {
+          "paper_id": "arxiv-hep-ph-0205329v1",
+          "locators": [
+            "Section 2, lines 169–179, 208–210, 326–337; Section 3, lines 590–599"
+          ]
+        },
+        {
+          "paper_id": "arxiv-2204-09024v2",
+          "locators": [
+            "Sec. 2, Eq. (extended-st), lines 240–276; lines 279–285",
+            "Sec. 2, lines 287–300; Eq. (mass-matrix)"
+          ]
+        },
+        {
+          "paper_id": "arxiv-1809-08610v2",
+          "locators": [
+            "Sec. 2, Eqs. (1)–(3); lines 880–909"
+          ]
+        },
+        {
+          "paper_id": "arxiv-1812-10919v2",
+          "locators": [
+            "Section II, lines 168–174; Eq. (2)"
+          ]
+        },
+        {
+          "paper_id": "arxiv-2010-07941v1",
+          "locators": [
+            "Sec. MCP Production, lines 117–124",
+            "Appendix, Eqs. (meson decay branching fractions), lines 250–265"
+          ]
+        },
+        {
+          "paper_id": "arxiv-hep-ph-0502059v2",
+          "locators": [
+            "Sec. 2, lines 199–216; Sec. 4, lines 407–424"
+          ]
+        },
+        {
+          "paper_id": "arxiv-hep-ph-9208260v1",
+          "locators": [
+            "Eqs. (1)–(3); L095–L153",
+            "L158–L179",
+            "L198–L215; L549–L555",
+            "L315–L321",
+            "L409–L445; L454–L501; L549–L562"
+          ]
+        }
+      ],
+      "aliases": [
+        {
+          "id": "su3h-noninvertible-pq",
+          "name": "SM plus gauged SU(3)_H quark-flavor symmetry"
+        },
+        {
+          "id": "standard-model-heavy-lifting",
+          "name": "Standard Model heavy-lifting"
+        },
+        {
+          "id": "sm-in-weyl-conformal-geometry",
+          "name": "Standard Model in Weyl conformal geometry (SMW)"
+        },
+        {
+          "id": "sm-sterile-neutrinos-unspecified-multiplicity",
+          "name": "SM plus sterile neutrinos"
+        },
+        {
+          "id": "rs-bulk-standard-model",
+          "name": "Randall–Sundrum bulk Standard Model"
+        },
+        {
+          "id": "stueckelberg-higgs-portal-sm",
+          "name": "Stueckelberg–Higgs portal extension of the Standard Model"
+        },
+        {
+          "id": "dirac-neutrino-portal-dark-sector",
+          "name": "Dirac neutrino portal with leptonic scalars and Majorana fermion"
+        },
+        {
+          "id": "ultralight-dark-photon-dark-matter",
+          "name": "Ultralight dark photon dark matter"
+        },
+        {
+          "id": "sm-millicharged-particle",
+          "name": "SM plus millicharged particle"
+        },
+        {
+          "id": "minimal-ued-s1-z2",
+          "name": "Minimal Universal Extra Dimensions on S¹/Z₂"
+        },
+        {
+          "id": "sm-lepton-charge-dequantization-e-mu",
+          "name": "Minimal Standard Model with L_e−L_μ hypercharge dequantization"
+        },
+        {
+          "id": "sm-lepton-charge-dequantization-e-tau",
+          "name": "Minimal Standard Model with L_e−L_τ hypercharge dequantization"
+        },
+        {
+          "id": "sm-lepton-charge-dequantization-mu-tau",
+          "name": "Minimal Standard Model with L_μ−L_τ hypercharge dequantization"
+        }
+      ]
+    },
+    "deflected-amsb-singlet-vectorlike-messengers": {
+      "id": "deflected-amsb-singlet-vectorlike-messengers",
+      "name": "Deflected AMSB with singlet and vector-like messengers",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 2,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  2
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-1512-06715v3",
+          "locators": [
+            "Section II, Eqs. (1)–(3), lines 153–187",
+            "Section II, lines 258–263"
+          ]
+        }
+      ]
+    },
+    "s1-scalar-leptoquark-8a79a78b7a94": {
+      "id": "s1-scalar-leptoquark-8a79a78b7a94",
+      "name": "Scalar leptoquark S1",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2211-14172v2",
+          "locators": [
+            "Sec. NP Scenarios, Scalar Leptoquarks"
+          ]
+        }
+      ]
+    },
+    "r2-scalar-leptoquark-9eac3b95c500": {
+      "id": "r2-scalar-leptoquark-9eac3b95c500",
+      "name": "Scalar leptoquark R2",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2211-14172v2",
+          "locators": [
+            "Sec. NP Scenarios, Scalar Leptoquarks"
+          ]
+        }
+      ]
+    },
+    "s3-scalar-leptoquark": {
+      "id": "s3-scalar-leptoquark",
+      "name": "Scalar leptoquark S3",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  2
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2211-14172v2",
+          "locators": [
+            "Sec. NP Scenarios, Scalar Leptoquarks"
+          ]
+        }
+      ]
+    },
+    "u1-vector-leptoquark": {
+      "id": "u1-vector-leptoquark",
+      "name": "Vector leptoquark U1",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "1/2"
+                ]
+              ]
+            },
+            "reality": "real"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2211-14172v2",
+          "locators": [
+            "Sec. NP Scenarios, Vector Leptoquarks"
+          ]
+        }
+      ]
+    },
+    "v2-vector-leptoquark": {
+      "id": "v2-vector-leptoquark",
+      "name": "Vector leptoquark V2",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "1/2"
+                ]
+              ]
+            },
+            "reality": "real"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2211-14172v2",
+          "locators": [
+            "Sec. NP Scenarios, Vector Leptoquarks"
+          ]
+        }
+      ]
+    }
+  },
+  "changes": {
+    "s1-scalar-leptoquark-8a79a78b7a94": {
+      "action": "repaired",
+      "target": "sm-s1",
+      "fingerprint": "4f85a1c60318b050d56838bfdca10e54b509b3a0251fbaf8e2fc4829f7bc7755",
+      "real_field_dimension": 190
+    },
+    "r2-scalar-leptoquark-9eac3b95c500": {
+      "action": "repaired",
+      "target": "lq-r2-general",
+      "fingerprint": "10c2981f45ae8b8909e33cffd6a48235dfd3b1ebaaa0599a2e34fe4c38785b4e",
+      "real_field_dimension": 196
+    },
+    "s3-scalar-leptoquark": {
+      "action": "repaired",
+      "target": "scalar-zeta-ql-qq-sector",
+      "fingerprint": "93a20334724826f1687e5a58e960d50f4b2e1889c46054470ba667b5a8749c4b",
+      "real_field_dimension": 202
+    },
+    "u1-vector-leptoquark": {
+      "action": "repaired",
+      "target": "lq-u1-effective",
+      "fingerprint": "4db8a21f619d58e8bd039d3a93685c61e81b70ce4a846d75685e0f3403d6eda0",
+      "real_field_dimension": 208
+    },
+    "v2-vector-leptoquark": {
+      "action": "repaired",
+      "target": "sm-v2-vector-eft",
+      "fingerprint": "5e565379796cf47cc175ca6a7972ca0a2253c1f912cb3feec2c29480ad619f66",
+      "real_field_dimension": 232
+    },
+    "u1h-noninvertible-pq": {
+      "action": "repaired",
+      "target": "u1h-noninvertible-pq",
+      "fingerprint": "22ddf321a57831140828c385272bb7b800778b8cdd77b995f93e62a2fa533998",
+      "real_field_dimension": 184,
+      "reason": "Restore the missing horizontal U(1) and generation-dependent quark charges for the original paper only. Other aliases and paper links were merged on the erroneous SM-only identity; they have not been established for this corrected inventory and are retained in this review for separate re-extraction, not reassigned."
+    },
+    "deflected-amsb-singlet-vectorlike-messengers": {
+      "action": "withdrawn_pending_reextraction",
+      "reason": "Stored one-generation/non-MSSM sector is incomplete. Source Sec. II inherits the MSSM; messenger species and multiplicities must be selected from a definite source benchmark. Table II fixes NF=N5+3N10=10, not a unique (N5,N10). The displayed SU(5) component hypercharge/conjugation conventions also require resolution. Do not invent missing fields."
+    }
+  },
+  "detached_literature": {
+    "arxiv-2402-12453v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "strong_cp",
+            "rationale": "The U(1)_H extension is explicitly analyzed as a massless down-quark solution to the strong CP problem, with its non-invertible symmetry protecting the down-type Yukawa matrix.",
+            "evidence": [
+              {
+                "quote": "For this reason, such models inform us about massless down-quark solutions to the strong CP problem.",
+                "locator": "L000513, Sec. 3.1.2"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          },
+          {
+            "term_id": "strong_cp",
+            "rationale": "The SU(3)_H extension is explicitly developed as a massless down-quark solution to strong CP, using the non-invertible Peccei–Quinn symmetry to protect the down Yukawa.",
+            "evidence": [
+              {
+                "quote": "when the non-invertible $\\mathbb{Z}_{3}^{\\bar{d}}$ Peccei-Quinn symmetry is preserved there are massless quarks and CP is a symmetry of the strong sector of the SM.",
+                "locator": "L000597, Sec. 3.2"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "peccei_quinn",
+            "rationale": "The model explicitly identifies the non-invertible symmetry protecting massless down quarks as a Peccei–Quinn symmetry tied to the strong-CP solution.",
+            "evidence": [
+              {
+                "quote": "the non-invertible $\\mathbb{Z}_{3}^{\\bar{d}}$ Peccei-Quinn symmetry is preserved",
+                "locator": "L000597, Sec. 3.2"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ],
+    "arxiv-1711-03988v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "higgs_hierarchy",
+            "rationale": "The paper uses curvature-induced heavy-lifting of the SM Higgs scale to test electroweak naturalness and explicitly characterizes the SM as having a hierarchy problem.",
+            "evidence": [
+              {
+                "quote": "If the heavy-lifted gauge theory suffers a hierarchy problem, such as does the Standard Model, confirming such predictions would demonstrate a striking violation of the Naturalness Principle.",
+                "locator": "L000024-L000026"
+              },
+              {
+                "quote": "Since this NMSM clearly suffers from a hierarchy problem (worse than the SM), the precision NG measurements would therefore provide us with a test of “un-naturalness” in Nature",
+                "locator": "L000092"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The SM Higgs vacuum expectation value breaks the gauge symmetry and sets the gauge-Higgs masses; during inflation the curvature term raises the symmetry-breaking scale.",
+            "evidence": [
+              {
+                "quote": "for c > 0, the symmetry breaking scale setting gauge-Higgs physical masses is naturally of order H.",
+                "locator": "L000406-L000410"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv-1512-06715v3": [
+      {
+        "entry_id": "deflected-amsb-singlet-vectorlike-messengers",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper analyzes an MSSM benchmark in this scenario, explicitly reporting that its spectrum satisfies the dark matter relic requirement.",
+            "evidence": [
+              {
+                "quote": "such a spectrum can satisfy the dark matter relic requirement",
+                "locator": "L000300–L000301"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The analyzed MSSM spectrum includes the Higgs sector and its electroweak mass spectrum, with soft parameters and the 125 GeV Higgs mass explicitly analyzed.",
+            "evidence": [
+              {
+                "quote": "a viable soft SUSY spectrum and the 125 GeV Higgs boson mass can be obtained",
+                "locator": "L000300–L000301"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ],
+    "arxiv-2104-15118v6": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "higgs_hierarchy",
+            "rationale": "The paper presents gauged scale symmetry as a possible solution to the Higgs hierarchy problem and analyzes its protection of the Higgs mass in SMW.",
+            "evidence": [
+              {
+                "quote": "could give a solution to the hierarchy problem",
+                "locator": "Section 2.6, L00139–L00144"
+              },
+              {
+                "quote": "could give a solution to the hierarchy problem",
+                "locator": "Section 3, L00180–L00187"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "stueckelberg",
+            "rationale": "The model specifies Weyl gauge symmetry breaking in which the Weyl vector obtains mass by absorbing the scalar mode extracted from the curvature-squared term.",
+            "evidence": [
+              {
+                "quote": "By a Stueckelberg breaking mechanism, ωμ has become a massive Proca field, after “eating” in (ST) the derivative ∂μ ln φ of the Stueckelberg field ln φ",
+                "locator": "Section 2.1, L00439–L00449"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line",
+              "quote_found"
+            ]
+          },
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The Higgs potential and vacuum expectation value break electroweak symmetry and generate masses for the electroweak gauge bosons.",
+            "evidence": [
+              {
+                "quote": "The EW symmetry is thus broken at tree level.",
+                "locator": "Section 2.5, L001061–L001069"
+              },
+              {
+                "quote": "the EW scale ⟨σ⟩ and Higgs mass are",
+                "locator": "Section 2.6, Eqs. (min), L001073–L001081"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv-2510-02426v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "neutrino_masses",
+            "rationale": "The paper explicitly presents the sterile-neutrino extension as accounting for active-neutrino mass hierarchy through the seesaw mechanism.",
+            "evidence": [
+              {
+                "quote": "Through the additional mass and interaction terms, sterile neutrinos can account for the mass hierarchy among active neutrinos via the seesaw mechanism",
+                "locator": "L000591–L000592, Sec. 5.1"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "type_i_seesaw",
+            "rationale": "The Lagrangian specifies gauge-singlet sterile neutrinos with a Yukawa coupling to the SM lepton and Higgs fields and a Majorana mass term; the paper connects these terms to active-neutrino masses through the seesaw mechanism.",
+            "evidence": [
+              {
+                "quote": "y_{\\alpha i}\\,\\overline{L}_\\alpha\\,\\widetilde H\\,N_i + \\frac{1}{2}\\,\\overline{N}_i^{\\,c}\\,(M_N)_{ij}\\,N_j",
+                "locator": "L000585–L000587, Eq. (1)"
+              },
+              {
+                "quote": "sterile neutrinos can account for the mass hierarchy among active neutrinos via the seesaw mechanism",
+                "locator": "L000591–L000592, Sec. 5.1"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ],
+    "arxiv-2211-14172v2": [
+      {
+        "entry_id": "s1-scalar-leptoquark-8a79a78b7a94",
+        "problems": [],
+        "mechanisms": []
+      },
+      {
+        "entry_id": "r2-scalar-leptoquark-9eac3b95c500",
+        "problems": [],
+        "mechanisms": []
+      },
+      {
+        "entry_id": "s3-scalar-leptoquark",
+        "problems": [],
+        "mechanisms": []
+      },
+      {
+        "entry_id": "u1-vector-leptoquark",
+        "problems": [],
+        "mechanisms": []
+      },
+      {
+        "entry_id": "v2-vector-leptoquark",
+        "problems": [],
+        "mechanisms": []
+      }
+    ],
+    "arxiv-hep-ph-0205329v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [],
+        "mechanisms": [
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The SM Higgs is localized on the TeV boundary, where its vacuum expectation value gives the W and Z their observed masses and deforms their zero-mode wave functions.",
+            "evidence": [
+              {
+                "quote": "the Higgs field which must be localized on the TeV boundary in order for the $W$ and the $Z$ gauge bosons to get their observed masses",
+                "locator": "Section 2, L000173–L000179"
+              },
+              {
+                "quote": "The effects are the result of the deformation of the $Z$ and $W$ zero-mode wave-functions due to the presence of the Higgs filed in the low energy boundary.",
+                "locator": "Conclusions, L000948–L000951"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ],
+    "arxiv-2204-09024v2": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper explicitly considers whether hidden-sector dark matter would be millicharged in this model and concludes it would not; it does not specify a dark-matter candidate or abundance mechanism.",
+            "evidence": [
+              {
+                "quote": "the hidden sector dark matter if it exists would not receive a milli-charge",
+                "locator": "Appendix A, lines 651–654"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "stueckelberg",
+            "rationale": "The model includes a Stueckelberg mass term and a gauge-invariant vector–compensator combination for the added U(1)_X gauge field.",
+            "evidence": [
+              {
+                "quote": "\\bar C_\\mu=C_\\mu+ \\partial_\\mu \\sigma/M_1 is the combination of C and the axion field \\sigma which is gauge invariant under the U(1)_X gauge transformation",
+                "locator": "Sec. 2, lines 262–267"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line",
+              "quote_found"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv-1809-08610v2": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The model assigns a residual Z2 symmetry that stabilizes the lightest portal-sector particle and analyzes its production and propagation as highly boosted dark matter.",
+            "evidence": [
+              {
+                "quote": "The Z_2 symmetry makes the lightest one of φ_i, ψ stable, and allows it to be dark matter.",
+                "locator": "L000907–L000909; Sec. 2"
+              },
+              {
+                "quote": "the highly-boosted dark matter whose energy originates from the cosmogenic neutrinos",
+                "locator": "L001071–L001078; Sec. 4"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ],
+        "mechanisms": []
+      }
+    ],
+    "arxiv-1812-10919v2": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper treats the ultralight dark photon as a dark-matter candidate and derives bounds on that candidate using Galactic Center gas clouds.",
+            "evidence": [
+              {
+                "quote": "In this work we place new bounds on ultra light dark photon dark matter for m ≤ 10⁻¹⁰ eV.",
+                "locator": "L000182, Section II"
+              },
+              {
+                "quote": "Ultra-light dark photon dark matter is a plausible dark matter candidate",
+                "locator": "L000176"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "stueckelberg",
+            "rationale": "The stated dark-photon mass may be generated by the Stueckelberg mechanism; the paper explicitly identifies that mass-generation option for this model.",
+            "evidence": [
+              {
+                "quote": "The mass m of the dark photon can be generated via the Stückelberg mechanism for simplicity",
+                "locator": "L000174, Section II"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv-2010-07941v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper studies the millicharged particle as a possible fraction of dark matter and projects sensitivity to the millicharged SIDM window.",
+            "evidence": [
+              {
+                "quote": "MCP in our parameter of interest can account for a fraction of the dark matter (DM) abundance",
+                "locator": "L000188, Sec. Millicharged Strongly-Interacting DM"
+              },
+              {
+                "quote": "FORMOSA can help cover a large part of the millicharged DM region that is previously unconstrained.",
+                "locator": "L000192, Sec. Millicharged Strongly-Interacting DM"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ],
+        "mechanisms": []
+      }
+    ],
+    "arxiv-hep-ph-0502059v2": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper tests the first KK mode of the hypercharge gauge boson as a dark-matter candidate by calculating its resonant annihilation and thermal relic abundance against WMAP.",
+            "evidence": [
+              {
+                "quote": "The first KK mode of $B$ boson, $B^{(1)}$, is a viable dark matter candidate by virtue of KK-parity.",
+                "locator": "L000057–L000058"
+              },
+              {
+                "quote": "We now calculate the thermal relic density of the LKP dark matter using annihilation cross section obtained in Sec. \\ref{sec:cross_section}.",
+                "locator": "L000407–L000409"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "thermal_freeze_out",
+            "rationale": "The model’s thermal relic abundance is evaluated using the freeze-out annihilation rate and Boltzmann evolution; the paper identifies thermal decoupling and computes the resulting abundance.",
+            "evidence": [
+              {
+                "quote": "It is important to evaluate the thermal average of the cross section at the freeze-out temperature because it affects the calculation of the abundance of the thermal relic.",
+                "locator": "L000353–L000355"
+              },
+              {
+                "quote": "In case of the UED model the LKP decouples from thermal equilibrium at $T \\sim m/25$.",
+                "locator": "L000356–L000357"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ],
+    "arxiv-hep-ph-9208260v1": [
+      {
+        "entry_id": "u1h-noninvertible-pq",
+        "problems": [
+          {
+            "term_id": "matter_representations",
+            "rationale": "The paper tests a specified departure from standard charge assignments and constrains its parameter using charge conservation and matter neutrality.",
+            "evidence": [
+              {
+                "quote": "The present experimental limits on the masses of νμ and ντ are 270 keV and 35 MeV respectively, so it is not impossible to invalidate the bounds in Eqs. (17)-(18) and in Eq. (21).",
+                "locator": "L520–L522"
+              },
+              {
+                "quote": "experiments on the neutrality of atoms places a bound given by |ε| < 10^{-21} on the allowed non-standard electric charges Q_st + ε (L_e - L_μ)",
+                "locator": "L549–L552"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line",
+              "quote_found"
+            ]
+          },
+          {
+            "term_id": "matter_representations",
+            "rationale": "The paper tests a specified departure from standard charge assignments and constrains its parameter using charge conservation and matter neutrality.",
+            "evidence": [
+              {
+                "quote": "The present experimental limits on the masses of νμ and ντ are 270 keV and 35 MeV respectively, so it is not impossible to invalidate the bounds in Eqs. (17)-(18) and in Eq. (21).",
+                "locator": "L520–L522"
+              },
+              {
+                "quote": "experiments on the neutrality of atoms places a bound given by |ε| < 10^{-21} on the allowed non-standard electric charges Q_st + ε (L_e - L_τ)",
+                "locator": "L549–L552"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line",
+              "quote_found"
+            ]
+          },
+          {
+            "term_id": "matter_representations",
+            "rationale": "The paper explicitly derives the altered family-dependent lepton charges and tests this charge assignment against particle, stellar and cosmological observations.",
+            "evidence": [
+              {
+                "quote": "under Q_{μτ}, Q_e = -1, Q_μ = -1 + ε, Q_τ = -1 - ε",
+                "locator": "L160–L163"
+              },
+              {
+                "quote": "the other allowed non-standard charge Q_st + ε (L_μ - L_τ) is constrained far less profoundly.",
+                "locator": "L556–L558"
+              }
+            ],
+            "reviewReasons": [
+              "locator_has_valid_line",
+              "quote_found"
+            ]
+          }
+        ],
+        "mechanisms": []
+      }
+    ]
+  },
+  "superseded_papers": [
+    {
+      "arxiv": "2402.12453v1",
+      "title": "Non-Invertible Peccei-Quinn Symmetry and the Massless Quark Solution to the Strong CP Problem",
+      "authors": "Clay Cordova, Sungwoo Hong, Seth Koren",
+      "id": "arxiv-2402-12453v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "1711.03988v1",
+      "title": "Heavy-Lifting of Gauge Theories By Cosmic Inflation",
+      "authors": "Soubhik Kumar, Raman Sundrum",
+      "id": "arxiv-1711-03988v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "1512.06715v3",
+      "title": "750 GeV Diphoton Resonance, 125 GeV Higgs and Muon g-2 Anomaly in Deflected Anomaly Mediation SUSY Breaking Scenario",
+      "authors": "Fei Wang, Lei Wu, Jin Min Yang, Mengchao Zhang",
+      "id": "arxiv-1512-06715v3",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "2104.15118v6",
+      "title": "Standard Model in Weyl conformal geometry",
+      "authors": "D. M. Ghilencea",
+      "id": "arxiv-2104-15118v6",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "2510.02426v1",
+      "title": "ArgoLOOM: agentic AI for fundamental physics from quarks to cosmos",
+      "authors": "S. D. Bakshi, P. Barry, C. Bissolotti, I. Cloet, S. Corrodi, Z. Djurcic, S. Habib, K. Heitmann, T. J. Hobbs, W. Hopkins, S. Joosten, B. Kriesten, N. Ramachandra, A. Wells, M. Zurek",
+      "id": "arxiv-2510-02426v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "2211.14172v2",
+      "title": "Impact of $Λ_b\\to Λ_cτν$ measurement on New Physics in $b\\to c \\, l ν$ transitions",
+      "authors": "Marco Fedele, Monika Blanke, Andreas Crivellin, Syuhei Iguro, Teppei Kitahara, Ulrich Nierste, Ryoutaro Watanabe",
+      "id": "arxiv-2211-14172v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "hep-ph/0205329v1",
+      "title": "Constraints on the Bulk Standard Model in the Randall-Sundrum Scenario",
+      "authors": "Gustavo Burdman",
+      "id": "arxiv-hep-ph-0205329v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "2204.09024v2",
+      "title": "CDF W mass anomaly from a dark sector with a Stueckelberg-Higgs portal",
+      "authors": "Mingxuan Du, Zuowei Liu, Pran Nath",
+      "id": "arxiv-2204-09024v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "1809.08610v2",
+      "title": "Highly-boosted dark matter and cutoff for cosmic-ray neutrino through neutrino portal",
+      "authors": "Wen Yin",
+      "id": "arxiv-1809-08610v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "1812.10919v2",
+      "title": "Galactic Center Gas Clouds and Novel Bounds on Ultra-Light Dark Photon, Vector Portal, Strongly Interacting, Composite, and Super-Heavy Dark Matter",
+      "authors": "Amit Bhoonah, Joseph Bramante, Fatemeh Elahi, Sarah Schon",
+      "id": "arxiv-1812-10919v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "2010.07941v1",
+      "title": "FORMOSA: Looking Forward to Millicharged Dark Sectors",
+      "authors": "Saeid Foroughi-Abari, Felix Kling, Yu-Dai Tsai",
+      "id": "arxiv-2010-07941v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "hep-ph/0502059v2",
+      "title": "Significant effects of second KK particles on LKP dark matter physics",
+      "authors": "Mitsuru Kakizaki, Shigeki Matsumoto, Yoshio Sato, Masato Senami",
+      "id": "arxiv-hep-ph-0502059v2",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    },
+    {
+      "arxiv": "hep-ph/9208260v1",
+      "title": "Bounds on mini-charged neutrinos in the minimal standard model",
+      "authors": "K. S. Babu, R. R. Volkas",
+      "id": "arxiv-hep-ph-9208260v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6-luna",
+        "reasoning": "medium"
+      }
+    }
+  ],
+  "sources": {
+    "2211.14172v2": {
+      "file": "bclnu_letter_v2.tex",
+      "sha256": "c9b2312bec8508474e63cf32a5330aec3cb9ee70111b28f8642b4284666e65b8"
+    },
+    "1512.06715v3": {
+      "file": "paper-plb.tex",
+      "sha256": "506828e0c11ec4e1949eb252bff12f31ed8ea31e2ccecf44b11dc2e3f8642423"
+    },
+    "2402.12453v1": {
+      "file": "draft.tex",
+      "sha256": "e204201ce42e027dcdf4467b6c86123bdbcd3eb3bbc3e47681977166bf2e995c"
+    }
+  },
+  "before_counts": {
+    "entries": 1587,
+    "papers": 22006
+  },
+  "after_counts": {
+    "entries": 1581,
+    "papers": 22006
+  }
+}
