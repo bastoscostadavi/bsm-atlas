@@ -4,6 +4,12 @@
  function gaugeColumns(regime){
    const factors=regime.factors,used=new Set(),columns=[];
    if(!factors.length)return [{id:'unresolved',label:'Gauge algebra unresolved',positions:[],sm:false}];
+   // A verified baseline identifies the three SM factors regardless of their
+   // source-specific names. Larger algebras still use explicit role matching.
+   if(regime.baseline&&factors.length===3){
+     const positions=ids.map(id=>factors.findIndex(f=>f.id===id));
+     if(positions.every(i=>i>=0))return [{id:'g_SM',label:'g_SM',positions,sm:true}];
+   }
    // Only actual direct factors are bundled. No subgroup branching is inferred.
    for(const suffix of ['', '_A','_B']){
      const matches=ids.map((id,k)=>{

@@ -59,11 +59,11 @@ def matrix(spec):
 def compact_baseline(regime,templates):
     """A display shortcut only when a complete reference is literally present."""
     fs=regime['factors']
-    expected=[('A2',{'colour'}),('A1',{'weak_L','left'}),('u1',{'hypercharge'})]
+    expected=['A2','A1','u1']
     if len(fs)!=3:return
     positions=[]
-    for identifier,roles in expected:
-        matches=[i for i,a in enumerate(fs) if a['id']==identifier and a['role'] in roles]
+    for identifier in expected:
+        matches=[i for i,a in enumerate(fs) if a['id']==identifier]
         if len(matches)!=1:return
         positions.append(matches[0])
     def key(row,order):

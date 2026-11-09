@@ -43,6 +43,11 @@ are not applied to these files; problem and mechanism annotations are excluded.
 
 `index.html`, `field-catalogue.css` and `field-catalogue.js` implement the interface. `field-matrix.js` lays out exact derived rows. In the Python package, `presentation.py` computes readable dimensions and safe SM/MSSM shorthand, and `core_projection.py` generates all four view memberships. `representation-diagrams.js` and locally vendored SVG.js draw Dynkin and eligible A-series Young diagrams.
 
+SM/MSSM shorthand matches the complete reference field content and the three
+gauge-factor types, independently of source-specific factor names. Matching
+entries initially show the baseline plus additional fields; the baseline can
+be expanded to show every row. Exact charges and multiplicities must match.
+
 Python implementation files and regression tests live in `bsm_atlas/` and `tests/`, outside this published directory.
 
 The main navigation has two direct catalogue links: **Forces** opens all full

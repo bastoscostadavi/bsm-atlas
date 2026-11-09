@@ -13,6 +13,12 @@ assert.equal(findEntries(data,{paper:'R01'}).length,0);
 assert(findEntries(data,{q:'singlet'}).length>0);
 assert(findEntries(data,{q:'vector-like'}).length>0);
 assert.equal(esc('<img onerror="x">'),'&lt;img onerror=&quot;x&quot;&gt;');
+// A verified SM baseline bundles its gauge columns even when the source uses
+// arbitrary factor IDs and a different column order.
+const renamedSM={baseline:'R_SM',factors:[{id:'u1',key:'y',role:'y'},{id:'A1',key:'w',role:'w'},{id:'A2',key:'c',role:'c'}]};
+assert.equal(context.FieldMatrix.gaugeColumns(renamedSM)[0].label,'g_SM');
+assert.deepEqual(Array.from(context.FieldMatrix.gaugeColumns(renamedSM)[0].positions),[2,1,0]);
+assert.equal(context.FieldMatrix.gaugeColumns({...renamedSM,baseline:undefined}).length,3);
 assert.equal(arxivDate({arxiv:'hep-ph/9212278v1'}).value,'1992-12');
 assert.equal(arxivDate({arxiv:'hep-ph/0011335v3'}).value,'2000-11');
 assert.equal(arxivDate({arxiv:'0704.0001v9'}).value,'2007-04');
