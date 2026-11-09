@@ -153,17 +153,41 @@ def write_outputs(data,check=False):
     for kind,file in [('cores','nonabelian-cores'),('semisimpleAlgebras','semisimple-algebras'),('fullAlgebras','full-gauge-algebras')]:
         outputs['website/downloads/'+file+'.csv']=csv_text(['id','gauge_algebra','entry_ids','canonical_json'],
             ([g['id'],g['algebra'],';'.join(g['entryIds']),encoded(g['canonical'])] for g in data[kind]))
-    outputs['website/index.html']=version_script_assets((ROOT/'website/index.html').read_text(encoding='utf-8'),{
-        'field-catalogue-data.js':outputs['website/field-catalogue-data.js'].encode('utf-8'),
-        'field-catalogue.js':(ROOT/'website/field-catalogue.js').read_bytes(),
-        **{name:(ROOT/'website'/name).read_bytes() for name in
-           ('problem-data.js','mechanism-data.js','problem-explorer.js','connection-explorer.js')
-           if (ROOT/'website'/name).exists()}})
+    html=(ROOT/'website/index.html').read_text(encoding='utf-8')
+    public_bundle=(ROOT/'website/atlas-store.js').exists() and 'atlas-bootstrap.js' in html
+    if public_bundle:
+        from hashlib import sha256
+        from .web_bundle import make_bundle
+        from .snapshot import download_links
+        annotations={}
+        for kind,name,variable in [('problems','problem-data.js','ATLAS_PROBLEMS'),('mechanisms','mechanism-data.js','ATLAS_MECHANISMS')]:
+            text=(ROOT/'website'/name).read_text()
+            prefix='window.'+variable+' = '
+            if not text.startswith(prefix):raise ValueError('Invalid annotation export')
+            annotations[kind]=json.loads(text[len(prefix):].strip().removesuffix(';'))
+        downloads=download_links(ROOT)
+        files=make_bundle(data,annotations,source_sha256=sha256((ROOT/'atlas/catalogue.json').read_bytes()).hexdigest(),downloads=downloads,worker_source=(ROOT/'website/atlas-store.js').read_bytes()+b'\n'+(ROOT/'website/atlas-search-worker.js').read_bytes())
+        outputs.update({'website/'+name:raw for name,raw in files.items()})
+        import re
+        fallback={'field-catalogue':'downloads/field-catalogue.csv','catalogue':'catalogue.json'}
+        html=re.sub(r'(<a data-download="(catalogue|field-catalogue)" href=")[^"]*(")',
+                    lambda match:match[1]+downloads.get(match[2],fallback[match[2]])+match[3],html)
+        assets={name:(outputs.get('website/'+name) or (ROOT/'website'/name).read_bytes()) for name in ['atlas-bootstrap.js','atlas-store.js','field-catalogue.js','problem-explorer.js','connection-explorer.js']}
+    else:
+        assets={'field-catalogue-data.js':outputs['website/field-catalogue-data.js'].encode('utf-8'),'field-catalogue.js':(ROOT/'website/field-catalogue.js').read_bytes(),
+                **{name:(ROOT/'website'/name).read_bytes() for name in ('problem-data.js','mechanism-data.js','problem-explorer.js','connection-explorer.js') if (ROOT/'website'/name).exists()}}
+    outputs['website/index.html']=version_script_assets(html,assets)
+    expected_data={name for name in outputs if name.startswith('website/data/')}
+    actual_data={str(path.relative_to(ROOT)) for path in (ROOT/'website/data').rglob('*') if path.is_file()} if (ROOT/'website/data').exists() else set()
+    if check and actual_data-expected_data:raise ValueError('Stale static data chunks')
+    if not check:
+        for name in actual_data-expected_data:(ROOT/name).unlink()
     for relative,content in outputs.items():
-        path=ROOT/relative
+        path=ROOT/relative;raw=content.encode('utf-8') if isinstance(content,str) else content
         if check:
-            if not path.exists() or path.read_text()!=content:raise ValueError('Stale generated file: '+relative)
-        else:path.write_text(content,encoding='utf-8')
+            if not path.exists() or path.read_bytes()!=raw:raise ValueError('Stale generated file: '+relative)
+        else:
+            path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(raw)
     target=ROOT/'website/downloads/field-catalogue.sqlite'
     with tempfile.TemporaryDirectory() as directory:
         temporary=Path(directory)/'catalogue.sqlite';database(temporary,data)

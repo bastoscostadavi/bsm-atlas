@@ -29,17 +29,17 @@ See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, c
 
 ## Data
 
-[atlas/catalogue.json](atlas/catalogue.json) is the single authoritative source. It contains paper records and complete entry specifications with paper references. References can identify relevant pages, equations or tables. Papers can be listed without an associated model.
+`atlas/catalogue.json` is the authoritative working source. It is restored from the immutable data release pinned by [atlas/snapshot.json](atlas/snapshot.json), rather than tracked as a growing Git file. Run `make prepare` after a fresh clone; it downloads missing sources and verifies their hashes without overwriting existing ingestion data. It contains paper records and complete entry specifications with paper references. References can identify relevant pages, equations or tables. Papers can be listed without an associated model.
 
-The website derives its four browsing views and counts directly from this source. JSON, CSV and SQLite downloads expose the same catalogue for analysis and reuse.
+The website derives its four browsing views and counts directly from this source. A compact index supports navigation; exact model tables, paper metadata and evidence are loaded as needed. JSON, CSV and SQLite snapshots are distributed as gzip-compressed Release assets for analysis and reuse.
 
-Paper-specific problem and mechanism associations are stored separately in [atlas/literature_links.json](atlas/literature_links.json). The compact [literature baseline](atlas/literature_baseline.json) preserves earlier published associations. Together these files reproduce the website’s annotation layers without paper text, prompts or raw model responses.
+Paper-specific problem and mechanism associations are stored separately in the restored working file `atlas/literature_links.json`. The compact [literature baseline](atlas/literature_baseline.json) preserves earlier published associations. Together these files reproduce the website’s annotation layers without paper text, prompts or raw model responses.
 
 The [catalogue schema](atlas/catalogue.schema.json) describes entries and references; the [specification schema](atlas/entry.schema.json) describes the mathematical input. Executable validation also enforces normalization, exact weights, charge syntax, complete inventories and duplicate identities. Only fully specified entries are added.
 
 ## Adding papers and models
 
-Extraction texts, per-paper prompts and raw responses are temporary. Compact
+Versioned paper TeX is retained in the local corpus. Prepared extraction texts, per-paper prompts and raw responses are temporary. Compact
 completion receipts retain only the metadata, hashes, usage and ingestion targets
 needed to resume without repeating paper attempts; see the
 [retention policy](HARVESTING.md#temporary-data-and-compact-completion-tracking).
@@ -71,26 +71,39 @@ See [provider coordination and provenance](HARVESTING.md#codex-and-claude-batche
 
 ## Build and preview
 
-Python 3.10+ (with SQLite 3.37+) and Node.js 18+ on macOS/Linux are sufficient; no third-party Python packages are needed. Model extraction additionally requires a current, authenticated Codex CLI; building and checking the existing catalogue does not.
+Python 3.12+ (with SQLite 3.37+) and Node.js 18+ on macOS/Linux are sufficient; no third-party Python packages are needed. Model extraction additionally requires a current, authenticated Codex CLI; building and checking the existing catalogue does not.
 
 ```sh
-make build   # regenerate the website data and JSON, CSV and SQLite downloads
+make build   # restore missing sources and regenerate static chunks and research exports
 make check   # validate the source, exports, mathematics and interface
 make serve   # preview at http://127.0.0.1:8000
 ```
 
-GitHub Actions runs the checks and publishes `website/` to GitHub Pages. The self-contained static site serves the catalogue and its downloads without a database server.
+GitHub Actions restores the pinned sources, builds and checks the site, then publishes the runtime assets and data chunks to GitHub Pages. Complete downloads live in the data release. No database server is required.
+
+To publish new data while ingestion continues, freeze a copy of the working sources with the committed code, build and check that copy, then publish its immutable data release:
+
+```sh
+python3 -B scripts/data_snapshot.py prepare --freeze --upload
+```
+
+The only tracked file the command updates is `atlas/snapshot.json`. Commit and push that descriptor to deploy the new snapshot. It never replaces the live catalogue or reprocesses papers. An interrupted upload can be resumed with `python3 -B scripts/data_snapshot.py upload`; published releases are reused, never overwritten.
+
+See [website architecture](website/README.md) for loading, cache and publication behavior, and [the scale test](benchmarks/README.md) for reproducible synthetic measurements.
 
 ## Repository map
 
 | Path | Purpose |
 |---|---|
-| `atlas/catalogue.json` | Authoritative entries and bibliography |
+| `atlas/catalogue.json` | Authoritative local working catalogue, restored from the pinned data release |
+| `atlas/snapshot.json` | Immutable source URLs, download URLs and checksums |
 | `atlas/reference_spectra.json` | Exact SM/MSSM inventories for explicitly inherited input and presentation shorthand |
 | `atlas/schema.sql` | Relational export schema |
 | `bsm_atlas/` | Python package: intake, mathematical conventions, identities, projections and export |
 | `tests/` | Python and JavaScript regressions, with identity fixtures |
-| `website/` | Published static explorer and generated downloads |
+| `website/` | Static explorer source and generated local preview assets |
+| `bsm_atlas/web_bundle.py` | Content-addressed records, membership indexes and search postings |
+| `benchmarks/` | Synthetic transport scale tests and recorded measurements |
 | `scripts/check.py` | The shared local/CI verification command |
 | `experiments/extraction-pilot/` | Frozen extraction-pilot inputs, audit outcomes, measurements and report checks |
 | `paper/` | LaTeX manuscript and reproducible catalogue analysis |

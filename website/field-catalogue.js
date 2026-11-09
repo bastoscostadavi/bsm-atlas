@@ -35,9 +35,14 @@
      return terms.every(term=>text.includes(term));
    });
  }
+ const entryTextIndexes=new WeakMap();
  function findEntries(data,{q='',algebra='',paper='',core='',semisimple='',fullAlgebra='',abelianRank=''}={}){
-   const needle=q.trim().toLowerCase();
-   return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...data.papers.filter(p=>e.paperIds.includes(p.id)).flatMap(p=>[p.title,p.authors,p.arxiv])].join(' ').toLowerCase().includes(needle)));
+   const needle=q.trim().toLowerCase();let index;
+   if(needle&&!data._store){
+     index=entryTextIndexes.get(data);
+     if(!index){const papers=new Map(data.papers.map(p=>[p.id,p]));index=new Map(data.entries.map(e=>[e.id,[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...e.paperIds.flatMap(id=>{const p=papers.get(id);return p?[p.title,p.authors,p.arxiv]:[];})].join(' ').toLowerCase()]));entryTextIndexes.set(data,index);}
+   }
+   return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||(data._store?data._store.entryMatches(q,e.id):index.get(e.id).includes(needle))));
  }
  const dynkinLabel=c=>c.factor==='u(1)'?String(c.value??'?'):c.dynkin?'['+c.dynkin.join(',')+']':'?';
  function dynkinTuple(components){
@@ -70,12 +75,12 @@
  function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Multiplicity</th></tr></thead><tbody>'+template.rows.map(row=>'<tr><td class="math">'+esc(row.lorentz.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(row.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(row.components))+'</span></td><td>'+row.copies+'</td></tr>').join('')+'</tbody></table></div>';}
 
  function create(data,document){
-   const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'full-algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20,connections:{problems:[],mechanisms:[],view:'problems',q:'',filterQuery:'',limit:20}};
+   const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'full-algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,referencePage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20,connections:{problems:[],mechanisms:[],view:'problems',q:'',filterQuery:'',limit:20}};
    const problemExplorer=root.ProblemExplorer?.create(data,root.ATLAS_PROBLEMS);
    const mechanismExplorer=root.MechanismExplorer?.create(data,root.ATLAS_MECHANISMS);
    const connectionExplorer=root.ConnectionExplorer?.create(data,root.ATLAS_PROBLEMS,root.ATLAS_MECHANISMS);
    const papersPerPage=20;
-   const paperById=new Map(data.papers.map(p=>[p.id,p]));
+   const paperById=data._store?.papers||new Map(data.papers.map(p=>[p.id,p]));
    const orderedPapers=[...data.papers].sort(comparePapers);
    const coreById=new Map((data.cores||[]).map(c=>[c.id,c]));
    const algebraById=new Map((data.semisimpleAlgebras||[]).map(a=>[a.id,a]));
@@ -84,7 +89,25 @@
    const entryOrder=new Map(data.entries.map((e,i)=>[e.id,i]));
    const orderedEntryIds=ids=>[...ids].sort((a,b)=>(entryOrder.get(a)??Infinity)-(entryOrder.get(b)??Infinity));
    for(const e of data.entries)for(const a of e.aliases||[])entryById.set(a.id,e);
+   let renderGeneration=0,entrySearchTimer;
+   function defer(action){
+     const generation=++renderGeneration;
+     if(!data._store)return false;
+     const pending=data._store.ensure(state);
+     if(!pending)return false;
+     const container=document.getElementById('model-entries')||document.getElementById('view-content');
+     container.setAttribute?.('aria-busy','true');
+     container.innerHTML='<p class="subtle" role="status">Loading…</p>';
+     pending.then(()=>{if(generation===renderGeneration){container.setAttribute?.('aria-busy','false');action();}}).catch(error=>{
+       if(generation!==renderGeneration)return;
+       const reload=error instanceof root.AtlasStore.SnapshotChangedError;
+       container.setAttribute?.('aria-busy','false');
+       container.innerHTML='<p class="empty" role="alert">'+esc(error.message)+' <button type="button" class="text-button" '+(reload?'data-reload-catalogue':'data-load-retry')+'>'+(reload?'Reload catalogue':'Retry')+'</button></p>';
+     });return true;
+   }
+   function downloadLink(name){return data.downloads?.[name]||({catalogue:'catalogue.json',sqlite:'downloads/field-catalogue.sqlite'}[name]||'downloads/'+name+'.csv');}
    function route(){
+     ++renderGeneration;root.clearTimeout?.(entrySearchTimer);state.referencePage=1;
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
@@ -170,9 +193,13 @@
      }
    }
    function detail(e){
-     const references=[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
-     return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><ol class="reference-list" aria-label="Papers in chronological order">'+
-       references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p></div></li>';}).join('')+'</ol></section>';
+     const all=data._store?e.paperIds.map(id=>({paper_id:id})):[...e.references].sort((a,b)=>comparePapers(paperById.get(a.paper_id),paperById.get(b.paper_id)));
+     const pages=data._store?Math.max(1,Math.ceil(all.length/20)):1;
+     state.referencePage=Math.min(Math.max(1,state.referencePage),pages);
+     const references=data._store?all.slice((state.referencePage-1)*20,state.referencePage*20):all;
+     const pagination=pages>1?'<nav class="paper-pagination" aria-label="Reference pages">'+(state.referencePage>1?'<button type="button" class="text-button" data-reference-page="'+(state.referencePage-1)+'">← Previous</button>':'<span></span>')+'<span>Page '+state.referencePage+' of '+pages+'</span>'+(state.referencePage<pages?'<button type="button" class="text-button" data-reference-page="'+(state.referencePage+1)+'">Next →</button>':'<span></span>')+'</nav>':'';
+     return '<section class="entry-detail" id="detail-'+esc(e.id)+'"><div class="detail-heading"><h2>References</h2><button class="icon-button" data-close aria-label="Close references">×</button></div><ol class="reference-list"'+(data._store?' start="'+((state.referencePage-1)*20+1)+'"':'')+' aria-label="Papers in chronological order">'+
+       references.map(ref=>{const p=paperById.get(ref.paper_id);return '<li>'+paperDate(p)+'<div><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a><p class="reference-meta">'+esc(p.authors)+'<br>arXiv:'+esc(p.arxiv)+'</p></div></li>';}).join('')+'</ol>'+pagination+'</section>';
    }
    function gaugeHeading(c){
      if(c.sm)return c.label==='g_SM'?shorthand('g_SM'):'𝔤<sub>SM,'+esc(c.label.slice(5))+'</sub>';
@@ -209,7 +236,7 @@
    }
    function parameterMetadata(r,e){
      if(!Object.keys(r.parameters||{}).length)return '';
-     const mapping=e.references?.find(ref=>ref.parameter_names)?.parameter_names;
+     const mapping=e.referenceParameters||e.references?.find(ref=>ref.parameter_names)?.parameter_names;
      return '<div class="family-parameters"><p>Integer parameters: <span class="math">'+Object.keys(r.parameters).map(esc).join(', ')+'</span>.</p><details><summary>Parameter constraints</summary><ul>'+r.constraints.map(c=>'<li><code>'+esc(c)+'</code></li>').join('')+'</ul>'+(mapping?'<p>Source parameter names: <code>'+Object.entries(mapping).map(([source,target])=>esc(source)+' → '+esc(target)).join(', ')+'</code>.</p>':'')+'<p>Charges use expanded integer polynomials. Constraints are retained, not solved for equivalent domains. Shared primitive normalization is applied after specialization. A family is one entry, not an enumeration of its members.</p></details></div>';
    }
    function algebraCards(entries){
@@ -245,6 +272,7 @@
      root.AtlasDiagrams?.render(document);
    }
    function rows(){
+     if(defer(rows))return;
      updateCatalogueNavigation();
      const reset=document.getElementById('reset-filters');
      if(reset)reset.hidden=!['q','algebra','paper','abelianRank'].some(k=>state[k]);
@@ -252,15 +280,15 @@
      if(level()==='algebras')return algebraCards(entries);
      if(level()==='full-algebras')return fullAlgebraCards(entries);
      if(level()==='cores')return coreCards(entries);
-     state.limit=Math.max(state.limit,openIndex+1);
-     const visible=entries.slice(0,state.limit);
+     if(!data._store)state.limit=Math.max(state.limit,openIndex+1);
+     const visible=data._store?data._store.visibleEntries(entries,state):entries.slice(0,state.limit);
      document.getElementById('result-count').textContent=entries.length+(entries.length===1?' entry':' entries');
      document.getElementById('model-entries').innerHTML=visible.map(e=>{
        const r=e.regime;
        const refsOpen=state.open===e.id&&state.panel==='references',problemsOpen=state.open===e.id&&state.panel==='problems',mechanismsOpen=state.open===e.id&&state.panel==='mechanisms';
        const mechanismLabel=mechanismExplorer?.assessed(e.id)?'Mechanisms ('+mechanismExplorer.count(e.id)+')':'Mechanisms · unassessed';
        const problemLabel=problemExplorer?.assessed(e.id)?'Problems ('+problemExplorer.count(e.id)+')':'Problems · unassessed';
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+e.references.length+')" aria-expanded="'+refsOpen+'">References ('+e.references.length+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+(mechanismExplorer?'<button class="text-button problem-entry-button" data-mechanisms="'+esc(e.id)+'" aria-label="Mechanisms for '+esc(e.name)+'" aria-expanded="'+mechanismsOpen+'">'+mechanismLabel+' '+(mechanismsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):state.panel==='mechanisms'&&mechanismExplorer?mechanismExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+(e.referenceCount??e.references.length)+')" aria-expanded="'+refsOpen+'">References ('+(e.referenceCount??e.references.length)+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+(mechanismExplorer?'<button class="text-button problem-entry-button" data-mechanisms="'+esc(e.id)+'" aria-label="Mechanisms for '+esc(e.name)+'" aria-expanded="'+mechanismsOpen+'">'+mechanismLabel+' '+(mechanismsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):state.panel==='mechanisms'&&mechanismExplorer?mechanismExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -286,12 +314,14 @@
    }
    function sources(){
      const searched=Boolean(state.paperQuery.trim()||state.paperYear);
-     const papers=findPapers(orderedPapers,{q:state.paperQuery,year:state.paperYear});
-     const pages=Math.max(1,Math.ceil(papers.length/papersPerPage));
-     state.paperPage=Math.min(Math.max(1,state.paperPage),pages);
-     const offset=(state.paperPage-1)*papersPerPage,visible=papers.slice(offset,offset+papersPerPage);
-     const count=(pages>1?(offset+1)+'–'+(offset+visible.length)+' of ':'')+papers.length+' '+(papers.length===1?'paper':'papers');
-     const years=[...new Set(orderedPapers.map(p=>arxivDate(p)?.year).filter(Boolean).map(String))];
+     const prepared=data._store?.paperResults;
+     const papers=prepared?prepared.rows:findPapers(orderedPapers,{q:state.paperQuery,year:state.paperYear});
+     const total=prepared?prepared.total:papers.length;
+     const pages=prepared?prepared.pages:Math.max(1,Math.ceil(total/papersPerPage));
+     state.paperPage=prepared?prepared.page:Math.min(Math.max(1,state.paperPage),pages);
+     const offset=(state.paperPage-1)*papersPerPage,visible=prepared?papers:papers.slice(offset,offset+papersPerPage);
+     const count=(pages>1?(offset+1)+'–'+(offset+visible.length)+' of ':'')+total+' '+(total===1?'paper':'papers');
+     const years=data._store?[...data._store.manifest.years]:[...new Set(orderedPapers.map(p=>arxivDate(p)?.year).filter(Boolean).map(String))];
      if(state.paperYear&&!years.includes(state.paperYear))years.push(state.paperYear);
      years.sort((a,b)=>Number(b)-Number(a));
      const pagination=pages>1?'<nav class="paper-pagination" aria-label="Bibliography pages">'+
@@ -304,8 +334,8 @@
        '<label class="paper-year"><span class="sr-only">Year of first arXiv submission</span><select id="paper-year"><option value="">All years</option>'+years.map(year=>'<option value="'+esc(year)+'"'+(state.paperYear===year?' selected':'')+'>'+esc(year)+'</option>').join('')+'</select></label>'+
        '<button class="search-button" type="submit">Search</button></form>'+
        '<div id="paper-results" role="region" tabindex="-1" aria-label="Bibliography results">'+(!searched?'<p class="empty">Search by title, author or arXiv identifier, or choose a year.</p>':
-         '<div class="results-bar"><span>'+count+(papers.length?' · Oldest first':'')+'</span><a href="#sources">Clear search</a></div>'+
-         (!papers.length?'<p class="empty">No papers match your search. Try another title, author, arXiv identifier or year.</p>':
+         '<div class="results-bar"><span>'+count+(total?' · Oldest first':'')+'</span><a href="#sources">Clear search</a></div>'+
+         (!total?'<p class="empty">No papers match your search. Try another title, author, arXiv identifier or year.</p>':
            '<div class="source-list">'+visible.map(p=>'<article class="paper-item"><h2 class="paper-title"><a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></h2>'+
              '<p class="reference-meta">'+esc(p.authors)+'</p><p class="paper-meta">'+paperDate(p)+'<span>arXiv:'+esc(p.arxiv)+'</span></p>'+
              (p.entryIds.length?'<details class="paper-entries"><summary>'+p.entryIds.length+' atlas '+(p.entryIds.length===1?'entry':'entries')+'</summary><ul>'+orderedEntryIds(p.entryIds).map(id=>'<li><a href="#entry/'+esc(encodeURIComponent(id))+'">'+esc(entryById.get(id)?.name||id)+'</a></li>').join('')+'</ul></details>':'<p class="reference-meta">No linked atlas entries.</p>')+
@@ -322,6 +352,7 @@
      const current=level(),isCores=current==='cores',isAlgebras=current==='algebras',isFullAlgebras=current==='full-algebras',isGauge=isAlgebras||isFullAlgebras;
      const semisimpleOnly=isAlgebras||isCores;
      const csvLabel=isAlgebras?'All semisimple algebras':isFullAlgebras?'All full gauge algebras':isCores?'All semisimple matter spectra':'All model entries';
+     const csvKey=isAlgebras?'semisimple-algebras':isFullAlgebras?'full-gauge-algebras':isCores?'nonabelian-cores':'field-catalogue';
      const csvDescription=isGauge?'One row per gauge algebra.':isCores?'One row per semisimple matter spectrum.':'One row per model, with its exact specification.';
      const connectionCount=state.connections.problems.length+state.connections.mechanisms.length;
      const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length+connectionCount;
@@ -338,12 +369,13 @@
      return '<div class="catalogue-view-controls"><p class="section-note">'+descriptions[current]+'</p><label class="semisimple-toggle" title="Compare semisimple parts with u(1) factors omitted"><input id="semisimple-only" type="checkbox"'+(semisimpleOnly?' checked':'')+'><span>Semisimple part only</span></label></div>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="notation-control-label">Matter representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
        '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields">'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
-       '<details class="download-menu"><summary>Download</summary><div><p class="download-note">Complete datasets. Current search and filters are not applied.</p><a href="downloads/'+(isAlgebras?'semisimple-algebras.csv':isFullAlgebras?'full-gauge-algebras.csv':isCores?'nonabelian-cores.csv':'field-catalogue.csv')+'" download><strong>'+csvLabel+' · CSV</strong><span>'+csvDescription+'</span></a><a href="catalogue.json" download><strong>Complete catalogue · JSON</strong><span>All model specifications and paper references.</span></a><a href="downloads/field-catalogue.sqlite" download><strong>Catalogue database · SQLite</strong><span>All models and references in a relational database.</span></a><p class="download-note">Problem and mechanism annotations are not included.</p></div></details></div>'+
+       '<details class="download-menu"><summary>Download</summary><div><p class="download-note">Complete datasets. Current search and filters are not applied.</p><a href="'+esc(downloadLink(csvKey))+'" download><strong>'+csvLabel+' · CSV'+(downloadLink(csvKey).endsWith('.gz')?' (gzip)':'')+'</strong><span>'+csvDescription+'</span></a><a href="'+esc(downloadLink('catalogue'))+'" download><strong>Complete catalogue · JSON'+(downloadLink('catalogue').endsWith('.gz')?' (gzip)':'')+'</strong><span>All model specifications and paper references.</span></a><a href="'+esc(downloadLink('sqlite'))+'" download><strong>Catalogue database · SQLite'+(downloadLink('sqlite').endsWith('.gz')?' (gzip)':'')+'</strong><span>All models and references in a relational database.</span></a><p class="download-note">Problem and mechanism annotations are not included.</p></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
        '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
+     if(defer(render))return;
      const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',problems:'Problems',mechanisms:'Mechanisms'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Forces':'Forces and Matter'):titles[state.view];
      const key=document.getElementById('notation-key');
@@ -362,6 +394,7 @@
    }
    function refreshConnections(){
      url();
+     if(defer(refreshConnections))return;
      if(state.view==='catalogue'){
        const focused=document.activeElement,kind=focused?.dataset?.connectionKind,value=focused?.value;
        const scrolls=new Map(Array.from(document.querySelectorAll?.('.connection-picker')||[],picker=>[picker.dataset.picker,picker.querySelector('.connection-picker-options').scrollTop]));
@@ -379,6 +412,21 @@
    function start(){
      route();render();
      const content=document.getElementById('view-content');
+     async function loadEvidence(holder,page=1){
+       if(!data._store)return;
+       const {evidenceKind:kind,evidenceEntry:entry,evidenceTerm:term}=holder.dataset;
+       holder.innerHTML='<p class="subtle" role="status">Loading references…</p>';
+       try{await data._store.loadEvidence(kind,entry,term,page);if(holder.isConnected){const renderer=kind==='problems'?problemExplorer:mechanismExplorer;holder.outerHTML=renderer.evidence(entry,term);}}
+       catch(error){if(holder.isConnected){const reload=error instanceof root.AtlasStore.SnapshotChangedError;holder.innerHTML='<p role="alert">'+esc(error.message)+' <button type="button" class="text-button" '+(reload?'data-reload-catalogue':'data-evidence-page="'+page+'"')+'>'+(reload?'Reload catalogue':'Retry')+'</button></p>';}}
+     }
+     content.addEventListener('toggle',event=>{
+       if(!event.target.open||!data._store)return;
+       for(const holder of event.target.querySelectorAll('[data-lazy-evidence]'))if(!holder.dataset.loaded)loadEvidence(holder);
+     },true);
+     content.addEventListener('click',event=>{
+       const target=event.target.closest('[data-evidence-page]');if(target){const holder=target.closest('[data-lazy-evidence]');if(holder){event.preventDefault();loadEvidence(holder,Number(target.dataset.evidencePage));}}
+     });
+
      content.addEventListener('submit',e=>{
        if(e.target.id==='problem-search-form'){
          e.preventDefault();state.problemQuery=document.getElementById('problem-search').value.trim();state.problemLimit=20;url();render();return;
@@ -396,7 +444,7 @@
          state.connections.filterQuery=e.target.value;document.getElementById('connection-filter-groups').innerHTML=connectionExplorer.filterGroups(state.connections,[state.view]);return;
        }
        if(connectionExplorer&&e.target.id==='connection-model-search'){state.connections.q=e.target.value;state.connections.limit=20;refreshConnections();return;}
-       if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();rows();}});
+       if(e.target.id==='entry-search'){state.q=e.target.value;state.open='';url();if(data._store){root.clearTimeout(entrySearchTimer);entrySearchTimer=root.setTimeout(()=>{if(state.view==='catalogue')rows();},250);}else rows();}});
      content.addEventListener('change',e=>{
        if(e.target.id==='semisimple-only'){
          const gauge=['algebras','full-algebras'].includes(level());
@@ -413,6 +461,11 @@
        if(e.target.id==='notation-select'){state.mode=e.target.value;url();rows();}
      });
      content.addEventListener('click',e=>{
+       if(e.target.closest('[data-load-retry]')){render();return;}
+       if(e.target.closest('[data-reload-catalogue]')){root.location.reload();return;}
+       const referencePage=e.target.closest('[data-reference-page]');
+       if(referencePage){state.referencePage=Number(referencePage.dataset.referencePage);rows();return;}
+
        const remove=e.target.closest('[data-connection-remove]');
        if(connectionExplorer&&remove){
          const kind=remove.dataset.connectionKind;state.connections[kind]=state.connections[kind].filter(id=>id!==remove.dataset.connectionRemove);
@@ -432,7 +485,7 @@
        if(open){
          const same=state.open===open.dataset.open&&state.panel==='references';
          state.open=same?'':open.dataset.open;
-         state.panel='references';
+         state.panel='references';state.referencePage=1;
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
        else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});state.connections.problems=[];state.connections.mechanisms=[];url();render();}
@@ -462,5 +515,8 @@
    return {start,state,render,rows,route,url};
  }
  root.FieldCatalogue={create,findEntries,findPapers,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers};
- if(root.document&&root.FIELD_CATALOGUE)create(root.FIELD_CATALOGUE,root.document).start();
+ if(root.document&&root.ATLAS_MANIFEST_URL&&root.AtlasStore){
+   const container=root.document.getElementById('view-content');container.innerHTML='<p class="subtle" role="status">Loading catalogue…</p>';
+   root.AtlasStore.open(root.ATLAS_MANIFEST_URL).then(store=>{root.ATLAS_PROBLEMS=store.annotations.problems;root.ATLAS_MECHANISMS=store.annotations.mechanisms;create(store.data,root.document).start();}).catch(error=>{container.innerHTML='<p role="alert">'+esc(error.message)+' <button type="button" class="text-button" id="reload-catalogue">Retry</button></p>';root.document.getElementById('reload-catalogue').addEventListener('click',()=>root.location.reload());});
+ }else if(root.document&&root.FIELD_CATALOGUE)create(root.FIELD_CATALOGUE,root.document).start();
 })(typeof window==='undefined'?globalThis:window);

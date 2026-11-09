@@ -20,13 +20,16 @@ const css=read('field-catalogue.css');
 assert(css.includes('.notation-grid p .math{font:inherit}'));
 assert(css.includes('.notation-grid p sub{font-size:.75em;line-height:0}'));
 assert(html.includes('href="#problems"'));
-assert(html.includes('src="problem-data.js?'));
+assert(!html.includes('src="problem-data.js?'));
+assert(html.includes('src="atlas-bootstrap.js?'));
+assert(html.includes('src="atlas-store.js?'));
+assert(!html.includes('src="field-catalogue-data.js?'));
 assert(html.includes('src="problem-explorer.js?'));
 assert(html.includes('href="#mechanisms"'));
 assert(html.includes('id="nav-forces" href="#full-algebras"'));
 assert(html.includes('id="nav-matter" href="#entries"'));
 assert(!html.includes('id="catalogue-menu"'));
-assert(html.includes('src="mechanism-data.js?'));
+assert(!html.includes('src="mechanism-data.js?'));
 assert(html.includes('src="connection-explorer.js?'));
 const repository=new URL('../',website);
 for(const file of ['README.md','BSM_ATLAS_AGENT_PROMPT.md','atlas/README.md','atlas/FIELD_CONTENT_CONVENTIONS.md','website/README.md']){

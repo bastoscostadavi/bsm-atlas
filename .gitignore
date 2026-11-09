@@ -5,3 +5,18 @@ __pycache__/
 atlas/papers/
 .harvest/
 *.json.lock
+
+# Sources are restored from the pinned data release; ingestion keeps local copies.
+atlas/catalogue.json
+atlas/literature_links.json
+# Reproducible research exports and public data chunks are build outputs.
+.build/
+website/data/
+website/atlas-bootstrap.js
+website/field-catalogue-data.js
+website/field-catalogue.json
+website/catalogue.json
+website/problem-data.js
+website/mechanism-data.js
+website/downloads/
+corpus/

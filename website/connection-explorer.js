@@ -77,11 +77,12 @@
      }
      const relevant=selected.length?annotations.filter(a=>a.matched):annotations.filter(a=>a.kind===state.view);
      const paperIds=new Set(relevant.flatMap(a=>a.rows.map(r=>r.paperId)));
-     const flagged=relevant.reduce((n,a)=>n+a.rows.filter(r=>r.needsReview).length,0);
+     const associationCount=relevant.reduce((n,a)=>n+(layers[a.kind].data.linkCounts?.[entry.id]?.[a.term.id]??a.rows.length),0);
+     const flagged=relevant.reduce((n,a)=>n+(layers[a.kind].data.reviewCounts?.[entry.id]?.[a.term.id]??a.rows.filter(r=>r.needsReview).length),0);
      const matched=selected.filter(s=>matches(entry.id,s)).length;
      return '<article class="connection-result"><div class="connection-result-heading"><h3><a href="#entry/'+encodeURIComponent(entry.id)+'">'+esc(entry.name)+'</a></h3><a class="problem-entry-link" href="#entry/'+encodeURIComponent(entry.id)+'">View entry →</a></div><p class="connection-result-algebra">'+esc(entry.algebraExpanded||'')+'</p>'+
        '<div class="connection-result-tags">'+relevant.map(a=>'<a class="connection-result-tag '+a.kind+'" href="'+esc(url({...state,view:a.kind,[a.kind]:[a.term.id],[a.kind==='problems'?'mechanisms':'problems']:[],q:''}))+'"><span>'+layers[a.kind].singular+'</span>'+esc(a.term.label)+'</a>').join('')+'</div>'+
-       '<p class="connection-result-meta">'+(selected.length?matched+' of '+selected.length+' selected filters · ':'')+number(paperIds.size)+' supporting '+(paperIds.size===1?'paper':'papers')+(flagged?' · '+number(flagged)+' '+(flagged===1?'association flagged':'associations flagged')+' for review':'')+'</p>'+
+       '<p class="connection-result-meta">'+(selected.length?matched+' of '+selected.length+' selected filters · ':'')+(catalogue._store?number(associationCount)+' source '+(associationCount===1?'association':'associations'):number(paperIds.size)+' supporting '+(paperIds.size===1?'paper':'papers'))+(flagged?' · '+number(flagged)+' '+(flagged===1?'association flagged':'associations flagged')+' for review':'')+'</p>'+
        '<details class="connection-evidence"><summary>Supporting papers & evidence</summary>'+relevant.map(a=>'<section class="connection-evidence-term"><h4>'+esc(a.term.label)+'</h4><p class="problem-definition">'+esc(a.term.main_idea||a.term.include)+'</p>'+layers[a.kind].renderer.evidence(entry.id,a.term.id)+'</section>').join('')+'</details></article>';
    }
    function results(state={}){

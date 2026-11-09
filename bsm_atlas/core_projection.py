@@ -51,24 +51,27 @@ def attach_layers(entries):
                     'gauge_representations':{a['key']:rep for a,rep in zip(fs,f['gauge'])}} for f in c['matter']]}
             regime=matrix(s); regime['coreRows']=regime.pop('rows')
             cores[core['id']]={'id':core['id'],'canonical':c,'algebra':label(fs),
-                'semisimpleId':algebra['id'],'entryIds':[],'paperIds':[],'abelianRanks':[],
-                'fullAlgebraIds':[],'regime':regime}
+                'semisimpleId':algebra['id'],'entryIds':[],'paperIds':set(),'abelianRanks':set(),
+                'fullAlgebraIds':set(),'regime':regime}
         if algebra['id'] not in algebras:
             fs=group_factors(algebra['canonical'])
             algebras[algebra['id']]={**algebra,'algebra':label(fs),
                 'algebraSignature':'+'.join(sorted(a['id'] for a in fs)),
-                'factors':fs,'entryIds':[],'paperIds':[],'coreIds':[],'fullAlgebraIds':[]}
+                'factors':fs,'entryIds':[],'paperIds':set(),'coreIds':set(),'fullAlgebraIds':set()}
         if whole['id'] not in full:
             fs=group_factors(whole['canonical'])
             full[whole['id']]={**whole,'algebra':label(fs),'factors':fs,
-                'entryIds':[],'paperIds':[],'coreIds':[]}
+                'entryIds':[],'paperIds':set(),'coreIds':set()}
         for group in [cores[core['id']],algebras[algebra['id']],full[whole['id']]]:
             group['entryIds'].append(entry['id'])
-            group['paperIds']=sorted(set(group['paperIds'])|set(entry['paperIds']))
-            if 'coreIds' in group:group['coreIds']=sorted(set(group['coreIds'])|{core['id']})
-            if 'fullAlgebraIds' in group:group['fullAlgebraIds']=sorted(set(group['fullAlgebraIds'])|{whole['id']})
-        cores[core['id']]['abelianRanks']=sorted(set(cores[core['id']]['abelianRanks'])|{whole['abelianRank']})
+            group['paperIds'].update(entry['paperIds'])
+            if 'coreIds' in group:group['coreIds'].add(core['id'])
+            if 'fullAlgebraIds' in group:group['fullAlgebraIds'].add(whole['id'])
+        cores[core['id']]['abelianRanks'].add(whole['abelianRank'])
     for groups in [cores,algebras,full]:
-        for group in groups.values():group['entryIds'].sort()
+        for group in groups.values():
+            group['entryIds'].sort()
+            for key in ['paperIds','coreIds','fullAlgebraIds','abelianRanks']:
+                if key in group:group[key]=sorted(group[key])
     return (sorted(cores.values(),key=lambda group:spectrum_sort_key(group['canonical'])+(group['id'],)),
             sorted(algebras.values(),key=algebra_sort_key),sorted(full.values(),key=algebra_sort_key))

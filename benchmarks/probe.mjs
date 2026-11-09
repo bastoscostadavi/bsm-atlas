@@ -1,0 +1,24 @@
+/* Transport/readiness measurements, not a browser rendering benchmark. */
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {webcrypto} from 'node:crypto';
+import {gzipSync} from 'node:zlib';
+import {performance} from 'node:perf_hooks';
+import path from 'node:path';
+const directory=process.argv[2],source=process.argv[3],manifest=process.argv[4];
+let bytes=0;const requests=[];
+const context={URL,TextEncoder,crypto:webcrypto,location:{href:'https://benchmark.test/'}};
+context.window=context;
+context.fetch=async url=>{const relative=new URL(url).pathname.slice(1),raw=fs.readFileSync(path.join(directory,relative));requests.push(relative);bytes+=raw.length;return {ok:true,status:200,text:async()=>raw.toString('utf8')};};
+vm.runInNewContext(fs.readFileSync(source,'utf8'),context);
+let started=performance.now();const store=await context.AtlasStore.open(manifest);
+const initial={requests:requests.length,bytes,gzip_bytes:requests.reduce((n,name)=>n+gzipSync(fs.readFileSync(path.join(directory,name))).length,0),milliseconds:Math.round(performance.now()-started)};
+const popular=store.data.entries.find(entry=>entry.id==='benchmark-model-0');
+const state={view:'catalogue',browse:'entries',q:'',core:popular.coreId,semisimple:'',fullAlgebra:'',paper:'',abelianRank:'',open:popular.id,panel:'references',limit:20,referencePage:1,connections:{problems:[],mechanisms:[]}};
+let before=requests.length,previous=bytes;started=performance.now();await store.prepare(state);
+const references={total:popular.referenceCount,loaded_paper_records:store.papers.size,requests:requests.length-before,bytes:bytes-previous,milliseconds:Math.round(performance.now()-started)};
+before=requests.length;previous=bytes;started=performance.now();await store.prepare({view:'sources',paperQuery:'quasar',paperYear:'',paperPage:1});
+const search={matches:store.paperResults.total,displayed_records:store.paperResults.rows.length,requests:requests.length-before,bytes:bytes-previous,milliseconds:Math.round(performance.now()-started)};
+before=requests.length;previous=bytes;started=performance.now();const evidence=await store.loadEvidence('problems',popular.id,'dark_matter');
+const details={total:evidence.total,loaded:evidence.rows.length,requests:requests.length-before,bytes:bytes-previous,milliseconds:Math.round(performance.now()-started)};
+console.log(JSON.stringify({initial,references,search,evidence:details}));

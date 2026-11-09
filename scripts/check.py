@@ -18,6 +18,7 @@ def main():
         python + ['-m', 'bsm_atlas', 'build', '--check'],
         python + ['-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_*.py'],
         ['node', 'tests/check_assets.mjs'],
+        ['node', 'tests/atlas-store.test.mjs'],
         ['node', 'tests/field-catalogue.test.mjs'],
         ['node', 'tests/problem-explorer.test.mjs'],
         ['node', 'tests/connection-explorer.test.mjs'],

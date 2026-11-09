@@ -1,6 +1,8 @@
 # Catalogue data
 
-[Catalogue source](catalogue.json) · [Conventions](FIELD_CONTENT_CONVENTIONS.md) · [Ingestion instructions](../BSM_ATLAS_AGENT_PROMPT.md)
+[Published source snapshot](snapshot.json) · [Conventions](FIELD_CONTENT_CONVENTIONS.md) · [Ingestion instructions](../BSM_ATLAS_AGENT_PROMPT.md)
+
+The working file `atlas/catalogue.json` is restored from the data release pinned in `snapshot.json` by `make prepare`. Existing local files are preserved, including ongoing ingestion. Complete data snapshots are Release assets; the repository tracks their URLs and checksums.
 
 The authoritative source has two lists: `papers` and `entries`. Papers contain versioned arXiv bibliography and an informational `extraction_status` (`not_started`, `complete` or `unresolved`; omitted legacy values default to `not_started`). Normal harvesting skips any version already in this list, irrespective of status. Valid extracted entries are normalized and written automatically; completion is not a certificate of physical consistency. An entry contains a complete `specification` and its `references`. References may include short source locators and a source-to-canonical parameter-name map. Entry names and aliases help navigation; they do not distinguish mathematical objects.
 

@@ -1,0 +1,36 @@
+{
+  "kind": "synthetic transport benchmark; not extracted scientific data",
+  "papers": 100000,
+  "models": 5000,
+  "linked_paper_fraction": 0.2,
+  "build_seconds": 27.757,
+  "data_files": 1536,
+  "total_data_bytes": 72939633,
+  "initial": {
+    "requests": 4,
+    "bytes": 5413513,
+    "gzip_bytes": 900475,
+    "milliseconds": 47
+  },
+  "references": {
+    "total": 10000,
+    "loaded_paper_records": 20,
+    "requests": 23,
+    "bytes": 1004504,
+    "milliseconds": 5
+  },
+  "search": {
+    "matches": 1000,
+    "displayed_records": 20,
+    "requests": 22,
+    "bytes": 3217064,
+    "milliseconds": 17
+  },
+  "evidence": {
+    "total": 10000,
+    "loaded": 20,
+    "requests": 2,
+    "bytes": 51314,
+    "milliseconds": 3
+  }
+}
