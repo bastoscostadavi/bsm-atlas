@@ -33,6 +33,8 @@ See the [conventions](atlas/FIELD_CONTENT_CONVENTIONS.md) for scalar counting, c
 
 The website derives its four browsing views and counts directly from this source. JSON, CSV and SQLite downloads expose the same catalogue for analysis and reuse.
 
+Paper-specific problem and mechanism associations are stored separately in [atlas/literature_links.json](atlas/literature_links.json). The compact [literature baseline](atlas/literature_baseline.json) preserves earlier published associations. Together these files reproduce the website’s annotation layers without paper text, prompts or raw model responses.
+
 The [catalogue schema](atlas/catalogue.schema.json) describes entries and references; the [specification schema](atlas/entry.schema.json) describes the mathematical input. Executable validation also enforces normalization, exact weights, charge syntax, complete inventories and duplicate identities. Only fully specified entries are added.
 
 ## Adding papers and models

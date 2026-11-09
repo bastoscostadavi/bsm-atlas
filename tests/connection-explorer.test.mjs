@@ -10,7 +10,10 @@ const problems=context.ATLAS_PROBLEMS,mechanisms=context.ATLAS_MECHANISMS;
 const explorer=context.ConnectionExplorer.create(data,problems,mechanisms);
 const ids=entries=>Array.from(entries,e=>e.id);
 assert.equal(mechanisms.mechanisms.length,31);
-assert.equal(Object.values(mechanisms.links).reduce((n,terms)=>n+Object.keys(terms).length,0),1624);
+const baseline=JSON.parse(fs.readFileSync(new URL('../atlas/literature_baseline.json',website))).mechanisms;
+for(const [entry,terms] of Object.entries(baseline.links))for(const [term,rows] of Object.entries(terms)){
+ for(const row of rows)assert(mechanisms.links[entry]?.[term]?.some(actual=>JSON.stringify(actual)===JSON.stringify(row)));
+}
 for(const [id,terms] of Object.entries(mechanisms.links)){
  const entry=data.entries.find(e=>e.id===id);assert(entry);
  assert(mechanisms.assessed.includes(id));
@@ -36,7 +39,7 @@ for(const state of [multipleProblems,multipleMechanisms,mixed]){
 // No selections leaves the entire structural catalogue, including unassessed entries.
 assert.deepEqual(ids(explorer.filterEntries(data.entries,{})),ids(data.entries));
 assert(explorer.find({view:'mechanisms'}).length<data.entries.length);
-for(const id of ['linear_seesaw','does_not_exist','__proto__','toString']){
+for(const id of ['does_not_exist','__proto__','toString']){
  assert.equal(explorer.find({mechanisms:[id]}).length,0);
  assert.equal(explorer.filterEntries(data.entries,{mechanisms:[id]}).length,0);
 }
@@ -44,7 +47,7 @@ assert.equal(explorer.normalize({problems:['dark_matter','dark_matter']}).proble
 assert.equal(explorer.parse('#problems/dark_matter?search=nuMSM').problems[0],'dark_matter');
 assert.equal(explorer.parse('#mechanisms/thermal_freeze_out').mechanisms[0],'thermal_freeze_out');
 assert(explorer.find({view:'mechanisms',q:'nuMSM',mechanisms:['thermal_freeze_out']}).some(e=>e.id==='numsm'));
-assert(explorer.results({mechanisms:['linear_seesaw']}).includes('No entries match'));
+assert(explorer.results({mechanisms:['does_not_exist']}).includes('No entries match'));
 const mechanismPage=explorer.page(multipleMechanisms);
 assert(mechanismPage.includes('type="checkbox"'));
 assert(mechanismPage.includes('data-connection-kind="mechanisms"'));
@@ -73,7 +76,9 @@ app.url();
 for(const value of ['problem=dark_matter','problem=neutrino_masses','mechanism=thermal_freeze_out','mechanism=coannihilation'])assert(context.location.hash.includes(value));
 const menu=['nav-forces','nav-matter'].map(id=>nodes.get(id).href);
 for(const href of menu)for(const value of ['problem=dark_matter','problem=neutrino_masses','mechanism=thermal_freeze_out','mechanism=coannihilation'])assert(href.includes(value));
-render('#catalogue?mechanism=linear_seesaw');assert.equal(nodes.get('result-count').textContent,'0 semisimple parts');
+render('#catalogue?mechanism=linear_seesaw');
+const linearSeesawAlgebras=new Set(explorer.find({mechanisms:['linear_seesaw']}).map(entry=>entry.semisimpleId)).size;
+assert.equal(nodes.get('result-count').textContent,linearSeesawAlgebras+' semisimple '+(linearSeesawAlgebras===1?'part':'parts'));
 render('#entries?problem=dark_matter&mechanism=thermal_freeze_out&q=nuMSM');
 const searchCount=explorer.filterEntries(context.FieldCatalogue.findEntries(data,{q:'nuMSM'}),{problems:['dark_matter'],mechanisms:['thermal_freeze_out']}).length;
 assert.equal(nodes.get('result-count').textContent,searchCount+' '+(searchCount===1?'entry':'entries'));

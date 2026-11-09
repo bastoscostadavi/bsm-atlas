@@ -7,8 +7,13 @@ context.window=context;
 for(const file of ['problem-data.js','problem-explorer.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,website),'utf8'),context);
 const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',website)));
 const annotations=context.ATLAS_PROBLEMS,explorer=context.ProblemExplorer.create(data,annotations);
-assert.equal(Object.values(annotations.links).reduce((n,x)=>n+Object.keys(x).length,0),1466);
-assert.equal(Object.values(annotations.links).flatMap(x=>Object.values(x)).reduce((n,x)=>n+x.length,0),4253);
+// New harvesting extends the published baseline; no old association is lost.
+const baseline=JSON.parse(fs.readFileSync(new URL('../atlas/literature_baseline.json',website))).problems;
+for(const [entry,terms] of Object.entries(baseline.links))for(const [term,rows] of Object.entries(terms)){
+ for(const row of rows)assert(annotations.links[entry]?.[term]?.some(actual=>JSON.stringify(actual)===JSON.stringify(row)));
+}
+const darkMatterPaperCount=new Set(Object.values(annotations.links).flatMap(terms=>(terms.dark_matter||[]).map(row=>row.paperId))).size;
+const darkMatterPaperLabel=darkMatterPaperCount.toLocaleString('en')+' supporting papers';
 assert(!annotations.links['sm-chromomagnetic-eft']);
 assert(!annotations.assessed.includes('sm-chromomagnetic-eft'));
 for(const id of Object.keys(annotations.links))assert(data.entries.some(e=>e.id===id));
@@ -33,7 +38,7 @@ assert(explorer.entry(unassessed.id).includes('It is unassessed'));
 assert(explorer.entry(zero.id).includes('No “addresses” associations'));
 assert(explorer.problem('qcd_mass_gap').includes('Problem not found'));
 assert(!explorer.entry('mssm-matter').includes('>Confinement</span>'));
-assert(explorer.problem('dark_matter','nuMSM').includes('46 supporting papers'));
+assert(explorer.problem('dark_matter','nuMSM').includes(darkMatterPaperLabel));
 assert(!explorer.problem('dark_matter','nuMSM').includes('<h3><a href="#entry/mssm-matter'));
 assert(explorer.entry('numsm').includes('Quote not found'));
 assert(!explorer.entry('numsm').includes('Evidence review needed'));
@@ -70,7 +75,7 @@ for(const [view,title] of [['sources','Papers'],['notation','Notation']]){
 }
 context.location.hash='#problems/dark_matter?search=nuMSM';app.route();app.render();
 assert.equal(app.state.view,'problems');assert.equal(app.state.problem,'dark_matter');
-assert(nodes.get('view-content').innerHTML.includes('46 supporting papers'));
+assert(nodes.get('view-content').innerHTML.includes(darkMatterPaperLabel));
 context.location.hash='#entry/numsm?panel=problems';app.route();app.render();
 assert.equal(app.state.panel,'problems');
 assert(nodes.get('model-entries').innerHTML.includes('Problem associations'));

@@ -13,6 +13,8 @@ def main():
     commands = [['node', '--check', str(p.relative_to(ROOT))]
                 for p in sorted((ROOT / 'website').glob('*.js'))]
     commands += [
+        python + ['scripts/build_problem_preview.py', '--check'],
+        python + ['scripts/build_mechanism_preview.py', '--check'],
         python + ['-m', 'bsm_atlas', 'build', '--check'],
         python + ['-m', 'unittest', 'discover', '-s', 'tests', '-p', 'test_*.py'],
         ['node', 'tests/check_assets.mjs'],

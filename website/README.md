@@ -92,8 +92,11 @@ preserved, including those affecting model identification. Passing the automated
 checks does not verify the scientific interpretation.
 
 These layers are separate from the structural catalogue and its downloads.
-`problem-data.js` and `mechanism-data.js` are generated from the frozen experiment
-exports. Refresh them from local research inputs with:
+`problem-data.js` and `mechanism-data.js` are generated from the compact published
+baseline in `atlas/literature_baseline.json` and new paper-specific associations
+in `atlas/literature_links.json`. Neither paper text nor raw extraction responses
+are needed to reproduce these assets. Refresh all website data with `make build`,
+or rebuild the annotations separately with:
 
 ```sh
 python3 -B scripts/build_problem_preview.py
@@ -101,10 +104,10 @@ python3 -B scripts/build_mechanism_preview.py
 make build
 ```
 
-Both exporters reject changed specifications and missing paper references for
-positive annotations, and omit removed catalogue entries. Each supports `--check`
-for verification without rewriting its asset. Frozen experiment inputs stay
-outside the published website. `make check` tests the generated assets, evidence,
+Both exporters reject changed baseline specifications and missing paper references
+for positive annotations, and omit removed catalogue entries. Each supports
+`--check` for verification without rewriting its asset. `make check` verifies
+that both assets match their compact inputs and tests evidence,
 multiple-selection intersections, catalogue integration, routes and controls.
 `make serve` previews the site locally. GitHub Pages publishes the website through
 the existing workflow; no server-side runtime is needed.

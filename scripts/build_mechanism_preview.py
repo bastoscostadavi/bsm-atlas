@@ -1,63 +1,17 @@
 #!/usr/bin/env python3
-"""Export the frozen Luna annotations as a separate website preview layer."""
+"""Export public mechanism associations from compact catalogue records."""
 import argparse
-from collections import defaultdict
-import csv
-from hashlib import sha256
 import json
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-RUN = ROOT / 'experiments/mechanism-mapping-luna'
-EXCLUDED_CATEGORIES = set()
-DISPLAY_LABELS = {'radiative_neutrino_mass': 'Radiative neutrino mass'}
+sys.path.insert(0, str(ROOT))
+from bsm_atlas.literature import preview
 
 
 def payload():
-    catalogue = json.loads((ROOT / 'atlas/catalogue.json').read_text())
-    entries = {e['id']: e for e in catalogue['entries']}
-    manifest = json.loads((RUN / 'manifest.json').read_text())
-    frozen = {m['id']: m for p in manifest['papers'] for m in p['models']}
-    taxonomy = json.loads((RUN / 'mechanisms.json').read_text())
-    categories = [c for c in taxonomy['categories'] if c['id'] not in EXCLUDED_CATEGORIES]
-    mechanisms = [{**p, 'label': DISPLAY_LABELS.get(p['id'], p['label'])}
-                  for p in taxonomy['mechanisms'] if p['category_id'] not in EXCLUDED_CATEGORIES]
-    visible_mechanisms = {p['id'] for p in mechanisms}
-    assessed = set()
-    with (RUN / 'classifications.csv').open() as stream:
-        for row in csv.DictReader(stream):
-            if row['processing_state'] == 'completed' and row['model_id'] in entries:
-                assessed.add(row['model_id'])
-    for model in assessed:
-        if entries[model]['specification'] != frozen[model]['specification']:
-            raise ValueError('Assessed entry changed since Luna assessment: ' + model)
-    links = defaultdict(lambda: defaultdict(list))
-    with (RUN / 'mechanism_links.csv').open() as stream:
-        for row in csv.DictReader(stream):
-            if row['mechanism_id'] not in visible_mechanisms:
-                continue
-            model = row['model_id']
-            if model not in entries:
-                # Frozen assessments can outlive a removed catalogue entry.
-                if model in frozen:
-                    continue
-                raise ValueError('Positive annotation has no current entry: ' + model)
-            if entries[model]['specification'] != frozen[model]['specification']:
-                raise ValueError('Entry changed since Luna assessment: ' + model)
-            assert row['status'] == 'implements' and row['processing_state'] == 'completed'
-            assert row['paper_id'] in {r['paper_id'] for r in entries[model]['references']}
-            links[model][row['mechanism_id']].append({
-                'paperId': row['paper_id'], 'rationale': row['rationale'],
-                'evidence': json.loads(row['evidence_json']),
-                'needsReview': row['needs_review'] == 'True',
-                'reviewReasons': json.loads(row['review_reasons_json']),
-            })
-    return {'schemaVersion': 1, 'snapshot': '4 November 2026', 'model': 'Luna',
-            'catalogueSha256': manifest['catalogue_sha256'],
-            'currentCatalogueSha256': sha256((ROOT / 'atlas/catalogue.json').read_bytes()).hexdigest(),
-            'classificationsSha256': sha256((RUN / 'classifications.csv').read_bytes()).hexdigest(),
-            'categories': categories, 'mechanisms': mechanisms,
-            'assessed': sorted(assessed), 'links': links}
+    return preview('mechanisms')
 
 
 def main():
