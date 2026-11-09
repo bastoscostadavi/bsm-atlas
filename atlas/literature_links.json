@@ -138495,7 +138495,7 @@
       },
       "models": [
         {
-          "entry_id": "minimal-atomic-dark-matter",
+          "entry_id": "atomic-dark-matter-secluded",
           "problems": [
             {
               "term_id": "dark_matter",
@@ -148739,77 +148739,7 @@
         "needs_followup": true,
         "source_repair_required": false
       },
-      "models": [
-        {
-          "entry_id": "universal-seesaw-left-right-matter-genesis",
-          "problems": [
-            {
-              "term_id": "dark_matter",
-              "rationale": "The paper develops this model’s stable right-handed neutrino as its dark matter candidate, derives its abundance relation to the baryon asymmetry, and constrains its mass and detection prospects.",
-              "evidence": [
-                {
-                  "quote": "Our dark matter candidate is, by construction, rather light $m_{\\nu_R} \\sim GeV$ and abundant.",
-                  "locator": "L000471–L000475, Observational implications"
-                },
-                {
-                  "quote": "The density of dark matter is simply equal to $n_{dm} = n_{\\nu_R} = n_D$.",
-                  "locator": "L000366–L000369, matter-density relation"
-                }
-              ],
-              "reviewReasons": [
-                "quote_found",
-                "quote_near_locator"
-              ]
-            },
-            {
-              "term_id": "matter_antimatter_asymmetry",
-              "rationale": "The model explicitly generates a visible-sector B−L asymmetry through heavy Majorana N decays and relates it to the baryon asymmetry and the dark-sector asymmetry.",
-              "evidence": [
-                {
-                  "quote": "We will assume that the initial $B-L$ asymmetry is provided by the out-of-equilibrium, CP violating decay of the heavy singlet Majorana fields $N$.",
-                  "locator": "L000280–L000288, Initial B-L asymmetry"
-                },
-                {
-                  "quote": "these decay processes may sequestrate a $B-L$ asymmetry between the dark and visible sectors",
-                  "locator": "L000295–L000301, Initial B-L asymmetry"
-                }
-              ],
-              "reviewReasons": []
-            }
-          ],
-          "mechanisms": [
-            {
-              "term_id": "leptogenesis",
-              "rationale": "The model uses out-of-equilibrium, CP-violating decays of heavy Majorana singlets to create the initial B−L asymmetry, which is converted to baryon asymmetry.",
-              "evidence": [
-                {
-                  "quote": "the initial $B-L$ asymmetry is provided by the out-of-equilibrium, CP violating decay of the heavy singlet Majorana fields $N$.",
-                  "locator": "L000280–L000288, Initial B-L asymmetry"
-                }
-              ],
-              "reviewReasons": []
-            },
-            {
-              "term_id": "asymmetric_dark_matter",
-              "rationale": "A dark-sector particle–antiparticle asymmetry survives messenger annihilation and its decay yields the stable right-handed neutrino dark matter abundance related to the baryon density.",
-              "evidence": [
-                {
-                  "quote": "The density of dark matter is simply equal to $n_{dm} = n_{\\nu_R} = n_D$.",
-                  "locator": "L000366–L000369, matter-density relation"
-                },
-                {
-                  "quote": "a small asymmetry survives",
-                  "locator": "L000329–L000335, Annihilation of messenger particles"
-                }
-              ],
-              "reviewReasons": [
-                "quote_found",
-                "quote_near_locator"
-              ]
-            }
-          ]
-        }
-      ]
+      "models": []
     },
     "arxiv-2603-02996v3": {
       "arxiv": "2603.02996v3",
@@ -192835,7 +192765,7 @@
       },
       "models": [
         {
-          "entry_id": "minimal-left-right-symmetric-model-947ba3e031a5",
+          "entry_id": "lr-triplet-matter",
           "problems": [
             {
               "term_id": "neutrino_masses",
@@ -209949,7 +209879,7 @@
       },
       "models": [
         {
-          "entry_id": "minimal-left-right-model",
+          "entry_id": "lr-triplet-matter",
           "problems": [
             {
               "term_id": "neutrino_masses",

@@ -24,6 +24,26 @@ NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification'
 
 
 class CatalogueTests(unittest.TestCase):
+    def test_atomic_and_left_right_papers_link_complete_spectra(self):
+        papers = {paper['arxiv']: paper for paper in DATA['papers']}
+        expected = [
+            ('2212.02487v2', 'atomic-dark-matter-secluded', 'minimal-atomic-dark-matter'),
+            ('1112.6419v3', 'lr-triplet-matter', 'minimal-left-right-model'),
+            ('1612.06840v2', 'lr-triplet-matter', 'minimal-left-right-symmetric-model-947ba3e031a5'),
+        ]
+        for arxiv, target, alias in expected:
+            with self.subTest(arxiv=arxiv):
+                self.assertIn(target, papers[arxiv]['entryIds'])
+                self.assertNotIn(alias, ENTRIES)
+                self.assertIn(alias, {item['id'] for item in ENTRIES[target].get('aliases', [])})
+                self.assertTrue(any(factor['family'] == 'A' and factor['rank'] == 2
+                                    for factor in ENTRIES[target]['specification']['gauge_factors']))
+        atomic = ENTRIES['atomic-dark-matter-secluded']['specification']
+        dark_fermions = [field for field in atomic['matter']
+                         if field['gauge_representations']['D']['charge'] != '0']
+        self.assertEqual({field['gauge_representations']['D']['charge']: field['copies']
+                          for field in dark_fermions}, {'1': 2, '-1': 2})
+
     def test_broken_phase_higgs_benchmarks_are_not_full_model_entries(self):
         removed={f'higgs-characterisation-broken-phase-spin-{spin}' for spin in (0,1,2)}
         self.assertFalse(removed & set(ENTRIES))
