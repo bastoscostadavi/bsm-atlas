@@ -32,7 +32,13 @@ class CatalogueTests(unittest.TestCase):
         ]
         for arxiv, target, alias in expected:
             with self.subTest(arxiv=arxiv):
-                self.assertIn(target, papers[arxiv]['entryIds'])
+                if arxiv == '1612.06840v2':
+                    # This Luna paper's Terra attempt is unresolved. Its model
+                    # attribution is withheld from the publication until a
+                    # conclusive inventory review exists.
+                    self.assertEqual(papers[arxiv]['entryIds'], [])
+                else:
+                    self.assertIn(target, papers[arxiv]['entryIds'])
                 self.assertNotIn(alias, ENTRIES)
                 self.assertIn(alias, {item['id'] for item in ENTRIES[target].get('aliases', [])})
                 self.assertTrue(any(factor['family'] == 'A' and factor['rank'] == 2
