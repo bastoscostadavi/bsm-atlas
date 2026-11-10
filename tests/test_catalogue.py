@@ -24,21 +24,18 @@ NEW_COPIES=sum(f['copies'] for e in SOURCE['entries'] for f in e['specification'
 
 
 class CatalogueTests(unittest.TestCase):
-    def test_atomic_and_left_right_papers_link_complete_spectra(self):
+    def test_reviewed_paper_memberships_and_complete_reference_spectra(self):
         papers = {paper['arxiv']: paper for paper in DATA['papers']}
+        self.assertIn('atomic-dark-matter-secluded', papers['2212.02487v2']['entryIds'])
+        # Check the complete canonical inventories and aliases independently
+        # of disputed paper attributions. In particular, 1612.06840v2 remains
+        # unresolved; publication_filter tests cover withholding its Luna link.
         expected = [
-            ('2212.02487v2', 'atomic-dark-matter-secluded', 'minimal-atomic-dark-matter'),
-            ('1612.06840v2', 'lr-triplet-matter', 'minimal-left-right-symmetric-model-947ba3e031a5'),
+            ('atomic-dark-matter-secluded', 'minimal-atomic-dark-matter'),
+            ('lr-triplet-matter', 'minimal-left-right-symmetric-model-947ba3e031a5'),
         ]
-        for arxiv, target, alias in expected:
-            with self.subTest(arxiv=arxiv):
-                if arxiv == '1612.06840v2':
-                    # This Luna paper's Terra attempt is unresolved. Its model
-                    # attribution is withheld from the publication until a
-                    # conclusive inventory review exists.
-                    self.assertEqual(papers[arxiv]['entryIds'], [])
-                else:
-                    self.assertIn(target, papers[arxiv]['entryIds'])
+        for target, alias in expected:
+            with self.subTest(entry=target):
                 self.assertNotIn(alias, ENTRIES)
                 self.assertIn(alias, {item['id'] for item in ENTRIES[target].get('aliases', [])})
                 self.assertTrue(any(factor['family'] == 'A' and factor['rank'] == 2

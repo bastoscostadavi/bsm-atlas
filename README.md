@@ -84,7 +84,7 @@ GitHub Actions restores the pinned sources, builds and checks the site, then pub
 To publish new data while ingestion continues, freeze a copy of the working sources with the committed code, build and check that copy, then publish its immutable data release:
 
 ```sh
-python3 -B scripts/data_snapshot.py prepare --freeze --upload
+python3 -B scripts/data_snapshot.py prepare --freeze --terra-reviewed-luna --upload
 ```
 
 The only tracked file the command updates is `atlas/snapshot.json`. Commit and push that descriptor to deploy the new snapshot. It never replaces the live catalogue or reprocesses papers. An interrupted upload can be resumed with `python3 -B scripts/data_snapshot.py upload`; published releases are reused, never overwritten.
