@@ -114,6 +114,10 @@ preserved, including those affecting model identification. Passing the automated
 checks does not verify the scientific interpretation.
 
 These layers are separate from the structural catalogue and its downloads.
+Luna associations retain their canonical inventory bindings when Terra reviews
+the model entries. Claims for replaced or withdrawn inventories are retained
+in `detached_models` in the literature store; the public layer includes claims
+with a matching current inventory and paper reference.
 The local research exports `problem-data.js` and `mechanism-data.js` are generated from the compact published
 baseline in `atlas/literature_baseline.json` and new paper-specific associations
 in `atlas/literature_links.json`. Neither paper text nor raw extraction responses
