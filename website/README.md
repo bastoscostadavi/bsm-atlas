@@ -23,11 +23,19 @@ The source JSON and new paper–model annotations are gzip-compressed Release as
 To publish while ingestion continues:
 
 ```sh
-python3 -B scripts/data_snapshot.py prepare --freeze --upload
+python3 -B scripts/data_snapshot.py prepare --freeze --terra-reviewed-luna --upload
 # Commit and push atlas/snapshot.json.
 ```
 
 The command archives committed code, briefly locks and copies both working data files, then builds and checks the isolated copy. Ingestion continues on its original files. Assets are uploaded to a draft release before publication; uploads can be resumed with `scripts/data_snapshot.py upload`. Existing published assets are reused rather than overwritten.
+
+`--terra-reviewed-luna` also freezes the local review registry and excludes
+Luna-origin model references without a completed Terra inventory result. Terra
+corrections qualify while awaiting Sol. Entries with independent support from
+other extractors remain eligible; entries left without an eligible reference
+are omitted. Luna annotations retain their inventory bindings. The selection
+report remains alongside the prepared assets; the live ingestion stores are
+preserved. Omit the flag only for an explicitly unfiltered publication.
 
 GitHub Actions restores and verifies those exact sources, builds, runs the checks and packages only the runtime assets, schemas, vendored diagrams and static chunks into `.build/site`. Bulk research exports, worker receipts, prompts and paper text do not enter the Pages artifact. `scripts/package_site.py` rejects a package whose source hash differs from the pinned snapshot.
 

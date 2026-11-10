@@ -13,6 +13,8 @@ def main():
     parser.add_argument('action', choices=['restore', 'verify', 'prepare', 'upload'])
     parser.add_argument('--output', type=Path, default=ROOT / '.build/data-release')
     parser.add_argument('--freeze', action='store_true', help='Freeze live inputs with committed code, then build and check the copy')
+    parser.add_argument('--terra-reviewed-luna', action='store_true',
+                        help='Publish Luna-origin model references only after a conclusive Terra inventory review; requires --freeze')
     parser.add_argument('--upload', action='store_true', help='Publish the prepared release and update atlas/snapshot.json')
     parser.add_argument('--target', help='Existing Git commit associated with this source snapshot')
     args = parser.parse_args()
@@ -21,7 +23,8 @@ def main():
     elif args.action == 'verify':
         result = verify(); print('Pinned source snapshot verified:', result['tag'])
     elif args.action == 'prepare':
-        result = prepare(output=args.output, freeze=args.freeze, target=args.target)
+        result = prepare(output=args.output, freeze=args.freeze, target=args.target,
+                         terra_reviewed_luna=args.terra_reviewed_luna)
         print('Prepared:', args.output / 'snapshot.json', result['counts'])
         if args.upload:
             upload(args.output)

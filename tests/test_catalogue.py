@@ -28,7 +28,6 @@ class CatalogueTests(unittest.TestCase):
         papers = {paper['arxiv']: paper for paper in DATA['papers']}
         expected = [
             ('2212.02487v2', 'atomic-dark-matter-secluded', 'minimal-atomic-dark-matter'),
-            ('1112.6419v3', 'lr-triplet-matter', 'minimal-left-right-model'),
             ('1612.06840v2', 'lr-triplet-matter', 'minimal-left-right-symmetric-model-947ba3e031a5'),
         ]
         for arxiv, target, alias in expected:
@@ -38,6 +37,15 @@ class CatalogueTests(unittest.TestCase):
                 self.assertIn(alias, {item['id'] for item in ENTRIES[target].get('aliases', [])})
                 self.assertTrue(any(factor['family'] == 'A' and factor['rank'] == 2
                                     for factor in ENTRIES[target]['specification']['gauge_factors']))
+        # Terra retained the complete singlet-neutrino inventories for this
+        # paper and withdrew Luna's incomplete left-right attribution.
+        self.assertEqual(set(papers['1112.6419v3']['entryIds']), {'numsm', 'sm-six-singlet-weyl-fermions'})
+        for entry_id, copies in [('numsm', 3), ('sm-six-singlet-weyl-fermions', 6)]:
+            spec = ENTRIES[entry_id]['specification']
+            singlets = [row for row in spec['matter'] if row['lorentz']['irreps'] == [['1/2', '0']]
+                        and all(not any(rep['dynkin']) if 'dynkin' in rep else rep['charge'] == '0'
+                                for rep in row['gauge_representations'].values())]
+            self.assertEqual(sum(row['copies'] for row in singlets), copies)
         atomic = ENTRIES['atomic-dark-matter-secluded']['specification']
         dark_fermions = [field for field in atomic['matter']
                          if field['gauge_representations']['D']['charge'] != '0']

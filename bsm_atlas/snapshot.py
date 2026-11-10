@@ -113,10 +113,12 @@ def verify(root=ROOT):
     return descriptor
 
 
-def prepare(root=ROOT, output=None, *, freeze=False, target=None):
+def prepare(root=ROOT, output=None, *, freeze=False, target=None, terra_reviewed_luna=False):
     root = Path(root)
     output = Path(output or root / '.build/data-release').resolve()
     output.mkdir(parents=True, exist_ok=True)
+    if terra_reviewed_luna and not freeze:
+        raise ValueError('Terra-reviewed Luna publication requires --freeze')
     if freeze:
         # Archive committed code and freeze both live stores under their shared
         # lock. Ingestion resumes immediately; build/check run on the copy.
@@ -128,8 +130,22 @@ def prepare(root=ROOT, output=None, *, freeze=False, target=None):
             with tarfile.open(fileobj=io.BytesIO(archive)) as source:
                 source.extractall(checkout, filter='data')
             with source_lock(root / 'atlas/catalogue.json', wait=True):
-                for name in SOURCES:
-                    shutil.copyfile(root / 'atlas' / name, checkout / 'atlas' / name)
+                if terra_reviewed_luna:
+                    from .catalogue import write_json
+                    from .publication_filter import reviewed_luna_snapshot
+                    raw = {name: (root / 'atlas' / name).read_bytes() for name in SOURCES}
+                    review_bytes = (root / 'atlas/extraction_reviews.json').read_bytes()
+                    catalogue, literature, report = reviewed_luna_snapshot(
+                        json.loads(raw['catalogue.json']), json.loads(raw['literature_links.json']),
+                        json.loads(review_bytes))
+                    write_json(checkout / 'atlas/catalogue.json', catalogue)
+                    write_json(checkout / 'atlas/literature_links.json', literature)
+                    report['input_sha256'] = {name: sha256(value).hexdigest() for name, value in raw.items()}
+                    report['review_registry_sha256'] = sha256(review_bytes).hexdigest()
+                    write_json(output / 'review-selection.json', report)
+                else:
+                    for name in SOURCES:
+                        shutil.copyfile(root / 'atlas' / name, checkout / 'atlas' / name)
             import sys
             subprocess.run(['make', 'build', 'PYTHON=' + sys.executable], cwd=checkout, check=True)
             subprocess.run(['make', 'check', 'PYTHON=' + sys.executable], cwd=checkout, check=True)
