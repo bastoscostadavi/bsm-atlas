@@ -30,7 +30,7 @@
   async body(id){if(this.bodies.has(id)){const row=this.bodies.get(id);this.bodies.delete(id);this.bodies.set(id,row);return;}const row=await this.record('entries',id);Object.assign(this.byId.get(id),row);this.bodies.set(id,row);}
   async coreBody(id){if(this.coreBodies.has(id)){const row=this.coreBodies.get(id);this.coreBodies.delete(id);this.coreBodies.set(id,row);return;}const row=await this.record('cores',id);Object.assign(this.coreById.get(id),row);this.coreBodies.set(id,row);}
   trimCoreBodies(active){const pinned=new Set(active);for(const [id] of this.coreBodies){if(this.coreBodies.size<=Math.max(64,pinned.size))break;if(pinned.has(id))continue;delete this.coreById.get(id).regime;this.coreBodies.delete(id);}}
-  trimBodies(active){const pinned=new Set(active);for(const [id] of this.bodies){if(this.bodies.size<=Math.max(64,pinned.size))break;if(pinned.has(id))continue;const entry=this.byId.get(id);for(const key of ['specification','regime','referenceParameters'])delete entry[key];this.bodies.delete(id);}}
+  trimBodies(active){const pinned=new Set(active);for(const [id] of this.bodies){if(this.bodies.size<=Math.max(64,pinned.size))break;if(pinned.has(id))continue;const entry=this.byId.get(id);for(const key of ['specification','regime','referenceParameters','properties'])delete entry[key];this.bodies.delete(id);}}
   workerSearch(query,kind){
    if(!this.worker){
     try{this.worker=new root.Worker(new URL(this.manifest.searchWorker,this.base).href);}catch(error){this.useWorker=false;return Promise.reject(error);}
@@ -71,7 +71,7 @@
   entryMatches(query,id){return !query.trim()||this.entryQuery?.query===query&&this.entryQuery.ids.has(id);}
   filtered(state){
    const q=state.q||'',selected=state.connections||{};
-   return this.data.entries.filter(e=>(!q||this.entryMatches(q,e.id))&&(!state.core||e.coreId===state.core)&&(!state.semisimple||e.semisimpleId===state.semisimple)&&(!state.fullAlgebra||e.fullAlgebraId===state.fullAlgebra)&&(!state.paper||e.paperIds.includes(state.paper))&&(state.abelianRank===''||state.abelianRank===undefined||String(e.abelianRank)===String(state.abelianRank))&&(!state.algebra||(state.algebra.startsWith('na:')?this.data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===state.algebra.slice(3)):e.algebraSignature===state.algebra))&&['problems','mechanisms'].every(kind=>(selected[kind]||[]).every(term=>Object.hasOwn(this.annotations[kind].links[e.id]||{},term))));
+   return this.data.entries.filter(e=>root.FieldCatalogue.matchesProperties(e,state)&&(!q||this.entryMatches(q,e.id))&&(!state.core||e.coreId===state.core)&&(!state.semisimple||e.semisimpleId===state.semisimple)&&(!state.fullAlgebra||e.fullAlgebraId===state.fullAlgebra)&&(!state.paper||e.paperIds.includes(state.paper))&&(state.abelianRank===''||state.abelianRank===undefined||String(e.abelianRank)===String(state.abelianRank))&&(!state.algebra||(state.algebra.startsWith('na:')?this.data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===state.algebra.slice(3)):e.algebraSignature===state.algebra))&&['problems','mechanisms'].every(kind=>(selected[kind]||[]).every(term=>Object.hasOwn(this.annotations[kind].links[e.id]||{},term))));
   }
   visibleEntries(entries,state){const visible=entries.slice(0,state.limit||20),opened=entries.find(entry=>entry.id===state.open);if(opened&&!visible.includes(opened))visible.push(opened);return visible;}
   requirements(state){

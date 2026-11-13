@@ -23,6 +23,8 @@ CREATE TABLE entries (entry_id TEXT PRIMARY KEY, name TEXT NOT NULL,
 CREATE TABLE entry_papers (entry_id TEXT NOT NULL REFERENCES entries, paper_id TEXT NOT NULL REFERENCES papers,
   locators_json TEXT NOT NULL CHECK(json_valid(locators_json)), parameter_names_json TEXT NOT NULL CHECK(json_valid(parameter_names_json)),
   PRIMARY KEY(entry_id,paper_id)) STRICT;
+CREATE TABLE entry_properties (entry_id TEXT PRIMARY KEY REFERENCES entries,
+  fingerprint TEXT NOT NULL, properties_json TEXT NOT NULL CHECK(json_valid(properties_json))) STRICT;
 CREATE TABLE aliases (alias_id TEXT PRIMARY KEY, entry_id TEXT NOT NULL REFERENCES entries, name TEXT NOT NULL) STRICT;
 CREATE TABLE gauge_factors (entry_id TEXT NOT NULL REFERENCES entries, factor_id TEXT NOT NULL, position INTEGER NOT NULL CHECK(position>=0),
   family TEXT NOT NULL CHECK(family IN ('A','B','C','D','E','F','G','U1')), rank INTEGER NOT NULL,

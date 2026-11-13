@@ -1,0 +1,2 @@
+# Optional fallback for exact generic coupling-orbit ranks.
+sympy==1.14.0

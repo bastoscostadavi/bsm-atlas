@@ -1,0 +1,488 @@
+{
+  "20ad8a952b39b92e5a39f1096315abfa0ac891242090b94d94156e6ef371c926": {
+    "total": 317,
+    "matter": 315,
+    "physical": 294,
+    "orbit_rank": 23,
+    "source": "atlas/DERIVED_PROPERTIES.md#e6-component-certificate",
+    "certificate_script_sha256": "f5cc972db8a7e00b162647d051e88fb179ca908740b0f4c48085cf74540efc41",
+    "specification": {
+      "schema_version": "field-content-2",
+      "inventory_complete": true,
+      "gauge_factors": [
+        {
+          "id": "E6",
+          "family": "E",
+          "rank": 6
+        }
+      ],
+      "matter": [
+        {
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 3,
+          "gauge_representations": {
+            "E6": {
+              "dynkin": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 3,
+          "gauge_representations": {
+            "E6": {
+              "dynkin": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module",
+          "copies": 2,
+          "gauge_representations": {
+            "E6": {
+              "dynkin": [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none",
+          "copies": 2,
+          "gauge_representations": {
+            "E6": {
+              "dynkin": [
+                0,
+                1,
+                0,
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "coefficient_inventory": [
+      {
+        "fields": [
+          "phi*",
+          "phi"
+        ],
+        "dimension": 2,
+        "self_conjugate": true,
+        "coefficients": 9,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "xi",
+          "xi"
+        ],
+        "dimension": 3,
+        "self_conjugate": false,
+        "coefficients": 3,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A*",
+          "A"
+        ],
+        "dimension": 2,
+        "self_conjugate": true,
+        "coefficients": 1,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A",
+          "A"
+        ],
+        "dimension": 2,
+        "self_conjugate": false,
+        "coefficients": 1,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi*",
+          "psi",
+          "xi"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 18,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi",
+          "phi",
+          "phi"
+        ],
+        "dimension": 3,
+        "self_conjugate": false,
+        "coefficients": 10,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi",
+          "psi",
+          "psi"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 18,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A*",
+          "xi",
+          "xi"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 1,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi*",
+          "phi",
+          "A"
+        ],
+        "dimension": 3,
+        "self_conjugate": false,
+        "coefficients": 9,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A",
+          "xi",
+          "xi"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 1,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi*",
+          "phi*",
+          "phi",
+          "phi"
+        ],
+        "dimension": 4,
+        "self_conjugate": true,
+        "coefficients": 81,
+        "terms": 2
+      },
+      {
+        "fields": [
+          "A*",
+          "phi",
+          "phi",
+          "phi"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 8,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "phi",
+          "phi",
+          "phi",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 8,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A*",
+          "phi*",
+          "phi",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": true,
+        "coefficients": 27,
+        "terms": 3
+      },
+      {
+        "fields": [
+          "phi*",
+          "phi",
+          "A",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 18,
+        "terms": 2
+      },
+      {
+        "fields": [
+          "A*",
+          "A*",
+          "A",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": true,
+        "coefficients": 3,
+        "terms": 3
+      },
+      {
+        "fields": [
+          "A*",
+          "A",
+          "A",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 1,
+        "terms": 1
+      },
+      {
+        "fields": [
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "dimension": 4,
+        "self_conjugate": false,
+        "coefficients": 1,
+        "terms": 1
+      }
+    ],
+    "flavor_dimensions": {
+      "phi": 3,
+      "psi": 3,
+      "A": 1,
+      "xi": 2
+    },
+    "selected_coupling_tensors": [
+      {
+        "name": "scalar_cubic",
+        "slots": [
+          [
+            "phi",
+            false
+          ],
+          [
+            "phi",
+            false
+          ],
+          [
+            "phi",
+            false
+          ]
+        ],
+        "nonzero_integer_entries": [
+          {
+            "indices": [
+              0,
+              0,
+              0
+            ],
+            "value": 1
+          },
+          {
+            "indices": [
+              1,
+              1,
+              1
+            ],
+            "value": 2
+          },
+          {
+            "indices": [
+              2,
+              2,
+              2
+            ],
+            "value": 3
+          }
+        ]
+      },
+      {
+        "name": "adjoint_scalar_mass",
+        "slots": [
+          [
+            "A",
+            false
+          ],
+          [
+            "A",
+            false
+          ]
+        ],
+        "nonzero_integer_entries": [
+          {
+            "indices": [
+              0,
+              0
+            ],
+            "value": 1
+          }
+        ]
+      },
+      {
+        "name": "adjoint_fermion_mass",
+        "slots": [
+          [
+            "xi",
+            false
+          ],
+          [
+            "xi",
+            false
+          ]
+        ],
+        "nonzero_integer_entries": [
+          {
+            "indices": [
+              0,
+              0
+            ],
+            "value": 1
+          },
+          {
+            "indices": [
+              1,
+              1
+            ],
+            "value": 2
+          }
+        ]
+      },
+      {
+        "name": "phi_psi_psi",
+        "slots": [
+          [
+            "phi",
+            false
+          ],
+          [
+            "psi",
+            false
+          ],
+          [
+            "psi",
+            false
+          ]
+        ],
+        "nonzero_integer_entries": [
+          {
+            "indices": [
+              0,
+              0,
+              0
+            ],
+            "value": 1
+          },
+          {
+            "indices": [
+              0,
+              1,
+              1
+            ],
+            "value": 2
+          },
+          {
+            "indices": [
+              0,
+              2,
+              2
+            ],
+            "value": 4
+          }
+        ]
+      }
+    ],
+    "breakdown": {
+      "scalar_potential_by_degree": [
+        0,
+        12,
+        38,
+        183
+      ],
+      "fermion_mass_complex_coefficients": 3,
+      "yukawa_complex_coefficients": 38,
+      "gauge_kinetic_coefficients": 1,
+      "nonabelian_theta_angles": 1
+    }
+  }
+}

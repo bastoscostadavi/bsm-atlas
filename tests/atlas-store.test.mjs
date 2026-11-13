@@ -25,10 +25,24 @@ assert.equal(store.data.papers.length,0);
 assert(store.data.entries.every(entry=>!entry.specification&&!entry.regime&&!entry.references));
 assert(store.data.cores.every(core=>!core.regime));
 assert.equal(store.data.entries.length,full.entries.length);
+for(const entry of store.data.entries){
+ const properties=full.entries.find(e=>e.id===entry.id).properties;
+ assert.equal(entry.propertySummary.perturbative,properties.anomalies.perturbative.status);
+ assert.equal(entry.propertySummary.physical,properties.parameters.physical.status==='certified'?properties.parameters.physical.value:undefined);
+ assert.equal(entry.propertySummary.total,properties.parameters.total.status==='computed'?properties.parameters.total.value:undefined);
+}
 const bootstrapBytes=initial.reduce((n,name)=>n+fs.statSync(new URL(name,website)).size,0);
 const bootstrapGzipBytes=initial.reduce((n,name)=>n+gzipSync(fs.readFileSync(new URL(name,website))).length,0);
 assert(bootstrapGzipBytes<5*1024**2,'Bootstrap exceeded the compressed size budget');
 const state={view:'catalogue',browse:'full-algebras',q:'',core:'',semisimple:'',fullAlgebra:'',paper:'',abelianRank:'',open:'',panel:'references',limit:20,referencePage:1,connections:{problems:[],mechanisms:[]}};
+// Property metadata filters the entire snapshot before loading visible bodies.
+const propertyState={...state,browse:'entries',anomalyFree:'1',physicalMin:'34',physicalMax:'56'};
+const expectedProperties=context.FieldCatalogue.findEntries(full,propertyState).map(e=>e.id);
+assert(expectedProperties.length>20);
+assert.deepEqual(Array.from(store.filtered(propertyState),e=>e.id),Array.from(expectedProperties));
+const propertyRequirements=store.requirements(propertyState);
+assert.deepEqual(Array.from(propertyRequirements.bodies),Array.from(expectedProperties.slice(0,20)));
+assert.equal(requests.length,initial.length,'Property filtering fetched field tables');
 assert.equal(store.ensure(state),null);
 const deep={...state,browse:'entries',open:store.data.entries.at(-1).id,panel:'problems'};
 const deepRequirements=store.requirements(deep);
@@ -175,6 +189,8 @@ class Element{
  constructor(){this.events=new Map();this.innerHTML='';}
  addEventListener(type,callback){if(!this.events.has(type))this.events.set(type,[]);this.events.get(type).push(callback);}
  setAttribute(){}
+ setCustomValidity(message){this.validationMessage=message;}
+ reportValidity(){this.reported=true;}
 }
 const controls=new Map(),controlDocument={documentElement:{dataset:{}},getElementById(id){if(!controls.has(id))controls.set(id,new Element());return controls.get(id);},querySelectorAll(){return [];}};
 context.ATLAS_PROBLEMS=store.annotations.problems;context.ATLAS_MECHANISMS=store.annotations.mechanisms;context.location.hash='#problems';
@@ -192,6 +208,25 @@ store.papers.clear();assert(explorer.evidence(model,term).includes('<blockquote>
 assert(explorer.evidence(model,term).includes('arXiv:'));
 console.log('Disclosure events, evidence page controls and pinned page metadata passed.');
 
+// Applying ranges, rejecting reversed bounds and resetting use the real controls.
+context.location.hash='#entries';controlled.route();
+const submitProperties=()=>{for(const listener of controls.get('view-content').events.get('submit'))listener({target:{id:'property-filter-form'},preventDefault(){}});};
+controlDocument.getElementById('anomaly-free').checked=true;
+for(const [key,value] of Object.entries({totalMin:'',totalMax:'',physicalMin:'34',physicalMax:'56'}))controlDocument.getElementById(key).value=value;
+submitProperties();
+assert.equal(controlled.state.anomalyFree,'1');assert.equal(controlled.state.physicalMin,'34');assert.equal(controlled.state.physicalMax,'56');
+assert(context.location.hash.includes('anomalyFree=1&physicalMin=34&physicalMax=56'));
+controlDocument.getElementById('physicalMax').value='12';submitProperties();
+assert(controlDocument.getElementById('physicalMax').reported);
+assert.equal(controlled.state.physicalMax,'56','Invalid range changed the active filter');
+for(const listener of controls.get('view-content').events.get('input'))listener({target:{id:'physicalMin'}});
+assert.equal(controlDocument.getElementById('physicalMax').validationMessage,'');
+const resetProperties={closest(selector){return selector==='[data-reset]'?this:null;}};
+for(const listener of controls.get('view-content').events.get('click'))listener({target:resetProperties,preventDefault(){}});
+assert.equal(controlled.state.physicalMin,'');assert.equal(controlled.state.physicalMax,'');assert.equal(controlled.state.anomalyFree,'');
+assert(!context.location.hash.includes('physicalMin'));
+console.log('Property filter controls apply inclusive ranges, reject reversed bounds and reset.');
+
 // Browsing does not keep every previously opened field table in memory.
 const bounded=await context.AtlasStore.open(context.ATLAS_MANIFEST_URL,{base:'https://atlas.test/',fetch:fetcher,cacheBytes:4096});
 const openedIds=bounded.data.entries.slice(0,90).map(entry=>entry.id);
@@ -199,6 +234,8 @@ await Promise.all(openedIds.map(id=>bounded.body(id)));bounded.trimBodies(opened
 assert.equal(bounded.bodies.size,64);
 assert(openedIds.slice(-20).every(id=>bounded.byId.get(id).regime));
 assert(!bounded.byId.get(openedIds[0]).regime);
+assert(!bounded.byId.get(openedIds[0]).properties);
+assert.deepEqual(Array.from(bounded.filtered(propertyState),e=>e.id),Array.from(expectedProperties),'Evicting field tables changed property matches');
 assert(bounded.bytes<=bounded.maxBytes||bounded.cache.size===1);
 await bounded.body(openedIds[0]);assert(bounded.byId.get(openedIds[0]).regime);
 const coreIds=bounded.data.cores.slice(0,90).map(core=>core.id);

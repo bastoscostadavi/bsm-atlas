@@ -15,6 +15,19 @@ spectra from separate core records. These tables retain Lorentz representations,
 non-Abelian representations and multiplicities, with u(1) factors omitted.
 Each card includes an Open entries link; model-name lists stay hidden.
 
+Entries display perturbative anomaly results and total/physical parameter counts
+in a compact Properties summary. When a physical count is unavailable, the
+summary gives a brief reason. An expandable gauge-factor schematic shows
+the cubic coefficients, structural zeros and mixed gravitational coefficients.
+Global anomaly classification is outside the explorer's scope. A shared Properties
+page (`#properties`) explains calculation methods, assumptions and coverage.
+Full properties travel with the entry body and share its bounded cache. Compact
+anomaly statuses and available counts also appear in the bootstrap so filters
+cover the whole atlas before field tables load. Filters combine perturbative
+anomaly cancellation with inclusive total/physical parameter ranges and preserve
+their values in the URL. The build derives them from the full specification, including
+coverage limits and provenance. See [calculation conventions](../atlas/DERIVED_PROPERTIES.md).
+
 Search uses precomputed word-prefix posting lists, including model specifications and linked bibliography. Queries intersect their postings rather than scanning every paper for each model. Search runs in a lazily started Web Worker; browsers without Workers use the same indexes on the main thread. Caches bound decoded chunks, model bodies, paper records, evidence pages and query results. Outdated asynchronous results never replace the current view.
 
 Every data URL includes a content hash. An open tab stays on one snapshot, including during publication. If an old chunk is no longer available, the interface asks the visitor to reload and retains the route in the URL. Network failures have retry controls.

@@ -12,6 +12,11 @@ Each representation row has exactly four fields: `lorentz`, `reality`, `copies` 
 
 ## Schemas and reference data
 
+Built entries include deterministic anomaly assessments and renormalizable
+parameter counts with explicit assumptions and coverage. Perturbative and
+global checks are separate. See [calculated properties](DERIVED_PROPERTIES.md)
+for methods, physical-count coverage and the standalone command.
+
 `catalogue.schema.json` and `entry.schema.json` document structure; executable checks enforce cross-field mathematics and canonical storage. `reference_spectra.json` supplies the SM/MSSM display shorthand and never replaces the full inventory in an entry. `examples/` contains illustrative intake specifications, not accepted source models.
 
 `schema.sql` defines the relational export tables and the `entry_layers` and `entry_identity` views. The [Python package](../bsm_atlas/) implements validation, normalization, exact identities and the derived catalogue views; [tests](../tests/) check those conventions independently of the data files.

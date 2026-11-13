@@ -3,7 +3,7 @@ name: Publish BSM Atlas
 on:
   push:
     branches: [main]
-    paths: ['website/**', 'atlas/**', 'bsm_atlas/**', 'tests/**', 'scripts/**', 'Makefile', 'README.md', 'BSM_ATLAS_AGENT_PROMPT.md', 'HARVESTING.md', '.github/workflows/atlas-pages.yml']
+    paths: ['website/**', 'atlas/**', 'bsm_atlas/**', 'tests/**', 'scripts/**', 'Makefile', 'README.md', 'requirements-properties.txt', 'BSM_ATLAS_AGENT_PROMPT.md', 'HARVESTING.md', '.github/workflows/atlas-pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -26,6 +26,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Restore pinned catalogue and build
         run: |
+          python3 -m pip install -r requirements-properties.txt
           python3 -B scripts/data_snapshot.py restore
           python3 -B scripts/data_snapshot.py verify
           make build

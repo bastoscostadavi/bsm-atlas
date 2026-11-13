@@ -48,6 +48,16 @@ summary{cursor:pointer;user-select:none}
 .filter-panel[open]>summary{background:var(--soft)}
 .filter-fields{flex-basis:100%;order:3;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:12px 0 4px}
 .filter-fields label{min-width:0;display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px}
+.property-filters{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr) auto;align-items:end;gap:24px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.filter-fields .anomaly-filter{display:flex;flex-direction:row;align-items:center;gap:8px;color:var(--ink);height:36px}
+.anomaly-filter input{accent-color:var(--accent)}
+.parameter-range{border:0;padding:0;margin:0;min-width:0}
+.parameter-range legend{font-size:12px;color:var(--muted);padding:0;margin-bottom:7px}
+.parameter-range>div{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.parameter-range label{flex:1}
+.parameter-range input{width:100%;min-width:0;height:36px;border:1px solid var(--line);border-radius:7px;background:var(--paper);padding:0 10px;font-size:13px}
+.property-filters .search-button{height:36px;padding:0 16px}
+@media(max-width:700px){.property-filters{grid-template-columns:1fr 1fr;gap:16px}.property-filters .anomaly-filter{grid-column:1/-1}.property-filters .search-button{justify-self:start}}
 .download-menu{position:relative;margin-left:auto}
 .download-menu>div{position:absolute;right:0;top:50px;z-index:3;background:var(--paper);border:1px solid var(--line);border-radius:9px;box-shadow:0 8px 24px #00000012;width:300px;max-width:calc(100vw - 40px);padding:6px}
 .download-menu a{display:block;padding:8px 12px;font-size:13px;border-radius:5px}
@@ -390,6 +400,31 @@ a,button{transition:color .15s ease,background .15s ease}
 .semisimple-toggle{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
 .semisimple-toggle input{width:15px;height:15px;margin:0;accent-color:var(--accent);cursor:pointer}
 .semisimple-toggle:has(input:checked){color:var(--ink)}
+.entry-properties{margin:0 0 24px;padding:0 0 18px;border-bottom:1px solid var(--line)}
+.property-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px 28px;margin:0 0 12px;max-width:840px}
+.property-summary dt{font-size:12px;color:var(--muted);margin-bottom:4px}
+.property-summary dd{margin:0;font-size:14px;font-variant-numeric:tabular-nums}
+.property-summary .property-count-message{font-size:12px;color:var(--muted);line-height:1.5}
+.property-summary [data-status="nonzero"]{color:var(--warning)}
+.property-method-link{font-size:12px;color:var(--muted)}
+.property-formulas{margin:24px 0;overflow-x:auto;overflow-y:hidden}
+.property-formulas math{font-size:18px;text-align:left;margin:18px 0;padding:4px 0;min-width:max-content}
+.property-table-wrap{overflow-x:auto;margin:16px 0 24px}
+.property-reference-table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.5}
+.property-reference-table th,.property-reference-table td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+.property-reference-table th:first-child{text-align:left;font-weight:400}
+.property-reference-table thead th{font-size:12px;font-weight:500;color:var(--muted)}
+.property-reference-table th:last-child,.property-reference-table td:last-child{padding-right:0}
+.anomaly-equations{display:inline-block;vertical-align:top;margin:0 24px 0 0;font-size:12px}
+.anomaly-equations>summary{cursor:pointer;color:var(--muted);width:fit-content}
+.anomaly-equations[open]{display:block;margin:0 0 14px}
+.anomaly-equation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 48px;max-width:960px;margin-top:16px}
+.anomaly-equation{display:grid;grid-template-columns:max-content 12px minmax(20px,1fr);gap:8px;align-items:baseline;font-size:14px}
+.anomaly-equation[data-nonzero] .anomaly-coefficient{color:var(--warning)}
+.anomaly-coefficient{overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.anomaly-factor-key{overflow-wrap:anywhere;font-size:12px;color:var(--muted);margin:14px 0 0}
+@media(max-width:700px){.anomaly-equation-grid{grid-template-columns:1fr;gap:9px}.anomaly-equation{font-size:13px}}
+@media(max-width:700px){.property-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
 @media(max-width:700px){
  .catalogue-view-controls{align-items:flex-start;flex-direction:column;gap:12px}
 }

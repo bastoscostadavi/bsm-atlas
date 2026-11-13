@@ -103,8 +103,16 @@ def make_bundle(data, annotations, *, source_sha256, downloads=None, worker_sour
             summary['aliases'] = entry['aliases']
         summary['paperIds'] = sorted(entry['paperIds'], key=paper_positions.__getitem__)
         summary['referenceCount'] = len(entry['references'])
+        properties = entry.get('properties', {})
+        parameters = properties.get('parameters', {})
+        summary['propertySummary'] = {
+            'perturbative': properties.get('anomalies', {}).get('perturbative', {}).get('status'),
+            **{key: value.get('value') for key, status in [('total', 'computed'), ('physical', 'certified')]
+               if (value := parameters.get(key, {})).get('status') == status and value.get('value') is not None}}
         entry_summaries.append(summary)
         bodies[entry['id']] = {key: entry[key] for key in ('specification', 'regime')}
+        if 'properties' in entry:
+            bodies[entry['id']]['properties'] = entry['properties']
         mapping = next((ref['parameter_names'] for ref in entry['references'] if ref.get('parameter_names')), None)
         if mapping:
             bodies[entry['id']]['referenceParameters'] = mapping

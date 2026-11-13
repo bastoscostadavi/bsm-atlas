@@ -4,7 +4,7 @@
 
 The gauge algebra and the representations of matter are the defining structural ingredients of the Standard Model. BSM Atlas uses these same objects to organize models beyond it: **a gauge algebra, Lorentz and gauge representations, multiplicities, and references to the papers that study them**.
 
-Each entry is a complete gauge–matter specification linked to the arXiv papers that study it. Papers with the same specification share an entry, even when their interactions differ. The atlas classifies this structural content; anomaly cancellation, phenomenological viability and embeddings are questions to investigate using the references.
+Each entry is a complete gauge–matter specification linked to the arXiv papers that study it. Papers with the same specification share an entry, even when their interactions differ. The atlas classifies this structural content. Each built entry includes [calculated anomaly checks and renormalizable parameter counts](atlas/DERIVED_PROPERTIES.md), with their assumptions and coverage stated explicitly; phenomenological viability and embeddings remain separate questions.
 
 ## One catalogue, four views
 
@@ -72,6 +72,10 @@ See [provider coordination and provenance](HARVESTING.md#codex-and-claude-batche
 ## Build and preview
 
 Python 3.12+ (with SQLite 3.37+) and Node.js 18+ on macOS/Linux are sufficient; no third-party Python packages are needed. Model extraction additionally requires a current, authenticated Codex CLI; building and checking the existing catalogue does not.
+
+Calculated physical-parameter counts use exact coupling-space orbit certificates.
+The optional symbolic fallback uses `python3 -m pip install -r requirements-properties.txt`.
+See the [method and known-result checks](atlas/DERIVED_PROPERTIES.md#generic-coupling-space-solver).
 
 ```sh
 make build   # restore missing sources and regenerate static chunks and research exports

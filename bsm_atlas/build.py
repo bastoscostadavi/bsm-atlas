@@ -14,8 +14,9 @@ from .catalogue_identity import normalize_spec
 from .core_projection import attach_layers, spectrum_sort_key
 from .presentation import matrix, compact_baseline
 from .field_conventions import REPRESENTATION_CONVENTION
+from .properties import assess as assess_properties, summary as property_summary
 
-VERSION='gauge-matter-13'
+VERSION='gauge-matter-16'
 
 def encoded(value):
     return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
@@ -26,6 +27,7 @@ def main_data(source=None):
     for item in source['entries']:
         entry=deepcopy(item); spec=entry['specification']; key=identity(spec)
         entry['identity']={'fingerprint':key['fingerprint'],'canonical':json.loads(key['canonical_json'])}
+        entry['properties']=assess_properties(spec,key['fingerprint'])
         entry['paperIds']=[ref['paper_id'] for ref in entry['references']]
         entry['regime']=matrix(spec)
         entry['algebraExpanded']=' ⊕ '.join(a['label'] for a in entry['regime']['factors'])
@@ -49,6 +51,7 @@ def main_data(source=None):
     return {'version':VERSION,'schema_version':'bsm-atlas-export-1','representationConvention':REPRESENTATION_CONVENTION,
         'entries':entries,'papers':papers,'templates':templates,'cores':cores,
         'semisimpleAlgebras':algebras,'fullAlgebras':full,
+        'propertySummary':property_summary(entries),
         'counts':{'entries':len(entries),'papers':len(papers),'linkedPapers':sum(bool(p['entryIds']) for p in papers),
                   'cores':len(cores),'semisimpleAlgebras':len(algebras),'fullAlgebras':len(full)}}
 
@@ -78,6 +81,8 @@ def database(path,data):
             s=e['specification']
             con.execute('INSERT INTO entries VALUES (?,?,?,?,?,?,?,?)',
                 (e['id'],e['name'],s['schema_version'],encoded(s),e['identity']['fingerprint'],e['semisimpleId'],e['fullAlgebraId'],e['coreId']))
+            con.execute('INSERT INTO entry_properties VALUES (?,?,?)',
+                (e['id'],e['identity']['fingerprint'],encoded(e['properties'])))
             for ref in e['references']:
                 con.execute('INSERT INTO entry_papers VALUES (?,?,?,?)',(e['id'],ref['paper_id'],encoded(ref.get('locators',[])),encoded(ref.get('parameter_names',{}))))
             for alias in e.get('aliases',[]):
@@ -148,8 +153,12 @@ def write_outputs(data,check=False):
         'website/field-catalogue-data.js':'window.FIELD_CATALOGUE = '+payload.rstrip()+';\n',
         'website/entry.schema.json':(ROOT/'atlas/entry.schema.json').read_text(),
         'website/catalogue.schema.json':(ROOT/'atlas/catalogue.schema.json').read_text(),
-        'website/downloads/field-catalogue.csv':csv_text(['entry_id','name','gauge_algebra','paper_ids','fingerprint','specification_json'],
-            ([e['id'],e['name'],e['algebraExpanded'],';'.join(e['paperIds']),e['identity']['fingerprint'],encoded(e['specification'])] for e in data['entries']))}
+        'website/downloads/field-catalogue.csv':csv_text(['entry_id','name','gauge_algebra','paper_ids','fingerprint','specification_json',
+            'perturbative_anomalies','global_cover_checks','total_parameters','physical_parameters','properties_json'],
+            ([e['id'],e['name'],e['algebraExpanded'],';'.join(e['paperIds']),e['identity']['fingerprint'],encoded(e['specification']),
+              e['properties']['anomalies']['perturbative']['status'],e['properties']['anomalies']['global']['status'],
+              e['properties']['parameters']['total']['value'],e['properties']['parameters']['physical']['value'],encoded(e['properties'])]
+             for e in data['entries']))}
     for kind,file in [('cores','nonabelian-cores'),('semisimpleAlgebras','semisimple-algebras'),('fullAlgebras','full-gauge-algebras')]:
         outputs['website/downloads/'+file+'.csv']=csv_text(['id','gauge_algebra','entry_ids','canonical_json'],
             ([g['id'],g['algebra'],';'.join(g['entryIds']),encoded(g['canonical'])] for g in data[kind]))

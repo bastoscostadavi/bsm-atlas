@@ -36,13 +36,31 @@
    });
  }
  const entryTextIndexes=new WeakMap();
- function findEntries(data,{q='',algebra='',paper='',core='',semisimple='',fullAlgebra='',abelianRank=''}={}){
+ const propertyFilterKeys=['anomalyFree','totalMin','totalMax','physicalMin','physicalMax'];
+ const catalogueFilterKeys=['q','algebra','paper','abelianRank',...propertyFilterKeys];
+ const countBound=value=>/^\d+$/.test(String(value??''))?String(value).replace(/^0+(?=\d)/,''):'';
+ function matchesProperties(entry,filters={}){
+   const p=entry.properties,summary=entry.propertySummary||{
+     perturbative:p?.anomalies?.perturbative?.status,
+     total:p?.parameters?.total?.status==='computed'?p.parameters.total.value:null,
+     physical:p?.parameters?.physical?.status==='certified'?p.parameters.physical.value:null};
+   if(filters.anomalyFree&&summary.perturbative!=='cancels')return false;
+   for(const key of ['total','physical']){
+     const min=countBound(filters[key+'Min']),max=countBound(filters[key+'Max']);
+     if(!min&&!max)continue;
+     const value=countBound(summary[key]);
+     if(!value||min&&BigInt(value)<BigInt(min)||max&&BigInt(value)>BigInt(max))return false;
+   }
+   return true;
+ }
+ function findEntries(data,filters={}){
+   const {q='',algebra='',paper='',core='',semisimple='',fullAlgebra='',abelianRank=''}=filters;
    const needle=q.trim().toLowerCase();let index;
    if(needle&&!data._store){
      index=entryTextIndexes.get(data);
      if(!index){const papers=new Map(data.papers.map(p=>[p.id,p]));index=new Map(data.entries.map(e=>[e.id,[e.id,e.name,...(e.aliases||[]).flatMap(a=>[a.id,a.name]),e.algebraExpanded,JSON.stringify(e.specification),...e.paperIds,...e.paperIds.flatMap(id=>{const p=papers.get(id);return p?[p.title,p.authors,p.arxiv]:[];})].join(' ').toLowerCase()]));entryTextIndexes.set(data,index);}
    }
-   return data.entries.filter(e=>(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||(data._store?data._store.entryMatches(q,e.id):index.get(e.id).includes(needle))));
+   return data.entries.filter(e=>matchesProperties(e,filters)&&(!core||e.coreId===core)&&(!semisimple||e.semisimpleId===semisimple)&&(!fullAlgebra||e.fullAlgebraId===fullAlgebra)&&(abelianRank===''||String(e.abelianRank)===String(abelianRank))&&(!algebra||(algebra.startsWith('na:')?data.semisimpleAlgebras.some(a=>a.id===e.semisimpleId&&a.algebraSignature===algebra.slice(3)):e.algebraSignature===algebra))&&(!paper||e.paperIds.includes(paper))&&(!needle||(data._store?data._store.entryMatches(q,e.id):index.get(e.id).includes(needle))));
  }
  const dynkinLabel=c=>c.factor==='u(1)'?String(c.value??'?'):c.dynkin?'['+c.dynkin.join(',')+']':'?';
  function dynkinTuple(components){
@@ -74,8 +92,87 @@
  }
  function templateTable(template){return '<div class="matrix-wrap"><table class="template-table" aria-label="'+esc(template.name)+' reference"><thead><tr><th>Spacetime</th><th>𝔤<sub>SM</sub> · dimensions / Dynkin</th><th>Multiplicity</th></tr></thead><tbody>'+template.rows.map(row=>'<tr><td class="math">'+esc(row.lorentz.label).replaceAll('1/2','½')+'</td><td>'+representationMarkup(row.components,'dimensions')+'<span class="baseline-dynkin math">'+esc(dynkinTuple(row.components))+'</span></td><td>'+row.copies+'</td></tr>').join('')+'</tbody></table></div>';}
 
+ function anomalyEquations(entry){
+   const checks=entry.properties?.anomalies.perturbative.checks||[];
+   if(!checks.length)return '';
+   const factors=entry.specification.gauge_factors;
+   const presented=new Map((entry.regime?.factors||[]).map(a=>[a.key,a.label]));
+   const base=a=>presented.get(a.id)||({A:'su('+(a.rank+1)+')',B:'so('+(2*a.rank+1)+')',C:'sp_rank('+a.rank+')',D:'so('+(2*a.rank)+')',U1:'u(1)'}[a.family]||a.family.toLowerCase()+a.rank);
+   const groups=new Map();
+   for(const a of factors){const key=a.family+':'+a.rank;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);}
+   const labels=new Map(),legend=[];
+   for(const group of groups.values())for(const [i,a] of group.entries()){
+     const label=esc(base(a))+(group.length>1?'<sub>'+(i+1)+'</sub>':'');
+     labels.set(a.id,'<span class="anomaly-factor" title="'+esc(a.id)+'">'+label+'</span>');
+     if(group.length>1)legend.push(label+' = '+esc(a.id));
+   }
+   const key=ids=>JSON.stringify([...ids].sort());
+   const coefficients=new Map();
+   for(const check of checks){
+     const ids=check.kind==='nonabelian_cubic'?[check.factors[0],check.factors[0],check.factors[0]]:
+       check.kind==='nonabelian_squared_u1'?[check.factors[0],check.factors[0],check.factors[1]]:
+       check.kind==='abelian_cubic'?check.factors:null;
+     if(ids)coefficients.set(key(ids),check.coefficient);
+   }
+   function equation(ids,coefficient,gravity=false){
+     const powers=new Map();for(const id of ids)powers.set(id,(powers.get(id)||0)+1);
+     const terms=[...powers].map(([id,n])=>labels.get(id)+(n>1?'<sup>'+n+'</sup>':''));
+     if(gravity)terms.unshift('grav<sup>2</sup>');
+     return '<div class="anomaly-equation"'+(coefficient!=='0'?' data-nonzero':'')+'><span class="math">'+terms.join(' × ')+'</span><span>=</span><span class="anomaly-coefficient">'+esc(coefficient).replace(/\bz(\d+)\b/g,'z<sub>$1</sub>').replace(/\*\*(\d+)/g,'<sup>$1</sup>').replaceAll('*',' · ')+'</span></div>';
+   }
+   const equations=[];
+   for(let i=0;i<factors.length;i++)for(let j=i;j<factors.length;j++)for(let k=j;k<factors.length;k++){
+     const ids=[factors[i].id,factors[j].id,factors[k].id];
+     // Missing tensor types vanish identically by tracelessness of a simple
+     // algebra generator. This is only done for a completed 4D assessment.
+     equations.push(equation(ids,coefficients.get(key(ids))??'0'));
+   }
+   for(const check of checks)if(check.kind==='gravitational_u1')equations.push(equation(check.factors,check.coefficient,true));
+   return '<details class="anomaly-equations"><summary>Anomaly equations</summary>'+
+     (legend.length?'<p class="anomaly-factor-key">'+legend.join(' · ')+'</p>':'')+
+     '<div class="anomaly-equation-grid">'+equations.join('')+'</div></details>';
+ }
+
+ function physicalParameterMessage(parameters){
+   const physical=parameters.physical||{};
+   let reason=physical.reason||'';
+   if(!reason||reason.includes('not available for this spectrum'))reason=parameters.total?.reason||reason;
+   const messages=[
+     [/nonzero perturbative anomaly/,'Not assigned: perturbative anomaly'],
+     [/Only four-dimensional/,'Outside current counting scope'],
+     [/Symbolic charge families/,'Requires fixed charges'],
+     [/Character multiplication/,'Character-operation limit reached'],
+     [/Weyl group/,'Singlet-projection limit reached'],
+     [/character budget|Character exceeds/,'Character-storage limit reached'],
+     [/Residual field-redefinition group/,'Field-basis size limit reached'],
+     [/field inventory/,'Field-inventory limit reached'],
+     [/time budget/,'Symbolic time limit reached'],
+     [/exact elimination budget/,'Symbolic size limit reached'],
+     [/Install requirements/,'Symbolic solver unavailable'],
+     [/storage budget/,'Tensor-storage limit reached'],
+     [/Coupling action/,'Orbit-matrix size limit reached'],
+     [/enumeration/,'Interaction-enumeration limit reached']];
+   return {label:messages.find(([pattern])=>pattern.test(reason))?.[1]||'Orbit rank not established',reason};
+ }
+ function propertiesPanel(entry){
+   const properties=entry.properties;
+   if(!properties)return '';
+   const {anomalies,parameters}=properties,p=anomalies.perturbative;
+   const labels={cancels:'Vanish',nonzero:'Nonzero',conditions_not_resolved:'Cancellation conditions'};
+   const metrics=[];
+   if(labels[p.status])metrics.push('<div><dt>Perturbative anomalies</dt><dd data-status="'+esc(p.status)+'">'+esc(labels[p.status])+'</dd></div>');
+   if(parameters.total.status==='computed'&&parameters.total.value!=null)metrics.push('<div><dt>Total parameters</dt><dd>'+esc(parameters.total.value)+'</dd></div>');
+   if(parameters.physical.status==='certified'&&parameters.physical.value!=null)metrics.push('<div><dt>Physical parameters</dt><dd>'+esc(parameters.physical.value)+'</dd></div>');
+   else {const message=physicalParameterMessage(parameters);metrics.push('<div><dt>Physical parameters</dt><dd class="property-count-message" title="'+esc(message.reason)+'">'+esc(message.label)+'</dd></div>');}
+   if(!metrics.length)return '';
+   return '<section class="entry-properties" id="properties-'+esc(entry.id)+'" aria-label="Properties">'+
+     '<dl class="property-summary">'+metrics.join('')+'</dl>'+
+     anomalyEquations(entry)+'<a class="property-method-link" href="#properties">Calculation methods ↗</a></section>';
+ }
+
  function create(data,document){
    const state={q:'',algebra:'',paper:'',open:'',panel:'references',mode:'dimensions',view:'catalogue',browse:'full-algebras',core:'',semisimple:'',fullAlgebra:'',abelianRank:'',baselineOpen:{},limit:20,paperQuery:'',paperYear:'',paperPage:1,referencePage:1,problem:'',problemQuery:'',problemCategory:'',problemLayer:false,problemLimit:20,connections:{problems:[],mechanisms:[],view:'problems',q:'',filterQuery:'',limit:20}};
+   Object.assign(state,Object.fromEntries(propertyFilterKeys.map(key=>[key,''])));
    const problemExplorer=root.ProblemExplorer?.create(data,root.ATLAS_PROBLEMS);
    const mechanismExplorer=root.MechanismExplorer?.create(data,root.ATLAS_MECHANISMS);
    const connectionExplorer=root.ConnectionExplorer?.create(data,root.ATLAS_PROBLEMS,root.ATLAS_MECHANISMS);
@@ -111,9 +208,9 @@
      const [raw,query='']=location.hash.slice(1).split('?');
      const p=new URLSearchParams(query);
      if(p.has('notation'))state.mode=Object.hasOwn(notationModes,p.get('notation'))?p.get('notation'):'dimensions';
-     state.view=raw==='about'?'atlas':raw==='problems'||raw.startsWith('problems/')?'problems':raw==='mechanisms'||raw.startsWith('mechanisms/')?'mechanisms':['atlas','notation','sources'].includes(raw)?raw:'catalogue';
+     state.view=raw==='about'?'atlas':raw==='problems'||raw.startsWith('problems/')?'problems':raw==='mechanisms'||raw.startsWith('mechanisms/')?'mechanisms':['atlas','notation','properties','sources'].includes(raw)?raw:'catalogue';
      if(connectionExplorer)state.connections=connectionExplorer.parse(location.hash);
-     state.panel=['problems','mechanisms'].includes(p.get('panel'))?p.get('panel'):'references';
+     state.panel=['problems','mechanisms','properties'].includes(p.get('panel'))?p.get('panel'):'references';
      state.problemLayer=['problems','mechanisms'].includes(state.view)&&p.get('about')==='layer';
      if(state.view==='problems'){
        state.problem=raw.startsWith('problems/')?decodeURIComponent(raw.slice(9)):'';
@@ -138,6 +235,8 @@
        state.open=entryById.get(id)?.id||'';
      }
      for(const key of ['q','algebra','paper','abelianRank'])state[key]=p.get(key)||'';
+     state.anomalyFree=p.get('anomalyFree')==='1'?'1':'';
+     for(const key of propertyFilterKeys.slice(1))state[key]=countBound(p.get(key));
      if(state.open&&!state.core)state.core=entryById.get(state.open)?.coreId||'';
      if(state.core)state.semisimple=coreById.get(state.core)?.semisimpleId||'';
      else if(state.open)state.semisimple=entryById.get(state.open)?.semisimpleId||'';
@@ -166,9 +265,9 @@
        return;
      }
      const p=new URLSearchParams();
-     if(state.open&&['problems','mechanisms'].includes(state.panel))p.set('panel',state.panel);
+     if(state.open&&['problems','mechanisms','properties'].includes(state.panel))p.set('panel',state.panel);
      appendConnections(p);
-     for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
+     for(const key of catalogueFilterKeys)if(state[key])p.set(key,state[key]);
      if(state.core&&(state.open||state.browse==='cores'))p.set('core',state.core);
      if(state.fullAlgebra&&(state.open||state.core||state.browse!=='entries'))p.set('fullAlgebra',state.fullAlgebra);
      if(state.browse==='entries'&&state.semisimple&&!state.core)p.set('semisimple',state.semisimple);
@@ -180,7 +279,7 @@
    function level(){return state.browse;}
    function browseLink(target,extra={}){
      const p=new URLSearchParams();appendConnections(p);
-     for(const key of ['q','algebra','paper','abelianRank'])if(state[key])p.set(key,state[key]);
+     for(const key of catalogueFilterKeys)if(state[key])p.set(key,state[key]);
      if(state.mode!=='dimensions')p.set('notation',state.mode);
      for(const [key,value] of Object.entries(extra))if(value)p.set(key,value);
      return '#'+target+(p.size?'?'+p:'');
@@ -275,7 +374,7 @@
      if(defer(rows))return;
      updateCatalogueNavigation();
      const reset=document.getElementById('reset-filters');
-     if(reset)reset.hidden=!['q','algebra','paper','abelianRank'].some(k=>state[k]);
+     if(reset)reset.hidden=!catalogueFilterKeys.some(k=>state[k])&&!state.connections.problems.length&&!state.connections.mechanisms.length;
      const entries=currentEntries(),openIndex=entries.findIndex(e=>e.id===state.open);
      if(level()==='algebras')return algebraCards(entries);
      if(level()==='full-algebras')return fullAlgebraCards(entries);
@@ -288,7 +387,8 @@
        const refsOpen=state.open===e.id&&state.panel==='references',problemsOpen=state.open===e.id&&state.panel==='problems',mechanismsOpen=state.open===e.id&&state.panel==='mechanisms';
        const mechanismLabel=mechanismExplorer?.assessed(e.id)?'Mechanisms ('+mechanismExplorer.count(e.id)+')':'Mechanisms · unassessed';
        const problemLabel=problemExplorer?.assessed(e.id)?'Problems ('+problemExplorer.count(e.id)+')':'Problems · unassessed';
-       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions"><button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+(e.referenceCount??e.references.length)+')" aria-expanded="'+refsOpen+'">References ('+(e.referenceCount??e.references.length)+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+(mechanismExplorer?'<button class="text-button problem-entry-button" data-mechanisms="'+esc(e.id)+'" aria-label="Mechanisms for '+esc(e.name)+'" aria-expanded="'+mechanismsOpen+'">'+mechanismLabel+' '+(mechanismsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):state.panel==='mechanisms'&&mechanismExplorer?mechanismExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
+       const propertiesContent=propertiesPanel(e),propertiesButton=propertiesContent?'<button class="text-button" data-properties="'+esc(e.id)+'" aria-label="Properties for '+esc(e.name)+'" aria-expanded="'+(state.open===e.id&&state.panel==='properties')+'">Properties '+(state.open===e.id&&state.panel==='properties'?'−':'+')+'</button>':'';
+       return '<article class="model-entry" id="model-'+esc(e.id)+'"><header class="model-heading"><h2>'+esc(e.name)+'</h2><div class="entry-actions">'+propertiesButton+'<button class="text-button" data-open="'+esc(e.id)+'" aria-label="References for '+esc(e.name)+' ('+(e.referenceCount??e.references.length)+')" aria-expanded="'+refsOpen+'">References ('+(e.referenceCount??e.references.length)+') '+(refsOpen?'−':'+')+'</button>'+(problemExplorer?'<button class="text-button problem-entry-button" data-problems="'+esc(e.id)+'" aria-label="Problems for '+esc(e.name)+'" aria-expanded="'+problemsOpen+'">'+problemLabel+' '+(problemsOpen?'−':'+')+'</button>':'')+(mechanismExplorer?'<button class="text-button problem-entry-button" data-mechanisms="'+esc(e.id)+'" aria-label="Mechanisms for '+esc(e.name)+'" aria-expanded="'+mechanismsOpen+'">'+mechanismLabel+' '+(mechanismsOpen?'−':'+')+'</button>':'')+'</div></header>'+(state.open===e.id?(state.panel==='properties'?propertiesContent:state.panel==='problems'&&problemExplorer?problemExplorer.entry(e.id):state.panel==='mechanisms'&&mechanismExplorer?mechanismExplorer.entry(e.id):detail(e)):'')+matrix(e,r)+'</article>';
      }).join('')+(entries.length>visible.length?'<button class="load-more" data-more>Show more models ('+(entries.length-visible.length)+' remaining)</button>':'')+(!entries.length?'<p class="empty">No entries match these filters. <button class="text-button" data-reset>Reset</button></p>':'');
      root.AtlasDiagrams?.render(document);
    }
@@ -305,6 +405,50 @@
      '<details id="mssm-reference"><summary>MSSM matter table</summary><p>The MSSM contains three chiral matter families, two Higgs chiral multiplets and the gauge-adjoint gauginos.</p>'+templateTable(data.templates.R_MSSM)+'</details>'+
      '<p><a href="https://github.com/bastoscostadavi/bsm-atlas/blob/main/atlas/FIELD_CONTENT_CONVENTIONS.md">Full conventions ↗</a></p></div></div></details></section>';}
 
+   function propertiesGuide(){return `<article class="about-data properties-guide">
+     <p>The quantities shown in each entry are calculated from its recorded gauge algebra, matter representations and multiplicities. Representation and charge conventions are defined in <a href="#notation">Notation</a>.</p>
+     <h2>Perturbative anomalies</h2>
+     <p>In four dimensions, these anomalies come from chiral fermions. The sums run over independent left-handed Weyl fields, including multiplicities and representation dimensions under the other gauge factors. Ordinary scalars and vectors contribute zero.</p>
+     <p>For each simple factor <span class="math">𝔤<sub>a</sub></span> and Abelian factor <span class="math">u(1)<sub>α</sub></span>, perturbative cancellation requires the following coefficients to vanish:</p>
+     <div class="property-formulas" aria-label="Perturbative anomaly cancellation equations">
+       <math display="block" aria-label="Pure non-Abelian cubic anomaly: sum over Weyl fields of multiplicity times spectator dimension times cubic index equals zero"><mrow>
+         <msub><mi>𝒜</mi><msubsup><mi>𝔤</mi><mi>a</mi><mn>3</mn></msubsup></msub><mo>=</mo>
+         <munder><mo>∑</mo><mi>i</mi></munder><msub><mi>n</mi><mi>i</mi></msub><msubsup><mi>D</mi><mi>i</mi><mrow><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msubsup><msub><mi>A</mi><mi>a</mi></msub><mo stretchy="false">(</mo><msub><mi>R</mi><mrow><mi>i</mi><mi>a</mi></mrow></msub><mo stretchy="false">)</mo><mo>=</mo><mn>0</mn>
+       </mrow></math>
+       <math display="block" aria-label="Mixed non-Abelian squared U1 anomaly: sum of multiplicity times spectator dimension times twice the quadratic index times Abelian charge equals zero"><mrow>
+         <msub><mi>𝒜</mi><mrow><msubsup><mi>𝔤</mi><mi>a</mi><mn>2</mn></msubsup><mo>×</mo><msub><mtext>u(1)</mtext><mi>α</mi></msub></mrow></msub><mo>=</mo>
+         <munder><mo>∑</mo><mi>i</mi></munder><msub><mi>n</mi><mi>i</mi></msub><msubsup><mi>D</mi><mi>i</mi><mrow><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msubsup><mn>2</mn><msub><mi>T</mi><mi>a</mi></msub><mo stretchy="false">(</mo><msub><mi>R</mi><mrow><mi>i</mi><mi>a</mi></mrow></msub><mo stretchy="false">)</mo><msub><mi>q</mi><mrow><mi>i</mi><mi>α</mi></mrow></msub><mo>=</mo><mn>0</mn>
+       </mrow></math>
+       <math display="block" aria-label="Abelian cubic and mixed anomaly: sum of multiplicity times full representation dimension times three Abelian charges equals zero, allowing repeated factors"><mrow>
+         <msub><mi>𝒜</mi><mrow><msub><mtext>u(1)</mtext><mi>α</mi></msub><mo>×</mo><msub><mtext>u(1)</mtext><mi>β</mi></msub><mo>×</mo><msub><mtext>u(1)</mtext><mi>γ</mi></msub></mrow></msub><mo>=</mo>
+         <munder><mo>∑</mo><mi>i</mi></munder><msub><mi>n</mi><mi>i</mi></msub><msub><mi>D</mi><mi>i</mi></msub><msub><mi>q</mi><mrow><mi>i</mi><mi>α</mi></mrow></msub><msub><mi>q</mi><mrow><mi>i</mi><mi>β</mi></mrow></msub><msub><mi>q</mi><mrow><mi>i</mi><mi>γ</mi></mrow></msub><mo>=</mo><mn>0</mn>
+       </mrow></math>
+       <math display="block" aria-label="Mixed gravitational U1 anomaly: sum of multiplicity times full representation dimension times Abelian charge equals zero"><mrow>
+         <msub><mi>𝒜</mi><mrow><msup><mtext>grav</mtext><mn>2</mn></msup><mo>×</mo><msub><mtext>u(1)</mtext><mi>α</mi></msub></mrow></msub><mo>=</mo>
+         <munder><mo>∑</mo><mi>i</mi></munder><msub><mi>n</mi><mi>i</mi></msub><msub><mi>D</mi><mi>i</mi></msub><msub><mi>q</mi><mrow><mi>i</mi><mi>α</mi></mrow></msub><mo>=</mo><mn>0</mn>
+       </mrow></math>
+     </div>
+     <p>Here <span class="math">n<sub>i</sub></span> is the number of copies, <span class="math">R<sub>ia</sub></span> the representation under factor a, and <span class="math">q<sub>iα</sub></span> its Abelian charge. <span class="math">D<sub>i</sub> = ∏<sub>b</sub> dim R<sub>ib</sub></span> includes every simple factor; <span class="math">D<sub>i</sub><sup>(a)</sup> = ∏<sub>b≠a</sub> dim R<sub>ib</sub></span> includes only spectator factors. The indices α, β, γ may coincide.</p>
+     <p><span class="math">A<sub>a</sub></span> is the cubic index, normalized to 1 on an SU(N) fundamental for N ≥ 3; algebras without a cubic invariant have an identically zero first equation. The quadratic index uses long roots of squared length 2, giving <span class="math">2T = 1</span> for an SU(N) fundamental. Thus a Weyl SU(2) doublet with q = 1 contributes 1 to the second equation; a scalar contributes zero. All arithmetic is exact.</p>
+     <p><strong>Vanish</strong> means all checked coefficients are zero, including spectra with no chiral fermions. <strong>Nonzero</strong> means at least one coefficient cannot vanish. For symbolic charge families, <strong>Cancellation conditions</strong> gives the equations that the charges must satisfy within their stated domain.</p>
+     <h2>Total parameters</h2>
+     <p>We count independent real coefficients in the most general four-dimensional renormalizable Lagrangian allowed by the recorded fields, with canonical matter kinetic terms. All additional symmetries are accidental.</p>
+     <p>The script finds gauge singlets in scalar products of degrees one through four, fermion bilinears and scalar–fermion–fermion products. Representation characters, symmetric powers and identical-field statistics determine the independent contractions, including flavor multiplicities. Hermitian conjugate terms are paired: a real coefficient counts once, a complex coefficient twice. Thus the number of parameters need not equal the number of operators.</p>
+     <p>Gauge couplings, Abelian kinetic mixing and one theta angle per simple non-Abelian factor are included. Vacuum energy, gravity and Abelian theta terms are excluded.</p>
+     <h2>Physical parameters</h2>
+     <p>Field-basis changes can relate different coefficients describing the same theory. We remove these redundant directions at generic couplings:</p>
+     <div class="property-formulas"><math display="block" aria-label="Physical parameters equal total parameters minus the generic orbit rank, or total parameters minus the dimension of the basis group plus the dimension of its stabilizer"><mrow><msub><mi>N</mi><mtext>physical</mtext></msub><mo>=</mo><msub><mi>N</mi><mtext>total</mtext></msub><mo>−</mo><msub><mi>r</mi><mtext>generic</mtext></msub><mo>=</mo><msub><mi>N</mi><mtext>total</mtext></msub><mo>−</mo><mi mathvariant="normal">dim</mi><mspace width="0.2em"/><mi>F</mi><mo>+</mo><mi mathvariant="normal">dim</mi><mspace width="0.2em"/><mi>H</mi></mrow></math></div>
+     <p>F contains the allowed continuous basis changes: U(n) rotations among identical Weyl fermions, orthogonal, unitary or symplectic scalar rotations, and translations of neutral real scalars. H is the subgroup leaving generic couplings unchanged. These surviving accidental symmetries remove no parameters.</p>
+     <p>The script constructs the infinitesimal action on the coupling tensors and computes its generic rank. Mass diagonalization and other standard forms fix part of the basis; the remaining rank is established by matching exact matrix-minor and stabilizer bounds, or by symbolic elimination. Chiral rephasings act on theta angles as well as masses and Yukawas. Free Abelian kinetic redundancies are removed in the flat-space convention. Each displayed value comes from an exact calculation of this rank.</p>
+     <p>These counts describe generic couplings; special degeneracies or imposed coupling relations define different families. Counts are recalculated from the recorded fields when the atlas is rebuilt.</p>
+     <div class="property-table-wrap"><table class="property-reference-table" aria-label="Reference checks of total and physical parameter counts"><thead><tr><th scope="col">Theory</th><th scope="col">Total (real)</th><th scope="col">Physical</th></tr></thead><tbody>
+       <tr><th scope="row">Standard Model</th><td>61</td><td>19</td></tr>
+       <tr><th scope="row">SM + one real scalar singlet</th><td>67</td><td>24</td></tr>
+       <tr><th scope="row">SM + three sterile Weyl fermions</th><td>91</td><td>37</td></tr>
+       <tr><th scope="row">SM + a second Higgs doublet, general Yukawas</th><td>127</td><td>80</td></tr>
+     </tbody></table></div>
+     <p>Further reading: <a href="https://arxiv.org/abs/0802.0634">anomalies ↗</a>, <a href="https://renatofonseca.net/sym2int/">interaction counting ↗</a> and <a href="https://arxiv.org/abs/1504.07549">physical parameter counting ↗</a>.</p>
+   </article>`;}
    function sourcesLink(page){
      const p=new URLSearchParams();
      if(state.paperQuery.trim())p.set('search',state.paperQuery.trim());
@@ -350,6 +494,10 @@
        '<li><strong><a href="https://github.com/bastoscostadavi/bsm-benchmark">BSM Benchmark</a>.</strong> Turn the atlas and its source papers into a reproducible benchmark for AI systems on BSM research tasks. Each task would supply a model specification and ask a question answered in one of the papers that studies it, using the paper’s result as a reference answer.</li></ul>'+
        '<h2>Bottom-up physics, from the top down</h2><p>The Atlas and its applications are motivated by the hypothesis that the characteristic scales of a BSM theory lie far below the scale of further new physics. This separation makes a renormalizable Lagrangian a useful starting description, with higher-dimensional operators suppressed by the higher scale. The observable effects of the BSM theory may themselves be small, but a common underlying theory relates departures from Standard Model predictions across measurements. Their collective pattern may reveal a signal hidden in individual observations. By charting candidate theories and tracing their observable consequences, the Atlas aims to help us work backward from measurements to the theory realized in nature.</p></article>';
    }
+   function propertyFilterControls(){
+     const range=(key,label)=>'<fieldset class="parameter-range"><legend>'+label+'</legend><div>'+['Min','Max'].map((bound,i)=>'<label><span class="sr-only">'+(i?'Maximum':'Minimum')+' '+label.toLowerCase()+'</span><input type="text" inputmode="numeric" pattern="[0-9]*" id="'+key+bound+'" placeholder="'+bound+'" value="'+esc(state[key+bound])+'"></label>').join('<span aria-hidden="true">–</span>')+'</div></fieldset>';
+     return '<form id="property-filter-form" class="property-filters" aria-label="Property filters"><label class="anomaly-filter" title="Checked perturbative anomalies vanish"><input type="checkbox" id="anomaly-free"'+(state.anomalyFree?' checked':'')+'><span>Anomaly-free</span></label>'+range('total','Total parameters')+range('physical','Physical parameters')+'<button type="submit" class="search-button">Apply</button></form>';
+   }
    function catalogue(){
      const current=level(),isCores=current==='cores',isAlgebras=current==='algebras',isFullAlgebras=current==='full-algebras',isGauge=isAlgebras||isFullAlgebras;
      const semisimpleOnly=isAlgebras||isCores;
@@ -357,7 +505,7 @@
      const csvKey=isAlgebras?'semisimple-algebras':isFullAlgebras?'full-gauge-algebras':isCores?'nonabelian-cores':'field-catalogue';
      const csvDescription=isGauge?'One row per gauge algebra.':isCores?'One row per semisimple matter spectrum.':'One row per model, with its exact specification.';
      const connectionCount=state.connections.problems.length+state.connections.mechanisms.length;
-     const active=['algebra','paper','abelianRank'].filter(k=>state[k]).length+connectionCount;
+     const active=['algebra','paper','abelianRank','anomalyFree'].filter(k=>state[k]).length+connectionCount+Number(!!(state.totalMin||state.totalMax))+Number(!!(state.physicalMin||state.physicalMax));
      const p=paperById.get(state.paper);
      const core=coreById.get(state.core);
      const fullAlgebra=fullAlgebraById.get(state.fullAlgebra);
@@ -370,21 +518,21 @@
        entries:'Gauge algebras and matter representations'};
      return '<div class="catalogue-view-controls"><p class="section-note">'+descriptions[current]+'</p><label class="semisimple-toggle" title="Compare semisimple parts with u(1) factors omitted"><input id="semisimple-only" type="checkbox"'+(semisimpleOnly?' checked':'')+'><span>Semisimple part only</span></label></div>'+(context?'<p class="layer-context">'+context+'</p>':'')+'<div class="toolbar" role="search" aria-label="Catalogue search"><label class="search-label"><span class="sr-only">Catalogue search</span><input type="search" id="entry-search" placeholder="Gauge algebra, representation, model or paper" value="'+esc(state.q)+'"></label>'+
        (!isGauge?'<label class="notation-select"><span class="notation-control-label">Matter representation notation</span><select id="notation-select">'+Object.entries(notationModes).map(([id,label])=>'<option value="'+id+'"'+(state.mode===id?' selected':'')+'>'+label+'</option>').join('')+'</select></label>':'')+
-       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields">'+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
+       '<details class="filter-panel"'+(active?' open':'')+'><summary>Filters'+(active?' · '+active:'')+'</summary><div class="filter-fields">'+propertyFilterControls()+(connectionExplorer?connectionExplorer.catalogueFilters(state.connections):'')+'</div></details>'+
        '<details class="download-menu"><summary>Download</summary><div><p class="download-note">Complete datasets. Current search and filters are not applied.</p><a href="'+esc(downloadLink(csvKey))+'" download><strong>'+csvLabel+' · CSV'+(downloadLink(csvKey).endsWith('.gz')?' (gzip)':'')+'</strong><span>'+csvDescription+'</span></a><a href="'+esc(downloadLink('catalogue'))+'" download><strong>Complete catalogue · JSON'+(downloadLink('catalogue').endsWith('.gz')?' (gzip)':'')+'</strong><span>All model specifications and paper references.</span></a><a href="'+esc(downloadLink('sqlite'))+'" download><strong>Catalogue database · SQLite'+(downloadLink('sqlite').endsWith('.gz')?' (gzip)':'')+'</strong><span>All models and references in a relational database.</span></a><p class="download-note">Problem and mechanism annotations are not included.</p></div></details></div>'+
        (p?'<div class="selected-paper">'+paperDate(p)+'<a href="'+esc(sourceURL(p))+'" target="_blank" rel="noopener noreferrer">'+esc(p.title)+' ↗</a></div>':'')+
-       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(['q','algebra','paper','abelianRank'].some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
+       '<div class="results-bar"><span id="result-count"></span><button id="reset-filters" class="text-button" data-reset'+(catalogueFilterKeys.some(k=>state[k])||connectionCount?'':' hidden')+'>Reset</button></div>'+
        '<div id="model-entries" aria-label="Model matter content"></div>';
    }
    function render(){
      if(defer(render))return;
-     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',problems:'Problems',mechanisms:'Mechanisms'};
+     const titles={catalogue:'Forces and Matter',atlas:'What is the atlas?',sources:'Papers',notation:'Notation',properties:'Properties',problems:'Problems',mechanisms:'Mechanisms'};
      document.getElementById('page-title').textContent=state.view==='catalogue'?(level()==='algebras'||level()==='full-algebras'?'Forces':'Forces and Matter'):titles[state.view];
      const key=document.getElementById('notation-key');
      if(key)key.hidden=state.view!=='catalogue'||level()!=='entries';
      const content=document.getElementById('view-content');
      content.className=state.view+'-view';
-     content.innerHTML=connectionExplorer&&['problems','mechanisms'].includes(state.view)?connectionExplorer.page(state.connections):state.view==='problems'?(problemExplorer?(state.problem?problemExplorer.problem(state.problem,state.problemQuery,state.problemLimit):problemExplorer.overview()):'<p class="empty">Problem preview unavailable.</p>'):state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():catalogue();
+     content.innerHTML=connectionExplorer&&['problems','mechanisms'].includes(state.view)?connectionExplorer.page(state.connections):state.view==='problems'?(problemExplorer?(state.problem?problemExplorer.problem(state.problem,state.problemQuery,state.problemLimit):problemExplorer.overview()):'<p class="empty">Problem preview unavailable.</p>'):state.view==='atlas'?atlasIntroduction():state.view==='sources'?sources():state.view==='notation'?notation():state.view==='properties'?propertiesGuide():catalogue();
      if(state.view==='catalogue')rows();else updateCatalogueNavigation();
      if(state.view==='notation')document.getElementById('notation-guide').open=true;
      if(state.problemLayer){
@@ -430,6 +578,17 @@
      });
 
      content.addEventListener('submit',e=>{
+       if(e.target.id==='property-filter-form'){
+         e.preventDefault();
+         const values={anomalyFree:document.getElementById('anomaly-free').checked?'1':''};
+         for(const key of propertyFilterKeys.slice(1))values[key]=countBound(document.getElementById(key).value);
+         for(const key of ['total','physical']){
+           const maximum=document.getElementById(key+'Max'),invalid=values[key+'Min']&&values[key+'Max']&&BigInt(values[key+'Min'])>BigInt(values[key+'Max']);
+           maximum.setCustomValidity(invalid?'Maximum must be at least the minimum.':'');
+           if(invalid){maximum.reportValidity();return;}
+         }
+         Object.assign(state,values,{open:'',limit:20});url();render();return;
+       }
        if(e.target.id==='problem-search-form'){
          e.preventDefault();state.problemQuery=document.getElementById('problem-search').value.trim();state.problemLimit=20;url();render();return;
        }
@@ -442,6 +601,7 @@
        document.getElementById('paper-results')?.focus?.({preventScroll:true});
      });
      content.addEventListener('input',e=>{
+       if(propertyFilterKeys.includes(e.target.id))for(const key of ['total','physical'])document.getElementById(key+'Max')?.setCustomValidity('');
        if(connectionExplorer&&e.target.id==='connection-filter-search'){
          state.connections.filterQuery=e.target.value;document.getElementById('connection-filter-groups').innerHTML=connectionExplorer.filterGroups(state.connections,[state.view]);return;
        }
@@ -475,6 +635,8 @@
        }
        if(connectionExplorer&&e.target.closest('[data-connection-clear]')){state.connections.problems=[];state.connections.mechanisms=[];state.connections.limit=20;state.limit=20;url();render();return;}
        if(connectionExplorer&&e.target.closest('[data-connection-more]')){state.connections.limit+=20;refreshConnections();return;}
+       const property=e.target.closest('[data-properties]');
+       if(property){state.open=state.open===property.dataset.properties&&state.panel==='properties'?'':property.dataset.properties;state.panel='properties';url();rows();return;}
        const mechanisms=e.target.closest('[data-mechanisms]');
        if(mechanisms){state.open=state.open===mechanisms.dataset.mechanisms&&state.panel==='mechanisms'?'':mechanisms.dataset.mechanisms;state.panel='mechanisms';url();rows();return;}
        if(e.target.closest('[data-problem-more]')){state.problemLimit+=20;render();return;}
@@ -490,7 +652,7 @@
          state.panel='references';state.referencePage=1;
          url();rows();
        }else if(e.target.closest('[data-close]')){state.open='';url();rows();}
-       else if(e.target.closest('[data-reset]')){Object.assign(state,{q:'',algebra:'',paper:'',abelianRank:'',open:''});state.connections.problems=[];state.connections.mechanisms=[];url();render();}
+       else if(e.target.closest('[data-reset]')){Object.assign(state,Object.fromEntries(catalogueFilterKeys.map(key=>[key,''])),{open:'',limit:20});state.connections.problems=[];state.connections.mechanisms=[];url();render();}
      });
      window.addEventListener('hashchange',()=>{
        const wasSources=state.view==='sources',page=state.paperPage;
@@ -516,7 +678,7 @@
    }
    return {start,state,render,rows,route,url};
  }
- root.FieldCatalogue={create,findEntries,findPapers,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers};
+ root.FieldCatalogue={anomalyEquations,propertiesPanel,create,findEntries,findPapers,matchesProperties,esc,young,dynkinTuple,representationMarkup,arxivDate,comparePapers};
  if(root.document&&root.ATLAS_MANIFEST_URL&&root.AtlasStore){
    const container=root.document.getElementById('view-content');container.innerHTML='<p class="subtle" role="status">Loading catalogue…</p>';
    root.AtlasStore.open(root.ATLAS_MANIFEST_URL).then(store=>{root.ATLAS_PROBLEMS=store.annotations.problems;root.ATLAS_MECHANISMS=store.annotations.mechanisms;create(store.data,root.document).start();}).catch(error=>{container.innerHTML='<p role="alert">'+esc(error.message)+' <button type="button" class="text-button" id="reload-catalogue">Retry</button></p>';root.document.getElementById('reload-catalogue').addEventListener('click',()=>root.location.reload());});

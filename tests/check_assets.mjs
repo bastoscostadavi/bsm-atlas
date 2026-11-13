@@ -11,9 +11,14 @@ assert.equal(read('field-catalogue-data.js'),'window.FIELD_CATALOGUE = '+read('f
 assert.equal(data.entries.length,source.entries.length);
 assert.equal(data.papers.length,source.papers.length);
 assert.equal(new Set(data.entries.map(e=>e.identity.fingerprint)).size,data.entries.length);
-assert.deepEqual(Object.keys(data).sort(),['version','schema_version','representationConvention','entries','papers','templates','cores','semisimpleAlgebras','fullAlgebras','counts'].sort());
-const entryKeys=new Set(['id','name','specification','references','aliases','identity','paperIds','regime','algebraExpanded','algebraSignature','coreId','semisimpleId','fullAlgebraId','abelianRank']);
+assert.deepEqual(Object.keys(data).sort(),['version','schema_version','representationConvention','entries','papers','templates','cores','semisimpleAlgebras','fullAlgebras','counts','propertySummary'].sort());
+const entryKeys=new Set(['id','name','specification','references','aliases','identity','paperIds','regime','algebraExpanded','algebraSignature','coreId','semisimpleId','fullAlgebraId','abelianRank','properties']);
 for(const e of data.entries)for(const key of Object.keys(e))assert(entryKeys.has(key),key);
+for(const e of data.entries){
+ assert.equal(e.properties.fingerprint,e.identity.fingerprint);
+ assert.equal(typeof e.properties.anomalies.perturbative.status,'string');
+ assert.equal(e.properties.anomalies.global.complete,false);
+}
 const html=read('index.html');
 for(const file of fs.readdirSync(website))assert(!/\.py$|\.test\.mjs$/.test(file),'Python modules and test suites must live outside the published site: '+file);
 const css=read('field-catalogue.css');

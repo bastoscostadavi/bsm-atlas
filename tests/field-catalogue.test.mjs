@@ -6,13 +6,59 @@ const context={URLSearchParams,location:{hash:'#catalogue'},history:{replaceStat
 for(const file of ['representation-diagrams.js','field-matrix.js','field-catalogue.js'])vm.runInNewContext(fs.readFileSync(new URL(file,website),'utf8'),context);
 const {findEntries,findPapers,esc,create,dynkinTuple,representationMarkup,arxivDate,comparePapers}=context.FieldCatalogue;
 const data=JSON.parse(fs.readFileSync(new URL('field-catalogue.json',website)));
+const navigation=fs.readFileSync(new URL('index.html',website),'utf8').match(/<nav[\s\S]*?<\/nav>/)[0];
+assert(navigation.indexOf('href="#entries"')<navigation.indexOf('href="#properties"'));
+assert(navigation.indexOf('href="#properties"')<navigation.indexOf('href="#problems"'));
 const referenceCount=id=>data.entries.find(e=>e.id===id).references.length;
 assert.equal(findEntries(data).length,data.entries.length);
 assert(findEntries(data,{paper:'P15'}).length>=3);
 assert.equal(findEntries(data,{paper:'R01'}).length,0);
+// Property ranges use inclusive exact integers; missing counts never match.
+const propertyEntries=[
+ {id:'lower',propertySummary:{perturbative:'cancels',total:60,physical:34}},
+ {id:'upper',propertySummary:{perturbative:'cancels',total:80,physical:56}},
+ {id:'outside',propertySummary:{perturbative:'cancels',total:90,physical:57}},
+ {id:'anomalous',propertySummary:{perturbative:'nonzero',total:70,physical:40}},
+ {id:'missing',propertySummary:{perturbative:'cancels',total:65}},
+ {id:'conditional',propertySummary:{perturbative:'conditions_not_resolved'}},
+ {id:'large',propertySummary:{perturbative:'cancels',physical:'9007199254740993'}}];
+const propertyIds=filters=>Array.from(findEntries({entries:propertyEntries},filters),e=>e.id);
+assert.deepEqual(propertyIds({physicalMin:'34',physicalMax:'56'}),['lower','upper','anomalous']);
+assert.deepEqual(propertyIds({anomalyFree:'1',physicalMin:'34',physicalMax:'56'}),['lower','upper']);
+assert.deepEqual(propertyIds({totalMin:'65',totalMax:'80',physicalMax:'56'}),['upper','anomalous']);
+assert.deepEqual(propertyIds({physicalMin:'56',physicalMax:'56'}),['upper']);
+assert.deepEqual(propertyIds({physicalMin:'56',physicalMax:'34'}),[]);
+assert.deepEqual(propertyIds({physicalMin:'9007199254740993',physicalMax:'9007199254740993'}),['large']);
+assert(!context.FieldCatalogue.matchesProperties({properties:{parameters:{physical:{status:'not_computed',value:40}}}},{physicalMin:'34'}));
+assert(context.FieldCatalogue.matchesProperties({properties:{anomalies:{perturbative:{status:'cancels'}},parameters:{physical:{status:'certified',value:40}}}},{anomalyFree:'1',physicalMin:'34',physicalMax:'56'}));
 assert(findEntries(data,{q:'singlet'}).length>0);
 assert(findEntries(data,{q:'vector-like'}).length>0);
 assert.equal(esc('<img onerror="x">'),'&lt;img onerror=&quot;x&quot;&gt;');
+// Gauge-factor equations preserve computed coefficients, combine repeated
+// factors into powers, and include the identically zero single-generator terms.
+const equationEntry={specification:{gauge_factors:[{id:'weak',family:'A',rank:1},{id:'x',family:'U1',rank:1},{id:'y',family:'U1',rank:1}]},
+ regime:{factors:[{key:'weak',label:'su(2)'},{key:'x',label:'u(1)'},{key:'y',label:'u(1)'}]},
+ properties:{anomalies:{perturbative:{checks:[
+  {kind:'nonabelian_cubic',factors:['weak'],coefficient:'0'},
+  {kind:'nonabelian_squared_u1',factors:['weak','x'],coefficient:'1'},
+  {kind:'nonabelian_squared_u1',factors:['weak','y'],coefficient:'2'},
+  {kind:'abelian_cubic',factors:['x','x','x'],coefficient:'2'},
+  {kind:'abelian_cubic',factors:['x','x','y'],coefficient:'4'},
+  {kind:'abelian_cubic',factors:['x','y','y'],coefficient:'8'},
+  {kind:'abelian_cubic',factors:['y','y','y'],coefficient:'16'},
+  {kind:'gravitational_u1',factors:['x'],coefficient:'2'},
+  {kind:'gravitational_u1',factors:['y'],coefficient:'4'}]}}}};
+const equationMarkup=context.FieldCatalogue.anomalyEquations(equationEntry);
+const equationText=x=>x.replace(/<sup>(.*?)<\/sup>/g,'^$1').replace(/<sub>(.*?)<\/sub>/g,'_$1').replace(/<[^>]+>/g,'');
+const equations=new Map(Array.from(equationMarkup.matchAll(/<span class="math">(.*?)<\/span><span>=<\/span><span class="anomaly-coefficient">(.*?)<\/span>/g),m=>[equationText(m[1]),m[2]]));
+assert.equal(equations.get('su(2)^2 × u(1)_1'),'1');
+assert.equal(equations.get('su(2)^2 × u(1)_2'),'2');
+assert.equal(equations.get('su(2) × u(1)_1^2'),'0');
+assert.equal(equations.get('su(2) × u(1)_1 × u(1)_2'),'0');
+assert.equal(equations.get('u(1)_1^2 × u(1)_2'),'4');
+assert.equal(equations.get('grav^2 × u(1)_2'),'4');
+assert.equal(equations.size,12);
+assert.equal(context.FieldCatalogue.anomalyEquations({properties:{anomalies:{perturbative:{checks:[]}}}}),'');
 // A verified SM baseline bundles its gauge columns even when the source uses
 // arbitrary factor IDs and a different column order.
 const renamedSM={baseline:'R_SM',factors:[{id:'u1',key:'y',role:'y'},{id:'A1',key:'w',role:'w'},{id:'A2',key:'c',role:'c'}]};
@@ -45,6 +91,15 @@ assert.equal(findPapers(bibliography,{q:'rene',year:'2020'})[0],bibliography[2])
 assert.equal(findPapers(bibliography,{q:'gauge',year:'1992'}).length,0);
 const nodes=new Map(),document={getElementById(id){if(!nodes.has(id))nodes.set(id,{setAttribute(name,value){this[name]=value;}});return nodes.get(id);}};
 const app=create(data,document),content=()=>nodes.get('view-content').innerHTML,results=()=>nodes.get('model-entries').innerHTML;
+context.location.hash='#entries?anomalyFree=1&totalMin=0&physicalMin=34&physicalMax=56';app.route();app.render();
+assert.equal(app.state.physicalMin,'34');assert.equal(app.state.physicalMax,'56');assert.equal(app.state.totalMin,'0');
+assert(content().includes('id="anomaly-free" checked'));
+assert(content().includes('id="physicalMin" placeholder="Min" value="34"'));
+assert(content().includes('Filters · 3'));
+app.url();assert(context.location.hash.includes('physicalMin=34&physicalMax=56'));
+assert(nodes.get('nav-forces').href.includes('physicalMin=34'));
+context.location.hash='#entries';app.route();
+assert.equal(app.state.physicalMin,'');assert.equal(app.state.anomalyFree,'');
 const viewTitles={
  algebras:'Forces',
  'full-algebras':'Forces',
@@ -76,7 +131,8 @@ for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-
   assert(results().includes('core-matrix'));
  }
 }
-assert(!data.semisimpleAlgebras.some(a=>a.algebra==='su(2)'));
+// New spectra need not contain the SM; a pure su(2) algebra is valid.
+assert(data.semisimpleAlgebras.every(a=>data.entries.some(e=>e.semisimpleId===a.id)));
 assert(data.semisimpleAlgebras.some(a=>a.algebra==='su(5)'));
 // Algebra cards preserve the generated mathematical order.
 const orderingAlgebras=['su(3) ⊕ su(2)','su(5)','so(10)'].map(label=>data.semisimpleAlgebras.find(a=>a.algebra===label));
@@ -116,6 +172,46 @@ app.state.mode='dimensions';app.state.q='vlq-t-singlet';app.state.open='vlq-t-si
 assert(results().includes('rep-conjugate'));
 assert(results().includes('aria-label="conjugate 3"'));
 assert(results().includes('<h2>References</h2>'));
+assert(results().includes('data-properties="vlq-t-singlet"'));
+const beforeProperties=structuredClone(app.state),beforePropertiesHash=context.location.hash;
+app.state.panel='properties';app.render();
+assert(results().includes('<dt>Perturbative anomalies</dt>'));
+assert(results().includes('Physical parameters'));
+for(const [reason,label] of [
+ ['Character multiplication exceeds the exact operation budget.','Character-operation limit reached'],
+ ['Exact symbolic orbit elimination exceeded its time budget.','Symbolic time limit reached'],
+ ['The recorded spectrum has a nonzero perturbative anomaly.','Not assigned: perturbative anomaly'],
+ ['Only four-dimensional scalars and left-handed Weyl matter are supported.','Outside current counting scope'],
+ ['Selected coupling subspace did not saturate the full orbit bound.','Orbit rank not established']]){
+ const markup=context.FieldCatalogue.propertiesPanel({properties:{anomalies:{perturbative:{status:'unsupported',checks:[]}},parameters:{total:{status:'not_computed',reason},physical:{status:'not_computed',value:null}}}});
+ assert(markup.includes('<dt>Physical parameters</dt>'));assert(markup.includes(label));
+ assert(markup.includes('title="'+reason+'"'));
+}
+assert(!results().includes('Not computed'));
+assert(!results().includes('<dt>Global anomalies</dt>'));
+assert(results().includes('<summary>Anomaly equations</summary>'));
+assert(results().includes('href="#properties">Calculation methods'));
+assert(!results().includes('Details and assumptions'));
+assert(!results().includes('canonical matter kinetic terms'));
+app.url();assert(context.location.hash.includes('panel=properties'));
+app.route();assert.equal(app.state.panel,'properties');
+context.location.hash='#properties';app.route();app.render();
+assert.equal(app.state.view,'properties');
+assert.equal(nodes.get('page-title').textContent,'Properties');
+for(const title of ['Perturbative anomalies','Total parameters','Physical parameters'])assert(content().includes('<h2>'+title+'</h2>'));
+assert.equal((content().match(/<h2>/g)||[]).length,3);
+assert(!content().includes('<h3>'));
+assert(content().includes('Reference checks of total and physical parameter counts'));
+assert(content().includes('<td>61</td><td>19</td>'));
+assert(!content().includes('<h2>Global anomalies</h2>'));
+assert(!content().includes('In the matter table, a scalar is'));
+assert(content().includes('Each displayed value comes from an exact calculation of this rank'));
+assert.equal((content().match(/<math display="block"/g)||[]).length,5);
+assert(!content().includes('Global anomalies'));
+assert(!content().includes('Not computed'));
+assert(!content().includes('Scope and unavailable results'));
+app.url();assert.equal(context.location.hash,'#properties');
+Object.assign(app.state,beforeProperties);context.location.hash=beforePropertiesHash;app.render();
 assert(results().includes('https://arxiv.org/abs/'));
 assert(!/>P\d+</.test(results()));
 assert(results().includes('aria-label="References for Standard Model with a vector-like T singlet ('+referenceCount('vlq-t-singlet')+')"'));
