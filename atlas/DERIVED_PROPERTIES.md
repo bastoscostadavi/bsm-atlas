@@ -57,13 +57,22 @@ new non-spin SU(2) anomaly and a complete global-anomaly classification are not
 certified. References: [Wang–Wen–Witten](https://arxiv.org/abs/1810.00844),
 [Davighi–Lohitsiri](https://arxiv.org/abs/2001.07731).
 
-## Total renormalizable parameters
+## Renormalizable operators
 
 `renormalizable-characters-1` counts **real coefficient components** in the most
 general nongravitating 4D scalar/Weyl component theory with canonical kinetic
 terms. No paper-specific Z2, CP, flavor constraint, SUSY relation or special
 coupling values are imposed. Even for an entry named supersymmetric, the count
 describes the unrestricted component theory of its spectrum.
+
+The interface labels this count **Renormalizable operators**: it is the dimension
+of the real space of independent Hermitian operators with freely variable
+coefficients, before field-basis redefinitions. A complex operator O and its
+conjugate supply two Hermitian combinations, O + O† and i(O − O†), when its
+coefficient is unconstrained complex. Flavor components and independent gauge
+contractions are counted separately. Canonically fixed matter kinetic terms
+are not counted. The stored `parameters.total` field retains its name for export
+and URL compatibility; the calculation is unchanged.
 
 For S, the complexification of the full real scalar module, and F, all
 left-handed Weyl representations including flavors, the matter count is:

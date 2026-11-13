@@ -15,7 +15,7 @@ spectra from separate core records. These tables retain Lorentz representations,
 non-Abelian representations and multiplicities, with u(1) factors omitted.
 Each card includes an Open entries link; model-name lists stay hidden.
 
-Entries display perturbative anomaly results and total/physical parameter counts
+Entries display perturbative anomaly results, renormalizable operator counts and physical parameter counts
 in a compact Properties summary. When a physical count is unavailable, the
 summary gives a brief reason. An expandable gauge-factor schematic shows
 the cubic coefficients, structural zeros and mixed gravitational coefficients.
@@ -24,7 +24,7 @@ page (`#properties`) explains calculation methods, assumptions and coverage.
 Full properties travel with the entry body and share its bounded cache. Compact
 anomaly statuses and available counts also appear in the bootstrap so filters
 cover the whole atlas before field tables load. Filters combine perturbative
-anomaly cancellation with inclusive total/physical parameter ranges and preserve
+anomaly cancellation with inclusive renormalizable-operator/physical-parameter ranges and preserve
 their values in the URL. The build derives them from the full specification, including
 coverage limits and provenance. See [calculation conventions](../atlas/DERIVED_PROPERTIES.md).
 
