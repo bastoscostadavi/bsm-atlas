@@ -245,7 +245,7 @@ class CatalogueTests(unittest.TestCase):
             self.assertEqual(con.execute('PRAGMA integrity_check').fetchone()[0],'ok')
             self.assertEqual(con.execute('PRAGMA foreign_key_check').fetchall(),[])
             tables={r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            self.assertEqual(tables,{'metadata','papers','entries','aliases','entry_papers','gauge_factors','matter','matter_representations','entry_parameters','entry_constraints','semisimple_algebras','full_gauge_algebras','nonabelian_cores'})
+            self.assertEqual(tables,{'metadata','papers','entries','aliases','entry_papers','gauge_factors','matter','matter_representations','entry_parameters','entry_constraints','semisimple_algebras','full_gauge_algebras','nonabelian_cores','entry_properties'})
             views={r[0] for r in con.execute("SELECT name FROM sqlite_master WHERE type='view'")}
             self.assertEqual(views,{'entry_layers','entry_identity'})
             self.assertEqual([r[1] for r in con.execute('PRAGMA table_info(matter)')],['entry_id','row_id','lorentz_json','reality','copies'])
@@ -274,6 +274,10 @@ class CatalogueTests(unittest.TestCase):
             self.assertEqual(con.execute("SELECT charge FROM matter_representations WHERE entry_id='two-higgs-doublets' AND factor_id='hypercharge' LIMIT 1").fetchone()[0],value)
 
     def test_all_downloads_retain_exact_content(self):
+        # Popular entries can have enough paper IDs to exceed csv's 128 KiB
+        # default even without any new property columns.
+        prior=csv.field_size_limit(16*1024*1024)
+        self.addCleanup(csv.field_size_limit,prior)
         with (ROOT/'website/downloads/field-catalogue.csv').open(newline='') as stream:
             rows=list(csv.DictReader(stream))
         self.assertEqual(len(rows),len(DATA['entries']))
