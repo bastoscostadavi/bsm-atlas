@@ -10,6 +10,11 @@ Run `make build`, `make check` and `make serve` from the repository root. A fres
 
 Model tables load for the visible entries. References and bibliography results load 20 records per page. Opening a problem or mechanism disclosure loads just its requested evidence page and the corresponding paper metadata. Closing a disclosure does not discard its cached page. Counts and membership intersections remain available without fetching quotations.
 
+The semisimple Forces and Matter view loads tables for its visible matter
+spectra from separate core records. These tables retain Lorentz representations,
+non-Abelian representations and multiplicities, with u(1) factors omitted.
+Each card includes an Open entries link; model-name lists stay hidden.
+
 Search uses precomputed word-prefix posting lists, including model specifications and linked bibliography. Queries intersect their postings rather than scanning every paper for each model. Search runs in a lazily started Web Worker; browsers without Workers use the same indexes on the main thread. Caches bound decoded chunks, model bodies, paper records, evidence pages and query results. Outdated asynchronous results never replace the current view.
 
 Every data URL includes a content hash. An open tab stays on one snapshot, including during publication. If an old chunk is no longer available, the interface asks the visitor to reload and retains the route in the URL. Network failures have retry controls.

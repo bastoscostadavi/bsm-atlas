@@ -8,7 +8,7 @@
  class Store{
   constructor(manifest,base,fetcher,options={}){
    this.manifest=manifest;this.base=base;this.fetcher=fetcher;this.cache=new Map();this.pending=new Map();this.bytes=0;this.maxBytes=options.cacheBytes||8*1024*1024;
-   this.papers=new Map();this.bodies=new Map();this.searches=new Map();this.evidence=new Map();this.queries=new Map();this.paperResults=null;this.useWorker=options.worker!==false;this.workerCalls=new Map();this.workerSequence=0;
+   this.papers=new Map();this.bodies=new Map();this.coreBodies=new Map();this.searches=new Map();this.evidence=new Map();this.queries=new Map();this.paperResults=null;this.useWorker=options.worker!==false;this.workerCalls=new Map();this.workerSequence=0;
   }
   async json(path){
    if(this.cache.has(path)){const item=this.cache.get(path);this.cache.delete(path);this.cache.set(path,item);return item.value;}
@@ -28,6 +28,8 @@
   async record(kind,id){const rows=await this.json(await this.recordPath(kind,id));if(!Object.hasOwn(rows,id))throw new Error('Record is missing from this snapshot.');return rows[id];}
   async paper(id){if(this.papers.has(id)){const value=this.papers.get(id);this.papers.delete(id);this.papers.set(id,value);return value;}const value=await this.record('papers',id);this.papers.set(id,value);while(this.papers.size>600)this.papers.delete(this.papers.keys().next().value);return value;}
   async body(id){if(this.bodies.has(id)){const row=this.bodies.get(id);this.bodies.delete(id);this.bodies.set(id,row);return;}const row=await this.record('entries',id);Object.assign(this.byId.get(id),row);this.bodies.set(id,row);}
+  async coreBody(id){if(this.coreBodies.has(id)){const row=this.coreBodies.get(id);this.coreBodies.delete(id);this.coreBodies.set(id,row);return;}const row=await this.record('cores',id);Object.assign(this.coreById.get(id),row);this.coreBodies.set(id,row);}
+  trimCoreBodies(active){const pinned=new Set(active);for(const [id] of this.coreBodies){if(this.coreBodies.size<=Math.max(64,pinned.size))break;if(pinned.has(id))continue;delete this.coreById.get(id).regime;this.coreBodies.delete(id);}}
   trimBodies(active){const pinned=new Set(active);for(const [id] of this.bodies){if(this.bodies.size<=Math.max(64,pinned.size))break;if(pinned.has(id))continue;const entry=this.byId.get(id);for(const key of ['specification','regime','referenceParameters'])delete entry[key];this.bodies.delete(id);}}
   workerSearch(query,kind){
    if(!this.worker){
@@ -73,16 +75,17 @@
   }
   visibleEntries(entries,state){const visible=entries.slice(0,state.limit||20),opened=entries.find(entry=>entry.id===state.open);if(opened&&!visible.includes(opened))visible.push(opened);return visible;}
   requirements(state){
-   if(state.view!=='catalogue')return {bodies:[],papers:[]};
+   if(state.view!=='catalogue')return {bodies:[],cores:[],papers:[]};
    const entries=this.filtered(state),visible=state.browse==='entries'?this.visibleEntries(entries,state):[];
+   const matched=new Set(entries.map(entry=>entry.id)),cores=state.browse==='cores'?this.data.cores.filter(core=>core.entryIds.some(id=>matched.has(id))).slice(0,state.limit||20):[];
    const paperIds=state.paper?[state.paper]:[],entry=this.byId.get(state.open);
    if(entry&&state.panel==='references'){const pages=Math.max(1,Math.ceil(entry.paperIds.length/20)),page=Math.min(Math.max(1,state.referencePage||1),pages);paperIds.push(...entry.paperIds.slice((page-1)*20,page*20));}
-   return {bodies:visible.map(e=>e.id),papers:[...new Set(paperIds)]};
+   return {bodies:visible.map(e=>e.id),cores:cores.map(core=>core.id),papers:[...new Set(paperIds)]};
   }
   ready(state){
    if(state.view==='sources')return this.paperKey===JSON.stringify([state.paperQuery,state.paperYear,state.paperPage])&&this.paperResults?.rows.every(p=>this.papers.has(p.id));
    if(state.view==='catalogue'&&state.q&&this.entryQuery?.query!==state.q)return false;
-   const needed=this.requirements(state);return needed.bodies.every(id=>this.bodies.has(id))&&needed.papers.every(id=>this.papers.has(id));
+   const needed=this.requirements(state);return needed.bodies.every(id=>this.bodies.has(id))&&needed.cores.every(id=>this.coreBodies.has(id))&&needed.papers.every(id=>this.papers.has(id));
   }
   ensure(state){this.select(state);if(state.q){const cached=this.searches.get('m\n'+normalize(state.q).trim());if(cached)this.entryQuery={query:state.q,ids:new Set(cached.map(i=>this.data.entries[i].id))};}if(this.ready(state))return null;const copy=JSON.parse(JSON.stringify(state));return this.prepare(copy);}
   async prepare(state){
@@ -101,7 +104,7 @@
     this.paperKey=key;this.paperResults=this.paperResultCache.get(key);return;
    }
    if(state.view==='catalogue'&&state.q){const ordinals=await this.search(state.q,'m');this.entryQuery={query:state.q,ids:new Set(ordinals.map(i=>this.data.entries[i].id))};}
-   const needed=this.requirements(state);await Promise.all([...needed.bodies.map(id=>this.body(id)),...needed.papers.map(id=>this.paper(id))]);this.trimBodies(needed.bodies);
+   const needed=this.requirements(state);await Promise.all([...needed.bodies.map(id=>this.body(id)),...needed.cores.map(id=>this.coreBody(id)),...needed.papers.map(id=>this.paper(id))]);this.trimBodies(needed.bodies);this.trimCoreBodies(needed.cores);
   }
   select(state){if(state.view==='sources'){const key=JSON.stringify([state.paperQuery,state.paperYear,state.paperPage]);const result=this.paperResultCache?.get(key);if(result){this.paperKey=key;this.paperResults=result;}}}
   evidencePage(kind,id,term){return this.evidence.get([kind,id,term].join('\n'));}
@@ -119,7 +122,7 @@
   const store=new Store(null,base,options.fetch||root.fetch.bind(root),options),manifest=await store.json(absolute.href);
   if(manifest.schema_version!=='atlas-static-1')throw new Error('Unsupported catalogue snapshot.');store.manifest=manifest;
   const [data,problems,mechanisms]=await Promise.all([store.json(manifest.catalogue),store.json(manifest.annotations.problems),store.json(manifest.annotations.mechanisms)]);
-  store.data=data;store.annotations={problems,mechanisms};store.byId=new Map(data.entries.map(e=>[e.id,e]));
+  store.data=data;store.annotations={problems,mechanisms};store.byId=new Map(data.entries.map(e=>[e.id,e]));store.coreById=new Map(data.cores.map(core=>[core.id,core]));
   Object.defineProperty(data,'_store',{value:store});return store;
  }
  root.AtlasStore={open,routeHash,words,SnapshotChangedError,searchEngine:(manifest,base,entries)=>{const store=new Store(manifest,new URL(base),root.fetch.bind(root),{worker:false});store.data={entries};return store;}};

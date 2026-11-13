@@ -23,6 +23,7 @@ assert(initial.every(name=>name.startsWith('data/')));
 assert(!initial.some(name=>/field-catalogue|problem-data|mechanism-data/.test(name)));
 assert.equal(store.data.papers.length,0);
 assert(store.data.entries.every(entry=>!entry.specification&&!entry.regime&&!entry.references));
+assert(store.data.cores.every(core=>!core.regime));
 assert.equal(store.data.entries.length,full.entries.length);
 const bootstrapBytes=initial.reduce((n,name)=>n+fs.statSync(new URL(name,website)).size,0);
 const bootstrapGzipBytes=initial.reduce((n,name)=>n+gzipSync(fs.readFileSync(new URL(name,website))).length,0);
@@ -37,6 +38,35 @@ assert.equal(store.visibleEntries(store.data.entries,deep).length,21);
 const landing={...state,view:'sources',paperQuery:'',paperYear:'',paperPage:1};
 await store.prepare(landing);assert.equal(requests.length,initial.length,'Opening Papers fetched the entire bibliography');
 assert.equal(store.paperResults.total,0);
+
+// Semisimple matter tables load separately, only for visible filtered cores.
+const coreStore=await open(),coreState={...state,browse:'cores',limit:3};
+const coreRequirements=coreStore.requirements(coreState);
+assert.equal(coreRequirements.bodies.length,0);
+assert.equal(coreRequirements.cores.length,3);
+assert.equal(coreStore.ready(coreState),false);
+await coreStore.prepare(coreState);
+assert.equal(coreStore.ready(coreState),true);
+assert.equal(coreStore.coreBodies.size,3);
+for(const id of coreRequirements.cores){
+ const core=coreStore.coreById.get(id),expected=full.cores.find(row=>row.id===id);
+ assert.deepEqual(JSON.parse(JSON.stringify(core.regime)),expected.regime);
+ assert(core.regime.coreRows.length>0);
+ assert(core.regime.factors.every(factor=>factor.type!=='U1'));
+}
+const coreNodes=new Map(),coreDocument={getElementById(id){if(!coreNodes.has(id))coreNodes.set(id,{setAttribute(){}});return coreNodes.get(id);}};
+const coreApp=context.FieldCatalogue.create(coreStore.data,coreDocument);
+Object.assign(coreApp.state,coreState);coreApp.render();
+const coreHTML=coreNodes.get('model-entries').innerHTML;
+assert.equal((coreHTML.match(/class="representation-matrix core-matrix"/g)||[]).length,3);
+assert(coreHTML.includes('<th>Multiplicity</th>'));
+assert(coreHTML.includes('class="core-open"'));
+assert(!coreHTML.includes('class="core-members"'));
+assert(!coreHTML.includes('u(1)'));
+const selected=coreStore.data.entries[0],filteredCores=coreStore.requirements({...coreState,core:selected.coreId});
+assert.deepEqual(Array.from(filteredCores.cores),[selected.coreId]);
+coreApp.state.browse='algebras';coreApp.render();
+assert(!coreNodes.get('model-entries').innerHTML.includes('representation-matrix'));
 
 // A model with many references loads only one reference page and visible tables.
 const many=[...store.data.entries].sort((a,b)=>b.referenceCount-a.referenceCount)[0];
@@ -171,4 +201,10 @@ assert(openedIds.slice(-20).every(id=>bounded.byId.get(id).regime));
 assert(!bounded.byId.get(openedIds[0]).regime);
 assert(bounded.bytes<=bounded.maxBytes||bounded.cache.size===1);
 await bounded.body(openedIds[0]);assert(bounded.byId.get(openedIds[0]).regime);
+const coreIds=bounded.data.cores.slice(0,90).map(core=>core.id);
+await Promise.all(coreIds.map(id=>bounded.coreBody(id)));bounded.trimCoreBodies(coreIds.slice(-20));
+assert.equal(bounded.coreBodies.size,64);
+assert(coreIds.slice(-20).every(id=>bounded.coreById.get(id).regime));
+assert(!bounded.coreById.get(coreIds[0]).regime);
+await bounded.coreBody(coreIds[0]);assert(bounded.coreById.get(coreIds[0]).regime);
 console.log('Bounded decoded-chunk and materialized-model caches reload evicted records correctly.');

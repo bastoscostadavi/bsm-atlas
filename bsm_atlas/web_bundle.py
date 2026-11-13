@@ -118,6 +118,7 @@ def make_bundle(data, annotations, *, source_sha256, downloads=None, worker_sour
                'counts': data['counts'], 'templates': data['templates'],
                'entries': entry_summaries, 'papers': [], 'downloads': downloads or {}, **groups}
     routes = {'entries': bundle.shards(bodies),
+              'cores': bundle.shards({group['id']: {'regime': group['regime']} for group in data['cores']}),
               'papers': bundle.shards({paper['id']: paper for paper in papers})}
     annotation_urls = {}
     for kind in ['problems', 'mechanisms']:

@@ -66,14 +66,14 @@ for(const [browse,count] of [['algebras',data.semisimpleAlgebras.length],['full-
  assert.equal(nodes.get('nav-matter')['aria-current'],gauge?'false':'page');
  assert.equal(content().includes('id="semisimple-only" type="checkbox" checked'),browse==='algebras'||browse==='cores');
  assert(!content().includes('catalogue-back'));
- if(browse==='entries'){
+ if(browse==='entries'||browse==='cores'){
   assert(results().includes('class="representation-matrix'));
   assert(results().includes('<th>Multiplicity</th>'));
  }
  if(browse==='cores'){
   assert(!results().includes('u(1)'));
   assert(!results().includes('class="core-members"'));
-  assert(!results().includes('class="representation-matrix'));
+  assert(results().includes('core-matrix'));
  }
 }
 assert(!data.semisimpleAlgebras.some(a=>a.algebra==='su(2)'));
