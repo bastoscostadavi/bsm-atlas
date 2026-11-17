@@ -10,13 +10,16 @@ def reviewed_luna_snapshot(data, links, registry):
 
     Completed Terra corrections qualify even while awaiting Sol. Unresolved or
     unattempted Luna paper references do not qualify. Independent older support
-    from other extractors/manual records remains eligible.
+    from other extractors/manual records remains eligible. Explicit user
+    withdrawals supersede automated approvals for the same exact inventory.
     """
     if registry.get('schema_version') != 'luna-terra-entry-review-1' or not isinstance(registry.get('papers'), dict):
         raise ValueError('A valid Terra review registry is required for publication')
     result, annotations = deepcopy(data), deepcopy(links)
     papers = {paper['id']: paper for paper in result['papers']}
     records = registry['papers']
+    excluded = {decision['fingerprint'] for record in records.values()
+                for decision in record.get('manual_exclusions', [])}
     retained, removed_refs, removed_entries, affected = [], [], [], set()
     before_by_paper = {}
     approved_entries = set()
@@ -29,14 +32,14 @@ def reviewed_luna_snapshot(data, links, registry):
             paper = papers[paper_id]
             record = records.get(paper_id)
             luna_origin = paper.get('extractor', {}).get('model') == 'gpt-6-luna' or record is not None
-            approved = bool(record and record.get('applied')
+            approved = bool(fingerprint not in excluded and record and record.get('applied')
                 and record.get('state') in ('agreement', 'disagreement')
                 and record.get('model') == 'gpt-6.1-terra'
                 and record.get('paper', {}).get('arxiv') == paper['arxiv']
                 and fingerprint in (record.get('terra') or {}).get('fingerprints', []))
             if approved:
                 approved_entries.add(entry['id'])
-            if not luna_origin or approved:
+            if fingerprint not in excluded and (not luna_origin or approved):
                 references.append(ref)
             else:
                 affected.add(paper_id)
@@ -49,6 +52,28 @@ def reviewed_luna_snapshot(data, links, registry):
     result['entries'] = retained
     fingerprints = {identity(entry['specification'])['fingerprint']: entry for entry in retained}
     for paper_id in affected:
+        receipt = annotations['papers'].get(paper_id)
+        if receipt is None:
+            continue
+        if (receipt.get('extractor') or {}).get('model') not in (None, 'gpt-6-luna'):
+            # Explicit withdrawals also remove independent support, preserving
+            # its original producer and evidence rather than relabeling it Luna.
+            bindings = {name: identity(entry['specification'])['fingerprint']
+                        for entry in before_by_paper[paper_id]
+                        for name in [entry['id'], *[a['id'] for a in entry.get('aliases', [])]]}
+            bindings.update(receipt.get('model_fingerprints', {}))
+            removed_ids = {ref['entry_id'] for ref in removed_refs if ref['paper_id'] == paper_id}
+            if any(bindings.get(entry_id) not in excluded for entry_id in removed_ids):
+                raise ValueError('Inventory review requires the original Luna annotation receipt')
+            for model in list(receipt['models']):
+                fp = bindings.get(model['entry_id'])
+                if fp in excluded:
+                    detached = {'fingerprint': fp, 'model': model}
+                    if detached not in receipt.setdefault('detached_models', []):
+                        receipt['detached_models'].append(detached)
+                    receipt['models'].remove(model)
+                    receipt.get('model_fingerprints', {}).pop(model['entry_id'], None)
+            continue
         annotations['papers'][paper_id] = bind_luna_receipt(annotations['papers'].get(paper_id),
             before_by_paper[paper_id], retained, papers[paper_id], fingerprints=fingerprints)
     report = {'policy': 'Luna-origin model references require a completed Terra inventory review; use Terra corrections',

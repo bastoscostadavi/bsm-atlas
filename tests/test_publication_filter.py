@@ -74,6 +74,25 @@ class PublicationFilterTests(unittest.TestCase):
         data, _, _ = reviewed_luna_snapshot(self.data, self.links, self.registry)
         self.assertEqual(data['entries'], [])
 
+    def test_manual_withdrawal_cannot_be_republished_from_an_old_terra_approval(self):
+        fingerprint = identity(self.entry['specification'])['fingerprint']
+        self.entry['references'].append({'paper_id': 'other'})
+        self.links['papers']['other'] = {'arxiv': self.other['arxiv'],
+            'extractor': self.other['extractor'], 'models': deepcopy(self.links['papers']['luna']['models'])}
+        self.registry['papers']['luna'] = self.record([fingerprint],
+            manual_exclusions=[{'fingerprint': fingerprint, 'reason': 'Reduced SM inventory'}])
+        original = deepcopy((self.data, self.links, self.registry))
+        data, links, report = reviewed_luna_snapshot(self.data, self.links, self.registry)
+        self.assertEqual(data['entries'], [])
+        self.assertEqual(data['papers'], self.data['papers'])
+        self.assertEqual(report['retained_terra_reviewed_entries'], 0)
+        self.assertEqual(links['papers']['luna']['models'], [])
+        self.assertEqual(links['papers']['luna']['detached_models'][0]['fingerprint'], fingerprint)
+        self.assertEqual(links['papers']['other']['extractor'], self.other['extractor'])
+        self.assertEqual(links['papers']['other']['models'], [])
+        self.assertEqual(links['papers']['other']['detached_models'][0]['fingerprint'], fingerprint)
+        self.assertEqual((self.data, self.links, self.registry), original)
+
     def test_a_different_paper_version_is_not_certified(self):
         fingerprint = identity(self.entry['specification'])['fingerprint']
         self.registry['papers']['luna'] = self.record([fingerprint], paper={**self.luna, 'arxiv': '2401.00001v2'})
