@@ -1,64 +1,64 @@
 {
   "schema_version": "atlas-data-snapshot-1",
   "repository": "bastoscostadavi/bsm-atlas",
-  "tag": "atlas-99a613701ef9-64ba5f4c-gauge-matter-16",
-  "target": "466e2c771ca902aa96c90ff28d2f5bcd17c7de02",
+  "tag": "atlas-62bb14877006-da30d53b-gauge-matter-16",
+  "target": "e090cfc3e7ec04cdda0199fc8d22d5bca4d0cae7",
   "sources": {
     "catalogue.json": {
-      "url": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/catalogue.json.gz",
-      "bytes": 109169501,
-      "sha256": "99a613701ef9444bf3e713d62f94693f3bb9194b6c0c183d5deeac551a358ab9",
-      "compressedBytes": 12771056,
-      "compressedSha256": "24cdc3c1f955874e0f9c40d2183bd624ea40f21627c71eddd0f29c06f016f16d"
+      "url": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/catalogue.json.gz",
+      "bytes": 109162249,
+      "sha256": "62bb14877006fd5b27d9ca2a80f10e63fae72d397e79283f895fe0facc00c2d7",
+      "compressedBytes": 12771044,
+      "compressedSha256": "9cddcd63693a89d0e3f4a1bec565f3e75c68630a0933e605220f1bfe4eaf13f8"
     },
     "literature_links.json": {
-      "url": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/literature_links.json.gz",
-      "bytes": 112669649,
-      "sha256": "64ba5f4c2c92d79f2f6398c8d9f257339d87760c5be8c41ee32ee3f54d18c981",
-      "compressedBytes": 10803581,
-      "compressedSha256": "e7ed1d89c2361da81b6fa498ad4a29036eb84da845649e602fdd420428f89b0d"
+      "url": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/literature_links.json.gz",
+      "bytes": 112669800,
+      "sha256": "da30d53b6bb42041f09c8e2b154bf2be926ec6772d1c367ec6e0c3690745e37e",
+      "compressedBytes": 10803555,
+      "compressedSha256": "ce83c7651416698cfd7cf7e876c55b7eab86553ce5718cb6657957249707a6b6"
     }
   },
   "downloads": {
-    "catalogue": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/catalogue.json.gz",
-    "sqlite": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/field-catalogue.sqlite.gz",
-    "field-catalogue": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/field-catalogue.csv.gz",
-    "nonabelian-cores": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/nonabelian-cores.csv.gz",
-    "semisimple-algebras": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/semisimple-algebras.csv.gz",
-    "full-gauge-algebras": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-99a613701ef9-64ba5f4c-gauge-matter-16/full-gauge-algebras.csv.gz"
+    "catalogue": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/catalogue.json.gz",
+    "sqlite": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/field-catalogue.sqlite.gz",
+    "field-catalogue": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/field-catalogue.csv.gz",
+    "nonabelian-cores": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/nonabelian-cores.csv.gz",
+    "semisimple-algebras": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/semisimple-algebras.csv.gz",
+    "full-gauge-algebras": "https://github.com/bastoscostadavi/bsm-atlas/releases/download/atlas-62bb14877006-da30d53b-gauge-matter-16/full-gauge-algebras.csv.gz"
   },
   "counts": {
     "papers": 147544,
-    "entries": 4677
+    "entries": 4676
   },
   "assets": {
     "catalogue.json.gz": {
-      "bytes": 12771056,
-      "sha256": "24cdc3c1f955874e0f9c40d2183bd624ea40f21627c71eddd0f29c06f016f16d"
+      "bytes": 12771044,
+      "sha256": "9cddcd63693a89d0e3f4a1bec565f3e75c68630a0933e605220f1bfe4eaf13f8"
     },
     "field-catalogue.csv.gz": {
-      "bytes": 1567947,
-      "sha256": "49efed7c36b3a643b9fd0aaa9f83723a803ccffe481c766301f9973629d19847"
+      "bytes": 1567722,
+      "sha256": "fc2ca89771165e1cd59ca9ed4c82d1a17889f44a0a741e729dd4dfac2f785eb0"
     },
     "field-catalogue.sqlite.gz": {
-      "bytes": 26696967,
-      "sha256": "82a91de93c681215b3b38e267efb676857e290f7b978adeef37d3a570fefdb90"
+      "bytes": 26703863,
+      "sha256": "fd74384b2c01ef3f9ab80927a53d1a4afafcb6c631185bd2b348808371418d69"
     },
     "full-gauge-algebras.csv.gz": {
-      "bytes": 43335,
-      "sha256": "7d07b81460c22226111522b003e933682d3dfd93862d132e4bff9b68216339d5"
+      "bytes": 43329,
+      "sha256": "b047ab90a718a3a76e2c566e8dd805c472ebb994a0118bdc483cba8cbd0c9571"
     },
     "literature_links.json.gz": {
-      "bytes": 10803581,
-      "sha256": "e7ed1d89c2361da81b6fa498ad4a29036eb84da845649e602fdd420428f89b0d"
+      "bytes": 10803555,
+      "sha256": "ce83c7651416698cfd7cf7e876c55b7eab86553ce5718cb6657957249707a6b6"
     },
     "nonabelian-cores.csv.gz": {
-      "bytes": 267111,
-      "sha256": "066b4d7566984ed6a5b497ed07f2a062e3e85ab993aa0e54ef449db0f5eb8583"
+      "bytes": 267039,
+      "sha256": "32e27b577931c244dfac617f863c39ccccd698c0b25474eb36d8562d3734efb2"
     },
     "semisimple-algebras.csv.gz": {
-      "bytes": 41508,
-      "sha256": "156a371478d3dde5b006889ad40cb25128e0d704b4e9341bcd2304e38633ea73"
+      "bytes": 41503,
+      "sha256": "4de2d5abf63693f3d0ba18443169cf9045790df4dc9738118399d5895499eac3"
     }
   }
 }

@@ -1,0 +1,781 @@
+{
+  "date": "2026-11-19",
+  "scope": "Atlas curator choice: restore three SM fermion generations while retaining the six singlet Weyl fermions and one complex singlet scalar (two real scalar components). Sec. 3 explicitly uses one generation for simplicity and mentions the three-SM-generation extension.",
+  "superseded_entries": {
+    "dcdm-inverse-seesaw": {
+      "id": "dcdm-inverse-seesaw",
+      "name": "Cosmologically decaying dark matter with inverse seesaw",
+      "specification": {
+        "gauge_factors": [
+          {
+            "family": "A",
+            "id": "colour",
+            "rank": 2
+          },
+          {
+            "family": "A",
+            "id": "weak_L",
+            "rank": 1
+          },
+          {
+            "family": "U1",
+            "id": "hypercharge",
+            "rank": 1
+          }
+        ],
+        "inventory_complete": true,
+        "matter": [
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  1,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "1"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "-4"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  1
+                ]
+              },
+              "hypercharge": {
+                "charge": "2"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "-3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "6"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "3"
+              },
+              "weak_L": {
+                "dynkin": [
+                  1
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          },
+          {
+            "copies": 4,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 1,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "1/2",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "none"
+          },
+          {
+            "copies": 2,
+            "gauge_representations": {
+              "colour": {
+                "dynkin": [
+                  0,
+                  0
+                ]
+              },
+              "hypercharge": {
+                "charge": "0"
+              },
+              "weak_L": {
+                "dynkin": [
+                  0
+                ]
+              }
+            },
+            "lorentz": {
+              "dimension": 4,
+              "scheme": "jL_jR",
+              "irreps": [
+                [
+                  "0",
+                  "0"
+                ]
+              ]
+            },
+            "reality": "real_module"
+          }
+        ],
+        "schema_version": "field-content-2"
+      },
+      "references": [
+        {
+          "paper_id": "arxiv-2509-19596v1",
+          "locators": [
+            "Sec. 2, Eq. (2.2); Secs. 3–3.2, field assignments and inverse-seesaw mass terms"
+          ]
+        }
+      ],
+      "aliases": [
+        {
+          "id": "one-generation-sm-two-dirac-singlets-inverse-seesaw-complex-scalar",
+          "name": "One-generation inverse seesaw with two Dirac singlets and a complex singlet scalar"
+        }
+      ]
+    }
+  },
+  "changes": {
+    "dcdm-inverse-seesaw": {
+      "action": "repaired",
+      "target": "singlet-majoron-double-inverse-seesaw",
+      "fingerprint": "4f43efca922d59fe430800f9994b3e629245fde0c2fa7676c1f056816342521e",
+      "real_field_dimension": 210
+    }
+  },
+  "detached_literature": {
+    "arxiv-2509-19596v1": [
+      {
+        "entry_id": "dcdm-inverse-seesaw",
+        "problems": [
+          {
+            "term_id": "neutrino_masses",
+            "rationale": "The model explicitly derives the light-neutrino mass from the inverse-seesaw mass matrix and its small lepton-number-violating parameter.",
+            "evidence": [
+              {
+                "quote": "one finds that the lightest neutrino mass eigenstate has a mass of",
+                "locator": "L000273–L000278; Eq. (2.15)"
+              }
+            ],
+            "reviewReasons": []
+          },
+          {
+            "term_id": "dark_matter",
+            "rationale": "The paper studies this model's decaying dark-matter candidate, its cosmological signatures, and its production and constraints.",
+            "evidence": [
+              {
+                "quote": "we have constructed a model of dark matter which naturally links the existence of non-zero neutrino masses to dark matter decay",
+                "locator": "L000456–L000458"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          }
+        ],
+        "mechanisms": [
+          {
+            "term_id": "higgs_beh",
+            "rationale": "The SM Higgs Yukawa interaction gives the neutrino Dirac mass after electroweak symmetry breaking, which enters the inverse-seesaw mass-generation mechanism.",
+            "evidence": [
+              {
+                "quote": "with m_D= y v. Assuming a mass hierarchy",
+                "locator": "L000273–L000278; Eq. (2.15)"
+              }
+            ],
+            "reviewReasons": [
+              "quote_found",
+              "quote_near_locator"
+            ]
+          },
+          {
+            "term_id": "inverse_seesaw",
+            "rationale": "The model specifies the additional singlet S_L, its small Majorana mass parameter, the neutral-fermion mass matrix, and the resulting suppressed active-neutrino mass.",
+            "evidence": [
+              {
+                "quote": "the lightest neutrino mass eigenstate has a mass of",
+                "locator": "L000243–L000278; Eqs. (2.12)–(2.15)"
+              }
+            ],
+            "reviewReasons": [
+              "quote_near_locator"
+            ]
+          },
+          {
+            "term_id": "freeze_in",
+            "rationale": "The paper identifies freeze-in through neutrino scattering as a production mechanism for the model's dark matter and gives reheating-temperature benchmarks.",
+            "evidence": [
+              {
+                "quote": "the DM abundance can be explained by freeze-in, via the same effective interaction",
+                "locator": "L000417–L000419"
+              }
+            ],
+            "reviewReasons": []
+          }
+        ]
+      }
+    ]
+  },
+  "superseded_papers": [
+    {
+      "arxiv": "2509.19596v1",
+      "title": "Connecting cosmologically decaying dark matter to neutrino physics",
+      "authors": "Lea Fuß, Mathias Garny, Alejandro Ibarra",
+      "id": "arxiv-2509-19596v1",
+      "extraction_status": "complete",
+      "extractor": {
+        "provider": "openai",
+        "model": "gpt-6.1-terra",
+        "reasoning": "medium"
+      }
+    }
+  ],
+  "source_url": "https://arxiv.org/html/2509.19596v1#S3",
+  "curator_authorization": "Restore three SM generations",
+  "replacement_entry": {
+    "id": "dcdm-inverse-seesaw",
+    "name": "Cosmologically decaying dark matter with inverse seesaw",
+    "specification": {
+      "gauge_factors": [
+        {
+          "family": "A",
+          "id": "colour",
+          "rank": 2
+        },
+        {
+          "family": "A",
+          "id": "weak_L",
+          "rank": 1
+        },
+        {
+          "family": "U1",
+          "id": "hypercharge",
+          "rank": 1
+        }
+      ],
+      "inventory_complete": true,
+      "matter": [
+        {
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                1,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "1"
+            },
+            "weak_L": {
+              "dynkin": [
+                1
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "-4"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                1
+              ]
+            },
+            "hypercharge": {
+              "charge": "2"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "-3"
+            },
+            "weak_L": {
+              "dynkin": [
+                1
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 3,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "6"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "3"
+            },
+            "weak_L": {
+              "dynkin": [
+                1
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module"
+        },
+        {
+          "copies": 4,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 1,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "1/2",
+                "0"
+              ]
+            ]
+          },
+          "reality": "none"
+        },
+        {
+          "copies": 2,
+          "gauge_representations": {
+            "colour": {
+              "dynkin": [
+                0,
+                0
+              ]
+            },
+            "hypercharge": {
+              "charge": "0"
+            },
+            "weak_L": {
+              "dynkin": [
+                0
+              ]
+            }
+          },
+          "lorentz": {
+            "dimension": 4,
+            "scheme": "jL_jR",
+            "irreps": [
+              [
+                "0",
+                "0"
+              ]
+            ]
+          },
+          "reality": "real_module"
+        }
+      ],
+      "schema_version": "field-content-2"
+    },
+    "references": [
+      {
+        "paper_id": "arxiv-2509-19596v1",
+        "locators": [
+          "Sec. 2, Eq. (2.2); Secs. 3–3.2, field assignments and inverse-seesaw mass terms",
+          "Atlas curator choice: restore three SM fermion generations while retaining the six singlet Weyl fermions and one complex singlet scalar (two real scalar components). Sec. 3 explicitly uses one generation for simplicity and mentions the three-SM-generation extension."
+        ]
+      }
+    ]
+  }
+}

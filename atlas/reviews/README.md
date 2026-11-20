@@ -42,3 +42,22 @@ these corrections on the website. The validated review snapshot is published as
 [atlas-6ab84d764fc1-e83c0c6a-gauge-matter-13](https://github.com/bastoscostadavi/bsm-atlas/releases/tag/atlas-6ab84d764fc1-e83c0c6a-gauge-matter-13)
 and pinned by `atlas/snapshot.json`. Its local prepared assets are under
 `.build/leading-entry-review/`.
+
+## Inverse-seesaw generation completion, 19 November 2026
+
+`scripts/review_inverse_seesaw_generations.py` restores three SM generations
+in `dcdm-inverse-seesaw` by explicit curator request. The source paper,
+[2509.19596v1, Sec. 3](https://arxiv.org/html/2509.19596v1#S3), uses one
+generation for simplicity and mentions the three-generation SM extension.
+The six singlet Weyl fermions and one complex singlet scalar are unchanged.
+The resulting spectrum has real field dimension 210, displays `R_SM`, and
+sorts after SM plus a real or complex singlet scalar (185 or 186).
+This completed spectrum already exists as `singlet-majoron-double-inverse-seesaw`;
+the review merges its source reference there and retains the old entry URL as
+an alias rather than adding a duplicate spectrum.
+
+The script is a dry run unless passed `--write`. It guards the original
+fingerprint, reconciles duplicate spectra, and preserves the superseded entry
+and detached annotations in `2026-11-19-inverse-seesaw-generations.json`.
+The reference locator explicitly records the generation completion. The
+published correction is pinned by `atlas/snapshot.json`.
