@@ -21,13 +21,14 @@ VERSION='gauge-matter-16'
 def encoded(value):
     return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'))
 
-def main_data(source=None):
-    source=load() if source is None else validate(source)
+def main_data(source=None, *, include_properties=True, _specification_cache=None):
+    source=load() if source is None else validate(source, _specification_cache=_specification_cache)
     entries=[]
     for item in source['entries']:
         entry=deepcopy(item); spec=entry['specification']; key=identity(spec)
         entry['identity']={'fingerprint':key['fingerprint'],'canonical':json.loads(key['canonical_json'])}
-        entry['properties']=assess_properties(spec,key['fingerprint'])
+        if include_properties:
+            entry['properties']=assess_properties(spec,key['fingerprint'])
         entry['paperIds']=[ref['paper_id'] for ref in entry['references']]
         entry['regime']=matrix(spec)
         entry['algebraExpanded']=' ⊕ '.join(a['label'] for a in entry['regime']['factors'])
@@ -51,7 +52,7 @@ def main_data(source=None):
     return {'version':VERSION,'schema_version':'bsm-atlas-export-1','representationConvention':REPRESENTATION_CONVENTION,
         'entries':entries,'papers':papers,'templates':templates,'cores':cores,
         'semisimpleAlgebras':algebras,'fullAlgebras':full,
-        'propertySummary':property_summary(entries),
+        **({'propertySummary':property_summary(entries)} if include_properties else {}),
         'counts':{'entries':len(entries),'papers':len(papers),'linkedPapers':sum(bool(p['entryIds']) for p in papers),
                   'cores':len(cores),'semisimpleAlgebras':len(algebras),'fullAlgebras':len(full)}}
 

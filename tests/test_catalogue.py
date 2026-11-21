@@ -61,8 +61,8 @@ class CatalogueTests(unittest.TestCase):
         self.assertFalse(removed & {e['id'] for e in DATA['entries']})
         paper=next(p for p in DATA['papers'] if p['arxiv']=='1306.6464v3')
         self.assertEqual(paper['entryIds'],[])
-        self.assertFalse(any(a['algebra']=='su(3)' for a in DATA['semisimpleAlgebras']))
-        self.assertFalse(any(a['algebra']=='su(3) ⊕ u(1)' for a in DATA['fullAlgebras']))
+        # Other papers can legitimately contribute these same algebras; only
+        # the rejected broken-phase spectra and their attribution are excluded.
 
     def test_catalogue_identities_references_and_view_memberships(self):
         baseline=json.loads((ROOT/'tests/fixtures/catalogue-identities.json').read_text())

@@ -75,6 +75,58 @@ class TexSourceTests(unittest.TestCase):
         self.assertIn('[OMITTED: graphic plot.pdf]', cleaned)
         self.assertIn('[OMITTED: bibliography]', cleaned)
 
+    def test_legacy_bibliography_aliases_preserve_following_appendix(self):
+        for environment in ('references', 'references*', 'biblist', 'mcitethebibliography'):
+            text = (r'\documentclass{article}\begin{document}Matter table'
+                    + '\\begin{' + environment + '}' + r'\bibitem{a}REFERENCE ONLY'
+                    + '\\end{' + environment + '}'
+                    + r'\appendix CHARGE TABLE $(3,2;1)$\end{document}')
+            cleaned = tex_source.clean_tex(text.encode())
+            self.assertIn('CHARGE TABLE $(3,2;1)$', cleaned)
+            self.assertNotIn('REFERENCE ONLY', cleaned)
+
+    def test_package_internals_preserved_without_host_tex_interpretation(self):
+        files = {'main.tex': r'\documentclass{local}\usepackage{fields}\begin{document}$\rep$ FIELD TABLE\end{document}',
+                 'local.cls': r'\input{fleqn.clo}\IfFileExists{external.sty}{\RequirePackage{external}}{}\def~{\space}',
+                 'fields.sty': r'\def\rep{(3,2;1)}\input{definitions.tex}',
+                 'definitions.tex': r'\newcommand{\charge}{7}',
+                 'unused.sty': r'\begin{verbatim}BROKEN UNUSED PACKAGE'}
+        cleaned, _, report = tex_source.prepare_tex(archive(files))
+        self.assertIn(r'\def\rep{(3,2;1)}', cleaned)
+        self.assertIn(r'\newcommand{\charge}{7}', cleaned)
+        self.assertIn('FIELD TABLE', cleaned)
+        self.assertIn('LOCAL TEX DEFINITIONS (unexecuted): local.cls', cleaned)
+        self.assertNotIn('BROKEN UNUSED', cleaned)
+        self.assertIn('definitions.tex', report['included_files'])
+        self.assertEqual(report['cleaner_version'], 2)
+        with self.assertRaisesRegex(ValueError, 'Missing TeX dependency'):
+            tex_source.clean_tex(archive({'main.tex': files['main.tex'],
+                                         'fields.sty': r'\input{missing-matter.tex}'}))
+
+    def test_standard_graphics_input_does_not_require_distribution_file(self):
+        for target in ('psfig', 'epsf.tex', 'BoxedEPS.tex'):
+            text = (r'\documentclass{article}\input{' + target + '}'
+                    + r'\begin{document}\begin{table}CHARGES $q=1$\end{table}\end{document}')
+            cleaned = tex_source.clean_tex(text.encode())
+            self.assertIn('CHARGES $q=1$', cleaned)
+            self.assertIn('external graphics/typesetting input', cleaned)
+        with self.assertRaisesRegex(ValueError, 'Missing TeX dependency'):
+            tex_source.clean_tex(br'\documentclass{article}\input{field-table}\begin{document}BODY\end{document}')
+
+    def test_file_existence_inputs_follow_local_files_and_explicit_fallback(self):
+        main = (r'\documentclass{article}\begin{document}'
+                r'\InputIfFileExists{fields.tex}{BEFORE}{WRONG}'
+                r'\IfFileExists{fields.tex}{PRESENT}{ABSENT}'
+                r'\InputIfFileExists{optional.tex}{}{EXPLICIT FALLBACK}'
+                r' AFTER\end{document}')
+        cleaned = tex_source.clean_tex(archive({'main.tex':main,'fields.tex':'SCALAR $(1,2;3)$'}))
+        for token in ('BEFORE','SCALAR $(1,2;3)$','PRESENT','EXPLICIT FALLBACK','AFTER'):
+            self.assertIn(token, cleaned)
+        self.assertLess(cleaned.index('BEFORE'),cleaned.index('SCALAR'))
+        self.assertNotIn('WRONG',cleaned);self.assertNotIn('ABSENT',cleaned)
+        with self.assertRaisesRegex(ValueError,'Dynamic or unsupported'):
+            tex_source.clean_tex(main.replace('fields.tex',r'\dynamic').encode())
+
     def test_missing_input_and_dynamic_input_fail_closed(self):
         for command in (r'\input{missing}', r'\input{\sectionfile}',
                         r'\includeonly{one}', r'\input |"touch /tmp/no"',
@@ -112,6 +164,29 @@ class TexSourceTests(unittest.TestCase):
         for broken in (r'\iffalse never closed', r'\iftrue x\else y\else z\fi'):
             with self.subTest(broken=broken), self.assertRaises(ValueError):
                 tex_source.clean_tex((r'\documentclass{article}' + broken).encode())
+
+    def test_arxiv_toplevel_metadata_selects_explicit_paper_not_backup(self):
+        import json
+        files={'main.tex':r'\documentclass{article}\begin{document}CURRENT CHARGES\end{document}',
+               'main.tex.bak':r'\documentclass{article}\begin{document}OBSOLETE CHARGES\end{document}',
+               '00README.json':json.dumps({'sources':[{'filename':'main.tex','usage':'toplevel'},
+                                                         {'filename':'main.tex.bak','usage':'ignore'}]})}
+        cleaned,_,report=tex_source.prepare_tex(archive(files))
+        self.assertIn('CURRENT CHARGES',cleaned);self.assertNotIn('OBSOLETE',cleaned)
+        self.assertEqual(report['main_selection'],'arxiv_toplevel_metadata')
+        files['00README.json']=json.dumps({'sources':[{'filename':'missing.tex','usage':'toplevel'}]})
+        with self.assertRaisesRegex(ValueError,'missing arXiv top-level'):
+            tex_source.prepare_tex(archive(files))
+
+    def test_identical_prepared_roots_can_be_deduplicated_without_guessing(self):
+        text=r'\documentclass{article}\begin{document}SAME FIELDS\end{document}'
+        cleaned,_,report=tex_source.prepare_tex(archive({'paper.tex':text,'copy.tex':text}))
+        self.assertIn('SAME FIELDS',cleaned)
+        self.assertEqual(report['main_selection'],'identical_prepared_roots')
+
+    def test_host_package_presence_is_not_inferred_from_archive_absence(self):
+        with self.assertRaisesRegex(ValueError,'Unknown host-distribution'):
+            tex_source.clean_tex(br'\documentclass{article}\begin{document}\IfFileExists{external.sty}{MODEL A}{MODEL B}\end{document}')
 
     def test_independent_main_documents_are_ambiguous(self):
         with self.assertRaisesRegex(ValueError, 'Ambiguous independent'):

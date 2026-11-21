@@ -23,7 +23,7 @@ def _plain_json(value):
     return False
 
 
-def memoized_specification(maxsize=1024):
+def memoized_specification(maxsize=8192):
     """Reuse an exact calculation, not a previous decision about a model name."""
     def decorate(function):
         @lru_cache(maxsize=maxsize)

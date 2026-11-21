@@ -107,7 +107,7 @@ def relevance(record, statistics):
 def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
                       arxiv_client=None, first_year=1991, last_year=None,
                       page_size=1000, batch_size=100, ranking='year-normalized',
-                      primary_only=True, exclude_ids=()):
+                      primary_only=True, exclude_ids=(), skip_ambiguous=False):
     """Rank a complete population, exclude recorded works, and pin versions.
 
     INSPIRE date partitions are used only to fit its 10,000-result window. Cohort
@@ -147,6 +147,8 @@ def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
                    'page_size': page_size, 'batch_size': batch_size}
         if primary_only:
             request['primary_category'] = 'hep-ph'
+        if skip_ambiguous:
+            request['ambiguous_metadata_policy'] = 'omit-unresolved-merged-works'
         if excluded_ids:
             request['reserved_ids_sha256'] = sha256(json.dumps(excluded_ids).encode()).hexdigest()
         config = directory / 'selection-request.json'
@@ -237,7 +239,7 @@ def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
                         else record['citation_count'])
 
             ordered = sorted(records, key=lambda r: (-score_for(r), r['arxiv_ids'][0]))
-            candidates, excluded = [], 0
+            candidates, excluded, ambiguous = [], 0, 0
             pending, primary_checks, excluded_nonprimary = [], [], 0
 
             def accept_pending():
@@ -272,7 +274,13 @@ def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
                     return resolve_expanded_version(arxiv_response(
                         'arxiv-resolution-' + record_id + '.json', url), identifiers)
 
-                item = parse_hit({'id': record['inspire_record_id'], 'metadata': record['metadata']}, resolve)
+                try:
+                    item = parse_hit({'id': record['inspire_record_id'], 'metadata': record['metadata']}, resolve)
+                except ValueError as error:
+                    if not skip_ambiguous or not str(error).startswith('Ambiguous merged INSPIRE work'):
+                        raise
+                    ambiguous += 1
+                    continue
                 if ranking == 'year-normalized':
                     score = score_for(record)
                     item.update(cohort_year=record['cohort_year'],
@@ -295,6 +303,7 @@ def select_population(directory, count=1000, *, source=CATALOGUE, client=None,
                 'citation_metric': request['ranking'], 'self_citations_included': True,
                 'population_records': len(records), 'cohorts': statistics,
                 'excluded_recorded_works_before_cutoff': excluded,
+                'omitted_ambiguous_works_before_cutoff': ambiguous,
                 'tie_break': 'lowest arxiv base identifier ascending',
                 'count': count, 'candidates': candidates, 'catalogue_sha256': request['source_sha256'],
                 'limitations': ('Within-year age differences, recent small citation counts and field mixtures remain. '

@@ -81,7 +81,7 @@ def text(value):
         raise IncompleteContent('Expected a nonempty string')
 
 
-def validate(data):
+def validate(data, *, _specification_cache=None):
     """Reject partial inputs, extra schema fields and duplicate identities."""
     object_keys(data, {'schema_version', 'papers', 'entries'})
     if data['schema_version'] != 'bsm-atlas-1':
@@ -116,9 +116,22 @@ def validate(data):
             raise IncompleteContent('Store field-content-2 or field-content-3 specifications')
         if set(s) - {'schema_version','inventory_complete','gauge_factors','matter','parameters','constraints'}:
             raise IncompleteContent('Names and references belong on the entry, not its specification')
-        if normalize(s) != s:
-            raise IncompleteContent('Stored specifications must already be normalized: '+e['id'])
-        h=identity(s)['fingerprint']
+        # Batch writers can reuse successful mathematical checks of exact,
+        # immutable specification bytes. All entry/reference/uniqueness checks
+        # below still run on every validation; editing a spec changes its key.
+        from .json_memo import _plain_json
+        cacheable = _specification_cache is not None and _plain_json(s)
+        key = json.dumps(s, sort_keys=True, separators=(',', ':')) if cacheable else None
+        if cacheable and key in _specification_cache:
+            h = _specification_cache[key]
+        else:
+            if normalize(s) != s:
+                raise IncompleteContent('Stored specifications must already be normalized: '+e['id'])
+            h=identity(s)['fingerprint']
+            if cacheable:
+                if len(_specification_cache) >= 8192:
+                    _specification_cache.clear()
+                _specification_cache[key] = h
         if h in fingerprints:
             raise IncompleteContent('Duplicate gauge–matter specification; combine paper references')
         fingerprints.add(h)

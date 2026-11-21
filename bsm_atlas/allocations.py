@@ -68,7 +68,7 @@ class NoMetadataNetwork:
 
 
 def reserve_batch(directory, count=1000, *, provider='claude', ranking='citations',
-                  population_cache=None, source=SOURCE):
+                  population_cache=None, source=SOURCE, skip_ambiguous=False):
     """Reserve exactly one disjoint primary-hep-ph batch, with zero model calls."""
     from .relevance import select_population
     if provider not in {'codex', 'claude'}:
@@ -83,6 +83,8 @@ def reserve_batch(directory, count=1000, *, provider='claude', ranking='citation
         request_path, frozen_input = directory / 'reservation-request.json', directory / 'selection-input.json'
         request = {'provider': provider, 'count': count, 'ranking': ranking, 'source': str(source),
                    'population_cache': str(Path(population_cache).resolve()) if population_cache else None}
+        if skip_ambiguous:
+            request['ambiguous_metadata_policy'] = 'omit-unresolved-merged-works'
         manifest = directory / f'papers-{count}.json'
         if (directory / 'reservation.json').exists():
             if json.loads(request_path.read_text())['request'] != request:
@@ -119,7 +121,8 @@ def reserve_batch(directory, count=1000, *, provider='claude', ranking='citation
                     os.link(path, target)
             client = NoMetadataNetwork()
         selected = select_population(directory, count, source=frozen_input, ranking=ranking,
-            primary_only=True, client=client, exclude_ids=saved['reserved_base_ids'])
+            primary_only=True, client=client, exclude_ids=saved['reserved_base_ids'],
+            **({'skip_ambiguous': True} if skip_ambiguous else {}))
         current = {base_id(p['arxiv']) for p in load(source)['papers']}
         chosen = {item['arxiv'] for item in selected['candidates']}
         if chosen.intersection(current):

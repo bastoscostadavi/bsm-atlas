@@ -185,7 +185,21 @@ def main(argv=None):
     build = commands.add_parser('build', help='Generate the website data and downloads')
     build.add_argument('--check', action='store_true', help='Verify existing outputs without changing them')
     harvest_arguments(commands)
+    from .corpus import CORPUS, OAI_URL
+    corpus = commands.add_parser('corpus', help='Mirror primary-hep-ph TeX sources into the gitignored corpus/ directory')
+    corpus_actions = corpus.add_subparsers(dest='action', required=True)
+    corpus_index = corpus_actions.add_parser('index', help='List primary hep-ph papers and latest versions via OAI-PMH')
+    corpus_index.add_argument('--oai-url', default=OAI_URL)
+    corpus_fetch = corpus_actions.add_parser('fetch', help='Download e-prints (3 s apart) and keep text members; resumable')
+    corpus_fetch.add_argument('--limit', type=int, help='Fetch at most this many pending papers')
+    corpus_fetch.add_argument('--retry-failed', action='store_true', help='Retry missing/unreadable/too_large papers')
+    corpus_actions.add_parser('status', help='Summarize index and download progress')
+    for sub in (corpus_index, corpus_fetch, corpus_actions.choices['status']):
+        sub.add_argument('--dir', type=Path, default=CORPUS)
     args = parser.parse_args(argv)
+    if args.command == 'corpus':
+        from .corpus import main as corpus_main
+        return corpus_main(args)
     try:
         if args.command == 'validate':
             data = load(args.source)

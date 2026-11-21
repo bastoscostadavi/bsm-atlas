@@ -58,6 +58,18 @@ def arxiv_client(categories=None):
 
 
 class RelevanceTests(unittest.TestCase):
+    def test_optional_ambiguous_merged_record_omission_never_guesses_identity(self):
+        original=relevance.parse_hit
+        def ambiguous(hit,resolve):
+            if str(hit['id'])=='2':raise ValueError('Ambiguous merged INSPIRE work; cannot identify deposit')
+            return original(hit,resolve)
+        with patch.object(relevance,'parse_hit',side_effect=ambiguous):
+            result=relevance.select_population(self.directory,2,source=self.source,
+                client=metadata_client(self.records),arxiv_client=arxiv_client(),first_year=2024,last_year=2025,
+                page_size=2,batch_size=2,ranking='citations',skip_ambiguous=True)
+        self.assertEqual(result['omitted_ambiguous_works_before_cutoff'],1)
+        self.assertNotIn('2401.00002',[p['arxiv'] for p in result['candidates']])
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

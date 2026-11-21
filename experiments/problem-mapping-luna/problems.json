@@ -1,0 +1,146 @@
+{
+  "schema_version": "1.0",
+  "taxonomy_version": "1.0",
+  "unit": "A paper-specific association between one supplied atlas model entry and one problem.",
+  "categories": [
+    {
+      "id": "empirical_incompleteness",
+      "label": "Empirical incompleteness",
+      "question": "What observed phenomena require physics beyond the minimal Standard Model?"
+    },
+    {
+      "id": "theoretical_consistency_scope",
+      "label": "Theoretical consistency and scope",
+      "question": "Where does our framework cease to provide an adequate description?"
+    },
+    {
+      "id": "naturalness",
+      "label": "Naturalness problems",
+      "question": "Why do parameters have values that appear unusually sensitive or finely adjusted?"
+    },
+    {
+      "id": "structural_explanatory",
+      "label": "Structural and explanatory puzzles",
+      "question": "Why this particular theory and these parameters?"
+    },
+    {
+      "id": "established_theory_dynamics",
+      "label": "Unsolved dynamics within an established theory",
+      "question": "What follows from equations we already have?"
+    }
+  ],
+  "problems": [
+    {
+      "id": "neutrino_masses",
+      "category_id": "empirical_incompleteness",
+      "label": "Neutrino masses",
+      "include": "A mechanism generating nonzero neutrino masses, a model-specific account of the observed mass spectrum, or tests and constraints of that proposed mass mechanism. Seesaw, radiative mass generation, and Dirac mass mechanisms can qualify.",
+      "exclude": "Merely including neutrinos, assuming measured masses as fixed input, generic neutrino detection, or an isolated lepton-number-violation constraint without a demonstrated connection to this model's neutrino-mass mechanism. Mixing-pattern explanations can additionally qualify as flavor_patterns."
+    },
+    {
+      "id": "dark_matter",
+      "category_id": "empirical_incompleteness",
+      "label": "Dark matter",
+      "include": "The model supplies or tests a proposed dark-matter constituent, production mechanism, abundance, stability mechanism, or explanation of dark-matter evidence. Searches or exclusion limits on an explicitly identified dark-matter candidate count.",
+      "exclude": "A stable or neutral new particle without an explicit dark-matter connection; a dark sector used for another purpose; dark energy; or a background mention of missing matter."
+    },
+    {
+      "id": "matter_antimatter_asymmetry",
+      "category_id": "empirical_incompleteness",
+      "label": "Matter–antimatter asymmetry",
+      "include": "Generation, survival, or a model-specific test of the cosmic baryon asymmetry, including baryogenesis, leptogenesis with a baryon-asymmetry connection, and asymmetric-dark-matter mechanisms tied to baryon asymmetry.",
+      "exclude": "CP violation, a first-order phase transition, baryon/lepton number violation, or sphalerons alone, without connecting this model to the observed cosmic asymmetry."
+    },
+    {
+      "id": "quantum_gravity",
+      "category_id": "theoretical_consistency_scope",
+      "label": "Quantum gravity",
+      "include": "A proposed quantum description or unification of gravity, or explicit investigation of whether this model is compatible with quantum gravity, including specific quantum-gravity consistency criteria and realizations.",
+      "exclude": "Classical gravity, inflation, gravitational waves, or the names string theory/supergravity alone without a substantive quantum-gravity question or construction for this model."
+    },
+    {
+      "id": "ultraviolet_completion",
+      "category_id": "theoretical_consistency_scope",
+      "label": "Ultraviolet completion",
+      "include": "A specified higher-energy theory, embedding, or mechanism proposed to complete this model/EFT, remove its high-energy breakdown, or establish a controlled continuum limit. Explicit tests or obstructions to such a completion count.",
+      "exclude": "The words ultraviolet or renormalizable alone; routine loop renormalization; anomaly cancellation alone; or a high-scale boundary condition with no proposed completion or high-energy adequacy question."
+    },
+    {
+      "id": "higgs_hierarchy",
+      "category_id": "naturalness",
+      "label": "Higgs hierarchy",
+      "include": "A mechanism or quantitative test addressing Higgs/electroweak mass sensitivity to higher scales, stabilization of the electroweak scale, or associated electroweak fine tuning.",
+      "exclude": "The generic word hierarchy; flavor hierarchies; inflationary scale hierarchies; electroweak symmetry breaking or a Higgs spectrum alone; or an ordinary Higgs correction without an explicit naturalness/stability connection."
+    },
+    {
+      "id": "strong_cp",
+      "category_id": "naturalness",
+      "label": "Strong CP",
+      "include": "Explaining the small physical QCD theta parameter or testing a proposed solution, such as a QCD axion/Peccei–Quinn mechanism, parity, Nelson–Barr mechanism, or massless-quark proposal.",
+      "exclude": "CP violation in general; an arbitrary axion-like particle; an electric-dipole-moment bound alone; or a theta term without a model-specific connection to the strong-CP problem."
+    },
+    {
+      "id": "cosmological_constant",
+      "category_id": "naturalness",
+      "label": "Cosmological constant",
+      "include": "The smallness, cancellation, radiative stability, or adjustment of gravitational vacuum energy relative to particle-physics scales, including a specific proposed response to the cosmological-constant problem.",
+      "exclude": "Fitting dark energy, late-time acceleration, quintessence, inflation, or the coincidence problem alone unless the paper explicitly connects the model to the vacuum-energy naturalness problem."
+    },
+    {
+      "id": "gauge_structure",
+      "category_id": "structural_explanatory",
+      "label": "Gauge structure",
+      "include": "An explicit explanation, selection principle, derivation, or emergence of the observed gauge symmetry, its factors, or its breaking pattern. A proposed origin of the Standard Model gauge structure in a larger theory can qualify.",
+      "exclude": "Merely specifying a gauge group, introducing an extra gauge symmetry, checking anomalies, or choosing a symmetry-breaking chain without investigating why the observed structure follows. Unification does not automatically imply this separate label."
+    },
+    {
+      "id": "matter_representations",
+      "category_id": "structural_explanatory",
+      "label": "Matter representations",
+      "include": "An explicit explanation or selection of observed fermion/matter representations or charge assignments, including charge quantization, multiplet organization, or a derivation of chiral matter content.",
+      "exclude": "A field-content table, convenient representation choice, or routine anomaly check alone. Anomaly cancellation qualifies only when used as an explicit explanatory principle for the observed assignments."
+    },
+    {
+      "id": "three_generations",
+      "category_id": "structural_explanatory",
+      "label": "Three generations",
+      "include": "A mechanism, constraint, or derivation intended to explain or select the observed number of three fermion generations.",
+      "exclude": "Assuming three families; introducing three right-handed neutrinos; adding another generation; or explaining family mass differences without addressing the number of generations."
+    },
+    {
+      "id": "flavor_patterns",
+      "category_id": "structural_explanatory",
+      "label": "Flavor patterns",
+      "include": "Explaining or predicting observed quark/lepton mass patterns, Yukawa hierarchies, flavor mixing angles, or flavor CP phases through a model-specific structure. Tests of a specified flavor-explanation mechanism count.",
+      "exclude": "Generic flavor-changing-process bounds, lepton-flavor violation, CP violation, or choosing measured Yukawa parameters as inputs without an explanatory/predictive flavor mechanism. Neutrino mixing textures may also qualify as neutrino_masses only when that separate definition is met."
+    },
+    {
+      "id": "unification",
+      "category_id": "structural_explanatory",
+      "label": "Unification",
+      "include": "Unifying fundamental gauge interactions, gauge couplings, or quark/lepton multiplets in a common fundamental structure, including quantitative tests of a specified grand-unified construction.",
+      "exclude": "The name of a GUT group alone; a unified treatment of calculations; or a model jointly addressing neutrino masses and dark matter without fundamental interaction/matter unification."
+    },
+    {
+      "id": "confinement",
+      "category_id": "established_theory_dynamics",
+      "label": "Confinement",
+      "include": "Deriving, explaining, or quantitatively investigating the mechanism or phase structure of confinement in QCD or established strong-interaction gauge theory.",
+      "exclude": "Assuming confinement as an input; merely using composite states; or invoking hidden-sector confinement for a BSM application without investigating the established-theory confinement problem."
+    },
+    {
+      "id": "qcd_mass_gap",
+      "category_id": "established_theory_dynamics",
+      "label": "QCD mass gap",
+      "include": "An explicit investigation of the origin or existence of a nonzero nonperturbative mass gap in QCD/Yang–Mills theory, including a proposed mass-generation mechanism directly tied to that question.",
+      "exclude": "A generic particle mass, mass splitting, hidden-sector mass gap, Higgs mechanism, or hadron-spectrum calculation without an explicit QCD/Yang–Mills mass-gap connection."
+    },
+    {
+      "id": "hadron_structure",
+      "category_id": "established_theory_dynamics",
+      "label": "Hadron structure",
+      "include": "Deriving or resolving established QCD hadrons' internal quark/gluon structure, mass or spin decomposition, parton distributions, form factors, or nonperturbative bound-state properties.",
+      "exclude": "Hadrons used only as collider probes, ordinary hadronic uncertainty estimates, or new hidden/composite BSM states without an investigation of established QCD hadron structure."
+    }
+  ]
+}

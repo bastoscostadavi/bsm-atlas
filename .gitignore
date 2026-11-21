@@ -9,6 +9,7 @@ atlas/papers/
 # Sources are restored from the pinned data release; ingestion keeps local copies.
 atlas/catalogue.json
 atlas/literature_links.json
+atlas/extraction_reviews.json
 # Reproducible research exports and public data chunks are build outputs.
 .build/
 website/data/
